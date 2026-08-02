@@ -63,3 +63,22 @@ same substitution the notebook itself makes for the 2-1-1 chain at cells
 1630-1638. This derivation is therefore **not** term-comparable to the stored
 96-term cell-1624 list, which was built with the missing functions and carries
 no cumulants at all.
+
+## Independent cross-check — two engines agree exactly
+
+The Wolfram combine (`AssociativeSimplify` on the joined list) and the pure-Python
+signed cancellation (`tools/term_audit.py`) were run independently on the same
+raw joined commutator. They agree **term for term and coefficient for
+coefficient**:
+
+    Wolfram combine : 1312 terms, 560 carry lambda
+    Python cancel   : 1312 terms, 560 carry lambda
+    IDENTICAL       : True   (0 missing, 0 extra, 0 wrong coefficients)
+    NoCumulants     : 752 vs 752, identical
+
+Wolfram's own lambda census matches too: 752 with no cumulant, 528 with a single
+lambda2, 32 with a single lambda3. Reproduce with `tools/xcheck_combine.py`.
+
+So the 560-term delta does not rest on my parser: two independent
+implementations of the cancellation reach the same equation.
+
