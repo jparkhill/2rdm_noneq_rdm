@@ -82,3 +82,44 @@ lambda2, 32 with a single lambda3. Reproduce with `tools/xcheck_combine.py`.
 So the 560-term delta does not rest on my parser: two independent
 implementations of the cancellation reach the same equation.
 
+
+## Deriving *in* the reduced representation — measured, and it does not work as a wrapper
+
+The after-the-fact orbit reduction above is exact. The open question was whether
+the engine could **derive** in that representation, never building the images.
+
+Tested directly (`tools/mkno_repproduct.wl`): reduce the `r x v1` intermediate
+from 30 terms to its 13 orbit representatives, then multiply *those* by `v2`.
+
+| | terms |
+|---|---|
+| input, full | 30 |
+| input, representatives | 13  (2.3x smaller) |
+| output, from full input | 8,241 |
+| output, from representatives | 7,711  (**1.07x smaller**) |
+
+**Two things go wrong.**
+
+1. **The saving does not propagate.** A 2.3x smaller input gives a 6% smaller
+   output. The redundancy in the *product* is dominated by `v2`'s own symmetry
+   (`v<->x`, `w<->y`), which is still fully expanded, and by the contraction
+   combinatorics — not by the input's `r<->t`/`s<->u` images. Reducing one
+   factor buys almost nothing.
+
+2. **The coefficients come out wrong.** Antisymmetrizing the representative
+   product gives exactly the right term *set* — 0 missing, 0 extra out of 8,241
+   — but 7,904 coefficients disagree, with ratios 1, 3/2, 2, 9/4, 5/2, 8/3, …
+   Non-integer ratios are the signature: the engine merges terms whose orbits
+   have different stabilizers, and the merged output no longer records which
+   representative each term came from, which is exactly the provenance the
+   orbit-stabilizer weight needs.
+
+**Conclusion.** Feeding representatives to the existing product rule is not the
+route. Doing this properly means the contraction engine itself operating on
+canonical antisymmetric tensors — carrying index symmetry inside the tensor and
+never expanding it into separate terms. That is what Wick&d
+(`refs/papers/mkno/2205.01178v1.pdf`) does, and it is an engine rewrite, not a
+wrapper.
+
+Nothing above depends on it: the 130-term reduced answer is obtained
+after the fact and is verified exact.
