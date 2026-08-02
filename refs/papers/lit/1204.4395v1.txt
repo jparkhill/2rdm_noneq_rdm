@@ -1,0 +1,1342 @@
+arXiv:1204.4395v1  [cond-mat.mtrl-sci]  19 Apr 2012
+Challenges in Truncating the Hierarchy of Time-Dependent
+Reduced Density Matrices Equations: Open Problems
+Ali Akbari †,∗ Mohammad Javad Hashemi ‡,∗ Risto M.
+Nieminen‡, Robert van Leeuwen §, and Angel Rubio †
+† Nano-Bio Spectroscopy Group and ETSF Scientiﬁc Developmen t Centre,
+Departamento de F ´ ısica de Materiales,
+Centro de F ´ ısica de Materiales CSIC-UPV/EHU-MPC and DIPC,
+Universidad del Pa ´ ıs Vasco UPV/EHU,
+Av. Tolosa 72, E-20018 San Sebasti´ an, Spain.
+‡ Department of Applied Physics, Aalto University,
+PO Box 11100, FI-00076 Aalto, Finland.
+§ Department of Physics, Nanoscience Center,
+University of Jyv¨ askyl¨ a, FIN 40014 Jyv¨ askyl¨ a, Finland.
+1
+Abstract
+In this work, we analyze the Born, Bogoliubov, Green, Kirkwo od and Yvon (BBGKY) hierarchy
+of equations for describing the full time-evolution of a man y-body fermionic system in terms of its
+reduced density matrices (at all orders). We provide an exha ustive study of the challenges and
+open problems linked to the truncation of such hierarchy of e quations to make them practically
+applicable. We restrict our analysis to the coupled evoluti on of the one- and two-body reduced
+density matrices, where higher order correlation eﬀects are embodied into the approximation used
+to close the equations. We prove that within this approach, t he number of electrons and total energy
+are conserved, regardless of the employed approximation. F urther, we demonstrate that although
+most of the truncation schemes available in the literature g ive acceptable ground state energy, when
+applied to describe driven electron dynamics exhibit undes irable and unphysical behavior, e.g.,
+violation and even divergence in local electronic density, both in weakly- and strongly-correlated
+regimes. We illustrate and analyze these problems within th e few-site Hubbard model. The model
+can be solved exactly and provides a unique reference for our detailed study of electron dynamics for
+diﬀerent values of interaction, diﬀerent initial conditions , and large set of approximations considered
+here. Moreover, we study the role of compatibility between t wo hierarchical equations, and positive-
+semideﬁniteness of reduced density matrices in instabilit y of electron dynamics. We show that even
+if the used approximation holds the compatibility, electro n dynamics can still diverge when positive-
+deﬁnitiveness is violated. We propose some partial solutio ns of such problem and point the main
+paths for future work in order to make this approach applicab le for the description of the correlated
+electron dynamics in complex systems.
+∗ These authors have contributed equally in this work.
+2
+I. INTRODUCTION
+The description of dynamical processes in many-electron systems brought out of equi-
+librium requires a proper description of static and dynamical correla tion eﬀects. Theoret-
+ical study of many fundamental processes of interest such as at tosecond dynamics, high-
+intensity laser phenomena, light-induced phase transitions, harmo nic generations, etc., re-
+quire a proper theoretical framework which are both accurate an d tractable.
+Time-dependent Hartree-Fock (TDHF) theory [1–3] was among th e ﬁrst methods devised
+to simulate dynamics of many-body systems. More advanced metho ds such as Kadanoﬀ-
+Baym equations [4, 5] and the Keldysh technique [6] for the Green’s f unction enable us to
+study non-equilibrium phenomena more accurately, once an approx imation for the electron
+self-energy is chosen properly. They are, however, computation ally very demanding [7, 8].
+Alternatively, time-dependent density functional theory (TDDFT ) [9, 10] is becoming a
+popular option for its performance, accuracy and potential scala bility. It describes electron
+dynamics in terms of the electronic density by mapping an interacting system to an auxiliary
+noninteracting system (Kohn-Sham system) with an eﬀective pote ntial that produces the
+same time-dependent density. This is ideal for massively parallel imple mentations as in
+its time-dependent Kohn-Sham (KS) formulation the evolution of ea ch of the KS orbitals
+is nearly independent of the others. However, lack of proper exch ange-correlation (xc)
+functionals for time-dependent systems hamper its applicability. Mo st of the time-dependent
+approximations that are used so far, are adiabatic extensions of D FT approximations that
+disregards the non-locality and memory dependence of the time-de pendent xc potential.
+In this situation, reduced density matrix (RDM) theories oﬀer a pro mising framework
+to deal with time-dependent phenomena. The equation of motion fo r each RDM can be
+straightforwardly derived from the time-dependent Schr¨ odinger equation which contains the
+corresponding and one order higher RDM. The whole set of these int errelated equations form
+the so-called BBGKY hierarchy since a basically similar hierarchy was init ially invented and
+developed by Born, Bogoliubov, Green, Kirkwood and Yvon [11–14] in classical statistical
+mechanics.
+As it is not possible to confront the whole hierarchy, one must trunc ate it at some level.
+For instance, if one approximates two-body RDM in terms of one-bo dy RDM in the ﬁrst
+equation, one arrives at the time-dependent version of reduced d ensity matrix functional
+3
+theory (TD-RDMFT). Similar to the TDDFT, most of the approximatio ns used in TD-
+RDMFT are adiabatic extensions of the existing ground state ones [1 5–17]; and even though
+they can successfully describe the ground state of some strongly correlated systems [18, 19],
+they suﬀer from ﬂaws such as lack of memory when we apply them in tim e domain. As an
+example, assuming that these approximations have even the right f orm, the sign adopted in
+each term generally becomes a time-dependent phase when we exte nd them over the time
+domain. Ignoring this fact by using ﬁxed signs may cause problems su ch as time-independent
+occupation numbers [20]. Furthermore, majority of these appro ximations do not necessarily
+conserve total energy of a system.
+Some of these deﬁciencies will be cured if we consider propagating th e ﬁrst two equa-
+tions of the hierarchy by approximating the three-body RDM. Howe ver, this prove to be
+a nontrivial task and in fact there are earlier attempts in nuclear dy namics [21, 22] which
+show that these coupled equations can violate the inequalities relate d to probabilistic in-
+terpretation of RDMs for fermions. For example, the eigenvalues o f one-body RDM must
+remain, in principle, between zero and one [23] but in practice they o bserved violation of
+these bounds, showing the non-fermionic nature of the correspo nding RDM. Such behaviors
+were unexpected and it was claimed to be related to the violation of th e relations between
+diﬀerent orders of reduced density matrices.
+In this paper, we study in detail the performance of such approac h for diﬀerent truncation
+schemes and show that the truncated set of equations may lead to instability and in many
+cases even divergence (in electronic density, occupation numbers , etc.). We mention the
+speciﬁc properties of approximations that are responsible for the se unphysical results. We
+will show that lack of properties such as positive-semideﬁniteness a lso plays a crucial role
+in this failure. In addition, this study prompts one to be aware of the same issues which
+may arise in building approximations in TD-RDMFT. The article is divided int o three
+sections. In next section, we give the theoretical background fo r the BBGKY hierarchy and
+diﬀerent approximations to truncate it. In Section III we present the results and analyze
+the phenomenon using diﬀerent approximations, and ﬁnally we conclu de the work in Section
+IV.
+4
+II. THEORETICAL BACKGROUND
+A. N-Particle System and Reduced Density Matrix: Deﬁnitions and properties
+First in order to have a compact notation, we introduce two collectio ns of space-spin
+coordinates as
+Xn ≡ (x1 . . . xn) ; ˘Xn ≡ (xn+1 . . . xN ). (1)
+In this notation, Φ( XN , t) denotes the normalized wave function of the system. Here, we
+note that throughout this work we employ atomic units.
+Now, we consider a system with N identical particles described by the time-dependent
+Hamiltonian
+ˆH(t) =
+N∑
+i=1
+ˆhi + 1
+2
+N∑
+i̸=j
+Uij. (2)
+The last term describes the two-particle interactions Uij ≡ U(xixj) where x includes both
+space coordinates, r, and spin coordinates, σ, of the particles. Usually U is spin-independent
+and has the form U(x x′) = w(|r − r′|). The one-body part, ˆhi ≡ ˆh(xi, t), will be time-
+dependent and of the form
+h(x, t) = −1
+2 ∇2 + v(x, t) (3)
+where v is a general time-dependent external ﬁeld. We can deﬁne the n-bo dy reduced density
+matrix, Γ (n), of such system as
+Γ (n)(Xn, X′
+n, t) = N!
+(N − n)!
+∫
+d ˘Xn Φ( Xn, ˘Xn, t) Φ ∗(X ′
+n, ˘Xn, t) (4)
+where d ˘Xn ≡ dxn+1 . . . dxN and
+∫
+dx = ∑
+σ
+∫
+dr.
+Based on the above deﬁnition, several important properties of RD Ms follow. First, dif-
+ferent levels of RDMs are connected to each other by
+∫
+dxn+1 Γ (n+1)(Xnxn+1, X′
+nxn+1, t) = ( N − n) Γ (n)(Xn, X′
+n, t) (5)
+which we refer to it as partial trace relation . Consequently, if Γ (n) is available, all RDMs
+with lower order can be calculated straightforwardly.
+Another important feature is that Eq.(4) implies all RDMs are positive -semideﬁnite which
+refers to the fact that all eigenvalues of RDMs are always equal to or greater than zero. For a
+5
+given order RDM, these eigenvalues and their corresponding eigenv ectors can be calculated
+as ∫
+dX ′
+n Γ (n)(Xn, X′
+n, t) gi(X ′
+n, t) = λi(t) gi(Xn, t), λ i(t) ≥ 0. (6)
+Conventionally, the eigenvectors and eigenvalues of Γ (1) are called natural orbitals and nat-
+ural orbital occupation numbers, and of Γ (2) are called geminals and geminal occupation
+numbers, respectively.
+Moreover in the case of fermionic particles, the Pauli exclusion princ iple enforces natural
+orbital occupation numbers to be less than or equal to one [23]. Thu s, they have to remain
+between zero and one. This corresponds to the fermionic inequality .
+B. Equation of Motion, BBGKY Hierarchy and Conservation Laws
+Provided the initial state of the system is given, its time evolution is co mpletely described
+by the time-dependent Schr¨ odinger equation (TDSE). Nonetheless, the solution of the TDSE
+is not usually possible, except for systems with few particles, due to the many degrees of
+freedom of the system. In contrast, most quantities of interest are n-body observables which
+can be obtained from the n-body reduced density matrix, Γ (n), and in most systems of
+relevance it holds that n ≪ N. It is therefore natural to derive the equations of motion for
+reduced density matrices. Thus, using Eq.(4) together with the TD SE, we get
+(i ∂t − ˆH1...n + ˆH1′...n ′) Γ (n)(Xn, X′
+n, t) =
+n∑
+i=1
+∫
+dxn+1(U(xixn+1) − U(x′
+ixn+1))Γ (n+1)(Xnxn+1, X′
+nxn+1, t) (7)
+where we deﬁned
+ˆH1...n =
+n∑
+i=1
+ˆhi + 1
+2
+n∑
+i̸=j
+Uij. (8)
+The entire set of N equations for reduced density matrices forms the well-known BBGK Y
+hierarchy. The explicit form of the ﬁrst two equations are
+(i ∂t − ˆh1 + ˆh1′) γ(x1, x′
+1, t) =
+∫
+dx2 (U(x1x2) − U(x′
+1x2))Γ( x1x2, x′
+1x2, t) (9)
+and
+(i ∂t − ˆH12 + ˆH1′2′) Γ(x1x2, x′
+1x′
+2, t) =∫
+dx3 (U(x1x3) + U(x2x3) − U(x′
+1x3) − U(x′
+2x3))Γ (3)(x1x2x3, x′
+1x′
+2x3, t) (10)
+6
+where γ ≡ Γ (1) and Γ ≡ Γ (2). As it is customary in the literature [24], we call the right-
+hand side of Eq.(10) the three-body collision integral and use S to refer to it. In general,
+each equation of the hierarchy relates a given-order of RDM, Γ (n), to one order higher
+RDM, Γ (n+1). In order to make the BBGKY hierarchy practical, we must truncat e it at
+some level, n, by reconstructing the Γ (n+1) as a functional of lower-order RDMs. Although
+such reconstruction in terms of the one-body time-dependent de nsity matrix is, in principle,
+conceivable by virtue of the Runge-Gross theorem [9, 25], there is n o practical method
+available to ﬁnd the exact functional and we have to use diﬀerent ap proximations.
+In this work, however, we will only propagate γ and Γ since they are suﬃcient to calculate
+the dynamics of all one- and two-body observables. For instance f or the case of total energy,
+the expectation value of the one- and two-body part of the Hamilto nian, E1(t) and E2(t),
+can be written as
+E1(t) =
+N∑
+i
+⟨ˆhi⟩ =
+∫
+dx′ h(x′, t)γ(x, x′, t)|x=x′ (11)
+and
+E2(t) = 1
+2
+N∑
+i,j
+⟨Uij⟩ = 1
+2
+∫
+dX2 U(X2)Γ( X2, X2, t). (12)
+To this end, we need to truncate Eq.(10) by approximating Γ (3) in terms of γ and Γ. Several
+of these approximations will be discussed shortly.
+At this point we highlight an important property of BBGKY hierarchy a nd the eﬀect
+of truncation on it. As a direct outcome of Eq.(5), diﬀerent levels of the hierarchy are
+compatible; namely, equations in the higher levels of the hierarchy ar e reducible to the
+lower-level ones. We refer to this link between equations as compatibility condition that
+preferably should be fulﬁlled by a good approximation. Thus, compat ibility signiﬁes that
+the highest equation is equivalent to the whole BBGKY hierarchy. This is not surprising
+since the highest equation is basically the original Schr¨ odinger equa tion. However, when we
+truncate the hierarchy by introducing an approximation for Γ (3), the partial trace relation
+between Γ (3) and Γ does not necessarily hold and thus it generally breaks the comp atibility
+between Eqs.(9) and (10)(see subsection III C for some exceptio ns). Consequently, when
+we truncate the BBGKY hierarchy, we have two generally distinct op tions to propagate the
+equations which should be equivalent if the truncation approximation satisﬁes compatibility:
+i) Propagating two coupled equations : We can evolve both γ and Γ by solving Eqs.(9)
+7
+and (10) together as coupled equations since the two equations mo st likely are not
+compatible anymore after approximating Γ (3) in Eq.(10).
+ii) Propagating only second equation : To avoid the problem of compatibility between two
+equations, we can evolve only Eq.(10). Then we assign γ to be the partial trace of Γ
+and denote it as γΓ to distinguish it from general γ. It mathematically reads
+γΓ (x1, x′
+1, t) = 1
+N − 1
+∫
+dx2 Γ( x1x2, x′
+1x2, t). (13)
+In this way, we prevent the complication of dealing with two coupled eq uations.
+The diﬀerence between these two approaches lies in distinction of γ and γΓ . To see this,
+we derive the equation of motion for Eq.(13) by using Eq.(10). We hav e
+i∂tγΓ (x1, x′
+1, t) = 1
+N − 1
+∫
+dx2 i∂tΓ( X2, X′
+2, t)|x2=x′
+2
+= 1
+N − 1
+∫
+dx2 (H12 − H1′2′)Γ( X2, X′
+2, t)|x2=x′
+2
++ 1
+N − 1
+∫
+dx2dx3(U(x1x3) − U(x1x3))Γ (3)
+app(x1x2x3, x′
+1x2x3, t) (14)
+where the approximated 3-body RDM, Γ (3)
+app, does not necessarily integrate to ( N − 2) Γ as
+we pointed out earlier. Now, using the explicit form of H12, we can rewrite Eq.(14) as
+i∂tγΓ (x1, x′
+1, t) = ( h1 − h1′)γΓ (x1, x′
+1, t)
++
+∫
+dx2(U(x1x2) − U(x′
+1x2)) ¯Γ( X2, X2, t)
+−1
+2
+∫
+dx2 (∇2
+2 − ∇
+′2
+2 )Γ( X2, X′
+2, t)|x2=x′
+2 (15)
+where
+¯Γ( X2, X′
+2, t) = 1
+N − 1
+[
+Γ( X2, X′
+2, t) +
+∫
+dx3 Γ (3)
+app(x1x2x3, x′
+1x′
+2x3, t)
+]
+. (16)
+The last term in Eq.(15) can be written as a total divergence as follow s
+(∇2
+2 − ∇
+′2
+2 )Γ( X2, X′
+2, t)|x2=x′
+2 = ∇2 ·
+[
+(∇2 − ∇′
+2)Γ( X2, X′
+2, t)|x2=x′
+2
+]
+(17)
+and hence vanishes after integration over x2. Finally Eq.(15) becomes
+(i ∂t − ˆh1 + ˆh1′) γΓ (x1, x′
+1, t) =
+∫
+dx2 (U(x1x2) − U(x′
+1x2))¯Γ( x1x2, x′
+1x2, t). (18)
+Obviously, the equations of motion for γΓ and γ, Eq.(18) and Eq.(9) respectively, will be
+equivalent if ¯Γ = Γ. This derivation shows that Eqs.(9) and (18), and therefore t he two
+8
+above-mentioned approaches, are generally diﬀerent as a conseq uence of the fact that Γ (3)
+app
+does not necessarily integrate to ( N − 2) Γ.
+It is a priori not clear which of the two approaches is preferable. For that, let u s examine
+if the approximate equations maintain important properties such as particle number and
+energy conservation.
+1. Particle number conservation
+First, we discuss the particle number conservation. To do this, we n ote that the diagonal
+of one-body RDM, γ(x, x, t), gives the particle density, n(x, t). Now, particle number con-
+servation means that the total number of particles, N(t) =
+∫
+dx n(x, t), is independent of
+time, i.e. ∂tN(t) = 0. This is guaranteed once the continuity equation holds. In fact , this is
+the case for both approaches since from either Eq.(9) or (18), we arrive to
+∂tn(x, t) = ∂tγ(x, x′, t)
+⏐
+⏐
+x′=x = − 1
+2i(∇2 − ∇′2)γ(x, x′, t)
+⏐
+⏐
+x′=x
+= − 1
+2i(∇2 + ∇ · ∇′ − ∇ · ∇ ′ − ∇′2)γ(x, x′, t)
+⏐
+⏐
+x′=x
+= −∇ ·
+[ 1
+2i(∇ − ∇′)γ(x, x′, t)
+⏐
+⏐
+x′=x
+]
+= −∇ · j(x, t) (19)
+where we deﬁned the current density, j(x, t), as the quantity inside the braces. This follows
+immediately from of the fact that the right-hand side of both Eqs.(9 ) and (18) vanishes for
+x1 = x′
+1 independent of Γ or ¯Γ. Thus, the total number of particles is preserved even if we
+cut the hierarchy at the ﬁrst level.
+2. Energy conservation
+Now we turn to the energy conservation. The total energy of the system is the sum of
+Eqs.(11) and (12). For the second approach where we use only Eq.( 10), the time derivative
+of the total energy after some algebra (see Appendix A) arrives a t
+dE
+dt =
+∫
+dx ∂tv(x, t)n(x, t) (20)
++ 1
+2i
+∫
+dx1dx2 ∇1U(x1x2) ·
+[
+(∇1 − ∇1′)(Γ( x1x2, x′
+1x2, t) − ¯Γ( x1x2, x′
+1x2, t))|1=1′
+]
+.
+9
+In the absence of time-dependent potentials, v, this equation gives dE/dt = 0, provided
+Γ = ¯Γ. Nonetheless as we discussed, this is not generally valid in the secon d approach and it
+means the total energy is not conserved there. In contrast, wh en we solve both Eqs.(9) and
+(10) together, the second term of Eq.(20) vanishes automatically (Eq.(A10) in Appendix A)
+[24, 26] and the energy remains constant.
+The energy conservation gives us a strong motivation for preferr ing the ﬁrst approach, in
+which we propagate both equations simultaneously, over the secon d and this is what we do in
+the remainder of this work. However, we look into the other case on ly brieﬂy in section III D
+and show that the energy can ﬂuctuate relatively large in time for all the approximations.
+C. Hierarchy T runcation Methods: Approximating the Γ (3)
+In this section we discuss in detail diﬀerent truncation schemes tha t we have evaluated
+in the present work. One systematic way of building these approxima tions is called cluster
+expansion which is a method of reconstructing higher-order RDMs as anti-sym metrized
+products of lower-order ones plus a residual correlation function [26–30]. To have a compact
+notation, ﬁrst we deﬁne the wedge product as the anti-symmetriz ed product of p- and m-
+point functions by
+a(Xp, X′
+p) ∧ b( ˘Xp, ˘X ′
+p) =
+( 1
+N!
+) 2 ∑
+α,β
+ǫ(α) ǫ(β) a(xα 1 . . . xα p, x′
+β 1 . . . x′
+β p) b(xα p+1 . . . xα N , x′
+β p+1 . . . x′
+β N ). (21)
+Here, N = p + m, α represents all permutations of the unprimed coordinates, β represents
+all permutations of the primed ones, and the function ǫ(α) returns +1 when the permutation
+α contains an even number of transpositions and −1 for an odd number of transpositions
+[31]. For instance, the wedge product of two general one-particle matrices is
+a(x1, x′
+1) ∧ b(x2, x′
+2) = 1
+4
+{
+a(x1, x′
+1)b(x2, x′
+2) − a(x1, x′
+2)b(x2, x′
+1) + (22)
+a(x2, x′
+2)b(x1, x′
+1) − a(x2, x′
+1)b(x1, x′
+2)
+}
+.
+Now, we illustrate the cluster expansion by some examples. The ﬁrst term of the ex-
+pansion of Γ (n) has the same form as in the noninteracting-particle picture, namely , it is an
+n-dimensional determinant of γ, with γ(xi, x′
+j, t) placed in row i and column j. For instance,
+10
+for Γ (2), the ﬁrst term reads
+⏐
+⏐
+⏐
+⏐
+⏐
+⏐
+γ(x1, x′
+1, t) γ(x1, x′
+2, t)
+γ(x2, x′
+1, t) γ(x2, x′
+2, t)
+⏐
+⏐
+⏐
+⏐
+⏐
+⏐
+≡ 2 γ ∧ γ. (23)
+Now, we deﬁne a two-body correlation function, ∆ (2), as a means of the deviation of Γ from
+the noninteracting form such that
+Γ( X2, X′
+2, t) = 2 γ ∧ γ + ∆ (2)(X2, X′
+2, t). (24)
+If we, for instance, approximate Γ app = 2 γ ∧ γ and replace it in the ﬁrst equation of the
+BBGKY hierarchy (9), we recover immediately the well-known TDHF eq uation.
+For Γ (3) accordingly, we use a noninteracting particle form and add anti-sym metrized
+products of γ with the correlation function ∆ (2) – that partly describe the 3-body correlation
+– plus a remainder, ∆ (3), i.e.
+Γ (3)(X3, X′
+3, t) =
+⏐
+⏐
+⏐
+⏐
+⏐
+⏐
+⏐
+⏐
+⏐
+γ(x1, x′
+1, t) γ(x1, x′
+2, t) γ(x1, x′
+3, t)
+γ(x2, x′
+1, t) γ(x2, x′
+2, t) γ(x2, x′
+3, t)
+γ(x3, x′
+1, t) γ(x3, x′
+2, t) γ(x3, x′
+3, t)
+⏐
+⏐
+⏐
+⏐
+⏐
+⏐
+⏐
+⏐
+⏐
+(25)
++
+3∑
+i,j =1
+(−1)i+j γ(xi, x′
+j, t)∆ (2)(˘xi, ˘x′
+j, t) + ∆ (3)(X3, X′
+3, t).
+In the second term on the right-hand side, ˘xj denotes the pair of variables in the set ( x1x2x3)
+complementary to xj keeping the order of the arguments ﬁxed; the same goes for the p rimed
+coordinates. For example, ˘x2 = ( x1x3). Using the wedge product notation, we can rewrite
+Eq.(25) as
+Γ (3) = 6 γ ∧ γ ∧ γ + 9 γ ∧ ∆ (2) + ∆ (3) = −12 γ ∧ γ ∧ γ + 9 γ ∧ Γ + ∆ (3) (26)
+in which we replaced the ∆ (2) = Γ − 2 γ ∧ γ from Eq.(24). Similarly, we can write the
+expansion for higher-order RDMs.
+The same method has been used in the Contracted Schr¨ odinger Eq uation formalism
+(the hierarchical set of equations for density matrices derived fr om the time-independent
+Schr¨ odinger equation) and referred to as cumulant expansion [32–35]. Nakatsuji and Ya-
+suda made the expansion more grounded by deriving it using the relat ion between RDMs
+and Green’s functions [33]. Based on these, We are now ready to dis cuss a number of
+approximations for Γ (3):
+11
+i) Three-body collision-integral-free (3b-CIF) approximation. The simplest one rises from
+the assumption of Γ (3) = 0, which removes the whole right-hand-side of Eq.(9).
+ii) Three-body-noninteracting approximation (3b-NIA). This is obtained only by consider-
+ing the noninteracting term of Eq.(26)
+Γ (3)
+3b−N IA = 6 γ ∧ γ ∧ γ. (27)
+This gives Γ (3) as a functional of γ.
+iii) WC approximation. We can, of course, climb to the next level and take also the second
+term of Eq.(26) into account which leads us to
+Γ (3)
+W C = −12 γ ∧ γ ∧ γ + 9 γ ∧ Γ (28)
+where the index stands for Wang and Cassing who introduced this ap proximation in
+1985 [26]. This properly reduces to Eq.(27) when we assume Γ = 2 γ ∧ γ.
+Now, if we want to go beyond these approximations, ∆ (3) in Eq.(26) must be approxi-
+mated. In fact, there exist some approximations [33–35] – for inst ance, by using the con-
+nection between RDMs and the Green’s functions [33] – but we are no t going to deal with
+them in this paper.
+III. DISCUSSION OF THE RESUL TS
+In order to test the aforementioned approximations, we need a sy stem for which we have
+access to its exact or nearly exact solution. The Hubbard model ﬁt s very well here since
+ﬁrst of all we can solve it exactly for a few sites; and secondly, since the number of single-
+particle orbitals that build the many-body Hilbert space is limited, we ca n retain the full
+single-particle basis set and avoid basis set truncation errors. It is worth mentioning that
+although here we illustrate only the performance of all the approxim ations for the Hubbard
+model, our preliminary results for small molecules also exhibit very simila r issues (work in
+progress [36]).
+Now, we consider the case of a linear ﬁnite Hubbard chain with only nea rest neighbor
+interactions. The Hubbard Hamiltonian for a ﬁnite one-dimensional s ystem in second quan-
+tization notation is
+12
+ˆH =
+∑
+σ,i
+t (a†
+i+1,σ ai,σ + a†
+i,σ ai+1,σ ) +
+∑
+i
+U ni↑ni↓ (29)
+where σ is a spin index, i is the site index and t and U denote hopping and on-site Coulomb
+energy, respectively. Here, t is set to unity and U gets diﬀerent values to simulate diﬀerent
+correlation strengths.
+To study the quality of the approximations, we must go beyond two- particle systems
+since they can be treated exactly in our formalism. In this work, how ever, we will avoid the
+practical complications introduced by spin in odd-number-electron systems, and perform all
+our calculations in four electrons in a four-site system but that doe s not aﬀect the generality
+of our results. A more detailed discussion on numerical aspects is giv en in Appendix B and
+the code is also available upon request [37].
+In this part, we investigate three diﬀerent approximations of Γ (3), namely the three-body
+collision integral free, the three-body non-interacting, and the W C approximations and
+compare them with the exact and the TDHF results. With these appr oximations, we have
+now a closed set of equations and as any diﬀerential equation, we ne ed an initial state of
+the system to propagate them. To study the initial state depende nce of the phenomena, we
+choose two extreme regimes of initial states to perform our calcula tions: Far from equilibrium
+and near to equilibrium.
+At ﬁrst, we choose a far from equilibrium state as our initial state sin ce it helps us to
+show the problem more clearly. We build such an initial state by putting four electrons in
+the two leftmost sites, i.e.
+|Ψ 0⟩ = a†
+1, ↑a†
+1, ↓a†
+2, ↑a†
+2, ↓|0⟩ (30)
+where 1 and 2 refer to two neighboring sites at the beginning of the c hain. In Appendix
+B, we give the matrix form of the initial state and the Eqs.(9) and (10 ) that we actually
+propagate.
+Here, the equations in hand are ordinary diﬀerential equations and we solve them nu-
+merically using the Runge-Kutta method. However, to ensure the a ccuracy and stability
+of our results, we also used more accurate time-propagation sche mes such as the fourth-
+order Adams-Bashforth-Moulton method and we found no notable diﬀerence (for a detailed
+discussion of these methods see [38]).
+The time evolution of electronic density in the leftmost site, n(1,t), is plotted in Fig.1
+13
+ 0
+ 0.5
+ 1
+ 1.5
+ 2n(1,t)
+(a)
+ 0
+ 0.5
+ 1
+ 1.5
+ 2n(1,t)
+(a)
+TDHFExact (b)(b)
+3b-CIFExact
+0
+0.5
+1
+1.5
+2
+0 20 40 60 80 100
+n(1,t)
+Time [a.u]
+(c)
+0
+0.5
+1
+1.5
+2
+0 20 40 60 80 100
+n(1,t)
+Time [a.u]
+(c)
+3b-NIAExact
+ 
+ 
+ 
+ 
+ 
+0 20 40 60 80 100
+Time [a.u]
+(d)
+ 
+ 
+ 
+ 
+ 
+0 20 40 60 80 100
+Time [a.u]
+(d)
+WCExact
+FIG. 1. Time evolution of electronic density in the leftmost site of a 4-site Hubbard model with
+(a) TDHF (b) 3b-CIF (c) 3b-NIA and, (d) WC approximations. Th e exact result is also given for
+comparison. Here, m, ℏ are set to unity and Hubbard parameters are U = 0.1 and t = 1. The four
+electrons ﬁlled the two leftmost sites initially.
+for a weak on-site Coulomb energy, U = 0 .1, and for (a) TDHF, (b) 3b-CIF, (c) 3b-NIA
+and, (d) WC approximation. The plots also contain the exact result f or comparison. In
+a short-time scale, we can see that all three approximations improv e the quality of the
+results considerably, compared to the TDHF. However, comparing with each other, the
+approximations do not exhibit large diﬀerences.
+Figure 2 shows essentially the same results for a longer propagation time. It also shows
+how the highest and lowest geminal occupation numbers, λmax and λmin, behave in time.
+For the 3b-CIF in panel (a) we can see unphysical behavior around t ≈ 240 a.u, where the
+density acquires negative values or rises beyond two electrons in a s ite. The problem is more
+serious for the two other approximations since for longer propaga tion times, the electronic
+density starts to oscillate with amplitudes much beyond physically allow ed boundaries, and
+eventually diverges as is shown in Fig.2 (b and c). The divergence time d epends on the
+correlation strength, namely on the value of U in our model, and it decreases almost ex-
+ponentially with increasing U. For example, for WC approximation, the divergence time
+14
+-2
+-1
+ 0
+ 1
+ 2
+ 3
+ 4
+ 0  200  400  600  800
+n(1,t)
+(a)
+-2
+-1
+ 0
+ 1
+ 2
+ 3
+ 4
+ 0  200  400  600  800
+n(1,t)
+(a)
+3b-CIF
+λmin, λmax
+-20
+-10
+ 0
+ 10
+ 20
+ 0  200  400  600  800
+n(1,t)
+(b)
+-20
+-10
+ 0
+ 10
+ 20
+ 0  200  400  600  800
+n(1,t)
+(b)
+-20
+-10
+ 0
+ 10
+ 20
+ 0  200  400  600  800
+n(1,t)
+(b)
+3b-NIA
+λmin, λmax
+-20
+-10
+ 0
+ 10
+ 20
+ 0  150  300  450  600
+n(1,t)
+Time [a.u]
+(c)
+-20
+-10
+ 0
+ 10
+ 20
+ 0  150  300  450  600
+n(1,t)
+Time [a.u]
+(c)
+WC
+λmin, λmax
+-20
+-10
+ 0
+ 10
+ 20
+ 0  150  300  450  600
+n(1,t)
+Time [a.u]
+(c)
+WC
+λmin, λmax
+FIG. 2. Time evolution of electronic density in the leftmost site of a 4-site Hubbard model in
+a longer time scale for (a) 3b-CIF (b) 3b-NIA, (c) WC approxim ations. Blue lines show the
+highest and lowest geminal occupation number in time. Here, m, ℏ are set to unity and Hubbard
+parameters are U = 0.1 and t = 1. The four electrons ﬁlled the two leftmost sites initiall y.
+changes from t ≈ 532 a.u for U = 0.1 to t ≈ 3 a.u for U = 10. It is important to note that in
+3b-NIA and WC approximations, λmax and λmin start to diverge much earlier, although we
+can not immediately see the eﬀect in neither natural orbital occupa tion numbers nor on-site
+electronic densities.
+Nonetheless, it is well-known that the time-evolution of a far from eq uilibrium state is
+generally very diﬃcult to handle with any approximation, and particula rly with the ground-
+state-tuned ones; hence, we change the initial states to be close r to the system’s ground state
+15
+in order to investigate the generality of this phenomenon. First, we start the simulation with
+the initial γ and Γ extracted from the ground state of i) the exact solution and ii) the Hartree-
+Fock approximation; and let it propagate with all three diﬀerent app roximations. Although
+in these cases the electronic density for the 3b-CIF does not violat e physical bounds, we still
+see the divergence for other two approximations.
+Moreover, we used the method introduced by Mazziotti [39] to ﬁnd the ground state asso-
+ciated with 3b-NIA and WC approximations and then used it as the initia l state. However,
+since the method [39] is not totally convergent, the result is not a tr uly stationary state
+and even starting from such state does not bring stability to the eq uations and divergence
+appears again. We will discuss this issue in more details in our forthcom ing paper [36].
+These tests show that the divergence problem is independent of th e initial state and has
+to do with the nature of the approximated equations. It is worth em phasizing again that in
+all of these approximations the continuity condition, Eq.(19), has n ot been violated and the
+total number of particles is always conserved. Nevertheless, the continuity equation does
+not guarantee that the electronic density in each state does not g o below zero or beyond
+two.
+As we mentioned in the introduction, the violation of fermionic inequalit y has also been
+observed for a diﬀerent system in nuclear physics [21, 22]. In fact, there are earlier works in
+the classical BBGKY theory in which they studied the eﬀect of nonline arity introduced by
+truncation of the hierarchy, and showed the existence of instabilit y in these coupled equations
+depending on the initial conditions of the system [40, 41]. Other stud ies also indicated that
+the classical collision integral can diverge [42, 43]. Such catastroph ic behaviors of these
+coupled equations pose a valid question that why even highly advance d approximations based
+on the Green’s function expansion not only fail to follow fundamenta l physical principles, but
+also lead to divergence, even though the total energy and number of particles are conserved.
+To analyze this phenomenon we center our attention to the basic properties of the BBGKY
+hierarchy and density matrices to ﬁnd out how they are aﬀected by diﬀerent approximations.
+As we already showed, the employed approximations break the comp atibility between Eq.(9)
+and the approximated version of Eq.(10) and the partial trace rela tion (Eq.(5)) between Γ
+and γ does not hold any more. Schmitt et al. [21] and Gherega et al. [22] claimed this to
+be the main source of the problem.
+On the other hand, it is obvious that the positive-semideﬁniteness o f density matrices
+16
+has also been violated. This problem may arise for one of the following r easons:
+i) If in Eq.(10) the approximation functional of Γ (3) is built in a way that Γ does not
+necessarily stay positive-semideﬁnite, even though the initial γ and Γ are positive-
+semideﬁnite (see cases C and D below). Therefore, regardless of w hether the partial
+trace relation between γ and Γ holds or not, there is no guarantee for γ to be positive-
+semideﬁnite.
+ii) If the approximation functional of Γ (3) is built in a way that the propagated Γ does stay
+positive-semideﬁnite (provided the initial γ and Γ are positive-semideﬁnite), but since
+the Eqs. (9) and (10) are not compatible and the relation between Γ and γ is ill-deﬁned,
+the positive-semideﬁniteness will not necessarily pass to the γ (see case A below).
+It is not easy to impose positive-semideﬁniteness on Γ (3) and even if it has such property, since
+its trace relation with γ and Γ is broken this does not lead to the positive-semideﬁniteness of
+γ and Γ. However, we are exploring variational approaches to impose this constraint during
+the time evolution, namely preventing the system not to be positive- semideﬁniteness.
+Next, we use diﬀerent test approximations to analyze the role of co mpatibility and
+positive-semideﬁniteness in these unphysical results.
+A. Retaining Positive-semideﬁniteness but not Compatibility .
+For the simplest case, 3b-CIF, the compatibility between second an d ﬁrst equation of the
+hierarchy is obviously lost. At the same time, it is easy to show that th e time evolution of
+Γ is unitary in the sense that the solution to the equation of motion is o f the form
+Γ( X2, X′
+2, t) =
+∑
+j
+λjΦ j(X2, t)Φ ∗
+j (X ′
+2, t). (31)
+where Φ j satisﬁes the Schr¨ odinger equation
+i∂tΦ j(X2, t) = ˆH12Φ j(X2, t) (32)
+Inserting Eq.(31) into Eq.(6) leads to time-independent geminal occ upation numbers and
+provided the initial Γ is positive-semideﬁnite, it preserves this featu re at all times (Fig.2(a)).
+Note that this argument holds independent of possible time depende nce in the two-particle
+Hamiltonian, ˆH12.
+17
+In addition, substituting Eq.(31) in the right-hand side of Eq.(9) yield s a simple linear
+equation for the time propagation of γ(x1, x′
+1, t) which does not diverge. Nevertheless,
+because the partial trace relation (Eq.(5)) between γ and Γ is no more valid, natural orbital
+occupation numbers may not necessarily lie between zero and one [2 3] and as a consequence
+the density can gain negative values (Fig.2(a)). With this example we c ome to the conclusion
+that positive-semideﬁniteness of the Γ is not a suﬃcient condition fo r keeping the γ positive-
+semideﬁnite.
+B. Retaining Compatibility and Positive-semideﬁniteness.
+It is very insightful to look for an approximation that retains both o f these properties
+and see how well that can perform in the calculation. The simplest pos sible approach is to
+replace the three-body collision integral term, S in Eq.(10), with another term under the
+condition that the two equations become compatible. This condition, of course, does not
+determine a unique term, but to study its eﬀect we consider the follo wing simple expression
+S(X2, X′
+2, t) = ( N − 2)(U(X2) − U(X ′
+2)) Γ(X2, X′
+2, t). (33)
+Thus, the second equation of the hierarchy becomes
+(i ∂t − ˆH12 + ˆH1′2′) Γ(X2, X′
+2, t) = ( N − 2)(U(X2) − U(X ′
+2)) Γ(X2, X′
+2, t). (34)
+When in above equation, we put x2 = x′
+2 and integrate over x2 we obtain the ﬁrst equation
+of the BBGKY hierarchy, Eq.(9).
+This approximation makes Eq.(10) linear. Moreover, it retains the co mpatibility between
+two equations, meaning the two approaches for solving the BBGKY h ierarchy, discussed in
+section II B, are equivalent. We call this the compatible approximatio n. The eﬀect of this
+approximation is equivalent to magnifying the interparticle interactio n by a factor of ( N −1)
+in the 3b-CIF approximation. Hence, we can modify interparticle inte raction accordingly in
+Eq.(31) and use the same argument to prove that this approximatio n also keeps Γ positive-
+semideﬁnite. Now, as a result of compatibility, γ = γΓ and this γ immediately inherits
+positive-semideﬁniteness of Γ and in this fashion, compatibility and po sitive-semideﬁniteness
+are both incorporated. The results for this approximation are dep icted in the Fig.(3) for a
+limited time scale. As expected, we do not observe any violation in the e lectronic density
+even after long propagation.
+18
+ 0
+ 0.5
+ 1
+ 1.5
+ 2
+ 0  20  40  60  80  100
+n(1,t)
+Time [a.u]
+ 0
+ 0.5
+ 1
+ 1.5
+ 2
+ 0  20  40  60  80  100
+n(1,t)
+Time [a.u]
+ 0
+ 0.5
+ 1
+ 1.5
+ 2
+ 0  20  40  60  80  100
+n(1,t)
+Time [a.u]
+CompatibleExactTDHF
+FIG. 3. Number of electrons in the leftmost site of a 4-site Hu bbard model with compatible
+approximation. The exact and TDHF results are also given for comparison. Here, m, ℏ are set to
+unity and Hubbard parameters are U = 0 .1 and t = 1. The four electrons ﬁlled the two leftmost
+sites initially.
+Despite the well-behaved result, it should be mentioned that wherea s the natural orbital
+occupation numbers cannot acquire negative values, they may still exceed one (the density
+at one point may develop beyond two particles). For example, we obs erved such violation
+for natural orbital occupation numbers in a tiny time region only whe n the initial state was
+far from equilibrium, i.e. four electrons occupying the two leftmost sites, and U was very
+large ( U = 10).
+C. Retaining Compatibility but not Positive-semideﬁniteness.
+In order to ﬁnd out the role of positive-semideﬁniteness and its impo rtance, in the
+next step, we build an approximation that fulﬁlls the compatibility but n ot positive-
+semideﬁniteness. To accomplish this goal, we add a term, Z, with a partial trace summing
+up to zero, to the previous compatible approximation, Eq.(33). Sub stituting this term in
+19
+Eq.(10) we have
+(i ∂t − ˆH12 + ˆH1′2′) Γ(X2, X′
+2, t) =
+(N − 2)(U(X2) − U(X ′
+2)) Γ(X2, X′
+2, t) + Z(X2, X′
+2, t) (35)
+where ∫
+dx2 Z(x1, x2, x′
+1, x2, t) = 0 (36)
+which in most cases, Z is a nonlinear functional of density matrices. In this way, both
+levels of the hierarchy stay compatible but the additional term does not necessarily keep
+Γ positive-semideﬁnite. This term is not unique and in fact it can be der ived for diﬀerent
+approximations (see Appendix C for detailed derivation).
+Nonetheless, although these approximations retain the compatibilit y, they do not neces-
+sarily keep positive-semideﬁniteness of RDMs and they eventually lea d to divergence if we
+propagate them long enough in time. These results are the evidence that compatibility is
+not a suﬃcient condition to keep the equations bounded.
+D. Using Only the Second Equation (Eq.(10)).
+As we discussed in section II B in details, there are two approaches t o solve the BBGKY
+hierarchy in the second level. So far in all discussed approximations, we have propagated
+both Eqs.(9) and (10) together; now, we turn to the second appr oach and solve only Eq.(10)
+for above approximations. However, as we showed earlier, the tot al energy will not be
+necessarily conserved in this method unless the approximation make s the two equations
+compatible. Figure 4 shows that the energy ﬂuctuations in time are r elatively large for all
+the approximations, which puts a question mark over the quality of t his approach in general.
+Nonetheless in this way, the compatibility between equations is not an issue anymore
+which helps us to study the behavior of only the second equation. Ou r calculations show
+that, even though the fermionic inequality violation of 3b-CIF appro ximation has been cured
+in this way, the divergence in 3b-NIA or WC approximations has surfa ced again and in fact,
+even the divergence time has not been improved in any of them. With t hese observations,
+we can conﬁdently claim that the incompatibility is not the only cause of diverging behavior
+of the equations, and the role of positive-semideﬁniteness should a lso be taken into account.
+20
+ 0.1
+ 0.2
+ 0.3
+ 0.4
+ 0  20  40  60  80  100
+Total energy [a.u]
+Time [a.u]
+ 0.1
+ 0.2
+ 0.3
+ 0.4
+ 0  20  40  60  80  100
+Total energy [a.u]
+Time [a.u]
+ 0.1
+ 0.2
+ 0.3
+ 0.4
+ 0  20  40  60  80  100
+Total energy [a.u]
+Time [a.u]
+ 0.1
+ 0.2
+ 0.3
+ 0.4
+ 0  20  40  60  80  100
+Total energy [a.u]
+Time [a.u]
+3b-CIF
+3b-NIA
+WC
+Exact
+FIG. 4. Fluctuations of total energy of the 4-site Hubbard mo del for diﬀerent approximations using
+only Eq.(10). The exact result is also given for comparison. Here, m and ℏ are set to unity and
+Hubbard parameters are U = 0.1 and t = 1. Four electrons ﬁlled the two leftmost sites initially.
+In these four subsections, we provided many test approximations fulﬁlling diﬀerent con-
+strains to show that neither compatibility between equations nor po sitive-semideﬁniteness
+of the approximations by itself, can keep the propagation of the RD Ms inside the fermionic
+boundaries. In fact, although the nonlinearity introduced by most of the approximations to
+Eq.(10), might be the cause of divergence, the violation of fermionic inequality might exist
+even in the case of linear approximations as we saw in the 3b-CIF appr oximation. Therefore,
+it indeed takes both of these approximation constrains to tame suc h coupled equations.
+IV. SUMMAR Y AND CONCLUSIONS
+In this work, we pointed out the main challenges we face in order to de couple the hierarchy
+of equations for the time evolution of density matrices. In particula r, we studied several
+approximations for the three-body RDM in terms of the one- and tw o-body RDMs. First,
+we showed that once an approximation for the three-body RDM is ma de, the equation of
+motion for the two-body RDM does no longer imply the validity of the ﬁr st equation of
+the hierarchy. Therefore, in order to obey energy conservation it is necessary to solve the
+21
+equations of motion for the one-body and two-body density matric es simultaneously.
+Next, we studied numerical solutions for the fermionic Hubbard mod el for several of the
+decoupling schemes and compared them to exact results obtained f rom solving the time-
+dependent Schr¨ odinger equation. We found that in many decouplin g schemes the local
+electron density attains unphysical negative values in time and natu ral orbital occupation
+numbers in general do not remain between zero and one as is require d for fermionic systems.
+Furthermore, in most of existing approximations the local electron density diverges, although
+total particle number and energy are perfectly conserved. We inv estigated whether this
+feature is cured by forcing the two lowest equations of the hierarc hy to be compatible and
+found this not to be the case.
+We conclude that, a possible way to make progress in the application o f the BBGKY hier-
+archy is to make sure that positive-semideﬁniteness of the density matrices and the fermionic
+constraints on the occupation numbers is built into the equations. F or example in the case
+of the time-dependent Hartree-Fock, there exists always a wave function corresponding to
+the ﬁrst equation of the hierarchy and therefore the natural or bital occupation numbers can
+never be unphysical. This suggests a further study of the BBGKY e quations in relation to
+(approximate) wave functions. Further progress can be made in lin ear response theory since
+in the linear response regime the nonlinearities are, by deﬁnition, rem oved and the BBGKY
+approach can be investigated further for the study of optical sp ectra. Work along these lines
+is in progress.
+V. ACKNOWLEDGMENT
+The authors wish to thank Professor E. K. U Gross for useful disc ussions. We are also
+grateful to Professor Ilya Tokatly and Ari Harju for their comme nts on the manuscript. We
+acknowledge ﬁnancial support from the European Research Coun cil Advanced Grant DY-
+Namo (ERC-2010-AdG, Proposal No. 267374), Spanish Grants (F IS2011-65702-C02-01 and
+PIB2010US-00652), ACI-Promociona (ACI2009-1036), Grupos Consolidados UPV/EHU del
+Gobierno Vasco (IT-319-07), Consolider nanoTHERM (Grant No. C SD2010-00044), Fondo
+Social Europeo (FSE) and Spanish Research Council (CSIC) throu gh its ”Junta para la
+Ampliaci´ on de Estudios” fellowship (JAE-Predoc-2008), European Commission projects
+CRONOS (280879-2 CRONOS CP-FP7) and THEMA(FP7-NMP-2008-S MALL-2, 228539).
+22
+We are also grateful to the support of Academy of Finland through its ”Center of Excellence”
+Grant (2006-2011).
+Appendix A: Energy Conservation Derivation
+Now we discuss in full details the energy conservation in the BBGKY hie rarchy. According
+to Eqs.(11) and (12), the change in the total energy of the syste m, E(t) = E1(t) + E2(t), is
+given by
+dE
+dt = dE1
+dt + dE2
+dt (A1)
+where
+dE1
+dt =
+∫
+dx′ ∂tv(x′, t)γ(x, x′, t)|x=x′ +
+∫
+dx′ h(x′, t)∂tγ(x, x′, t)|x=x′ (A2)
+and
+dE2
+dt = 1
+2
+∫
+dx1dx2 U(X2)∂tΓ( X2, X2, t). (A3)
+To proceed, we replace the time dervative of Γ from Eq.(10), howev er for γ in Eq.(A2), we
+can use either Eq.(9) or (18). In our derivation, we use Eq.(18) and the case of Eq.(9) is
+obtained as the special case by taking ¯Γ = Γ at the end of the derivation. Let us start by
+evaluating (A3). The equation of motion (10) yields
+dE2
+dt = − 1
+4i
+∫
+dx1dx2 U(X2)(∇2
+1 + ∇2
+2 − ∇2
+1′ − ∇2
+2′)Γ( X2, X′
+2, t)|1, 2=1′, 2′
+= − 1
+2i
+∫
+dx1dx2 U(x1x2)(∇2
+1 − ∇2
+1′)Γ( x1x2, x′
+1x2, t)|1=1′
+= 1
+2i
+∫
+dx1 ∇1U(x1x2) · [(∇1 − ∇1′)Γ( x1x2, x′
+1x2, t)|1=1′] (A4)
+where we used the symmetry of Γ and performed a partial integrat ion. Now, we consider the
+change in the one-body energy, E1(t), primarily by evaluating the second term in Eq.(A2).
+It reads
+∫
+dx h(x′, t)∂tγΓ (x, x′, t)|x=x′ =
+∫
+dx (v(x, t)∂tnΓ (x, t) + 1
+2 ∂t∇ · ∇′γΓ (x, x′, t)|x=x′) (A5)
+where in the second term of the right-hand side, we used
+∫
+dxdx′δ(x − x′)∇
+′2γΓ (x, x′, t) = −
+∫
+dxdx′δ(x − x′)∇ · ∇′γΓ (x, x′, t). (A6)
+23
+On the other hand, from the equation of motion (18) it follows
+i∂t∇1 · ∇1′γΓ (x1, x1′, t)|1=1′ = (∇1v(x1, t) · ∇1′ − ∇1′ v(x′
+1, t) · ∇1)γΓ (x1, x1′, t)|1=1′ (A7)
+−1
+2 ∇1 ·
+[
+(∇ − ∇′)(∇1 · ∇1′)γΓ (x, x′, t)
+⏐
+⏐
+1′=1′
+]
++(∇1 · ∇1′)
+∫
+dx2 (U(x1x2) − U(x′
+1x2))¯Γ( x1x2, x′
+1x2, t)|1=1′.
+The second term in the right-hand side of this expression is a total d erivative and vanishes
+upon integration. Putting Eq.(A7) back into (A5) and the resulted e xpression in Eq.(A2),
+we get
+dE1
+dt =
+∫
+dx (∂tv(x, t)nΓ (x, t) + v(x, t)(∂tnΓ (x, t) + ∇ · jΓ (x, t)))
++ 1
+2i
+∫
+dx1dx2(∇1U(x1x2) · ∇1′ − ∇1′U(x′
+1x2) · ∇1)¯Γ( x1x2, x′
+1x2, t)|1=1′ . (A8)
+The second term under the ﬁrst integral vanishes since the contin uity equation holds. There-
+fore, for the total energy we ﬁnally arrive at
+dE
+dt =
+∫
+dx ∂tv(x, t)nΓ (x, t) (A9)
++ 1
+2i
+∫
+dx1dx2 ∇1U(x1x2) ·
+[
+(∇1 − ∇1′)(Γ( x1x2, x′
+1x2, t) − ¯Γ( x1x2, x′
+1x2, t))|1=1′
+]
+.
+In the case that γ evolves through Eq.(9), we must replace ¯Γ with Γ and hence the ﬁnal
+result reads
+dE
+dt =
+∫
+dx ∂tv(x, t)n(x, t) (A10)
+which is exactly the energy conservation law as it is discussed in the ma in text.
+Appendix B: Computational Details for the Hubbard Model
+The real space description of Eqs.(9) and Eq.(10) makes them very impractical for com-
+putational purposes. Therefore, they must be transformed to the matrix from, using an
+appropriate basis set. In the case of Hubbard model, the basis set is made of site-orbitals for
+each spin; for example, for a four-site Hubbard system, the basis set contains eight orbitals.
+Here we only concern with spin-compensated systems( i.e. Sz = S = 0), in which we can
+use many symmetries to eliminate the spins and simplify the equations o f motion [44]. We
+deﬁne
+24
+γ(r1r′
+1, t) =
+∑
+σ 1
+γ(r1σ1, r′
+1σ1, t) (B1)
+and
+Γ( r1r2, r′
+1r′
+2, t) =
+∑
+σ 1σ 2
+Γ( r1σ1r2σ2, r′
+1σ1r′
+2σ2, t). (B2)
+where σ denotes the spin coordinate. Therefore, the matrix from of Eqs.( 9) and (10) for a
+M-site Hubbard model in site-orbital basis set read
+i∂tγij = t
+(
+γi (j+1)(1 − δjM ) + γi (j−1)(1 − δj1) − γ(i+1) j(1 − δiM ) − γ(i−1) j(1 − δi1)
+)
++ U (Γ i j j j − Γ i i j i) (B3)
+and
+i∂tΓ ijkl = t
+(
+Γ ij(k+1)l(1 − δkM ) + Γ ij(k+1)l(1 − δk1) + Γ ijk (l+1)(1 − δlM ) + Γ ijk (l−1)(1 − δl1)
+− Γ (i+1)jkl (1 − δiM ) − Γ (i−1)jkl (1 − δi1) − Γ i(j+1)kl(1 − δjM ) − Γ i(j−1)kl(1 − δj1)
+)
++ U
+(
+Γ ijkk δkl − Γ iikk δij
+)
++ U
+∑
+σ iσ j σ n
+(
+Γ (3)σ iσ j σ nσ iσ j σ n
+i j k k l k + Γ (3)σ iσ j σ nσ iσ j σ n
+i j l k l l − Γ (3)σ iσ j σ nσ iσ j σ n
+i j i k l i − Γ (3)σ iσ j σ nσ iσ j σ n
+i j j k l j
+)
+(B4)
+where indices denote the site numbers. The Γ (3) should be replaced by an approximation
+and then the spins can be integrated out using the same symmetry a rgument. These are
+the actual equations that we solve in this work.
+As it is mentioned in the main text, we choose a four-site Hubbard mod el where four
+electrons initially ﬁlled the two leftmost sites so that
+γi,j =
+
+
+
+
+
+γi,i = 2, i = 1, 2
+γi,j = 0, for the rest.
+(B5)
+Now, since this initial state is a Slater determinant formed by two site -orbitals, Γ has the
+exact form of Eq.(23) and can be written as
+Γ ijkl = γi,k γj,l − 1
+2 γi,l γj,k . (B6)
+For the initial state being the ground state of HF, we use Eq.(B6) wit h the same argument
+and construct the Γ from γ. Evidently, we cannot use the same argument for any initial
+state. In the case of starting from the exact ground state, we e xtract the exact γ and Γ and
+feed them into the equations.
+25
+Appendix C: Deriving The Zero-T raced T erm
+Here, we derive the zero-traced expression, Z, which we introduced in section III C. This
+additional term can be written for diﬀerent Γ (3) approximations as
+Z(X2, X′
+2, t) =
+∫
+dx3 (U(x1x3) + U(x2x3) − U(x′
+1x3) − U(x′
+2x3)) Γ (3)
+app(x1x2x3, x′
+1x′
+2x3, t)
+−Fapp(γ, Γ) (C1)
+where the ﬁrst term is the 3-body collision integral with Γ (3) substituted by an approximation
+and Fapp(γ, Γ) is deﬁned for that approximation as
+T rx2(Fapp(γ, Γ)) =
+∫
+dx3 dx2 (U(x1x3) − U(x′
+1x3)) Γ (3)
+app(x1x2x3, x′
+1x2x3, t). (C2)
+Evidently the partial trace of Z will be zero.
+As an example, we give the explicit form of F3b−N IA(γ, Γ) as
+F3b−N IA(γ, Γ) = ( U(x1x2) − U(x′
+1x′
+2))
+{
+N (γ(x1, x′
+1)γ(x2, x′
+2) − γ(x1, x′
+2)γ(x2, x′
+1))
++ g(x1, x′
+2)γ(x2, x′
+1) − g(x2, x′
+2)γ(x1, x′
+1)
++ g(x2, x′
+1)γ(x1, x′
+2) − g(x1, x′
+1)γ(x2, x′
+2)
+}
+(C3)
+where
+g(x′
+1, x1) =
+∫
+dx2γ(x′
+1, x2)γ(x2, x1). (C4)
+In the same way, F (γ, Γ) can be obtained for other approximations but we do not present
+them here. Therefore, the full expression to replace the 3-body collision integral reads
+S(X2, X′
+2, t) = ( N − 2)(U(X2) − U(X ′
+2)) Γ(X2, X′
+2, t) (C5)
++
+∫
+dx3 (U(x1x3) + U(x2x3) − U(x′
+1x3) − U(x′
+2x3)) Γ (3)
+app(x1x2x3, x′
+1x′
+2x3, t)
+−Fapp(γ, Γ)
+where the ﬁrst term is coming from the Eq.(33).
+[1] J. Frenkel, Wave Mechanics, Advanced General Theory (Clarendon Press, Oxford, 1934)
+[2] P. A. M. Dirac, Proc. Cambridge Philos. Soc. 26, 376 (1930)
+[3] D. Thouless, Quantum mechanics of many-body systems (Academic Press, New York, 1961)
+26
+[4] L. Kadanoﬀ and G. Baym, Quantum statistical mechanics: Green ’s function methods i n equi-
+librium and nonequilibrium problems (Benjamin, 1962)
+[5] P. My¨ oh¨ anen, A. Stan, G. Stefanucci, and R. van Leeuwen, Phys. Rev. B 80, 115107 (2009)
+[6] L. V. Keldysh, Zh. Eksp. Teor. Fiz. 47, 1515 (1964)
+[7] A. Stan, N. E. Dahlen, and R. van Leeuwen, The Journal of Ch emical Physics 130, 224101
+(2009)
+[8] K. S. Thygesen and A. Rubio, Phys. Rev. B 77, 115333 (Mar 2008)
+[9] E. Runge and E. K. U. Gross, Phys. Rev. Lett. 52, 997 (Mar 1984)
+[10] C. Ullrich, Time-Dependent Density-Functional Theory: Concepts and Appl ications (Oxford
+University Press, USA, 2012)
+[11] M. Born and H. S. Green, Proceedings of the Royal Society of London. Series A. Mathematical
+and Physical Sciences 191, 168 (1947)
+[12] N. N. Bogoliubov, The dynamical theory in statistical physics (Hindustan Pub. Corp.(Delhi),
+1965)
+[13] J. Kirkwood, Journal of Chemical Physics 14, 180 (1946)
+[14] J. Yvon, Nuclear Physics 4, 1 (1957)
+[15] A. M. K. M¨ uller, Physics Letters A 105, 446 (1984)
+[16] M. Buijse and E. Baerends, Molecular Physics 100, 401 (2002)
+[17] O. Gritsenko, K. Pernal, and E. J. Baerends, The Journal of Chemical Physics 122, 204102
+(2005)
+[18] S. Sharma, J. K. Dewhurst, N. N. Lathiotakis, and E. K. U. Gross, Phys. Rev. B 78, 201103
+(Nov 2008)
+[19] E. T¨ ol¨ o and A. Harju, Phys. Rev. B 81, 075321 (Feb 2010)
+[20] H. Appel and E. K. U. Gross, EPL (Europhysics Letters) 92, 23001 (2010)
+[21] K. J. Schmitt, P. G. Reinhard, and C. Toepﬀer, Zeitschrif t f¨ ur Physik A Hadrons and Nuclei
+336, 123 (1990)
+[22] T. Gherega, R. Krieg, P. G. Reinhard, and C. Toepﬀer, Nucl ear Physics A 560, 166 (1993)
+[23] A. J. Coleman, Rev. Mod. Phys. 35, 668 (Jul 1963)
+[24] M. Bonitz, Quantum Kinteic Theory (B G Teubner, 1998)
+[25] K. Pernal, O. Gritsenko, and E. J. Baerends, Phys. Rev. A 75, 012506 (Jan 2007)
+[26] S. J. Wang and W. Cassing, Annals of Physics 159, 328 (1985)
+27
+[27] W. Cassing and S. J. Wang, Zeitschrift f¨ ur Physik A Hadr ons and Nuclei 328, 423 (1987)
+[28] W. Cassing, K. Niita, and S. J. Wang, Zeitschrift f¨ ur Ph ysik A Hadrons and Nuclei 331, 439
+(1988)
+[29] W. Cassing and A. Pﬁtzner, Zeitschrift f¨ ur Physik A Had rons and Nuclei 337, 175 (1990)
+[30] W. Cassing and A. Pﬁtzner, Zeitschrift f¨ ur Physik A Had rons and Nuclei 342, 161 (1992)
+[31] D. A. Mazziotti, Phys. Rev. A 57, 4219 (Jun 1998)
+[32] F. Colmenero, C. P´ erez del Valle, and C. Valdemoro, Phy s. Rev. A 47, 971 (Feb 1993)
+[33] H. Nakatsuji and K. Yasuda, Phys. Rev. Lett. 76, 1039 (Feb 1996)
+[34] D. A. Mazziotti, Phys. Rev. A 60, 3618 (Nov 1999)
+[35] D. A. Mazziotti, Chemical Physics Letters 289, 419 (1998)
+[36] M. J. Hashemi, A. Akbari, R. van Leeuwen, A. Rubio, and R. M. Nieminen, in prepara-
+tion(2012)
+[37] Send an email to ali.akbari@csic.es
+[38] L. Shampine, Numerical solution of ordinary diﬀerential equations (Chapman & Hall, 1994)
+[39] D. A. Mazziotti, Phys. Rev. Lett. 97, 143002 (Oct 2006)
+[40] K. J. Schmitt, Journal of Statistical Physics 46, 283 (1987)
+[41] R. Krieg, K. J. Schmitt, and C. Toepﬀer, Journal of Statis tical Physics 57, 267 (1989)
+[42] R. Goldman and E. A. Frieman, Journal of Mathematical Ph ysics 8, 1410 (1967)
+[43] J. R. Dorfman and E. G. D. Cohen, Journal of Mathematical Physics 8, 282 (1967)
+[44] R. McWeeny and Y. Mizuno, Proceedings of the Royal Socie ty of London. Series A. Mathe-
+matical and Physical Sciences 259, 554 (1961)
+28

@@ -1,0 +1,1008 @@
+arXiv:1003.0246v1  [nucl-th]  1 Mar 2010
+Density-matrix formalism with three-body ground-state co rrelations
+Mitsuru Tohyama
+Kyorin University School of Medicine, Mitaka, Tokyo 181-86 11, Japan
+Peter Schuck
+Institut de Physique Nucl ´ eaire, IN2P3-CNRS, Universit ´ eParis-Sud, F-91406 Orsay Cedex, France
+(Dated: November 1, 2018)
+A density-matrix formalism which includes the eﬀects of thr ee-body ground- state correlations is
+applied to the standard Lipkin model. The reason to consider the complicated three-body correla-
+tions is that the truncation scheme of reduced density matri ces up to the two-body level does not
+give satisfactory results to the standard Lipkin model. It i s shown that inclusion of the three-body
+correlations drastically improves the properties of the gr ound states and excited states. It is pointed
+out that lack of mean-ﬁeld eﬀects in the standard Lipkin mode l enhances the relative importance
+of the three-body ground-state correlations. Formal aspec ts of the density-matrix formalism such
+as a relation to the variational principle and the stability condition of the ground state are also
+discussed. It is pointed out that the three-body ground-sta te correlations are necessary to satisfy
+the stability condition.
+PACS numbers: 21.60.Jz
+I. INTRODUCTION
+Mean-ﬁeld theories such as the Hartree-Fock theory (HF), the H aree-Fock Bogoliubov theory, the random-phase
+approximation (RPA), and the quasi-particle RPA have extensively b een used to study the ground states and collective
+excitations of atomic nuclei [1]. For more realistic theoretical treat ment of nuclei such as inclusion of the ground-state
+correlations other than pairing correlations and the damping eﬀect s of collective excitations, however, we must go
+beyond the mean-ﬁeld theories. The time-dependent density-mat rix theory (TDDM) [2–4] which has been formulated
+by truncating the chain of the equations of motion for reduced den sity matrices up to the two-body level is one
+of such extended mean-ﬁeld theories. It has been pointed out tha t a stationary solution of the TDDM equations
+gives a correlated ground state and that the small amplitude limit of T DDM based on the correlated ground state
+corresponds to an extended RPA (ERPA) including two-body trans ition amplitudes [5]. To test the reliability of the
+density-matrix formalism, we have applied it to solvable models [6–8] an d found that the obtained results improve
+on deﬁciencies of the mean-ﬁeld theories [9, 10]. In the case of the s tandard Lipkin model [6] where the interaction
+term contains only two particle - two hole excitations, however, we f ound that the ground states in TDDM become
+slightly overbound as compared with the exact solutions. That the a pproximate ground states have lower energy than
+the exact ones contradicts the variational principle [1] for the to tal wavefunction and should possibly be avoided,
+although TDDM is not based on a Raleigh-Ritz variational principle. The aim of this paper is to clarify the origin
+of such an unsatisfactory feature of TDDM in the standard Lipkin m odel. We will show that inclusion of three-body
+ground-state correlations, though it is complicated, drastically imp roves the results for the standard Lipkin model.
+The paper is organized as follows: The formulation of TDDM with the th ree-body ground-state correlations [11, 12]
+and ERPA built on the TDDM ground state are given in sect.2. Some for mal aspects of TDDM and ERPA, a relation
+of the TDDM equations to the variational principle, the stability cond ition of the ground-state, and a comparison of
+ERPA with the self-consistent RPA (SCRPA) [13, 14], which have not b een pointed out in our earlier publications,
+are also discussed in sect. 2. The results for the standard Lipkin mo del are presented in sect.3. Section 4 is devoted
+to the summary.
+II. FORMULATION
+Although the numerical calculations are performed for the Lipkin mo del, the formulation is presented using the
+following general hamiltonian
+ˆH =
+∑
+λλ ′
+⟨λ|t|λ′⟩a†
+λ aλ ′ + 1
+2
+∑
+λ 1λ 2λ ′
+1λ ′
+2
+⟨λ1λ2|v|λ′
+1λ′
+2⟩a†
+λ 1 a†
+λ 2 aλ ′
+2
+aλ ′
+1
+, (1)
+where t is the kinetic energy operator, v is a two-body interaction and a†
+λ (aλ ) the creation (annihilation) operator of
+a nucleon in a single-particle state λ.
+2
+A. TDDM
+In TDDM the ground state |0⟩ is deﬁned by the occupation matrix nαα ′ , the two-body correlation matrix Cαβα ′β ′
+and the three-body correlation matrix Cαβγα ′β ′γ ′ given by
+nαα ′ = ⟨0|a†
+α ′ aα |0⟩, (2)
+Cαβα ′β ′ = ⟨0|a†
+α ′ a†
+β ′aβ aα |0⟩ − A(nαα ′ nββ ′), (3)
+Cαβγα ′β ′γ ′ = ⟨0|a†
+α ′ a†
+β ′a†
+γ ′aγ aβ aα |0⟩ − A(nαα ′ nββ ′nγγ ′ + S(nαα ′ Cβγβ ′γ ′)), (4)
+where A and S mean that the products in the parentheses are properly antisymm etrized and symmetrized under
+the exchange of single-particle indices [2]. Equations of motion for nαα ′ , Cαβα ′β ′ and Cαβγα ′β ′γ ′ can be obtained by
+truncating a coupled chain of equations of motion for reduced dens ity matrices (the so-called Bogoliubov-Born-Green-
+Kirkwood-Yvon hierarchy) up to the three-body level [2] and can be written as
+i¯h d
+dt nαα ′ = ⟨0|[a†
+α ′ aα , ˆH]|0⟩ = F1(αα′), (5)
+i¯h d
+dt Cαβα ′β ′ = : ⟨0|[a†
+α ′ a†
+β ′aβ aα , ˆH]|0⟩ := F2(αβα′β′), (6)
+i¯h d
+dt Cαβγα ′β ′γ ′ = : ⟨0|[a†
+α ′ a†
+β ′a†
+γ ′aγ aβ aα , ˆH]|0⟩ := F3(αβγα ′β′γ′), (7)
+where : : means that the time derivatives of the second terms on th e right-hand sides of eqs. (3) and (4) are
+subtracted. Since a four-body correlation matrix is neglected, th e expectation values of four-body operators in eq.(7)
+are approximated by the products of nαα ′, Cαβα ′β ′ and Cαβγα ′β ′γ ′. The expressions for F1, F2 and F3 are given in
+the Appendix, where the single-particle states which satisfy the HF -like mean-ﬁeld equation
+h(ρ)φα (1) = ǫα φα (1) (8)
+are used. Here, ρ is the one-body density matrix given by ρ(1, 1′) = ∑
+αα ′ nαα ′ φα (1)φ∗
+α ′ (1′) and numbers indicate
+spatial, spin and isospin coordinates.
+To obtain the ground state implies that all quantities nαα ′ , Cαβα ′β ′, Cαβγα ′β ′γ ′ and φα are determined under the
+stationary conditions
+i¯h d
+dt nαα ′ = F1(αα′) = 0 , (9)
+i¯h d
+dt Cαβα ′β ′ = F2(αβα′β′) = 0 , (10)
+i¯h d
+dt Cαβγα ′β ′γ ′ = F3(αβγα ′β′γ′) = 0 . (11)
+and eq. (8). This task can be achieved using the gradient method [1 5]. The functional derivatives of eqs. (9)-(11) are
+written as
+
+
+
+δF1
+δn
+δF1
+δC2
+0
+δF2
+δn
+δF2
+δC2
+δF2
+δC3
+δF3
+δn
+δF3
+δC2
+δF3
+δC3
+
+
+
+
+
+∆ n
+∆ C2
+∆ C3
+
+ =
+
+
+∆ F1
+∆ F2
+∆ F3
+
+ = −
+
+
+F1
+F2
+F3
+
+ . (12)
+The inversion of the above matrix gives the following equation to be us ed in the gradient method
+
+
+n(N + 1)
+C2(N + 1)
+C3(N + 1)
+
+ =
+
+
+n(N )
+C2(N )
+C3(N )
+
+ − α
+
+
+a c 0
+b d e
+f g h
+
+
+−1 
+
+F1(N )
+F2(N )
+F3(N )
+
+ , (13)
+where n(N ), C2(N ) and C3(N ) imply nαα ′ , Cαβα ′β ′ and Cαβγα ′β ′γ ′ at the N th iteration step, respectively, and
+a = δF1/δn, b = δF2/δn, c = δF1/δC2, d = δF2/δC2, e = δF2/δC3, f = δF3/δn, g = δF3/δC2, and h = δF3/δC3.
+The expressions for these matrices are given in ref. [12]. The matric es a, b, d, f , g, and h depend on the iteration step
+N through n(N ), C2(N ) and C3(N ). To solve eq. (13), we start from a simple ground state such as th e HF ground
+state where nαα ′ , Cαβα ′β ′ and Cαβγα ′β ′γ ′ can be easily evaluated and iterate eq. (13) until convergence is ac hieved.
+3
+A small parameter α is introduced to regulate the convergence process. When the mea n-ﬁeld potential is present, eq.
+(13) couples to eq. (8) through nαα ′. As was discussed in ref. [12], the matrix consisting of the functiona l derivatives
+of F1, F 2 and F3 on the right-hand side of eq. (13) can be derived as the small amplitu de limit of TDDM and has
+a close relation with the hamiltonian matrix of ERPA given in the next sub section [11, 16]. This indicates that the
+ground state is not independent of the excited states in ERPA. Let us discuss this point in some more detail using
+the eigenstates of the following matrix equation, which correspond s to the small amplitude limit of eqs. (5)-(7) [12],
+
+
+a c 0
+b d e
+f g h
+
+
+
+
+xµ
+yµ
+zµ
+
+ = Ω µ
+
+
+xµ
+yµ
+zµ
+
+ . (14)
+Since the closure relation is given as [16],
+∑
+µ
+
+
+xµ
+yµ
+zµ
+
+ (
+˜x∗
+µ ˜y∗
+µ ˜z∗
+µ
+)
+= I, (15)
+where (˜x∗
+µ ˜y∗
+µ ˜z∗
+µ ) is the left-hand eigenvector of eq. (14) and I is unit matrix, eq. (13) is written as
+
+
+n(N + 1)
+C2(N + 1)
+C3(N + 1)
+
+ =
+
+
+n(N )
+C2(N )
+C3(N )
+
+ − α
+∑
+Ω µ ̸=0
+1
+Ω µ
+
+
+xµ
+yµ
+zµ
+
+ (
+˜x∗
+µ ˜y∗
+µ ˜z∗
+µ
+)
+
+
+F1(N )
+F2(N )
+F3(N )
+
+ . (16)
+In eq. (16) only the eigenstates with Ω µ ̸= 0 can contribute as is understood by multiplying eq. (12) with
+(
+˜x∗
+µ ˜y∗
+µ ˜z∗
+µ
+)
+.
+The above equation indicates that the occupation matrix and the co rrelation matrices are constructed from the
+eigenvectors of eq. (14) at each iteration step which have the sam e quantum numbers as the ground state: In the
+standard Lipkin model these states are two-phonon states.
+For the numerical calculations shown below we use not eq. (16) but e q. (13) because a considerable dimension
+size of the three-body part of eq. (14) makes it impracticable to ad opt eq. (16) which requires the eigenvalues and
+eigenvectors at each iteration step. In the matrix inversion of eq. (13), however, mixing of unphysical states with
+Ω µ ≈ 0 is unavoidable. This problem can be removed by slightly shifting the un perturbed energies in a, d, and h by
+∆ ǫ so that the inverse can be taken. In the case of the Lipkin model th e typical value of ∆ ǫ used is 10 −5ǫ where ǫ is
+the level spacing of the Lipkin model hamiltonian. The obtained result s are independent of ∆ ǫ because the product
+(
+˜x∗
+µ ˜y∗
+µ ˜z∗
+µ
+)
+
+
+F1(N )
+F2(N )
+F3(N )
+
+ (17)
+vanishes for the states with Ω µ = 0. Since the inversion of the matrix on the right-hand side of eq. (1 3) is time
+consuming, the gradient method is supplemented with a time-depend ent approach as will be explained below. We
+make a comparison with a simpliﬁed version of TDDM where the three-b ody correlation matrix Cαβγα ′β ′γ ′ is neglected.
+We refer this TDDM as to TDDM1.
+B. Extended RP A
+In this section we present our extended version of RPA (ERPA) [12]. We also discuss its close connection to TDDM.
+ERPA is formulated for the following excitation operator consisting o f one-body and two-body operators
+ˆQ†
+µ =
+∑
+λλ ′
+xµ
+λλ ′ : a†
+λ aλ ′ : +
+∑
+λ 1λ 2λ ′
+1λ ′
+2
+X µ
+λ 1λ 2λ ′
+1λ ′
+2
+: a†
+λ 1 a†
+λ 2aλ ′
+2
+aλ ′
+1
+:, (18)
+where : : implies that uncorrelated parts consisting of lower-level o perators are to be subtracted; for example,
+: a†
+α ′aα : = a†
+α ′ aα − nαα ′ , (19)
+: a†
+α ′ a†
+β ′aβ aα : = a†
+α ′ a†
+β ′aβ aα − AS (nαα ′ : a†
+β ′aβ :)
+− [A(nαα ′ nββ ′) + Cαβα ′β ′]. (20)
+4
+It is assumed that the operator ˆQ†
+µ satisﬁes
+ˆQ†
+µ |Ψ 0⟩ = |Ψ µ ⟩, (21)
+ˆQµ |Ψ 0⟩ = 0. (22)
+Here, |Ψ 0⟩ is the ground state in ERPA and |Ψ µ ⟩ is an excited state. The ERPA equations are obtained from the
+equations-of-motion method [13]
+⟨Ψ 0|[[: a†
+α ′aα :, ˆH], ˆQ†
+µ ]|Ψ 0⟩ = ωµ ⟨Ψ 0|[: a†
+α ′ aα :, ˆQ†
+µ ]|Ψ 0⟩, (23)
+⟨Ψ 0|[[: a†
+α ′ a†
+β ′aβ aα :, ˆH], ˆQ†
+µ ]|Ψ 0⟩ = ωµ ⟨Ψ 0|[: a†
+α ′ a†
+β ′aβ aα :, ˆQ†
+µ ]|Ψ 0⟩, (24)
+where ωµ is the excitation energy of |Ψ µ ⟩. In the evaluation of the matrix elements we approximate the ERPA g round
+state |Ψ 0⟩ by |0⟩ which satisﬁes eqs. (8)-(11). The ERPA equations can then be writ ten in matrix form
+(
+A C
+B D
+) (
+xµ
+X µ
+)
+= ωµ
+(
+S1 T1
+T2 S2
+) (
+xµ
+X µ
+)
+, (25)
+where the matrix elements are given by
+A(αα′ : λλ′) = ⟨0|[[: a†
+α ′ aα :, ˆH], : a†
+λ aλ ′ :]|0⟩, (26)
+B(αβα′β′ : λλ′) = ⟨0|[[: a†
+α ′ a†
+β ′aβ aα :, ˆH], : a†
+λ aλ ′ :]|0⟩, (27)
+C(αα′ : λ1λ2λ′
+1λ′
+2) = ⟨0|[[: a†
+α ′ aα :, ˆH], : a†
+λ 1 a†
+λ 2 aλ ′
+2
+aλ ′
+1
+:]|0⟩, (28)
+D(αβα′β′ : λ1λ2λ′
+1λ′
+2) = ⟨0|[[: a†
+α ′ a†
+β ′aβ aα :, ˆH], : a†
+λ 1 a†
+λ 2aλ ′
+2
+aλ ′
+1
+:]|0⟩, (29)
+S1(αα′ : λλ′) = ⟨0|[: a†
+α ′ aα :, : a†
+λ aλ ′ :]|0⟩, (30)
+T1(αα′ : λ1λ2λ′
+1λ′
+2) = ⟨0|[: a†
+α ′ aα :, : a†
+λ 1 a†
+λ 2 aλ ′
+2
+aλ ′
+1
+:]|0⟩, (31)
+T2(αβα′β′ : λλ′) = ⟨0|[: a†
+α ′ a†
+β ′aβ aα :, : a†
+λ aλ ′ :]|0⟩, (32)
+S2(αβα′β′ : λ1λ2λ′
+1λ′
+2) = ⟨0|[: a†
+α ′ a†
+β ′aβ aα :, : a†
+λ 1 a†
+λ 2 aλ ′
+2
+aλ ′
+1
+:]|0⟩. (33)
+At this point we want to insist on the fact that in eqs.(9)-(11) antisy mmetrisation is fully respected and, thus, the
+matrix elements entering eq. (25) also respect antisymmetrisation fully. This is at variance of most other extensions
+of the RPA approach.
+In the following we show that eq. (25) can also be derived from the sm all amplitude limit of TDDM (eq. (14)). We
+transform the eigenvector in eq. (14) using an extended norm mat rix including three-body components as
+
+
+xµ
+X µ
+Y µ
+
+ =
+
+
+S1 T1 T13
+T2 S2 T23
+T31 T32 T33
+
+
+
+
+xµ
+yµ
+zµ
+
+ , (34)
+where
+T31 = ⟨0|[: a†
+α ′ a†
+β ′a†
+γ ′aγ aβ aα :, : a†
+λ aλ ′ :]|0⟩, (35)
+T32 = ⟨0|[: a†
+α ′ a†
+β ′a†
+γ ′aγ aβ aα :, : a†
+λ 1 a†
+λ 2 aλ ′
+2
+aλ ′
+1
+:]|0⟩ (36)
+T13 = ⟨0|[: a†
+α ′ aα :, : a†
+λ 1 a†
+λ 2 a†
+λ 3aλ ′
+3
+aλ ′
+2
+aλ ′
+1
+:]|0⟩, (37)
+T23 = ⟨0|[: a†
+α ′ a†
+β ′aβ aα :, : a†
+λ 1 a†
+λ 2a†
+λ 3 aλ ′
+3
+aλ ′
+2
+aλ ′
+1
+:]|0⟩, (38)
+T33 = ⟨0|[: a†
+α ′ a†
+β ′a†
+γ ′aγ aβ aα :, : a†
+λ 1 a†
+λ 2 a†
+λ 3 aλ ′
+3
+aλ ′
+2
+aλ ′
+1
+:]|0⟩. (39)
+Then eq. (14) is written as
+
+
+aS1 + cT2 aT1 + cS2 aT13 + cT23
+bS1 + dT2 + eT31 bT1 + dS2 + eT32 bT13 + dT23 + eT33
+f S1 + gT2 + hT31 f T1 + gS2 + hT32 f T13 + gT23 + hT33
+
+
+
+
+xµ
+X µ
+Y µ
+
+ = Ω µ
+
+
+S1 T1 T13
+T2 S2 T23
+T31 T32 T33
+
+
+
+
+xµ
+X µ
+Y µ
+
+ . (40)
+The matrix elements on the left-hand side of the above equation can be written in the form of the double commutators
+with the hamiltonian [12] except for those with f , g and h: Since [: a†
+α ′a†
+β ′ a†
+γ ′aγ aβ aα :, ˆH] contains four-body operators,
+5
+the matrices f S1 + gT2 + hT31, f T1 + gS2 + hT32, and f T13 + gT23 + hT33 cannot be expressed using the double
+commutator with the hamiltonian. The matrices A, B, C, and D in eq. (25) have the following relations with a, b,
+c, d, and e [12], A = aS1 + cT2, B = bS1 + dT2 + eT31, C = aT1 + cS2, and D = bT1 + dS2 + eT32. The expressions
+for S1, T1, T2, S2, T31, and T32 are given in ref. [12]. Thus it is shown that eq. (25) is obtained from eq . (40) by
+neglecting the three-body sections.
+As has been discussed in detail in ref. [11], the hamiltonian matrix on t he left hand side of eq. (25) is hermitian
+due to the ground-state conditions eqs. (9)-(11) which guarant ee the Jacobi’s identity
+⟨0|[[ ˆQ, ˆH], ˆP ]|0⟩ − ⟨0|[[ ˆP , ˆH], ˆQ]|0⟩ = ⟨0|[ ˆH, [ ˆP , ˆQ]]|0⟩ = 0, (41)
+where ˆP and ˆQ are either one-body or two-body operators. It is interesting to n ote that reversing the order of
+arguments and imposing hermiticity of the matrix on the left-hand sid e of eq.(25) one can arrive at eqs. (9)-(11). We
+remind in this context that Rowe [13] achieved hermiticity of his equat ion of motion method taking the arithmetic
+mean of the oﬀ diagonal elements. This somewhat artiﬁcial procedu re ﬁnds a natural solution with the considerations
+given in our present procedure. It, therefore, can be stated th at in the equation of motion method the non hermitian
+part of the matrices has to be put to zero what imposes the fulﬁllmen t of extra equations.
+As mentioned above, the hamiltonian matrix of eq. (40) is not hermitia n because of the asymmetry in the three-
+body parts: It can be stated that eq. (25) is obtained omitting the non-hermitian parts of eq. (40). The commutator
+[ ˆP , ˆQ] for three-body operators ˆP and ˆQ contains three-body, four-body and ﬁve-body operators. In o rder to fulﬁll
+the condition eq. (41) and make an extended RPA with the three-bo dy amplitude Y µ hermitian, therefore, we need
+to consider two additional ground-state conditions for four-bod y and ﬁve-body operators. The problem of a further
+extended RPA with the three-body amplitude is beyond the scope of this paper.
+The ortho-normal condition of ERPA (eq. (25)) is given as [19]
+(xµ ∗ X µ ∗)
+(
+S1 T1
+T2 S2
+) (
+xµ ′
+X µ ′
+)
+= ±δµµ ′, (42)
+where the negative sign is for a negative-energy solution. Equation (25) is equivalent to the second RPA [17, 18]
+when the ground-state correlations are neglected: Neglect of th e ground-state correlations means that nαα ′ = δαα ′ (0)
+for occupied (unoccupied) states, Cαβα ′β ′ = 0 and Cαβγα ′β ′γ = 0. In this limit, the one-body section of eq. (25),
+Axµ = ωµ S1xµ , is equivalent to standard RPA. We make a comparison with a simpliﬁed v ersion of ERPA where the
+three-body correlation matrix Cαβγα ′β ′γ ′ is neglected in the calculation of the ground state. We refer this ERP A as to
+ERPA1. When eq. (25) is solved numerically, ﬁrst the norm matrix on t he right-hand side of eq. (25) is diagonalized.
+Then eq. (25) is solved in the truncated space consisting of the eige nstates of the norm matrix with nonvanishing
+eigenvalues.
+C. Stability condition
+We discuss the relation of the ground state conditions eqs. (9) and (10) to the variational principle for the energy.
+We also discuss the stability condition of the ground state. Suppose the following variational energy
+E = ⟨0|e−i ˆF ˆHe i ˆF |0⟩, (43)
+where ˆF is an arbitrary hermitian operator given as
+ˆF =
+∑
+αα ′
+fαα ′ : a†
+α aα ′ : +
+∑
+αβα ′β ′
+Fαβα ′β ′ : a†
+α a†
+β aβ ′aα ′ : . (44)
+The energy E can be expressed as
+E = ⟨0| ˆH|0⟩ + i⟨0|[ ˆH, ˆF ]|0⟩ + 1
+2 ⟨0|[[ ˆF , ˆH], ˆF ]|0⟩ + · · · ·
+= ⟨0| ˆH|0⟩ + i
+∑
+αα ′
+⟨0|[ ˆH, : a†
+α aα ′ :]|0⟩fαα ′
++ i
+∑
+αβα ′β ′
+⟨0|[ ˆH, : a†
+α a†
+β aβ ′aα ′ :]|0⟩Fαβα ′β ′
++ 1
+2 (f ∗ F ∗)
+(
+A C
+B D
+) (
+f
+F
+)
++ · · · · . (45)
+6
+The stationary conditions eqs. (9) and (10) correspond to δE/δf αα ′ = 0 and δE/δF αβα ′β ′ = 0, respectively, and
+the single-particle hamiltonian of eq. (8) is obtained from the variatio n δ⟨0| ˆH|0⟩/δnαα ′ = hαα ′. The condition eq.
+(11) can also be obtained by adding a three-body operator to eq. ( 44). If the total wavefunction |0⟩ were used to
+calculate nαα ′ , Cαβα ′β ′, Cαβγα ′β ′γ ′, and also the four-body correlation matrix, eqs.(9)-(11) would co rrespond to the
+variational principle for the total wavefuntion. However, it is impra cticable to ﬁnd |0⟩ itself. In TDDM, eqs.(9)-(11)
+are used to obtain not the total wavefunction but nαα ′ , Cαβα ′β ′ , and Cαβγα ′β ′γ ′ by approximating a four-body density
+matrix with lower level density matrices. In this sense, TDDM deviate s from the variational principle for the total
+wavefunction, although eqs.(9)-(11) can be formally derived from the variational principle.
+The stability matrix in the last line on the right-hand side of eq. (45) is n othing but the hamiltonian matrix of
+eq. (25). As was mentioned above, the condition for the three-bo dy matrix eq. (11) in addition to eqs. (9) and (10)
+is necessary to make the stability matrix hermitian although the oper ators eqs. (18) and (44) are at most two-body
+ones. The stability condition that |0⟩ corresponds to a minimum in the energy surface is given by
+(f ∗ F ∗)
+(
+A C
+B D
+) (
+f
+F
+)
+≥ 0 (46)
+for arbitrary fαα ′ and Fαβα ′β ′. This condition is satisﬁed when the stability matrix is positive deﬁnite. In this case,
+eq. (25) has only real eigenvalues since the norm matrix in eq. (25) is hermitian [1].
+D. Relation to self-consistent RP A
+In this subsection we discuss some relation of the one-body part of eq. (25)
+Axµ = ωµ S1xµ (47)
+to SCRPA [14]. The matrix A is explicitly written as
+A(αα′ : λλ′) = ( ǫα − ǫα ′)(nλ ′α ′ δαλ − nαλ δα ′λ ′ )
++
+∑
+γγ ′
+[(⟨αγ|v|γ′λ⟩Anλ ′γ − ⟨αλ′|v|γ′γ⟩Anγλ )nγ ′α ′
+− (⟨γ′γ|v|α′λ⟩Anλ ′γ − ⟨γ′λ′|v|α′γ⟩Anγλ )nαγ ′ ]
+−
+∑
+γγ ′γ ′′
+(⟨αγ|v|γ′γ′′⟩Cγ ′γ ′′λγ δα ′λ ′ + ⟨γγ ′|v|α′γ′′⟩Cλ ′γ ′′γγ ′δαλ )
++
+∑
+γγ ′
+(⟨αγ|v|λγ′⟩ACλ ′γ ′α ′γ + ⟨λ′γ|v|α′γ′⟩ACαγ ′λγ )
+−
+∑
+γγ ′
+(⟨αλ′|v|γγ ′⟩Cγγ ′α ′λ + ⟨γγ ′|v|α′λ⟩Cαλ ′γγ ′), (48)
+where the subscript A means that the corresponding matrix is antisymmetrized. The norm matrix S1 is given by
+S1(αα′ : λλ′) = nλ ′α ′ δαλ − nαλ δα ′λ ′ . (49)
+The ﬁrst two terms with Cαβα ′β ′ on the right-hand side of eq. (48) describe the self-energy of the particle - hole state
+due to ground-state correlations [20]. The last four terms with Cαβα ′β ′ may be interpreted as the modiﬁcation of the
+particle - hole interaction caused by ground-state correlations [20 ]. Equation (47) is formally the same as the SCRPA
+equation. Both equations include the eﬀects of ground-state cor relations through nαα ′ and Cαβα ′β ′. The diﬀerence
+between eq. (47) and the SCRPA equation lies in the fact that nαα ′ and Cαβα ′β ′ are self-consistently generated from
+xµ
+αα ′ in SCRPA, while they are given by eqs. (9) and (10), independently of eq. (47). Another diﬀerence stems from
+the fact that eq. (9) is used in SCRPA to determine the optimal single particle basis whereas the occupation numbers
+are obtained from a separate relation [14].
+III. APPLICATION TO LIPKIN MODEL
+A. Lipkin model
+The Lipkin model [6] describes an N-fermions system with two N-fold d egenerate levels with energies ǫ/2 and −ǫ/2,
+respectively. The upper and lower levels are labeled by quantum numb er p and −p, respectively, with p = 1, 2, ..., N.
+7
+We consider the standard hamiltonian
+ˆH = ǫ ˆJz + V
+2 ( ˆJ 2
++ + ˆJ 2
+−), (50)
+where the operators are given as
+ˆJz = 1
+2
+N∑
+p=1
+(a†
+pap − a−p†a−p), (51)
+ˆJ+ = ˆJ †
+− =
+N∑
+p=1
+a†
+pa−p. (52)
+Since eq. (9) keeps the property np−p = n−pp = 0, the single-particle state in eq. (8) is equivalent to the original
+single-particle basis labeled by −p and p. When the matrix inversion in eq. (13) is taken, it is essential to pres erve
+symmetry properties of all the matrices. Therefore, we use the s o-called m scheme to deﬁne each matrix throughout
+our numerical calculations: For example, n−p−p, n−p′−p′ , C−p−p′pp′ , C−p′−ppp′ , C−p−p′p′p and C−p′−pp′p with p and
+p′ = 1 , 2, ..., N are treated as independent quantities. Of course, eqs. (9) and ( 10) guarantee n−p−p=n−p′−p′ and
+C−p−p′pp′ = −C−p′−ppp′ = −C−p−p′p′p = C−p′−pp′p. Let us mention that due to the use of the m-scheme the
+dimension of the matrices can become considerable, even for the ca se of the Lipkin model. One is forced to do that,
+otherwise the full antisymmetry can not be maintained.
+B. Ground state
+Since eq. (13) involves the time-consuming inversion of a large matrix , we ﬁrst ﬁnd an approximate solution for
+eqs. (9) - (11) to be used in the gradient method using the following t ime-dependent approach [15, 21]: Starting
+with the HF ground state, we solve eqs. (5)-(7) using the time-dep endent interaction V (t) = V × t/τ with large τ
+[21, 22]. We tested the reliability of this time-dependent method for a n N = 2 system, to which the truncation of
+the reduced density matrices up to the two-body level should give t he exact solution. Since there are no three-body
+density matrices, Eq. (6) for the N = 2 system is modiﬁed to
+i¯h d
+dt ραβα ′β ′ = ( ǫα + ǫβ − ǫα ′ − ǫβ ′)ραβα ′β ′
++
+∑
+λ 1λ 2
+[⟨αβ|v|λ1λ2⟩ρλ 1λ 2α ′β ′ − ⟨λ1λ2|v|α′β′⟩ραβλ 1λ 2 ], (53)
+where ραβα ′β ′ = A(nαα ′ nββ ′) + Cαβα ′β ′ . We found that τ = 2 π¯h/ǫ × 10 is suﬃciently large to suppress the spurious
+mixing of excited states and the obtained ground-state energy is e quivalent to the exact one −
+√
+ǫ2 + V 2 within
+numerical accuracy. After the time-dependent calculation eq. (1 3) is then solved for a few hundred iterations to
+achieve the conditions eqs. (9) - (11) for each matrix element, whic h guarantee the hermiticity of the hamiltonian
+matrix of eq. (25). Since the time dependent approach already give s a good approximate solution for eqs. (9) - (11),
+the change in the total energy during the iteration process of eq. (13) is negligible.
+The ground-state energy in TDDM (solid line) is shown in ﬁg. 1 as a func tion of χ = (N − 1)V /ǫ for N = 4. The
+results with TDDM1 and the exact ground-state energies are show n in ﬁg. 1 with the dotted and dot-dashed lines,
+respectively. As seen in ﬁg. 1, the ground-state energies in TDDM1 are overestimated. This unpleasant feature of
+TDDM1 is removed by the inclusion of the three-body correlation mat rix and the agreement with the exact solution
+is much improved. In order to see the ground-state properties in m ore detail, we show the occupation probability
+of the upper level npp and the two-body correlation matrix Cpp′−p−p′ in ﬁgs. 2 and 3, respectively. The solid and
+dotted lines denote the results in TDDM and TDDM1, respectively. Th e exact values are shown with the dot-dashed
+lines. Figures 2 and 3 show that the agreement of these matrices wit h the exact ones is also improved by the inclusion
+of the three-body correlation matrices. As is understood from eq s. (A2) and (A7) in the Appendix, the three-body
+correlation matrix interferes in particle - particle and particle - hole c orrelations and presumably plays a role in
+screening these two-body correlations. In order to investigate t he eﬀects of the three-body correlations in larger N
+systems, we calculate the ground-state energies in TDDM for N = 8. As shown in ﬁg. 4, an improvement similar to
+the N = 4 case is achieved.
+The importance of the three-body correlation matrix in the standa rd Lipkin model is strongly in contrast to the
+case of an extended Lipkin-model hamiltonian which we have previous ly studied [10, 12]. The extended Lipkin model
+8
+/s48/s46/s48 /s48/s46/s53 /s49/s46/s48 /s49/s46/s53 /s50/s46/s48
+/s45/s51/s46/s53
+/s45/s51/s46/s48
+/s45/s50/s46/s53
+/s45/s50/s46/s48/s69/s48/s32/s47/s32
+FIG. 1: Ground-state energy in TDDM (solid line) as a functio n of χ = ( N − 1)|V |/ǫ for N = 4. The dotted line depicts the
+results in TDDM1 where the three-body correlation matrix is neglected, and the dot-dashed line the exact values.
+/s48/s46/s48 /s48/s46/s53 /s49/s46/s48 /s49/s46/s53 /s50/s46/s48
+/s48/s46/s48
+/s48/s46/s49
+/s48/s46/s50
+/s48/s46/s51
+/s110/s112/s112
+FIG. 2: Occupation probability of the upper state as a functi on of χ for N = 4. The meaning of the three lines is the same as
+in ﬁg. 1.
+/s48/s46/s48 /s48/s46/s53 /s49/s46/s48 /s49/s46/s53 /s50/s46/s48
+/s48/s46/s48
+/s48/s46/s49
+/s48/s46/s50
+/s48/s46/s51/s67/s112/s112/s39/s45/s112/s45/s112/s39
+FIG. 3: Two-body correlation matrix Cpp′− p− p′ as a function of χ for N = 4. The meaning of the three lines is the same as in
+ﬁg. 1.
+9
+/s48/s46/s48 /s48/s46/s53 /s49/s46/s48 /s49/s46/s53 /s50/s46/s48
+/s45/s54/s46/s48
+/s45/s53/s46/s53
+/s45/s53/s46/s48
+/s45/s52/s46/s53
+/s45/s52/s46/s48
+/s69/s48/s32/s47/s32
+FIG. 4: Ground-state energy as a function of χ for N = 8. The meaning of the three lines is the same as in ﬁg. 1.
+/s48/s46/s53 /s49/s46/s48 /s49/s46/s53 /s50/s46/s48
+/s48
+/s49/s48/s48
+/s50/s48/s48
+/s51/s48/s48
+/s52/s48/s48
+/s83/s49/s32
+/s69/s32/s47/s32
+FIG. 5: Strength function of the one-phonon state in ERPA (so lid line) for χ = 1 and N = 4. The dotted and dot-dashed lines
+depict the result in ERPA1 and the exact solution, respectiv ely.
+/s48/s46/s53 /s49/s46/s48 /s49/s46/s53 /s50/s46/s48 /s50/s46/s53
+/s48
+/s49/s48/s48
+/s50/s48/s48
+/s51/s48/s48
+/s52/s48/s48
+/s53/s48/s48
+/s83/s49/s32
+/s69/s32/s47/s32
+FIG. 6: Strength function of the one-phonon state for χ = 1.5 and N = 4. The meaning of the three lines is the same as in ﬁg.
+5.
+10
+/s48/s46/s53 /s49/s46/s48 /s49/s46/s53 /s50/s46/s48
+/s48
+/s49
+/s50
+/s51
+/s52
+/s69/s32/s47/s32
+FIG. 7: Excitation energies of the one-phonon state (lower p art) and the two-phonon state (upper part) as a function of χ for
+N = 4. The ﬁlled and open squares depict the results in ERPA and E RPA1, respectively. The ﬁlled and open triangles indicate
+the results in IRPA and IRPA1, respectively. The dashed line depicts the results in RPA. The exact solutions are given by t he
+solid lines.
+has the additional particle scattering term ( U term) [7, 8]
+1
+2 U [ ˆJz( ˆJ+ + ˆJ−) + ( ˆJ+ + ˆJ−) ˆJz]. (54)
+This U term generates a mean-ﬁeld potential [8] and gives nonzero oﬀ-dia gonal elements of the occupation matrix,
+that is, np−p ̸= 0 and n−pp ̸= 0. Therefore, a signiﬁcant portion of the interaction energy inclu ding the V term in eq.
+(50) is carried as the mean-ﬁeld energy [10], almost independently of the strength of the U term. As a consequence,
+the two-body correlation matrix and the correlation energy becom e quite small in the extended Lipkin model. The
+eﬀect of the three-body correlations on the ground-state ener gy was found even smaller when the U term was included
+[12]. In the case of the extended Lipkin model the ground-state en ergies calculated in TDDM1 are always above the
+exact values and such an overbound problem as in the standard Lipk in model does not occur. Now the importance of
+the three-body ground-state correlations in the standard Lipkin model is understood as a consequence of lack of the
+mean-ﬁeld energy, which makes the truncation of the reduced den sity matrices up to the two-body level unreliable
+and enhances the relative importance of the three-body correlat ions.
+The standard Lipkin model has deformed HF solutions with n−pp ̸= 0 for χ > 1 [1], which consequently carry
+the mean-ﬁeld energy which sums up already a lot of correlations. On e may then think that the truncation up to
+the two-body level be reliable when the two-body correlation matrix is deﬁned using the deformed HF single-particle
+states. To answer this question, we performed a simpliﬁed gradient -method calculation where the three-body parts in
+eq. (13) are neglected and a deformed HF state at χ = 1 .5 is used as the initial state. We found that the converged
+results are the same as those shown in ﬁgs. 1-3: The residual inter action plays a role in restoring the symmetry of eq.
+(50) which is violated by the deformed HF solution. In other words st arting with a ’deformed’ solution, at the end of
+the iteration cycle the solution is back to ’sphericity’. Thus the use of the deformed HF basis does not improve the
+two-body level approximation for the standard Lipkin model. This so mewhat surprising feature may be due to the
+small number of particles considered. It is known that standard de formed RPA becomes exact in the macroscopic
+limit. Therefore, we suppose that considering higher particle numbe rs, the deformation will catch on when we start
+with the deformed HF state.
+C. Excited states
+For the evaluation of the excited states, we use the ERPA equation (25). First we present the results for the
+one-phonon states in the N = 4 system excited by the operator ˆQ = ˆJ+ + ˆJ−. Figures 5 and 6 show the strength
+functions of the one-phonon states at χ = 1 and χ = 1 .5, respectively. To facilitate easy comparison among various
+calculations, we smooth the strength functions with an artiﬁcial wid th Γ FWHM/ǫ = 0.025. The solid and dotted lines
+denote the results in ERPA and ERPA1, respectively. The exact res ults are shown with the dot-dashed lines. The
+results in ERPA almost coincide with the exact ones, while those in ERPA 1 are located above the exact solutions.
+11
+/s50/s46/s48 /s50/s46/s53 /s51/s46/s48 /s51/s46/s53
+/s48
+/s53/s48/s48
+/s49/s48/s48/s48
+/s49/s53/s48/s48
+/s50/s48/s48/s48
+/s50/s53/s48/s48
+/s83/s50/s32
+/s69/s32/s47/s32
+FIG. 8: Strength function of the two-phonon state in ERPA (so lid line) for χ = 1 and N = 4. The dotted and dot-dashed lines
+depict the result in ERPA1 and the exact solution, respectiv ely.
+/s50/s46/s48 /s50/s46/s53 /s51/s46/s48 /s51/s46/s53
+/s48
+/s53/s48/s48
+/s49/s48/s48/s48
+/s49/s53/s48/s48
+/s50/s48/s48/s48
+/s83/s50/s32
+/s69/s32/s47/s32
+FIG. 9: Strength function of the two-phonon state for χ = 1.5 and N = 4. The meaning of the three lines is the same as in ﬁg.
+8.
+Note that RPA breaks down at χ = 1 [1] as shown in ﬁg. 7. At χ = 1.5 the eﬀect of the three-body correlations on the
+one-phonon state is drastic because it signiﬁcantly improves the oc cupation probabilities and the two-body correlation
+matrices as shown in ﬁgs 2 and 3. Thus it is found that the inclusion of t he three-body ground-state correlations also
+gives a better description of the one-phonon state in the standar d Lipkin model. The χ dependence of the excitation
+energy of the one-phonon state is shown in ﬁg. 7 for various appro ximations. The ﬁlled triangles indicate the results
+obtained from eq. (47) using the same nαα ′ and Cαβα ′β ′ as those used in ERPA. This approximation is referred to
+as the improved RPA (IRPA). Similarly, the results obtained from eq. (47) with the same nαα ′ and Cαβα ′β ′ as those
+used in ERPA1 are referred to as the IRPA1 results (open triangles ). The excitation energies of the one-phonon state
+in IRPA and IRPA1 are larger than the exact values and increase with increasing χ. This is explained by the increase
+in the self-energy terms in eq. (48). Since the deviation of the occu pation matrix and correlation matrix from the
+exact values is larger in TDDM1 than in TDDM, the excitation energies in IRPA1 are larger than those in IRPA. The
+diﬀerence between the results in IRPA and ERPA and also between IR PA1 and ERPA1 is due to the coupling of the
+one-body amplitudes to the two-body ones. Since the parity of the number of particle - hole pairs is conserved in the
+standard Lipkin model, the one-body amplitudes can couple to the tw o-body amplitudes that have the same parity:
+For example, xµ
+p−p couples to X µ
+pp′−pp′ , which expresses excitations built on the two particle - two hole conﬁ gurations
+in the ground state. As shown in ﬁg. 7, the coupling to the two-body amplitudes is essential to obtain the one-phonon
+states with accurate excitation energies.
+Now we discuss the two-phonon states excited by ˆQ2 = ( ˆJ+ + ˆJ−)2. The results at χ = 1 and 1.5 are shown in
+12
+ﬁgs. 8 and 9, respectively. Due to the parity conservation, the tw o-phonon state excited by ˆQ2 does not couple to
+the one-phonon state in the standard Lipkin model. The excitation e nergies both in ERPA and ERPA1 are higher
+than the exact value and the improvement of the two-phonon stat e due to the inclusion of the three-body correlations
+is not so large as in the case of the one-phonon state. This indicates that the correlations among the two-body
+amplitudes are not suﬃcient to lower the energy of the two-phonon state, suggesting the importance of the coupling
+to the three-body amplitudes which are neglected in ERPA and ERPA1 . The χ dependence of the excitation energy
+of the two-phonon state is also shown in ﬁg. 7.
+We also studied the stability condition by diagonalizing the stability matr ix eq. (46). We found that all the
+eigenvalues associated with the physical operators such as J+, J− and Jz which consist of the hamiltonian eq. (50)
+are positive deﬁnite. This corresponds to the real eigenvalues of e q. (25) for the one-phonon and two-phonon states
+excited by Q = J+ + J− and Q2. However, the stability matrix has some negative eigenvalues for ot her degrees of
+freedom, though their absolute values are small; They are at most 1 % of the maximum positive eigenvalue for the
+physical operators. This means that the stability condition is not alw ays satisﬁed for unphysical states. These states
+correspond to non-collective phonons as discussed in ref. [20].
+IV. SUMMAR Y
+The density-matrix formalism which includes the eﬀects of three-bo dy correlations on the ground state was applied
+to the standard Lipkin model. It was found that the inclusion of the t hree-body correlations removes unpleasant
+features of the two-body level approximation and drastically impro ves the ground-state properties. It was discussed
+that the importance of the three-body correlations in the standa rd Lipkin model is attributed to the fact that it
+does not have the mean-ﬁeld contributions when the conservation of the number of particle - hole pairs is respected.
+The extended RPA built on the ground state with three-body corre lations was applied to the one-phonon and two-
+phonon states. It was found that the spectrum of the one-phon on state is drastically improved by the inclusion of
+the three-body correlations. In the case of the two-phonon sta tes, however, the agreement with the exact solutions is
+not so good as in the case of the one-phonon states, which sugges ts the importance of the coupling to the three-body
+amplitudes. Inclusion of the three-body correlations for realistic n uclei may be impracticable. Fortunately, mean-
+ﬁeld eﬀects are quite important in nuclei and the mean-ﬁeld theories give good ﬁrst description for ground states
+and collective excitations. Therefore, the truncation up to the tw o-body level may be justiﬁed as in the case of the
+extended Lipkin model. When the three-body correlation matrix is ne glected, the hermiticity of the hamiltonian
+matrix in ERPA is not guaranteed. Our applications so far performed for realistic cases indicate that this does not
+cause any serious problems.
+Appendix A
+F1, F2 and F3 in eqs. (9)-(11) are shown. The single-particle states which satisf y the HF-like equation hφα = ǫφα
+are used.
+F1(αα′) = ( ǫα − ǫα ′ )nαα ′ +
+∑
+λ 1λ 2λ 3
+(Cλ 1λ 2α ′λ 3 ⟨αλ3|v|λ1λ2⟩ − Cαλ 3λ 1λ 2 ⟨λ1λ2|v|α′λ3⟩), (A1)
+F2(αβα′β′) = ( ǫα + ǫβ − ǫα ′ − ǫβ ′)Cαβα ′β ′ + Bαβα ′β ′ + Pαβα ′β ′ + Hαβα ′β ′ + Tαβα ′β ′, (A2)
+F3(αβγα ′β′γ′) = ( ǫα + ǫβ + ǫγ − ǫα ′ − ǫβ ′ − ǫγ ′)Cαβγα ′β ′γ ′
++ I(αβγα ′β′γ′) − I(βαγα ′β′γ′) − I(γβαα ′β′γ′)
+− I ∗(α′β′γ′αβγ ) + I ∗(β′α′γ′αβγ ) + I ∗(γ′β′α′αβγ )
++ J(αβγα ′β′γ′) + J(βγαα ′β′γ′) − J(αγβα ′β′γ′)
+− J ∗(α′β′γ′αβγ ) − J ∗(β′γ′α′αβγ ) + J ∗(α′γ′β′αβγ ), (A3)
+where
+Bαβα ′β ′ =
+∑
+λ 1λ 2λ 3λ 4
+⟨λ1λ2|v|λ3λ4⟩A[(δαλ 1 − nαλ 1 )(δβλ 2 − nβλ 2)nλ 3α ′ nλ 4β ′
+− nαλ 1nβλ 2 (δλ 3α ′ − nλ 3α ′)(δλ 4β ′ − nλ 4β ′)], (A4)
+Pαβα ′β ′ =
+∑
+λ 1λ 2λ 3λ 4
+⟨λ1λ2|v|λ3λ4⟩[(δαλ 1 δβλ 2 − δαλ 1 nβλ 2 − nαλ 1 δβλ 2 )Cλ 3λ 4α ′β ′
+13
+− (δλ 3α ′ δλ 4β ′ − δλ 3α ′ nλ 4β ′ − nλ 3α ′ δλ 4β ′ )Cαβλ 1λ 2 ], (A5)
+Hαβα ′β ′ =
+∑
+λ 1λ 2λ 3λ 4
+⟨λ1λ2|v|λ3λ4⟩A[δαλ 1 (nλ 3α ′ Cλ 4βλ 2β ′ − nλ 3β ′Cλ 4βλ 2α ′)
++ δβλ 2(nλ 4β ′Cλ 3αλ 1α ′ − nλ 4α ′ Cλ 3αλ 2β ′)
+− δα ′λ 3 (nαλ 1 Cλ 4βλ 2β ′ − nβλ 1 Cλ 4αλ 2β ′)
+− δβ ′λ 4(nβλ 2 Cλ 3αλ 1α ′ − nαλ 2 Cλ 3βλ 1α ′ )], (A6)
+Tαβα ′β ′ =
+∑
+λ 1λ 2λ 3λ 4
+⟨λ1λ2|v|λ3λ4⟩[δαλ 1 Cλ 3λ 4βα ′λ 2β ′ + δβλ 2Cλ 4λ 3αβ ′λ 1α ′
+− δα ′λ 3 Cαλ 4βλ 1λ 2β ′ − δβ ′λ 4 Cβλ 3αλ 2λ 1α ′], (A7)
+I(αβγα ′β′γ′) =
+∑
+λ 1λ 2λ 3
+{⟨αλ3|v|λ1λ2⟩(nγλ 3 Cλ 1λ 2βα ′β ′γ ′ − nβλ 3Cλ 1λ 2γα ′β ′γ ′ + Cλ 1λ 2α ′β ′ Cβγγ ′λ 3
+− Cλ 1λ 2α ′γ ′Cβγβ ′λ 3 + Cλ 1λ 2β ′γ ′Cβγα ′λ 3 )
++ ⟨αλ3|v|λ1λ2⟩A[nλ 1α ′Cλ 2βγβ ′γ ′λ 3 − nλ 1β ′Cλ 2βγα ′γ ′λ 3 + nλ 1γ ′Cλ 2βγα ′β ′λ 3
++ Cλ 2βγ ′λ 3 Cλ 1γα ′β ′ + Cλ 2γα ′λ 3 Cλ 1βγ ′β ′ + Cλ 2γβ ′λ 3 Cλ 1βα ′γ ′ − Cλ 2γγ ′λ 3 Cλ 1βα ′β ′
+− Cλ 2βα ′λ 3 Cλ 1γγ ′β ′ − Cλ 2ββ ′λ 3 Cλ 1γα ′γ ′
++ nγλ 3(nλ 1α ′Cλ 2ββ ′γ ′ − nλ 1β ′ Cλ 2βα ′γ ′ + nλ 1γ ′Cλ 2βα ′β ′)
+− nβλ 3(nλ 1α ′ Cλ 2γβ ′γ ′ − nλ 1β ′ Cλ 2γα ′γ ′ + nλ 1γ ′Cλ 2γα ′β ′)
++ nλ 1α ′ (nλ 2β ′Cβγγ ′λ 3 − nλ 2γ ′Cβγβ ′λ 3 ) + nλ 1β ′nλ 2γ ′Cβγα ′λ 3 ]}, (A8)
+J(αβγα ′β′γ′) =
+∑
+λ 1λ 2
+[⟨αβ|v|λ1λ2⟩A(nλ 1α ′ Cλ 2γβ ′γ ′ − nλ 1β ′Cλ 2γα ′γ ′ + nλ 1γ ′Cλ 2γα ′β ′)
++ ⟨αβ|v|λ1λ2⟩Cλ 1λ 2γα ′β ′γ ′]. (A9)
+The matrix Bαβα ′β ′ does not contain Cαβα ′β ′ and may be called the Born term, whereas Pαβα ′β ′ and Hαβα ′β ′ contain
+Cαβα ′β ′ and describe particle-particle (and hole-hole) and particle-hole cor relations to inﬁnite order, respectively.
+The last term on the right-hand side of eq. (A2) expresses the con tribution of the three-body correlation matrix.
+The matrix J(αβγα ′β′γ′) includes particle-particle (and hole-hole) correlations, while I(αβγα ′β′γ′) contains both
+particle-particle and particle-hole correlations.
+[1] P. Ring and P. Schuck, The Nuclear Many-Body Problem , (Springer-Verlag, Berlin, 1980).
+[2] S. J. Wang and W. Cassing, Ann. Phys. 159, 328 (1985); W. Cassing and S. J. Wang, Z. Phys. A 328, 423 (1987).
+[3] M. Gong and M. Tohyama, Z. Phys. A 335, 153 (1989).
+[4] A. Peter, W. Cassing, J. M. H¨ auser, A. Pﬁtzner, Nucl. Phy s. A 573, 93 (1994).
+[5] M. Tohyama and M. Gong, Z. Phys. A 332, 269 (1989).
+[6] H. J. Lipkin, N. Meshkov and A. J. Glick, Nucl. Phys. 62, 188 (1965).
+[7] S. T. Yang, J. Heyer and T. T. S. Kuo, Nucl. Phys. A448, 420 (1986).
+[8] D. Shindo and K. Takayanagi, Phys. Rev. C 68, 014312 (2003).
+[9] S. Takahara, M. Tohyama and P. Schuck, Phys. Rev. C 70, 057307 (2004).
+[10] M. Tohyama, Phys. Rev. C 75, 044310 (2007).
+[11] M. Tohyama and P. Schuck, Eur. Phys. J. A 32, 139 (2007).
+[12] M. Tohyama and P. Schuck, Eur. Phys. J. A 36, 349 (2008).
+[13] D. J. Rowe, Rev. Mod. Phys. 40, 153 (1968).
+[14] J. Dukelsky and P. Schuck, Nucl. Phys. A 512, 466 (1990); J. Dukelsky, G. R¨ opke, P. Schuck, Nucl. Phys. A 628, 17(1998);
+D.S. Delion, P. Schuck, J. Dukelsky, Phys. Rev. C 72, 064305 (2005).
+[15] M. Tohyama, S. Takahara and P. Schuck, Eur. Phys. J. A 21, 217 (2004).
+[16] M. Tohyama and P. Schuck, Eur. Phys. J. A 19, 203 (2004).
+[17] J. Sawicki, Phys. Rev. 126, 2231 (1962).
+[18] S. Dro˙ zd˙ z, S. Nishizaki, J. Speth and J. Wambach, Phys. Rep. 197, 1 (1990).
+[19] K. Takayanagi, K. Shimizu and A. Arima, Nucl. Phys. A 477, 205 (1988).
+[20] D. Janssen and P. Schuck, Z. Phys. A 339, 43 (1991).
+[21] A. Pﬁtzner, W. Cassing, and A. Peter, Nucl. Phys. A 577, 753 (1994).
+[22] M. Tohyama, J. Phys. Soc. Jpn. 78, 104003 (2009).

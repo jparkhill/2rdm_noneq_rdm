@@ -1,0 +1,2650 @@
+Propagating two-particle reduced density matrices without wavefunctions
+Fabian Lackner,1,∗ Iva Bˇ rezinov´ a,1,† Takeshi Sato,2 Kenichi L. Ishikawa,2, 3 and Joachim Burgd¨ orfer1
+1Institute for Theoretical Physics, Vienna University of Technology,
+Wiedner Hauptstraße 8-10/136, 1040 Vienna, Austria, EU
+2Photon Science Center, Graduate School of Engineering,
+The University of Tokyo,7-3-1 Hongo, Bunkyo-ku, Tokyo 113-8656, Japan
+3Department of Nuclear Engineering and Management,
+School of Engineering, The University of Tokyo,
+7-3-1 Hongo, Bunkyo-ku, Tokyo 113-8656, Japan
+(Dated: November 4, 2014)
+Describing time-dependent many-body systems where correlation eﬀects play an important role
+remains a major theoretical challenge. In this paper we develop a time-dependent many-body theory
+that is based on the two-particle reduced density matrix (2-RDM). We develop a closed equation
+of motion for the 2-RDM employing a novel reconstruction functional for the three-particle reduced
+density matrix (3-RDM) that preserves norm, energy, and spin symmetries during time propaga-
+tion. We show that approximately enforcingN-representability during time evolution is essential for
+achieving stable solutions. As a prototypical test case which features long-range Coulomb interac-
+tions we employ the one-dimensional model for lithium hydride (LiH) in strong infrared laser ﬁelds.
+We probe both one-particle observables such as the time-dependent dipole moment and two-particle
+observables such as the pair density and mean electron-electron interaction energy. Our results are
+in very good agreement with numerically exact solutions for the N-electron wavefunction obtained
+from the multiconﬁgurational time-dependent Hartree-Fock method.
+I. INTRODUCTION
+The direct solution of the time-dependent N-particle
+Schr¨ odinger equation has remained a major challenge for
+systems with a large number of particles N. This is
+in particular true for the time-dependent many-electron
+problem in atoms, molecules, and condensed matter with
+the long-range Coulomb interactions and Coulomb con-
+tinua ubiquitously present. Numerically exact solutions
+have become available only for small systems such as He
+[1–5] or H 2 [6–11] as the numerical eﬀort grows facto-
+rially with particle number N. Ground state proper-
+ties of large systems involving tens to hundreds of parti-
+cles can routinely be calculated employing sophisticated
+methods developed in quantum chemistry and solid state
+physics such as conﬁguration interaction methods, cou-
+pled cluster methods, perturbative methods, and density
+functional theory (DFT) (see e.g. [12, 13]). An analo-
+gous development for time-dependent systems and sys-
+tems far from the ground state is still in its infancy. The
+time-dependent extension of DFT, the time-dependent
+density functional theory (TDDFT) (for a review see
+[14]) features a favorable linear scaling with N and al-
+lows the approximate treatment of large and extended
+systems (see e.g. [15–20]). However, accurate exchange-
+correlation functionals beyond the adiabatic limit con-
+taining memory eﬀects are not yet known. Alternatively,
+the so-called time-dependent current-density functional
+theory (TDCDFT) has been proposed (for a review see
+[14]) for which, up to now, however only few approxima-
+∗ fabian.lackner@tuwien.ac.at
+† iva.brezinova@tuwien.ac.at
+tions for the exchange-correlation vector potential have
+become available [21]. On a more conceptual level, only
+physical observables that are explicit functionals of the
+reduced one-particle density (or current density) can be
+easily determined from TDDFT. Read-out functionals of
+two-particle observables are still largely missing [22–24].
+Extensions of the direct solution of the N-electron
+Schr¨ odinger equation beyond the two-electron prob-
+lem employs the multiconﬁgurational time-dependent
+Hartree-Fock method (MCTDHF) ([25, 26]). In princi-
+ple, the MCTDHF method converges to the numerically
+exact solution if a suﬃcient number of orbitals and con-
+ﬁgurations is used. However, its numerical eﬀort scales
+factorially with the number of particles. A recently pro-
+posed variant, the time-dependent complete active space
+self-consistent ﬁeld (TD-CASSCF) method [27] which, in
+analogy to its ground state counterpart, decomposes the
+state space into frozen, dynamically polarizable, and dy-
+namically active orbitals can considerably reduce the nu-
+merical eﬀort yet eventually still leads to an factorial scal-
+ing with the number of active electrons N⋆ (N⋆ <N ).
+Our point of departure is the recent advance in the
+ground-state description of larger electronic systems
+employing the two-particle reduced density matrix (2-
+RDM). Going back to the pioneering work in the 1950s
+[28, 29], the 2-RDM method has recently matured to
+accuracies that often outperform those of CCSD(T) at
+similar or smaller numerical cost (see e.g. [30–32]). Simi-
+lar to DFT, this method bypasses the need for the N-
+particle wavefunction but employs the 2-RDM rather
+than the one-particle density as the fundamental quan-
+tity. Unlike DFT, however, the energy and all two-
+particle observables can be expressed exactly in terms of
+the 2-RDM without invoking an approximate exchange-
+arXiv:1411.0495v1  [physics.atom-ph]  3 Nov 2014
+2
+correlation functional or read-out functional. Proposed
+methods for calculating the 2-RDM include variational
+minimization of the energy as a functional of the 2-
+RDM, solution of the contracted Schr¨ odigner equation,
+and solution of the antihermitian part of the contracted
+Schr¨ odinger equation (for a review see [33]). A major
+challenge in applying the 2-RDM method is to enforce
+N-representability conditions, i.e. to constrain the trial 2-
+RDMs to those that represent reductions of either pure or
+ensembles of fermionicN-particle states [34–36]. Despite
+recent progress [37], a complete list of (pure state) N-
+representability conditions is not known and one is lim-
+ited to few necessary but not suﬃcientN-representability
+conditions in numerical implementations.
+The present work aims at extending this theoretical de-
+velopment to the time-dependent 2-RDM (TD-2RDM)
+in the presence of external time-dependent potentials.
+A prototypical case is an N-electron system driven by
+a (moderately) strong laser ﬁeld. The ultimate goal is
+to propagate 2-RDMs without invoking wavefunctions.
+There have been only few previous attempts along these
+lines for nuclear [38–40], atomic [41] and condensed mat-
+ter systems [42]. They all encountered instabilities due
+to the intrinsic nonlinearity of the equation of motion for
+the 2-RDM resulting in the violation of positive deﬁnite-
+ness.
+In the present paper we take two major steps towards
+an accurate TD-2RDM method which scales polynomi-
+ally with particle number. We develop a novel recon-
+struction functional that allows closure of the equation of
+motion for the 2-RDM without introducing uncontrolled
+violations of norm, spin, and energy conservation. Sec-
+ondly, we impose two necessary N-representability con-
+straints “on the ﬂy” during the time evolution thereby
+controlling dynamical instabilities previously observed
+[38–42]. As a prototypical test case we apply our method
+to the electronic dynamics of a 1D model of LiH (a
+four electron system) in strong laser ﬁelds of up to
+I = 8× 1014W/cm2. We investigate both the linear as
+well as nonlinear response of this system. For this sys-
+tem, numerically exact results can be determined by the
+MCTDHF method against which we gauge our results.
+This method also serves as a source for the initial state
+within the TD-2RDM calculations for which we take the
+ﬁeld-free ground state. We compare with results from
+TDDFT and time-dependent Hartree-Fock (TDHF) cal-
+culations.
+The paper is structured as follows: In Sec. II we brieﬂy
+review the equation of motion for the 2-RDM being one
+element of the Bogoliubov-Born-Green-Kirkwood-Yvon
+(BBGKY) hierarchy and its closure in terms of approxi-
+mate generalized collision integrals. We introduce a new
+reconstruction functional for these integrals in Sec. III.
+Preserving a stable dynamical evolution requires enforc-
+ingN-representability constraints (or “puriﬁcation”) “on
+the ﬂy”, implementation of which is discussed in Sec. IV.
+Numerical results for typical one-body observables such
+as the time-dependent dipole moment and two-body ob-
+servables (interaction energy) for LiH are presented in
+Sec. V. Throughout this paper we use atomic units
+(e = ℏ =m = 1).
+II. EQUATION OF MOTION FOR THE 2-RDM
+A. Basic properties
+The p-particle reduced density matrix ( p-RDM)
+D(x1...x p;x′
+1...x ′
+p;t) of anN-particle system in a pure
+state Ψ is determined by tracing out the coordinates of
+the remainingN−p particles from the bilinear form ΨΨ∗,
+D(x1,...,x p;x′
+1,...,x ′
+p;t) =
+N!
+(N−p)!
+∫
+Ψ(x1...x p,xp+1...x N,t )
+× Ψ∗(x′
+1...x ′
+p,xp+1...x N,t )dxp+1...dxN, (1)
+where xi = (zi,σi) comprises the space coordinate zi
+and the spin coordinate σi∈{↑ ,↓}. The p-RDMs are
+hermitian and antisymmetric with respect to exchange
+of the x or x′ variables. We normalize the p-RDMs to
+N!
+(N−p)!. Following [43], we use for the 2-RDM (Eq. 1
+with p = 2) the following short-hand notation
+D12(t) =D(x1,x 2;x′
+1,x′
+2;t). (2)
+The equation of motion for D12 is given by the second
+member of the BBGKY hierarchy as [43]
+i∂tD12 = [H12,D 12] + Tr3 [W13 +W23,D 123]
+= [H12,D 12] +C12 [D123], (3)
+where D123 is the 3-RDM and H12 denotes the two-
+particle Hamiltonian
+H12 =h1 +h2 +W12, (4)
+with hi the one-particle part containing the kinetic en-
+ergy and the explicitly time-dependent external ﬁeld, and
+W12 the electron-electron interaction. For the speciﬁc
+example of the Hamiltonian of the 1D LiH molecule see
+Eq. 75 below.
+Equation 3 is not closed but depends on the next higher-
+order RDM through the three-body collision operator
+C12[D123] = Tr3 [W13 +W23,D 123], (5)
+where the partial trace extends over the third particle
+of the commutator between the interaction potential and
+the 3-RDM. Approximately solving Eq. 3 thus inevitably
+requires closure, i.e. approximating D123 and the result-
+ing collision operator C12 by quantities already deter-
+mined by evolution of the 2-RDM, i.e. D1 andD12. The
+following quantities
+DR
+123[D12]≈D123, (6)
+3
+and
+CR
+12[D12] =C12[DR
+123[D12]], (7)
+are referred to as the reconstruction functional for the
+3-RDM (DR
+123), and the collision operator ( CR
+12), respec-
+tively. Employing such a reconstruction the equation of
+motion for the 2-RDM has the closed form
+i∂tD12 = [H12,D 12] +CR
+12 [D12]. (8)
+Equation 8 must conserve invariants of the N-particle
+system. These include the norm (or particle number),
+the energy (for time-independent Hamilton operators),
+and spin (for spin-independent interactions). Some of
+these conservation laws provide constraints on admissi-
+ble reconstruction functionals. Conservation of particle
+number follows immediately from
+i∂tTr12D12 = Tr12 [H12,D 12]
++ Tr123
+[
+W13 +W23,D R
+123
+]
+= 0 (9)
+using the permutation symmetry of traces and the an-
+tisymmetry of the commutator. Equation 9, thus, does
+not provide any constraints on the reconstructed 3-RDM
+DR
+123.
+Time evolution of the energy,
+E(t) = 1
+2Tr12
+(
+˜H12D12
+)
+(10)
+with
+˜H12 = h1 +h2
+N− 1 +W12 (11)
+is described by the diﬀerential equation
+i∂tE(t) = 1
+2Tr12
+((
+i∂t ˜H12
+)
+D12
+)
++ N− 2
+2(N− 1)Tr12
+(
+[W12,h 1 +h2]
+(
+D12− 1
+N− 2Tr3DR
+123
+))
+.
+(12)
+In the absence of time-dependent external ﬁelds
+(i.e.∂t ˜H12 = 0) energy should be conserved. This condi-
+tion is fulﬁlled if
+D12 = 1
+N− 2Tr3DR
+123. (13)
+Equation 13 holds, by deﬁnition, for the exact D123.
+However, it provides a constraint on the reconstructed
+3-RDM, DR
+123, that has to be fulﬁlled at each time step.
+The time evolution of the 1-RDM follows from Eq. 8 as
+i∂tTr2D12 = Tr2[H12,D 12] + Tr23
+[
+W13 +W23,D R
+123
+]
+= (N− 1)[h1,D 1] + Tr2
+[
+W12,D 12 + Tr3DR
+123
+]
+,
+(14)
+where we have used the interrelation between the 2-RDM
+and the 1-RDM
+D1 = 1
+N− 1Tr2D12. (15)
+Equation 14 reduces to the correct equation of motion
+for D1,
+i∂tD1 = [h1,D 1] + Tr2 [W12,D 12], (16)
+provided the constraint Eq. 13 is fulﬁlled. Additional
+constraints on the 3-RDM follow from spin conservation
+(see Sec. II C).
+Compared to wavefunction based methods which scale
+factorially with the number of particles the computa-
+tional cost of the TD-2RDM method is independent of
+the particle number N and depends only on the total
+number of basis functions. The most time consuming
+operation within Eq. 8 is the evaluation of the collision
+operator (Eq. 5) where a partial trace over the interac-
+tion potential and the 3-RDM has to be evaluated. This
+calculation scales asO(r5) with the number of basis func-
+tionsr if the interaction potential is diagonal in the basis
+(as, e.g., in spatial representation), or as O(r7) for the
+expansion in spin orbitals. Such basis expansions are
+inevitable for the eﬃcient numerical propagation of the
+2-RDM in continuous systems.
+B. Orbital expansion
+The expansion of the 2-RDM in terms of 2 r orthogo-
+nal spin orbitals facilitates not only the eﬃcient numer-
+ical propagation of the 2-RDM and the usage of quan-
+tum chemistry codes for calculating the initial 2-RDM,
+it also allows to conveniently impose constraints due to
+spin conservation. Accordingly, we expand
+D(x1x2;x′
+1x′
+2;t) =
+∑
+i1,i2,j1,j2
+Di1i2
+j1j2(t)φi1(x1,t )φi2(x2,t )φ∗
+j1(x′
+1,t )φ∗
+j2(x′
+2,t ),
+(17)
+with spin orbitals φiσ(x,t ) = φi(z,t )⊗| σ⟩, where we
+merge the spinσ∈{↑,↓} and orbital indicesi∈{ 1...r }.
+For simplicity, we drop here and in the following the la-
+bels for the p-RDM when using the spin-orbital repre-
+sentation, i.e. Di1i2
+j1j2 = [D12]i1i2
+j1j2, Di1i2i3
+j1j2j3 = [D123]i1i2i3
+j1j2j3,
+since the corresponding order is already uniquely charac-
+terized by the orbital-index set. Within second quantiza-
+tion these 2-RDM coeﬃcients can be expressed as matrix
+elements
+Di1i2
+j1j2 =⟨Ψ|ˆa†
+i1ˆa†
+i2ˆaj2ˆaj1|Ψ⟩. (18)
+Generalization of Eq. 18 to arbitrary p-RDMs is obvious.
+In this representation theN-particle Hamiltonian is given
+4
+by
+ˆH = 1
+2
+∑
+i1,i2,j1,j2
+(
+hj1
+i1δj2
+i2 +δj1
+i1hj2
+i2
+N− 1 +Wj1j2
+i1i2
+)
+ˆa†
+i1ˆa†
+i2ˆaj2ˆaj1,
+(19)
+wherehj1
+i1 andWj1j2
+i1i2 are the one- and two-electron Hamil-
+ton matrix elements in the spin-orbital basis
+hj1
+i1 =⟨φj1|h1|φi1⟩, (20)
+Wj1j2
+i1i2 =⟨φj1φj2|W12|φi1φi2⟩. (21)
+The time derivative of the 2-RDM expansion coeﬃcients
+contains two terms
+i∂tDi1i2
+j1j2 =⟨Ψ|[ˆa†
+i1ˆa†
+i2ˆaj2ˆaj1, ˆH]|Ψ⟩
++⟨Ψ|i∂t(ˆa†
+i1ˆa†
+i2ˆaj2ˆaj1)|Ψ⟩. (22)
+The second term appears only for time-dependent basis
+sets and can be removed if the dynamics of the orbitals
+satisﬁes
+⟨φi|∂t|φj⟩ = 0, (23)
+which is the case for the orbital equations of motion em-
+ployed here (see Eq. 28 below). Using the anticommuta-
+tion relation of creation and annihilation operators one
+obtains the spin-orbital representation of the equation of
+motion for the 2-RDM (Eq. 3)
+i∂tDi1i2
+j1j2 =
+∑
+k1,k2
+(
+Hk1k2
+j1j2 Di1i2
+k1k2
+−Dk1k2
+j1j2Hi1i2
+k1k2
+)
++Ci1i2
+j1j2,
+(24)
+with
+Hi1i2
+j1j2 =hi1
+j1δi2
+j2 +δi1
+j1hi2
+j2 +Wi1i2
+j1j2 (25)
+Ci1i2
+j1j2 =Ii1i2
+j1j2 +Ii2i1
+j2j1− (Ij1j2
+i1i2 +Ij2j1
+i2i1 )∗, (26)
+and
+Ii1i2
+j1j2 =
+∑
+k1,k2,k3
+Wk2k3
+j1k1
+Di1i2k1
+k2j2k3
+. (27)
+A spin-orbital basis is a convenient computational start-
+ing point for the propagation. One choice, in the spirit
+of time dependent conﬁguration interaction (TDCI) cal-
+culations, would be to treat the orbitals to be time-
+independent and propagate only the expansion coeﬃ-
+cients. However, time independent orbitals will, in gen-
+eral, require a large number of basis orbitals to properly
+account for the dynamics of the system. This calls for
+a self-consistent optimization of the orbitals as imple-
+mented within the MCTDHF-approach [26]. To this end
+we adopt the orbital equations of motion from MCTDHF:
+i∂tφi(z,t ) = ˆQ
+(
+h(z)φi(z,t ) +
+∑
+u
+ˆΓu(z,t )[D−1]u
+i
+)
+,
+(28)
+where
+ˆQ = 1−
+2r∑
+i=1
+|φi⟩⟨φi| (29)
+is the orbital projection operator assuring unitary time
+evolution of the basis orbitals, [ D−1]u
+i is the inverse of
+the 1-RDM in the orbital representation, and
+ˆΓu(z,t ) =
+∑
+vwt
+Dvw
+ut φv(z,t )
+∫
+φw(z′,t )φ∗
+t (z′,t )W12(z,z′)dz′
+(30)
+originates from electron-electron interactions. It is this
+term which couples the time evolution of the orbitals to
+the time-evolution of the 2-RDM.
+C. Spin conservation
+Since the non-relativistic Hamiltonian for atoms and
+molecules is spin independent, i.e. [H12,S 2] = [H12,Sz] =
+0, with
+Sz = 1
+2
+∑
+i
+(a†
+i↑ai↑−a†
+i↓ai↓) (31)
+S2 =S2
+z +Sz +S−S+, (32)
+and
+S+ =
+∑
+i
+a†
+i↑ai↓ and S− =
+∑
+i
+a†
+i↓ai↑, (33)
+the ground state (initial state) of the system is an eigen-
+state of both Sz and S2 and remains in this spin-state
+during time evolution of Ψ(t) for spin-independent inter-
+actions, e.g., in the present case of a laser ﬁeld in dipole
+approximation. In particular, for closed-shell systems
+with an equal number of electrons in spin up N↑ =N/2
+and spin down N↓ =N/2 the wavefunction satisﬁes
+Sz|Ψ(t)⟩ = 0 (34)
+S+|Ψ(t)⟩ = 0, (35)
+where Eq. 35 together with Eq. 34 is equivalent to
+S2|Ψ(t)⟩ = 0. These spin symmetries enforce speciﬁc
+symmetries on the 2-RDM that must be conserved dur-
+ing time propagation.
+The most obvious symmetry originating from Eq. 34 is
+that the 2-RDM contains only two independent non-
+vanishing blocks given by
+Di1↑i2↑
+j1↑j2↑ and Di1↑i2↓
+j1↑j2↓, (36)
+with i,j ∈ {1...r } for the spatial part and {↑,↓} for
+the spin part of the spin orbitals. All other spin blocks
+either vanish if the net spin of the upper indices and lower
+indices diﬀers, e.g.
+Di1↑i2↑
+j1↑j2↓ = 0, (37)
+5
+or can be reconstructed using the antisymmetry of the
+2-RDM and the spin-ﬂip symmetry (↑)↔ (↓), e.g.,
+Di2↓i1↑
+j1↑j2↓ =−Di1↑i2↓
+j1↑j2↓ Di1↓i2↓
+j1↓j2↓ =Di1↑i2↑
+j1↑j2↑. (38)
+Further symmetries based on Eq. 34 pose constraints on
+the contractions of the 2-RDM spin blocks. The vanish-
+ing norm of the vector Sz|Ψ⟩ gives
+0 =⟨Ψ|SzSz|Ψ⟩
+= 1
+2
+∑
+i,m
+(
+Di↑m↑
+i↑m↑−Di↑m↓
+i↑m↓
+)
++ 1
+2
+∑
+i
+Di↑
+i↑
+= N2
+4 −
+∑
+i,m
+Di↑m↓
+i↑m↓, (39)
+where we have used the interrelation between the 2-RDM
+and the 1-RDM (Eq. 15)
+∑
+m
+(
+Di↑m↑
+j↑m↑ +Di↑m↓
+j↑m↓
+)
+= (N− 1)Di↑
+j↑, (40)
+and
+∑
+i
+Di↑
+i↑ = N
+2 . (41)
+Similarly,Sz|Ψ⟩ = 0 implies
+0 =⟨Ψ|ˆa†
+i↑ˆaj↑Sz|Ψ⟩
+= N
+2 Di↑
+j↑−
+∑
+m
+Di↑m↓
+j↑m↓. (42)
+We note that Eq. 42 reduces to Eq. 39 by tracing out the
+non-contracted indices. While for the N-particle state
+Ψ(t) the conditions ⟨Ψ| ˆSz ˆSz|Ψ⟩ = 0 and ˆSz|Ψ⟩ = 0 are
+equivalent, this is not the case for the (in general, non
+N-representable) 2-RDM within a truncated BBGKY hi-
+erarchy. For the latter, Eq. 42 imposes additional con-
+straints not implied by Eq. 39.
+Further spin symmetries of the 2-RDM can be derived
+from ˆS+|Ψ⟩ = 0. The vanishing norm of the vector ˆS+|Ψ⟩
+implies
+0 =⟨Ψ|S−S+|Ψ⟩ =
+∑
+i
+Di↑
+i↑−
+∑
+i,m
+Dm↑i↓
+i↑m↓
+= N
+2 −
+∑
+i,m
+Dm↑i↓
+i↑m↓, (43)
+and the stronger condition
+0 =⟨Ψ|ˆa†
+i↓ˆaj↑S+|Ψ⟩ =Di↑
+j↑−
+∑
+m
+Dm↑i↓
+j↑m↓. (44)
+We, furthermore, derive an interrelation between blocks
+of the 2-RDM. Projecting the vector ˆS+|Ψ⟩ onto two-
+particle-two-hole excitations we ﬁnd
+0 =⟨Ψ|ˆa†
+i1↑ˆa†
+i2↓ˆaj2↑ˆaj1↑S+|Ψ⟩
+=
+∑
+k
+⟨Ψ|ˆa†
+i1↑ˆa†
+i2↓ˆaj2↑ˆa†
+k↑ˆak↓ˆaj1↑|Ψ⟩− Di1↑i2↓
+j2↑j1↓
+=
+∑
+k
+⟨Ψ|ˆa†
+i1↑ˆa†
+i2↓ˆa†
+k↑ˆak↓ˆaj2↑ˆaj1↑|Ψ⟩− Di1↑i2↓
+j2↑j1↓ +Di1↑i2↓
+j1↑j2↓
+=⟨Ψ| ˆS+ˆa†
+i1↑ˆa†
+i2↓ˆaj2↑ˆaj1↑|Ψ⟩
+−Di1↑i2↑
+j1↑j2↑ +Di1↑i2↓
+j1↑j2↓−Di1↑i2↓
+j2↑j1↓
+=−Di1↑i2↑
+j1↑j2↑ +Di1↑i2↓
+j1↑j2↓−Di1↑i2↓
+j2↑j1↓. (45)
+Consequently, we arrive at the important interrelation
+Di1↑i2↑
+j1↑j2↑ =Di1↑i2↓
+j1↑j2↓−Di1↑i2↓
+j2↑j1↓, (46)
+which has been derived previously employing the Wigner-
+Eckhard theorem [44]. Equation 46 has a simple inter-
+pretation: Since Di1↑i2↓
+j1↑j2↓−Di1↑i2↓
+j2↑j1↓ is antisymmetric with
+respect to the spatial indices it belongs to the spin triplet
+state of a pair in spin state |SMs⟩ =|10⟩. In terms of
+the spatial orbitals it has exactly the same eigenvectors
+and eigenvalues (except of a factor two) asDi1↑i2↑
+j1↑j2↑ which
+belongs to the spin state |SMs⟩ = |11⟩. Equation 46
+is, therefore, also important for the numerical eﬃciency.
+Since the 2-RDM can be reconstructed completely from
+the (↑↓)-block, it is suﬃcient to propagate only the (↑↓)-
+block according to (see Eq. 24)
+i∂tDi1↑i2↓
+j1↑j2↓ =
+∑
+k1,k2
+(
+Hk1k2
+j1j2 Di1↑i2↓
+k1↑k2↓−Dk1↑k2↓
+j1↑j2↓Hi1i2
+k1k2
+)
++Ci1↑i2↓
+j1↑j2↓, (47)
+instead of the entire 2-RDM. Hk1k2
+j1j2 are the matrix ele-
+ments of the Hamiltonian (Eq. 4) in the spatial orbitals.
+This signiﬁcantly reduces the numerical eﬀort because
+the (↑↓)-block of the collision operator can be written
+solely in terms of the (↑↑↓)-block of the 3-RDM
+Ci1↑i2↓
+j1↑j2↓ =Ii1↑i2↓
+j1↑j2↓ +Ii2↑i1↓
+j2↑j1↓− (Ij1↑j2↓
+i1↑i2↓ +Ij2↑j1↓
+i2↑i1↓ )∗, (48)
+and
+Ii1↑i2↓
+j1↑j2↓ =
+∑
+k1,k2,k3
+Wk2k3
+j1k1
+(
+Di1↑k1↑i2↓
+k2↑k3↑j2↓ +Di2↑k1↑i1↓
+j2↑k3↑k2↓
+)
+, (49)
+where we have used the spin ﬂip symmetry between ( ↑)
+and (↓). Propagating only the (↑↓)-block, the evaluation
+of the collision operator scales like ( r)7 instead of (2r)7
+with the number of spatial orbitals r.
+Since the equation of motion for the 2-RDM involves the
+3-RDM we inquire now into constraints that spin conser-
+vation imposes on the 3-RDM. Starting with Eq. 46 and
+taking the time-derivative, we ﬁnd that the 3-RDM must
+fulﬁll
+0 =Di1↑i2↑i3↑
+j1↑j2↑j3↑ +Di1↑i2↑i3↓
+j1↑j2↑j3↓−Di1↑i3↑i2↓
+j3↑j2↑j1↓
+−Di1↑i3↑i2↓
+j1↑j3↑j2↓−Di2↑i3↑i1↓
+j3↑j1↑j2↓−Di2↑i3↑i1↓
+j2↑j3↑j1↓, (50)
+6
+which is a consequence of
+0 =⟨Ψ|ˆa†
+i1↑ˆa†
+i2↑ˆa†
+i3↓ˆaj3↑ˆaj2↑ˆaj1↑S+|Ψ⟩
++⟨Ψ|ˆa†
+i1↓ˆa†
+i2↓ˆa†
+i3↑ˆaj3↓ˆaj2↑ˆaj1↑S+|Ψ⟩. (51)
+We focus in the following on the ( ↑↑↓)-block of the 3-
+RDM. This block has four independent one-fold contrac-
+tions. From the time derivative of Eq. 42 we obtain con-
+ditions for two of these
+∑
+m
+Di1↑m↑i2↓
+j1↑m↑j2↓ =
+(N
+2 − 1
+)
+Di1↑i2↓
+j1↑j2↓ (52)
+∑
+m
+Di1↑i2↑m↓
+j1↑j2↑m↓ = N
+2 Di1↑i2↑
+j1↑j2↑, (53)
+and by taking the time derivative of Eq. 44 the two re-
+maining ones
+∑
+m
+Di1↑m↑i2↓
+j1↑j2↑m↓ =Di1↑i2↑
+j1↑j2↑ (54)
+∑
+m
+Di1↑i2↑m↓
+j1↑m↑j2↓ =Di1↑i2↑
+j1↑j2↑. (55)
+In analogy to energy conservation, we ﬁnd that conser-
+vation of spin requires that a properly reconstructed 3-
+RDM correctly contracts in all diagonal and oﬀ-diagonal
+partial traces to the 2-RDM. These are important con-
+straints on the reconstruction functionals of the 3-RDM,
+DR
+123[D12], unfortunately not fulﬁlled by reconstruction
+functionals previously discussed in the literature.
+III. CONTRACTION-CONSISTENT
+RECONSTRUCTION OF THE 3-RDM
+The approximate reconstruction of higher-order RDMs
+in terms of lower order RDMs has been successfully devel-
+oped in the last few decades to remove the indeterminacy
+of the time-independent contracted Schr¨ odinger equation
+which depends on both the 3-RDM and the 4-RDM (see,
+e.g., [45–48]). In a pioneering work exploiting particle-
+hole duality [45], the following reconstruction functional
+for the 3-RDM referred to as the Valdemoro (V) recon-
+struction functional
+DV
+123[D12] = 9D12∧D1− 12D3
+1 (56)
+has been derived, where the wedge product is deﬁned as
+the antisymmetrized tensor product
+D1...p∧D1...q =
+= 1
+(p +q)!2
+∑
+π,τ
+sgn(π)sgn(τ)D
+iπ(1)...iπ(p)
+jτ (1)...jτ (p)
+D
+iπ(p+1)...iπ(p+q)
+jτ (p+1)...jτ (p+q)
+,
+(57)
+and the sum runs over the permutations π and τ. The
+error in the reconstruction
+∆123 =D123−DV
+123[D12] (58)
+is the three-particle cumulant ∆ 123 as has been pointed
+out in [49]. It describes the part of the 3-RDM that
+cannot be constructed from D12 and D1. Physically, ne-
+glecting the three-particle cumulant amounts to neglect-
+ing all processes that cannot be viewed as a sequence
+of independent two and one-particle excitations. In the
+following we will show that the assumption of a vanish-
+ing three-particle cumulant, i.e. reconstruction via DV
+123,
+leads to the violation of spin and energy conservation.
+It is thus essential to include parts of the cumulant in
+the reconstruction in order to preserve these conserva-
+tion laws.
+Remarkably, the Valdemoro reconstruction functional
+conserves the weaker conditions Eq. 39 and Eq. 43 as
+well as Eq. 46 but violates the stronger conditions Eq. 42
+and Eq. 44, since DV↑↑↓
+123 does not contract correctly into
+the two-particle subspace according to Eq. 52 - Eq. 55. In
+other words the failure of the Valdemoro reconstruction
+DV↑↑↓
+123 originates from the fact that the three-particle cu-
+mulant ∆↑↑↓
+123 has non-vanishing contractions, e.g.
+∑
+m
+∆i1↑i2↑m↓
+j1↑j2↑m↓ = N
+2 Di1↑i2↑
+j1↑j2↑−
+∑
+m
+[DV]i1↑i2↑m↓
+j1↑j2↑m↓̸= 0.
+(59)
+The information on the cumulant stored in the 2-RDM
+can be used to develop a new contraction-consistent re-
+construction functional that satisﬁes (Eq. 52 - Eq. 55)
+and, therefore, ensures spin and energy conservation. For
+this purpose we decompose the three-particle cumulant
+∆↑↑↓
+123 = ∆↑↑↓
+123;⊥[D12] + ∆↑↑↓
+123;K (60)
+into the contraction-free component ∆↑↑↓
+123;K and the cor-
+responding orthogonal component ∆↑↑↓
+123;⊥ using the uni-
+tary decomposition for three particle matrices described
+in Appendix A. By deﬁnition, the contraction-free com-
+ponent vanishes upon all diagonal and oﬀ-diagonal con-
+tractions denoted by L3
+L3(∆↑↑↓
+123;K) = 0, (61)
+and is thus an element of the kernel of L3. The key
+ingredient for the contraction-consistent reconstruction
+is the fact that the orthogonal component of the cumu-
+lant ∆↑↑↓
+123;⊥[D12] is exactly given as a functional of the
+2-RDM. Using ∆↑↑↓
+123;⊥, we obtain the new contraction-
+consistent reconstruction
+DC↑↑↓
+123 [D12] =DV↑↑↓
+123 [D12] + ∆↑↑↓
+123;⊥[D12], (62)
+which satisﬁes Eq. 52 - Eq. 55. It diﬀers from the exact
+3-RDM only by the contraction-free component ∆ ↑↑↓
+123;K.
+This is to be compared with the Valdemoro reconstruc-
+tion functional (Eq. 56) that neglects the cumulant al-
+together. We note that despite this improvement, the
+contraction-consistent reconstruction functional is not
+suﬃcient to ensureN-representability of the 2-RDM dur-
+ing time evolution.
+7
+IV. N-REPRESENTABILITY AND
+DYNAMICAL PURIFICATION
+Each N-particle density matrix that is (i) hermitian,
+(ii) normalized, (iii) antisymmetric under particle per-
+mutation, and (iv) positive semideﬁnite describes a pos-
+sible state of aN-particle system. The conditions for the
+p-RDM to describe a p-particle subsystem of the orig-
+inal N-particle system are much more complex. Sub-
+sidiary conditions have to be imposed to ensure that the
+RDM belongs to an actual wavefunction. This condi-
+tions are called N-representability conditions [34]. The
+search for a complete set of conditions for the 2-RDM is
+an ongoing eﬀort for over half a century [31, 34, 50, 51].
+A systematic classiﬁcation of N-representability condi-
+tions has been developed [37] for ensemble representable
+RDMs, i.e., matrices that are derivable from a mixed
+quantum state. The actual form of a complete set of con-
+ditions for pure states remains undetermined. Moreover,
+numerical calculations allow to implement only few N-
+representability conditions. There exist several explicit
+necessary conditions for N-representability in the form
+of positivity conditions. The two most important pos-
+itivity conditions for the 2-RDM are called the D and
+the Q-positivity condition [33]. They guarantee that the
+2-RDM
+Di1i2
+j1j2 =⟨Ψ|ˆa†
+i1ˆa†
+i2ˆaj2ˆaj1|Ψ⟩ (63)
+and the two-hole reduced density matrix (2-HRDM)
+Qi1i2
+j1j2 =⟨Ψ|ˆaj1ˆaj2ˆa†
+i2ˆa†
+i1|Ψ⟩ (64)
+are positive semideﬁnite (i.e. have non-negative eigenval-
+ues). The 2-HRDM describes the pair distribution of
+holes rather than of particles. The positive semideﬁnite-
+ness of these matrices represents independent conditions
+although the matrices are interconvertible by a rearrange-
+ment of the creation and annihilation operators
+Q12 = 2I2− 4I∧D1 +D12. (65)
+These 2-positivity conditions imply that the occupation
+numbers of particle pairs or hole pairs in any two-particle
+state are always non-negative. A third 2-positivity con-
+dition, the G-condition, guarantees that the occupation
+of particle-hole pairs is non-negative [33]. For the calcu-
+lations presented here, the G-condition turned out to be
+much less important than the D and Q-condition. In fact,
+the G-condition was found to be well conserved whenever
+the D and Q-condition were fulﬁlled. The 2-positivity
+conditions are conveniently implemented since they can
+be formulated solely in terms of the 2-RDM. Even when
+the 2-RDM associated with the initial state satisﬁes the
+D and the Q-positivity condition the N-representability
+conditions may be violated during time evolution calcu-
+lated according to Eq. 8 due to the residual errors in
+the reconstruction functional. The 2-RDM D12(t) will,
+in general, depart from the subspace of N-representable
+FIG. 1. (Color online) Dynamical puriﬁcation applied after
+each time step to project the propagated ˜D12(t+∆t) onto the
+set of 2-RDMs that satisfy the D and Q-condition, schemati-
+cally.
+2-RDMs after propagation for the time step ∆ t. There-
+fore, projecting back the evolved ˜D12(t + ∆t) onto the
+subspace of N-representable 2-RDMs,
+D12(t + ∆t) = ˆP12 ˜D12(t + ∆t) ˆP12, (66)
+where the projector ˆP12 enforces a set of preselected rep-
+resentability conditions is essential (Fig. 1). This process
+is referred to in the following as dynamical puriﬁcation.
+Several types of puriﬁcations have been discussed in liter-
+ature and are used primarily for the iterative solution of
+the second order contracted Schr¨ odinger equation to ﬁnd
+a self-consistent N-representable solution for the ground
+state of molecules [52, 53].
+A puriﬁcation scheme which accounts for the D and
+the Q-condition and employs the unitary decomposition
+(see Eq. A1 in the Appendix) [52] serves as the starting
+point of our puriﬁcation process for the time-dependent
+2-RDM. Brieﬂy, we add to both the˜D12(t) and the ˜Q12(t)
+a correction term
+D12(t) = ˜D12(t) +Dcor
+12 (t) (67)
+Q12(t) = ˜Q12(t) +Dcor
+12 (t) (68)
+with
+Dcor
+12 (t) =
+∑
+i
+(
+αiAi
+12;K +βiBi
+12;K
+)
+. (69)
+In Eq. 69 the Ai
+12;K and Bi
+12;K are the contraction free
+components (see Eq. A1) of the projections onto the gem-
+inals (i.e. the eigenvectors) Ai
+12 = |gi⟩⟨gi| and Bi
+12 =
+|g′
+i⟩⟨g′
+i| with negative eigenvalues of ˜D12 or ˜Q12, respec-
+tively. In order to preserve the D and Q-positivity condi-
+tion the negative eigenvalues are reduced by solving the
+system of linear equations for the coeﬃcients αi and βi
+Tr12(Ai
+12D12) = 0 (70)
+Tr12(Bi
+12Q12) = 0. (71)
+Correcting the 2-RDM via Eq. 67 creates a newD12 with
+preserved 1-RDM, and whose negative eigenvalues are
+8
+smaller than those of ˜D12. Repeating this process it-
+eratively yields the puriﬁed D12(t). We note that this
+iterative procedure converges only if the underlying 1-
+RDM is N-representable, i.e. has eigenvalues between 0
+and 1. We ﬁnd that the time-dependent 1-RDM remains
+N-representable during the evolution when the D and Q-
+condition on D12 and Q12 are enforced.
+The puriﬁcation process outlined above requires modiﬁ-
+cation when spin symmetries are to be conserved simul-
+taneously. We ﬁrst note that it is suﬃcient to only purify
+the (↑↓)-block because in the singlet spin state this block
+contains all the information of the full 2-RDM and has
+the same eigenvalues (except of a factor two) as the full
+2-RDM. The D and Q-condition are then equivalent to
+the positivity of the ( ↑↓)-block of the 2-RDM and the
+2-HRDM. We separate the ( ↑↓)-block further into the
+symmetric and the antisymmetric part with respect to
+the spatial orbital indices
+D↑↓
+12 = ˆA[D↑↓
+12] + ˆS[D↑↓
+12] (72)
+Q↑↓
+12 = ˆA[Q↑↓
+12] + ˆS[Q↑↓
+12], (73)
+where ˆA is the antisymmetrization operator and ˆS is
+the symmetrization operator. While for the antisymmet-
+ric part we can directly apply the puriﬁcation described
+above, the puriﬁcation of the symmetric part employs
+the unitary decomposition for symmetric matrices (see
+Eq. A5 in the Appendix). This puriﬁcation does not
+alter the one-particle traces of the ( ↑↓)-block such that
+the conditions Eq. 39, Eq. 42, Eq. 43, and Eq. 44 remain
+conserved. The convergence is strongly dependent on the
+positive semideﬁniteness of the one-particle traces of the
+symmetric and antisymmetric components:
+Tr2 ˆA[D↑↓
+12]≥ 0 Tr 2 ˆA[Q↑↓
+12]≥ 0
+Tr2 ˆS[D↑↓
+12]≥ 0 Tr 2 ˆS[Q↑↓
+12]≥ 0. (74)
+If conditions Eq. 42 and Eq. 44 are met these matrices
+are proportional to the 1-RDM and, therefore, positive
+semideﬁnite. In the propagation with DV
+123 these con-
+ditions are violated causing convergence problems of the
+spin adapted puriﬁcation. For test calculations withDV
+123
+we, therefore, use the puriﬁcation of the whole 2-RDM
+(Eq. 67) rather than the puriﬁcation of the ( ↑↓)-block.
+In the following we show that the dynamical puriﬁcation
+process is key to achieve a stable propagation of the 2-
+RDM.
+V. BENCHMARK: LIH IN A FEW-CYCLE
+LASER FIELD
+In this section we present a ﬁrst application of our
+TD-2RDM method to a four-electron model system, the
+one-dimensional LiH molecule in an ultrashort few-cycle
+laser ﬁeld. One-dimensional atoms and molecules serve
+as a numerically eﬃcient testing ground for full three-
+dimensional (3D) calculations and have been used in the
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+-4 -2 0 2 4
+electron density ρ(z)
+z [a.u.]
+FIG. 2. (Color online) Electron density of the 1D LiH
+molecule. The equilibrium bond length a = 2.3 between the
+Li nucleus and the proton is depicted. The electron cloud is
+predominantly located near the Li core.
+past to study various atomic properties such as the dou-
+ble ionization of He [54] and H 2 [55] and the response
+of LiH in strong laser ﬁelds [27, 56]. We have chosen
+this system since it displays already a complex and rich
+multi-electron dynamics, including multiple ionization,
+while it still can be numerically exactly solved employing
+the MCTDHF method allowing to accurately benchmark
+the TD-2RDM method. For the numerical implementa-
+tion, we solve the orbital equations of motion (Eq. 28)
+on an equidistant grid with 2000 points and grid spac-
+ing ∆z = 0.1 for the laser intensity I = 1014W/cm2 and
+3000 points and grid spacing ∆ z = 0.4 for the higher
+laser intensity I = 8× 1014W/cm2. The second deriva-
+tive of the kinetic energy operator is evaluated within the
+eighth-order ﬁnite diﬀerence representation. An absorb-
+ing boundary is implemented by the mask function of
+cos
+1
+4 shape. We employ the Runge-Kutta propagator of
+fourth order to propagation in real and imaginary time,
+the latter for the determination of the ground state.
+A. The LiH ground state
+The electronic Hamiltonian (Eq. 4) of the one-
+dimensional model consists of the Li nucleus (charge
+ZLi = 3) and the proton (charge ZH = 1) at ﬁxed po-
+sitions RLi and RH, and 4 electrons in the laser ﬁeld
+F (t) included within the dipole approximation in length
+gauge:
+H =
+4∑
+i=1
+hi +
+4∑
+i<j
+Wij, (75)
+with
+hi =−1
+2
+∂2
+∂z2
+i
++Vi +ziF (t), (76)
+9
+and the electron-electron interaction in 1D with softening
+parameter d
+W12 = 1√
+(z1−z2)2 +d
+. (77)
+The one-electron molecular potential in Eq. 76 is given
+in 1D by
+Vi =− ZLi√
+(zi−RLi)2 +c
+− ZH√
+(zi−RH)2 +c
+. (78)
+The softening parameters are chosen c = 0.5 and d = 1
+with an equilibrium distance a = |RLi− RH| = 2 .3
+(RLi =−1.15 and RH = 1.15) [27]. The ground state
+calculation which serves as the initial state for the TD-
+2RDM method is calculated using imaginary time propa-
+gation within MCTDHF. The electron density expressed
+in terms of diagonal elements of the 1-RDM,
+ρ(z,t ) =D(z↑;z↑;t) +D1(z↓;z↓;t), (79)
+of the ground state displays a distinct maximum near
+the Li atom (see Fig. 2) which originates from the deeply
+bound doubly occupied core orbital of Li. The outer two
+electrons occupy the valence orbital which is responsible
+for the chemical bond. Note that this single conﬁgura-
+tion picture serves only for qualitative illustration while
+the numerical simulation includes conﬁguration interac-
+tion. From the electron density one obtains one-electron
+observables such as the dipole moment
+d(t) =d0−
+∫
+zρ(z,t )dz, (80)
+which consists of the static nuclear dipole moment d0 =
+−2.3, and the time-dependent electronic contribution.
+Two-particle properties beyond those derivable from the
+electron density can be calculated via the pair density
+ρ(z1,z 2,t ) derived from the 2-RDM,
+ρ(z1,z 2,t ) =D(z1↑z2↑;z1↑z2↑;t)
++D(z1↑z2↓;z1↑z2↓;t)
++D(z1↓z2↑;z1↓z2↑;t)
++D(z1↓z2↓;z1↓z2↓;t). (81)
+The pair density ρ(z1,z 2,t ) contains information beyond
+that of the electron density since it is inﬂuenced by two-
+particle correlations [see Fig. 3 (a)]. In the LiH molecule
+the electron pairs are predominantly distributed such
+that one electron is located near the Li core and the
+other near the H core. This conﬁguration minimizes the
+Coulomb repulsion. With the pair density ρ(z1,z 2,t ) the
+exact interaction energy
+Eint(t) =
+∫ ρ(z1,z 2,t )√
+(z1−z2)2 +d
+dz1dz2 (82)
+including the full correlation energy can be calculated.
+(a)
+(b)
+-6 -4 -2 0 2 4 6
+z1 [a.u.]
+-6
+-4
+-2
+0
+2
+4
+6z2 [a.u.]
+0
+0.2
+0.4
+0.6
+0.8
+1
+1.2ρ(z1,z 2)
+-3 -2 -1 0 1 2 3
+k1 [a.u.]
+-3
+-2
+-1
+0
+1
+2
+3k2 [a.u.]
+-0.2
+-0.15
+-0.1
+-0.05
+0
+0.05
+0.1
+0.15
+0.2
+C(k1k2;k1k2)
+creation of pairs with
+k1 ≈k2 > 0
+destruction of pairs with
+k1 ≈k2 < 0
+FIG. 3. (Color online) (a) The pair-density distribution
+ρ(z1,z 2) in coordinate space for the ground state of the LiH
+molecule. The density distribution shows distinct peaks for
+inter-atomic pairs with one electron close to the Li core while
+the other one is close to the proton (marked by arrows). (b)
+The imaginary diagonal elements of the exact collision opera-
+torC12. The positive contribution for pairs with positive total
+momentum shows that the particle interaction creates pairs
+moving collectively toward the proton while pairs with nega-
+tive momentum moving towards the Li core are destroyed.
+A crucial quantity of the 2-RDM propagation is the col-
+lision operator C12 (Eq. 5). The collision operator is
+an antihermitian operator that describes the scattering
+between pairs under the inﬂuence of surrounding par-
+ticles. More precisely, the imaginary part of the diago-
+nal element⟨φ12|C12|φ12⟩ determines the number of pairs
+10
+per unit time that enter minus those that leave the two-
+particle state|φ12⟩ due to the Coulomb interaction with
+the (N−2) electron environment. The diagonal elements
+in momentum space C(k1,k 2,k 1,k 2) can be directly in-
+terpreted as a Boltzmann-like collision integral. Since the
+wavefunction of a non-degenerate ground state is real the
+collision operator in momentum space is antisymmetric
+under point reﬂection at the origin [see Fig. 3 (b)]
+C(k1k2;k′
+1k′
+2) =C∗(−k1,−k2;−k′
+1,−k′
+2)
+=−C(−k′
+1,−k′
+2;−k1,−k2). (83)
+If the system features in addition reﬂection symmetry
+in real space (e.g. the beryllium atom), the collision op-
+erator must be also invariant under the transformation
+(k1,k 2)→ (−k1,−k2). This implies that the diagonal
+elements of the collision operator in momentum repre-
+sentationC(k1k2;k1k2) must vanish for the ground state
+of such systems. We note that in coordinate space the
+diagonal elements of the collision operator always vanish,
+i.e. C(x1x2;x1x2) = 0. The fact that C(k1k2;k1k2) does
+not vanish for LiH is a direct consequence of the broken
+parity symmetry of the LiH molecule. The ground state
+properties of the collision operator in momentum space
+can be understood intuitively by considering the equation
+of motion for the 2-RDM in momentum representation:
+i∂tD(k1k2;k′
+1k′
+2;t) = [H12,D 12](k1k2;k′
+1k′
+2;t) (84)
++C(k1k2;k′
+1k′
+2;t). (85)
+The stationarity of the 2-RDM in the ground state im-
+poses the condition
+[H12,D 12](k1k2;k′
+1k′
+2;t) +C(k1k2;k′
+1k′
+2;t) = 0. (86)
+Equation 86 is equivalent to the antihermitian contracted
+stationary Schr¨ odinger equation for the 2-RDM used to
+calculate the ground state of molecules (see e.g. [32]).
+The momentum-space representation oﬀers a straightfor-
+ward interpretation in terms of a balance equation. The
+commutator [H12,D 12] describes the change in the mo-
+mentum distribution of electron pairs in the Coulomb
+ﬁeld of the nuclei without the inﬂuence of the residual
+particles. The electron pairs are attracted collectively
+towards the Li core. This motion is compensated for
+byC(k1k2;k1k2) which accounts for the collisions of the
+pairs with the surrounding particles which most promi-
+nently occurs at the enhanced electron density near the
+Li core driving the pairs toward the H core. This eﬀect
+is visible as a maximum for positive total momenta and
+minimum for negative total momenta [see Fig. 3 (b)]. In
+the stationary state these two competing processes are in
+equilibrium, i.e., for every pair that leaves the momentum
+conﬁguration (k1,k 2) due to the interaction with the en-
+vironment the core potential creates another pair of this
+kind.
+-0.06
+-0.04
+-0.02
+0
+0.02
+0.04
+0.06
+0 0.5 1 1.5 2 2.5 3
+electric ﬁeld [a.u.]
+time [optical cycle]
+1
+2
+3
+4
+FIG. 4. (Color online) The laser pulse (Eq. 87) with I =
+1014W/cm2 (F0 = 0.053), λ = 750 nm, Nc = 3. Distinct
+points in time are marked by numbers for later reference.
+B. The 2-RDM for LiH in an intense laser ﬁeld
+For the ultrashort few-cycle laser pulse we choose
+F (t) =F0 sin(ωt) sin2
+( ω
+2Nc
+t
+)
+0≤t≤Nc
+2π
+ω , (87)
+where F0 is the amplitude of the electric ﬁeld, ω is the
+mean angular frequency, and Nc is the number of cy-
+cles. We use from now on the scaled time τ = t 2π
+ω
+with 0 ≤ τ ≤ Nc, counting the number of cycles that
+have passed. We investigate two diﬀerent laser inten-
+sities: I = 10 14W/cm2 (F0 = 0 .053), for which the
+response of the dipole moment is close to linear, and
+I = 8×1014W/cm2 (F0 = 0.151) where a strongly nonlin-
+ear response is expected including substantial ionization.
+The Keldysh parameter
+γ =ω
+√
+2Ip
+F0
+, (88)
+with the ﬁrst ionization potential Ip = 0.675 (see [27])
+is γ = 1.32 and γ = 0.467, respectively. For all numer-
+ical results presented in this section the 2-RDM as well
+as the MCTDHF wavefunction ΨMCTDHF(t), with which
+we compare, are expanded in terms of 10 time-dependent
+spin orbitals (see Eq. 17). The latter has been shown to
+be suﬃcient to reach convergence for the observables de-
+duced from the MCTDHF wavefunction which we refer
+to as “exact ” results in the following [27].
+We illustrate and assess now the accuracy of the present
+time-dependent 2-RDM theory by involving successively
+diﬀerent levels of approximation to the collision operator
+C12 and the equation of motion for the 2-RDM whose
+exact form is given by Eq. 3 while the approximate form
+involving the reconstruction functional is given by Eq. 8.
+As a ﬁgure of merit for the comparison with the exact
+calculation as well as other approximate methods we use
+11
+-2
+-1.5
+-1
+-0.5
+0
+0.5
+1
+0 0.5 1 1.5 2 2.5 3
+dipole moment [a.u.]
+time [optical cycle]
+-1.2
+-1.1
+2.1 2.2 2.3
+-1.5
+-1.4
+2.6 2.7 2.8 2.9
+DC
+123
+DV
+123
+exact
+FIG. 5. (Color online) Dipole moment of LiH subject to the
+laser pulse as depicted in Fig. 4 with I = 10 14W/cm2 using
+the reconstruction functionals DV
+123[Dexact
+12 ] and DC
+123[Dexact
+12 ]
+with the exact 2-RDM Dexact
+12 as input at each time step ob-
+tained from a concurrent MCTDHF calculation. The high-
+frequency oscillations near τ = 3 originate from superposi-
+tions between the ground state and excited states (see right in-
+set). Both DV
+123 andDC
+123 can markedly reproduce the MCT-
+DHF result. A close up shows that DC
+123 performs better than
+DV
+123.
+the time-dependent dipole moment d(t), a one-particle
+observable for which an explicit functional in terms of the
+time-dependent density ρ(z,t ) exists (Eq. 80) and which
+can thus be determined from eﬀective mean-ﬁeld theo-
+ries such as TDDFT or TDHF without invoking any only
+approximately known read-out functional. For other ob-
+servables, the construction of the approximate read-out
+functional from the propagated density ρ(z,t ) remains
+a challenge [22, 24, 57]. Point of departure is the par-
+allel propagation of the 2-RDM according to Eq. 8 and
+the MCTDHF wavefunction ΨMCTDHF(t) from which the
+time-dependent p-RDMs for each time step can be ex-
+actly determined. Because of the expansion of the p-
+RDMs in time-dependent spin orbitals, the coupling of
+the evolution of the orbitals (Eq. 28) to that of the 2-
+RDM must also be accounted for when the hierarchy of
+approximations to the collision integral is explored.
+1. Test of the reconstruction functional
+The exact collision operator C12 depends on the exact
+3-RDM (Eq. 5). As the latter quantity is not available
+within the 2-RDM propagation, reconstruction by a func-
+tional DR
+123 depending on D12 is required. We ﬁrst test
+the performance of the reconstruction functionals DR
+123,
+speciﬁcally the Valdemoro functional DV
+123 (Eq. 56) and
+the contraction-consistent functional DC
+123 introduced in
+Sec. III. In the ﬁrst step, we employ as input to these
+functionals the exact Dexact
+12 generated from the simulta-
+neous propagation of Ψ MCTDHF(t). Using the resulting
+DV
+123[Dexact
+12 ] and DC
+123[Dexact
+12 ] in the propagation of D12
+allows the assessment of the accuracy of the function-
+als decoupled from the error in D12 accumulated dur-
+ing the propagation. We ﬁnd excellent agreement for
+the dipole moment when the collision operator C12 in
+Eq. 5 is calculated from the reconstructed DV
+123[Dexact
+12 ]
+and DC
+123[Dexact
+12 ] (Fig. 5). For the latter the agreement
+is clearly better. The error in the reconstructed colli-
+sion operatorCR
+12 as determined by the basis independent
+measure
+ϵ2 = Tr12[(C12−CR
+12)2] (89)
+is more than nine times smaller for DC
+123 than for DV
+123
+(not shown). Despite the good agreement for the dipole
+moment we observe that the N-representability is not
+conserved during propagation: at τ ≈ 0.1 the lowest
+eigenvalue (i.e. geminal occupation number) of the 2-
+RDM drops to gmin ≈ −0.02 for DC
+123 and to gmin ≈
+−0.05 for DV
+123 before it starts to oscillate keeping the
+eigenvalues bounded from below. These oscillations can
+be found in other 2-positivity conditions as well. The
+appearence of a lower bound for gmin allows for a stable
+propagation of D12 shown in Fig. 5.
+2. Sensitivity of the reconstruction functional to errors in
+D12
+Successively approaching a realistic simulation sce-
+nario, we now test the sensitivity of reconstruction func-
+tionalsDR
+123[D12] to errors inD12 when the exact 2-RDM
+is not available. On this level of approximation the col-
+lision operator CR
+12[D12] induces a highly nonlinear feed-
+back loop that tends to rapidly magnify the errors of
+D12 accumulated during the evolution. At this stage, we
+still employ the exact Dexact
+12 in the propagation of the
+orbitals (Eq. 28) in order to decouple the error accumu-
+lation through the nonlinear orbital equation of motion
+from that of the nonlinear equation of motion for D12
+(Eq. 24). Focusing for the moment only on the latter,
+this nonlinear feedback loop ultimately produces severe
+instabilities such that the 2-positivity conditions of the
+2-RDM are strongly violated causing, in turn, the diver-
+gence in physical observables such as the dipole moment
+(see Fig. 6). This instability is present when using either
+DV
+123 orDC
+123. However, the onset of the divergence is de-
+layed for the latter [see Fig. 6 (a)] providing an additional
+indication that an accurate reconstruction functional is
+key for the reliable propagation over ﬁnite times. The
+violation of the 2-RDM positivity conditions in terms of
+excursions of the eigenvalues outside of the allowed range,
+12
+-3
+-2
+-1
+0
+0 0.5 1 1.5 2 2.5 3
+dipole moment [a.u.]
+time [optical cycle]
+(a)
+-4
+-2
+0
+2
+4
+6
+0 0.5 1 1.5 2 2.5 3
+2-RDM eigenvalue
+time [optical cycle]
+(b)
+allowed
+range of gi
+DC
+123
+DV
+123
+exact
+DC
+123
+DV
+123
+FIG. 6. (Color online) (a) Dipole moment of LiH subject
+to the laser pulse (Fig. 4) with I = 10 14W/cm2 employing
+the reconstruction functionals DV
+123[D12] and DC
+123[D12] with
+D12 propagated by Eq. 24 while the orbitals are calculated
+via Eq. 28 using Dexact
+12 from a parallel MCTDHF calcula-
+tion. The violation of N-representability leads to divergence
+of the dipole moment. The point of divergence is marked by
+vertical lines for each reconstruction. Note that contraction
+consistency postpones but does not prevent the divergence.
+(b) The smallest and largest eigenvalue of the 2-RDM. The
+violation of N-representability clearly visible from eigenval-
+ues outside the allowed range 0 ≤gi ≤ 4 (marked by dashed
+horizontal lines) occurs in close temporal proximity to the
+divergence of the dipole moment.
+0≤gi≤N, shows that due to the nonlinear error magni-
+ﬁcation N-representability will not be preserved during
+propagation unless puriﬁcation after each time step is
+enforced.
+3. Test of dynamical puriﬁcation
+To preserveN-representability and to achieve a stable
+propagation of D12, implementation of dynamical puriﬁ-
+cation is essential. For each time step, Eq. 67 - Eq. 71
+adapted to spin symmetry are iteratively solved. Con-
+vergence is typically reached after 10 iterations where the
+-2
+-1
+0
+0 0.5 1 1.5 2 2.5 3
+dipole moment [a.u.]
+time [optical cycle]
+(a)
+-1.5
+-1.4
+2.5 3
+−10−15
+−10−10
+−10−5
+-1
+0 0.5 1 1.5 2 2.5 3
+2-RDM eigenvalue
+time [optical cycle]
+(b) without puriﬁcation
+before puriﬁcation step
+after puriﬁcation step
+DC
+123
+DV
+123
+exact
+FIG. 7. (Color online) (a) Dipole moment for the same pa-
+rameters as in Fig. 6 but with dynamical puriﬁcation. (b) The
+smallest eigenvalue of the 2-RDM for the propagation employ-
+ing DC
+123 without puriﬁcation [green line, compare Fig. 6(b)]
+and with puriﬁcation. For the latter the smallest eigenvalue
+is shown before and after each dynamical puriﬁcation step
+(Eq. 66). The negative occupation number after puriﬁcation
+with 10 iterations is in general smaller than 10 −9 indicating
+rapid convergence.
+magnitude of the lowest eigenvalue of the 2-RDM and the
+2-HRDM is reduced to values below 10−9 [see Fig. 7 (b)].
+Repeating the test for sensitivity to propagation errors
+in D12 including now the dynamical puriﬁcation we ﬁnd
+reasonable agreement for the time evolution of the dipole
+moment withDV
+123 and perfect agreement withDC
+123 rela-
+tive to the MCTDHF reference [see Fig. 7 (a)]. The small
+amplitude oscillations after the conclusion of the pulse
+signifying the superposition of the ground state and ex-
+cited states are reproduced with high accuracy while they
+are overestimated by DV
+123 [see Fig. 7 (a)]. The correc-
+tion of the error accumulation forD12 by the puriﬁcation
+thus dramatically improves the stability and accuracy of
+the propagation.
+13
+-3
+-2
+-1
+0 0.5 1 1.5 2 2.5 3
+dipole moment [a.u.]
+time [optical cycle]
+(a)
+-40
+-20
+0
+20
+40
+60
+0 0.5 1 1.5 2 2.5 3
+dipole moment [a.u.]
+time [optical cycle]
+(b)
+DC
+123
+DV
+123
+exact
+DC
+123
+DV
+123
+exact
+FIG. 8. (Color online) Dipole moment of LiH subject to
+the laser pulse (Fig. 4) with (a) I = 10 14W/cm2 and (b)
+I = 8 × 1014W/cm2 employing the reconstruction functionals
+DV
+123[D12] and DC
+123[D12] within a fully self-consistent prop-
+agation of the TD-2RDM compared with the exact (MCT-
+DHF) reference.
+4. Self-consistent propagation
+A fully self-consistent propagation requires one ad-
+ditional step: the use of the approximate D12 also as
+input for the orbital equations of motion (Eq. 28). Up
+to this point we have used Dexact
+12 in Eq. 28 in order to
+disentangle the error occurring in the propagation of
+D12 from that of the single-particle orbitals. Since the
+latter is also a system of nonlinear equations containing
+both D12 and the inverse of D1 error magniﬁcation is
+to be expected. This (up to exponential) error magniﬁ-
+cation imposes an additional constraint on the required
+accuracy of the reconstruction as well as puriﬁcation.
+Indeed, within a fully self-consistent propagation the
+simple reconstruction DV
+123 is not able to accurately
+reproduce the time evolution of the dipole moment (see
+Fig. 8). Strong deviations from the exact result occur
+due to the violation of the spin symmetries discussed
+in Sec. II B. It turns out that the conservation of these
+symmetries by DC
+123 is essential to obtain results that
+-2
+-1
+0 0.5 1 1.5 2 2.5 3
+dipole moment [a.u.]
+time [optical cycle]
+(a)
+-40
+-20
+0
+20
+40
+60
+0 0.5 1 1.5 2 2.5 3
+dipole moment [a.u.]
+time [optical cycle]
+(b)
+exact
+DC
+123
+TDDFT
+TDHF
+exact
+DC
+123
+TDDFT
+TDHF
+FIG. 9. (Color online) Dipole moment of LiH subject to
+the laser pulse (Fig. 4) with (a) I = 10 14W/cm2 and (b)
+I = 8 × 1014W/cm2 for a fully self-consistent propagation of
+the TD-2RDM method compared with the exact (MCTDHF)
+reference, the TDHF and the TDDFT calculations.
+are in agreement with the MCTDHF calculation (see
+Fig. 8).
+We also compare the present results for d(t) with the
+prediction by the TDHF method and TDDFT within
+the adiabatic local density approximation (LDA) (for
+details see Appendix B). Within TDDFT and TDHF
+we use the corresponding DFT and HF ground states as
+the initial states which leads to the discrepancy at t = 0
+in the dipole moment. While for the lower intensity,
+this discrepancy is only moderately increased during the
+evolution, for the higher intensity dramatic enhancement
+of these deviations is observed. By contrast, the present
+TD-2RDM method performs consistently better than
+the TDHF and the TDDFT calculations over the entire
+time interval for both intensities [see Fig. 9 (a) and (b)].
+We note that the TDHF calculation can be viewed as
+a special case of the self-consistent propagation of the
+2-RDM when the number of spin orbitals equals the
+number of electrons. In this case the reconstruction
+is exact and puriﬁcation is not necessary since the
+resulting 2-RDM is N-representable at all times. While
+14
+3.3
+3.4
+3.5
+0 0.5 1 1.5 2 2.5 3
+interaction energy [a.u.]
+time [optical cycle]
+(a)
+2
+2.5
+3
+3.5
+0 0.5 1 1.5 2 2.5 3
+interaction energy [a.u.]
+time [optical cycle]
+(b)
+exact
+DC
+123
+TDDFT
+TDHF
+exact
+DC
+123
+TDDFT
+TDHF
+FIG. 10. (Color online) Time-dependent electron-electron in-
+teraction energy of LiH subject to the laser pulse (Fig. 4)
+with I = 10 14W/cm2 (a) and I = 8 × 1014W/cm2 (b) for
+a fully self-consistent propagation of the TD-2RDM method
+compared with the exact (MCTDHF) reference, the TDHF
+and the TDDFT calculations.
+the TDHF and the TDDFT methods feature stability,
+they do not achieve accuracy [see Fig. 9 (a) and (b)].
+5. Two-particle observables
+A more stringent benchmark for the accuracy of the
+TD-2RDM method are two-particle observables. Un-
+like one-particle observables such as the dipole moment,
+calculation of these represents a major challenge as, in
+general, unknown or poorly known extraction function-
+als for mean-ﬁeld descriptions have to be invoked to de-
+termine two-particle expectation values from the time-
+evolved densityρ(z,t ).
+As an example we consider the two-particle interaction
+energy (Eq. 82). The present calculation for LiH [Fig. 9
+(a) and (b)] shows that the self-consistent TD-2RDM
+with DC
+123 yields excellent agreement with the exact re-
+sult and thus accounts for almost 100% of the interaction
+-20 -10 0 10 20
+z1[a.u.]
+-20
+-10
+0
+10
+20z2[a.u.]
+0
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+1
+TD-2RDM exact
+-20 -10 0 10 20
+z1[a.u.]
+-20
+-10
+0
+10
+20z2[a.u.]
+0
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+2
+-20 -10 0 10 20
+z1[a.u.]
+-20
+-10
+0
+10
+20z2[a.u.]
+0
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+3
+-20 -10 0 10 20
+z1[a.u.]
+-20
+-10
+0
+10
+20z2[a.u.]
+0
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+4
+-20 -10 0 10 20
+z1[a.u.]
+-20
+-10
+0
+10
+20z2[a.u.]
+0
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+1
+-20 -10 0 10 20
+z1[a.u.]
+-20
+-10
+0
+10
+20z2[a.u.]
+0
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+2
+-20 -10 0 10 20
+z1[a.u.]
+-20
+-10
+0
+10
+20z2[a.u.]
+0
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+3
+-20 -10 0 10 20
+z1[a.u.]
+-20
+-10
+0
+10
+20z2[a.u.]
+0
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+4
+FIG. 11. (Color online) Pair density of the LiH molecule in
+the strong laser pulse with I = 8 × 1014W/cm2 left column
+exact (MCTDHF); right column self-consistent propagation
+of the 2-RDM using the reconstruction function DC
+123[D12].
+The pair density is shown at four times depicted in Fig. 4
+[rows (1) to (4)]. The stretched-out arms in the pair density
+are signatures of single particle ionization. The approximate
+distributions are in very good agreement with the exact result.
+Small diﬀerences appear at times (3) and (4).
+energy unlike TDDFT or the TDHF method. The time
+evolution of the interaction energy of LiH for high laser
+intensityI = 8× 1014W shows clear signatures of ioniza-
+tion [Fig. 9 (b)]. The regions with steep reduction corre-
+spond to time intervals where the electron emission from
+the molecule preferably occurs. This leads to decrease
+of electron density and of interaction energy. At the
+plateaus the ﬁeld reverses its sign and the electron den-
+15
+sity stays nearly constant before ionization occurs into
+the opposite direction. The small increase in interaction
+energy aroundτ≈ 1.5 indicates that the ionized electron
+is re-scattered at the molecule.
+The spatio-temporal variation of the ionization process
+becomes directly visible in the pair density ρ(z1,z 2,t ).
+The snapshots (Fig. 11) at diﬀerent times (marked in
+Fig. 4) display the pair density near the ground state (1),
+near the ﬁeld maximum (2), at the time of re-scattering
+(3), and near the conclusion of the pulse (4). Overall,
+the agreement between the exact pair density and the
+one calculated by the TD-2RDM is excellent and diﬀer-
+ences are hardly visible. Minor deviations appear only
+after the re-scattering of electrons near τ≈ 1.5 close to
+time (3). At this time the electron-electron scattering
+rate is slightly underestimated since the approximation
+of at most two simultaneously interacting particles un-
+derlying the TD-2RDM description is less accurate. The
+approximated pair distribution is again in almost per-
+fect agreement with the exact MCTDHF calculation after
+τ≈ 1.5. The fact that ionization happens almost exclu-
+sively along the coordinate axes with z1≈ 0 or z2≈ 0
+shows that single ionization is the dominant contribution
+and double ionization which would show up along the di-
+agonals|z1| = |z2| is comparatively weak at this ﬁeld
+strength.
+VI. CONCLUSIONS AND OUTLOOK
+We have presented a promising time-dependent many-
+body theory with polynomial scaling in particle number.
+The theory is based on the propagation of the time-
+dependent two-particle reduced density matrix (TD-
+2RDM) without invoking the N-particle wavefunction.
+One key ingredient is the reconstruction of the 3-RDM
+via the 2-RDM, a prerequisite for closing the equation of
+motion. We have presented a new reconstruction func-
+tional for the three particle reduced density matrix (3-
+RDM) which guarantees conservation of norm, energy,
+and spin during time propagation. In the reconstruc-
+tion functional we have included those parts of the three-
+particle cumulant that can be reconstructed from the 2-
+RDM. For achieving stable propagation, a second key
+ingredient is crucial: due to the nonlinearity of the equa-
+tion of motion, small errors rapidly (up to exponentially)
+magnify destroying N-representability. We have there-
+fore devised a dynamical puriﬁcation protocol that iter-
+atively restores N-representability after each time step
+by enforcing the positivity of the 2-RDM and the two-
+hole reduced density matrix (2-HRDM). As a bench-
+mark calculation we have applied the TD-2RDM method
+to the dynamics of electrons in the one-dimensional
+LiH molecule in strong laser ﬁelds and have compared
+the results to that of the time-dependent Hartree-Fock
+(TDHF) method, the full multiconﬁgurational time-
+dependent Hartree-Fock method (MCTDHF), and time-
+dependent density functional theory (TDDFT). We ob-
+serve that the TD-2RDM method shows very good agree-
+ment with the MCTDHF results. The latter have been
+carefully checked for convergence and can serve as repre-
+sentative of the numerically exact four-electron wavefunc-
+tion of this problem. As test observables we have used the
+dipole moment as a bona ﬁde one-particle observable of
+great importance for the (non-)linear response to strong
+laser ﬁelds, and the electron-electron interaction energy
+and pair density as generic two-particle observables. For
+two-particle observables the 2-RDM method features the
+decisive advantage over eﬀective one-particle descriptions
+such as TDDFT that the observable is directly accessible
+without invoking any read-out functionals.
+We anticipate that the present TD-2RDM theory should
+provide a tool to accurately describe a wide variety of
+many-body systems as long as the dynamics is given by
+a sequence of two-particle interactions. Genuine three-
+particle correlations are neglected in our theory. Appli-
+cations to other systems and larger numbers of degrees
+of freedom are envisioned.
+ACKNOWLEDGMENTS
+We thank Oﬁr Alon for helpful discussions on multi-
+conﬁgurational methods, Kazuhiro Yabana for hints on
+literature, and Florian Libisch and Georg Wachter for
+their help with TDDFT calculations. This work has
+been supported by the FWF doctoral school Solids4Fun,
+FWF SFB-041 ViCoM, and FWF SFB-049 Next Lite,
+and in part by KAKENHI (No. 23750007, No. 23656043,
+No. 23104708, No. 25286064, No. 26390076, and
+No. 26600111), the Photon Frontier Network Program
+of MEXT (Japan), and Center of Innovation Program
+from JST (Japan). Calculations have been performed on
+the Vienna Scientiﬁc Cluster 1.
+Appendix A: The unitary decomposition of
+hermitian three-particle matrices with arbitrary
+symmetry
+The unitary decomposition of p-particle matrices [58–
+61] is the generalization of the unitary decomposition of
+two-particle matrices which has been developed for her-
+mitian antisymmetric two-particle matrices1 (for a review
+see, e.g., [33]). Brieﬂy, any hermitian antisymmetric two-
+particle matrix M12 can be decomposed into
+M12 =M12;⊥ +M12;K, (A1)
+1 As a side remark we note that the unitary decomposition of two-
+particle matrices is equivalent to the Ricci decomposition of gen-
+eral relativity which is used to deﬁne the trace free part of the
+Riemann curvature tensor known as the Weyl tensor [62].
+16
+where M12;K is the contraction-free component lying in
+the kernel of the contraction operator
+Tr2 (M12;K) = 0, (A2)
+and
+M12;⊥ = 4
+r− 2M1∧I− 4Tr1(M1)
+(r− 1)(r− 2)I∧I, (A3)
+is an element of the orthogonal complement with M1 =
+Tr2M12, I is the identity and r the number of orbitals.
+The component M12;⊥ is orthogonal to the contraction-
+free component M12;K with respect to the Frobenius in-
+ner product for matrices [63]
+Tr12 (M12;⊥M12;K) = 0. (A4)
+Similar to Eq. A3, the unitary decomposition for hermi-
+tian symmetric two-particle matrices reads [64]
+M12;⊥ = 4
+r + 2M1⊙I− 4Tr1(M1)
+(r + 1)(r + 2)I⊙I, (A5)
+where the symmetric product ⊙ is deﬁned in analogy
+to the antisymmetric wedge product ∧ (Eq. 57). Note
+that the orthogonal component M12;⊥ deﬁned in Eq. A3
+and Eq. A5 depends only on the contraction of the two-
+particle matrix M1 = Tr2M12. For the unitary decom-
+position of hermitian two-particle matrices with arbi-
+trary symmetry [65] the orthogonal component M12;⊥ is
+uniquely determined from all diagonal and oﬀ-diagonal
+contractions of the two-particle matrix M12.
+We extend now this unitary decomposition to hermitian
+three-particle matrices M123 with arbitrary symmetry
+M123 =M123;⊥ +M123;K. (A6)
+In this decompositionM123;K is the contraction-free com-
+ponent in the kernel of the contraction operator
+L3(M123;K) = 0, (A7)
+where L3 denotes all diagonal and oﬀ-diagonal contrac-
+tions. As we show below the orthogonal component
+M123;⊥ can be written as a functional of the 9 one-fold
+contractions
+1Mi1i2
+j1j2 =
+∑
+k
+Mi1i2k
+j1j2k
+2Mi1i2
+j1j2 =
+∑
+k
+Mi1i2k
+j1kj2
+3Mi1i2
+j1j2 =
+∑
+k
+Mi1i2k
+kj1j2
+4Mi1i2
+j1j2 =
+∑
+k
+Mi1ki2
+j1j2k
+5Mi1i2
+j1j2 =
+∑
+k
+Mi1ki2
+j1kj2
+6Mi1i2
+j1j2 =
+∑
+k
+Mi1ki2
+kj1j2
+7Mi1i2
+j1j2 =
+∑
+k
+Mki1i2
+j1j2k
+8Mi1i2
+j1j2 =
+∑
+k
+Mki1i2
+j1kj2
+9Mi1i2
+j1j2 =
+∑
+k
+Mki1i2
+kj1j2
+, (A8)
+the 18 two-fold contractions
+1Mi
+j =
+∑
+k1k2
+Mik1k2
+jk1k2
+2Mi
+j =
+∑
+k1k2
+Mik1k2
+k1jk2
+3Mi
+j =
+∑
+k1k2
+Mik1k2
+k1k2j
+4Mi
+j =
+∑
+k1k2
+Mik1k2
+jk2k1
+5Mi
+j =
+∑
+k1k2
+Mik1k2
+k2jk1
+6Mi
+j =
+∑
+k1k2
+Mik1k2
+k2k1j
+7Mi
+j =
+∑
+k1k2
+Mk1ik2
+jk1k2
+8Mi
+j =
+∑
+k1k2
+Mk1ik2
+k1jk2
+9Mi
+j =
+∑
+k1k2
+Mk1ik2
+k1k2j
+10Mi
+j =
+∑
+k1k2
+Mk1ik2
+jk2k1
+11Mi
+j =
+∑
+k1k2
+Mk1ik2
+k2jk1
+12Mi
+j =
+∑
+k1k2
+Mk1ik2
+k2k1j
+13Mi
+j =
+∑
+k1k2
+Mk1k2i
+jk1k2
+14Mi
+j =
+∑
+k1k2
+Mk1k2i
+k1jk2
+15Mi
+j =
+∑
+k1k2
+Mk1k2i
+k1k2j
+16Mi
+j =
+∑
+k1k2
+Mk1k2i
+jk2k1
+17Mi
+j =
+∑
+k1k2
+Mk1k2i
+k2jk1
+18Mi
+j =
+∑
+k1k2
+Mk1k2i
+k2k1j, (A9)
+and the 6 three-fold contractions
+1M =
+∑
+k1k2k3
+Mk1k2k3
+k1k2k3
+2M =
+∑
+k1k2k3
+Mk1k2k3
+k1k3k2
+3M =
+∑
+k1k2k3
+Mk1k2k3
+k2k1k3
+4M =
+∑
+k1k2k3
+Mk1k2k3
+k2k3k1
+5M =
+∑
+k1k2k3
+Mk1k2k3
+k3k1k2
+6M =
+∑
+k1k2k3
+Mk1k2k3
+k3k2k1
+. (A10)
+Generalizing the linear expansion for two-particle ma-
+trices [65] we expand the orthogonal component of the
+three-particle matrix as
+[M⊥]i1i2i3
+j1j2j3 =
+6∑
+k=1
+∑
+τ∈S3
+ak
+τ δi1
+jτ (1)
+δi2
+jτ (2)
+δi3
+jτ (3)
+kM
++
+18∑
+k=1
+∑
+σ,τ∈S3
+σ(1)<σ(2)
+bk
+τ,σ δ
+iσ(1)
+jτ (1)
+δ
+iσ(2)
+jτ (2)
+kM
+iσ(3)
+jτ (3)
++
+9∑
+k=1
+∑
+σ,τ∈S3
+ck
+τ,σ δ
+iσ(1)
+jτ (1)
+kM
+iσ(2)iσ(3)
+jτ (2)jτ (3)
+, (A11)
+where S3 denotes the permutation group of three ele-
+ments. The restriction σ(1) < σ(2) in the second term
+is necessary since the Kronecker deltas ( δ) can be com-
+muted without creating a new coeﬃcient. In this ex-
+pansion there are 6 × 3! coeﬃcients ak
+τ, 18× 3!× 3!/2
+coeﬃcientsbk
+τ,σ and 9× 3!× 3! coeﬃcients ck
+τ,σ for which
+we will use the short hand notation ⃗ a,⃗b and⃗ c. To deter-
+mine the coeﬃcients we insert the expansion (Eq. A11)
+into Eqs. A8. Note that Eqs. A9 and Eqs. A10 do not
+give an additional set of conditions since they are implied
+17
+by Eqs. A8. In general the result of a one-fold contrac-
+tion of the expansion Eq. A11 has the following form
+(n∈{ 1... 9})
+nMi1i2
+j1j2 =
+6∑
+k=1
+∑
+µ,ν∈S2
+µ(1)<µ(2)
+fn,k
+µ,ν
+(
+⃗ a,⃗b
+)
+δ
+iµ(1)
+jν(1)
+δ
+iµ(2)
+jν(2)
+kM
++
+18∑
+k=1
+∑
+µ,ν∈S2
+hn,k
+µ,ν
+(⃗b,⃗ c
+)
+δ
+iµ(1)
+jν(1)
+kM
+iµ(2)
+jν(2)
++
+9∑
+k=1
+∑
+µ,ν∈S2
+wn,k
+µ,ν
+(
+⃗ c
+) kM
+iµ(1)iµ(2)
+jν(1)jν(2)
+, (A12)
+where fn,k
+µ,ν
+(
+⃗ a,⃗b
+)
+, hn,k
+µ,ν
+(⃗b,⃗ c
+)
+and wn,k
+µ,ν
+(
+⃗ c
+)
+are linear func-
+tions of the coeﬃcients, and µ,ν are permutations in the
+permutation group S2. In order for Eq. A12 to be an
+identity the terms on the right hand side containing ei-
+ther kM or kMi
+j must vanish and only the term contain-
+ing nMi1i2
+j1j2 appearing on the left hand side must remain.
+Consequently,
+fn,k
+µ,ν
+(
+⃗ a,⃗b
+)
+= 0 (A13)
+hn,k
+µ,ν
+(⃗b,⃗ c
+)
+= 0 (A14)
+and
+wn,k
+µ,ν
+(
+⃗ c
+)
+= 0 for µ,ν ̸= id
+wn,k
+id,id
+(
+⃗ c
+)
+=δk
+n, (A15)
+where id is the identity permutation. The 9 × 3!× 3! co-
+eﬃcients⃗ care uniquely determined by the 9× 9× 2!× 2!
+conditions given by Eq. A15. Once the coeﬃcients ⃗ care
+determined the 18× 3!× 3!/2 coeﬃcients⃗b can be calcu-
+lated from the 9× 18× 2!× 2! conditions of Eq. A14 and
+similarly the 6× 3! coeﬃcients ⃗ acan be calculated from
+the 9× 6× 2!× 2!/2 conditions contained in Eq. A13.
+Note that for the coeﬃcients ⃗ a,⃗b there are more equa-
+tions than variables so it is not a priori guaranteed that
+a solution exists. However, it turns out that the set of
+coupled equations Eq. A13, Eq. A14, and Eq. A15 has
+a unique solution for all orbital dimensions r >4. This
+shows that M123;⊥ is a unique functional of the one-fold
+contractions. The solution for the coeﬃcients depends
+solely on the number of orbitals r since the only parame-
+ter that enters the equations is the trace of the Kronecker
+delta given by the orbital dimension∑
+iδi
+i =r. We solve
+the equations for the coeﬃcients using symbolic compu-
+tation performed with Mathematica. We ﬁnd that all
+coeﬃcients can be written in the following form
+X = A1
+r− 4 + A2
+r + 4 + B1
+r− 3 + B2
+r + 3
++ C1
+r− 2 + C2
+r + 2 + D1
+r− 1 + D2
+r + 1 + E1
+r + E2
+r2 (A16)
+with rational coeﬃcients A1,...,E 2. Obviously the co-
+eﬃcients are well deﬁned only for r> 4. A similar result
+holds also for the unitary decomposition of the 2-RDM
+for which r> 2 has to be fulﬁlled.
+Contrary to the case of arbitrary symmetry our appli-
+cation to the propagation of the 2-RDM requires the
+unitary decomposition of the ( ↑↑↓)-block of the three-
+particle cumulant ∆ ↑↑↓
+123 which is antisymmetric in the
+ﬁrst two indices. This signiﬁcantly reduces the numer-
+ical eﬀort to calculate the orthogonal part since in this
+case there are only 4 one-fold contractions, 5 two-fold
+contractions and 2 three-fold contractions and all other
+contractions can be expressed by these basic contractions.
+To explicitly evaluate ∆↑↑↓
+123;⊥ we calculate the basic con-
+tractions using ∆↑↑↓
+123 = D↑↑↓
+123−DV↑↑↓
+123 and insert them
+into Eq. A11 with the determined coeﬃcients ⃗ a,⃗b,⃗ c.
+Appendix B: TDDFT calculations in 1D
+While in three dimensions TDDFT is a well estab-
+lished theory to describe the dynamics of atomic, molec-
+ular, and solid state systems with a large number of elec-
+trons, one-dimensional TDDFT has been studied only
+very recently [66, 67]. The principal diﬀerence between
+one and three dimensions is that the Coulomb interac-
+tion∼ 1/|z−z′| leads to diverging interaction energies
+in 1D. This can be avoided by introducing the softened
+Coulomb interaction (Eq. 77). The equations of motion
+in 1D of the time-dependent Kohn-Sham orbitals are [14]
+i∂tφKS
+i (z,t ) =
+(
+− 1
+2
+∂2
+∂z2 +Veﬀ[ρ(z,t )]
+)
+φKS
+i (z,t ), (B1)
+with
+Veﬀ[ρ(z,t )] =VH[ρ(z,t )] +Vx[ρ(z,t )] +Vc[ρ(z,t )], (B2)
+where VH[ρ] denotes the Hartree potential
+VH[ρ(z,t )] =
+∫ ρ(z′,t )√
+(z−z′)2 +d
+dz′, (B3)
+Vx[ρ(z,t )] and Vc[ρ(z,t )] denotes the exchange and cor-
+relation potential, respectively. Within the local density
+approximation (LDA) the exchange and correlation po-
+tential is calculated from the uniform electron gas with
+the 1-RDM denoted byDunif(z;z′). The exchange poten-
+tialVx[ρ] for the 1D electron gas with softened Coulomb
+interaction can be evaluated analytically yielding a Mei-
+jer G-function [66]
+Vx[ρ] =−1
+4
+δ
+δρ
+∫ |Dunif(z;z′)|2
+√
+(z−z′)2 +d
+dzdz′
+=−ρ
+4G2,1
+1,3
+( 1
+2
+0, 0,− 1
+2
+⏐⏐⏐⏐ dk2
+F
+)
+, (B4)
+where d is the Coulomb softening parameter and kF =
+πρ
+2 . The correlation potential Vc[ρ] within LDA can be
+derived by quantum Monte Carlo calculations for the uni-
+form 1D electron gas with soft Coulomb potential as dis-
+cussed in [67].
+18
+[1] J. Feist, S. Nagele, R. Pazourek, E. Persson, B. I. Schnei-
+der, L. A. Collins, and J. Burgd¨ orfer, Phys. Rev. A 77,
+043420 (2008).
+[2] R. Pazourek, J. Feist, S. Nagele, and J. Burgd¨ orfer,
+Physical Review Letters 108, 163001 (2012).
+[3] D. Hochstuhl and M. Bonitz, The Journal of Chemical
+Physics 134, 084106 (2011).
+[4] J. S. Parker, E. S. Smyth, and K. T. Taylor, Journal of
+Physics B: Atomic, Molecular and Optical Physics 31,
+L571 (1998).
+[5] A. Palacios, T. N. Rescigno, and C. W. McCurdy, Phys-
+ical Review A 77, 032716 (2008).
+[6] J. L. Sanz-Vicario, A. Palacios, J. C. Cardona,
+H. Bachau, and F. Mart´ ın, Journal of Electron Spec-
+troscopy and Related Phenomena 161, 182 (2007).
+[7] A. Palacios, H. Bachau, and F. Mart´ ın, Phys. Rev. A
+75, 013408 (2007).
+[8] X. Guan, K. Bartschat, and B. I. Schneider, Phys. Rev.
+A 82, 041404 (2010).
+[9] A. Saenz, Phys. Rev. A 61, 051402 (2000).
+[10] W. Vanroose, D. A. Horner, F. Mart´ ın, T. N. Rescigno,
+and C. W. McCurdy, Phys. Rev. A 74, 052702 (2006).
+[11] E. Dehghanian, A. D. Bandrauk, and G. L. Kamta, Phys.
+Rev. A 81, 061403 (2010).
+[12] A. Szabo and N. S. Ostlund, Modern Quantum Chemistry
+(McGraw-Hill, Inc., New York, 1989).
+[13] R. Parr and W. Yang, Density-Functional Theory of
+Atoms and Molecules , International Series of Mono-
+graphs on Chemistry (Oxford University Press, USA,
+1989).
+[14] C. Ullrich, Time-Dependent Density-Functional The-
+ory: Concepts and Applications , Oxford Graduate Texts
+(OUP Oxford, 2012).
+[15] G. Wachter, C. Lemell, J. Burgd¨ orfer, S. A. Sato, X.-
+M. Tong, and K. Yabana, Physical Review Letters 113,
+087401 (2014).
+[16] D. Bauer, F. Ceccherini, A. Macchi, and F. Cornolti,
+Physical Review A 64, 063203 (2001).
+[17] T. Otobe, M. Yamagiwa, J.-I. Iwata, K. Yabana,
+T. Nakatsukasa, and G. F. Bertsch, Physical Review
+B 77, 165104 (2008).
+[18] J. A. Driscoll, S. Bubin, and K. Varga, Physical Review
+B 83, 233405 (2011).
+[19] T. Burnus, M. A. L. Marques, and E. K. U. Gross, Phys-
+ical Review A 71, 010501 (2005).
+[20] A. Pohl, P.-G. Reinhard, and E. Suraud, Physical Re-
+view Letters 84, 5090 (2000).
+[21] G. Vignale and W. Kohn, Phys. Rev. Lett. 77, 2037
+(1996).
+[22] D. G. Lappas and R. van Leeuwen, Journal of Physics B:
+Atomic, Molecular and Optical Physics 31, L249 (1998).
+[23] F. Wilken and D. Bauer, Phys. Rev. A76, 023409 (2007).
+[24] N. Rohringer, S. Peter, and J. Burgd¨ orfer, Phys. Rev. A
+74, 042512 (2006).
+[25] J. Caillat, J. Zanghellini, M. Kitzler, O. Koch,
+W. Kreuzer, and A. Scrinzi, Phys. Rev. A 71, 012712
+(2005).
+[26] D. Hochstuhl, C. Hinz, and M. Bonitz, The European
+Physical Journal Special Topics 223, 177 (2014).
+[27] T. Sato and K. L. Ishikawa, Phys. Rev. A 88, 023402
+(2013).
+[28] P. O. L¨ owdin, Phys. Rev.97, 14741489 (1955).
+[29] F. Bopp, Zeitschrift f¨ ur Physik156, 348 (1959).
+[30] D. A. Mazziotti, Phys. Rev. Lett. 93, 213001 (2004).
+[31] Z. Zhao, B. J. Braams, M. Fukuda, M. L. Overton, and
+J. K. Percus, The Journal of Chemical Physics 120, 2095
+(2004).
+[32] D. A. Mazziotti, Phys. Rev. Lett. 97, 143002 (2006).
+[33] D. Mazziotti, ed., Advances in Chemical Physics,
+Reduced-Density-Matrix Mechanics: With Application to
+Many-Electron Atoms and Molecules, Advances in Chem-
+ical Physics (Wiley, 2007).
+[34] A. J. Coleman, Rev. Mod. Phys. 35, 668 (1963).
+[35] C. Garrod and J. K. Percus, J. Math. Phys. 5, 1756
+(1964).
+[36] R. M. Erdahl, Int. J. Quant. Chem. 13, 697 (1978).
+[37] D. A. Mazziotti, Phys. Rev. Lett. 108, 263002 (2012).
+[38] T. Gherega, R. Krieg, P. G. Reinhard, and C. Toepﬀer,
+Nuclear Physics A 560, 166 (1993).
+[39] K.-J. Schmitt, P.-G. Reinhard, and C. Toepﬀer,
+Zeitschrift fr Physik A Atomic Nuclei 336, 123 (1990).
+[40] M. Tohyama and P. Schuck, The European Physical Jour-
+nal A 50, 1 (2014).
+[41] B. Sch¨ afer-Bung and M. Nest, Phys. Rev. A 78, 012512
+(2008).
+[42] A. Akbari, M. J. Hashemi, A. Rubio, R. M. Niemi-
+nen, and R. van Leeuwen, Physical Review B 85, 235121
+(2012).
+[43] M. Bonitz, Quantum Kinetic Theory , Teubner-Texte zur
+Physik (Teubner, 1998).
+[44] R. McWeeny and Y. Mizuno, Proc. R. Soc. London A
+259, 554 (1961).
+[45] F. Colmenero, C. P´ erez del Valle, and C. Valdemoro,
+Phys. Rev. A 47, 971 (1993).
+[46] K. Yasuda and H. Nakatsuji, Phys. Rev. A 56, 2648
+(1997).
+[47] D. A. Mazziotti, Phys. Rev. A 57, 4219 (1998).
+[48] D. A. Mazziotti, Chem. Phys. Lett. 326, 212 (2000).
+[49] D. A. Mazziotti, Chemical Physics Letters 289, 419
+(1998).
+[50] C. Garrod and M. Rosina, J. Math. Phys. 10, 1855
+(1969).
+[51] R. Erdahl, Rep. Math. Phys. 15, 147 (1979).
+[52] D. A. Mazziotti, Phys. Rev. E 65, 026704 (2002).
+[53] D. R. Alcoba, F. J. Casquero, L. M. Tel, E. Prez-Romero,
+and C. Valdemoro, Int. J. Quant. Chem.102, 620 (2005).
+[54] N. E. Dahlen and R. van Leeuwen, Phys. Rev. A 64,
+023405 (2001).
+[55] H. Yu, T. Zuo, and A. D. Bandrauk, Phys. Rev. A 54,
+3290 (1996).
+[56] K. Balzer, S. Bauch, and M. Bonitz, Phys. Rev. A 82,
+033427 (2010).
+[57] M. Baxter and T. Kirchner, Phys. Rev. A 87, 062507
+(2013).
+[58] A. J. Coleman and I. Absar, International Journal of
+Quantum Chemistry 18, 1279 (1980).
+[59] M. E. Casida and J. E. Harriman, International Journal
+of Quantum Chemistry 30, 161 (1986).
+[60] T. Au-Chin and G. Hong, International Journal of Quan-
+tum Chemistry 23, 217 (1983).
+[61] C.-C. Sun, X.-Q. Li, and A.-C. Tang, International Jour-
+nal of Quantum Chemistry 25, 653 (1984).
+19
+[62] R. Wald, General Relativity (University of Chicago Press,
+1984).
+[63] J. E. Harriman, Physical Review A 65, 052507 (2002).
+[64] C.-C. Sun, X.-Q. Li, and A.-C. Tang, Int. J. of Quant.
+Chem. 25, 1045 (1984).
+[65] D. R. Alcoba, Int. J. of Quant. Chem. 97, 776 (2004).
+[66] L. O. Wagner, E. M. Stoudenmire, K. Burke, and S. R.
+White, Phys. Chem. Chem. Phys. 14, 8581 (2012).
+[67] N. Helbig, J. I. Fuks, M. Casula, M. J. Verstraete,
+M. A. L. Marques, I. V. Tokatly, and A. Rubio, Physical
+Review A 83, 032503 (2011).

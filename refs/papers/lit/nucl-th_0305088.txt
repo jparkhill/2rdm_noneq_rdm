@@ -1,0 +1,1202 @@
+arXiv:nucl-th/0305088v1  29 May 2003
+Eigenstates of the time-dependent density-matrix theory
+Mitsuru Tohyama
+Kyorin University School of Medicine, Mitaka, Tokyo 181-86 11, Japan
+Peter Schuck
+Institut de Physique Nucl ´eaire, IN2P3-CNRS, Universit ´e Paris-Sud, F-91406 Orsay Cedex, France
+(Dated: October 24, 2018)
+An extended time-dependent Hartree-Fock theory, known as t he time-dependent density-matrix
+theory (TDDM), is solved as a time-independent eigenvalue p roblem for low-lying 2 + states in 24O
+to understand the foundation of the rather successful time- dependent approach. It is found that
+the calculated strength distribution of the 2 + states has physically reasonable behavior and that
+the strength function is practically positive deﬁnite thou gh the non-hermitian hamiltonian matrix
+obtained from TDDM does not guarantee it. A relation to an ext ended RPA theory with hermiticity
+is also investigated. It is found that the density-matrix fo rmalism is a good approximation to the
+hermitian extended RPA theory.
+PACS numbers: 21.60.Jz, 21.10.Re
+I. INTRODUCTION
+The time-dependent density-matrix theory (TDDM) [1] is a version of extended time-dependent Hartree-Fock
+theories which dynamically include two-body correlations. Although T DDM has been formulated to deal with large
+amplitude collective motions [2, 3], it has also been applied to small amplit ude oscillations: Dipole and quadrupole
+giant resonances in stable nuclei [4, 5] and low-lying states in unstab le oxygen isotopes [6, 7]. Although the obtained
+results are quite reasonable, the foundation of TDDM for small amp litude motions is not clear in its time-dependent
+form. In this paper an eigenvalue problem of the Small amplitude limit of TDDM (STDDM) is solved for low-lying 2 +
+states in 24O to better understand the time-dependent approach. The hamilt onian matrix of STDDM is not hermitian
+as will be shown below. STDDM is compared with an extended RPA (ERPA ) theory which has hermiticity [8] and its
+relation to the ERPA theory is clariﬁed. This paper is organized as follo ws: The formulation of STDDM is presented
+in Sect. 2. A numerical solution of STDDM for low-lying 2 + states in 24O is shown in Sect. 3. A comparison of
+STDDM with a more elaborate ERPA with hermiticity is made in Sect. 4 and Sect. 5 is devoted to a summary.
+II. SMALL AMPLITUDE LIMIT OF TDDM
+TDDM gives the time-evolution of the one-body density-matrix ρ(1, 1′) and the correlated part C(12, 1′2′) of the
+two-body density-matrix, where numbers denote space, spin, an d isospin coordinates. The equations of motion for ρ
+andC have been obtained by truncating the well-known Bogoliubov-Born- Green-Kirkwood-Yvon hierarchy of reduced
+density matrices [9]. STDDM has been formulated according to the fo llowing steps [10]: 1) Linearizing the equations
+of motion for ρ and C with respect δρ and δC , where δρ and δC denote deviations from the ground-state values ρ0
+and C0 i.e. δρ =ρ −ρ0 and δC =C −C0, respectively. 2) Expanding δρ and δC with single-particle states ψα as
+δρ(11′,t ) =
+∑
+αα ′
+xαα ′ (t)ψα (1,t )ψ∗
+α ′ (1′,t ), (1)
+δC (121′2′,t ) =
+∑
+α 1α 2α ′
+1α ′
+2
+Xα 1α 2α ′
+1α ′
+2
+(t)ψα 1 (1,t )ψα 2 (2,t )ψ∗
+α ′
+1
+(1′,t )ψ∗
+α ′
+2
+(2′,t ), (2)
+where ψα is chosen to be an eigenstate of the mean ﬁeld hamiltonian h0(ρ0):
+h0(ρ0)ψα (1) = − ¯h2∇2
+2m ψα (1) +
+∫
+d2v(1, 2)[ρ0(2, 2)ψα (1) −ρ0(1, 2)ψα (2)] = ǫαψα (1). (3)
+Here the one-body density matrix ρ0 is given as
+ρ0(11′) =
+∑
+αα ′
+n0
+αα ′ψα (1)ψ∗
+α ′ (1′). (4)
+2
+After Fourier transforming the linearized equations, the equation s for xαα ′ (ω) and Xα 1α 2α ′
+1α ′
+2
+(ω) can be written in
+matrix form,
+(
+a c
+b d
+)(
+x
+X
+)
+=ω
+(
+x
+X
+)
+, (5)
+whereω is an eigenvalue. The matrices a,b,c, andd are explicitly given in the Appendix. Eq.(5) can also be obtained
+from the following equations:
+⟨Φ 0|[a+
+α ′aα,H ]|Φ ⟩ = ω⟨Φ 0|a+
+α ′aα |Φ ⟩, (6)
+⟨Φ 0|[a+
+α ′
+1
+a+
+α ′
+2
+aα 2aα 1,H ]|Φ ⟩ = ω⟨Φ 0|a+
+α ′
+1
+a+
+α ′
+2
+aα 2aα 1|Φ ⟩, (7)
+where [ ] stands for the commutation relation, H is the total hamiltonian consisting of the kinetic energy term
+and a two-body interaction, |Φ 0⟩ is the ground-state wavefunction and |Φ ⟩ the wavefunction for the excited state
+with excitation energy ω. Linearizing Eqs.(6) and (7) with respect to xαα ′ = ⟨Φ 0|a+
+α ′aα |Φ ⟩ and Xαβα ′β ′ =
+⟨Φ 0|a+
+α ′
+1
+a+
+α ′
+2
+aα 2aα 1 |Φ ⟩, and using the occupation matrix n0
+αα ′ = ⟨Φ 0|a+
+α ′aα |Φ 0⟩ and the two-body correlation ma-
+trix C0
+α 1α 2α ′
+1α ′
+2
+= ⟨Φ 0|a+
+α ′
+1
+a+
+α ′
+2
+aα 2aα 1 |Φ 0⟩ − A(n0
+α 1α ′
+1
+n0
+α 2α ′
+2
+), where A is an antisymmetrization operator, we arrive at
+Eq.(5). Eq.(5) is reduced to the second RPA (SRPA) [11, 12] under t he two assumptions: The one is the Hartree-Fock
+(HF) approximation for the ground state, in which n0
+αα ′ = δαα ′fα with fα = 1 (0) for occupied (unoccupied) states
+at zero temperature and C0
+α 1α 2α ′
+1α ′
+2
+=0. The other is to restrict Xα 1α 2α ′
+1α ′
+2
+only to two particle - two hole components
+and their complex conjugates.
+The hamiltonian matrix of Eq.(5) is not hermitian, i.e. b ̸=c+, as is easily understood from its explicit form. For a
+non-hermitian hamiltonian matrix, the left-hand-side eigenvectors of the hamiltonian matrix constitute a basis which
+is orthogonal to ( xαα ′,X α 1α 2α ′
+1α ′
+2
+), and the ortho-normal condition is written as
+⟨˜µ|µ′⟩ =
+∑
+αα ′
+˜x∗
+αα ′ (µ)xαα ′ (µ′) +
+∑
+α 1α 2α ′
+1α ′
+2
+˜X ∗
+α 1α 2α ′
+1α ′
+2
+(µ)Xα 1α 2α ′
+1α ′
+2
+(µ′) = δµµ ′, (8)
+where |µ⟩ represents an eigenvector ( xαα ′,X α 1α 2α ′
+1α ′
+2
+) with the eigenvalue ωµ , and |˜µ⟩ the left-hand-side eigenvector
+of the hamiltonian matrix with the same eigenvalue:
+(˜x∗ ˜X ∗)
+(
+a c
+b d
+)
+=ωµ (˜x∗ ˜X ∗). (9)
+The completeness relation is written as
+∑
+µ
+( xαα ′ (µ)
+Xα 1α 2α ′
+1α ′
+2
+(µ)
+)
+(˜x∗
+ββ ′(µ) ˜X ∗
+β 1β 2β ′
+1β ′
+2
+(µ)) = I, (10)
+where I is the unit matrix. In general the strength function is deﬁned as
+S(E) =
+∑
+Eµ >0
+|⟨Ψ µ | ˆQ|Ψ 0⟩|2δ(E −Eµ ), (11)
+where |Ψ 0⟩ is the ground-state, |Ψ µ ⟩ is an excited state with an excitation energy Eµ , and ˆQ an excitation operator.
+The strength function in STDDM is calculated in a way similar to that use d in TDDM. In TDDM, an initial excited
+wavefunction |Φ(t = 0)⟩ is given by boosting the ground-state wavefunction |Φ 0⟩ as
+|Φ(t = 0)⟩ =eik ˆQ|Φ 0⟩. (12)
+Then the initial values of the time-dependent amplitudes xαα ′ and Xα 1α 2α ′
+1α ′
+2
+are given at ﬁrst order of k as:
+xαα ′ (0) = ⟨Φ(t = 0)|a+
+α ′aα |Φ(t = 0)⟩ ≈ik⟨Φ 0|[a+
+α ′aα, ˆQ]|Φ 0⟩ (13)
+Xα 1α 2α ′
+1α ′
+2
+(0) ≈ ik⟨Φ 0|[a+
+α ′
+1
+a+
+α ′
+2
+aα 2aα 1, ˆQ]|Φ 0⟩. (14)
+In TDDM the time-dependence of xαα ′ and Xα 1α 2α ′
+1α ′
+2
+is determined by solving numerically the TDDM equations.
+It can also be expressed using the eigenstates of Eq.(5) as
+(
+x(t)
+X(t)
+)
+= exp
+[
+−i
+(
+a c
+b d
+)
+t/¯h
+](
+x(0)
+X(0)
+)
+=
+∑
+µ
+exp
+[
+−iωµt
+¯h
+](
+xµ
+Xµ
+)
+(˜x∗
+µ ˜X ∗
+µ )
+(
+x(0)
+X(0)
+)
+, (15)
+3
+where the completeness relation Eq.(10) is inserted. The time-depe ndent momentQ(t) = ⟨Φ(t)| ˆQ|Φ(t)⟩ for a one-body
+operator becomes
+Q(t) =
+∑
+Re(ω µ >0)
+{
+exp
+(
+−iωµt
+¯h
+)(∑
+αα ′
+⟨α|Q|α′⟩xα ′α (µ)
+)
+(˜x∗
+µx(0) + ˜X ∗
+µX(0)) + complex conjugate
+}
+, (16)
+where we use the fact that both states with ωµ and −ω∗
+µ are eigenstates of Eq.(5). The strength function in TDDM
+is obtained from the Fourier transformation of Q(t) [1] as
+S(E) = 1
+πk¯h
+∫ ∞
+0
+Q(t)e−Γ t/ 2¯h sinEt
+¯h dt, (17)
+where an artiﬁcial damping factor Γ is introduced to obtain a smooth distribution for S(E). Equations (16) and (17)
+suggest that the strength function in STDDM has the form
+S(E) = − 1
+πIm{
+∑
+Re(ω µ )>0
+[
+(∑
+αα ′
+⟨α|Q|α′⟩xα ′α (µ)
+)
+∑
+ββ ′
+⟨β|Q|β′⟩˜xt
+β ′β (µ)
+
+
+∗
+1
+E −ωµ +iΓ/2
+−
+(∑
+αα ′
+⟨α|Q|α′⟩xα ′α (µ)
+)∗
+∑
+ββ ′
+⟨β|Q|β′⟩˜xt
+β ′β (µ)
+
+ 1
+E +ω∗µ +iΓ/2 ]}, (18)
+where ˜xt
+αα ′ (µ) is deﬁned as
+˜xt
+αα ′ (µ) =
+∑
+λλ ′
+⟨Φ 0|[a+
+α ′aα,a +
+λaλ ′]|Φ 0⟩˜xλλ ′ (µ) +
+∑
+λ 1λ 2λ ′
+1λ ′
+2
+⟨Φ 0|[a+
+α ′aα,a +
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+]|Φ 0⟩ ˜Xλ 1λ 2λ ′
+1λ ′
+2
+(µ). (19)
+The strength function S(E) in STDDM is not guaranteed to be positive deﬁnite, as is easily unders tood from its
+expression Eq.(18).
+III. NUMERICAL SOLUTION
+In this section we present a numerical solution of Eq.(5) calculated f or low-lying 2 + states in 24O, where a time-
+dependent approach has previously been applied [7]. The E2 strength function is calculated according to the following
+steps:
+1) A static HF calculation is performed to obtain the initial ground sta te. The neutron 2 s1/ 2 state is assumed to
+be the last fully occupied neutron orbit of 24O. The Skyrme III is used as the eﬀective interaction. It has been u sed
+as one of standard parameterizations of the Skyrme force in nucle ar structure calculations even for very neutron rich
+nuclei [13, 14]. The single-particle wavefunctions are conﬁned to a s phere with radius 12 fm. The mesh size used is
+0.1 fm.
+2) To obtain the correlated ground state |Φ 0⟩, we evolve the HF ground state using the TDDM equations for
+ψα (1,t ), nαα ′ (t) and Cα 1α 2α ′
+1α ′
+2
+(t) [6, 7] and the following time-dependent residual interaction
+v(t) = (1 −e−t/τ )v(r − r′). (20)
+The time constant τ should be suﬃciently large to obtain a nearly stationary solution of th e TDDM equations [15].
+We choose τ to be 300 fm/ c. In the calculation of nαα ′ (t) and Cα 1α 2α ′
+1α ′
+2
+(t), the single-particle states are limited to
+the neutron orbits 1 d5/ 2, 2s1/ 2 and 1d3/ 2. In a consistent calculation the residual interaction should be the s ame as
+that used to generate the mean ﬁeld. However, a Skyrme-type fo rce contains momentum dependent terms, which
+make the computation time of two-body matrix elements quite large. Therefore, we need to use a simple force of the
+δ function form v ∝ δ3(r − r′). We use the following pairing-type residual interaction of the dens ity-dependent δ
+function form [16]
+v(r − r′) = v0(1 −ρ(r)/ρ0)δ3(r − r′), (21)
+whereρ(r) is the nuclear density. The parameters ρ0 andv0 are set to be 0.16fm −3 and −1000 MeV fm 3, respectively.
+Similar values of ρ0 and v0 have been used in the Hartree-Fock-Bogoliubov calculations [17, 1 8, 19] in a truncated
+single-particle space. The time step used to solve the TDDM equation s is 0.75 fm/ c.
+4
+/s48 /s53 /s49/s48
+/s48
+/s49/s48
+/s50/s48
+/s51/s48/s83/s40/s69/s41/s32/s91/s102/s109
+/s52
+/s47/s77/s101/s86/s93
+/s69/s32/s91/s77/s101/s86/s93
+FIG. 1: Strength distributions of the neutron quadrupole mo des in 24O calculated in STDDM (solid line), RPA (dotted line)
+and SRPA (thin dotte line).
+3) At t = 5τ we stop the TDDM calculation and solve Eq.(5). Since we are intereste d in low-lying states which
+originate in inner-shell transitions, we use only the the neutron 1 d5/ 2, 2s1/ 2 and 1d3/ 2 states. The dimension of the
+hamiltonian matrix is about 650 × 650 when these single-particle states are used. The strength fun ction for 2 + states
+is calculated using Eq.(18) with Q =r2Y20(θ,φ ). We use Γ = 0 .5MeV.
+The eigenvalues of some 2 + states become imaginary because the hamiltonian matrix of Eq.(5) is n ot hermi-
+tian. However, their imaginary components are quite small (less tha n 0.08MeV). Some 2 + states have also negative
+quadrupole strengths because positivity of S(E) is not guaranteed. However, the negative contributions are so s mall
+that S(E) becomes almost positive in the entire energy region when it is smooth ed with Γ = 0 .5MeV. The obtained
+result in STDDM (solid line) is shown in Fig.1, where the strength functio ns in RPA (thick dotted line) and SRPA
+(thin dotted line) are also presented for comparison. The ﬁrst 2 + state calculated in STDDM is energetically shifted
+upward and becomes signiﬁcantly more collective as compared with th at in RPA. The increase in the excitation energy
+is due to the lowering of the ground state, and the enhancement of the collectivity of the ﬁrst 2 + state is due to the
+mixing of two-body conﬁgurations induced by ground-state corre lations. These properties of the ﬁrst 2 + state under
+the inﬂuence of ground-state correlations are similar to those obt ained from quasi-particle RPA calculations [20, 21]
+and also from the TDDM calculation [7]. Large single-particle space inclu ding continuum states has been used in
+these realistic calculations [7, 20, 21] so as to deal with giant resona nces as well as low-lying states. Therefore, only
+a semi-quantitative comparison between our previous TDDM result [7 ] and the present STDDM calculation, which
+can only be performed in very truncated single-particle space, sho uld be made for lowest-lying states. In SRPA where
+ground-state correlations are neglected, the 2 + states become also collective due to the coupling to two particle - two
+hole conﬁgurations, as shown in Fig.1. However, their excitation ene rgies are simply shifted downward. This might
+cause serious problems when unperturbed particle - hole energies a re small and (or) when the coupling to two-body
+conﬁgurations is strong. The numerical solution of Eq.(5) shown in t his section is physically reasonable and also gives
+additional justiﬁcation to its equivalent time-dependent approach .
+IV. DISCUSSIONS
+In this section we discuss a relation between STDDM and a more elabor ate extended RPA theory (ERPA) which
+has hermiticity [8]. First we brieﬂy present the ERPA theory. The gro und state |Φ 0⟩ in ERPA is constructed so that
+⟨Φ 0|[H,a +
+αaα ′ ]|Φ 0⟩ = 0, (22)
+⟨Φ 0|[H,a +
+α 1a+
+α 2aα ′
+2
+aα ′
+1
+]|Φ 0⟩ = 0, (23)
+⟨Φ 0|[H,a +
+α 1a+
+α 2a+
+α 3aα ′
+3
+aα ′
+2
+aα ′
+1
+]|Φ 0⟩ = 0 (24)
+5
+are satisﬁed for any single-particle indices. In other words n0
+αα ′ , C0
+α 1α 2α ′
+1α ′
+2
+and the three-body correlation matrix
+C0
+α 1α 2α 3α ′
+1α ′
+2α ′
+3
+are determined so that the above equations are satisﬁed. The exp licit expressions for Eqs.(22)-(24) are
+shown in Ref.[8]. Although it is not evident to ﬁnd an analytic solution of E qs.(22)-(24) [22], a method for obtaining
+n0
+αα ′ andC0
+α 1α 2α ′
+1α ′
+2
+numerically has been proposed in Ref.[15] and already been tested fo r realistic nuclei [6, 7, 23] as
+was shown in Sect.3. The ERPA equations are formulated using the eq uation of motion approach [24, 25] as
+⟨Ψ 0|[[a+
+αaα ′,H ],Q +]|Ψ 0⟩ =ω⟨Ψ 0|[a+
+αaα ′,Q +]|Ψ 0⟩ (25)
+⟨Ψ 0|[[:a+
+α 1a+
+α 2aα ′
+2
+aα ′
+1
+:,H ],Q +]|Ψ 0⟩ =ω⟨Ψ 0|[:a+
+α 1a+
+α 2aα ′
+2
+aα ′
+1
+:,Q +]|Ψ 0⟩, (26)
+where the operator Q+ is deﬁned as
+Q+ =
+∑
+(xλλ ′a+
+λaλ ′ +Xλ 1λ 2λ ′
+1λ ′
+2
+:a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+:), (27)
+and |Ψ 0⟩ is assumed to have the following properties
+Q+|Ψ 0⟩ = |Ψ ⟩ (28)
+Q|Ψ 0⟩ = 0 . (29)
+In Eqs.(26) and (27), : : stands for : a+
+α 1a+
+α 2aα ′
+2
+aα ′
+1
+:= a+
+α 1a+
+α 2aα ′
+2
+aα ′
+1
+− A (a+
+α 1aα ′
+1
+⟨Φ 0|a+
+α 2aα ′
+2
+|Φ 0⟩ +
+a+
+α 2aα ′
+2
+⟨Φ 0|a+
+α 1aα ′
+1
+|Φ 0⟩). Equations (25) and (26) can be written in matrix form
+(
+A C
+B D
+)(
+x
+X
+)
+=ω
+(
+S1 T1
+T2 S2
+)(
+x
+X
+)
+, (30)
+where each matrix element is evaluated using the ground state |Φ 0⟩
+S1(α′α :λλ′) = ⟨Φ 0|[a+
+αaα ′,a +
+λaλ ′ ]|Φ 0⟩, (31)
+S2(α′
+1α′
+2α1α2 :λ1λ2λ′
+1λ′
+2) = ⟨Φ 0|[:a+
+α 1a+
+α 2aα ′
+2
+aα ′
+1
+:, :a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+:]|Φ 0⟩, (32)
+T1(α′α :λ1λ2λ′
+1λ′
+2) = ⟨Φ 0|[a+
+αaα ′, :a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+:]|Φ 0⟩, (33)
+T2(α′
+1α′
+2α1α2 :λλ′) = ⟨Φ 0|[:a+
+α 1a+
+α 2aα ′
+2
+aα ′
+1
+:,a +
+λaλ ′ ]|Φ 0⟩, (34)
+A(α′α :λλ′) = ⟨Φ 0|[[a+
+αaα ′,H ],a +
+λaλ ′ ]|Φ 0⟩, (35)
+B(α′
+1α′
+2α1α2 :λλ′) = ⟨Φ 0|[[:a+
+α 1a+
+α 2aα ′
+2
+aα ′
+1
+:,H ],a +
+λaλ ′ ]|Φ 0⟩, (36)
+C(α′α :λ1λ2λ′
+1λ′
+2) = ⟨Φ 0|[[a+
+αaα ′,H ], :a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+:]|Φ 0⟩, (37)
+D(α′
+1α′
+2α1α2 :λ1λ2λ′
+1λ′
+2) = ⟨Φ 0|[[:a+
+α 1a+
+α 2aα ′
+2
+aα ′
+1
+:,H ], :a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+:]|Φ 0⟩. (38)
+All matrices in the above are written in terms of n0
+αα ′ ,C0
+α 1α 2α ′
+1α ′
+2
+andC0
+α 1α 2α 3α ′
+1α ′
+2α ′
+3
+, which are shown in Ref.[8]. Due
+to Eqs.(22)-(24), the above matrices have the following symmetrie s
+A(α′α :λλ′) = A(λ′λ :αα′) = A(λλ′ :α′α)∗, (39)
+B(α′
+1α′
+2α1α2 :λλ′) = C(λ′λ :α1α2α′
+1α′
+2) = C(λλ′ :α′
+1α′
+2α1α2)∗, (40)
+D(α′
+1α′
+2α1α2 :λ1λ2λ′
+1λ′
+2) = D(λ′
+1λ′
+2λ1λ2 :α1α2α′
+1α′
+2) = D(λ1λ2λ′
+1λ′
+2 :α′
+1α′
+2α1α2)∗. (41)
+We explain in more detail the last relation as an example. The following re lation always holds due to the operator
+identity
+D(α′
+1α′
+2α1α2 :λ1λ2λ′
+1λ′
+2) −D(λ′
+1λ′
+2λ1λ2 :α1α2α′
+1α′
+2) = ⟨Φ 0|[[:a+
+α 1a+
+α 2aα ′
+2
+aα ′
+1
+:,H ], :a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+:]|Φ 0⟩
+− ⟨ Φ 0|[[:a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+:,H ], :a+
+α 1a+
+α 2aα ′
+2
+aα ′
+1
+:]|Φ 0⟩
+= ⟨Φ 0|[H, [:a+
+α 1a+
+α 2aα ′
+2
+aα ′
+1
+:, :a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+:]]|Φ 0⟩. (42)
+The commutation relation between two-body operators in the last lin e of the above equation is reduced to three-body
+operators at most. Since Eqs.(22)-(24) are valid, the last line of Eq .(42) is identical to zero. Thus, the symmetry of
+the matrix D is proven.
+6
+The ortho-normality condition in ERPA is given by [27]
+(x∗
+µ ′ X ∗
+µ ′ )
+(
+S1 T1
+T2 S2
+)(
+xµ
+Xµ
+)
+=δµµ ′, (43)
+where xµ and Xµ constitute eigenstates of Eq.(30) with ω =ωµ . The completeness relation becomes
+∑
+µ
+(
+xµ
+Xµ
+)
+(x∗
+µX ∗
+µ )
+(
+S1 T1
+T2 S2
+)
+=I. (44)
+The transition amplitudes for one-body and two-body operators, zαα ′ = ⟨Ψ 0|a+
+α ′aα |Ψ ⟩ and Zα 1α 2α ′
+1α ′
+2
+= ⟨Ψ 0| :
+a+
+α ′
+1
+a+
+α ′
+2
+aα 1aα 2 : |Ψ ⟩, are calculated as follows
+(
+z
+Z
+)
+=
+(
+S1 T1
+T2 S2
+)(
+x
+X
+)
+. (45)
+Now we show a relation between STDDM and ERPA. When the eigenvect or (x,X ) in STDDM is transformed to
+(y,Y ) as
+(
+x
+X
+)
+=
+(
+S1 T1
+T2 S′
+2
+)(
+y
+Y
+)
+, (46)
+where S′
+2 has no terms with the three-body correlation matrices, the equat ion in STDDM becomes
+(
+aS1 +cT2 aT1 +cS′
+2
+bS1 +dT2 bT1 +dS′
+2
+)(
+y
+Y
+)
+=ω
+(
+S1 T1
+T2 S′
+2
+)(
+y
+Y
+)
+. (47)
+It is straightforward to prove that when the three-body correla tion matrices Cα 1α 2α 3α ′
+1α ′
+2α ′
+3
+are neglected, three blocks
+of the above hamiltonian matrix satisfy the identities A = aS1 +cT2, B = bS1 +dT2, and C = aT1 +cS′
+2. We
+explain the relation B = bS1 +dT2 in detail. When two-body and three-body operators are decompos ed using
+a+
+α 1a+
+α 2aα ′
+2
+aα ′
+1
+=:a+
+α 1a+
+α 2aα ′
+2
+aα ′
+1
+: + A(a+
+α 1aα ′
+1
+⟨Φ 0|a+
+α 2aα ′
+2
+|Φ 0⟩ +a+
+α 2aα ′
+2
+⟨Φ 0|a+
+α 1aα ′
+1
+|Φ 0⟩) for a two-body operator and a
+similar relation for a three-body operator, the commutation relatio n [: a+
+α 1a+
+α 2aα ′
+2
+aα ′
+1
+:,H ] becomes
+[:a+
+α 1a+
+α 2aα ′
+2
+aα ′
+1
+:,H ] =
+∑
+λλ ′
+b(α1α2α′
+1α′
+2 :λλ′)a+
+λ ′aλ
++
+∑
+λ 1λ 2λ ′
+1λ ′
+2
+d(α1α2α′
+1α′
+2 :λ1λ2λ′
+1λ′
+2) : a+
+λ ′
+1
+a+
+λ ′
+2
+aλ 2aλ 1 :
++
+∑
+λ 1λ 2λ 3λ ′
+1λ ′
+2λ ′
+3
+e(α1α2α′
+1α′
+2 :λ1λ2λ3λ′
+1λ′
+2λ′
+3) : a+
+λ ′
+1
+a+
+λ ′
+2
+a+
+λ ′
+3
+aλ 3aλ 2aλ 1 :, (48)
+where the matrix e consists of matrix elements of the two-body interaction. In STDDM , the last term on the right-
+hand side of the above equation is neglected. It is clear from Eq.(48) thatB = ⟨Φ 0|[[:a+
+α 1a+
+α 2aα ′
+2
+aα ′
+1
+:,H ],a +
+λaλ ′ ]|Φ 0⟩ =
+bS1 +dT2. The matrix D has some terms which cannot be written by using bT1 +dS′
+2 even if the three-body correlation
+matrices are neglected: For example, all terms with the square of t he two-body correlation matrix cannot be expressed
+with bT1. Thus it is found that STDDM is identical to ERPA under the following tw o assumptions: The ﬁrst is that
+the three-body correlation matrices can be neglected and the sec ond is that D ≈bT1 +dS′
+2. Our numerical calculations
+so far performed suggest that these assumptions are quite reas onable.
+V. SUMMAR Y
+The eigenstates of STDDM were calculated for the low-lying 2 + states in 24O to better understand the foundation
+of its corresponding time-dependent approach. It is found that S TDDM properly deals with the eﬀects of ground-state
+correlations on the low-lying 2 + states and that the non-hermiticity of STDDM is quite moderate: Th e eigenvalues
+have quite small imaginary parts and the strength function is pract ically positive deﬁnite although it is not guaranteed
+because of its non-hermitian form. A comparison of STDDM and an ex tended RPA (ERPA) theory with hermiticity
+was also made, and it is found that STDDM is a reasonable approximatio n to the ERPA theory.
+7
+APPENDIX A
+The matrices in Eq.(5) are given by:
+a(αα′ :λλ′) = ( ǫα −ǫα ′)δαλ δα ′λ ′ −
+∑
+β
+(⟨βλ′|v|α′λ⟩An0
+αβ − ⟨αλ′|v|βλ⟩An0
+βα ′), (A1)
+b(α1α2α′
+1α′
+2 :λλ′) = −δα 1λ {
+∑
+βγδ
+[(δα 2β −n0
+α 2β )n0
+γα ′
+1
+n0
+δα ′
+2
++n0
+α 2β (δγα ′
+1
+−n0
+γα ′
+1
+)(δδα ′
+2
+−n0
+δα ′
+2
+)]⟨λ′β|v|γδ⟩A
++
+∑
+βγ
+(⟨λ′α2|v|βγ ⟩C0
+βγα ′
+1α ′
+2
++ ⟨λ′β|v|α′
+1γ⟩AC0
+α 2γα ′
+2β − ⟨λ′β|v|α′
+2γ⟩AC0
+α 2γα ′
+1β }
++ δα 2λ {
+∑
+βγδ
+[(δα 1β −n0
+α 1β )n0
+γα ′
+1
+n0
+δα ′
+2
++n0
+α 1β (δγα ′
+1
+−n0
+γα ′
+1
+)(δδα ′
+2
+−n0
+δα ′
+2
+)]⟨λ′β|v|γδ⟩A
++
+∑
+βγ
+[⟨λ′α1|v|βγ ⟩C0
+βγα ′
+1α ′
+2
++ ⟨λ′β|v|α′
+1γ⟩AC0
+α 1γα ′
+2β − ⟨λ′β|v|α′
+2γ⟩AC0
+α 1γα ′
+1β ]}
++ δα ′
+1λ ′ {
+∑
+βγδ
+[(δδα ′
+2
+−n0
+δα ′
+2
+)n0
+α 1βn0
+α 2γ +n0
+δα ′
+2
+(δα 1β −n0
+α 1β )(δα 2γ −n0
+α 2γ )]⟨βγ |v|λδ⟩A
++
+∑
+βγ
+[⟨βγ |v|λα′
+2⟩C0
+α 1α 2βγ + ⟨α1β|v|λγ⟩AC0
+α 2γα ′
+2β − ⟨α2β|v|λγ⟩AC0
+α 1γα ′
+2β ]}
+− δα ′
+2λ ′ {
+∑
+βγδ
+[(δδα ′
+1
+−n0
+δα ′
+1
+)n0
+α 1βn0
+α 2γ +n0
+δα ′
+1
+(δα 1β −n0
+α 1β )(δα 2γ −n0
+α 2γ )]⟨βγ |v|λδ⟩A
++
+∑
+βγ
+[⟨βγ |v|λα′
+1⟩C0
+α 1α 2βγ + ⟨α1β|v|λγ⟩AC0
+α 2γα ′
+1β − ⟨α2β|v|λγ⟩AC0
+α 1γα ′
+1β ]}
++
+∑
+β
+[⟨α1λ′|v|βλ⟩AC0
+βα 2α ′
+1α ′
+2
+− ⟨α2λ′|v|βλ⟩AC0
+βα 1α ′
+1α ′
+2
+− ⟨βλ′|v|α′
+2λ⟩AC0
+α 1α 2α ′
+1β + ⟨βλ′|v|α′
+1λ⟩AC0
+α 1α 2α ′
+2β ], (A2)
+c(αα′ :λ1λ2λ′
+1λ′
+2) = ⟨αλ′
+2|v|λ1λ2⟩δα ′λ ′
+1
+− ⟨λ′
+1λ′
+2|v|α′λ2⟩δαλ 1, (A3)
+d(α1α2α′
+1α′
+2 :λ1λ2λ′
+1λ′
+2) = ( ǫα 1 +ǫα 2 −ǫα ′
+1
+−ǫα ′
+2
+)δα 1λ 1δα 2λ 2δα ′
+1λ ′
+1
+δα ′
+2λ ′
+2
++ δα ′
+1λ ′
+1
+δα ′
+2λ ′
+2
+∑
+βγ
+(δα 1βδα 2γ −δα 2γn0
+α 1β −δα 1βn0
+α 2γ )⟨βγ |v|λ1λ2⟩
+− δα 1λ 1δα 2λ 2
+∑
+βγ
+(δα ′
+1βδα ′
+2γ −δα ′
+2γn0
+βα ′
+1
+−δα ′
+1βn0
+γα ′
+2
+)⟨λ′
+1λ′
+2|v|βγ ⟩
++ δα 2λ 2δα ′
+2λ ′
+2
+∑
+β
+(⟨α1λ′
+1|v|βλ1⟩An0
+βα ′
+1
+− ⟨βλ′
+1|v|α′
+1λ1⟩An0
+α 1β )
++ δα 2λ 2δα ′
+1λ ′
+1
+∑
+β
+(⟨α1λ′
+2|v|βλ1⟩An0
+βα ′
+2
+− ⟨βλ′
+2|v|α′
+2λ1⟩An0
+α 1β )
++ δα 1λ 1δα ′
+1λ ′
+1
+∑
+β
+(⟨α2λ′
+2|v|βλ2⟩An0
+βα ′
+2
+− ⟨βλ′
+2|v|α′
+2λ2⟩An0
+α 2β )
++ δα 1λ 1δα ′
+2λ ′
+2
+∑
+β
+(⟨α2λ′
+1|v|βλ2⟩An0
+βα ′
+1
+− ⟨βλ′
+1|v|α′
+1λ2⟩An0
+α 2β ), (A4)
+wheren0
+αα ′ = ⟨Φ 0|a+
+α ′aα |Φ 0⟩ andC0
+α 1α 2α ′
+1α ′
+2
+= ⟨Φ 0|a+
+α ′
+1
+a+
+α ′
+2
+aα 2aα 1 |Φ 0⟩ − A(n0
+α 1α ′
+1
+n0
+α 2α ′
+2
+), and the subscript A indicates
+that the corresponding matrix element is antisymmetrized.
+[1] M. Gong and M. Tohyama, Z. Phys. A 335, 153 (1990).
+[2] M. Gong, M. Tohyama and J. Randrup, Z. Phys. A 335, 331 (1990).
+[3] M. Tohyama and A. S. Umar, Phys. Rev. C 65, 037601 (2002).
+[4] F. De Blasio et al., Phys. Rev. Lett. 68, 1663 (1992).
+8
+[5] M. Tohyama, Nucl. Phys. A 657, 343 (1999).
+[6] M. Tohyama and A. S. Umar, Phys. Lett. B 516, 415 (2001).
+[7] M. Tohyama and A. S. Umar, Phys. Lett. B 549, 72 (2002).
+[8] M. Tohyama and P. Schuck, in preparation.
+[9] S. J. Wang and W. Cassing, Ann. Phys. 159, 328 (1985); W. Cassing and S. J. Wang, Z. Phys. A 328, 423 (1987).
+[10] M. Tohyama and M. Gong, Z. Phys. A 332, 269 (1989).
+[11] J. Sawicki, Phys. Rev. 126, 2231 (1962); J. Da Providencia, Nucl. Phys. 61, 87 (1965).
+[12] C. Yannouleas, Phys. Rev. C 35, 1159 (1987). S. Dro˙ zd˙ z et al., Phys. Rep.197, 1 (1990).
+[13] T. Otsuka, N. Fukunishi and H. Sagawa, Phys. Rev. Lett. 70, 1385 (1993).
+[14] E. Khan and N. Van Giai, Phys. Lett. B 472, 253 (2000).
+[15] M. Tohyama, Prog. Theor. Phys. 94, 147 (1995).
+[16] R. R. Chasman, Phys. Rev. C 14, 1935 (1976).
+[17] J. Terasaki, H. Flocard, P. -H. Heenen, P. Bonche, Nucl. Phys. A 621, 706 (1997).
+[18] T. Duguet, P. Bonche and P.-H. Heenen, Nucl. Phys. A 679, 427 (2001).
+[19] M. Yamagami, K. Matsuyanagi and M. Matsuo, Nucl. Phys. A 693, 579 (2001).
+[20] M. Matsuo, Nucl. Phys. A 696, 371 (2001).
+[21] E. Khan, N. Sandulescu, M. Grasso and N. Van Giai, Phys. R ev. C 66, 024309 (2002).
+[22] M. Tohyama, P. Schuck and S. J. Wang, Z. Phys. A 339, 341 (1991).
+[23] M. Tohyama, Phys. Rev. C 58, 2603 (1998).
+[24] D. J. Rowe, Rev. Mod. Phys. 40, 153 (1968).
+[25] P. Ring and P. Schuck, The nuclear many-body problem, (S pringer, 1980).
+[26] M. Tohyama, Z. Phys. A 335, 413 (1990).
+[27] K. Takayanagi, K. Shimizu and A. Arima, Nucl. Phys. A 477, 205 (1988).

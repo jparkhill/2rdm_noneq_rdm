@@ -11,7 +11,10 @@ __pycache__/
 .pytest_cache/
 
 # upstream source repos: rebuilt by scripts/bootstrap.sh, never committed
-refs/
+refs/*
+# ...but the paper archive IS committed: arXiv PDFs are not reproducible from
+# a git clone, and the literature set is part of the project record.
+!refs/papers/
 
 # large numeric outputs
 results/*.npz

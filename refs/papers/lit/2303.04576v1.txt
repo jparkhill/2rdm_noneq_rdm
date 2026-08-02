@@ -1,0 +1,2222 @@
+Non-equilibrium correlation dynamics in the one-dimensional Fermi-Hubbard model:
+A testbed for the two-particle reduced density matrix theory
+Stefan Donsa, 1 Fabian Lackner,1 Joachim Burgd¨ orfer,1 Michael
+Bonitz,2, 3 Benedikt Kloss, 4 Angel Rubio, 5, 4 and Iva Bˇ rezinov´ a1, 4,∗
+1Institute for Theoretical Physics, Vienna University of Technology,
+Wiedner Hauptstraße 8-10/136, 1040 Vienna, Austria, EU
+2Institut f¨ ur Theoretische Physik und Astrophysik,
+Christian-Albrechts-Universit¨ at zu Kiel, D-24098 Kiel, Germany, EU
+3Kiel Nano, Surface and Interface Science KiNSIS, Kiel University, Germany, EU
+4Center for Computational Quantum Physics (CCQ), Flatiron Institute, New York, NY, USA
+5Max Planck Institute for the Structure and Dynamics of Matter, Hamburg, Germany, EU
+(Dated: March 9, 2023)
+We explore the non-equilibrium dynamics of a one-dimensional Fermi-Hubbard system as a
+sensitive testbed for the capabilities of the time-dependent two-particle reduced density matrix
+(TD2RDM) theory to accurately describe time-dependent correlated systems. We follow the time
+evolution of the out-of-equilibrium ﬁnite-size Fermi-Hubbard model initialized by a quench over
+extended periods of time. By comparison with exact calculations for small systems and with matrix
+product state (MPS) calculations for larger systems but limited to short times, we demonstrate that
+the TD2RDM theory can accurately account for the non-equilibrium dynamics in the regime from
+weak to moderately strong inter-particle correlations. We ﬁnd that the quality of the approximate
+reconstruction of the three-particle cumulant (or correlation) required for the closure of the equations
+of motion for the reduced density matrix is key to the accuracy of the numerical TD2RDM results.
+We identify the size of the dynamically induced three-particle correlations and the amplitude of
+cross correlations between the two- and three-particle cumulants as critical parameters that control
+the accuracy of the TD2RDM theory when current state-of-the art reconstruction functionals are
+employed.
+I. INTRODUCTION
+Accurately describing the correlated out-of-
+equilibrium dynamics of interacting many-particle
+systems has remained a great challenge to date. Fre-
+quent realizations of such out-of-equilibrium dynamics
+involve either quenches and relaxation of initially
+prepared excited states of systems governed by a
+time-independent Hamiltonian, or systems driven by an
+explicitly time-dependent Hamiltonian. Such systems
+are at the forefront of current experimental and theoret-
+ical studies (see e.g. [1–14]). Several recent experiments
+have shown that exotic states of matter can be generated
+by ultrashort pulses of external ﬁelds or energetic ions
+and that relaxation and decoherence can be strongly
+inﬂuenced by inter-particle correlations [15–23].
+A versatile method to reliably describe the non-
+equilibrium scenarios of correlated many-body systems,
+in particular in extended systems and for extended
+periods of time, is still lacking. Direct many-body wave-
+function based methods can be applied only to systems
+with a moderate number of degrees of freedom and pure
+states as they eventually face the exponential wall of
+computational eﬀort when increasing the number of par-
+ticles and the time interval of propagation [2, 9, 24, 25].
+Application of the time-dependent density matrix
+∗ iva.brezinova@tuwien.ac.at
+renormalization group (DMRG) theory [2, 26] has been
+shown to yield numerically accurate results, currently,
+however, limited to one-dimension (1D) systems and
+short time scales (see e.g. [27–29]). Similarly, the closely
+related time-dependent matrix product state (MPS)
+method [25, 30] invoking the time-dependent variational
+principle, is also limited to small propagation times
+for mesoscopic system sizes of a few tens of particles
+(see e.g. [31]) with the increasing bond dimension as a
+function of time as the major bottleneck (see e.g. [32]).
+The complex multi-dimensional information encoded
+in the quantum many-body wavefunction is, however,
+often not needed for the extraction of many physical
+observables. Therefore, an appealing alternative are
+time-dependent quantum many-body methods that at-
+tempt to bypass the use of the many-body wavefunction
+altogether. Upon successively tracing out more and
+more degrees of freedom, information and complexity
+is lost but, in turn, the reduced system is rendered
+increasingly tractable.
+A well-known limit of this reduction is the time-
+dependent particle density n(r,t ). The corresponding
+many-body theory, the time-dependent density func-
+tional theory (TDDFT) [33, 34] with the Kohn-Sham
+ansatz features a linear scaling with particle number
+and remains to date the only time-dependent quantum
+many-body theory applicable to large extended systems
+with weak to intermediate correlations. Its major draw-
+back, however, is the fundamental lack of knowledge of
+the exact exchange-correlation (XC) functional. The
+arXiv:2303.04576v1  [cond-mat.str-el]  8 Mar 2023
+2
+pathway towards systematic improvements beyond
+the currently frequently used approximate adiabatic
+XC functionals is still a widely open question and
+the applicability of TDDFT to correlated systems is
+limited. Alternatively, the so-called time-dependent
+current-density functional theory has been proposed for
+which, up to now, however only few approximations for
+the exchange-correlation vector potential have become
+available [35–37].
+Going up one step of the ladder of reduction the one-
+particle reduced density matrix (1RDM) D1(r1, r′
+1,t )
+allows one to avoid some of the problems of TDDFT
+[38–40] while facing others. The equation of mo-
+tion for the 1RDM corresponds to the ﬁrst equation
+within the Bogoliubov-Born-Green-Kirkwood-Yvon
+(BBGKY) hierarchy [41, 42] and thus couples the 1RDM
+to the two-particle reduced density matrix (2RDM)
+D12(r1, r2, r′
+1, r′
+2,t ). Closing the equations of motion
+requires representing the 2RDM as a functional of the
+1RDM which is challenging in the presence of medium
+to strong correlations and time-dependent settings.
+An alternative route to an accurate description of
+non-equilibrium correlated quantum many-body systems
+involves non-equilibrium Green’s function (NEGF)
+methods, going back to the pioneering work of Keldysh
+[43]. They have been applied to a wide range of physical
+systems (see e.g. [44, 45] and references therein) but
+are impeded by a non-linear time scaling, which has
+only recently been overcome [29, 46–48]. Moreover,
+they exhibit a similar hierarchical coupling between
+diﬀerent orders of Green’s functions, which is subject to
+closure approximations as in the case of reduced density
+matrices (see e.g. [44]).
+The importance of two-particle correlations as imprinted
+by the pair-wise interaction potentials in most physical
+systems calls for the use of the 2RDM itself as the fun-
+damental object for representing the many-body system.
+When only one- and two-body operators are present in
+the Hamiltonian, the total energy of the system can be
+exactly expressed in terms of the 2RDM. The fact that
+the energy is an exactly known functional of the 2RDM
+has been meanwhile exploited in numerous calculations
+of groundstate energies in quantum many-body systems
+[49–53].
+In this paper we investigate the time-dependent 2RDM.
+The equation of motion for propagating the 2RDM
+of an excited system, the second equation of motion
+the BBGKY hierarchy, requires, the knowledge of the
+three-particle reduced density matrix (3RDM). Many
+important works have been devoted in the past to
+develop reconstruction functionals of the 3RDM in
+terms of the 2RDM for the quantum many-body ground
+state problem [54–60]. Incorporating such reconstruction
+functionals into the time-depending setting within the
+time-dependent 2RDM method (TD2RDM), we have
+recently succeeded in calculating the dynamics of multi-
+electron atoms driven by strong laser ﬁelds [61, 62].
+Motivated by the stability and remarkable accuracy of
+this method, it is the aim of the present paper to explore
+the application of the TD2RDM theory to extended
+systems, and to systems featuring stronger correlations
+than typically present in multi-electron atoms.
+A paradigmatic model system for this endeavor is the
+Fermi-Hubbard model due to its structural simplic-
+ity and the one-parameter tunability from weakly to
+strongly correlated dynamics. Moreover, this model
+system can nowadays be realized and accurately probed
+with ultracold atoms in optical lattices even with
+single-site resolution (see e.g. [63–69] and references
+therein) and is, of course, of conceptual relevance for
+the study of correlated quantum matter in real solids.
+Several state-of-the art methods have been tested by
+application to the Fermi-Hubbard model. They include
+the NEGF methods [16, 28, 70], as well as approaches
+based on Green’s functions exploiting the mapping
+between the Fermi-Hubbard model and an impurity
+model where the impurity is treated in a fully correlated
+fashion and is coupled to an external uncorrelated bath.
+These methods, such as time-dependent dynamical
+mean-ﬁeld theory [6] or the explicit sum of a high-order
+perturbation series in the interaction on the Keldysh
+contour using quantum Monte-Carlo methods [71–73]
+have the advantage that extended systems can be treated
+through the coupling of the impurity to an extended
+bath. However, correlations between distant sites are
+not well represented.
+As a prototypical example, we apply the TD2RDM
+theory to the dynamics of the Fermi-Hubbard model
+at half ﬁlling initialized by a quench, i.e. by suddenly
+switching oﬀ a conﬁning potential that prepares the
+initial out-of-equilibrium state (Fig. 1). In order to test
+and to benchmark the TD2RDM we consider in the
+present work one-dimensional systems with a relatively
+small number of sites. For these systems a detailed
+assessment of the accuracy by comparison with numer-
+ically exact or highly accurate solutions is still possible
+allowing us to perform large and systematic parameter
+scans over many diﬀerent interaction strengths and
+excitation energies. We generate (nearly) exact solutions
+by direct propagation of the Schr¨ odinger equation or
+using highly accurate matrix product state calculations
+(MPS) within the time-dependent variational principle
+[25, 30, 31]. We follow the dynamics over relatively long
+times (≥ 50 in units of the inverse hopping amplitude)
+and study the exact build-up of dynamical correlations
+which can give valuable hints for the applicability of
+the TD2RDM method as well as for the improvements
+of reconstruction functionals. We emphasize that our
+present restriction to 1D systems of moderate size is due
+to the diﬃculty of obtaining exact or highly accurate
+results for comparison, rather than due to the limitations
+of the TD2RDM theory itself. The latter can be easily
+extended to larger systems and higher dimensions with-
+out encountering major complications. We also compare
+with time-dependent Hartree-Fock (TDHF) predictions
+to access the inﬂuence of two-particle correlations ne-
+3
+Figure 1. Fermi-Hubbard model with Ms sites and exter-
+nal harmonic potential ( t < 0). (a) The one-particle site-
+occupation number ni of the initial ground state in the po-
+tential representing an excitation of the potential-free Fermi-
+Hubbard model after the quench. (b) Snapshots of the time
+evolved ni(t) at t = 2J−1 and t = 4J−1. The parameters
+used are V =J and U =J.
+glected by mean-ﬁeld theories. We analyze the accuracy
+of the TD2RDM theory as a function of the strength
+of the inter-particle interaction as well as the degree
+of initial excitation. Our focus is on detailed probes
+of the accuracy of the time-dependent three-particle
+correlations resulting from diﬀerent state-of-the art
+reconstruction functionals.
+The structure of the paper is as follows: In Sec. II we
+brieﬂy present the model system under investigation,
+the one-dimensional Fermi-Hubbard model at half
+ﬁlling. The key ingredients of the TD2RDM theory
+are reviewed in Sec. III. We numerically analyze the
+dynamics of two- and three-particle correlations, the
+so-called cumulants, which are the key ingredient
+to reconstruction functionals, for small systems by
+comparison with exact calculations in Sec. IV. Fully
+self-consistent TD2RDM simulations for the time evolu-
+tion of the out-of-equilibrium dynamics as monitored by
+the one-site occupation number are presented in Sec. V,
+followed by concluding remarks and an outlook to future
+improvements in Sec. VI. As units we use ℏ =m =e = 1
+unless otherwise stated.
+II. OUT-OF-EQUILIBRIUM FERMI-HUBBARD
+MODEL
+We consider a 1D chain with a number of Ms sites
+(Fig. 1) and impose Dirichlet boundary conditions. The
+Hamiltonian of the Fermi-Hubbard model in the presence
+of an external potential initializing the quench is given
+in second quantization by
+H =−J
+∑
+⟨i,j⟩
+∑
+σ
+a†
+iσajσ +U
+∑
+i
+n↑
+in↓
+i +
+∑
+i,σ
+Vi(t)a†
+iσaiσ,
+(1)
+where⟨i,j⟩ denotes nearest-neighbor hopping,J the hop-
+ping amplitude,n↑(↓)
+i =a†
+i↑(↓)ai↑(↓), the occupation num-
+ber operators for particles with spin up (down) at site i,
+U the strength of on-site interaction controlling the cor-
+relation energy in the system. Vi(t) is the explicitly time
+dependent potential chosen to be harmonic in the present
+case,
+Vi(t) =θ(−t)V 2
+2
+(
+i− Ms + 1
+2
+)2
+, (2)
+which determines the initial excited state (the ground
+state of H in the potential for t < 0), and induces the
+dynamics by a sudden potential quench att = 0. We con-
+sider in the following the spin-symmetric Fermi-Hubbard
+system at half ﬁlling, i.e. particle number N = Ms and
+the number of spin up particles equals to the number of
+spin down particles (total spin-singlet case).
+Fig. 1 illustrates the quench-induced dynamics on the
+level of the one-particle site-occupation number ni cor-
+responding to the diagonal elements of the one-particle
+reduced density matrix D1. The ground state of the
+interacting many-body system in the potential [Fig. 1
+(a)] represents an excited state of the ﬁeld-free Fermi-
+Hubbard system and, thus, an out-of-equilibrium state
+that evolves in time after the quench [Fig. 1 (b)]. It
+would eventually relax,upon coarse graining, to a new
+equilibrium state. We explore in the following within the
+framework of TD2RDM theory the importance of inter-
+particle correlations induced by U (Eq. 1) in both the
+stationary initial state as well the time-dependent corre-
+lations induced by the sudden quench.
+III. OUTLINE OF TD2RDM THEORY
+A. Equation of motion
+The central object of our method is the 2RDM which
+is obtained from the exact pure N-body wavefunction
+|Ψ(t)⟩ by tracing out all but two particles. We denote
+the 2RDM in a basis-independent notation as D12 and it
+follows from|Ψ(t)⟩ as
+D12(t) =N(N− 1)Tr3...N|Ψ(t)⟩⟨Ψ(t)|, (3)
+withN the number of particles,N(N−1) the normaliza-
+tion related to particles pairs, and Tr 3...N indicating the
+tracing out of all particles except for the two particles 1
+and 2 of interest. More generally, the pRDM is obtained
+from
+D1...p(t) = N!
+(N−p)!Trp+1...N|Ψ(t)⟩⟨Ψ(t)|, (4)
+4
+with normalization factor N!/(N−p)!.
+The equation of motion of the 2RDM corresponds to the
+second equation within the BBGKY hierarchy and reads
+i∂tD12(t) =[h1 +h2 +W12,D 12]
++ Tr3[W13 +W23,D 123] (5)
+where the square brackets denote commutators. The
+Hamiltonian governing Eq. 5 is given (in ﬁrst quantiza-
+tion) by
+H =
+N∑
+n=1
+hn +
+N∑
+n<m
+Wnm, (6)
+where hn is the single-particle Hamilton operator, and
+Wnm the two-particle interaction operator. In a basis
+of spin orbitals {|ψiσ⟩}Ms
+i=1 with σ =↑ or σ =↓ localized
+at a single site i (given e.g. by s-wave orbitals localized
+at atomic sites in solids or potential minima in optical
+latices of ultracold atoms) the terms in Eq. 6 yield the
+explicit matrix representation for the nearest neighbor
+hopping as
+hiσ′
+jσ =⟨ψiσ′|h1|ψjσ⟩
+=−Jδi+1
+j δσ′
+σ −Jδi−1
+j δσ′
+σ , (7)
+and the on-site interaction of particles with diﬀerent spins
+as
+Wi1σ′
+1i2σ′
+2
+j1σ1j2σ2 =⟨ψi1σ′ψi2σ′|W12|ψj1σψj2σ⟩
+=Uδi1
+j1δi2
+j2δj1,j2δσ′
+1
+σ1δσ′
+2
+σ2(1−δσ1,σ2). (8)
+For any initial state (pure or mixed) described byD12(t =
+0), Eq. 5 allows to propagate the 2RDM without any
+knowledge of the many-body wavefunction |Ψ(t)⟩. How-
+ever, since all equations of the BBGKY hierarchy couple
+to the density matrix of the next higher order, propaga-
+tion of the 2RDM requires closure, i.e. a suﬃciently accu-
+rate representation for the 3RDM in terms of the 2RDM.
+Closure of the equations of motion by reconstruction (de-
+noted by the superscript R in the following) of the 3RDM
+by the 2RDM, i.e.
+D123≈DR
+123[D12] (9)
+poses thus a major challenge for the implementation of
+the TD2RDM theory as a useful and accurate computa-
+tional tool. In the spirit of a quantum Boltzmann trans-
+port equation [41], we call the term in Eq. 5 containing
+the D123 the collision operator (or “collision integral”)
+C,
+C[D123] = Tr3[W13 +W23,D 123]. (10)
+While for the collision operator an approximation to
+the reconstruction of the 3RDM is required, the time-
+dependent 2RDM, D12(t), fully includes all two-particle
+interactions and correlations without any additional ap-
+proximation. The solutions of the equations of motion
+of the 2RDM (Eq. 5) feature an important exact rela-
+tion to Green’s functions which opens the door to em-
+ploy well established diagramatic methods also within
+the TD2RDM theory. The pRDMs can be identiﬁed with
+the equal-time limits of the p-particle Green’s functions
+G<
+1...p(t1,...,t p,t′
+1,...,t ′
+p). For the 1RDM and 2RDM,
+e.g., we get (see e.g. [29, 44])
+D1(t) =− lim
+δ→0
+iG<
+1 (t,t +δ) (11)
+D12(t) = lim
+δ→0
+i2G<
+12(t,t,t +δ,t +δ). (12)
+In a given single particle basis D12(t) is represented by
+the matrix
+Di1σ′
+1i2σ′
+2
+j1σ1j2σ2 =⟨Ψ(t)|a†
+i1σ′
+1
+a†
+i2σ′
+2
+aj2σ2aj1σ1|Ψ(t)⟩. (13)
+Because of the dependence of C on D123, the equation
+of motion of the 2RDM represented in a single-particle
+basis of dimension M scales as M7 for a general pair-
+interaction W . In the present spin-symmetric realiza-
+tion of the Fermi-Hubbard model with equal number of
+spin-up and spin-down particles, the complexity of the
+problem can be considerably reduced. The calculation of
+Eq. 5 can be reduced to that of the spin block Di1↑i2↓
+j1↑j2↓
+which contains all the information on the entire D12(t).
+All other spin blocks can be obtained from this particular
+block either through trivial exchange or spin-ﬂip symme-
+tries, or through the following relation
+Di1↑i2↑
+j1↑j2↑ =Di1↑i2↓
+j1↑j2↓−Di1↑i2↓
+j2↑j1↓. (14)
+Correspondingly, only the 3RDM block Di1↑i2↑i3↓
+j1↑j2↑j3↓ needs
+to be constructed instead of the entire 3RDM. The equa-
+tion of motion forDi1↑i2↓
+j1↑j2↓ is given in Appendix A. Due to
+the simple on-site interaction within the Fermi-Hubbard
+model (Eq. 8), the equation of motion for the 2RDM
+scales as M4
+s . For simplicity of notation, we drop the ex-
+plicit spin labeling (↑,↓) unless speciﬁcally needed keep-
+ing in mind that only the spin blocks identiﬁed above
+need to be calculated.
+B. Cumulant expansion
+The pRDM describes, in general, the correlated dy-
+namics of ap-tuple of particles embedded in a larger sys-
+tem, in particular in the pure state|Ψ(t)⟩ of anN-particle
+system. In the absence of inter-particle interactions, the
+pRDM reduces to the independent-particle limit where
+only Pauli exchange correlations via anti-symmetrization
+are present. Accordingly, the pRDM can be expanded
+in term of correlators, in this context conventionally re-
+ferred to as cumulants [74], of increasing order in the
+number of particles within the tuple to be correlated with
+each other.
+ForD12 the cumulant expansion reads
+D12 = ˆAD1D2 + ∆12 (15)
+5
+Figure 2. (a) Diagrammatic representation of the 2RDM. The
+ﬁrst term corresponds to ˆAD1D2 (the anti-symmetrized con-
+tribution is not explicitly shown for brevity). The second term
+represents the cumulant ∆12 which contains all connected di-
+agrams between two single-particle propagators. Note that no
+perturbative expansion in the inter-particle interactionW12 is
+involved in (a). (b) Diagrammatic perturbative expansion of
+D1, i.e. the equal-time limit of the full single-particle prop-
+agator. Two second order diagrams in W12 are shown as
+illustrative examples. The double line represents the full D1,
+while each single line in (b) and (c) stands for a Hartree-Fock
+propagator. (c) Diagramatic perturbative expansion of the
+cumulant ∆ 12 with three prototypical diagrams to ﬁrst and
+second order in W12.
+with the two-particle cumulant (or correlator) ∆ 12 and
+ˆA the anti-symmetrization operator acting on the two
+one-particle density matrices D1 and D2. In the single-
+particle site representation
+ˆADi1
+j1Di2
+j2 =Di1
+j1Di2
+j2−Di1
+j2Di2
+j1. (16)
+and Eq. 15 reads
+Di1i2
+j1j2 = ˆADi1
+j1Di2
+j2 + ∆i1i2
+j1j2. (17)
+The cumulant expansion ofD12 (Eq. 15) can be diagram-
+matically visualized (Fig. 2). The key feature to be noted
+is that the cumulant expansion [Fig. 2 (a)] does not in-
+voke any ingredients from perturbation theory. The dou-
+ble lines represent the equal-time limit of the full one-
+particle propagator. The cumulant represents the sum
+over all connected diagrams between two one-particle
+propagators. For illustrative purposes and to connect
+to other theories we also indicate in Fig. 2 (b) and (c)
+the corresponding perturbative diagrammatic expansion
+of the constituents of Fig. 2 (a), the one-particle propa-
+gator [Fig. 2 (b)] and the two-particle cumulant [Fig. 2
+(c)]. We emphasize that within the TD2RDM theory the
+full 1RDM as well as the full 2RDM are included such
+that the use of the perturbation series [Fig. 2 (b), (c)] can
+be avoided. However, these diagrammatic interrelations
+provide a helpful guidance for developing reconstruction
+functionals on the three-particle level.
+The cumulant expansion of the 3RDM follows as
+D123 = ˆAD1D2D3 + ˆA∆12D3 + ∆123, (18)
+Figure 3. (a) Diagrammatic representation of the 3RDM.
+The ﬁrst term corresponds to ˆAD1D2D3, the second corre-
+sponds to ˆA∆12D3, and the last to the three-particle cumu-
+lant ∆123. The anti-symmetrized contributions of each term
+are not shown for brevity. (b) Diagrammatic representation
+of the perturbative expansion of the three-particle cumulant,
+with several prototypical second/order connected diagrams
+(∝W 2
+12) shown.
+diagrammatically visualized in Fig. 3 (a). The ﬁrst term
+in Fig. 3 (a) represents three uncorrelated particles, the
+second the contribution of two-particle correlations in the
+presence of a third uncorrelated particle, and the last the
+true three-particle correlation or three-particle cumulant
+∆123 containing all connected three-particle diagrams.
+For illustrative purposes we show also in Fig. 3 (b) the
+ﬁrst few low-order diagrams of a perturbative expansion
+of ∆ 123 in terms of Hartree-Fock propagators and pair
+interactions. We note again that the present TD2RDM
+theory does not make direct use of perturbation theory
+but we invoke the structure of these diagrams in the fol-
+lowing to motivate the approximations of ∆ 123 in terms
+of one-particle propagators and two-particle cumulants.
+C. Three-particle cumulant reconstruction
+The challenge to render the TD2RDM theory opera-
+tional is the closure of the equations of motion (Eq. 5)
+by developing a reconstruction functional for the three-
+particle density matrix DR
+123[D12] (Eq. 9). The success
+of the TD2RDM method in describing the many-body
+dynamics relies on a suﬃciently accurate approximation
+of this functional as has been shown for multi-electron
+atoms [61, 62]. While for the non-degenerate ground
+state the existence of such a reconstruction is assured
+through Rosina’s theorem [75, 76], it is presently un-
+known, whether such an exact reconstruction also exists
+in a time dependent setting. As Rosina’s theorem is an
+existence theorem, it does not lend itself to aid in the
+development of new functionals.
+The cumulant expansion of D123 (Eq. 18) reduces the
+task of ﬁnding a reconstruction functional to that of re-
+constructing the cumulant ∆123 = ∆R
+123[D12] as the other
+terms contributing to D123 are already known function-
+als of D12 (and D1). Several approximate functionals
+DR
+123[D12] or ∆R
+123[D12] have been recently proposed [54–
+56, 59, 60]. They provide the starting point of our anal-
+ysis of the capability of the TD2RDM theory to capture
+non-equilibrium dynamics in correlated systems. The
+6
+simplest approximation attributed to Valdemoro (V) and
+coworkers [54] amounts to neglecting ∆ 123 altogether.
+Accordingly, the reconstruction functional becomes
+DV
+123[D12] = ˆAD1D2D3 + ˆA∆12D3. (19)
+A similar approximation has been earlier investigated by
+Wang and Cassing [77]. Reconstruction functionals that
+include contributions from ∆123 and benchmarked in this
+paper have been derived from diﬀerent perspectives but
+all rely on approximating ∆ 123 to second order in ∆ 12.
+Nakatsuji and Yasuda (NY) [55] used diagrammatic tech-
+niques to arrive at
+∆NY
+123[∆12] = ˆA∆12P2∆23, (20)
+where the intermediate single-particle projector Pi is
+given by
+Pi = (2Γi−Ii−Di)−1, (21)
+with Ii the identity matrix, Γi a diagonal matrix in the
+eigenrepresentation of the 1RDM with eigenvalues 1 for
+the lowest N natural orbitals and zero otherwise. Γ i
+is frequently (in ground state calculations) referred to
+as the Hartree-Fock reference matrix. We note, how-
+ever, that in the present context Γ i refers to the natural
+orbitals of the non-perturbative 1RDM rather than to
+mean-ﬁeld states. It has been shown [56] that this projec-
+tor can be substantially simpliﬁed through an expansion
+in Γi−Di, the zeroth order of which yields
+Pi = (2Γi−Ii)−1. (22)
+In practice, the summation over the index 2 in Eq. 20
+is performed in the basis of natural orbitals with a ma-
+trix as the projector containing −1 for unoccupied and
+1 for occupied orbitals. We have checked that in the
+regime where the NY approximation is applicable (see
+Sec. V below), both Eq. 21 and Eq. 22 yield very similar
+results. We, therefore, use the much simpler approxima-
+tion (Eq. 22). Thus, the NY reconstruction functional
+for D123 reads
+DNY
+123[D12] =DV
+123[D12] + ∆NY
+123[∆12]
+= ˆAD1D2D3 + ˆA∆12D3 + ∆NY
+123[∆12]. (23)
+A similar reconstruction functional suggested by To-
+hyama and Schuck (TS) [59, 60] has been derived starting
+from a coupled-cluster ansatz for the wavefunction. In-
+cluding an empirically found renormalization factor the
+TS reconstruction functional amounts to
+∆TS
+123 = 1
+N ∆NY
+123, (24)
+with renormalization factor N = 1 + 1
+4Tr12|∆12|2. The
+reconstruction functional thus reads
+DTS
+123[D12] =DV
+123[D12] + ∆TS
+123[∆12]. (25)
+Mazziotti (M) devised a similar reconstruction of ∆ 123
+along diﬀerent lines starting from the cumulant decom-
+position of the 4RDM and assuming Tr 4∆1234 = 0 with
+∆1234 the four-particle cumulant [56, 57]. This leads to
+an implicit equation for ∆ 123 which can be explicitly
+solved in the eigenbasis of the 1RDM. Further details
+of this reconstruction functional are summarized in Ap-
+pendix B. The corresponding reconstruction functional of
+the three-particle cumulant is denoted by ∆ M
+123 and the
+reconstructed three-particle density matrix by
+DM
+123[D12] =DV
+123[D12] + ∆M
+123[∆12]. (26)
+It has been shown that in the perturbative limit the re-
+constructions (Eqs. 23, 26, 25) agree with each other to
+second-order in the inter-particle interaction [58].
+None of the reconstruction functionals presented above
+preserves, however, important symmetries of the equa-
+tions of motion (Eq. 5), most importantly the contraction
+consistency (CC). At each instant of time CC requires
+D12(t) = 1
+N− 2Tr3DR
+123(t) (27)
+to hold. We have recently shown [61, 62] that the lack
+of CC seriously impedes the stability as well as the ac-
+curacy of the solutions of the equation of motion of the
+TD2RDM. This deﬁciency, however, can be cured for any
+reconstruction functional [61, 62] by way of unitary de-
+composition of tensors. The unitary decomposition al-
+lows to separate any p-particle matrixMi1...ip
+j1...jp into basis-
+invariant components
+M12...p =M12...p;⊥ +M12...p;K, (28)
+where M12...p;K denotes the kernel M12...p;K under con-
+tractions, i.e.
+TrpM12...p;K = 0, (29)
+whileM12...p;⊥ denotes the component orthogonal to the
+kernel. M12...p;⊥ carries all the important information
+encoded in M12...p that survives in the lower dimensional
+space upon contraction. In turn, M12...p;⊥ can be recon-
+structed from the information available in the contracted
+space. Eq. 28 applied to the 3RDM yields
+D123 =D123;K +D123;⊥[D12], (30)
+with the important consequence that the orthogonal com-
+ponent of D123 as well as of ∆ 123 become now exactly
+known functionals of the 2RDM. This exact functional
+for three-particle hermitian matrices has been ﬁrst given
+in [61] (see also [78] and [29] for a more detailed descrip-
+tion). With this decomposition we can now reconstruct
+parts of the missing components for the above reconstruc-
+tion functionals through
+DR+CC
+123 [D12] =DR
+123;K[D12] +D123;⊥[D12] (31)
+or equivalently
+DR+CC
+123 [D12] =DR
+123[D12] +D123;⊥[Dd
+12], (32)
+7
+where the defective part of the 2RDM, Dd
+12, corresponds
+to the contraction error in the two-particle space
+Dd
+12 =D12− 1
+N− 2Tr3DR
+123. (33)
+By construction, DR+CC
+123 is now contraction consistent,
+i.e.
+D12 = 1
+N− 2Tr3DR+CC
+123 [D12]. (34)
+Equally importantly, the CC correction to D123,
+D123;⊥[Dd
+12], provides a correction to the approximate
+three-particle cumulant
+∆123;⊥[D12] =D123;⊥[Dd
+12]. (35)
+In Eq. 35 we have used the fact that the ﬁrst two terms of
+the cumulant expansion (Eq. 18) are already exact func-
+tionals of D12. One remarkable consequence of restoring
+parts of ∆123 by the CC correction is that even the Valde-
+moro approximation whose bare version (Eq. 19) neglects
+∆123 entirely contains now in its contraction consistent
+(V+CC) version a three-particle correlation contribution
+∆123;⊥. The residual error for the reconstruction func-
+tionals considered can thus be traced to the kernel of the
+three-particle cumulant ∆ 123;K, either completely miss-
+ing as in the V+CC approximation or only incompletely
+reconstructed by the NY+CC, TS+CC, or M+CC ap-
+proximation. In the following, we refer to functionals
+without the CC correction as the bare functionals.
+IV. PROBING THE DYNAMICS OF THE
+CUMULANTS
+The proposed approximate reconstruction functionals
+forD123(t) or, more speciﬁcally, for the three-particle cu-
+mulant ∆123(t) (Eqs. 20, 24, 26) are at most quadratic
+functionals in ∆ 12(t) and local in time. Higher-order
+terms in ∆12 as well as any memory eﬀects are neglected
+from the outset. As this simple analytic structure of the
+approximate reconstruction functionals implies strong
+temporal correlations between ∆ 12(t) and ∆ 123(t), it is
+instructive to probe for the temporal correlations be-
+tween the time evolution of ∆ 123(t) and ∆ 12(t) in the
+non-equilibrium few-site Fermi-Hubbard model. Only
+when such time-correlated dynamics is present within the
+exact solution, the reconstruction by the time-local re-
+construction functionals used here can be expected to be
+accurate.
+For the Fermi-Hubbard model we explore the coupling
+between ∆12(t) and ∆123(t) by following the quench dy-
+namics for varying strength of interparticle correlations
+(Hubbard parameter U) and strength of the initial out-
+of-equilibrium excitation (controlled by the conﬁning po-
+tential parameter V ). We extract from the exact propa-
+gation the time evolution of ∆ 12(t) and ∆ 123(t) for the
+quench dynamics without invoking any reconstruction
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+0 10 20 30 40 50
+||Δ||
+Time [1/J]
+||Δ1
+↑
+ 2
+↓ ||exact
+||Δ1
+↑
+ 2
+↑ ||exact
+||Δ1
+↑
+ 2
+↑
+ 3
+↓ ||exact
+Figure 4. Time evolution of the exact cumulants (Frobenius
+norm) for the six-site Fermi-Hubbard model at half ﬁlling
+after the potential quench with V = 1J and U = 3.1J.
+functional, starting from the exact ground state in the
+potential well of strength V [Fig. 1 (a)] generating an
+out-of-equilibrium excitation of the free Fermi-Hubbard
+model [Fig. 1 (b)]. We scan overV in steps of 0.1J in the
+intervalV ∈ [0.1, 2]J and over U in steps of 0.3J in the
+intervalU∈ [0.1, 4]J. (Here and in the following we use
+the hopping parameter J as characteristic energy scale
+and 1/J as characteristic time scale.) Since in the spin-
+orbital representation the entire information on ∆ 123 is
+contained in the spin block ∆↑↑↓
+123, we focus on the magni-
+tude of ∆↑↓
+12, ∆↑↑
+12 and ∆↑↑↓
+123, as measured by the Frobenius
+norm (Schatten 2-norm)
+||M|| =
+(
+TrM†M
+)1/2
+. (36)
+The Frobenius norm provides an upper bound of the
+largest eigenvalue of M. The square of the Frobenius
+norm has been used in previous time-dependent studies
+as a size-extensive measure of correlations [79].
+In Fig. 4 we show a typical example for the non-
+equilibrium dynamics of cumulants at V = 1 J and
+U = 3 .1J. All cumulants start with non-zero val-
+ues ∆ 12(t = 0) and ∆ 123(t = 0) of the initial out-of-
+equilibrium state. They signiﬁcantly increase immedi-
+ately following the potential quench signifying the build-
+up of dynamical correlations in non-equilibrium dynam-
+ics. Direct visual inspection reveals that the variations
+of ∆↑↓
+12, ∆↑↑
+12 and ∆↑↑↓
+123 are correlated in time with each
+other. To quantify this time correlations, we calculate
+the equal-time limit Cfg (τ = 0) of the normalized cross-
+correlation function
+Cf,g(τ) =
+1
+T
+∫T
+t0
+dt[f(t +τ)− ¯f][g(t)− ¯g]
+σfσg
+, (37)
+with T the total time interval considered, the standard
+deviation
+σf =
+√
+1
+T
+∫ T
+t0
+dt[f(t)− ¯f]2, (38)
+8
+and the mean ¯f = 1
+T
+∫T
+t0
+dtf(t) (similarly forg). Cfg (τ =
+0) is also referred to as the Pearson correlation coeﬃcient
+[80]. With this normalization −1 ≤ Cfg (τ = 0) ≤ 1
+where Cfg (τ = 0) = 1(−1) corresponds to perfect (anti-
+)correlation andCfg (τ = 0) = 0 to absence of correlation
+in time.
+The behavior of Cfg (τ = 0) for diﬀerent cumulant pairs
+in the U-V plane is displayed in Fig. 5 and Fig. 6 for
+diﬀerent system sizes (Fig. 5 for Ms = 6 sites, Fig. 6
+for Ms = 8 sites). For the whole parameter scan we
+use T = 50J−1, and t0 = 10J−1. We use a ﬁnite t0
+in Eq. 37 (instead of evaluating the correlation starting
+with t = 0) because the initial rise of the cumulants
+is always correlated and its inclusion could lead to an
+overestimate of the correlation coeﬃcient. We focus here
+on the long-time average over the ﬂuctuations after the
+initial build-up. We use t0 = 10J−1 found to be large
+enough to separate the initial build-up from the ﬂuctua-
+tions around the mean for most parameters in the U-V
+plane. To delimit and identify structures in the U-V
+landscape we also display the distribution of two charac-
+teristic variables in the U-V plane. One is the ratio of
+the time-averaged correlation energy ¯Ecor to the initial
+degree of excitation parameterized byEpot(0) [Figs. 5 (c)
+and 6 (c)]. The latter is given by
+Epot(0) = TrD1(t = 0)V1(t = 0), (39)
+while
+Ecor(t) = Tr12W12∆12(t), (40)
+which in case of the Fermi-Hubbard model reduces to
+Ecor(t) =U
+∑
+j
+∆j↑j↓
+j↑j↓(t). (41)
+The other variable measures the build-up of dynamical
+three-particle correlations during time evolution relative
+to the three-particle correlations already present in the
+initial state at t = 0 prior to the quench [Figs. 5, 6 (d)],
+δ∆↑↑↓
+123 = 1
+T
+∫ T
+0
+dt||∆↑↑↓
+123(t)||−|| ∆↑↑↓
+123(0)||. (42)
+The contour line δ∆↑↑↓
+123 = 0.65 is also denoted in Fig. 5
+and 6 (a) and (b) marking quite accurately the border-
+line between strong and weak time correlation (or anti-
+correlation) between ∆123 and ∆12. We also display the
+borderline between high and low relative correlation en-
+ergy by plotting the contour line ¯Ecor =−0.1Epot(0) in
+Figs. 5 and 6 (a), (b), and (c) which accurately delimits
+the region of strong time correlation (i.e. C∆12,∆123 ≲ 1)
+in the cumulant dynamics.
+Obviously, distinct parameter regimes exist for which
+∆123(t) and ∆ 12(t) are strongly correlated with each
+other: one region pertains to small U (U ≲ 0.1J) and
+a wide range of excitation energies (0≤V ≲ 2J). In this
+region, the cumulants build up over the whole time inter-
+val investigated ofT = 50J−1 and have not reached sat-
+uration for most V . This build-up is naturally strongly
+0.5
+1.0
+1.5
+2.0
+V [J]
+-1
+-0.5
+ 0
+ 0.5
+ 1
+CΔ12, Δ123(τ=0) 
+(a) Δ1
+↑
+ 2
+↑  Δ1
+↑
+ 2
+↑
+ 3
+↓
+0.5
+1.0
+1.5
+2.0
+V [J]
+-1
+-0.5
+ 0
+ 0.5
+ 1
+CΔ12, Δ123(τ=0) 
+(b) Δ1
+↑
+ 2
+↓  Δ1
+↑
+ 2
+↑
+ 3
+↓
+0.5
+1.0
+1.5
+2.0
+V [J]
+-0.1
+-0.05
+ 0
+ 0.05
+ 0.1
+E- cor / Epot(0)
+(c)
+0.5 1.0 1.5 2.0 2.5 3.0 3.5 4.0
+U [J]
+0.5
+1.0
+1.5
+2.0
+V [J]
+ 0
+ 0.2
+ 0.4
+ 0.6
+ 0.8
+ 1
+ 1.2
+ 1.4
+δΔ1
+↑
+ 2
+↑
+ 3
+↓
+(d)
+Figure 5. Six-site Fermi-Hubbard model at half ﬁlling ( Ms =
+6) with interaction U starting from a ground state at varying
+potential of strength V . Equal-time limit of the normalized
+cross correlation function between the three-particle cumulant
+∆↑↑↓
+123 and the two-particle cumulants (a) ∆↑↑
+12 and (b) ∆↑↓
+12 in
+theU-V plane. In (c) we depict the mean (i.e. time averaged)
+correlation energy ¯Ecor relative to the initial excitation energy
+Epot(0). The colorbar is cut below and above±0.1 (i.e. larger
+and smaller values than shown on the color bar are present.)
+The black dashed line indicates the −0.1 contour line. In (d)
+we show the dynamical build-up of three-particle correlations
+relative to the initial correlations at t = 0, δ∆↑↑↓
+123 (Eq. 42).
+The solid black line denotes the δ∆↑↑↓
+123 = 0.65 contour.
+correlated over the whole time interval. The other region
+of positive correlations can be associated with negative
+relative correlation energies ¯Ecor ≲−0.1Epot(0) present
+for the whole interval of U tested and moderate levels of
+excitation (V ≲ J). Furthermore, we ﬁnd for the larger
+system (Ms = 8) also a region of time-correlation be-
+tween ∆12(t) and ∆ 123(t) for positive correlation energy
+9
+0.5
+1.0
+1.5
+V [J]
+-1
+-0.5
+ 0
+ 0.5
+ 1
+CΔ12, Δ123(τ=0)
+(a) Δ1
+↑
+ 2
+↑  Δ1
+↑
+ 2
+↑
+ 3
+↓
+0.5
+1.0
+1.5
+V [J]
+-1
+-0.5
+ 0
+ 0.5
+ 1
+CΔ12, Δ123(τ=0)
+(b) Δ1
+↑
+ 2
+↓  Δ1
+↑
+ 2
+↑
+ 3
+↓
+0.5
+1.0
+1.5
+V [J]
+-0.1
+-0.05
+ 0
+ 0.05
+ 0.1
+E- cor / Epot(0)
+(c)
+0.5 1.0 1.5 2.0 2.5 3.0 3.5 4.0
+U [J]
+0.5
+1.0
+1.5
+V [J]
+ 0
+ 0.2
+ 0.4
+ 0.6
+ 0.8
+ 1
+ 1.2
+δΔ1
+↑
+ 2
+↑
+ 3
+↓
+(d)
+Figure 6. As in Fig. 5, but for the Fermi-Hubbard model with
+Ms = 8 sites.
+of ¯Ecor ≳ 0.05Epot(0). In other regions the dynamics of
+∆12(t) and ∆ 123(t) is either uncorrelated or even anti-
+correlated.
+In view of the quadratic dependence of the approximate
+reconstruction functionals of ∆123(t) on ∆12(t) (Eqs. 20,
+24, 26) the time-correlation maps (Figs. 5 and 6) deter-
+mined here from exact calculations, allow predictions for
+the anticipated accuracy of the TD2RDM theory. The
+time evolution of the many-body system should be cap-
+tured quite well with the present set of reconstruction
+functionals in those parameter regions in the U-V plane
+where the time-correlation between ∆ 12(t) and ∆ 123(t)
+is strong. As will be shown below, the approximate re-
+construction functionals are reasonably accurate as long
+as the build-up of three-particle correlations over time
+(Eq. 42) remains moderate.
+To assess the accuracy of the reconstruction functionals
+0.0
+0.1
+0.2
+0.3
+0.4 (a)
+δ[D1
+↑
+ 2
+↑
+ 3
+↓ ]
+V+CC 
+V
+0.0
+0.1
+0.2
+0.3
+0.4 (b)
+δ[D1
+↑
+ 2
+↑
+ 3
+↓ ]
+M+CC 
+M
+0.0
+0.1
+0.2
+0.3
+0.4
+0 10 20 30 40 50
+(c)
+δ[D1
+↑
+ 2
+↑
+ 3
+↓ ]
+Time [1/J]
+TS+CC 
+TS
+NY+CC 
+NY
+0.13
+0.14
+29.0 29.2
+Figure 7. Six-site Fermi-Hubbard model at half ﬁlling ( Ms =
+6) starting from the many-body ground state in the poten-
+tial with V = 0 .8J deﬁning the out-of-equilibrium initial
+state in the potential-free Fermi-Hubbard model after the
+quench. The interaction parameter is U = 1.9J. Error in
+the three-particle reconstruction δ[D123(t)] (Eq. 43) for dif-
+ferent reconstruction functionals (a) Valdemoro (V) (Eq. 19)
+with and without contraction consistency (CC), (b) Mazziotti
+(M) (Eq. 26) with and without CC, and (c) Tohyama-Schuck
+(TS) (Eq. 25) and Nakatsuji-Yasuda (NY) (Eq. 23) with and
+without CC. The inset in (c) shows a zoom into a region where
+the diﬀerence between TS+CC and NY+CC becomes visible.
+locally in time and without the accumulation of errors
+during time evolution, we also perform exact calculations
+of both D12(t) and D123(t) and compare the latter with
+the reconstructedDR
+123(t) using the exactD12(t) as input
+for the reconstruction,
+δ[D123(t)] =||DR
+123[Dexact
+12 (t)]−Dexact
+123 (t)||. (43)
+Taking into account the cumulant expansion ofD123 (see
+Eq. 18) this error coincides with the error in the three-
+particle cumulant δ[D123] = δ[∆123] as only the latter
+is subject to reconstruction errors. In Fig. 7 we present
+exemplary results for δ[D123(t)] for the ∆↑↑↓
+123 block and
+for the parameters V = 0.8J and U = 1.9J localized in
+the region of strong temporal correlations [Fig. 5 (a), (b)]
+as well as moderate build-up of three-particle correlations
+over time [Fig. 5 (d)]. As the bare Valdemoro approxima-
+tion neglects ∆ 123 entirely, its error is largest and corre-
+sponds to the exact value of ∆123 itself. The bare NY, M,
+and TS perform better with the NY-reconstruction per-
+forming best. The diﬀerence between NY and TS is very
+small indicating that the normalization N does not play
+a signiﬁcant role in this case. Inclusion of the CC cor-
+rections improves the performance of all reconstruction
+10
+0.0
+0.1
+0.2
+0.3 (a)
+δ[C]
+V+CC 
+V
+0.0
+0.1
+0.2
+0.3 (b)
+δ[C]
+M+CC M
+0.0
+0.1
+0.2
+0 10 20 30 40 50
+(c)
+δ[C]
+Time [1/J]
+TS+CC 
+TS
+NY+CC 
+NY
+Figure 8. As in Fig. 7 however for the relative error of the
+collision operator δ[C] (Eq. 44). Note the diﬀerent scale of
+the vertical axis in (c) as compared to (a) and (b).
+functionals (Fig. 7). As expected, the changes are largest
+for V+CC for which the CC correction given by the or-
+thogonal component of the cumulant, ∆ 123;⊥ (Eq. 35),
+represents the only contribution to ∆ 123. For the TS
+and NY functionals, on the other hand, the corrections
+due to CC are small in this particular case.
+To further probe the accuracy of the reconstruction func-
+tionals within the TD2RDM theory locally in time in
+more detail we now take into account that only a fraction
+of the elements of the full 3RDM enters the equations of
+motion of the 2RDM via the collision operator C[D123]
+(see Eq. 5). We therefore determine the corresponding
+relative error in the collision operator
+δ[C(t)] =||C[DR
+123(t)]−Cexact(t)]||
+||Cexact(t)|| , (44)
+using the exact input from Dexact
+12 in DR
+123. The error
+in the collision operator (shown in Fig. 8 for the ↑↑↓-
+block) mirrors closely that of ∆ 123 (Fig. 7). It is largest
+for the V functional and smallest for the NY+CC func-
+tional. In the following benchmark calculations of the
+non-equilibrium dynamics of the Fermi-Hubbard model
+for diﬀerent pairs of (U, V ) we will restrict ourselves to
+these two functionals which provide a clear indication of
+the bandwidth of the expected accuracy.
+It is furthermore instructive to directly compare the
+time-local reconstruction error δ[D123(t)] (Eq. 43) of the
+V+CC and NY+CC reconstruction functionals for the
+cumulants with the norm of the cumulants themselves
+(Fig. 9). Note that the norm ||∆123(t)|| [Fig. 7 (a)] co-
+incides with the error of the bare V reconstruction func-
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+(a)
+||Δ||
+||Δ1
+↑
+ 2
+↓ ||exact
+||Δ1
+↑
+ 2
+↑ ||exact
+||Δ1
+↑
+ 2
+↑
+ 3
+↓ ||exact
+0.0
+0.2
+0.4
+0.6
+0 10 20 30 40 50
+(b)
+δD1
+↑
+ 2
+↑
+ 3
+↓
+Time [1/J]
+V+CC
+NY+CC
+||Δ1
+↑
+ 2
+↑
+ 3
+↓ ||exact
+Figure 9. Same system as in Fig. 7. (a) Dynamics of the
+two-particle (∆↑↑
+12 and ∆↑↓
+12) and three-particle (∆↑↑↓
+123) cumu-
+lants as measured by the Frobenius norm and obtained from
+an exact wavefunction calculation. (b) Time-resolved error
+of the reconstruction δ[D↑↑↓
+123] using the NY+CC and V+CC
+functionals compared with||∆↑↑↓
+123||exact [same curve as in (a)].
+tional in which the three-particle is neglected. In turn,
+the diﬀerence to the V+CC functional [Fig. 9 (b)] di-
+rectly indicates the size of ∆ 123;⊥ included by enforc-
+ing contraction consistency. This correction amounts in
+the present system to an approximate scaling factor of
+≈ 0.85± 0.05. The time-local reconstruction functional
+NY+CC improves the reconstruction substantially com-
+pared to V+CC. We ﬁnd that NY+CC performs better
+in regions where ∆ ↑↑↓
+123 has local minima but performs
+similarly as the V+CC in regions of local maxima. This
+gives an indication of current limitations of the recon-
+struction accuracy and also useful hints for directions of
+future improvements.
+We now analyze the time-averaged reconstruction er-
+ror in the collision operator (Eq. 44) in the U-V plane
+(Fig. 10). The time-averaged error closely mirrors
+the behavior of the equal-time cross-correlation between
+the two-particle and three-particle cumulants (Eq. 37,
+Fig. 5). For a Fermi-Hubbard system with weak inter-
+particle interactionsU ≲ 0.1J the reconstruction error in
+the collision operator is very small for both the V+CC
+and the NY+CC reconstruction. For much larger U of
+up to U ≈ 3J and moderately strong initial excitation
+(V ≲J) the NY+CC reconstruction performs markedly
+better. Remarkably, this region is quite faithfully delim-
+ited by the region where the build-up over time of the
+correlations (Eq. 42) is moderate, δ∆↑↑↓
+123 ≲ 0.65. Never-
+theless, it should be pointed out that the accuracy also
+of this reconstruction is limited for larger U ≳ 3J. In-
+terestingly, in the U-V region of time-anti-correlated or
+uncorrelated dynamics of the cumulants (Figs. 5 and 6)
+11
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+V [J]
+ 0
+ 0.1
+ 0.2
+ 0.3
+ 0.4
+ 0.5
+ 0.6
+ 0.7
+δ[C]
+(a) V+CC
+(I) (II) (III)
+(IV)
+0.5 1.0 1.5 2.0 2.5 3.0
+U [J]
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+V [J]
+ 0
+ 0.1
+ 0.2
+ 0.3
+ 0.4
+ 0.5
+ 0.6
+ 0.7
+δ[C]
+(b) NY+CC
+(I) (II) (III)
+(IV)
+Figure 10. Six-site Fermi-Hubbard model at half ﬁlling (Ms =
+6) and varying pair interactionU initially (t = 0) conﬁned by
+the harmonic potential of strength V and released for t >0.
+Shown is the reconstruction error in the U-V plane measured
+by the time-averaged relative error of the collision operator
+δ[C] (Eq. 44) using (a) the V+CC reconstruction functional
+and (b) the NY+CC reconstruction functional. For the points
+in the U-V plane marked by (I)-(IV) the time evolution of
+the occupation number n1(t) is displayed in Fig. 11 and their
+error in Fig. 12. The black solid line corresponds to the same
+contour line as in Fig. 5.
+the time-local reconstruction within NY+CC can cause
+even larger errors than the V+CC. This is not surprising
+in view of the fact that the V+CC approximation ne-
+glects (apart from the CC correction) ∆ 123 entirely and
+does not enforce time correlations as the NY+CC recon-
+struction does through the quadratic dependence of ∆NY
+123
+on ∆12 (see Eq. 20). Also this observation may point to
+avenues for further improvements of reconstruction func-
+tionals.
+V. SELF-CONSISTENT PROPAGATION OF
+THE 2RDM
+We present now examples of the fully self-consistent
+solution of the equations of motion of the 2RDM (Eq. 5)
+starting from the pure excited state, the many-body
+ground state in the potential Vi(t) prior to the quench
+at t = 0. We present examples of these simulations for
+diﬀerent parameters in theU-V plane marked in Fig. 10.
+As observable for the quench dynamics we chose the oc-
+cupation n1(t) =D1
+1(t) of the ﬁrst site. We compare the
+results of the TD2RDM theory for a given reconstruc-
+tion functional with the corresponding exact calculations
+0.0
+0.5
+1.0
+1.5 (I) V = 0.8 J, U = 1 J 
+n1(t)
+exact V+CC NY+CC 
+0.0
+0.5
+1.0
+1.5 (II) V = 0.8 J, U = 1.9 J
+n1(t)
+exact V+CC NY+CC 
+0.0
+0.5
+1.0
+1.5 (III) V = 0.8 J, U = 2.8 J
+n1(t)
+exact V+CC NY+CC 
+0.0
+0.5
+1.0
+1.5
+0 10 20 30 40 50
+(IV) V = 1.1 J, U = 1.9 J
+n1(t)
+Time [1/J]
+exact V+CC NY+CC 
+Figure 11. System as in Fig. 10. Shown is the time evolution
+of the occupation of site 1, n1(t) (see Fig. 1), as predicted
+by TD2RDM using the V+CC and NY+CC functionals and
+compared with the exact results for diﬀerent parameter com-
+binations of (U,V ) as indicated in the frame and marked in
+Fig. 10 .
+(Fig. 11). As a ﬁgure of merit we use the time-integrated
+deviation
+δn1 =
+∫T
+0 dt|nexact
+1 (t)−nR
+1 (t)|
+∫T
+0 dtn exact
+1 (t)
+, (45)
+sensitively probing the amplitude, frequency, and phase
+of the quench-induced density ﬂuctuations (Fig. 11). We
+note that the convergent and accurate propagation of the
+2RDM requires, in addition to an accurate three-particle
+cumulant reconstruction functional, also the preservation
+of N-representability which is a priori not guaranteed
+when errors due to the approximate reconstruction func-
+tionals pile up. N-representability is approximately re-
+stored during propagation by puriﬁcation “on the ﬂy”
+(see [61, 62]). The speciﬁc puriﬁcation algorithm em-
+ployed in the present simulation is summarized in Ap-
+pendix C.
+The time evolution of n1(t) for selected values of U and
+V marked by roman numbers in Fig. 10 are displayed
+12
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+V [J]
+ 0
+ 0.1
+ 0.2
+ 0.3
+δn1
+(a) V+CC
+(I) (II) (III)
+(IV)
+0.5 1.0 1.5 2.0 2.5 3.0
+U [J]
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+V [J]
+ 0
+ 0.1
+ 0.2
+ 0.3
+δn1
+(b) NY+CC
+(I) (II) (III)
+(IV)
+Figure 12. System as in Fig. 10. Shown is the time-integrated
+error δn1 (Eq. 45) of the occupation number n1(t) predicted
+by TD2RDM relative to the exact result in the U-V plane.
+The black line denotes theδ∆↑↑↓
+123 = 0.65 contour of the build-
+up of three-particle correlations over time (Eq. 42) (same as
+in Fig. 5). The gray areas mark regions where the method
+did not meet the convergence criteria discussed in Appendix
+C.
+for t≤ 50J−1 in Fig. 11. For weak on-site interaction
+U ≲ 0.1J both the V+CC and the NY+CC reconstruc-
+tion functionals yield excellent agreement with the exact
+results over a wide range of out-of-equilibrium excita-
+tions 0 ≤ V ≤ 1.5J (see also Fig. 12). For stronger
+U and intermediate quenches with V up to V = 0.8J
+[Fig. 11 (a)-(c)] we observe excellent agreement for the
+NY+CC reconstruction which performs better than the
+V+CC reconstruction. For larger V [e.g. V = 1.1J and
+U = 1.9J, Fig. 11 (d)] deviations for both functionals
+from the exact result are larger with the V+CC recon-
+struction functional performing slightly better.
+To survey the accuracy of the site occupation n1(t) we
+display in Fig.12 the time-integrated deviationsδn1 from
+the exact result (Eq. 45) for the 6-site Fermi-Hubbard
+model in the U-V plane. This distribution closely resem-
+bles the equal-time correlation between ∆ 12 and ∆ 123
+(see Fig. 5, Eq. 37). Obviously, the limitation to mod-
+erate build-up of three-particle correlations over time
+(δ∆↑↑↓
+123 ≲ 0.65) is one reliable predictor for accurate long-
+term simulations of the correlated non-equilibrium dy-
+namics. We emphasize that the present ﬁgure of merit
+(δn1 ≲ 0.1, i.e. the area shaded green or blue in Fig. 10)
+puts the theory to a fairly stringent test. Even when
+δn1 ≳ 0.3 the agreement with the exact calculation is
+qualitatively and even semi-quantitatively satisfactory,
+0.0
+0.5
+1.0
+1.5
+2.0
+(a) Ms = 18
+n1(t)
+exact
+TDHF
+V+CC 
+NY+CC 
+0.0
+0.5
+1.0
+1.5
+2.0
+0 10 20 30 40 50 60 70 80
+(b) Ms = 20
+n1(t)
+Time [1/J]
+MPS
+TDHF
+V+CC 
+NY+CC 
+Figure 13. The Fermi-Hubbard model with (a) Ms = 18 sites
+and (b) Ms = 20 sites at half ﬁlling and U = 0.1J. All parti-
+cles are initially located at the center of the system amount-
+ing to a potential quench of V → ∞. The exact solution
+of the Schr¨ odinger equation in (a) has been obtained using
+a Trotter decomposition of the sparse time-evolution oper-
+ator (time step dt = 0.025J−1), and via the one-site time-
+dependent variational principle with matrix product state
+bond dimension of χ = 512 (dt = 0.025J−1) in (b). Conver-
+gence with bond-dimension and time step has been veriﬁed
+to be within an absolute precision of 10−3 for the expectation
+values shown. We compare with the TD2RDM prediction us-
+ing the V+CC and NY+CC reconstruction functionals as well
+as to the mean-ﬁeld solution within time-dependent Hartree-
+Fock (TDHF) theory.
+capturing key features of the ﬂuctuations even though
+not in all details (see, e.g., Fig. 11 IV). Likewise, when the
+puriﬁcation protocol does not fully converge relative to
+the criteria imposed (see Appendix C), the results for the
+time-dependent occupation numbers still contain quali-
+tatively correct information on the mean occupation and
+dominant frequencies.
+We now turn to larger systems ( Ms = 18, 20) and time
+scales for which exact or highly accurate wavefunction
+based methods (such as MPS) are presently still a chal-
+lenge. We demonstrate the straightforward applicabil-
+ity of the TD2RDM theory for such systems. For a
+meaningful comparison with mean-ﬁeld methods such as
+TDHF we restrict ourselves to a weakly correlated Fermi-
+Hubbard model with U = 0.1J but a high degree of ex-
+citation. We start with an initial state where all Ms/2
+sites around the center of the system are doubly occupied
+amounting to a quench in the limit V →∞ . For the sys-
+tem size Ms = 18 [Fig. 13 (a)] we can still compare with
+exact propagation for the time interval 0 ≤ t≤ 80J−1.
+ForMs = 20 [Fig. 13 (b)] we can compare to MPS calcu-
+lations. The latter are, however, limited to short times
+t ≲ 10J−1. For Ms = 18 we ﬁnd excellent agreement
+with the exact results up to t≈ 60J−1 and still reason-
+able agreement for longer times. For Ms = 20 we ﬁnd
+excellent agreement with the MPS results for the short
+time interval for which the MPS data could be gener-
+13
+ated. We emphasize that increasing the system sizes here
+fromMs = 18 to Ms = 20 does not pose any major chal-
+lenge for TD2RDM theory. The extension towards larger
+systems approaching extended periodic systems thus ap-
+pears feasible. We also present in Fig. 13 a comparison
+with a time-dependent Hartree-Fock (TDHF) simulation
+as a representative mean-ﬁeld description within which
+larger systems are accessible. Even though the system
+is only weakly correlated, TDHF fails after a short time
+interval (t ≳ 35J−1) and substantially overestimates the
+oscillation amplitude of n1(t) (Fig. 13). By contrast the
+TD2RDM method is able to correctly capture the dy-
+namics in this system for extended periods of time.
+VI. CONCLUSIONS AND OUTLOOK
+In this paper, we have applied the time-dependent two-
+particle reduced density matrix (TD2RDM) theory to
+the non-equilibrium dynamics of the ﬁnite-size Fermi-
+Hubbard model at half-ﬁlling in 1D for a wide range of
+number of sites and interaction strengths U and initial
+out-of-equilibrium excitations controlled by the potential
+strength V of the quench. The Fermi-Hubbard model
+serves here as a benchmark model to demonstrate the
+applicability and performance of the theory to extended
+systems with non-negligible correlations relevant for cur-
+rent research in condensed matter physics and ultra-cold
+atoms.
+The TD2RDM theory fully incorporates two-particle cor-
+relations and includes approximate three-particle correla-
+tions via reconstruction functionals. Key to an accurate
+description of the dynamics within the TD2RDM theory
+is the reconstruction of the 3RDM, D123, by means of
+the 2RDM, D12, to close the equations of motion, and
+application of contraction consistency. The underlying
+assumption of the closure is the existence of a suﬃciently
+accurate reconstruction functional of ∆ 123. Currently
+used functionals assume ∆123 to be local in time, i.e. they
+do not take into account possible memory eﬀects. The
+existence of such a reconstruction functional is guaran-
+teed for the ground state via Rosina’s theorem [75, 76]
+but its extension to time-dependent settings is currently
+unknown. By comparing with exact results for small sys-
+tem sizes we have analyzed the dynamics of both two- and
+three-particle cumulants. Over a wide range of U andV
+we could identify parameter regimes in which the dynam-
+ics of the three-particle and two-particle cumulants are
+indeed strongly correlated in time with each other, a key
+prerequisite for the applicability of current state-of-the
+art time-local reconstruction functionals. For this partic-
+ular model system we could show the applicability and
+accuracy of the TD2RDM theory well into the regime
+of moderately strong correlations ( U ≲ 3J), of moder-
+ately strong out-of-equilibrium excitations (V ≲J), and
+for long propagation times (close to hundred time units
+J−1). As an approximate parameter controlling the ap-
+plicability of TD2RDM theory with the present function-
+als we could identify the diﬀerence δ∆123 between the
+dynamically built up and the initially present (ground
+state) three-particle correlations. The present observa-
+tion of the key role of temporal correlations between the
+two- and three-particle cumulants as well as of the build-
+up of three-particle correlations over time will provide
+us with directions for further improvements of the re-
+construction functionals. Moreover, they may serve as
+a guidance for the applicability of TD2RDM theory for
+systems where exact benchmarks are not available.
+Application to larger systems indicates that TD2RDM
+theory is still capable of providing accurate results and
+may outperform wavefunction based methods. We have
+showcased an example in the regime of weak interac-
+tions and a high degree of excitation in a system with
+18 sites, where a numerically exact solution of the full
+Schr¨ odinger equation is still possible, and with 20 sites
+where a MPS solution can be generated, however only
+for a limited time span ( ≤ 10J−1). Based on the ex-
+cellent agreement with exact results we conclude that
+the TD2RDM theory has the potential to develop into a
+versatile tool to study the correlated and strongly driven
+dynamics of extended models relevant to ultracold atoms
+and solid state physics. Extensions of the TD2RDM the-
+ory to extended systems in two- and three-dimensional
+systems are planned.
+ACKNOWLEDGEMENTS
+We thank Daniel Wieser for helpful discussions. IB
+thanks the Simons Foundation for the great hospital-
+ity and support during her research visit at the CCQ
+of the Flatiron Institute. The Flatiron Institute is a divi-
+sion of the Simons Foundation. We acknowledge support
+from the Max Planck-New York City Center for Non-
+Equilibrium Quantum Phenomena, Cluster of Excellence
+‘CUI: Advanced Imaging of Matter’- EXC 2056 - project
+ID. This research was funded by the WWTF grant MA-
+14002, the Austrian Science Fund (FWF) grant P 35539-
+N, the FWF doctoral college Solids4Fun, as well as the
+International Max Planck Research School of Advanced
+Photon Science (IMPRS-APS). Calculations were per-
+formed on the Vienna Scientiﬁc Cluster (VSC4).
+Appendix A: Equations of motion for the 2RDM
+We present here the explicit expression for the equation
+of motion forDi1↑i2↓
+j1↑j2↓ in the basis of spin (σ =↑,↓) orbitals
+localized at site i. Inserting the reconstructed Di1↑i2↑i3↓
+j1↑j2↑j3↓
+14
+(Eq. 9) into Eq. 5 together with Eq. 7 and Eq. 8 yields
+i∂tDi1↑i2↓
+j1↑j2↓ =
+∑
+n
+hn
+j1Di1↑i2↓
+n↑j2↓ +
+∑
+n
+hn
+j2Di1↑i2↓
+j1↑n↓
++Uδj1,j2Di1↑i2↓
+j1↑j2↓
+−
+∑
+n
+hi1
+nDn↑i2↓
+j1↑j2↓−
+∑
+n
+hi2
+nDi1↑n↓
+j1↑j2↓
+−Uδi1,i2Di1↑i2↓
+j1↑j2↓
++UDj1↑i2↑i1↓
+j1↑j2↑j1↓ +UDi1↑j2↑i2↓
+j1↑j2↑j2↓
+−UDi1↑i2↑i1↓
+i1↑j2↑j1↓−UDi1↑i2↑i2↓
+j1↑i2↑j2↓, (A1)
+with
+hi
+j =−Jδi+1
+j −Jδi−1
+j . (A2)
+Appendix B: Mazziotti reconstruction functional
+The Mazziotti reconstruction functional [56] is given
+in the basis of natural orbitals by
+∆i1i2i3 M
+j1j2j3 =− 1
+χi1i2i3
+j1j2j3− 3
+ˆA
+∑
+n
+∆i1n
+j1j2∆i2i3
+nj3 (B1)
+with
+χi1i2i3
+j1j2j3 =νj1 +νj2 +νj3 +νi1 +νi2 +νi3, (B2)
+and νk the eigenvalues of the 1RDM (i.e. the natural
+occupation numbers). For propagating the equations of
+motion one in a single-particle basis one has to perform
+a basis transformation. Elements of the type ∆ ooo
+xxx and
+∆ouu
+oou, where o denotes an occupied and u an unoccupied
+orbital, remain undetermined due to the divergence of
+the denominator in Eq. B1 and are chosen to be zero, as
+suggested in [56].
+Appendix C: Puriﬁcation
+The error through reconstruction of the 3RDM in
+the equation of motion (Eq. 5) typically accumulates
+over time such that the propagation becomes unstable
+[81]. Similar instabilities are found in NEGF methods
+[29]. We have recently shown [61] that these instabil-
+ities can be prevented by enforcing a subset of neces-
+sary N-representability conditions during the propaga-
+tion. N-representability refers to the necessary and suﬃ-
+cient conditions a RDM has to fulﬁll to represent a proper
+reduction of a fermionic many-body wavefunction (or
+many-body density matrix if ensemble N-representability
+is concerned) [82]. While for the 1RDM it is suﬃcient
+that its eigenvalues lie within the interval νi ∈ [0, 1]
+for ensemble N-representability [83, 84], the pure state
+N-representability problem leads to so-called generalized
+Pauli constraints [85–88]. For the 2RDM constructive
+methods exist to obtain a set of necessary ensemble N-
+representability conditions (see e.g. [82, 83, 89]), but only
+a limited number of these conditions can be enforced in
+numerical computations, especially in a time-dependent
+setting. The problem of suﬃcient conditions of pure-state
+N-representability is still widely open [90].
+Within the TD2RDM theory, we have shown that en-
+forcing the positive semi-deﬁniteness of the two-particle
+RDM (D-condition) and the corresponding condition on
+the two-hole RDM,
+Q12 = ˆAI1I2− ˆAD1I2 +D12, (C1)
+(the Q-condition) is suﬃcient to stabilize the propa-
+gation. Moreover, enforcing the D- and Q-condition
+substantially improves the accuracy of all physical
+observables, even when the equations of motion remain
+stable. A similar stabilizing eﬀect has been observed
+within the G1-G2 scheme of NEGF methods [29]. The
+additional G-condition, positive-semideﬁniteness of the
+particle-hole RDM, was empirically found to be fulﬁlled
+when the D- and Q-conditions are.
+The successful puriﬁcation enforces positive-
+semideﬁniteness of the 2RDM and the two-hole RDM
+in the least invasive way which implies preserving their
+diagonal and oﬀ-diagonal traces, as well as preserving
+energy after puriﬁcation. Our puriﬁcation protocol
+utilizes the unitary decomposition of the 2RDM [62]. To
+this end we determine the component of the 2RDM with
+negative eigenvalues (i.e. geminal occupation numbers)
+ηi
+D<
+12 =
+∑
+ηi<0
+ηi|gi⟩⟨gi|, (C2)
+and, analogously, the corresponding defective part of the
+two-holeQ<
+12. Subtracting these defective parts fromD12
+and Q12 would restore a positive semi-deﬁnite matrix.
+However, such a procedure without constraints would vi-
+olate conservation of D1 as well as of the energy. There-
+fore, we have to enforce in addition
+Tr2D<
+12 = 0, (C3)
+i.e. the subtracted part D<
+12 must reside in the kernel.
+Moreover, the (correlation) energy must be preserved
+Tr12W12D<
+12 = 0. (C4)
+The part ofD<
+12 meeting these requirements Eqs. C3 and
+C4 is denoted byD<;E
+12 . We thus arrive at the puriﬁcation
+formula for the 2RDM [29]
+D′
+12 =D12−D<;E
+12;K−Q<;E
+12;K, (C5)
+which we apply iteratively each time the smallest gemi-
+nal occupation number ηi drops below a threshold value
+until the threshold value is reached. We would like to
+point out that the results depend only very weakly on
+the threshold value as well as the maximal number of
+15
+steps applied in the iterative process as long the itera-
+tion convergences and the smallest geminal occupation
+number is close to zero (but can still be slightly nega-
+tive). Since calculating the geminal occupation numbers
+through exact diagonalization is numerically costly [scal-
+ing as O(M6
+s ) with the number of sites] we restrict our-
+selves to applying Eq. C5 only once each time the small-
+est geminal occupation number drops below zero for the
+largest systems in the present paper (with Ms = 18 and
+Ms = 20) to save computational time. We have checked
+that the obtained results are converged with respect to
+the time step dt of the propagation (i.e. the number of
+time steps within the whole time interval [0 ,T ]). This
+also means that applying diﬀerent puriﬁcation schemes
+(with respect to the threshold on the smallest geminal
+occupation number and the number of iterative steps)
+will give the same results on the level of accuracy set by
+the threshold.
+Reaching numerical convergence as a function of the
+number of time steps of the propagation when puriﬁca-
+tion is applied poses a challenge in case of large recon-
+struction errors. We have used an overall global time step
+dt, however, within each time step we use a time-adaptive
+propagation (using a Runge-Kutta-Fehlberg propagator
+of 4th and 5th order) to split each time step into sub-steps
+within which the prescribed tolerance of the local error
+is reached. Whenever the smallest geminal occupation
+number falls below a certain threshold, puriﬁcation is ap-
+plied after the global time step. For the scan in Fig. 12
+we have applied a threshold of −10−4 and the maximal
+allowed number of iterations to reach this threshold is
+set to 100. We observe that in regions of large errors
+in the reconstruction the iterative puriﬁcation often does
+not reach the threshold (this happens mostly in the lower
+right corner of Fig. 12). This does not lead necessarily to
+instabilities. In fact, we did not observe any instabilities
+for all values of U and V scanned in Fig. 12. However,
+frequent applications of puriﬁcation and large numbers of
+iterations required to reach the threshold or not reaching
+the threshold at all may induce undesirable numerical
+noise. This may prevent convergence as a function of the
+size of the global time step dt (i.e. as a function of the
+number of time steps used in the propagation) in cases
+when the uncontrolled noise accumulates (Fig. 12 gray
+regions). These areas are determined by discarding all
+results with a local error in the physical observable of
+> 5× 10−3. Even if the simulation does not meet strict
+convergence criteria some of the observables are reason-
+ably well represented, e.g. the mean (i.e. time-averaged)
+occupation number.
+REFERENCES
+[1] A. Pohl, P.-G. Reinhard, and E. Suraud, Towards single-
+particle spectroscopy of small metal clusters, Phys. Rev.
+Lett. 84, 5090 (2000).
+[2] M. A. Cazalilla and J. B. Marston, Time-dependent
+density-matrix renormalization group: A systematic
+method for the study of quantum many-body out-of-
+equilibrium systems, Phys. Rev. Lett. 88, 256403 (2002).
+[3] J. Caillat, J. Zanghellini, M. Kitzler, O. Koch, and et al.,
+Correlated multielectron systems in strong laser ﬁelds:
+A multiconﬁguration time-dependent Hartree-Fock ap-
+proach, Phys. Rev. A 71, 012712 (2005).
+[4] T. Burnus, M. A. L. Marques, and E. K. U. Gross, Time-
+dependent electron localization function, Phys. Rev. A
+71, 010501(R) (2005).
+[5] T. Otobe, M. Yamagiwa, J.-I. Iwata, K. Yabana,
+T. Nakatsukasa, and G. F. Bertsch, First-principles elec-
+tron dynamics simulation for optical breakdown of di-
+electrics under an intense laser ﬁeld, Phys. Rev. B 77,
+165104 (2008).
+[6] M. Eckstein, M. Kollar, and P. Werner, Thermalization
+after an Interaction Quench in the Hubbard Model, Phys-
+ical Review Letters 103, 056403 (2009).
+[7] J. A. Driscoll, S. Bubin, and K. Varga, Laser-induced
+electron emission from nanostructures: A ﬁrst-principles
+study, Phys. Rev. B 83, 233405 (2011).
+[8] D. Hochstuhl and M. Bonitz, Time-dependent restricted-
+active-space conﬁguration-interaction method for the
+photoionization of many-electron atoms, Phys. Rev. A
+86, 053424 (2012).
+[9] D. Hochstuhl, C. M. Hinz, and M. Bonitz, Time-
+dependent multiconﬁguration methods for the numerical
+simulation of photoionization processes of many-electron
+atoms, The European Physical Journal Special Topics
+223, 177 (2014).
+[10] G. Wachter, C. Lemell, J. Burgd¨ orfer, S. A. Sato, X.-M.
+Tong, and K. Yabana, Ab initio simulation of electrical
+currents induced by ultrafast laser excitation of dielectric
+materials, Phys. Rev. Lett. 113, 087401 (2014).
+[11] T. Sato, H. Pathak, Y. Orimo, and K. L. Ishikawa,
+Communication: Time-dependent optimized coupled-
+cluster method for multielectron dynamics, The Journal
+of Chemical Physics 148, 051101 (2018).
+[12] T. B. Pedersen and S. Kvaal, Symplectic integration and
+physical interpretation of time-dependent coupled-cluster
+theory, The Journal of Chemical Physics 150, 144106
+(2019).
+[13] G. E. Topp, N. Tancogne-Dejean, A. F. Kemper, A. Ru-
+bio, and M. A. Sentef, All-optical nonequilibrium path-
+way to stabilising magnetic Weyl semimetals in py-
+rochlore iridates, Nature Communications9, 4452 (2018).
+[14] M. Buzzi, G. Jotzu, A. Cavalleri, J. I. Cirac, E. A. Dem-
+ler, B. I. Halperin, M. D. Lukin, T. Shi, Y. Wang, and
+D. Podolsky, Higgs-Mediated Optical Ampliﬁcation in a
+Nonequilibrium Superconductor, Physical Review X 11,
+011055 (2021).
+[15] L. Stojchevska, I. Vaskivskyi, T. Mertelj, P. Kusar,
+D. Svetin, S. Brazovskii, and D. Mihailovic, Ultrafast
+Switching to a Stable Hidden Quantum State in an Elec-
+16
+tronic Crystal, Science 344, 177 (2014).
+[16] N. Schl¨ unzen, S. Hermanns, M. Bonitz, and C. Verdozzi,
+Dynamics of strongly correlated fermions: Ab initio re-
+sults for two and three dimensions, Phys. Rev. B 93,
+035107 (2016).
+[17] C. Giannetti, M. Capone, D. Fausti, M. Fabrizio,
+F. Parmigiani, and D. Mihailovic, Ultrafast optical
+spectroscopy of strongly correlated materials and high-
+temperature superconductors: a non-equilibrium ap-
+proach, Advances in Physics 65, 58 (2016).
+[18] K. Balzer, M. R. Rasmussen, N. Schl¨ unzen, J.-P. Joost,
+and M. Bonitz, Doublon formation by ions impacting a
+strongly correlated ﬁnite lattice system, Phys. Rev. Lett.
+121, 267602 (2018).
+[19] D. N. Basov, A. Asenjo-Garcia, P. J. Schuck, X. Zhu,
+and A. Rubio, Polariton panorama, Nanophotonics 10,
+549 (2020).
+[20] D. M. Kennes, M. Claassen, L. Xian, A. Georges, A. J.
+Millis, J. Hone, C. R. Dean, D. N. Basov, A. N. Pa-
+supathy, and A. Rubio, Moir´ e heterostructures as a
+condensed-matter quantum simulator, Nature Physics
+17, 155 (2021).
+[21] M. Budden, T. Gebert, M. Buzzi, G. Jotzu, E. Wang,
+T. Matsuyama, G. Meier, Y. Laplace, D. Pontiroli,
+M. Ricc` o, F. Schlawin, D. Jaksch, and A. Cavalleri, Evi-
+dence for metastable photo-induced superconductivity in
+K3C60, Nature Physics 17, 611 (2021).
+[22] A. Niggas, J. Schwestka, K. Balzer, D. Weichselbaum,
+N. Schl¨ unzen, R. Heller, S. Creutzburg, H. Inani, M. Tri-
+pathi, C. Speckmann, N. McEvoy, T. Susi, J. Kotakoski,
+Z. Gan, A. George, A. Turchanin, M. Bonitz, F. Aumayr,
+and R. A. Wilhelm, Ion-induced surface charge dynamics
+in freestanding monolayers of graphene and MoS2 probed
+by the emission of electrons, Phys. Rev. Lett.129, 086802
+(2022).
+[23] J. Bloch, A. Cavalleri, V. Galitski, M. Hafezi, and A. Ru-
+bio, Strongly correlated electron–photon systems, Nature
+606, 41 (2022).
+[24] J. Zanghellini, M. Kitzler, C. Fabian, T. Brabec, and
+A. Scrinzi, An MCTDHF approach to multielectron dy-
+namics in laser ﬁelds, Laser Phys. 13, 1064 (2003).
+[25] J. Haegeman, J. I. Cirac, T. J. Osborne, I. Piˇ zorn, H. Ver-
+schelde, and F. Verstraete, Time-Dependent Variational
+Principle for Quantum Lattices, Physical Review Letters
+107, 070601 (2011).
+[26] A. J. Daley, C. Kollath, U. Schollw¨ ock, and G. Vidal,
+Time-dependent density-matrix renormalization-group
+using adaptive eﬀective Hilbert spaces, Journal of Statis-
+tical Mechanics: Theory and Experiment 2004, P04005
+(2004).
+[27] C. Kollath, U. Schollw¨ ock, and W. Zwerger, Spin-charge
+separation in cold fermi gases: A real time analysis, Phys.
+Rev. Lett. 95, 176401 (2005).
+[28] N. Schl¨ unzen, J.-P. Joost, F. Heidrich-Meisner, and
+M. Bonitz, Nonequilibrium dynamics in the one-
+dimensional fermi-hubbard model: Comparison of the
+nonequilibrium Green-functions approach and the den-
+sity matrix renormalization group method, Phys. Rev. B
+95, 165139 (2017).
+[29] J.-P. Joost, N. Schl¨ unzen, H. Ohldag, M. Bonitz, F. Lack-
+ner, and I. Bˇ rezinov´ a Dynamically screened ladder ap-
+proximation: Simultaneous treatment of strong elec-
+tronic correlations and dynamical screening out of equi-
+librium, Phys. Rev. B 105, 165155 (2022).
+[30] J. Haegeman, C. Lubich, I. Oseledets, B. Vandereycken,
+and F. Verstraete, Unifying time evolution and optimiza-
+tion with matrix product states, Physical Review B 94,
+165116 (2016).
+[31] B. Kloss, Y. B. Lev, and D. Reichman, Time-dependent
+variational principle in matrix-product state manifolds:
+Pitfalls and potential, Physical Review B 97, 024307
+(2018).
+[32] M. Yang and S. R. White, Time-dependent variational
+principle with ancillary krylov subspace, Phys. Rev. B
+102, 094315 (2020).
+[33] E. Runge and E. K. U. Gross, Density-functional the-
+ory for time-dependent systems, Phys. Rev. Lett. 52, 997
+(1984).
+[34] C. A. Ullrich, Time dependent density functional theory
+(Oxford University Press, Oxford, 2012).
+[35] G. Vignale and W. Kohn, Current-Dependent Exchange-
+Correlation Potential for Dynamical Linear Response
+Theory, Phys. Rev. Lett. 77, 2037 (1996).
+[36] R. D’Agosta and G. Vignale, Relaxation in Time-
+Dependent Current-Density-Functional Theory, Phys.
+Rev. Lett. 96, 016405 (2006).
+[37] J. W. Furness and et al., Current Density Functional
+Theory Using Meta-Generalized Gradient Exchange-
+Correlation Functionals, J. Chem. Theo. Comp. 11, 4169
+(2015).
+[38] K. Pernal, O. Gritsenko, and E. J. Baerends, Time-
+dependent density-matrix-functional theory, Phys. Rev.
+A 75, 012506 (2007).
+[39] K. J. H. Giesbertz, E. J. Baerends, and O. V. Gritsenko,
+Charge Transfer, Double and Bond-Breaking Excitations
+with Time-Dependent Density Matrix Functional The-
+ory, Physical Review Letters 101, 033004 (2008).
+[40] K. J. H. Giesbertz, O. V. Gritsenko, and E. J. Baerends,
+Response Calculations with an Independent Particle Sys-
+tem with an Exact One-Particle Density Matrix, Physical
+Review Letters 105, 013002 (2010).
+[41] K. Huang, Statistical Mechanics, 2nd ed. (New York,
+2008).
+[42] M. Bonitz, Quantum Kinetic Theory, 2nd ed. (Springer
+International Publishing, 2015).
+[43] L. Keldysh, Diagram technique for nonequilibrium pro-
+cesses, Sov. Phys. JETP 20, 1018 (1965).
+[44] G. Stefanucci and R. van Leeuwen, Nonequilibrium
+Many-Body Theory of Quantum Systems: A Modern
+Introduction (Cambridge University Press, Cambridge,
+2013).
+[45] N. Schl¨ unzen, S. Hermanns, M. Scharnke, and
+M. Bonitz, Ultrafast dynamics of strongly correlated
+fermions—nonequilibrium Green functions and selfen-
+ergy approximations, Journal of Physics: Condensed
+Matter 32, 103001 (2020).
+[46] N. Schl¨ unzen, J.-P. Joost, and M. Bonitz, Achieving the
+scaling limit for nonequilibrium Green functions simula-
+tions, Phys. Rev. Lett. 124, 076601 (2020).
+[47] D. Karlsson, R. van Leeuwen, Y. Pavlyukh, E. Perfetto,
+and G. Stefanucci, Fast Green’s function method for ul-
+trafast electron-boson dynamics, Phys. Rev. Lett. 127,
+036402 (2021).
+[48] Y. Pavlyukh, E. Perfetto, D. Karlsson, R. van Leeuwen,
+and G. Stefanucci, Time-linear scaling nonequilibrium
+Green’s function methods for real-time simulations of in-
+teracting electrons and bosons. I. Formalism, Phys. Rev.
+B 105, 125134 (2022).
+17
+[49] D. A. Mazziotti, Realization of Quantum Chemistry
+without Wave Functions through First-Order Semideﬁ-
+nite Programming, Physical Review Letters 93, 213001
+(2004).
+[50] D. A. Mazziotti, Variational reduced-density-matrix
+method using three-particle N -representability condi-
+tions with application to many-electron molecules, Phys-
+ical Review A 74, 032501 (2006).
+[51] J. R. Hammond and D. A. Mazziotti, Variational
+reduced-density-matrix calculation of the one-
+dimensional Hubbard model, Physical Review A
+73, 062505 (2006).
+[52] A. E. DePrince and D. A. Mazziotti, Parametric
+approach to variational two-electron reduced-density-
+matrix theory, Physical Review A 76, 042501 (2007).
+[53] M. Nakata, B. J. Braams, K. Fujisawa, M. Fukuda,
+J. K. Percus, M. Yamashita, and Z. Zhao, Variational
+calculation of second-order reduced density matrices by
+strong N-representability conditions and an accurate
+semideﬁnite programming solver, The Journal of Chem-
+ical Physics 128, 164113 (2008).
+[54] F. Colmenero, C. P´ erez del Valle, and C. Valdemoro, Ap-
+proximating q-order reduced density matrices in terms of
+the lower-order ones. I. General relations, Physical Re-
+view A 47, 971 (1993).
+[55] K. Yasuda and H. Nakatsuji, Direct determination of
+the quantum-mechanical density matrix using the den-
+sity equation. II., Physical Review A 56, 2648 (1997).
+[56] D. A. Mazziotti, Pursuit of N -representability for the
+contracted Schr¨ odinger equation through density-matrix
+reconstruction, Physical Review A 60, 3618 (1999).
+[57] D. A. Mazziotti, Complete reconstruction of reduced den-
+sity matrices, Chemical Physics Letters 326, 212 (2000).
+[58] A. E. DePrince and D. A. Mazziotti, Cumulant recon-
+struction of the three-electron reduced density matrix in
+the anti-Hermitian contracted Schr¨ odinger equation, The
+Journal of Chemical Physics 127, 104104 (2007).
+[59] M. Tohyama and P. Schuck, Truncation scheme of time-
+dependent density-matrix approach II, The European
+Physical Journal A 53, 186 (2017).
+[60] M. Tohyama and P. Schuck, Truncation scheme of time-
+dependent density-matrix approach III, The European
+Physical Journal A 55, 74 (2019).
+[61] F. Lackner, I. Bˇ rezinov´ a, T. Sato, K. L. Ishikawa, and
+J. Burgd¨ orfer, Propagating two-particle reduced density
+matrices without wave functions, Physical Review A 91,
+023412 (2015).
+[62] F. Lackner, I. Bˇ rezinov´ a, T. Sato, K. L. Ishikawa,
+and J. Burgd¨ orfer, High-harmonic spectra from time-
+dependent two-particle reduced-density-matrix theory,
+Physical Review A 95, 033414 (2017).
+[63] E. Haller, J. Hudson, A. Kelly, D. A. Cotta, B. Peaude-
+cerf, G. D. Bruce, and S. Kuhr, Single-atom imaging of
+fermions in a quantum-gas microscope, Nature Physics
+11, 738 (2015).
+[64] D. Greif, M. F. Parsons, A. Mazurenko, C. S. Chiu,
+S. Blatt, F. Huber, G. Ji, and M. Greiner, Site-resolved
+imaging of a fermionic Mott insulator, Science 351, 953
+(2016).
+[65] M. F. Parsons, F. Huber, A. Mazurenko, C. S.
+Chiu, W. Setiawan, K. Wooley-Brown, S. Blatt, and
+M. Greiner, Site-Resolved Imaging of Fermionic Li 6 in
+an Optical Lattice, Physical Review Letters 114, 213002
+(2015).
+[66] L. W. Cheuk, M. A. Nichols, M. Okan, T. Gersdorf, V. V.
+Ramasesh, W. S. Bakr, T. Lompe, and M. W. Zwierlein,
+Quantum-Gas Microscope for Fermionic Atoms, Physical
+Review Letters 114, 193001 (2015).
+[67] L. W. Cheuk, M. A. Nichols, K. R. Lawrence, M. Okan,
+H. Zhang, E. Khatami, N. Trivedi, T. Paiva, M. Rigol,
+and M. W. Zwierlein, Observation of spatial charge and
+spin correlations in the 2D Fermi-Hubbard model, Sci-
+ence 353, 1260 (2016).
+[68] C. S. Chiu, G. Ji, A. Mazurenko, D. Greif, and
+M. Greiner, Quantum State Engineering of a Hubbard
+System with Ultracold Fermions, Physical Review Let-
+ters 120, 243201 (2018).
+[69] J. Eisert, M. Friesdorf, and C. Gogolin, Quantum many-
+body systems out of equilibrium, Nature Physics 11, 124
+(2015).
+[70] S. Hermanns, N. Schl¨ unzen, and M. Bonitz, Hubbard
+nanoclusters far from equilibrium, Phys. Rev. B 90,
+125111 (2014).
+[71] C. Bertrand, O. Parcollet, A. Maillard, and X. Waintal,
+Quantum Monte Carlo algorithm for out-of-equilibrium
+Green’s functions at long times, Physical Review B 100,
+125129 (2019).
+[72] C. Bertrand, S. Florens, O. Parcollet, and X. Wain-
+tal, Reconstructing Nonequilibrium Regimes of Quantum
+Many-Body Systems from the Analytical Structure of
+Perturbative Expansions, Physical Review X 9, 041008
+(2019).
+[73] Y. N´ u˜nez Fern´ andez, M. Jeannin, P. T. Dumitrescu,
+T. Kloss, J. Kaye, O. Parcollet, and X. Waintal, Learning
+Feynman Diagrams with Tensor Trains, Physical Review
+X 12, 041018 (2022).
+[74] W. Kutzelnigg and D. Mukherjee, Cumulant expansion
+of the reduced density matrices, The Journal of Chemical
+Physics 110, 2800 (1999).
+[75] M. Rosina, Reduced Density Operators with Application
+to Physical, Chemical Systems (Kingston, Ont., 1968).
+[76] D. Mazziotti, Advances in Chemical Physics: Volume
+134: Reduced-Density-Matrix Mechanics. With Applica-
+tion to Many-Electron Atoms and Molecules (Hoboken,
+New Jersey, 2007).
+[77] S.-J. Wang and W. Cassing, Explicit treatment of N-body
+correlations within a density-matrix formalism, Annals of
+Physics 159, 328 (1985).
+[78] F. Lackner, Time-dependent two-particle reduced density
+matrix theory: Application to multi-electron atoms and
+molecules in strong laser pulses (PhD thesis, TU Wien,
+2017).
+[79] J. T. Skolnik and D. A. Mazziotti, Cumulant reduced
+density matrices as measures of statistical dependence
+and entanglement between electronic quantum domains
+with application to photosynthetic light harvesting,
+Physical Review A 88, 032517 (2013).
+[80] K. Pearson, VII. Mathematical contributions to the the-
+ory of evolution.—III. Regression, heredity, and pan-
+mixia, Philosophical Transactions of the Royal Society
+of London. Series A , 253 (1896).
+[81] A. Akbari, M. J. Hashemi, A. Rubio, R. M. Nieminen,
+and R. van Leeuwen, Challenges in truncating the hier-
+archy of time-dependent reduced density matrices equa-
+tions, Physical Review B 85, 235121 (2012).
+[82] C. Garrod and J. K. Percus, Reduction of the N -Particle
+Variational Problem, Journal of Mathematical Physics5,
+1756 (1964).
+18
+[83] A. J. Coleman, Structure of Fermion Density Matrices,
+Reviews of Modern Physics 35, 668 (1963).
+[84] R. G. Parr and W. Yang, Denisity functional theory
+of atoms and molecules (Oxford University Press, New
+York, 1989).
+[85] A. A. Klyachko, Quantum marginal problem and N-
+representability, Journal of Physics: Conference Series
+36, 72 (2006).
+[86] M. Altunbulak and A. Klyachko, The Pauli Principle Re-
+visited, Communications in Mathematical Physics 282,
+287 (2008).
+[87] C. Schilling, D. Gross, and M. Christandl, Pinning of
+Fermionic Occupation Numbers, Physical Review Letters
+110, 040404 (2013).
+[88] C. Schilling, M. Altunbulak, S. Knecht, A. Lopes, J. D.
+Whitﬁeld, M. Christandl, D. Gross, and M. Reiher, Gen-
+eralized Pauli constraints in small atoms, Physical Re-
+view A 97, 052503 (2018).
+[89] D. A. Mazziotti, Structure of fermionic density matrices:
+CompleteN-representability conditions, Phys. Rev. Lett.
+108, 263002 (2012).
+[90] P. W. Ayers and E. R. Davidson, Necessary conditions
+for the N-representability of pair distribution functions,
+International Journal of Quantum Chemistry 106, 1487
+(2006).

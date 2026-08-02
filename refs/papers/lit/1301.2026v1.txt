@@ -1,0 +1,1808 @@
+arXiv:1301.2026v1  [nucl-th]  10 Jan 2013
+Odd-particle number random phase approximation and extens ions: Applications to
+particle and hole states around 16O
+Mitsuru Tohyama 1 and Peter Schuck 2, 3
+1Kyorin University School of Medicine, Mitaka, Tokyo 181-86 11, Japan
+2Institut de Physique Nucl ´eaire, IN2P3-CNRS, Universit ´e Paris-Sud, F-91406 Orsay Cedex, France
+3Laboratoire de Physique et de Mod´ elisation des Milieux Con dens´ es, CNRS et,
+Universit´ e Joseph Fourier, 25 Av. des Martyrs, BP 166, F-38 042 Grenoble Cedex 9, France
+The hole-state random phase approximation (hRPA) and the pa rticle-state random phase approx-
+imation (pRPA) for systems like odd A nuclei are discussed. These hRPA and pRPA are formulated
+based on the Hartree-Fock ground state. An extension of hRPA and pRPA based on a correlated
+ground state is given using time-dependent density-matrix theory. Applications to the single-particle
+states around 16O are presented. It is shown that inclusion of ground-state c orrelation aﬀects ap-
+preciably the results of hRPA and pRPA. The question of the co upling of the center of mass motion
+of the core to the particle (hole) is also discussed.
+PACS numbers: 21.60.Jz, 21.10.Pc, 27.20.+n
+I. INTRODUCTION
+The one-particle states and one-hole states are basic
+excitation modes of a nucleus and other many body sys-
+tems. The experimental data on the properties of the
+single-particle states have been accumulated using nu-
+clear reactions such as one-nucleon transfer, pickup and
+knock-out reactions [1], and it has been found that there
+is a substantial depletion of the spectral strength of the
+single-particle states. Theoretical studies have shown
+that the strong short-range and tensor components of
+the nucleon-nucleon interaction are responsible for a part
+of the depletion [2] and a substantial part of the frag-
+mentation of the single-particle strength is due to the
+coupling to low-lying collective modes [3, 4]. The stan-
+dard approach to study the single-particle properties may
+be the Green’s function method. Various theoretical ap-
+proaches have been proposed to implement the coupling
+to low-lying collective modes into the self-energy of the
+Green’s function: the particle-phonon coupling model
+[3, 5–7], the Tamm-Dancoﬀ approximation (TDA) [8] and
+the more recent Faddeev random-phase approximation
+(FRPA) [9]. In the present paper we give a formula-
+tion of the hole-state RPA (hRPA) using the equation of
+motion approach (EoM) [10], which has often been used
+to derive the standard RPA, and discuss some aspects
+of hRPA such as the relation to the particle-state RPA
+(pRPA), which have not been clariﬁed so far in the liter-
+ature [8, 11]. We also present an extension of odd A RPA
+(oRPA) based on a correlated ground state obtained from
+the time-dependent density-matrix theory (TDDM) [12–
+14]. The inﬂuence of the center-of-mass (c.o.m.) motion
+of the even core on the odd system is also discussed. The
+paper is organized as follows: the formulation of hRPA
+and its extension is given in sect. 2, some properties of
+the extended RPA are also discussed in sect.2, the results
+obtained for the single-particle states around 16O are pre-
+sented in sect. 3, and sect. 4 is devoted to a discussion
+and conclusion section.
+II. FORMULATION
+Let us consider a nucleus consisting of A nucleons and
+assume that the total Hamiltonian H consists of the ki-
+netic energy term and a two-body interaction. Let us
+assume that |0⟩ is the ground state of the A nucleon sys-
+tem with A even and with energy E0 and |µ⟩ an exact
+eigenstate of the Hamiltonian for the A − 1 system with
+an eigenvalue Eµ (H|µ⟩ = Eµ |µ⟩).
+A. Equations of motion for transition amplitudes
+In direct reaction theories such as the the distorted
+wave impulse approximation and the distorted wave Born
+approximation the diﬀerential cross section for one nu-
+cleon transfer reactions is related to the spectral function
+Sαα ′ (ω)
+Sαα ′(ω) =
+∑
+µ
+⟨0|a+
+α ′ |µ⟩⟨µ|aα |0⟩δ(ω + Eµ − E0), (1)
+where aα and a+
+α are the annihilation and creation opera-
+tors of a nucleon in a single-particle state α, respectively.
+We consider the equations of motion for the transition
+amplitudes xµ
+α and X µ
+αβ :γ from the A nucleon system to
+the A − 1 nucleon system. These amplitudes are deﬁned
+by
+xµ
+α = ⟨0|a+
+α |µ⟩, (2)
+X µ
+αβ :γ = ⟨0| : a+
+α a+
+β aγ : |µ⟩, (3)
+where : : implies
+: a+
+α a+
+β aγ := a+
+α a+
+β aγ − (nγβ a+
+α − nγα a+
+β ). (4)
+Here, nαα ′ is the occupation matrix given by
+nαα ′ = ⟨0|a+
+α ′aα |0⟩. (5)
+From the EoM relation
+⟨0|[H, a+
+α ] = ⟨0|a+
+α (E0 − H), (6)
+2
+we obtain the equation for xµ
+α
+⟨0|[H, a+
+α ]|µ⟩ = ωµ ⟨0|a+
+α |µ⟩ = ωµ xµ
+α , (7)
+where ωµ = E0 − Eµ . The commutator on the left-hand
+side of the above equation includes terms with a+
+α a+
+β aγ .
+Therefore, xµ
+α couples to X µ
+αβ :γ . In a way analogous to
+that used in deriving Eq. (7), we obtain the equation for
+X µ
+αβ :γ
+⟨0|[H, : a+
+α a+
+β aγ :]|µ⟩ = ωµ ⟨0| : a+
+α a+
+β aγ : |µ⟩
+= ωµ X µ
+αβ :γ . (8)
+On the left-hand side of the above equation there appear
+expectation values of the terms consisting of three cre-
+ation operators and two annihilation operators such as
+⟨0|a+
+λ 1
+a+
+λ 2
+a+
+λ 3
+aλ 4 aλ 5 |µ⟩, which implies the coupling to a
+higher-level amplitude ⟨0| : a+
+α a+
+β a+
+γ aβ ′aα ′ : |µ⟩. To close
+the chain of the coupled equations, we factorize these
+terms using xµ
+α and X µ
+αβ :γ as
+⟨0|a+
+λ 1 a+
+λ 2 a+
+λ 3 aλ 4aλ 5 |µ⟩ ≈ AS (nλ 4λ 3 X µ
+λ 1λ 2:λ 5
++ Cλ 5λ 4λ 2λ 3 xµ
+λ 1 ), (9)
+where the correlation matrix Cαβα ′β ′ is deﬁned by
+Cαβα ′β ′ = ⟨0| : a+
+α ′ a+
+β ′aβ aα : |0⟩ and AS( ) means that
+the terms in the parentheses are properly antisymmter-
+ized [12]. The obtained coupled equations are written
+as
+(ǫα − ωµ )xµ
+α +
+∑
+λ 1λ 2λ 3
+⟨λ1λ2|v|αλ3⟩X µ
+λ 1λ 2:λ 3 = 0, (10)
+(ǫα + ǫβ − ǫγ − ωµ )X µ
+αβ :γ +
+∑
+λ 1λ 2λ 3λ 4
+⟨λ1λ2|v|λ3λ4⟩A
+× [(δλ 3α ((δλ 4β − nλ 4β )nγλ 2 − Cγλ 4λ 2β )
++ δλ 3β (nλ 4α nγλ 2 + Cγλ 4λ 2α )
++ δλ 2γ (nλ 3α nλ 4β + 1
+2 Cλ 3λ 4αβ ))xµ
+λ 1
++ δλ 3α nγλ 1 X µ
+λ 2β :λ 4 + δλ 3β nγλ 2 X µ
+λ 1α :λ 4
+− δλ 1γ (nλ 4α X µ
+βλ 2:λ 3 + nλ 3β X µ
+αλ 2:λ 4 )
++ 1
+2 (δλ 3α δλ 4β − δλ 3α nλ 4β + δλ 3β nλ 4α )X µ
+λ 1λ 2:γ ]
+= 0, (11)
+where the subscript A means that the corresponding ma-
+trix is antisymmetrized and the single-particle states are
+chosen as the eigenstates of the matrix
+⟨α|t|α′⟩ +
+∑
+λλ ′
+⟨αλ|v|α′λ′⟩Anλ ′λ . (12)
+Here t is the kinetic energy operator. Equations (10) and
+(11) are written in matrix form:
+(
+a c
+b d
+) (
+xµ
+X µ
+)
+= ωµ
+(
+xµ
+X µ
+)
+. (13)
+The matrix elements of the above equation are given
+in Appendix A. The normalization of the amplitudes is
+given by
+(
+˜xµ ∗ ˜Y µ ∗
+) (
+X µ ′
+Y µ ′
+)
+= δµµ ′ , (14)
+where ˜xµ ∗
+αα ′ and ˜X µ ∗
+αβα ′β ′ are the left eigenvector of Eq.
+(13). The occupation matrix and the correlation matrix,
+which enter Eq. (13) and which describe the ground-state
+correlations in the A nucleon system, can be determined
+in the framework of Time Dependent Density Matrix
+(TDDM) theory: the TDDM equations [12, 14] consist
+of the coupled equations motion for nαα ′ and Cαβα ′β ′,
+iℏ ˙nαα ′ = ⟨0|[a+
+α ′aα , H]0⟩, (15)
+iℏ ˙Cαβα ′β ′ = ⟨0|[: a+
+α ′a+
+β ′ aβ aα :, H]|0⟩. (16)
+The right-hand side of Eq. (16) contains the expectation
+values of three-body operators, which are approximated
+by the products of nαα ′ and Cαβα ′β ′ to close the coupled
+chain of the equations of motion. The ground state in
+TDDM is given as a stationary solution of the TDDM
+equations which satisﬁes ˙nαα ′ = 0 and ˙Cαβα ′β ′ = 0. The
+stationary solution can be obtained using the gradient
+method [15]. This method will be used in our numerical
+application given later.
+In the Hartree-Fock approximation (HF), nαα ′ = δαα ′
+for hole states and nαα ′ = 0 for particle states, and
+Cαβα ′β ′ = 0. Keeping in Eq. (13) only the amplitudes
+xµ
+h and X µ
+hh′:p, where p and h refer to a particle state
+and a hole state, respectively, corresponds to the TDA
+equation of odd particle systems [16]. However, even
+within the HF-ground state, Eq. (13) can have all com-
+ponents of X µ
+αβ :γ ; X µ
+hh′:p, X µ
+pp′:h, X µ
+hh′:h′′ , X µ
+pp′:p′′ , X µ
+hp:p′
+and X µ
+hp:h′. Such equations have been proposed for the
+ﬁrst time in Ref. [11] and they have been applied in Ref.
+[8]. This very much extended conﬁguration space actu-
+ally leads to some diﬃculties which have been discussed
+in Ref. [8]. We will take up this discussion again below.
+In the following we discuss the relation of xµ
+α with nαα .
+Using Eq. (10) for xµ
+α ′ and the complex conjugate of Eq.
+(10) for xµ
+α , we can eliminate ωµ obtaining an equation
+for ∑
+µ xµ
+α ′ (xµ
+α )∗
+(ǫα − ǫα ′)
+∑
+µ
+xµ
+α ′ (xµ
+α )∗
++
+∑
+λ 1λ 2λ 3
+[⟨αλ3|v|λ1λ2⟩
+∑
+µ
+xµ
+α ′ (X µ
+λ 1λ 2:λ 3 )∗
+− ⟨λ1λ2|v|α′λ3⟩
+∑
+µ
+X µ
+λ 1λ 2:λ 3 (xµ
+α )∗] = 0 . (17)
+On the other hand the stationary condition ˙ nαα ′ = 0 for
+Eq. (15) gives [15]
+(ǫα − ǫα ′)nαα ′
++
+∑
+λ 1λ 2λ 3
+[⟨αλ3|v|λ1λ2⟩Cλ 1λ 2α ′λ 3
+− ⟨λ1λ2|v|α′λ3⟩Cαλ 3λ 1λ 2 ] = 0 . (18)
+3
+Equations (17) and (18) suggest that ∑
+µ xµ
+α ′ (xµ
+α )∗ and∑
+µ X µ
+α ′β ′:β (xµ
+α )∗ correspond to nαα ′ and Cαβα ′β ′, respec-
+tively, though the symmetry of Cαβα ′β ′ under the ex-
+change of α and β is lost in ∑
+µ X µ
+α ′β ′:β (xµ
+α )∗. We will
+show below that nαα = ∑
+µ xµ
+α (xµ
+α )∗ approximately holds
+in the applications to 16O.
+B. Equation of motion approach with excitation
+operator
+Equation (13) lacks some eﬀects such as self-energy
+contributions in the conﬁguration X µ
+αβ :γ , which should
+be included when a correlated ground state is used. In
+order to take account of such eﬀects, we present another
+formulation which is based on EoM [10]. Introducing the
+excitation operator q+
+µ
+q+
+µ =
+∑
+α
+yµ
+α aα +
+∑
+αβγ
+Y µ
+αβ :γ : a+
+γ aβ aα : (19)
+and assuming, as usual, q+
+µ |0⟩ = |µ⟩ and qµ |0⟩ = 0 (for
+the existence of such a relation, see below), we obtain
+from Eqs. (7) and (8)
+(
+A C
+B D
+) (
+yµ
+Y µ
+)
+= ωµ
+(
+N11 N12
+N21 N22
+) (
+yµ
+Y µ
+)
+, (20)
+where the matrices are deﬁned as
+A(α : α′) = ⟨0|{[H, a+
+α ], aα ′}|0⟩, (21)
+B(αβγ : α′) = ⟨0|{[H, : a+
+α a+
+β aγ :], aα ′ }|0⟩, (22)
+C(α : α′β′γ′) = ⟨0|{[H, a+
+α :], : a+
+γ ′aβ ′aα ′ }|0⟩,
+D(αβγ : α′β′γ′ )
+= ⟨0|{[H , : a+
+α a+
+β aγ :], : a+
+γ ′aβ ′aα ′ :}|0⟩, (23)
+N11(α : α′) = ⟨0|{a+
+α , aα ′}|0⟩ = δαα ′ , (24)
+N12(α : α′β′γ) = ⟨0|{a+
+α , : a+
+γ ′aβ ′aα ′ :}|0⟩ = 0, (25)
+N21(αβγ : α′) = ⟨0|{: a+
+α a+
+β aγ :, aα ′ }|0⟩ = 0,
+N22(αβγ : α′β′γ′ )
+= ⟨0|{: a+
+α a+
+β aγ , : a+
+γ ′aβ ′aα ′ :}|0⟩. (26)
+Here { } implies the anticommutator, {A, B} = AB +
+BA. The norm matrix N22 is given in Appendix A. The
+matrix elements in Eq. (20) can be expressed using those
+in Eq. (13) such as
+A = a × N11 (27)
+B = b × N11, (28)
+C = c × N22. (29)
+The matrix D consists of the two types of terms, one
+expressed by D1 = d × N22 and the other given by D2,
+which originates from the terms with : a+
+λ 5 a+
+λ 4 a+
+λ 3 aλ 2aλ 1 :
+FIG. 1. (a) Self-energy contribution to a particle state and
+(b) that to a hole state. The ellipses denote Cαβα ′β ′ and the
+dots the residual interaction.
+in [ H, : a+
+α a+
+β aγ :]:
+[ H, : a+
+α a+
+β aγ :] =
+∑
+α ′
+c(αβγ : λ)a+
+α ′
++
+∑
+α ′β ′γ ′
+d(αβγ : α′β′γ′) : a+
+α ′a+
+β ′aγ ′ :
++
+∑
+λ 1λ 2λ 3λ 4λ 5
+e(αβγ : λ1λ2λ3λ4λ5)
+× : a+
+λ 1a+
+λ 2 a+
+λ 3 aλ 5 aλ 4 : . (30)
+Using
+N32 ( λ1λ2λ3λ4λ5 : αβγ )
+= ⟨0|{: a+
+λ 1 a+
+λ 2a+
+λ 3 aλ 5 aλ 4 :, : a+
+γ aβ aα :}|0⟩, (31)
+D2 can be expressed as e × N32. These terms include, for
+example,
+− 1
+2 δαα ′ δββ ′
+∑
+λ 1λ 2λ 3
+⟨λ1λ2|v|γ′λ3⟩ACγλ 3λ 1λ 2 ,
+which is a self-energy contribution to the state γ. The
+self-energy contributions are schematically shown in Fig.
+1.
+The normalization of the amplitudes is given by
+(yµ ∗ Y µ ∗)
+(
+N11 N12
+N21 N22
+) (
+yµ ′
+Y µ ′
+)
+= δµµ ′ . (32)
+The closure relation is written as
+∑
+µ
+(
+yµ
+Y µ
+)
+(yµ ∗ Y µ ∗)
+(
+N11 N12
+N21 N22
+)
+= I, (33)
+where I is the unit matrix. We refer to the formulation
+Eq. (20) as the extended odd-RPA (EoRPA).
+4
+In the following we discuss the relation between Eqs.
+(13) and (20). The transition amplitudes xµ
+α and X µ
+αβ :γ
+are given by yµ
+α and Y µ
+αβ :γ as
+(
+xµ
+X µ
+)
+=
+(
+N11 N12
+N21 N22
+) (
+yµ
+Y µ
+)
+. (34)
+Inserting this expression into Eq. (13), we obtain
+(
+A C
+B D 1
+) (
+yµ
+Y µ
+)
+= ωµ
+(
+N11 N12
+N21 N22
+) (
+yµ
+Y µ
+)
+.(35)
+The diﬀerence between Eqs. (20) and (35) and thus be-
+tween Eqs. (20) and (13) resides in the matrix D. Some
+eﬀects of the ground-state correlations such as the self-
+energy contributions are missing in Eq. (35) and thus in
+Eq. (13) as mentioned above. The importance of these
+missing terms will be discussed below in the application
+section.
+1. Symmetry properties
+First we show that the Hamiltonian matrix of Eq. (20)
+is hermitian. We use the operator identity
+⟨0|{[H, ˆA], ˆB}|0⟩ + ⟨0|{[H, ˆB], ˆA}|0⟩
+= ⟨0|[H, { ˆA, ˆB}]|0⟩. (36)
+In Eq. (20), in the matrix A, the operators ˆA and ˆB are
+identiﬁed with a+
+α and aα ′ , respectively. Since { ˆA, ˆB}
+is unity, the right-hand side of Eq. (36) vanishes, which
+means ⟨0|{[H, ˆA], ˆB}|0⟩ = −⟨0|{[H, ˆB], ˆA}|0⟩ and
+A(α : α′)∗ = −⟨0|{[H, aα ], a+
+α ′}|0⟩,
+= ⟨0|{[H, a+
+α ′ ], aα }|0⟩ = A(α′ : α). (37)
+In the case of the matrix B in Eq. (20) ˆA is : a+
+α a+
+β aγ :
+and ˆB is aα ′ , and { ˆA, ˆB} is reduced to a one-body
+operator. Due to the ground-state condition Eq. (15)
+the right-hand side of Eq. (36) vanishes, which means
+⟨0|{[H, ˆA], ˆB}|0⟩ = −⟨0|{[H, ˆB], ˆA}|0⟩ and
+B(αβγ : α′)∗ = −⟨0|{[H, : a+
+γ aβ aα :], a+
+α ′}|0⟩,
+= ⟨0|{[H, a+
+α ′], : a+
+γ aβ aα :}|0⟩
+= C(α′ : αβγ ). (38)
+Similarly, for the matrix D in Eq. (20) ˆA is : a+
+α a+
+β aγ :
+and ˆB is : a+
+γ ′aβ ′aα ′ , and { ˆA, ˆB} is reduced to at most a
+two-body operator. Due to the ground-state conditions
+Eqs. (15) and (16) the right-hand side of Eq. (36) van-
+ishes, which implies
+D(αβγ : α′β′γ′)∗ = D(α′β′γ′ : αβγ ). (39)
+Therefore, the Hamiltonian matrix in Eq. (20) is hermi-
+tian. In the applications, shown below, we do not take all
+the matrix elements of nαα ′ and Cαβα ′β ′, which causes
+FIG. 2. (a) Mass operator for a particle state described by
+Y µ
+pp′:h and (b) that for a hole state described by Y µ
+hh′:p. The
+circles mean the propagators given by Y µ
+pp′:h ((a)) and Y µ
+hh′:p
+((b)), and the dots the residual interaction.
+a violation of the hermiticity of Eq. (20), though it will
+turn out to be small.
+Next we discuss the relation between the formulations
+for a hole state and a particle state. We can obtain a
+formulation for a particle state using the excitation op-
+erator
+q+
+µ =
+∑
+α
+zµ
+α a+
+α +
+∑
+αβγ
+Z µ
+αβ :γ : a+
+α a+
+β aγ : . (40)
+Since this operator is the conjugate of the hole-state ex-
+citation operator Eq. (19), it is easily shown that the
+formulation for a particle state is given as
+(
+A C
+B D
+) t (
+zµ
+Z µ
+)
+= ωµ
+(
+N11 N12
+N21 N22
+) t (
+zµ
+Z µ
+)
+,(41)
+where the superscript t means the transposition of the
+corresponding matrix and ωµ is deﬁned by ωµ = Eµ −E0.
+Equation (41) implies that ( zµ , Z µ ) is the left-hand
+eigenvector of Eq. (20). Thus Eq. (20) gives simulta-
+neously the particle states and the hole states. This is
+completely analogous to pp(hh)RPA (see Ref. [16].)
+2. Hartree-Fock approximation for the ground state
+If we make the usual approximation to take for the
+ground state |0⟩ the HF one, N22 in Eq. (26) becomes
+N22(αβγ : α′β′γ′) = ( δαα ′ δββ ′ − δαβ ′δβα ′ )δγ ′γ
+× (n0
+γγ + n0
+αα n0
+ββ − n0
+γγ n0
+αα − n0
+γγ n0
+ββ ),(42)
+where n0
+αα is equal to 1 or 0. In HF, N22 is non-vanishing
+only for Y µ
+pp′:h and Y µ
+hh′:p. These amplitudes Y µ
+pp:h and
+Y µ
+hh′:p correspond to the backward amplitudes of yµ
+h and
+yµ
+p , respectively. Hereafter we refer to this formulation
+5
+FIG. 3. (a) Mass operator for a particle state described by
+Y µ
+hh′:p and (b) that for a hole state described by Y µ
+pp′:h. The
+circles mean the propagators given by Y µ
+hh′:p ((a)) and Y µ
+pp′:h
+((b)), and the dots the residual interaction.
+consisting of the four amplitudes, yµ
+h, yµ
+p , Y µ
+pp:h and Y µ
+hh′:p
+as odd-RPA (oRPA). The mass operators of the one-
+body Green’s function derived from oRPA are schemati-
+cally shown in Figs. 2 and 3. Since oRPA describes the
+hole states and particle states simultaneously, the single-
+particle strength can be spread over both positive and
+negative energy regions. We consider that the strength
+below the Fermi energy ǫF of the core nucleus belongs
+to the states in the A − 1 system, while that above ǫF
+to the states in the A + 1 system. The TDA hole-state
+equation is obtained by keeping only yµ
+h and Y µ
+hh′:p: since
+the coupling of yµ
+h to Y µ
+hh′:p is included in addition to the
+coupling to the backward amplitude Y µ
+pp′:h, our oRPA ac-
+tually corresponds to some sort of second RPA for even
+nucleon systems. One may think that in addition the am-
+plitudes Y µ
+hp:h′ and Y µ
+pp′:p′′ should be included in oRPA
+because they respectively express the backward propa-
+gations of the particle - hole pair and the hole-hole pair
+in Y µ
+hh′:p. However, these amplitudes cannot be included
+because the norm of these amplitudes is not deﬁned in
+HF (the matrix elements N22 for Y µ
+hp:h′ and Y µ
+pp′:p′′ van-
+ish in HF). As mentioned above, the formulation Eq.
+(13) allows us to implement all the X µ
+αβ :γ amplitudes
+including X µ
+hp:h′ and X µ
+pp′:p′′ because there is no restric-
+tion of the norm matrix. (If Eq. (35) is used instead
+of Eq. (13), X µ
+hp:h′ and X µ
+pp′:p′′ are projected out, how-
+ever.) The inclusion of all the amplitudes of X µ
+αβ :γ can
+give quite unphysical results because the sum of some
+unperturbed energies corresponding to X µ
+αβ :γ fall near
+ǫF , which makes it diﬃcult to distinguish the hole states
+from the particle states (see also Ref. [8]). For these rea-
+sons we mainly present the results in EoRPA calculated
+using only the four amplitudes corresponding to yµ
+h, yµ
+p ,
+Y µ
+pp′:h and Y µ
+hh′:p in oRPA, although the matrix elements
+of N22 are nonvanishing for all conﬁgurations due to the
+ground state correlations and, therefore, all other Y µ
+αβ :γ
+could be included, in principle. We investigate the eﬀect
+of inclusion of those other amplitudes in EoRPA in some
+limited cases.
+3. The RPA ground state wave function
+The choice of the subspace spanned by the afore men-
+tioned four amplitudes yµ
+h, yµ
+p , Y µ
+pp′:h, Y µ
+hh′:p may be given
+a diﬀerent rationale. We consider the following two quasi-
+particle operators which consist only of the forward and
+backward amplitudes
+q+
+α =
+∑
+p
+yα
+p a+
+p − 1
+2
+∑
+hh′p
+Y α
+hh′:pa+
+h a+
+h′ ap, (43)
+q+
+ρ =
+∑
+h
+yρ
+hah − 1
+2
+∑
+pp′h
+Y ρ
+pp′:ha+
+h apap′ (44)
+and neglect the coupling of yα
+p to Y α
+pp′:h and that of yρ
+h
+to Y ρ
+hh′:p. This oRPA scheme actually corresponds to
+the standard RPA for even nucleon systems. This can
+for example be seen in the following way. It can easily
+be shown that the operators qα and qρ kill the following
+RPA vacuum, i.e. q|Z⟩ = 0 with
+|Z⟩ = e
+1
+4
+∑ zpp′hh′ a+
+p aha+
+p′ ah′
+|HF⟩ (45)
+under the conditions∑
+p
+yα ∗
+p zpp′hh′ = Y α ∗
+hh′:p′ (46)
+∑
+h
+yρ∗
+h zpp′hh′ = Y ρ∗
+pp′:h′ , (47)
+where |HF⟩ is the HF ground state of an even A system.
+These two quasiparticles (one for the particle addition
+(α) and one for the particle removal ( ρ)) span, as seen, ex-
+actly the space of the four amplitudes discussed in II.B.2.
+However, the single equation for the four amplitudes is
+now split into two independent 2 × 2 equations corre-
+sponding to the two operators introduced in Eqs. (43)
+and (44), respectively. Using in these equations the HF
+ground state as in II.B.2, we see, that we have one type
+of ’forward’ going amplitudes and one type of ’backward
+going’ amplitudes in analogy with what we know from
+standard ph RPA for even systems with corresponding
+amplitudes X and Y . As a matter of fact, it recently
+has been shown [17] that also for the standard ph-RPA a
+generalized operator can be found which annihilates the
+state Eq. (45). It is given by the following form
+Qν =
+∑
+ph
+[X ν ∗
+ph a+
+h ap − Y ν ∗
+ph a+
+p ah]
++ 1
+2
+∑
+php1p2
+ην
+p1p2pha+
+p2 ap1 a+
+p ah
+− 1
+2
+∑
+phh1h2
+ην
+h1h2pha+
+h1ah2a+
+p ah. (48)
+6
+This destruction operator kills the vacuum Eq. (45), i.e.
+Q|Z⟩ = 0, under the conditions
+zphp′h′ =
+∑
+ν
+(X −1)ν
+phY ν
+p′h′ (49)
+ην
+p1p2ph = 1
+2
+∑
+h1
+X ν
+p1h1 zpp2hh1 (50)
+ην
+h1h2ph = 1
+2
+∑
+p1
+X ν
+p1h1 zpp1hh2. (51)
+We see that there are additional terms to the standard
+ph-RPA operator which contain speciﬁc two-body terms.
+The corresponding terms in Q+
+ν can schematically be ob-
+tained in augmenting the addition operator Eq. (43) by a
+destructor ah and the removal operator Eq. (44) by a cre-
+ator a+
+p . The η-terms are also small amplitude (backward
+going) terms which can be added to the standard RPA,
+evaluated with the HF state. They improve the results
+of standard RPA [18]. We, therefore, see that complete
+consistency between RPA in even and odd systems can
+be achieved.
+4. Green ’s Function Description
+It may be instructive to cast the above amplitude equa-
+tions into Green’s function language. For this we write
+down a Dyson equation
+Gω
+kk′ = G0
+kδkk′ + G0
+k
+∑
+k1
+M ω
+kk1 Gω
+k1k′ , (52)
+where
+G0
+k = 1 − n(0)
+k
+ω − εk + iη + n(0)
+k
+ω − εk − iη (53)
+is the free or HF Green’s function with the occupation
+numbers n(0)
+k equal to 0 or 1. The mass operator is given
+by
+Mkk′ =
+∑
+αhh ′p1p2p′
+1p′
+2
+⟨kh|v|p1p2⟩
+Y ρ
+p1p2:hY ρ∗
+p′
+1p′
+2:h′
+ω − Ω N +1ρ + iη
+× ⟨p′
+1p′
+2|v|h′k′⟩
++
+∑
+ρpp ′h1h2h′
+1h′
+2
+⟨kp|v|h1h2⟩
+Y α
+h1h2:pY α ∗
+h′
+1h′
+2:p′
+ω − Ω N −1α − iη
+× ⟨h′
+1h′
+2|v|p′k′⟩, (54)
+where Y α,ρ and Ω α,ρ are the TDA 2p-1h and 2h-1p
+amplitudes and eigenvalues, respectively, obtained from
+the corresponding TDA equations [16]. In the case
+where we strictly work with oRPA corresponding to
+the ground state Eq. (45), the coupled system of
+particle and hole propagation in above Dyson equation
+decouples into two separate Dyson equations, one for
+the particles (with the α part of the mass operator
+corresponding to Fig. 3(a)) and one for the holes (with
+the ρ part of the mass operator corresponding to Fig.
+3(b)). It may certainly be appealing to work with an
+approach which is based on a ground state wave function.
+Going beyond the use of a HF ground state, we can do
+as in this work considering EoRPA as described above.
+However, there is also the possibility to mix even and odd
+RPA’s. For example it has turned out that Self Consis-
+tent RPA (SCRPA) based on the vacuum Eq. (45) gives
+very good results [17]. For instance, it also solves the
+two particle case exactly. One thus could use SCRPA
+to calculate the correlation functions appearing in an ex-
+tended oRPA. To use the ans¨ atze Eqs. (43) and (44)
+directly seems diﬃcult, since they correspond to a non-
+linear transformation among the fermion operators.
+5. Spurious modes
+First we discuss an RPA-like formulation that can
+bring the c.o.m motion of an odd system at zero excita-
+tion energy. We consider for an A + 1 system the ground
+state |Φ 0⟩ and an excited state |Φ µ ⟩ with excitation en-
+ergy ωµ . Using the equation of motion
+⟨Φ 0|[a+
+α ′ aα , H]|Φ µ ⟩ = ωµ ⟨Φ 0|a+
+α ′ aα |Φ µ ⟩
+= ωµ xµ
+αα ′ (55)
+and assuming |Φ 0⟩ = a+
+p |HF⟩, we obtain the following
+equation
+ωµ xµ
+αα ′ = (ǫα − ǫα ′)xµ
+αα ′
+− (n0
+αα − n0
+α ′α ′ )
+∑
+λλ ′
+⟨αλ′|v|α′λ⟩Axµ
+λλ ′
++
+∑
+λλ ′
+[δαp ⟨pλ′|v|α′λ⟩A − δα ′p⟨αλ′|v|pλ⟩A]xµ
+λλ ′
++
+∑
+λ
+[⟨αp|v|λp⟩Axµ
+λα ′ − ⟨λp|v|α′p⟩Axµ
+αλ ]. (56)
+The ﬁrst two lines of the above equation have the same
+form as the standard RPA for an even A system, and the
+third and fourth terms are due to the additional nucleon
+in a particle state p. For the total momentum operator
+P =
+∑
+αα ′
+⟨α′| − iℏ∇|α⟩a+
+α ′ aα , (57)
+which satisﬁes [ P , H] = 0, we evaluate ωµ ⟨Φ 0|P |Φ µ ⟩ as
+ωµ ⟨Φ 0|P |Φ µ ⟩ =
+∑
+αα ′
+⟨α′| − iℏ∇|α⟩ωµ xµ
+αα ′ . (58)
+Using the right-hand side of Eq. (56) and the trans-
+lational invariance of the interaction [19], we can show
+ωµ ⟨Φ 0|P |Φ µ ⟩ = 0, which implies ωµ = 0. Thus the exci-
+tation energy of the c.o.m motion of an odd system given
+by Eq. (56) is zero from the ground state |Φ 0⟩ and ǫp
+from |HF⟩. In order to obtain this conclusion, however,
+we need to include all components of xµ
+αα ′ because of the
+last two terms on the right-hand side of Eq. (56).
+7
+Now we discuss the c.o.m of a core nucleus in odd A
+nuclei whose treatment is of particular relevance. In the
+standard particle vibration coupling model [3, 5] the spu-
+rious mode is simply discarded, ﬁrst, for the translational
+mode, on physical grounds but also because the RPA
+amplitudes of a zero mode cannot be normalized. On
+the other hand, e.g. in the case of rotations, it would
+be very important to ﬁnd a way to include the rota-
+tional mode, since it is a physical state. In order to
+learn something about the coupling of single-particle mo-
+tion and recoil of the core nucleus, we ﬁrst show that
+ωµ ⟨µ|P aα |0⟩ = ǫα ⟨µ|aα |0⟩ holds in the mean-ﬁeld ap-
+proximation. Using the complex conjugate of Eq. (8),
+we evaluate ωµ ⟨µ|P aα |0⟩ such that
+ωµ ⟨µ|P aα |0⟩ = ⟨µ|[P aα , H]|0⟩
+= ⟨µ|[P , H]aα |0⟩ + ⟨µ|P [aα , H]|0⟩
+= ⟨µ|P [aα , H]|0⟩, (59)
+where we use [ P , H] = 0. If we use the mean-ﬁeld
+approximation for [ aα , H], that is, [ aα , H] = ǫα aα , then
+we obtain ωµ ⟨µ|P aα |0⟩ = ǫα ⟨µ|aα |0⟩, which means
+that the strength |⟨µ|P aα |0⟩|2 is concentrated at the
+state with ωµ = ǫα . In the general case the mean-ﬁeld
+approximation is not valid as Eq. (10) indicates. In the
+realistic applications of our oRPA or EoRPA approaches
+shown below, we will, therefore, see that a large portion
+of the strength is distributed to an energy region lower
+than ǫα , which can be interpreted as a recoil eﬀect of
+the core nucleus.
+In the past, the question of the spurious modes
+appeared essentially in the particle-vibration coupling
+model [5] which is derived from the Green’s function
+method factorizing in the mass operator the 2p-1h (2h-
+1p) propagator into an ph-RPA propagator and a HF
+single particle propagator. In the spectral representation
+of the RPA propagator the spurious mode is then dis-
+carded because of the zero energy mode and the ensuing
+diverging amplitudes. On the other hand, if one could
+solve the 2p-1h (2h-1p) propagator in the mass operator
+exactly (e.g. in a model) or with a consistent higher order
+theory, surely no problem with a spurious motion of the
+core nucleus would be present. From our analysis above,
+it appears that the mass operator should be calculated
+with 2h-1p (2p-1h) TDA amplitudes. It could very well
+be that this approach gives more realistic results than
+the particle vibration coupling model where the spurious
+mode is discarded. That is what our derivation seems to
+indicate.
+In any case, e.g. in the case of rotations, it would be
+necessary to include this mode, since it is physical. One
+could push the argument even further and assume that,
+since, e.g. the rotation is very collective, the factorization
+of the 2h-1p (2p-1h) TDA into a ph-TDA + plus a hole
+(particle) is a good approximation (the neglected terms
+coming only from exchange). Because of its strong col-
+lectivity, eventually all the other couplings to intrinsic ph
+modes could be neglected. Actually analogous questions
+would arise in cold fermionic atom systems where one
+could ask the question what happens to an odd fermion
+which is coupled to the so-called Kohn mode, i.e. a coher-
+ent c.o.m. motion of the underlying even system, in the
+external harmonic container. Since the mass of the core
+can be very large, e.g. with a million of atoms, the fac-
+torization can become quite valid and also the ph-TDA
+for the Kohn mode will become very collective. It could
+be interesting to investigate this question in more detail
+theoretically and experimentally because the treatment
+of Goldstone modes in single-particle mass operators is,
+to the best of our knowledge, an unsolved problem.
+C. The A = 2 case
+We show that our formulation is exact for an A = 2
+system. In the case of an A = 2 system, TDDM gives the
+coupled equations of motion for nαα ′ and the two-body
+density matrix ραβα ′β ′, which are deﬁned as
+nαα ′(t) = ⟨Φ( t)|a+
+α ′ aα |Φ( t)⟩, (60)
+ραβα ′β ′(t) = ⟨Φ( t)|a+
+α ′ a+
+β ′aβ aα |Φ( t)⟩, (61)
+where |Φ( t)⟩ is the time-dependent total wavefunction
+|Φ( t)⟩ = exp[ −iHt]|Φ( t = 0) ⟩. The equations in TDDM
+are written as [20]
+iℏ ˙nαα ′ =
+∑
+λ
+(⟨α|t|λ⟩nλα ′ − ⟨λ|t|α′⟩nαλ )
++
+∑
+λ 1λ 2λ 3
+[⟨αλ1|v|λ2λ3⟩ρλ 2λ 3α ′λ 1
+− ραλ 1λ 2λ 3 ⟨λ2λ3|v|α′λ1⟩], (62)
+iℏ ˙ραβα ′β ′ =
+∑
+λ
+(⟨α|t|λ⟩ρλβα ′ β ′ + ⟨β|t|λ⟩ραλα ′ β ′
+− ⟨λ|t|α′⟩ραβλβ ′ − ⟨λ|t|β′⟩ραβα ′λ )
++
+∑
+λ 1λ 2
+[⟨αβ|v|λ1λ2⟩ρλ 1λ 2α ′β ′
+− ⟨λ1λ2|v|α′β′⟩ραβλ 1λ 2]. (63)
+Here the single-particle states are arbitrary. Since there
+are no higher-level reduced density matrices in an A = 2
+system, these two equations are exact. When the two-
+body density matrix in Eq. (62) is approximated by anti-
+symmetrized products of the occupation matrices, Eq.
+(62) is equivalent to the equation in the time-dependent
+HF theory. The ground state is given as a stationary
+solution of these equations.
+The equation for the transition amplitude xµ
+α is
+∑
+λ
+(⟨λ|t|α⟩ − δαλ ωµ )xµ
+λ +
+∑
+λ 1λ 2λ 3
+⟨λ1λ2|v|αλ3⟩ ˜X µ
+λ 1λ 2:λ 3
+= 0, (64)
+8
+where ˜X µ
+αβ :γ = ⟨0|a+
+α a+
+β aγ |µ⟩. The equation for ˜X µ
+αβ :γ is
+given as
+∑
+λ
+((⟨λ|t|α⟩ − δαλ ωµ ) ˜X µ
+λβ :γ
++ ⟨λ|t|β⟩ ˜X µ
+αλ :γ − ⟨γ|t|λ⟩ ˜X µ
+αβ :λ )
++
+∑
+λ 1λ 2
+⟨λ1λ2|v|αβ⟩ ˜X µ
+λ 1λ 2:γ
+= 0. (65)
+Since there are no higher-level transition amplitudes in
+an A = 2 system, these two equations are also exact.
+From Eq. (64) we obtain
+1
+2
+∑
+µαα ′
+(⟨α′|t|α⟩ + δαα ′ωµ )xµ
+α ′ (xµ
+α )∗
+=
+∑
+αα ′
+⟨α′|t|α⟩nαα ′
++ 1
+2
+∑
+λ 1λ 2λ 3λ 4
+⟨λ1λ2|v|λ3λ4⟩ρλ 3λ 4λ 1λ 2
+= ⟨0|H|0⟩, (66)
+where nαα ′ and ραβα ′β ′ are exactly given by
+nαα ′ =
+∑
+µ
+xµ
+α ′ (xµ
+α )∗, (67)
+ραβα ′β ′ =
+∑
+µ
+˜X µ
+α ′β ′:β (xµ
+α )∗. (68)
+Equation (66) corresponds to the relation between the
+total ground-state energy and the single-particle Green’s
+function [21].
+III. APPLICATIONS TO 16O
+A. Calculational details
+In this paper, we make a ﬁrst schematic application of
+our theory to proton hole states in 15N and proton par-
+ticle states in 17F. We do not consider the correspond-
+ing neutron states because there are less experimental
+data. We consider the 1 s1/ 2, 1 p3/ 2, 1 p1/ 2, 1 d5/ 2, 2 s1/ 2,
+1d3/ 2, 2 p3/ 2, 2 p1/ 2 1f7/ 2 and 1 f5/ 2 states for both pro-
+tons and neutrons. The continuum states are discretized
+by conﬁning the single-particle wavefunctions in a sphere
+of radius 12 fm. We use a simpliﬁed residual interaction
+which consists only of the t0 and t3 terms of the Skyrme
+III force. Its strength is reduced by 20% to put the spu-
+rious c.o.m motion of 16O at approximately zero energy
+in the standard RPA. For the ground-state calculation
+of 16O in TDDM, we only use the bound single-particle
+states, the 1 s1/ 2, 1p3/ 2, 1p1/ 2, 1d5/ 2 and 2s1/ 2 states, and
+consider only the two particle - two hole type correlations
+in Cαβα ′β ′. We also neglect the oﬀ-diagonal elements of
+nαα ′ between the 1 s1/ 2 and 2 s1/ 2 states. The yµ
+p am-
+plitudes for the proton 2 s1/ 2, 2 p1/ 2 and 2 p1/ 2 states are
+neglected because their contributions are negligible.
+TABLE I. Single-particle energies ǫα and occupation proba-
+bilities nαα calculated in TDDM. The single-particle energies
+in HF are given in parentheses.
+ǫα [MeV] nαα
+orbit proton neutron proton neutron
+1s1/ 2 −32.5 ( −32.1) −36.2 ( −35.9) 0.98 0.98
+1p3/ 2 −18.3 ( −18.2) −21.8 ( −21.8) 0.93 0.93
+1p1/ 2 −12.3 ( −12.0) −15.8 ( −15.6) 0.91 0.91
+1d5/ 2 −3.8 ( −3.8) −7.1 ( −7.2) 0.08 0.08
+2s1/ 2 1.2 (1 .5) −1.5 ( −1.2) 0.02 0.02
+B. Ground state
+The occupation probabilities calculated in TDDM are
+shown in Table I. The largest deviation from the HF
+values (n0
+αα =1 or 0) is about 10%, which means that the
+ground state of 16O is a strongly correlated state. A re-
+cent shell-model calculation by Utsuno and Chiba [22]
+also gives a similar result for the ground state of 16O.
+The correlation energy Ec in the ground state, which is
+deﬁned by Ec = ∑
+αβα ′β ′⟨αβ|v|α′β′⟩Cα ′β ′αβ /2, is −19.6
+MeV. A large portion of the correlation energy is com-
+pensated by the increase in the mean-ﬁeld energy due
+to the fractional occupation of the single-particle states.
+The resulting energy gain due to the ground-state corre-
+lations, which is given by the total energy diﬀerence be-
+tween HF and TDDM, is with 5.2 MeV relatively small.
+Such kind of scenario is similar to the one well known
+from BCS theory [16].
+C. Spectral functions
+In Figs. 4 and 5 the spectral functions of the proton
+1p1/ 2 and 1 p3/ 2 hole states in 15N calculated in EoRPA
+(Eq. (20)) (solid line) are shown, respectively, and com-
+pared with the results in TDA (dotted line). Since the
+results in oRPA are similar to the EoRPA results, they
+are not shown. As already mentioned, in the EoRPA cal-
+culations we consider only the same Y µ
+αβ :γ amplitudes as
+those used in oRPA. To facilitate a comparison of various
+calculations, we smooth the distributions using an arti-
+ﬁcial width Γ = 0 .5 MeV. As shown in Table I the HF
+energies of the proton 1 p1/ 2 and 1 p3/ 2 states are −12.0
+MeV and −18.2 MeV, respectively. In TDA the main
+peak is shifted upwards from the HF position due to the
+coupling to the conﬁgurations Y µ
+hh′:p whose unperturbed
+energies are distributed below −40 MeV. In EoRPA (and
+oRPA) the main peak is slightly shifted downwards from
+the HF position due to the coupling to both Y µ
+hh′:p and
+the backward amplitudes Y µ
+pp′:h whose unperturbed en-
+ergies are located above 0 MeV (see Fig. 4 and Fig.
+5). The strength distribution in the positive energy re-
+gion corresponds to the states in 17F. The strengths of
+the main peak of the proton 1 p1/ 2 state calculated in
+9
+/s45/s53/s48 /s45/s52/s48 /s45/s51/s48 /s45/s50/s48 /s45/s49/s48 /s48 /s49/s48 /s50/s48
+/s48/s46/s48
+/s48/s46/s50
+/s48/s46/s52
+/s48/s46/s54
+/s48/s46/s56
+/s49/s46/s48
+/s49/s46/s50
+/s48 /s49/s48 /s50/s48 /s51/s48
+/s48/s46/s48/s48
+/s48/s46/s48/s49
+/s48/s46/s48/s50
+/s48/s46/s48/s51
+/s45/s54/s48 /s45/s53/s48 /s45/s52/s48 /s45/s51/s48
+/s48/s46/s48/s48/s48
+/s48/s46/s48/s48/s53
+/s48/s46/s48/s49/s48
+/s48/s46/s48/s49/s53
+/s83/s32/s91/s77/s101/s86/s45/s49/s93
+/s69/s32/s91/s77/s101/s86/s93
+FIG. 4. Spectral function of the proton 1 p1/ 2 state in 15N
+calculated in EoRPA (solid line). The dotted line shows the
+result in TDA. The distributions are smoothed with an ar-
+tiﬁcial width Γ = 0 .5 MeV. The strength distribution in the
+positive energy region is due to the coupling to the backward
+amplitude Y µ
+pp′:h and indicates the states in 17F. The small
+strength distributions in the positive and negative energy re-
+gions are shown in the insets.
+/s45/s53/s48 /s45/s52/s48 /s45/s51/s48 /s45/s50/s48 /s45/s49/s48 /s48 /s49/s48 /s50/s48
+/s48/s46/s48
+/s48/s46/s50
+/s48/s46/s52
+/s48/s46/s54
+/s48/s46/s56
+/s49/s46/s48
+/s49/s46/s50
+/s48 /s49/s48 /s50/s48 /s51/s48
+/s48/s46/s48/s48
+/s48/s46/s48/s49
+/s48/s46/s48/s50
+/s48/s46/s48/s51
+/s45/s54/s48 /s45/s53/s48 /s45/s52/s48 /s45/s51/s48
+/s48/s46/s48/s48/s48
+/s48/s46/s48/s48/s53
+/s48/s46/s48/s49/s48
+/s48/s46/s48/s49/s53
+/s83/s32/s91/s77/s101/s86/s45/s49/s93
+/s69/s32/s91/s77/s101/s86/s93
+FIG. 5. Same as Fig. 4 but for the proton 1 p3/ 2 state.
+EoRPA, oRPA and TDA are 0.88, 0.82 and 0.95, respec-
+tively. When the forward amplitude Y µ
+hh′:p is neglected
+in oRPA, the main peak is further shifted down to −14.9
+MeV and has strength 0.89. This indicates that the cou-
+pling to the backward amplitudes Y µ
+pp′:h plays an impor-
+tant role in depleting the single-particle strength. The ef-
+fects of the ground-state correlations included in EoRPA
+play a role in slightly reducing the correlations in oRPA
+due to fractional occupation of the single-particle states.
+The sum of the strength of the proton 1 p1/ 2 state dis-
+tributed in the negative energy region is 0.91 in EoRPA,
+which corresponds to nαα = 0 .91 in TDDM, (see Table
+I). Thus the relation nαα = ∑
+µ |⟨µ|aα |0⟩|2 holds to a
+/s45/s54/s48 /s45/s53/s48 /s45/s52/s48 /s45/s51/s48 /s45/s50/s48 /s45/s49/s48
+/s48/s46/s48
+/s48/s46/s49
+/s48/s46/s50
+/s48/s46/s51
+/s48/s46/s52
+/s83/s32/s91/s77/s101/s86/s45/s49/s93
+/s69/s32/s91/s77/s101/s86/s93
+FIG. 6. Same as Fig. 4 but for the proton 1 s1/ 2 state.
+good approximation. The single-particle strengths of the
+main peak of the proton 1 p3/ 2 state calculated in EoRPA,
+RPA and TDA are 0.88, 0.82 and 0.93, respectively. The
+sum of the occupation probabilities of the proton 1 p3/ 2
+state distributed in the negative energy region is 0.93
+in EoRPA, which corresponds to nαα = 0 .93 in TDDM.
+Summing the whole spectral weights in negative and pos-
+itive energy regions gives, of course, the sum rule value
+of one.
+The results for the proton 1 s1/ 2 state are shown in
+Fig. 6. The HF energy of the proton 1 s1/ 2 hole state
+is −32.1 MeV. The strength is fragmented due to the
+coupling to the conﬁgurations Y µ
+hh′:p: the unperturbed
+energy of the conﬁguration (1 p1/ 2)−1(1p3/ 2)−11d5/ 2 is
+about −26 MeV. Since the backward conﬁgurations Y µ
+pp′:h
+are energetically well separated, there is no signiﬁcant
+diﬀerence between the TDA and oRPA results. There-
+fore, the oRPA result is not shown in Fig. 6. Comparing
+with the results obtained from Eq. (35), we found that
+the D2 term in the matrix D, which is given by e × N32
+and describes the self-energy contributions to the one
+particle - two hole conﬁgurations, play a role in shifting
+the strength to lower energy region. The summed occu-
+pation probability of the proton 1 s1/ 2 state distributed
+in the negative energy region is 0.98 in EoRPA, which
+corresponds to nαα = 0.98 in TDDM.
+The spectral function of the proton 1 d5/ 2 state in 17F is
+shown in Fig. 7. The HF energy of the 1 d5/ 2 state is −3.8
+MeV. The main peak is shifted downwards from the HF
+position in TDA due to the coupling to Y µ
+pp′:h, while, on
+the contrary, it is shifted upward in oRPA due to the ad-
+ditional coupling to the backward amplitudes Y µ
+hh′:p. The
+ground-state correlations included in EoRPA play a role
+in slightly reducing correlations in oRPA. The states lo-
+cated below the single-particle energy of the proton 1 p1/ 2
+state correspond to the states in 15N. The summed occu-
+pation probability of the proton 1 d5/ 2 state distributed
+below the proton 1 p1/ 2 state is 0.06 in EoRPA, while the
+10
+/s45/s51/s48 /s45/s50/s48 /s45/s49/s48 /s48 /s49/s48
+/s48/s46/s48
+/s48/s46/s50
+/s48/s46/s52
+/s48/s46/s54
+/s48/s46/s56
+/s49/s46/s48
+/s49/s46/s50
+/s45/s53/s48 /s45/s52/s48 /s45/s51/s48 /s45/s50/s48
+/s48/s46/s48/s48
+/s48/s46/s48/s49
+/s48/s46/s48/s50
+/s48/s46/s48/s51
+/s83/s32/s91/s77/s101/s86/s45/s49/s93
+/s69/s32/s91/s77/s101/s86/s93
+FIG. 7. Same as Fig. 4 but for the proton 1 d5/ 2 state in 17F.
+The dot-dashed line shows the result in oRPA. The strength
+distribution below −15 MeV is due to the coupling to the
+backward amplitude Y µ
+hh′:p and shows the states in 15N.
+/s45/s52/s48 /s45/s51/s48 /s45/s50/s48 /s45/s49/s48 /s48
+/s48/s46/s48
+/s48/s46/s53
+/s49/s46/s48
+/s49/s46/s53
+/s50/s46/s48
+/s50/s46/s53
+/s51/s46/s48
+/s51/s46/s53
+/s83/s32/s102/s97/s99/s116/s111/s114
+/s69/s45/s69/s112/s32/s91/s77/s101/s86/s93
+FIG. 8. Spectroscopic factors for the proton 1 p1/ 2 and 1 p3/ 2
+states calculated in EoRPA are compared with experiment
+[23] (red bars).
+corresponding value for nαα in TDDM is 0.08.
+D. Comparison with experiment
+The spectroscopic factors (deﬁned by (2 j +
+1)×transition strength) calculated in EoRPA for
+the proton 1 p1/ 2 and 1 p3/ 2 states are compared with
+experiment [23] (red bars) in Fig. 8. The main peak
+of the proton 1 p1/ 2 state is considered as the ground
+state of 15N and the hole-state energy is measured
+from this threshold in the following. The results in
+EoRPA are reasonable though they overestimate the
+experimental data and cannot reproduce the strength
+distribution around −10 MeV. This is a common feature
+/s45/s54/s48 /s45/s53/s48 /s45/s52/s48 /s45/s51/s48 /s45/s50/s48 /s45/s49/s48 /s48
+/s48/s46/s48
+/s48/s46/s49
+/s48/s46/s50
+/s48/s46/s51
+/s48/s46/s52
+/s48/s46/s53
+/s48/s46/s54
+/s69/s45/s69/s112/s32/s91/s77/s101/s86/s93
+/s83/s32/s102/s97/s99/s116/s111/s114
+FIG. 9. Spectroscopic factors for the proton 1 s1/ 2 and 2 s1/ 2
+states calculated in oRPA are compared with experiment [23]
+(red bars).
+/s45/s54/s48 /s45/s53/s48 /s45/s52/s48 /s45/s51/s48 /s45/s50/s48 /s45/s49/s48 /s48
+/s48/s46/s48
+/s48/s46/s49
+/s48/s46/s50
+/s48/s46/s51
+/s48/s46/s52
+/s48/s46/s53
+/s48/s46/s54
+/s69/s45/s69/s112/s32/s91/s77/s101/s86/s93
+/s83/s32/s102/s97/s99/s116/s111/s114
+FIG. 10. Same as Fig. 9 but for EoRPA.
+of TDA and RPA-type calculations [8, 9]. Studies on
+the eﬀect of short-range correlations have predicted a
+strength reduction of about 10% in 16O [24–26]. The
+spectroscopic factors for the proton 1 s1/ 2 and 2 s1/ 2
+states calculated in oRPA is compared with experiment
+[23] (red bars) in Fig. 9. The EoRPA results are
+also compared with experiment (red bars) in Fig. 10.
+Since the inclusion of ground-state correlations causes a
+downward shift of the strength, the agreement with the
+data becomes somewhat worse in EoRPA. The strong
+fragmentation below −15 MeV cannot be reproduced in
+these oRPA and EoRPA calculations. Probably higher
+conﬁgurations are needed. The spectroscopic factors for
+the proton 1 d5/ 2 and 1 d3/ 2 states calculated in oRPA
+are compared with experiment [23] (red bars) in Fig. 11.
+The EoRPA results are also compared with experiment
+in Fig. 12. Due to a downward shift of the strength,
+the agreement with the data is worsened in EoRPA. We
+11
+/s45/s51/s48 /s45/s50/s48 /s45/s49/s48 /s48
+/s48/s46/s48/s48
+/s48/s46/s48/s50
+/s48/s46/s48/s52
+/s48/s46/s48/s54
+/s48/s46/s48/s56
+/s48/s46/s49/s48
+/s48/s46/s49/s50
+/s48/s46/s49/s52
+/s48/s46/s49/s54
+/s83/s32/s102/s97/s99/s116/s111/s114
+/s69/s45/s69/s112/s32/s91/s77/s101/s86/s93
+FIG. 11. Spectroscopic factors for the proton 1 d5/ 2 and 1d3/ 2
+states calculated in oRPA are compared with experiment [23]
+(red bars).
+/s45/s51/s48 /s45/s50/s48 /s45/s49/s48 /s48
+/s48/s46/s48/s48
+/s48/s46/s48/s50
+/s48/s46/s48/s52
+/s48/s46/s48/s54
+/s48/s46/s48/s56
+/s48/s46/s49/s48
+/s48/s46/s49/s50
+/s48/s46/s49/s52
+/s48/s46/s49/s54
+/s83/s32/s102/s97/s99/s116/s111/s114
+/s69/s45/s69/s112/s32/s91/s77/s101/s86/s93
+FIG. 12. Same as Fig. 11 but for EoRPA.
+point out that there is a similar situation in the ﬁrst 3 −
+state in 16O. The eﬀects of the ground-state correlations
+can be included into the standard RPA using nαα ′ and
+Cαβα ′β ′ as in SCRPA [27]. The ﬁrst 3 − state of 16O
+calculated in this modiﬁed RPA scheme comes about
+5 MeV higher than the result in the standard RPA.
+This is the same situation as the EoRPA results shown
+above. We found that inclusion of the coupling of the
+particle-hole amplitude to higher two-particle two-hole
+amplitudes brings down the ﬁrst 3 − state to the right
+position [28]. Therefore, more elaborate calculations
+using a larger number of the Y µ
+αβ :γ amplitudes and
+also the higher amplitudes Y µ
+αβγ :λλ ′ could shift the
+strength upward and bring a better agreement with
+the data. Globally, one may say that the agreement of
+spectroscopic factors with experiment is only marginally
+satisfactory indicating the need for inclusion of higher
+conﬁgurations.
+E. Eﬀects of other amplitudes
+We investigate the eﬀects of inclusion of the amplitude
+Y µ
+hp:h′ in EoRPA, which describes backward scattering of
+a particle - hole pair in Y µ
+hh′:p. We use for Y µ
+hp:h′ the
+same truncated single-particle space as that used in the
+ground-state calculation since it is important to include
+the self-energy contribution to all single-particle states in
+Y µ
+hp:h′. To reduce the dimension size, we neglect the am-
+plitude Y µ
+pp′:h. The obtained result for the proton 1 p1/ 2
+state is shown in Fig. 13 and compared with the result
+(red bars) of the calculation based on Eq. (13) where the
+ground state is assumed to be the HF ground state and
+only the amplitudes X µ
+hp:h′ and X µ
+hh′:p are included. As
+shown in Fig. 13, the inclusion of X µ
+hp:h′ gives quite un-
+physical results : the main peak is fragmented and some
+states have negative strength. The reason for the frag-
+mentation of the main peak is that unperturbed energies
+of some X µ
+hp:h′ fall near the energy of the proton 1 p1/ 2
+state. For example, the unperturbed energy of the conﬁg-
+uration (1 s1/ 2)−12s1/ 2(1p3/ 2)−1 that couples to the pro-
+ton 1p1/ 2 state is −12.4 MeV, which is close to the energy
+of this state ( ǫα = −12.0 MeV). These unphysical prop-
+erties are not seen in the EoRPA result. We consider that
+this is due both to the self-energy insertion to the conﬁg-
+urations Y µ
+hp:h′ and to their small normalization N22. The
+energy of the conﬁguration Y µ
+hp:h′ is signiﬁcantly shifted
+by the amount determined by the self energy and the
+normalization. This shift probably plays a role in reduc-
+ing the coupling to the single-hole state. We performed a
+similar EoRPA calculation for the proton 1 s1/ 2 state, see
+Fig. 14 and the obtained result (solid line) is compared
+with the EoRPA result without Y µ
+hp:h′ (dotted line). The
+coupling to Y µ
+hp:h′ plays a role in shifting some strength
+upward, which improves the agreement with the exper-
+iment. However, we found that the inclusion of other
+amplitudes such as Y µ
+hh′:h′′ and Y µ
+hp:p′ brings unphysical
+fragmentation of the strength of the 1 p1/ 2 state as seen
+in Fig. 13. Therefore, it requires further investigation
+whether the amplitudes of Y µ
+αβ :γ with small normaliza-
+tions should be included or not in EoRPA.
+F. Center of mass motion of 16O
+Finally we discuss the coupling of a hole state to the
+c.o.m. motion of the core nucleus 16O using oRPA. The
+strength distribution of |⟨µ|Pzaα |0⟩|2 among the states
+which couple to the proton 1 s1/ 2 state is shown in Fig.
+15, where the proton 1 p1/ 2 and 1p3/ 2 states are taken for
+α. The upper part of Fig. 15 shows the strength of the
+proton 1 s1/ 2 state (the same as Fig. 9) and the lower
+part −|⟨µ|Pzaα |0⟩|2 for α = 1 p1/ 2 (red bars) and 1 p3/ 2
+(green bars). The strength |⟨µ|Pzaα |0⟩|2 for α = 1 p1/ 2
+is concentrated in a single state and the coupling of the
+proton 1 s1/ 2 state to this state is negligible. Therefore,
+this state may be interpreted as a spurious mode consist-
+12
+/s45/s53/s48 /s45/s52/s48 /s45/s51/s48 /s45/s50/s48 /s45/s49/s48
+/s48/s46/s48
+/s48/s46/s50
+/s48/s46/s52
+/s48/s46/s54
+/s48/s46/s56
+/s49/s46/s48
+/s45/s53/s48 /s45/s52/s48 /s45/s51/s48 /s45/s50/s48
+/s45/s48/s46/s48/s49/s53
+/s45/s48/s46/s48/s49/s48
+/s45/s48/s46/s48/s48/s53
+/s48/s46/s48/s48/s48
+/s48/s46/s48/s48/s53
+/s48/s46/s48/s49/s48
+/s48/s46/s48/s49/s53
+/s83/s116/s114/s101/s110/s103/s116/s104
+/s69/s32/s123/s77/s101/s86/s93
+FIG. 13. Strength distribution of the proton 1 p1/ 2 state calcu-
+lated in EoRPA including the amplitude Y µ
+hp:h′ . The red bars
+show the result of the calculation based on Eq. (13) where
+only the amplitudes X µ
+hp:h′ and X µ
+hh′:p are included under the
+assumption of the HF ground state. Small strengths in the
+low-energy region are shown in the inset./s45/s54/s48 /s45/s53/s48 /s45/s52/s48 /s45/s51/s48 /s45/s50/s48 /s45/s49/s48
+/s48/s46/s48
+/s48/s46/s49
+/s48/s46/s50
+/s48/s46/s51
+/s48/s46/s52
+/s83/s32/s91/s77/s101/s86/s45/s49/s93
+/s69/s32/s91/s77/s101/s86/s93
+FIG. 14. Strength distribution of the proton 1 s1/ 2 state cal-
+culated in EoRPA with (solid line) and without (dotted line)
+Y µ
+hp:h′ .
+ing of a pure c.o.m motion of 16O and the proton 1 p1/ 2
+state, though it is located about 7 MeV below the single-
+particle energy of the proton 1 p1/ 2 state ( −12.0 MeV).
+This energy shift from the single-particle energy is related
+to the fact that the TDA calculation for the c.o.m motion
+of 16O gives the excitation energy of 7.7 MeV. This fact
+may look perturbing, since we know that the spurious
+mode of the core comes at zero energy in the standard
+RPA. As already mentioned above, it is not guaranteed in
+an odd system that the c.o.m motion of the core comes at
+zero energy, and the coupling of the spurious mode to the
+physical spectrum is very week, so that the position of the
+spurious mode is not so perturbing. We also performed a
+/s45/s53/s48 /s45/s52/s48 /s45/s51/s48 /s45/s50/s48 /s45/s49/s48
+/s45/s49/s46/s48
+/s45/s48/s46/s53
+/s48/s46/s48
+/s83/s116/s114/s101/s110/s103/s116/s104
+/s69/s32/s91/s77/s101/s86/s93
+FIG. 15. Strength distribution of |⟨µ|Pzaα |0⟩|2 in the states
+which couple to the proton 1 s1/ 2 state. The upper part shows
+the strength of the proton 1 s1/ 2 state and the lower part
+−|⟨µ|Pzaα |0⟩|2 (in arbitrary units) for α = the proton 1 p1/ 2
+state (red bars) and the proton 1 p3/ 2 state (green bars). The
+strength |⟨µ|Pzaα |0⟩|2 for α = 1p3/ 2 is fragmented due to the
+coupling to the conﬁgurations which have the particle-hole
+pairs with angular momentum L = 2 ℏ.
+/s45/s53/s48 /s45/s52/s48 /s45/s51/s48 /s45/s50/s48 /s45/s49/s48
+/s45/s49/s46/s48
+/s45/s48/s46/s53
+/s48/s46/s48
+/s48/s46/s53
+/s83/s116/s114/s101/s110/s103/s116/s104
+/s69/s32/s91/s77/s101/s86/s93
+FIG. 16. Strength distribution of |⟨µ|Pzaα |0⟩|2 in the states
+which couple to the proton 1 p1/ 2 state. The upper part shows
+the strength of the proton 1 p1/ 2 state and the lower part
+−|⟨µ|Pzaα |0⟩|2 (in arbitrary units) for α = the proton 1 s1/ 2
+state (red bars).
+TDA calculation for the c.o.m motion of 208Pb using the
+single-particle states and the residual interaction which
+put the spurious mode at zero energy in RPA and found
+that it comes at 4.7 MeV. This suggests that the c.o.m
+of very heavy systems could come close to zero excita-
+tion energy even in TDA. The strength |⟨µ|Pzaα |0⟩|2 for
+α = 1p3/ 2 is rather fragmented. Since the dominant com-
+ponents of the c.o.m motion of the core consists of the
+transitions from the 1 p3/ 2 to 1 d5/ 2 states, the large frag-
+13
+/s45/s53/s48 /s45/s52/s48 /s45/s51/s48 /s45/s50/s48 /s45/s49/s48
+/s45/s48/s46/s53
+/s48/s46/s48
+/s48/s46/s53
+/s83/s116/s114/s101/s110/s103/s116/s104
+/s69/s32/s91/s77/s101/s86/s93
+FIG. 17. Same as Fig. 16 but for the proton 1 p3/ 2 state.
+mentation of |⟨µ|Pzaα |0⟩|2 for α = 1 p3/ 2 is explained by
+the coupling to the conﬁgurations with diﬀerent coupling
+schemes of angular momenta: in the case of α = 1 p3/ 2,
+Y µ
+αh :p consisting of the particle - hole pairs (1 p3/ 2)−11d5/ 2
+with angular momentum L = 1 ℏ can couple not only
+to Y µ
+αh :p which has the same particle - hole pairs with
+L = 2 ℏ but also to Y µ
+αh :p consisting of the particle -
+hole pairs (1 p1/ 2)−11d5/ 2 with L = 2 ℏ. In the case of
+α = 1p1/ 2 the particle - hole pairs (1 p3/ 2)−11d5/ 2 in Y µ
+αh :p
+can have only L = 1 ℏ and does not couple to nearby con-
+ﬁgurations. The exchange eﬀect may also play a role in
+weakening the coherence of the c.o.m motion of 16O for
+α = 1 p3/ 2: we tried an oRPA calculation for α = 1 p3/ 2
+where all exchange terms are neglected and observed the
+appearance of such a coherent state as that observed for
+α = 1 p1/ 2. Thus, in the case of the proton 1 s1/ 2 state
+and α = 1 p3/ 2 the c.o.m motion of the core nucleus is
+embedded in the physical states of the A − 1 nucleus and
+cannot be neglected. The distributions of |⟨µ|Pzaα |0⟩|2
+among the states which couple to the proton 1 p1/ 2 and
+1p3/ 2 states are shown in Figs. 16 and 17, respectively,
+where α is the proton 1 s1/ 2 state. In the case of the pro-
+ton 1p1/ 2 state the strength |⟨µ|Pzaα |0⟩|2 is concentrated
+in a single state and the coupling of the proton 1 p1/ 2 state
+to this state is negligible. As in the case of the proton
+1s1/ 2 state this state may be interpreted as a spurious
+mode consisting of the c.o.m motion of 16O and the pro-
+ton 1 s1/ 2 state, though it is located about 5 MeV below
+the single-particle energy of the proton 1 s1/ 2 state (−32.1
+MeV). The fragmentation of |⟨µ|Pzaα |0⟩|2 for the proton
+1p3/ 2 state is larger than that for the proton 1 p1/ 2 state.
+This is explained by the coupling to the conﬁgurations
+with diﬀerent angular momentum couplings: in the case
+of the 1 p3/ 2 state the particle - hole pairs (1 p3/ 2)−11d5/ 2
+in Y µ
+αh :p can carry angular momentum L = 1 ℏ and 2 ℏ,
+whereas the pairs cannot have L = 2 ℏ in the case of the
+1p1/ 2 state.
+IV. SUMMAR Y
+In this paper, we took up the old subject of the RPA
+approach to odd particle systems. Those equations
+based on the usual equation of motion method (EoM)
+encountered in the past some diﬃculties [8]. This gave
+raise to the so- called Faddeev-RPA (FRPA) approach
+[9]. However, whenever the RPA breaks down, so does
+FRPA. We located some of the diﬃculties of the old
+odd particle RPA (oRPA) and proposed some cure,
+limiting the conﬁguration space to the normalizable
+subspace. We showed that p-RPA and h-RPA equations
+give identical results what is very similar to the property
+of pp(hh)RPA for even systems [16]. We also discussed
+the inﬂuence of the c.o.m. motion of the core on the
+odd particle (p or h). No diﬃculty with a break down
+seems to arise. It turned out that the recoil of the
+core inﬂuences the spectrum. This aspect may be
+most important for rotational states in deformed nuclei
+where the so-called spurious modes are, in fact, physical
+states. We also showed how to include ground state
+correlations explicitly in EoRPA, similar to what is done
+in TDDM, on top of the oRPA equations. We made a
+ﬁrst schematic application, using a simpliﬁed Skyrme
+force, to the hole and particle states around 16O. We
+compared Tamm Dancoﬀ, oRPA, and EoRPA solutions.
+It was shown that in some cases all three approaches give
+very similar results but that in others the inﬂuence of
+extra RPA correlations were signiﬁcant. The comparison
+with experiment is suﬃciently encouraging to develop
+this kind of RPA approach further. In fact, the spirit
+of oRPA is quite close to second RPA. We encountered
+problems for the odd systems e.g. that the spectrum
+becomes too much shifted downwards. Such open
+problems may be a subject for the future. Also the
+connection between a common RPA vacuum in the even
+and odd systems, as proposed recently [17], may be an
+interesting further line of research.
+Appendix A
+a(α : α′) = ǫα δαα ′ (A1)
+b(αβγ : α′) =
+∑
+λ
+⟨α′λ|v|αβ⟩Anγλ
+−
+∑
+λλ ′
+[⟨α′λ′|v|αλ⟩A(nλβ nγλ ′ + Cγλλ ′β )
++ ⟨α′λ′|v|λβ⟩A(nλα nγλ ′ + Cγλλ ′α )
+−⟨α′γ| v |λλ′⟩A(nλα nλ ′β + 1
+2 Cλλ ′αβ )], (A2)
+c(α : α′β′γ′) = ⟨α′β′|v|αγ′⟩ (A3)
+14
+d ( αβγ : α′β′γ′) = ( ǫα + ǫβ − ǫγ )δαα ′ δββ ′δγγ ′
++ 1
+2 ⟨α′β′|v|αβ⟩Aδγγ ′
++
+∑
+λ
+[⟨λα′|v|αγ′⟩Anγλ δββ ′ − ⟨λα′|v|βγ ′⟩Anγλ δαβ ′
++ ⟨γβ ′|v|λγ′⟩Anλα δβα ′ − ⟨γβ ′|v|λγ′⟩Anλβ δαα ′
+− 1
+2 δγγ ′(⟨α′β′|v|αλ⟩Anλβ + ⟨α′β′|v|λβ⟩Anλα )]. (A4)
+The norm matrix N22 is given as
+N22(αβγ : α′β′γ′) = ( δαα ′ δββ ′ − δαβ ′δβα ′)nγ ′γ
++ δγγ ′(nαα ′ nββ ′ − nαβ ′nβα ′ + Cαβα ′β ′)
+− δαα ′ (nγ ′γ nββ ′ + Cγ ′βγβ ′)
+− δββ ′(nγ ′γ nαα ′ + Cγ ′αγα ′ )
++ δαβ ′ (nγ ′γ nβα ′ + Cγ ′βγα ′)
++ δβα ′ (nγ ′γ nαβ ′ + Cγ ′αγβ ′). (A5)
+[1] A. E. L. Dieperink and P. de Witt Huberts, Annu. Rev.
+Nucl. Part. Sci. 40, 239 (1990).
+[2] B. E. Vonderfecht, W. H. Dickhoﬀ, A. Polls, and A.
+Ramos, Phys. Rev. C 44, R1265 (1991).
+[3] G. F. Bertsch, P. F. Bortignon and R. A. Broglia, Rev.
+Mod. Phys. 55, 287 (1983).
+[4] P. F. Bortignon, G. Col` o and H. Sagawa, J. Phys. G 37,
+064013 (2010).
+[5] V. Bernard and Nguyen Van Giai, Nucl. Phys. A 348, 75
+(1980).
+[6] E. Litvinova and P. Ring, PRC C 73, 044328 (2006).
+[7] G. Col` o, H. Sagawa and P. F. Bortignon, Phys. Rev. C
+82, 064307 (2010).
+[8] G. A. Rijsdijk, W. J. W. Geurts, K. Allaart, and W. H.
+Dickhoﬀ, Phys. Rev. C 53, 201 (1996).
+[9] C. Barbieri and W. H. Dickhoﬀ, Phys. Rev. C 65, 064313
+(2002).
+[10] D. J. Rowe, Rev. Mod. Phys. 40, 153 (1968).
+[11] P. Schuck, F. Villars, and P. Ring, Nucl. Phys. A 208,
+302 (1973).
+[12] S. J. Wang and W. Cassing, Ann. Phys. 159, 328 (1985).
+[13] W. Cassing and S. J. Wang, Z. Phys. A 328, 423 (1987).
+[14] M. Gong and M. Tohyama, Z. Phys. A 335, 153 (1989).
+[15] M. Tohyama, Phys. Rev. C 75, 044310 (2007).
+[16] P. Ring and P. Schuck, The nuclear many-body problem ,
+(Springer-Verlag, Berlin, 1980).
+[17] M. Jema ¨i and P. Schuck, arXiv:1011.5106, and Atomic
+Nuclei 74, N0. 8, 1139 (2011).
+[18] M. Jema ¨i and P. Schuck, to be published.
+[19] M. Tohyama and P. Schuck, Eur. Phys. J. A 19, 203
+(2004).
+[20] M. Tohyama, J. Phys. Soc. Jpn. 81, 054707 (2012).
+[21] A. Fetter and J. D. Walecka, Quantum theory of many-
+particle systems (McGraw-Hill, San Francisco, 1971).
+[22] Y. Utsuno and S. Chiba, Phys. Rev. C 83, 021301(R)
+(2011).
+[23] M. Leuschner et. al. , Phys. Rev. C 49, 955 (1994).
+[24] H. M¨ uther and W. H. Dickhoﬀ, Phys. Rev. C 49, R17
+(1994).
+[25] M. Radici, S. Boﬃ, S. C. Pieper, and V. R. Pandhari-
+pande, Phys. Rev. C 50, 3010 (1994).
+[26] A. Fabrocini and G. Co’, Phys. Rev. C 63, 044319 (2001).
+[27] D. Janssen and P. Schuck, Z. Phys. A 339 (1991), 43.
+[28] M. Tohyama, in preparation.

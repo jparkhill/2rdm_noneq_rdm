@@ -1,0 +1,399 @@
+arXiv:1708.00569v1  [nucl-th]  2 Aug 2017
+Truncation scheme of time-dependent density-matrix appro ach II
+Mitsuru Tohyama 1,Peter Schuck 2, 3
+1Kyorin University School of Medicine, Mitaka, Tokyo 181-86 11, Japan
+2Institut de Physique Nucl ´eaire, IN2P3-CNRS, Universit ´e Paris-Sud, F-91406 Orsay Cedex, France and
+3Laboratoire de Physique et de Mod´ elisation des Milieux Con dens´ es,
+CNRS and Universit´ e Joseph Fourier, 25 Av. des Martyrs, BP 1 66, F-38042
+A truncation scheme of the Bogoliubov-Born-Green-Kirkwoo d-Yvon hierarchy for reduced density
+matrices, where a three-body density matrix is approximate d by two-body density matrices, is
+improved to take into account a normalization eﬀect. The tru ncation scheme is tested for the
+Lipkin model. It is shown that the obtained results are in goo d agreement with the exact solutions.
+PACS numbers: 21.60.Jz
+The equations of motion for reduced density matrices
+have a coupling scheme known as the Bogoliubov-Born-
+Green-Kirkwood-Yvon (BBGKY) hierarchy where an n-
+body density matrix couples to n-body and n + 1-body
+density matrices. To solve the equations of motion for
+the one-body and two-body density matrices, we need to
+truncate the BBGKY hierarchy at a two-body level. The
+simplest truncation scheme is to approximate a three-
+body density matrix with the antisymmetrized products
+of the one-body and two-body density matrices neglect-
+ing the correlated part of the three-body density matrix
+[1, 2]. In some cases this truncation scheme overesti-
+mates ground-state correlations [3] and causes instabili-
+ties of the obtained solutions [4] for strongly interacting
+cases. Obviously the problems originate in the trunca-
+tion scheme where the three-body correlation matrix is
+completely neglected [5, 6]. We have proposed a trun-
+cation scheme where the three-body correlation matrix
+is approximated by the products of the two-body corre-
+lation matrices. It has been shown that the truncation
+scheme can remedy diﬃculties of the simplest trunca-
+tion scheme [7]. However, it has been pointed out that
+discrepancy between the TDDM results and the exact
+solutions increases with increasing interaction strength.
+In this paper we show that inclusion of a normalization
+eﬀect much improves agreement with the exact solutions.
+We consider a system of N fermions and assume that
+the Hamiltonian H consisting of a one-body part and a
+two-body interaction
+H =
+∑
+α
+ǫα a†
+α aα + 1
+2
+∑
+αβα ′β ′
+⟨αβ|v|α′β′⟩a†
+α a†
+β aβ ′aα ′, (1)
+where a†
+α and aα are the creation and annihilation opera-
+tors of a particle at a single-particle state α. TDDM gives
+the coupled equations of motion for the one-body density
+matrix (the occupation matrix) nαα ′ and the two-body
+density matrix ραβα ′β ′. These matrices are deﬁned as
+nαα ′ (t) = ⟨Φ( t)|a†
+α ′ aα |Φ( t)⟩, (2)
+ραβα ′β ′ (t) = ⟨Φ( t)|a†
+α ′ a†
+β ′ aβ aα |Φ( t)⟩, (3)
+where |Φ( t)⟩ is the time-dependent total wavefunction
+|Φ( t)⟩ = exp[ −iHt/ℏ]|Φ( t = 0) ⟩. The equations in
+TDDM are written as
+iℏ ˙nαα ′ = (ǫα − ǫα ′)nαα ′
++
+∑
+λ 1λ 2λ 3
+[⟨αλ1|v|λ2λ3⟩ρλ 2λ 3α ′λ 1
+− ραλ 1λ 2λ 3 ⟨λ2λ3|v|α′λ1⟩], (4)
+iℏ ˙ραβα ′β ′ = (ǫα + ǫβ − ǫα ′ − ǫβ ′)ραβα ′β ′
++
+∑
+λ 1λ 2
+[⟨αβ|v|λ1λ2⟩ρλ 1λ 2α ′β ′
+− ⟨λ1λ2|v|α′β′⟩ραβλ 1λ 2 ]
++
+∑
+λ 1λ 2λ 3
+[⟨αλ1|v|λ2λ3⟩ρλ 2λ 3βα ′λ 1β ′
++ ⟨λ1β|v|λ2λ3⟩ρλ 2λ 3αα ′λ 1β ′
+− ⟨λ1λ2|v|α′λ3⟩ραλ 3βλ 1λ 2β ′
+− ⟨λ1λ2|v|λ3β′⟩ραλ 3βλ 1λ 2α ′ ], (5)
+where ραβγα ′β ′γ ′ is a three-body density-matrix. In Refs.
+[1, 2] the BBGKY hierarchy is truncated by replacing
+the three-body density matrix with the antisymmetrized
+product of nαα ′ and ραβα ′β ′ neglecting the correlated
+part Cαβγα ′β ′γ ′ of ραβγα ′β ′γ ′. Our previous truncation
+scheme for Eq. (5) is the following [7]: Instead of ne-
+glecting Cαβγα ′β ′γ ′ we use
+Cp1p2h1p3p4h2 =
+∑
+h
+Chh1p3p4 Cp1p2h2h, (6)
+Cp1h1h2p2h3h4 =
+∑
+p
+Ch1h2p2pCp1ph3h4, (7)
+where p and h refer to particle and hole states, respec-
+tively. These expressions were derived from perturba-
+tive consideration [7] using the following CCD (Coupled-
+Cluster-Doubles)-like ground state wavefunction |Z⟩ [8]
+|Z⟩ = eZ|HF⟩ (8)
+with
+Z = 1
+4
+∑
+pp′hh′
+zpp′hh′a†
+pa†
+p′ ah′ah, (9)
+2
+where |HF⟩ is the HF ground state and zpp′hh′ is anti-
+symmetric under the exchanges of p ↔ p′ and h ↔ h′.
+Assuming that zpp′hh′ is small, that is, |Z⟩ ≈ (1+ Z)|HF⟩
+and Cpp′hh′ ≈ zpp′hh′, where Cpp′hh′ is the correlated part
+of ρpp′hh′, we arrived at Eqs. (6) and (7). It has been
+pointed out [7] in the applications to model Hamiltonians
+that in strongly interacting regions where perturbative
+treatment is not justiﬁed the truncation scheme of Eqs.
+(6) and (7) underestimates correlation eﬀects. This indi-
+cates that the coupling to higher-order reduced density
+matrices plays a role in reducing the three-body corre-
+lation matrix. Our new truncation scheme is to include
+such a reduction eﬀect using the normalization ⟨Z|Z⟩ of
+the total wavefunction. Assuming that the three-body
+correlation matrix is calculated using the wavefunction
+|Z⟩ = (1 + Z)|HF⟩, which gives the normalization
+N = ⟨Z|Z⟩ = 1 + 1
+4
+∑
+pp′hh′
+zpp′hh′z∗
+pp′hh′ (10)
+we express the three-body correlation matrix as
+Cp1p2h1p3p4h2 = 1
+N
+∑
+h
+z∗
+p3p4hh1zp1p2h2h, (11)
+Cp1h1h2p2h3h4 = 1
+N
+∑
+p
+z∗
+p2ph1h2zp1ph3h4 . (12)
+When Eqs. (11) and (12) are evaluated, we approximate
+zpp′hh′ and z∗
+pp′hh′ by Cpp′hh′ and Chh′pp′, respectively.
+We refer to this truncation scheme as TDDM and the
+truncation scheme of Eqs. (6) and (7) as TDDM 0, re-
+spectively. The normalization N thus introduced plays a
+role in reducing the three-body correlation matrix. The
+reader may be somewhat puzzled by this procedure in
+view of Eq. (A5) in [9] where no norm appears. How-
+ever, as we will see with the applications, neglecting sim-
+ply the four-body correlation matrix is not such a good
+approximation in the strong coupling regime. We, there-
+fore, were guided by Eqs. (11) and (12) to introduce also
+a norm into Eqs. (6) and (7). This is a slightly ad hoc
+procedure but, as we will see, this very much improves
+the results.
+We test TDDM for the Lipkin model. The Lipkin
+model [10] describes an N -fermions system with two N -
+fold degenerate levels with energies ǫ/2 and −ǫ/2, respec-
+tively. The upper and lower levels are labeled by quan-
+tum number p and −p, respectively, with p = 1 , 2, ..., N.
+We consider the standard Hamiltonian
+H = ǫJz + V
+2 (J 2
++ + J 2
+−), (13)
+where the operators are given as
+Jz = 1
+2
+N∑
+p=1
+(a†
+pap − a−p†a−p), (14)
+J+ = J †
+− =
+N∑
+p=1
+a†
+pa−p. (15)
+/s49 /s50 /s51 /s52 /s53
+/s45/s49/s50
+/s45/s49/s48
+/s45/s56
+/s45/s54
+/s45/s52
+/s84/s68/s68/s77/s46/s111/s114/s103
+/s84/s68/s68/s77
+/s84/s68/s68/s77/s48
+/s69/s116/s111/s116/s47 /s69/s120/s97/s99/s116
+/s78/s32/s61/s32/s56
+FIG. 1. Ground-state energy in TDDM (circles) as a function
+of χ = |V |(N − 1)/ǫ for N = 8. The dashed line depicts the
+results in TDDM 0 where the three-body correlation matrix is
+given by eqs. (6) and (7). The squares show the results in the
+original truncation scheme where the three-body correlati on
+matrix is neglected. The exact values are given by the solid
+line.
+/s49 /s50 /s51 /s52 /s53
+/s48/s46/s48
+/s48/s46/s50
+/s48/s46/s52
+/s48/s46/s54
+/s48/s46/s56
+/s49/s46/s48
+/s84/s68/s68/s77/s48
+/s110/s45/s112/s32/s44/s67/s45/s112/s45/s112/s39/s39/s112/s112/s39
+/s67/s45/s112/s45/s112/s112/s112/s39
+/s110/s45/s112
+/s84/s68/s68/s77/s69/s120/s97/s99/s116
+/s84/s68/s68/s77/s48
+/s78/s32/s61/s56
+FIG. 2. Same as Fig. 1 but for the occupation probability
+n− p of the lower state and the 2p-2h element C− p− p′pp′ of the
+two-body correlation matrix. .
+The ground-state energy calculated in TDDM (open
+circles) is shown in Fig. 1 as a function of χ = |V |(N −
+1)/ǫ for N = 8. The results in TDDM 0 and the ex-
+act values are given with the dashed and solid lines, re-
+spectively. The results in the original truncation scheme
+(TDDM.org) where the three-body correlation matrix
+is neglected are shown with the squares. The results
+in TDDM are obtained using an adiabatic method ex-
+plained in Ref. [7, 11]. TDDM.org overestimates the
+correlation eﬀects. TDDM 0 cures this problem but un-
+3
+/s48 /s49 /s50 /s51 /s52 /s53/s48/s46/s48/s48
+/s48/s46/s48/s49
+/s48/s46/s48/s50
+/s48/s46/s48/s51
+/s48/s46/s48/s52
+/s69/s120/s97/s99/s116
+/s84/s68/s68/s77/s48
+/s84/s68/s68/s77
+/s67/s51
+/s78/s32/s61/s56
+FIG. 3. Same as Fig. 1 but for the three-body correlation
+matrix C− pp′p′′p− p′p′′ .
+derestimates the correlation eﬀects in the strongly inter-
+acting region. The agreement with the exact solutions
+is much improved in TDDM. The occupation probabil-
+ity n−p and the correlation matrix C−p−p′pp′ in TDDM
+are also closer to the exact values than those in TDDM 0
+as shown in Fig. 2. The value of N at χ = 5 is 2 .0.
+Thus the normalization factor N in Eqs. (11) and (12)
+plays an important role in suppressing the three-body
+correlation matrix with increasing interaction strength.
+This is explicitly shown in Fig. 3 where the values of
+C−pp′p′′p−p′p′′ calculated in TDDM (circles) are com-
+pared with those in TDDM 0 (dashed line) and the exact
+values (solid line). The normalization factor drastically
+reduces C−pp′p′′p−p′p′′ in TDDM 0 though TDDM can-
+not reproduce the exact values in strong coupling. One
+should realize that we are considering values of the cou-
+pling constant ( χ > 1) which are deeply in the symmetry
+broken phase. Actually the strong coupling limit can
+very well be treated in the Lipkin model by changing the
+single particle basis and performing a Hartree-Fock RPA
+calculation (for χ → ∞, this yields the exact result). The
+critical region for ﬁnite systems is the one around the in-
+stability point χ = 1. We see that the present approach
+gives excellant results there.
+The ground-state energies calculated in TDDM (open
+circles) are also shown in Fig. 4 for N = 20. As seen in
+Fig. 4, TDDM.org becomes a good truncation scheme for
+N = 20. The occupation probability and C−p−p′pp′ are
+shown in Fig. 5. The good agreement of the TDDM re-
+sults with the exact solutions is also seen for the large N
+system. At χ = 5 the value of N for N = 20 is 6 .6. The
+three-body correlation matrix is shown in Fig. 6. The
+normalization factor drastically reduces C−pp′p′′p−p′p′′ in
+TDDM0 and the TDDM values become close to the ex-
+act values. The value of the three-body correlation ma-
+trix for N = 20 is much smaller than that for N = 8.
+/s48 /s49 /s50 /s51 /s52 /s53
+/s45/s51/s48
+/s45/s50/s53
+/s45/s50/s48
+/s45/s49/s53
+/s45/s49/s48
+/s84/s68/s68/s77/s46/s111/s114/s103
+/s84/s68/s68/s77
+/s84/s68/s68/s77/s48
+/s69/s120/s97/s99/s116
+/s78/s32/s61/s50/s48
+/s69/s116/s111/s116/s47
+FIG. 4. Same as Fig. 1 but for N = 20.
+/s48 /s49 /s50 /s51 /s52 /s53
+/s48/s46/s48
+/s48/s46/s50
+/s48/s46/s52
+/s48/s46/s54
+/s48/s46/s56
+/s49/s46/s48
+/s67/s45/s112/s45/s112/s112/s112/s39
+/s110/s45/s112
+/s110/s45/s112/s32/s44/s67/s45/s112/s45/s112/s39/s39/s112/s112/s39
+/s84/s68/s68/s77/s48
+/s69/s120/s97/s99/s116/s84/s68/s68/s77
+/s84/s68/s68/s77/s48
+/s78/s32/s61/s50/s48
+FIG. 5. Same as Fig. 2 but for N = 20.
+This agrees with the fact that TDDM.org which neglects
+the three-body correlation matrix becomes better with
+increasing N . Thus the importance of the three-body
+correlation matrix in the Lipkin model decreases with
+increasing number of particles. Let us explain this point
+in some more detail. The three-body density matrix
+ρ−pp′p′′p−p′p′′ is related to J+, J− and Jz as
+∑
+pp′p′′
+ρ−pp′p′′p−p′p′′ = ⟨Φ 0|J+J−(Jz + 1
+2
+ˆN ) − (Jz + 1
+2
+ˆN )2
+− J+J− + Jz + 1
+2
+ˆN |Φ 0⟩, (16)
+where |Φ 0⟩ is the ground-state wavefunction and ˆN is
+the number operator. For large values of N and |V |, the
+ﬁrst term on the right-hand side of the above equation
+is dominant and given by ∑
+pp′p′′ ρ−pp′p′′p−p′p′′ ≈ N 3/8,
+where the approximation |Φ 0⟩ ≈ | jm⟩ with j = N
+2 and
+4
+/s48 /s49 /s50 /s51 /s52 /s53
+/s48/s46/s48/s48/s48
+/s48/s46/s48/s48/s53
+/s48/s46/s48/s49/s48
+/s48/s46/s48/s49/s53
+/s48/s46/s48/s50/s48
+/s48/s46/s48/s50/s53
+/s48/s46/s48/s51/s48
+/s69/s120/s97/s99/s116/s84/s68/s68/s77
+/s84/s68/s68/s77/s48
+/s78/s32/s61/s50/s48
+/s67/s51
+FIG. 6. Same as Fig. 3 but for N = 20. .
+m = 0 is used. Here, |jm⟩ is an eigenstate of J 2 and Jz.
+The left-hand side of Eq. (16) is also expressed by the
+correlation matrices as
+∑
+pp′p′′
+ρ−pp′p′′p−p′p′′ = N (N − 1)(N − 2)npC−pp′p−p′
++ N (N − 1)2C−pp′p′′p−p′p′′
++ N (N − 1)[npC−ppp−p − n−pCpp′pp′
+− n−pn2
+p − npC−pp′−pp′ ]. (17)
+For large values of N and |V |, np = ⟨Φ 0|Jz +
+ˆN /2|Φ 0⟩/N ≈ 1/2 and C−pp′p−p′ = ⟨Φ 0|J+J−|Φ 0⟩/N2 ≈
+1/4, and the last two lines can be neglected. This
+means that in such a limit the ﬁrst term on the right-
+hand side of Eq. (17) becomes N 3/8 and consequently
+C−pp′p′′p−p′p′′ ≈ 0.
+Though it is not presented in this paper, we have also
+applied TDDM to the one-dimensional Hubbard model
+and observed better agreement with the exact solutions
+than TDDM 0. However, the improvement from TDDM 0
+to TDDM is small because TDDM 0 is already a good
+approximation in that model.
+In summary we proposed a new truncation scheme of
+the BBGKY hierarchy where the normalization factor
+of the total wavefunction is included when the three-
+body correlation matrix is approximately calculated. We
+tested it for the ground states of the Lipkin model and
+obtained good agreement with the exact solutions inde-
+pendently of the number of particles. It was discussed
+that the normalization factor plays a role in suppress-
+ing overgrowth of the three-body correlation matrix with
+increasing interaction strength. It was also pointed out
+that the original truncation scheme where the three-body
+correlation matrix is completely neglected becomes a bet-
+ter approximation with increasing number of particles.
+[1] S. J. Wang and W. Cassing, Ann. Phys. 159, 328 (1985).
+[2] M. Gong and M. Tohyama, Z. Phys. A 335, 153 (1990).
+[3] S. Takahara, M. Tohyama and P. Schuck, Phys. Rev.
+C70, 057307 (2004).
+[4] M. Tohyama, J. Phys. Soc. Jpn. 81, 054707 (2012).
+[5] K.-J. Schmitt, P. -G. Reinhard and C. Toepﬀer, Z. Phys.
+A 336, 123 (1990).
+[6] T. Gherega, R. Krieg, P. -G. Reinhard and C. Toepﬀer,
+Nucl. Phys. A 560, 166 (1993).
+[7] M. Tohyama and P. Schuck, Eur. Phys. J. A 50, 7 (2014).
+[8] I. Shavitt and R. J. Bartlett, Many-body methods in
+chemistry and physics (Cambridge, 2009).
+[9] P. Schuck, M. Tohyama, Phys. Rev. B 93, 165117 (2016).
+[10] H. J. Lipkin, N. Meshkov and A. J. Glick, Nucl. Phys.
+62, 188 (1965).
+[11] M. Tohyama, Phys. Rev. A 71 (2005) 043613.

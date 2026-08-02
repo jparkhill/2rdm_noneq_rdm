@@ -1,0 +1,1643 @@
+Accurate high-harmonic spectra from time-dependent two-particle reduced density
+matrix theory
+Fabian Lackner,1,∗ Iva Bˇ rezinov´ a,1,† Takeshi Sato,2, 3 Kenichi L. Ishikawa,2, 3 and Joachim Burgd¨ orfer1
+1Institute for Theoretical Physics, Vienna University of Technology,
+Wiedner Hauptstraße 8-10/136, 1040 Vienna, Austria, EU
+2Photon Science Center, School of Engineering, The University of Tokyo,
+7-3-1 Hongo, Bunkyo-ku, Tokyo 113-8656, Japan
+3Department of Nuclear Engineering and Management,
+School of Engineering, The University of Tokyo,
+7-3-1 Hongo, Bunkyo-ku, Tokyo 113-8656, Japan
+(Dated: November 27, 2024)
+The accurate description of the non-linear response of many-electron systems to strong-laser ﬁelds
+remains a major challenge. Methods that bypass the unfavorable exponential scaling with particle
+number are required to address larger systems. In this paper we present a fully three-dimensional
+implementation of the time-dependent two-particle reduced density matrix (TD-2RDM) method for
+many-electron atoms. We benchmark this approach by a comparison with multi-conﬁgurational
+time-dependent Hartree-Fock (MCTDHF) results for the harmonic spectra of beryllium and neon.
+We show that the TD-2RDM is very well-suited to describe the non-linear atomic response and to
+reveal the inﬂuence of electron-correlation eﬀects.
+I. INTRODUCTION
+Solving the time-dependent Schr¨ odinger equation for
+driven many-electron systems poses, to date, a major
+challenge. The long-range Coulomb interactions induce
+distant multi-particle correlations precluding the appli-
+cation of many approximations relying on short-ranged
+interactions from the outset. Numerically exact solu-
+tions have become available only for small systems, no-
+tably two-electron systems such as helium [1–5] or H 2
+[6–12]. As the numerical eﬀort grows factorially with
+the number of electrons, an analogous treatment for
+large systems becomes prohibitive. Therefore, alterna-
+tive strategies and approximations, most frequently the
+single-active electron approximation (SAE) [13, 14] are
+invoked. For large systems time-dependent density func-
+tional theory (TDDFT) and the time-dependent Hartree-
+Fock (TDHF) approximation (e.g. [15, 16]) have proven
+to provide an eﬀective approach to electron dynam-
+ics on the mean-ﬁeld level. The eﬃciency of TDDFT,
+however, comes with the price of introducing exchange-
+correlation functionals which are only known approxi-
+mately and hard to improve systematically. Moreover,
+read-out functionals for two-particle observables are still
+largely unknown [17–19]. Extension to the direct solu-
+tion of the N-electron Schr¨ odinger equation beyond the
+two-particle problem employs the multi-conﬁgurational
+time-dependent Hartree-Fock (MCTDHF) method ([20–
+22]). In principle, the MCTDHF method converges to
+the numerically exact solution if a suﬃcient number of
+orbitals is used. However, the factorial scaling with the
+number of particles limits its applicability. A recently
+∗ fabian.lackner@tuwien.ac.at
+† iva.brezinova@tuwien.ac.at
+proposed variant, the time-dependent complete active
+space self-consistent ﬁeld (TD-CASSCF) method [23, 24]
+which, in analogy to its ground-state counterpart, decom-
+poses the state space into frozen, dynamically polarized,
+and dynamically active orbitals can considerably reduce
+the numerical eﬀort yet eventually still leads to a fac-
+torial scaling with the number of active electrons N⋆
+(N⋆ < N). Further reduction of the numerical eﬀort
+and, consequently, extension to larger systems appears
+possible, e.g., by applying the TD-ORMAS method [25].
+The present approach intends to bridge the gap be-
+tween full wavefunction-based N-electron descriptions
+such as MCTDHF and the time-dependent reduced one-
+particle density ρ(r,t ) based TDDFT. The underlying
+idea is to strike a compromise between accuracy of
+electron-electron correlations achieved by wavefunction-
+based methods and the ease to treat larger and, even-
+tually, extended systems aﬀorded by density-based ap-
+proximations [26]. Our working variable is the time-
+dependent two-particle reduced density matrix (2RDM),
+D(r1, r2; r′
+1, r2,′;t). As a hybrid between the electron
+density and the full wavefunction the 2RDM contains
+the complete information on two-particle correlations but
+still scales polynomially with particle number [27–29].
+Starting with the pioneering work in the 1950s [30, 31],
+the stationary 2RDM method for the ground state has
+matured to accuracies that often outperform those of
+coupled-cluster singles doubles with perturbative triples
+at similar or smaller numerical cost (see, e.g., [32–36]).
+Extensions to the propagation of time-dependent systems
+have been pursued since the 90s [37–42]. They have been
+plagued, however, by numerical instabilities which could
+be traced back to the approximations invoked for the
+three-particle reduced density matrix (3RDM). In a pre-
+vious publication [43] we have developed a TD-2RDM
+theory that is based on a contraction consistent recon-
+struction of the 3RDM, as required for the proper closure
+arXiv:1611.00888v1  [physics.atom-ph]  3 Nov 2016
+2
+of the equations of motion for the TD-2RDM. It ensures
+that all constants of motion associated with symmetries
+of the Hamiltonian are conserved during time propaga-
+tion. Contraction consistency of the reconstruction leads
+to a signiﬁcant increase in the accuracy of the reconstruc-
+tion, thereby achieving an accurate and stable propaga-
+tion.
+In the present paper we apply the TD-2RDM method
+to the non-linear response of many-electron atoms to
+strong few cycle laser pulses. The four electrons of beryl-
+lium and the ten electrons of neon are treated in their
+full dimensionality. We benchmark the resulting high-
+harmonic generation (HHG) against accurate spectra ob-
+tained by MCTDHF. HHG can be qualitatively well cap-
+tured by the so called three-step model [13, 44] in which
+an electron is ﬁrst tunnel-ionized by the strong ﬁeld, then
+accelerated in the laser ﬁeld, and ﬁnally radiatively re-
+combines with the parent ion emitting an energetic pho-
+ton. For an accurate quantitative description it is crucial
+to explore and include correlation and many-electron ef-
+fects neglected by such a one-electron model. In partic-
+ular, the collective polarization response of the residual
+N− 1-electron system to the external ﬁeld and the ion-
+ized electron as well as the relaxation of the excitonic
+electron-hole pair are expected to be sensitive to corre-
+lation eﬀects. We show that the TD-2RDM method is
+well suited to account for these subtle many-body eﬀects
+and is superior to time-dependent mean-ﬁeld descriptions
+such as TDHF or TDDFT. Going beyond our previous
+work [43], we include in the collision operator diagram-
+matic corrections of second order in line with the sugges-
+tions by Nakatsuji and Yasuda [45] and Mazziotti [46].
+These second-order corrections turn out to be crucial for
+the accurate description of correlated HHG.
+The paper is organized as follows. In Sec. II we brieﬂy
+review key ingredients of the TD-2RDM theory. In
+Sec. III we summarize the methodological advances for
+reconstruction of the collision operator and puriﬁcation
+of the 2RDM, essential ingredients for an accurate and
+stable propagation of the TD-2RDM. First applications
+of the TD-2RDM theory to full three-dimensional (3D)
+Be and Ne atoms are presented in Sec. IV. We show the
+time-dependent dipole moment and HHG spectra for the
+interaction with few-cycle laser pulses with varying in-
+tensities. We also compare to TDHF and TDDFT calcu-
+lations. In Sec. V we give a short conclusion and outlook
+to future developments. Additional technical details are
+given in Appendices A, B, and C.
+II. BRIEF REVIEW OF THE TD-2RDM
+METHOD
+The p-particle reduced density matrix ( pRDM)
+D(x1... xp; x′
+1... x′
+p;t) is deﬁned by the trace over all
+butp particles of the bilinear form Ψ⋆Ψ of theN-electron
+wavefunction Ψ,
+D(x1... xp; x′
+1... x′
+p;t) =
+N!
+(N−p)!
+∫
+Ψ(x1... xp, xp+1... xN,t )
+× Ψ∗(x′
+1... x′
+p, xp+1... xN,t )dxp+1...dxN, (1)
+where xi = (ri,σi) comprises the 3D space coordinate ri
+and the spin coordinate σi∈{↑,↓}. With this deﬁnition
+thepRDM is normalized to N !
+(N−p)! which is a convenient
+choice for most calculations. Following [42], we use for
+the pRDM the following short-hand notation
+D1...p =D(x1... xp; x′
+1... x′
+p;t), (2)
+where also the time dependence in the notation of the
+RDMs is dropped for simplicity. The signiﬁcance of the
+pRDM is that it allows the calculation of all joint p-
+particle observables. The RDMs thus contain in con-
+densed form the full information on the p-particle cor-
+relations. This reduction of complexity compared to
+the N-electron wavefunction Ψ is the key aspect mak-
+ing the propagation of the 2RDM so attractive and
+potentially useful for applications. In particular, the
+2RDM carries the information on electron correlation
+at the two-particle level and thus, on total energy and
+two-particle excitation probabilities. The use of any
+exchange-correlation functional is avoided.
+The electron density ρ(r), and the pair density ρ(r1, r2)
+are the diagonal elements of the 1RDM D1,
+ρ(r1) =
+∑
+σ
+D(r1σ; r1σ) (3)
+and of the 2RDM D12,
+ρ(r1, r2) =
+∑
+σ,σ′
+D(r1σr2σ′; r1σr2σ′), (4)
+measuring the probability to ﬁnd simultaneously one of
+the particles at r1 and another one at r2.
+The equations of motion of the RDMs belong to the
+Bogoliubov-Born-Green-Kirkwood-Yvon(BBGKY) hier-
+archy frequently invoked in classical and quantum statis-
+tical mechanics. The ﬁrst two equations of the hierarchy
+read
+i∂tD1 = [h1,D 1] + Tr2 [W12,D 12], (5)
+i∂tD12 = [H12,D 12] + Tr3 [W13 +W23,D 123], (6)
+where H12 is the reduced two-particle Hamiltonian,
+H12 =h1 +h2 +W12, (7)
+consisting of the one-particle part hi containing the ki-
+netic energy, the ionic and the external potential V (r,t ),
+and the electron-electron interaction W12. The time-
+derivative of the pRDM depends on the next higher
+3
+(p + 1)RDM via the p-particle collision operator C1...p.
+The lowest two members of the hierarchy are
+C1{D12} = Tr2 [W12,D 12], (8)
+C12{D123} = Tr3 [W13 +W23,D 123]. (9)
+The coupling to higher-order members of the hierarchy
+makes the complete solution of the equations of motion
+as prohibitively complicated as the original TDSE for the
+N-particle problem. Therefore, any useful application
+invokes closure, i.e., approximating higher-order mem-
+bers of thepRDM hierarchy through functionals of lower-
+order members. In this work we close the equations by
+approximating the 3RDM in terms of the 2RDM
+D123≈DR
+123{D12}. (10)
+We will refer to this approximation as the reconstruction
+functional of the 3RDM. The equation of motion to be
+solved is thus
+i∂tD12 = [H12,D 12] +C12{DR
+123}. (11)
+Recently we have shown [43] that contraction consistency
+D12 = 1
+N− 2Tr3DR
+123{D12}, (12)
+of such a reconstruction DR
+123, i.e., that the 2RDM used
+as the input to the reconstruction must be recovered after
+tracing out the coordinate of the third particle [Eq. (12)],
+is of central importance for an accurate and consistent
+closure of the equation of motion for the 2RDM. It as-
+sures that constants of motion originating from symme-
+tries of the Hamiltonian are conserved during propaga-
+tion. Important examples are energy conservation for
+a time-independent Hamiltonian, and spin conservation
+for a spin-independent Hamiltonian. In fact, proper spin
+conservation requires further contraction relations given
+in Appendix A. Equation (12) ensures the contraction
+consistency of the ﬁrst two members of the BBGKY-
+hierarchy, Eqs. (5) and (11), i.e., the second equation
+in the BBGKY-hierarchy, Eq. (11), reduces to the ﬁrst
+equation, Eq. (5), when taking the trace over the second
+particle.
+III. METHODICAL DEVELOPMENTS
+A. Reconstruction
+For uncorrelated particles the 3RDM is given by the
+antisymmetrized tensor product of the 1RDM:
+DHF
+123 = 6 ˆAD1D2D3, (13)
+where ˆA is the antisymmetrization operator normalized
+to be idempotent and the factor 6 originates from the
+number of distinct contributions. Equation (13) is there-
+fore referred to as the Hartree-Fock approximation to
+0 1 2 3
+x [a.u.]
+-0.007 0 0.007
+ρc(r, r0) [a.u.]
+-3 -2 -1 0
+x [a.u.]
+-3
+-2
+-1
+0
+1
+2
+3y [a.u.]
+-0.008 0 0.008
+ρx(r, r0) [a.u.]
+FIG. 1. (Color online) Exchange holeρx(r, r0) (left) [Eq. (16)]
+and Coulomb correlation hole ρc(r, r0) (right) [Eq. (17)] in
+the ground state of Be created by an electron located at the
+ﬁxed position r0 = (0, 1.5, 0) (black dot). For a pure Slater
+determinant the exchange hole would be identical to the 2s
+orbital of the same spin. The asymmetry of the exchange
+hole originates from contributions beyond the single Slater
+determinant. The Coulomb correlation hole accounting for
+the electron repulsion is given by the two-particle cumulant
+[Eq. (18)] and reduces the probability to ﬁnd the second elec-
+tron near the ﬁrst one repelling the second electron to the
+other side of the atom.
+the 3RDM, DHF
+123. For correlated particles corrections to
+Eq. (13) are crucial. We introduce the corrections in
+terms of the cumulants ∆ 1...p, starting with the 2RDM.
+Accordingly,D12 is analogously expanded into an uncor-
+related tensor product 2 ˆAD1D2 describing independent
+identical particles and a proper correlation term ∆12 orig-
+inating solely from the Coulomb interaction between the
+electrons
+D12 = 2 ˆAD1D2 + ∆12 =DHF
+12 + ∆12. (14)
+Explicitly, the Hartree-Fock approximation to D12 is
+given by
+DHF
+12 = 2 ˆAD1D2
+=D(x1; x′
+1)D(x2; x′
+2)−D(x2; x′
+1)D(x1; x′
+2). (15)
+The term ∆12, referred to as the two-particle cumulant, is
+a sensitive measure for electron correlation and vanishes
+if and only if the particles are uncorrelated. It should
+be noted that the so called ”Pauli correlation” result-
+ing from antisymmetrization, i.e. exchange, are already
+contained in the Hartree-Fock term DHF
+12 and is thus not
+part of ∆ 12. This decomposition applied to the diagonal
+elements of D12 allows the identiﬁcation of the proper
+correlation contributions to the pair density. For inde-
+pendent and distinguishable particles the pair density is
+4
+a simple product of two individual one-particle probabili-
+tiesρ(r1)ρ(r2). For identical fermions the Pauli principle
+prohibits the coalescence of two particles with the same
+spin giving rise to the exchange hole ρx (see Fig. 1) and
+a deviation from a simple product
+ρHF(r1, r2) =ρ(r1)ρ(r2) +ρx(r1, r2)
+=ρ(r1)ρ(r2)−
+∑
+σ
+|D(r1σ; r2σ)|2. (16)
+The Coulomb interactions lead to the appearance of ad-
+ditional Coulomb correlation ρc in the pair density,
+ρ(r1, r2) =ρHF(r1, r2) +ρc(r1, r2). (17)
+This contribution to the pair density (see Fig. 1) is di-
+rectly given by the two-particle cumulant
+ρc(r1, r2) =
+∑
+σ,σ′
+∆(r1σr2σ′; r1σr2σ′). (18)
+Using the decomposition, Eqs. (16) and (17), the exact
+total electron-electron interaction energy,
+Eee =
+∫ ρ(r1, r2)
+|r1− r2| dr1dr2, (19)
+follows as a sum of Hartree, exchange and correlation en-
+ergy. With the help of the cumulant expansion [Eq. (14)]
+the correlation contribution to other observables can be
+identiﬁed analogously.
+The two-particle cumulant ∆ 12 can now be used to im-
+prove the reconstruction of D123 beyond the Hartree-
+Fock level. Inclusion of corrections to ﬁrst order yields
+DV
+123 =DHF
+123 + 9 ˆA∆12D3, (20)
+referred to as the Valdemoro (V) reconstruction which
+has been derived using a variety of diﬀerent techniques
+[47]. Going beyond ﬁrst order by including second- or
+higher-order corrections has remained a challenge. Cur-
+rently no technique appears to be available that allows to
+calculate the second-order correction for all elements of
+the 3RDM in terms of the lower order RDMs. However,
+for speciﬁc elements second-order contributions can be
+calculated by following two diﬀerent approaches devel-
+oped by Nakatsuji and Yasuda [45] and Mazziotti [46].
+The Nakatsuji-Yasuda (NY) approach is based on the di-
+agrammatic expansion of the 3RDM in analogy to many-
+body Green’s functions (Fig. 2). Their result for the
+second-order correction can be written as
+DNY
+123 =DHF
+123 + 9 ˆA∆12D3 + 9 ˆA∆12P2∆23
+=DV
+123 + 9 ˆA∆12P2∆23, (21)
+where the operator Pi acting on the ith particle is given
+by
+Pi = 2DHF
+i −Ii, (22)
+FIG. 2. (Color online) Diagrammatic representation of the
+Nakatsuji-Yasuda reconstruction for the 3RDM, Eq. (21), in
+analogy to the diagrammatic expansion of many-body Green’s
+functions [48]. Green arrows correspond to one-particle prop-
+agators and blue parts describe connected diagrams account-
+ing for particle-particle interactions. The brackets represent
+all topologically distinct permutations of a given diagram en-
+suring antisymmetry of the 3RDM.
+with the one-particle identity matrixIi and the reference
+Hartree-Fock 1RDM
+DHF(x1; x′
+1) =
+N∑
+i
+fi(x1)f∗
+i (x′
+1), (23)
+constructed from the eigenfunctions of the 1RDM fi,
+i.e. the natural orbitals. This present formulation dif-
+fers from the original work by Nakatsuji and Yasuda
+who chose fi as the Hartree-Fock orbitals rather than
+the natural orbitals [45]. The leading error in the
+NY-reconstruction is the neglect of second-order correc-
+tions for triple excitation amplitudes ∆ uuu
+ooo , where o de-
+notes occupied and u denotes unoccupied orbitals in the
+Hartree-Fock reference.
+An alternative approach to second-order corrections in-
+troduced by Mazziotti [46] yields an implicit equation for
+the second-order correction
+∆M
+123 = ˆAD1∆M
+123 + ˆA∆M
+123D1 + 3 ˆA∆12∆23, (24)
+entering the reconstruction of the 3RDM
+DM
+123 =DV
+123 + ∆M
+123. (25)
+By transforming into the eigenbasis of the 1RDM
+Eq. (24) can be explicitly solved except for elements ∆uuu
+ooo
+which stay undetermined [46].
+All reconstruction functionals DR
+123 as introduced above
+are not contraction consistent, i.e. do not fullﬁll Eq. (12).
+Previously, we developed a generic method to enforce
+contraction consistency for an arbitrary reconstruction
+functional. This allows us to extend the reconstruction
+functionals DV
+123, DNY
+123 and DM
+123 to contraction consis-
+tent form. Our method is based on the unitary decom-
+position of the 3RDM [43]
+D123 =D123;⊥{D12} +D123;K, (26)
+5
+where the kernel D123;K is deﬁned as the component of
+D123 whose contractions vanish, Tr3D123;K = 0. Because
+the component perpendicular to the kernel D123;⊥{D12}
+is a known functional of the 2RDM, only the kernel com-
+ponent needs to be approximated. To make a given
+reconstruction functional contraction consistent we use
+Eq. (26) and replace the unknown exact kernel com-
+ponent D123;K by the kernel component of the chosen
+approximate reconstruction DR
+123;K. In the following,
+we will apply this contraction consistency constraint to
+DV
+123, DNY
+123 and DM
+123.
+B. N-representability and puriﬁcation
+The realization of the goal to replace the propagation
+of the N-particle wavefunction by that of the 2RDM
+faces, in addition to the reconstruction (or closure) prob-
+lem, a second and closely intertwined conceptual hur-
+dle, known as the N-representability problem. While
+Ψ(t) itself is not needed at any time during the prop-
+agation of the equations of motion [Eq. (11)], the solu-
+tion of D12(t) must, at all times, satisfy Eq. (1), i.e. it
+must be representable as a partial trace over the bilin-
+ear form Ψ ∗(t)Ψ(t) of an (unknown) N-particle wave-
+function. If the exact form of D123 were to be used
+in Eq. (11), this would be trivially the case. How-
+ever, as soon as approximations to D123 are employed,
+the time evolved D12(t) may leave the subspace of N-
+representable 2RDMs. While an explicit complete set of
+conditions forN-representability is still unknown several
+necessary conditions are well-established. Among those
+the D-condition and the Q-condition are the most im-
+portant. They guarantee that the 2RDM as well as the
+two-hole reduced density matrix (2-HRDM)
+Q12 = 2 ˆAI1I2− 4 ˆAI1D2 +D12, (27)
+remain both positive semideﬁnite (i.e. have non-negative
+eigenvalues) denoted by
+D12≥ 0, (28)
+Q12≥ 0. (29)
+The positive semi-deﬁniteness of these matrices represent
+mutually independent conditions although the matrices
+are inter-convertible by Eq. (27). The 2-HRDM describes
+the pair distribution of holes rather than of particles and
+its positivity in combination with the positivity of the
+2RDM ensures that the occupation number of a parti-
+cle pair or a hole pair in any two-body state is always
+non-negative. Violation of the positive semi-deﬁniteness
+obviously causes instabilities in the propagation which,
+in turn, are consequences of the approximation error in
+DR
+123. To avoid such instabilities we enforce the D- and
+Q-condition during propagation by a puriﬁcation pro-
+cess. Additional N-representability conditions, e.g. the
+G-condition were found to remain well satisﬁed if the D-
+and Q-condition are simultaneously enforced.
+We brieﬂy describe the present new puriﬁcation scheme
+which improves the numerical eﬃciency compared to
+its predecessor [49]. To isolate the defective part of
+the 2RDM we decompose the Hermitian 2RDM D12 =
+D<
+12+D>
+12 into components with negative eigenvaluesD<
+12
+and positive eigenvalues D>
+12,
+D<
+12 =
+∑
+gi<0
+gi|gi⟩⟨gi|, (30)
+D>
+12 =
+∑
+gi>0
+gi|gi⟩⟨gi|, (31)
+where gi are the eigenvalues and |gi⟩ are the eigenfunc-
+tions (called geminals) of the 2RDM. Simply neglecting
+D<
+12 in the decomposition of the 2RDM is not a viable
+option as it would lead to uncontrolled errors in the nor-
+malization as well as the associated 1RDM. Instead we
+employ the unitary decomposition of the 2RDM in anal-
+ogy to Eq. (26)
+D<
+12 =D<
+12;⊥{D12} +D<
+12;K. (32)
+As above, the kernel D<
+12;K is by deﬁnition fully contrac-
+tion free. Therefore, subtracting the kernel component
+from the 2RDM,
+D′
+12 =D12−D<
+12;K, (33)
+leaves the norm and the 1RDM invariant. After a single
+puriﬁcation stepD′
+12 has a signiﬁcantly reduced negative
+eigenvalues. The same unitary decomposition can be ap-
+plied to simultaneously enforce the approximate positiv-
+ity of the 2-HRDM
+D′
+12 =D12−D<
+12;K−Q<
+12;K. (34)
+Since the negative eigenvalues of the 2-HRDM have dom-
+inant contributions in the high occupation numbers of
+the 2RDM the two matricesD<
+12;K,Q<
+12;K act on diﬀerent
+subspaces and, therefore, do not destroy the purifying
+eﬀect of the other but lead to a simultaneous enforce-
+ment of the D- and Q-condition. The eﬀectiveness of the
+puriﬁcation is further improved by applying it iteratively.
+C. Probing for the reconstruction error
+We test now diﬀerent reconstruction functionals in-
+troduced in Sec. III A since choosing the most accurate
+reconstruction is key to obtain highly accurate HHG
+spectra. Note that in this subsection we do not solve
+the closed equation of motion of the 2RDM [Eq. (11)].
+Instead we use the exact 2RDM and 3RDM from an
+MCTDHF calculation to compare DR
+123 [Eq. (10)] recon-
+structed from the exact 2RDM with the exact 3RDM
+at each time step. This allows a direct measurement of
+the pure reconstruction error without admixture of any
+propagation error. We measure the distance between the
+6
+10−4
+10−3
+10−2
+10−1
+0 0.5 1 1.5 2 2.5 3 3.5 4
+reconstruction error
+time [optical cycle]
+Val
+Val+CC
+Maz
+Maz+CC
+NY
+NY+CC
+FIG. 3. (Color online) Comparison of the distance [Hilbert-
+Schmidt norm Eq. (35)] between the exact and reconstructed
+3RDM for diﬀerent reconstruction functionals proposed by
+Valdemoro (V) [Eq. (20]), Nakatsuji-Yasuda (NY) [Eq. (21)]
+and Mazziotti (M) [Eq. (24)] with and without including con-
+traction consistency denoted by CC [Eq. (12)]. The simula-
+tion is performed for Be subject to a two-cycle laser pulse
+with I = 0.5 × 1014W/cm2 and λ = 800nm (for details see
+Sec. IV). The input 2RDM for the reconstruction is taken
+from an MCTDHF calculation to avoid the accumulation of
+propagation errors.
+reconstructed 3RDMDR
+123 and the exact 3RDM D123 by
+the square of the Hilbert-Schmidt norm for matrices,
+∥D123−DR
+123∥2 = Tr123(D123−DR
+123)2. (35)
+We ﬁnd (Fig. 3) that, as expected, the largest error oc-
+curs for the Valdemoro reconstruction which takes into
+account correlations only up to ﬁrst order [Eq. (20)]. Fur-
+ther improvement can be obtained by including second-
+order contributions. While the Mazziotti reconstruc-
+tionDM
+123 considerably improves upon the Valdemoro re-
+construction, the Nakatsuji-Yasuda reconstruction DNY
+123
+[Eq. (21)] provides the most accurate results for the
+present atomic systems under investigation (Fig. 3). Ir-
+respective of the perturbative order included we consis-
+tently ﬁnd for all three reconstructions signiﬁcant im-
+provement in the accuracy of the reconstruction when
+enforcing contraction consistency [Eq. (12)]. Contrac-
+tion consistency is thus not only essential for preserv-
+ing fundamental symmetries during propagation but also
+leads to a signiﬁcantly better reconstruction. As an
+aside we note that this observation suggests that contrac-
+tion consistency should improve also the solution of the
+anti-Hermitian contracted stationary Schr¨ odinger equa-
+tion used to calculate the ground state of molecules (see
+e.g. [50]) for which the basic approximation is also the
+reconstruction of the 3RDM.
+The remaining error in the reconstruction functional
+comes from additional second-order contributions not in-
+cluded in the Nakatsuji-Yasuda or Mazziotti approxima-
+tion. Future work will address the systematic inclusion
+of all second-order and, possibly, higher-order correc-
+tions. In the following simulations we will apply the
+contraction-consistent Nakatsuji-Yasuda approximation.
+IV. HIGH-HARMONIC GENERATION
+In this section we present the ﬁrst results of the
+TD-2RDM method as applied to full 3D multi-electron
+atoms. To benchmark the TD-2RDM theory we use a
+state of the art MCTDHF implementation published re-
+cently [24] as well as TDDFT within the local density
+approximation with exchange functional [51] and corre-
+lation functional [52] computed via the LIBXC library
+[53]. We simulate the non-linear many-electron response
+of Be and Ne subject to ultra-short few-cycle laser pulses
+of the form
+F (t) =F0 cos(ωt) sin2
+( ω
+2Nc
+t
+)
+0≤t≤Nc
+2π
+ω , (36)
+where F0 is the amplitude of the electric ﬁeld, ω is the
+mean angular frequency, and Nc is the number of cy-
+cles. We use from now on the scaled time τ =t 2π
+ω with
+0≤ τ ≤ Nc, counting the fractional number of cycles
+that have passed.
+The gauge invariance of the exact 2RDM equation of
+motion [Eq. (6)] is guaranteed by that of the underly-
+ing time-dependent Schr¨ odinger equation. The approxi-
+mate equation of motion [Eq. (11)] retains it if the em-
+ployed reconstruction is invariant under unitary transfor-
+mations of orbitals, which is the case for all the recon-
+structions discussed here. However, a speciﬁc numerical
+implementation is not necessarily gauge invariant. While
+the present implementation (see Appendix B) is gauge in-
+variant, those with a ﬁnite number of time-independent
+spin orbitals are in general not. Due to the favorable nu-
+merical behavior [24] we employ the velocity gauge in all
+our simulations.
+We particularly focus on the time-dependent dipole mo-
+ment and the HHG spectrum which depends sensitively
+on the electron dynamics and is, therefore, well suited to
+test the capabilities of the TD-2RDM method. In our
+simulations we consider a near-IR pulse with wavelength
+λ = 800nm (ω = 0.057 a.u.) which is the central wave-
+length of the Ti:sapphire laser. We investigate the re-
+sponse of the Be atom for two laser pulses diﬀering in in-
+tensity and in the number of cycles. One pulse has an in-
+tensity ofI = 0.5×1014W/cm2 (F0 = 0.038) and a length
+of four cycles Nc = 4 showing a moderate amount of ion-
+ization. The second pulse with I = 4.0× 1014W/cm2
+(F0 = 0.107) and two cycles leads to signiﬁcant ioniza-
+tion [see the inset of Fig. 4 (a) and (c) for the pulse
+shape]. Because of the much larger ionization potential
+(Ip = 21.6 eV) we employ in our simulation for neon a
+stronger pulse with I = 1015W/cm2 (F0 = 0.169).
+The HHG spectrum I HHG(ω) is determined using the
+7
+10−7
+10−6
+10−5
+10−4
+10−3
+10−2
+10−1
+100
+101
+0 5 10 15 20
+HHG yield [arb. units]
+harmonic order
+(b)
+-4
+-3
+-2
+-1
+0
+1
+2
+3
+0 0.5 1 1.5 2 2.5 3 3.5 4
+dipole moment [a.u.]
+time [optical cycle]
+(a)
+-0.04
+-0.02
+0
+0.02
+0.04
+0 1 2 3 4
+F(t) [a.u.]
+10−7
+10−6
+10−5
+10−4
+10−3
+10−2
+10−1
+100
+101
+102
+0 10 20 30 40 50 60 70
+HHG yield [arb. units]
+harmonic order
+(d)
+-200
+-150
+-100
+-50
+0
+50
+0 0.5 1 1.5 2
+dipole moment [a.u.]
+time [optical cycle]
+(c)
+-0.05
+0
+0.05
+0.1
+F(t) [a.u.]
+60
+40
+20
+0 1 2
+z [a.u.]
+TDDFT
+TDHF
+MCTDHF
+TD-2RDM
+TDDFT
+TDHF
+MCTDHF
+TD-2RDM
+TDDFT
+TDHF
+MCTDHF
+TD-2RDM
+TDDFT
+TDHF
+MCTDHF
+TD-2RDM
+FIG. 4. (Color online) Electronic response of Be subject to a four-cycle laser pulse with I = 0.5 × 1014W/cm2 [(a) and (b)]
+and a two-cycle laser pulse with I = 4.0 × 1014W/cm2 [(c) and (d)] monitored by the induced dipole moment [(a), (c)] and the
+high-harmonic spectrum [(b), (d)] obtained from the dipole acceleration [Eq. (37)]. The wavelength of the pulse is λ = 800nm.
+The TD-2RDM result calculated with the contraction consistent Nakatsuji-Yasuda reconstruction is compared to MCTDHF,
+TDHF, and TDDFT within the local density approximation. The inset shows the electric ﬁeld [Eq. (36)] of the applied laser
+pulse with (a) four and (c) two cycles, respectively. The inset of (c) shows three representative electron trajectories, two with
+recollision energies contributing to the 30 th harmonics and one (in the center) contributing to the high-energy cut-oﬀ within
+the three-step model. The vertical lines mark the four instances in time at which snapshots are taken in Fig. 7. The TD-2RDM
+result for the stronger two-cycle laser pulse [(c), (d)] used a total number of 40 iterations per puriﬁcation step whereas no
+puriﬁcation was employed for the weaker pulse [(a), (b)].
+classical Lamor formula
+I HHG(ω) = 2
+3c
+⏐⏐⏐⏐
+∫
+¨d(t)eiωtdt
+⏐⏐⏐⏐
+2
+, (37)
+where the expectation value of the dipole acceleration
+operator is calculated via
+¨d(t) =−⟨Ψ(t)|∂V (r)
+∂r |Ψ(t)⟩.
+=−
+∫ ∂V (r)
+∂r ρ(r,t )dr. (38)
+As the HHG spectrum is a functional of the reduced one-
+particle density ρ(r,t ), TDDFT can be directly applied
+without invoking any approximate read-out functional.
+The numerical implementation of the TD-2RDM method
+requires the simultaneous solution of the orbital equa-
+tions of motion Eq. (B2) in Appendix B together with
+the equation of motion for the 2RDM matrix elements
+Eq. (B5). We solve the angular part of the orbital
+equations of motion by expanding the orbitals in spher-
+ical harmonics with a maximum angular momentum of
+Lmax = 47. The radial part of the orbital equations
+of motion are numerically solved by employing a ﬁnite-
+element discrete variable representation in radial direc-
+tion with 50 ﬁnite elements and 20 basis points each.
+We use a total radial box size of 200 atomic units and
+absorbing boundary conditions implemented by a cos
+1
+4
+8
+mask function starting at a radius of 160 atomic units
+with a transition length of 40 atomic units. To obtain
+converged results for the time-dependent dipole moment
+in the presence of electrons absorbed by the absorbing
+boundary we calculate the dipole moment by a double
+integral over time of the dipole acceleration.
+The time propagation of the orbitals is performed using
+a second-order split-step method treating the one-body
+part ˆh and the part containing the electron-electron in-
+teraction in Eq. (B2) separately. Further details on the
+propagation of the orbitals can be found in Ref. [24].
+We apply this propagation in real and imaginary time,
+the latter for the determination of the MCTDHF ground
+state which also serves as the initial state for the TD-
+2RDM propagation. It should be noted that the ”exact”
+MCTDHF ground state is, in general, not a stationary
+solution of the approximate equation of motion of D12
+[Eq. (11)] when a reconstruction approximation has been
+applied in the collision operator, C12{DR
+123} [Eq. (10)].
+However, provided that the reconstruction approxima-
+tion is suﬃciently accurate, the stationary solution of
+Eq. (11) is close to that of the MCTDHF solution and can
+be further improved upon by projecting out the residual
+excitations by time averaging over a ﬁeld-free propaga-
+tion (see Appendix C).
+We emphasize that the propagation of the TD-2RDM
+method is performed fully self-consistent using Eq. (11)
+without invoking the many-body wavefunction at any
+time.
+A. Beryllium
+As the ﬁrst application we study the non-linear dipole
+response and HHG of Be for a laser pulse with I =
+0.5× 1014W/cm2. Due to the spherical symmetry of the
+ground state the initial dipole moment is zero. In the
+presence of the laser pulse the atom gets polarized and
+the dipole moment starts to oscillate [Fig. 4(a)]. Initially
+the dipole moment nearly adiabatically follows the elec-
+tric ﬁeld of the external laser pulse but soon after the
+ﬁrst cycle non-linear eﬀects manifest themselves through
+the appearance of multiple frequencies. The near perfect
+agreement between the TD-2RDM method and MCT-
+DHF shows that the TD-2RDM method is capable to
+accurately describe excitation processes in strong laser
+ﬁelds. In clear contrast, the mean-ﬁeld TDDFT and
+TDHF methods show marked deviations during the en-
+tire pulse duration. In particular the overshoot of the
+ﬁrst oscillations shows that the binding energy is un-
+derestimated within TDHF and TDDFT compared to
+MCTDHF. The TD-2RDM method on the other hand
+is capable of reproducing the initial oscillations, i.e. lin-
+ear polarizability and binding energy, with high accuracy.
+The high-harmonic spectrum which probes the frequency
+dependent electronic response yields excellent agreement
+between TD-2RDM and MCTDHF [Fig. 4(b)]. TDHF
+and TDDFT reproduce the overall structure of the spec-
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1.6
+1.8
+time [optical cycle]
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1.6
+1.8
+0 10 20 30 40 50 60 70
+time [optical cycle]
+harmonic order
+(a) MCTDHF
+0
+10−3
+10−2
+10−1
+1
+(b) TDHF
+FIG. 5. (Color online) Time-frequency spectrum of the high-
+harmonic radiation of Be subject to a two-cycle laser pulse
+with I = 4.0 × 1014W/cm2 and λ = 800nm predicted by the
+three-step model [Eq. (39)] using the ionization probabilities
+from (a) the TDHF or (b) the MCTDHF calculation as in-
+put. The absolute scale of the intensity has been adjusted for
+direct comparison to the result of the quantum mechanical
+calculation (Fig. 6).
+trum well but show deviations mostly in the plateau re-
+gion [Fig. 4(b)].
+The stronger pulse ( I = 4.0× 1014W/cm2) features al-
+ready signiﬁcant ionization reﬂected in the pronounced
+slope caused by the contribution of ionizing electrons
+[Fig. 4(c)]. Unlike for lower intensities where the high-
+harmonic spectrum of TDHF and MCTDHF diﬀer only
+in the detailed structure [Fig. 4(b)] for this strong inten-
+sity we ﬁnd a strong overestimate of the high-harmonic
+intensity predicted by TDHF [Fig. 4(d)] previously re-
+ported in [24]. This overestimate originates from the in-
+ability of mean-ﬁeld theories such as TDHF or TDDFT
+to describe pure single electron ionization as TDHF and
+TDDFT inevitably introduce artiﬁcially enhanced dou-
+ble ionization whenever single ionization occurs [4]. The,
+at ﬁrst glance, somewhat counterintuitive consequence of
+the coupling between single and double ionization is that
+the overall probability for ionization occuring at all is re-
+duced. This follows from the ”contamination” of pure
+single ionization by ionization of the second more deeply
+bound electron with binding energy of the second ion-
+ization potential. In turn, the lower probability for ion-
+ization leads to a larger bound state component in the
+wavefunction of the residual ion enhancing the probabil-
+ity for coherent recombination of the returning electron
+prominently visible near the cut-oﬀ [Fig. 4(d)].
+To trace back the overestimate of the HHG yield pre-
+dicted by TDHF to the underestimated ionization prob-
+ability we approximate the intensity of the high-harmonic
+radiation following the three-step model as
+I HHG(trec)∝− ˙Nion(tion)Prec(trec), (39)
+9
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1.6
+1.8
+time [optical cycle]
+(a) TD-2RDM
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1.6
+1.8
+time [optical cycle]
+(b) MCTDHF
+0 10 20 30 40 50 60 70
+harmonic order
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1.6
+1.8
+time [optical cycle]
+0
+10−3
+10−2
+10−1
+1
+(c) TDHF
+FIG. 6. (Color online) Time-frequency spectrum of the emit-
+ted high-harmonic radiation from a Be atom subject to a two-
+cycle laser pulse with I = 4.0 × 1014W/cm2 and λ = 800nm
+calculated within (a) the TD-2RDM method, (b) MCTDHF
+and (c) TDHF. The time-frequency spectrum has been ob-
+tained by performing a short-time Fourier transformation us-
+ing a Blackman window function. The intensity of the high-
+harmonic radiation is shown on a logarithmic scale to high-
+light the structure of the two recollision events. The four
+white lines mark times τ = 0.2, τ = 0.5, τ = 1.0 and τ = 1.8
+at which snapshots of the particle-hole distribution are taken
+in Fig. 7.
+where ˙Nion(tion) is the number of electrons ionized per
+time interval at ionization time tion and Prec(trec) is the
+recombination probability at the recombination timetrec.
+In this classical model the electron is ionized from the
+atom at time tion then accelerates in the external laser
+ﬁeld before it recombines with the parent ion at time
+trec. The recombination probability Prec can be approxi-
+mated by the survival probability, i.e., by the probability
+of the electron not being ionized. Using both quantities
+˙N ion(ti) and P rec(tr) from either a MCTDHF or TDHF
+calculation shows that, indeed, the overestimate of HHG
+radiation near the cut-oﬀ can be reproduced (Fig. 5).
+The MCTDHF and TD-2RDM method allow for variable
+occupation numbers of the orbitals permitting the decou-
+pling of single and double ionization. In fact, for the pro-
+cess depicted in Fig. 4(c,d) the occupation numbers of the
+natural orbitals change signiﬁcantly. The accurate recon-
+struction in combination with the stabilization by puriﬁ-
+cation results in the very good agreement between the
+TD-2RDM method and MCTDHF for the dipole oscilla-
+tion as well as the high-harmonic spectrum [Fig. 4(c,d)].
+˜G(zp,z h,t ) − ˜G(zp,z h, 0) [a.u.]
+-10
+-5
+0
+5
+10
+zh [a.u.]
+-0.05 -0.01 0.000 0.01 0.05
+(a) τ = 0.2 (b) τ = 0.5
+-10 -5 0 5 10
+zp [a.u.]
+-10
+-5
+0
+5
+zh [a.u.]
+(c) τ = 1.0
+-5 0 5 10
+zp [a.u.]
+(d) τ = 1.8
+FIG. 7. (Color online) Laser ﬁeld induced deviation
+from the equilibrium particle-hole distribution function
+˜Gph(zp,z h,t ) − ˜Gph(zp,z h, 0) [Eq. (40)] of beryllium for the
+same laser parameters as in Fig. 4(c). The times of the snap-
+shots shown are marked in Fig. 6 and in the inset of Fig. 4(c)
+(note the logarithmic color scale).
+To further investigate the structure of the high-harmonic
+radiation we perform a time-frequency analysis [54] by
+applying a short-time Fourier transformation with a
+Blackman window function [55] using the scaling param-
+eterα = 0.16 which features a continuous ﬁrst derivative
+allowing a high temporal and spectral resolution. The
+time-frequency analysis gives us insight at which time
+high-harmonic radiation of a given frequency is created
+(Fig. 6). In agreement with the results for the high-
+harmonic spectrum we ﬁnd that the TD-2RDM method
+is capable of almost perfectly reproducing the MCTDHF
+time-frequency distribution whereas TDHF predicts a
+signiﬁcantly stronger intensity at the high-energy cutoﬀ.
+The structure of the time-frequency behavior of the
+HHG radiation shows clear signatures of the three-step
+model [13, 44]. Plotting the recombination energyErec =
+Ip+Ekin given by ionization plus kinetic energy as a func-
+tion of time shows two recollision events (Fig. 5). The
+ﬁrst event is generated by recombining electrons that
+have been accelerated in the strong center peak of the
+two-cycle laser pulse [see inset of Fig. 4(c)] and the second
+event by recombining electrons accelerated in the subse-
+quent smaller peak. Obviously, high-harmonic radiation
+with energy near the cutoﬀ is generated during the ﬁrst
+collision. Comparison with the quantum mechanical cal-
+culation (Figs. 6,5) reveals a small shift to slightly higher
+cutoﬀ energies in the quantum calculation. This shift is
+accounted for by the modiﬁed cut-oﬀ formula predicted
+by the Lewenstein model [56].
+The present TD-2RDM method allows to explore sub-
+tle many-body eﬀects in the HHG process not visible in
+single-particle or mean-ﬁeld descriptions. To this end,
+we analyse the time evolution of the joint particle-hole
+distribution function
+˜G(zp,z h) =⟨zp↑,z h↓|K 2G12K2|zp↑,z h↓⟩, (40)
+10
+10−9
+10−8
+10−7
+10−6
+10−5
+10−4
+10−3
+10−2
+10−1
+100
+0 20 40 60 80 100 120 140 160
+HHG yield [arb. units]
+harmonic order
+(b)
+-30
+-25
+-20
+-15
+-10
+-5
+0
+5
+0 0.5 1 1.5 2
+dipole moment [a.u.]
+time [optical cycle]
+(a)
+TDDFT
+TDHF
+MCTDHF
+TD-2RDM
+TDDFT
+TDHF
+MCTDHF
+TD-2RDM
+FIG. 8. (Color online) (a) Time evolution of the dipole moment and (b) high-harmonic spectrum of Ne subject to a two-cycle
+laser pulse with I = 10 15W/cm2 and λ = 800nm. The form of the laser pulse is depicted in the inset of Fig. 4(c). The
+TD-2RDM method employing the contraction consistent Nakatsuji-Yasuda reconstruction is compared to MCTDHF, TDHF,
+and to TDDFT using the local density approximation.
+where
+G12 =D1δ2−D12 (41)
+is the particle-hole reduced density matrix [28] and
+K =
+∑
+i
+|φg
+i⟩⟨φg
+i| (42)
+is the projection operator onto the initial ground state or-
+bitals φg
+i . The distribution function ˜G(zp,z h) measures
+the probability to ﬁnd a particle atz-coordinatezp while
+leaving a hole of opposite spin in the ground state with
+z-coordinate zh. We show the laser induced particle-hole
+dynamics by snapshots of the deviation from the equilib-
+rium particle-hole distribution (Fig. 7) at times marked
+in Fig. 6(a) and in the inset of Fig. 4(c). The snapshot
+at τ = 0.2 shows the polarization of the atom under
+the inﬂuence of the ﬁrst weak peak of the two-cycle laser
+pulse [see inset of Fig. 4(c)]. Since the negatively charged
+particles and the positive holes move under the inﬂuence
+of the electric ﬁeld in opposite directions, the polarized
+joint particle-hole distribution is displaced to negative
+(positive) zp and positive (negative) zh. The subsequent
+peak of the laser pulse at τ = 0.5 coincides with the
+onset of ionization eventually leading to the creation of
+high-harmonic radiation upon recollision with the parent
+ion around the time τ = 1.0. While the dependence of
+the joint particle-hole distribution on the particle coordi-
+nate closely mirrors the excursion from and return to the
+core as predicted by the (one-particle) three-step model,
+the residual hole does not remain frozen but dynamically
+responds to the motion of the ionized particle and the
+external ﬁeld. The hole coordinate performs oscillations
+phase-shifted by π respective to the particle coordinate
+thereby enhancing the non-linear dipole response of the
+atom [Fig. 7(b),(c)]. Near the end of the laser pulse at
+τ = 1.8 the particle-hole distribution deviates from its
+initial state predominantly due to ionized electrons miss-
+ing in the the outer shell with |zp|> 1. Conversely these
+ionized electrons have created holes which enhance the
+particle-hole distribution near the core (|zp|< 1).
+B. Neon
+HHG in neon is of great importance as it is used as the
+workhorse for the generation of attosecond pulses [57].
+Compared to Be the Ne atom has a much larger ioniza-
+tion energy requiring larger laser intensities to obtain a
+similar amount of ionization and high-harmonic radia-
+tion. At the same time, the harmonic cut-oﬀ is shifted to
+much higher frequencies allowing for generation of XUV
+pulses with energies of up to 100 eV [57]. Ab-initio de-
+scriptions of this process is a considerably more challeng-
+ing as up to 10 active electrons need to be treated. To
+simulate HHG in Ne we use a two-cycle laser pulse with
+I = 1015W/cm2 leading to a survival probability of about
+90% which is signiﬁcantly larger than 1% for beryllium
+withI = 4×1014W/cm2 [Fig. 4(c)]. The small ionization
+yield for Ne is also reﬂected in the occupation numbers
+of the natural orbitals which do not strongly change over
+time. This allows the present TD-2RDM simulation to
+be performed even without puriﬁcation. The shape of
+the laser pulse is the same as depicted in the inset of
+Fig. 4(c).
+The dipole moment we obtain within the TD-2RDM
+method is in excellent agreement with the MCTDHF cal-
+culation [Fig. 8(a)]. Qualitatively, the response of the
+dipole moment of Ne shows the same slope starting at
+τ ≈ 1 as for the Be atom [Fig. 4(c)]. This slope sig-
+niﬁes the large excursion of the ionized electron driven
+by the peak electric ﬁeld near τ ≈ 1. The slope in the
+11
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1.6
+1.8
+time [optical cycle]
+(a) TD-2RDM
+0 20 40 60 80 100 120 140 160
+harmonic order
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1.6
+1.8
+time [optical cycle]
+0
+10−3
+10−2
+10−1
+1
+(b) MCTDHF
+FIG. 9. (Color online) Time-frequency spectrum of the emit-
+ted high-harmonic radiation of Ne subject to a two-cycle laser
+pulse with I = 1015W/cm2 andλ = 800nm calculated within
+(a) the TD-2RDM method and (b) MCTDHF. The spectro-
+gram has been calculated employing the same method as in
+Fig. 6.
+dipole response and, therefore, ionization is larger for
+TDDFT and smaller for TDHF as compared to the MCT-
+DHF result [Fig. 8(a)]. This is reﬂected also in the high-
+harmonic spectrum [Fig. 8(b)]. The higher ionization
+rate of TDDFT leads to a stronger HHG signal compared
+to MCTDHF and TDHF. In principle, the high-harmonic
+yield [Eq. (39)] also depends on the recombination prob-
+ability. However, since in the present case ionization is
+small the dependence on the recombination probability
+is less important.
+We ﬁnd almost perfect agreement between the TD-
+2RDM method and MCTDHF for the total high-
+harmonic spectrum [Fig. 8(b)] as well as the time-
+frequency spectrum (Fig. 9). Again, the peak structure
+of the laser pulse is reﬂected in the two recollision events
+clearly visible in the time-frequency spectrum. Whereas
+the ﬁrst recollision is high in energy its intensity is mod-
+est due to the small amount of ionization taking place
+during the ﬁrst oscillation of the laser pulse. The second
+recollision, lower in energy, features a higher intensity
+due to the strong ionization occurring in the presence of
+the strong central peak of the laser pulse.
+V. CONCLUSIONS AND OUTLOOK
+In this work we have presented the ﬁrst full 3D sim-
+ulation of the electronic response of Be and Ne atoms
+in strong laser pulses using the TD-2RDM method. In
+particular we have focused on the high-harmonic spec-
+trum obtained from state of the art MCTDHF calcu-
+lations as an observable to stringently benchmark the
+accuracy of the TD-2RDM method. The successful ap-
+plication of the TD-2RDM method relies strongly on the
+reconstruction of the 3RDM entering the closure of the
+equations of motion for the 2RDM. We compared sev-
+eral reconstructions including second-order reconstruc-
+tions such as the Nakatsuji-Yasuda [45] and the Mazz-
+iotti reconstruction [46] that are used for the ﬁrst time
+within the context of the TD-2RDM method. We found
+that the Nakatsuji-Yasuda reconstruction in combination
+with the enforcement of contraction consistency gives the
+most accurate results for the systems under investigation.
+In general we found that contraction consistency of the
+reconstructed 3RDM is not only necessary for the con-
+servation of symmetries in the propagation of the 2RDM
+but also improves the accuracy of the reconstruction sig-
+niﬁcantly. The results obtained within the TD-2RDM
+method for the time-dependent atomic polarization as
+well as for the high-harmonic spectra of Be and Ne are
+in excellent agreement with MCTDHF reference calcu-
+lations for a variety of diﬀerent laser durations and in-
+tensities. We have used the present TD-2RDM descrip-
+tion to identify the inﬂuence of electronic correlations on
+the HHG process. We investigated the two-particle cor-
+relation functions describing the particle-hole dynamics
+controlling the harmonic emission. These two-point ob-
+servables are, unlike in mean-ﬁeld descriptions such as
+TDHF and TDDFT, directly accessible. The inﬂuence
+of correlation also manifests itself by the signiﬁcant dif-
+ferences in the HHG spectra calculated by TDHF and
+TDDFT. In particular, the HHG spectrum of Be in a
+strongly ionizing laser pulse shows a pronounced overes-
+timation of the HHG yield in the cutoﬀ region if correla-
+tion is neglected. This eﬀect can be accurately accounted
+for within the TD-2RDM method. Furthermore we have
+calculated the time-frequency spectrum of the emitted
+high-harmonic radiation. By comparing it to predictions
+of the three-step model the origin of the correlation in-
+duced suppression of the high-harmonic intensity can be
+delineated. Extensions to larger systems as well as fur-
+ther improvement of the 3RDM reconstruction by includ-
+ing second-order corrections in all elements are planned.
+ACKNOWLEDGMENTS
+We thank Stefan Donsa for helpful discussions on
+the TD-2RDM method, and Winfried Auzinger, Othmar
+Koch, and Harald Hofst¨ atter for helpful discussions on
+numerical time propagation.. This research is also sup-
+ported in part by Grant-in-Aid for Scientiﬁc Research
+(No. 25286064, 26390076, 26600111, and 16H03881)
+from the Ministry of Education, Culture, Sports, Sci-
+ence and Technology (MEXT) of Japan, and also by the
+Photon Frontier Net- work Program of MEXT. This re-
+search is also partially supported by the Center of Inno-
+vation Program from the Japan Science and Technology
+Agency, JST, and by CREST, JST. The computational
+results have been achieved using and the Vienna Scien-
+tiﬁc Cluster (VSC).
+12
+Appendix A: Spin-block contractions of the 3RDM
+The formulation of contraction consistency introduced
+in III A [Eq. (12)] is suﬃcient to ensure energy conser-
+vation. For the proper conservation of spin symmetries
+(S2|Ψ⟩ =Sz|Ψ⟩ = 0) contraction consistency must be ex-
+tended to relations for the individual 3RDM spin blocks.
+In detail the necessary relations are given by
+∑
+m
+Di1↑m↑i2↓
+j1↑j2↑m↓ =Di1↑i2↑
+j1↑j2↑ (A1)
+∑
+m
+Di1↑i2↑m↓
+j1↑m↑j2↓ =Di1↑i2↑
+j1↑j2↑ (A2)
+∑
+m
+Di1↑m↑i2↓
+j1↑m↑j2↓ =
+(N
+2 − 1
+)
+Di1↑i2↓
+j1↑j2↓ (A3)
+∑
+m
+Di1↑i2↑m↓
+j1↑j2↑m↓ = N
+2 Di1↑i2↑
+j1↑j2↑. (A4)
+These relations can be derived by usingS2|Ψ⟩ =Sz|Ψ⟩ =
+0 (see [43] for further details).
+Appendix B: Orbital expansion
+The numerical implementation of the TD-2RDM
+method for strong ﬁeld processes requires the expansion
+of the 2RDM within a suitable set of 2 r time-dependent
+spin orbitals φiσ(x,t ) =φi(r,t )⊗|σ⟩,
+D(x1x2; x′
+1x′
+2;t) =
+∑
+i1,i2,j1,j2
+Di1i2
+j1j2(t)φi1(x1,t )φi2(x2,t )φ∗
+j1(x′
+1,t )φ∗
+j2(x′
+2,t ),
+(B1)
+where we merge the spin σ∈{↑ ,↓} and orbital indices
+i ∈ {1...r }. Such an expansion is essential to cover
+the large simulation box necessary to describe electrons
+with large excursion radii. For simplicity, we drop here
+and in the following the labels for the pRDM when us-
+ing the spin-orbital representation, i.e. Di1i2
+j1j2 = [D12]i1i2
+j1j2,
+Di1i2i3
+j1j2j3 = [ D123]i1i2i3
+j1j2j3, since the order p is already
+uniquely characterized by the orbital-index set. A con-
+venient choice for the description of the orbital dynam-
+ics are the orbital equations of motion of the MCTDHF
+method
+i∂tφi(r,t ) =h(r)φi(r,t ) + ˆQ
+(∑
+u
+ˆΓu(r,t )[D−1]u
+i
+)
+,
+(B2)
+where
+ˆQ = 1−
+2r∑
+i=1
+|φi⟩⟨φi| (B3)
+is the orbital projection operator assuring unitary time
+evolution of the basis orbitals, [ D−1]u
+i is the inverse of
+the 1RDM in the orbital representation, and
+ˆΓu(r,t ) =
+∑
+vwt
+Dvw
+ut φv(r,t )
+∫ φw(r′,t )φ∗
+t (r′,t )
+|r− r′| dr′ (B4)
+represents electron-electron interactions. This last term
+couples the time evolution of the orbitals to the time evo-
+lution of the 2RDM. In this work we will focus on closed
+shell systems (Be and Ne atoms). For these systems the
+ground state wavefunction is a singlet state and remains,
+in the absence of spin-orbit interactions, a spin singlet
+state during propagation. In this case the ( ↑↓)-block of
+the 2RDM contains all information on the full 2RDM [43]
+and the corresponding equation of motion reduces to
+i∂tDi1↑i2↓
+j1↑j2↓ =
+∑
+k1,k2
+(
+Hk1k2
+j1j2 Di1↑i2↓
+k1↑k2↓−Dk1↑k2↓
+j1↑j2↓Hi1i2
+k1k2
+)
++Ci1↑i2↓
+j1↑j2↓, (B5)
+whereHk1k2
+j1j2 are the matrix elements of the Hamiltonian
+[Eq. (7)] in the basis of spatial orbitals. Having to prop-
+agate only the (↑↓)-block of the 2RDM signiﬁcantly re-
+duces the numerical eﬀort because the (↑↓)-block of the
+collision operator can be written solely in terms of the
+(↑↑↓)-block of the 3RDM
+Ci1↑i2↓
+j1↑j2↓ =Ii1↑i2↓
+j1↑j2↓ +Ii2↑i1↓
+j2↑j1↓− (Ij1↑j2↓
+i1↑i2↓ +Ij2↑j1↓
+i2↑i1↓ )∗, (B6)
+with
+Ii1↑i2↓
+j1↑j2↓ =
+∑
+k1,k2,k3
+Wk2k3
+j1k1
+(
+Di1↑k1↑i2↓
+k2↑k3↑j2↓ +Di2↑k1↑i1↓
+j2↑k3↑k2↓
+)
+. (B7)
+Appendix C: Approximating the TD-2RDM ground
+state
+The ﬁeld-free ground states of the MCTDHF and of
+the TD-2RDM method which serve as initial states of
+the propagation are idenitical only if the exact collision
+kernelC12{D123} is used in the equation of motion for the
+2RDM [Eq. (6)]. When the equation of motion is closed
+by employing an approximate collision kernel C12{DR
+123}
+based on the reconstruction DR
+123, [Eq. (11)], the exact
+initial state D12(t = 0) is, in general, not a stationary
+solution of Eq. (11). Consequently, the admixture of ex-
+citations relative to the ground state of Eq. (11) leads to
+oscillations and additional artiﬁcial ”harmonic compo-
+nents” (Fig. 10). For accurate reconstruction functionals
+as used here, the deviations from the true ground state
+and thus the admixture of excitations are small (note the
+logarithmic scale). The approximation can be further im-
+proved upon by projecting out the small admixtures of
+excitations to the ground state prior to the propagation
+in the laser ﬁeld. This is most easily accomplished by
+13
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1.6
+1.8
+time [optical cycle]
+(a) TD-2RDM
+0 20 40 60 80 100 120 140 160
+harmonic order
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1.6
+1.8
+time [optical cycle]
+0
+10−3
+10−2
+10−1
+1
+(b) MCTDHF
+FIG. 10. (Color online) Time-frequency spectrum of the emit-
+ted high-harmonic radiation of Ne subject to a two-cycle laser
+pulse with I = 1015W/cm2 andλ = 800nm calculated within
+(a) the TD-2RDM using the MCTDHF ground state as the
+initial state and (b) the MCTDHF method. The noise contri-
+bution present near the 50 th harmonic arise from unphysical
+excitations present in the ”wrong” ground state. The spec-
+trogram has been calculated employing the same method as
+in Fig. 9.
+ﬁeld-free propagation [Eq. (11)] of the MCTDHF ground
+state and performing the time average
+¯D12 = 1
+T
+∫ T
+0
+D12(t)dt (C1)
+over a period T suﬃciently long compared to the dom-
+inant inverse excitation frequencies T ≫ 2π/ωexcitation.
+This leads to an improved approximation to the proper
+ground state of the TD-2RDM method and to removal
+of the residual unphysical oscillations [compare Fig. 9(a)
+with Fig. 10(a)]. In the present case we perform the
+time average over a time interval of T = 40 atomic
+units. Alternatively one could employ well-established
+algorithms to directly solve the anti-hermitian contracted
+Schr¨ odinger equation [50].
+[1] J. S. Parker, E. S. Smyth, and K. T. Taylor, J. Phys. B
+31, L571 (1998).
+[2] A. Palacios, T. N. Rescigno, and C. W. McCurdy, Phys.
+Rev. A 77, 032716 (2008).
+[3] J. Feist, S. Nagele, R. Pazourek, E. Persson, B. I. Schnei-
+der, L. A. Collins, and J. Burgd¨ orfer, Phys. Rev. A 77,
+043420 (2008).
+[4] D. Hochstuhl and M. Bonitz, J. Chem. Phys 134, 084106
+(2011).
+[5] R. Pazourek, J. Feist, S. Nagele, and J. Burgd¨ orfer, Phys.
+Rev. Lett. 108, 163001 (2012).
+[6] M. Awasthi, Y. V. Vanne, and A. Saenz, J. Phys. B 38,
+3973 (2005).
+[7] K. Harumiya, H. Kono, Y. Fujimura, I. Kawata, and
+A. D. Bandrauk, Phys. Rev. A 66, 043403 (2002).
+[8] W. Vanroose, D. A. Horner, F. Mart´ ın, T. N. Rescigno,
+and C. W. McCurdy, Phys. Rev. A 74, 052702 (2006).
+[9] J. L. Sanz-Vicario, A. Palacios, J. C. Cardona,
+H. Bachau, and F. Mart´ ın, Journal of Electron Spec-
+troscopy and Related Phenomena 161, 182 (2007).
+[10] A. Palacios, H. Bachau, and F. Mart´ ın, Phys. Rev. A
+75, 013408 (2007).
+[11] X. Guan, K. Bartschat, and B. I. Schneider, Phys. Rev.
+A 82, 041404 (2010).
+[12] E. Dehghanian, A. D. Bandrauk, and G. L. Kamta, Phys.
+Rev. A 81, 061403 (2010).
+[13] J. L. Krause, K. J. Schafer, and K. C. Kulander, Phys.
+Rev. Lett. 68, 3535 (1992).
+[14] K. C. Kulander, Phys. Rev. A 36, 2726 (1987).
+[15] R. Parr and W. Yang, Density-Functional Theory of
+Atoms and Molecules , International Series of Mono-
+graphs on Chemistry (OUP, 1989).
+[16] C. Ullrich, Time-Dependent Density-Functional The-
+ory: Concepts and Applications , Oxford Graduate Texts
+(OUP, 2012).
+[17] D. G. Lappas and R. van Leeuwen, J. Phys. B 31, L249
+(1998).
+[18] N. Rohringer, S. Peter, and J. Burgd¨ orfer, Phys. Rev. A
+74, 042512 (2006).
+[19] F. Wilken and D. Bauer, Phys. Rev. A76, 023409 (2007).
+[20] J. Caillat, J. Zanghellini, M. Kitzler, O. Koch,
+W. Kreuzer, and A. Scrinzi, Phys. Rev. A 71, 012712
+(2005).
+[21] O. E. Alon, A. I. Streltsov, and L. S. Cederbaum, J.
+Chem. Phys 127, 154103 (2007).
+[22] D. Hochstuhl, C. Hinz, and M. Bonitz, Eur. Phys. J.
+Special Topics 223, 177 (2014).
+[23] T. Sato and K. L. Ishikawa, Phys. Rev. A 88, 023402
+(2013).
+[24] T. Sato, K. L. Ishikawa, I. Bˇ rezinov´ a, F. Lackner,
+S. Nagele, and J. Burgd¨ orfer, Phys. Rev. A 94, 023405
+(2016).
+[25] T. Sato and K. L. Ishikawa, Phys. Rev. A 91, 023417
+(2015).
+[26] S. Haessler, J. Caillat, W. Boutu, C. Giovanetti-Teixeira,
+T. Ruchon, T. Auguste, Z. Diveki, P. Breger, A. Maquet,
+B. Carre, R. Taieb, and P. Salieres, Nat. Phys. 6, 200
+(2010).
+[27] A. Coleman and V. Yukalov, Reduced Density Matri-
+ces: Coulson’s Challenge , Lecture Notes in Chemistry
+(Springer, 2000).
+[28] D. Mazziotti, ed., Advances in Chemical Physics,
+Reduced-Density-Matrix Mechanics: With Application to
+Many-Electron Atoms and Molecules, Advances in Chem-
+ical Physics (Wiley, 2007).
+14
+[29] J. Cioslowski, Many-Electron Densities and Reduced
+Density Matrices , Mathematical and Computational
+Chemistry (Springer, 2000).
+[30] P. O. L¨ owdin, Phys. Rev.97, 14741489 (1955).
+[31] F. Bopp, Z. Phys. 156, 348 (1959).
+[32] M. Nakata, H. Nakatsuji, M. Ehara, M. Fukuda,
+K. Nakata, and K. Fujisawa, J. Chem. Phys 114, 8282
+(2001).
+[33] M. Nakata, M. Ehara, and H. Nakatsuji, J. Chem. Phys
+116, 5432 (2002).
+[34] Z. Zhao, B. J. Braams, M. Fukuda, M. L. Overton, and
+J. K. Percus, J. Chem. Phys 120, 2095 (2004).
+[35] D. A. Mazziotti, Phys. Rev. Lett. 93, 213001 (2004).
+[36] D. A. Mazziotti, Accounts of Chemical Research 39, 207
+(2006).
+[37] K.-J. Schmitt, P.-G. Reinhard, and C. Toepﬀer, Z. Phys.
+A 336, 123 (1990).
+[38] T. Gherega, R. Krieg, P. G. Reinhard, and C. Toepﬀer,
+Nucl. Phys. A 560, 166 (1993).
+[39] M. Tohyama and P. Schuck, Eur. Phys. J. A50, 1 (2014).
+[40] B. Sch¨ afer-Bung and M. Nest, Phys. Rev. A 78, 012512
+(2008).
+[41] A. Akbari, M. J. Hashemi, A. Rubio, R. M. Nieminen,
+and R. van Leeuwen, Phys. Rev. B 85, 235121 (2012).
+[42] M. Bonitz, Quantum Kinetic Theory , Teubner-Texte zur
+Physik (Teubner, 1998).
+[43] F. Lackner, I. Bˇ rezinov´ a, T. Sato, K. L. Ishikawa, and
+J. Burgd¨ orfer, Phys. Rev. A91, 023412 (2015).
+[44] P. B. Corkum, Phys. Rev. Lett. 71, 1994 (1993).
+[45] K. Yasuda and H. Nakatsuji, Phys. Rev. A 56, 2648
+(1997).
+[46] D. A. Mazziotti, Chem. Phys. Lett. 326, 212 (2000).
+[47] F. Colmenero, C. P´ erez del Valle, and C. Valdemoro,
+Phys. Rev. A 47, 971 (1993).
+[48] R. Mattuck, A Guide to Feynman Diagrams in the Many-
+body Problem , Dover Books on Physics Series (Dover
+Publications, 1976).
+[49] D. A. Mazziotti, Phys. Rev. E 65, 026704 (2002).
+[50] D. A. Mazziotti, Phys. Rev. Lett. 97, 143002 (2006).
+[51] P. A. M. Dirac, Mathematical Proceedings of the Cam-
+bridge Philosophical Society 26, 376 (1930).
+[52] S. H. Vosko, L. Wilk, and M. Nusair, Can. J. Phys. 58,
+1200 (1980).
+[53] M. A. Marques, M. J. Oliveira, and T. Burnus, Comput.
+Phys. Commun. 183, 2272 (2012).
+[54] V. S. Yakovlev and A. Scrinzi, Phys. Rev. Lett. 91,
+153901 (2003).
+[55] R. Blackman and J. Tukey, The measurement of power
+spectra, from the point of view of communications en-
+gineering, Dover books on engineering and engineering
+physics (Dover Publications, 1958).
+[56] M. Lewenstein, P. Balcou, M. Y. Ivanov, A. L’Huillier,
+and P. B. Corkum, Phys. Rev. A 49, 2117 (1994).
+[57] F. Krausz and M. Ivanov, Rev. Mod. Phys. 81, 163
+(2009).

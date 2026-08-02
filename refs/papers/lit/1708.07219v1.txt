@@ -1,0 +1,566 @@
+arXiv:1708.07219v1  [nucl-th]  23 Aug 2017
+Prog. Theor. Exp. Phys. 2015, 00000 (11 pages)
+DOI: 10.1093 /ptep/0000000000
+Role of small-norm components in extended
+random-phase approximation
+Mitsuru Tohyama
+Kyorin University School of Medicine, Mitaka, Tokyo 181-86 11, Japan
+∗ E-mail: tohyama@ks.kyorin-u.ac.jp
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .. . . . . . . . . . . . . . . . . . . . . . . . . . . .
+The role of the small-norm amplitudes in extended RPA theories such a s the particle-
+particle and hole-hole components of one-body amplitudes and the t wo-body amplitudes
+other than two particle - two holes components are investigated fo r the one-dimensional
+Hubbard model using an extended RPA derived from the time-depen dent density-matrix
+theory. It is found that these amplitudes cannot be neglected in st rongly interacting
+regions where the eﬀects of ground-state correlations are signiﬁ cant.
+1. Introduction
+The random-phase approximation (RPA) is formulated based o n the Hartree-Fock (HF)
+ground state where it is assumed that the lowest single-part icle states (hole states) are com-
+pletely occupied and other single-particle states (partic le states) are empty. Therefore, RPA
+consists of particle (p)-hole (h) and h-p amplitudes. When t he eﬀects of ground-state correla-
+tions are explicitly taken into account in extended RPA appr oaches such as the renormalized
+rRPA [1], the self-consistent RPA (SCRPA)[2, 3], the extend ed second RPA (ESRPA) [4], its
+response function version [5] and the small amplitude limit of the time-dependent density-
+matrix theory (TDDM)[6–8], the single-particles states be come partially occupied. As a
+consequence, the p-p and h-h amplitudes in addition to the p- h and h-p amplitudes should
+also be included as one-body transition amplitudes to satis fy sum rules and properties of
+spurious states [9–11]. The two-body amplitudes other than the 2p-2h and 2h-2p ampli-
+tudes may also play some roles when the eﬀects of ground-state correlations are included.
+In most applications, however, these additional amplitude s which have small eigenvalues of
+a norm matrix have usually been neglected. In this paper we in vestigate how the p-p and
+h-h amplitudes and the 2p-2p, 2h-2h and ph-ph amplitudes are incorporated into physical
+states using an extended RPA approach (ERPA) based on the gro und state in TDDM. We
+use the one-dimensional Hubbard model at half ﬁlling which i n momentum space has an
+equal number of particle and hole states and thus allows us to investigate the eﬀects of the
+above-mentioned additional amplitudes. The paper is organ ized as follows the formulation
+is given in sect. 2, the results are shown in sect. 3 and sect. 4 is devoted to summary.
+2. Formulation
+We consider the Hamiltonian H consisting of a one-body part and a two-body interaction
+H =
+∑
+αα ′
+⟨α|t|α′⟩a†
+α aα ′ + 1
+2
+∑
+αβα ′β ′
+⟨αβ|v|α′β′⟩a†
+α a†
+β aβ ′aα ′,
+(1)
+c⃝ The Author(s) 2012. Published by Oxford University Press on behalf of the Physical Society of Japan.
+This is an Open Access article distributed under the terms of the Creative Commons Attribution License
+(http://creativecommons.org/licenses/by-nc/3.0), whi ch permits unrestricted use,
+distribution, and reproduction in any medium, provided the original work is properly cited.
+where a†
+α and aα are the creation and annihilation operators of a particle at a time-
+independent single-particle state α.
+2.1. Time-dependent density-matrix theory and ground stat e
+The formulation of TDDM has been presented in Refs. [6, 7, 12] . To be self-contained,
+we brieﬂy explain it below. TDDM gives the coupled equations of motion for the one-body
+density matrix (the occupation matrix) nαα ′ and the correlated part of the two-body density
+matrix Cαβα ′β ′. These matrices are deﬁned as
+nαα ′(t) = ⟨Φ( t)|a†
+α ′ aα |Φ( t)⟩, (2)
+Cαβα ′β ′(t) = ραβα ′β ′(t) − (nαα ′(t)nββ ′(t) − nαβ ′(t)nβα ′(t)), (3)
+where |Φ( t)⟩ is the time-dependent total wavefunction |Φ( t)⟩ = exp[−iHt]|Φ( t = 0)⟩ and
+ραβα ′β ′ is the two-body density matrix ( ραβα ′β ′(t) = ⟨Φ( t)|a†
+α ′ a†
+β ′aβ aα |Φ( t)⟩). We use units
+such that ℏ = 1. The equations of motion for nαα ′ and Cαβα ′β ′ are derived from
+i ˙nαα ′ = ⟨Φ( t)|[a†
+α ′ aα , H]|Φ( t)⟩ (4)
+i ˙ραβα ′β ′ = ⟨Φ( t)|[a†
+α ′ a†
+β ′aβ aα , H]|Φ( t)⟩, (5)
+and are written as
+i ˙nαα ′ =
+∑
+λ
+(ǫαλ nλα ′ − nαλ ǫλα ′)
++
+∑
+λ 1λ 2λ 3
+[⟨αλ1|v|λ2λ3⟩Cλ 2λ 3α ′λ 1
+− Cαλ 1λ 2λ 3⟨λ2λ3|v|α′λ1⟩], (6)
+i ˙Cαβα ′β ′ =
+∑
+λ
+(ǫαλ Cλβα ′β ′ + ǫβλ Cαλα ′β ′
+− ǫλα ′Cαβλβ ′ − ǫλβ ′Cαβα ′λ )
++ Bαβα ′β ′ + Pαβα ′β ′ + Hαβα ′β ′ + Tαβα ′β ′, (7)
+where ǫαα ′ is given by
+ǫαα ′ = ⟨α|t|α′⟩ +
+∑
+λ 1λ 2
+⟨αλ1|v|α′λ2⟩Anλ 2λ 1. (8)
+Here the subscript A means that the corresponding matrix is antisymmetrized. Th e matrix
+Bαβα ′β ′ in Eq. (7) does not contain Cαβα ′β ′ and describes 2p-2h and 2h-2p excitations, while
+Pαβα ′β ′ and Hαβα ′β ′ contain Cαβα ′β ′ and describe p-p (and h-h) and p-h correlations to
+inﬁnite order, respectively [7]. These matrices are given i n Ref. [7]. The matrix Tαβα ′β ′ is
+given by
+Tαβα ′β ′ =
+∑
+λ 1λ 2λ 3
+[⟨αλ1|v|λ2λ3⟩Cλ 2λ 3βα ′λ 1β ′
++ ⟨λ1β|v|λ2λ3⟩Cλ 2λ 3αα ′λ 1β ′
+− ⟨ λ1λ2|v|α′λ3⟩Cαλ 3βλ 1λ 2β ′
+− ⟨ λ1λ2|v|λ3β′⟩Cαλ 3βλ 1λ 2α ′], (9)
+2/11
+where Cαβγα ′β ′γ ′ is the correlated part of a three-body density-matrix, whic h is given by
+Cαβγα ′β ′γ ′ = ⟨Φ( t)|a†
+α ′ a†
+β ′a†
+γ ′aγ aβ aα |Φ( t)⟩ − A(nαα ′ρβγβ ′γ ′). (10)
+Here, A is an operator which properly antisymmetrizes nαα ′ρβγβ ′γ ′ under the exchange of
+the single-particle indices such as α ↔ β and α′ ↔ β′. The three-body correlation matrix is
+neglected in the original version of TDDM [6, 7]. Instead of n eglecting Cαβγα ′β ′γ ′ we use the
+approximation
+Cp1p2h1p3p4h2 ≈ 1
+N
+∑
+h
+Chh1p3p4Cp1p2h2h, (11)
+Cp1h1h2p2h3h4 ≈ 1
+N
+∑
+p
+Ch1h2p2pCp1ph3h4, (12)
+where p and h refer to particle and hole states, respectively , and N is given by
+N = 1 + 1
+4
+∑
+pp′hh′
+Cpp′hh′Chh′pp′. (13)
+The above expression can be derived by perturbative conside ration [12] using the coupled-
+cluster doubles wavefunction. Equations (6) and (7) satisf y the conservation laws of the
+total energy and the total number of particles [6, 7]. The gro und state in TDDM is given
+as a stationary solution of the time-dependent equations (E qs. (6) and (7)). In this work we
+use the following adiabatic method to obtain a nearly statio nary solution [13, 14]: Starting
+from the Hartree-Fock (HF) conﬁguration, we solve Eqs. (6) a nd (7) gradually increasing
+the strength of the residual interaction such as v(r − r′) × t/T . This method is motivated
+by the Gell-Mann-Low theorem [15] and has often been used to o btain approximate ground
+states [16, 17]. To suppress oscillating components which c ome from the mixing of excited
+states, we must take large T .
+2.2. Extended RPA
+The ERPA equation can be derived by either taking the small am plitude limit of the TDDM
+equations or using the equation of motion approach [1]. It is written in matrix form for the
+one-body and two-body amplitudes xµ
+αα ′ and X µ
+αβα ′β ′ [18, 19]
+(
+A B
+C D
+)(
+xµ
+X µ
+)
+= ωµ
+(
+S1 T1
+T2 S2
+)(
+xµ
+X µ
+)
+, (14)
+where ωµ is the excitation energy of an excited state µ. The matrices A, B, C and D are
+given by
+A(αα′ : λλ′) = ⟨Φ 0|[[a†
+α ′ aα , H], a†
+λ aλ ′]|Φ 0⟩, (15)
+B(αα′ : λ1λ2λ′
+1λ′
+2) = C † = ⟨Φ 0|[[a†
+α ′ aα , H], a†
+λ 1
+a†
+λ 2
+aλ ′
+2aλ ′
+1]|Φ 0⟩,
+D(αβα′β′ : λ1λ2λ′
+1λ′
+2) = ⟨Φ 0|[[a†
+α ′ a†
+β ′aβ aα , H], a†
+λ 1
+a†
+λ 2
+aλ ′
+2aλ ′
+1]|Φ 0⟩, (16)
+where |Φ 0⟩ is the ground state in ERPA but approximated by that in TDDM. T he norm
+matrices S1, T1, T2 and S2 are given by
+S1(αα′ : λλ′) = ⟨Φ 0|[a†
+α ′ aα , a†
+λ aλ ′]|Φ 0⟩, (17)
+T1(αα′ : λ1λ2λ′
+1λ′
+2) = T †
+2 = ⟨Φ 0|[a†
+α ′aα , a†
+λ 1
+a†
+λ 2
+aλ ′
+2aλ ′
+1]|Φ 0⟩,
+S2(αβα′β′ : λ1λ2λ′
+1λ′
+2) = ⟨Φ 0|[a†
+α ′ a†
+β ′aβ aα , a†
+λ 1
+a†
+λ 2
+aλ ′
+2aλ ′
+1]|Φ 0⟩. (18)
+3/11
+The eﬀects of ground-state correlations are included in the a bove matrices through the
+occupation matrix and the two-body and three-body correlat ion matrices. Although the
+relations A = A† and C † = B hold, D = D† is not satisﬁed because a condition from the
+Jacobi identity[19], which is given by
+⟨Φ 0|[[a†
+α ′ a†
+β ′aβ aα , H], a†
+λ 1
+a†
+λ 2
+aλ ′
+2aλ ′
+1]|Φ 0⟩ − ⟨ Φ 0|[[a†
+λ 1
+a†
+λ 2
+aλ ′
+2aλ ′
+1, H], a†
+α ′ a†
+β ′aβ aα ]|Φ 0⟩
+= −⟨Φ 0|[H, [a†
+α ′ a†
+β ′aβ aα , a†
+λ 1
+a†
+λ 2
+aλ ′
+2aλ ′
+1]]|Φ 0⟩,
+= 0 (19)
+is not fulﬁlled: Since [ a†
+α ′a†
+β ′aβ aα , a†
+λ 1
+a†
+λ 2
+aλ ′
+2aλ ′
+1] in the above equation includes
+three-body operators, the stationary condition for the thr ee-body density matrix
+⟨Φ 0|[H, a†
+α a†
+β a†
+γ aγ ′aβ ′aα ′]|Φ 0⟩ = 0 is required but it is not satisﬁed by the approximate three -
+body correlation matrix given by Eqs. (11) and (12). Thus the Hamiltonian matrix of Eq.
+(14) is not Hermitian. As a consequence some eigenstates of E q. (14) can have complex
+eigenvalues and negative transition strength. It does not c ause any serious problems in the
+applications shown below as long as the interaction is not so strong and the approximation
+for the three-body correlation matrix is meaningful.
+In the following we explain how small-norm components becom e non-negligible. The matrix
+S1 is given by
+S1(αα′ : λλ′) = ( nα ′α ′ − nαα )δαλ δα ′λ ′. (20)
+In HF where nαα = 0 or 1 the diagonal elements of S1 are 1 for the p-h component and −1
+for the h-p component. When the single-particle states are f ractionally occupied, the p-p
+and h-h elements of S1 become non-vanishing though they are small. As a consequenc e the
+contribution of the p-p and h-h amplitudes to Eq. (14) become non-negligible. The matrix
+S2 includes nαα ′, Cαβα ′β ′ and Cαβγα ′β ′γ ′. When Cαβα ′β ′ and Cαβγα ′β ′γ ′ are neglected for
+simplicity, the diagonal element of S2 is given by [19]
+S2(αβα′β′ : αβα′β′) = (1 − nα )(1 − nβ )nα ′nβ ′
+− nα nβ (1 − nα ′)(1 − nβ ′), (21)
+where we assume that nαα ′ = δαα ′nα . In HF S2 is not vanishing only for the 2p-2h and 2h-2p
+conﬁgurations: S2 is 1 ( −1) for the 2p-2h (2h-2p) conﬁgurations. When the single-par ticle
+states are fractionally occupied, other two-body conﬁgura tions such as ph-ph, 2p-2p and 2h-
+2h conﬁgurations have non-vanishing values of S2 though they are small, and can contribute
+to Eq. (14). The matrices T1 and T2, which can couple the p-p and h-h amplitudes to the
+2p-2h and 2h-2p amplitudes and the p-h and h-p amplitudes to t he ph-ph amplitudes, are
+given by Cαβα ′β ′.
+4/11
+To explain the relation of ERPA to rRPA and SCRPA, we explicit ly show the matrix A:
+A(αα′ : λλ′) = ( ǫα − ǫα ′)(nα ′α ′ − nαα )δαλ δα ′λ ′
++ ( nα ′α ′ − nαα )(nλ ′λ ′ − nλλ )⟨αλ′|v|α′λ⟩A
+− δα ′λ ′
+∑
+γγ ′γ ′′
+⟨αγ|v|γ′γ′′⟩Cγ ′γ ′′λγ
+− δαλ
+∑
+γγ ′γ ′′
+⟨γγ ′|v|α′γ′′⟩Cλ ′γ ′′γγ ′
++
+∑
+γγ ′
+(⟨αγ|v|λγ′⟩ACλ ′γ ′α ′γ + ⟨λ′γ|v|α′γ′⟩ACαγ ′λγ )
+−
+∑
+γγ ′
+(⟨αλ′|v|γγ ′⟩Cγγ ′α ′λ + ⟨γγ ′|v|α′λ⟩Cαλ ′γγ ′), (22)
+where ǫαα ′ and nαα ′ are assumed to be diagonal for simplicity. The ﬁrst two terms on the
+right-hand side of Eq. (22) are of the same form as those in the RPA equation, the next two
+terms with Cαβα ′β ′ describe the self-energies of the α − α′ conﬁgurations due to ground-state
+correlations [20], and the last four terms with Cαβα ′β ′ are interpreted as the modiﬁcation
+of the interaction [20]. The one-body sector of Eq. (14) Axµ = ωµ S1xµ is formally the same
+as the equation in SCRPA [2, 3, 20]. In rRPA Cαβα ′β ′ is neglected. In rRPA nαα is self-
+consistently calculated from the p-h and h-p amplitudes, an d both nαα and Cαβα ′β ′ are self-
+consistently obtained from the p-h and h-p amplitudes in SCR PA. We perform calculations
+using rRPA-like and SCRPA-like formulations where nαα and Cαβα ′β ′ are not given by the
+p-h and h-p amplitudes but replaced by those of the TDDM groun d state.
+FH
+1k
+6k
+5k 4k
+3k 2k
+Fig. 1 Level scheme of the the one-dimensional (1D) Hubbard model i n momentum space.
+Each level can be occupied by spin up ( ↑) and down ( ↓) particles.
+5/11
+/s48 /s49 /s50 /s51 /s52
+/s45/s56
+/s45/s54
+/s45/s52/s69/s116/s111/s116/s47/s116
+/s85/s47/s116
+Fig. 2 Ground-state energy Etot calculated in TDDM (circles) as a function of U/t for
+N = 6 with half-ﬁlling. The results in EDA are shown with the sol id line.
+3. Results
+To test our approach for a case where a few h and p states are inv olved, we chose the one-
+dimensional (1D) Hubbard model with periodic boundary cond itions and compare with the
+results in exact diagonalization approach (EDA). In moment um space the Hamiltonian is
+given by [21]
+H =
+∑
+k,σ
+ǫka†
+k,σ ak,σ
++ U
+2N
+∑
+k,p,q,σ
+a†
+k,σ ak+q,σ a†
+p, −σ ap−q, −σ , (23)
+where U is the on-site Coulomb matrix element, σ spin projection and the single-particle
+energies are given by ǫα = −2t cos kα with the nearest-neighbor hopping potential t. We
+consider the case of the six sites at half ﬁlling. In the ﬁrst B rillouin zone −π ≤ k < π there
+are the following wave numbers
+k1 = 0 , k 2 = π
+3 , k 3 = − π
+3 ,
+k4 = 2π
+3 , k 5 = − 2π
+3 . k 6 = −π. (24)
+The single-particle energies are ǫ1 = −2t, ǫ2 = ǫ3 = −t, ǫ4 = ǫ5 = t and ǫ6 = 2t. In HF the
+lowest 6 states are fully occupied as shown in Fig. 1.
+3.1. Ground state
+The ground state energy calculated in TDDM (circles) using t he adiabatic method is shown
+in Fig. 2 as a function of U/t. The elements of Cαβα ′β ′ which have odd number of p and h
+states such as Cphh′h′′ and Chpp′p′′ are neglected to reduce the size of the two-body correlation
+matrix. Their contributions are small. The results in EDA ar e given with the solid line. The
+TDDM results are in good agreement with the exact values. The occupation probabilities of
+the four single-particle states calculated in TDDM (circle s and squares) are compared with
+6/11
+/s48 /s49 /s50 /s51 /s52
+/s48/s46/s48
+/s48/s46/s50
+/s48/s46/s52
+/s48/s46/s54
+/s48/s46/s56
+/s49/s46/s48
+/s110
+/s85/s47/s116
+Fig. 3 Occupation probability of each single-particle state calc ulated in TDDM (circles
+and squares) as a function of U/t. The results in EDA are shown with the solid, dotted,
+dashed and dot-dashed lines.
+the results in EDA (solid, dotted, dashed and dot-dashed lin es) in Fig. 3 as functions of U/t.
+The agreement of the TDDM results with the exact values is als o reasonably good. At U/t =
+4 the occupation probabilities deviate more than 10 % from th e HF values ( nαα = 1 or 0).
+/s48 /s49 /s50 /s51 /s52
+/s48/s46/s53
+/s49/s46/s48
+/s49/s46/s53
+/s50/s46/s48
+/s69/s47/s116
+/s85/s47/s116
+Fig. 4 Excitation energy of the spin mode with momentum transfer q = π/3 as a function
+of U/t calculated in ERPA (ﬁlled circles). The results in RPA, rRPA -like and SCRPA-
+like approaches and SRPA are shown with the open triangles, ﬁ lled triangles, squares and
+crosses, respectively. The results in EDA are depicted with the solid line. The open circles at
+U/t = 3.5 and 4 indicate the ERPA results with the original three-bod y correlation matrix.
+3.2. Spin mode with momentum transfer |q| = π/ 3
+Since the h-h and p-p transitions such as k1 → k2 and k6 → k5 can contribute when
+the single-particle states are partially occupied, we ﬁrst consider the spin mode with
+the momentum transfer q = π/3 which can be excited mainly by the one-body operator
+7/11
+a†
+k4↑ak2↑ − a†
+k4↓ak2↓. The excitation energies calculated in RPA (open triangles ), rRPA-like
+(triangles) and SCRPA-like (squares) formulations are sho wn in Fig. 4 as functions of U/t.
+These approaches do not have the coupling to the two-body amp litudes. The results in
+EDA are given with the solid line. Since U is a repulsive interaction, spin modes where
+the single-particle transitions between spin-down states destructively interfere with those
+between spin-up states become soft with increasing U . The results in RPA are in reasonable
+agreement with the exact solutions. In the rRPA-like calcul ations the two states appear
+below E/t < 2. The lower state at E/t ≈ 1 mainly consists of the p-p and h-h transitions
+and the higher state consists of the p-h and h-p components. T he transition strength carried
+by the lower state increases with increasing U . Thus in the rRPA-like approach the excited
+states consisting of the p-p and h-h components appear as if t hey are physical ones. This
+indicates that the inclusion of the ground-state correlati on eﬀects only through the fractional
+occupation of the single-particle states is not appropriat e. In the SCRPA-like calculations
+the states mainly consisting of the p-p and h-h components mo ve to the high energy region
+(E/t > 10) due to the terms in Eq. (22) with Cαβα ′β ′. This is because these terms are divided
+by the small values npp − np′p′ or nhh − nh′h′ when Axµ = S1xµ is diagonalized. Thus in the
+SCRPA-like approach the p-p and h-h components are mixed wit h the p-h and h-p com-
+ponents but their main components are energetically separa ted from the low-lying state.
+However, the excitation energies calculated in the SCRPA-l ike approach are signiﬁcantly
+larger than the exact values, suggesting the importance of t he coupling to the two-body
+amplitudes.
+Now we discuss the coupling to the two-body amplitudes. Sinc e the coupling to the 2p-2h
+amplitudes is large, the results in SRPA (crosses) deviate s trongly from the RPA values with
+increasing U and SRPA collapses at U/t = 3.9 for this spin mode. The results in ERPA are
+shown with the ﬁlled circles. For this spin mode the three-bo dy correlation matrix used in
+Eq.(14) at U/t = 3.5 and 4 is reduced by 16 % from the value given by Eqs.(11) and (1 2).
+The original three-body correlation matrix gives the resul ts shown with the open circles at
+U/t = 3.5 and 4. The approximation Eqs.(11) and (12) seems to overest imate the three-
+body correlation matrix for large U . For U/t ≤ 3 the excitation energies in ERPA are little
+aﬀected by such 16 % reduction of the three-body correlation m atrix. The coupling to the
+two-body amplitudes plays a role in bringing down the result s of the SCRPA-like approach.
+The 2p-2h and 2h-2p amplitudes also play a dominant role in ER PA as in SRPA: The 2p-2h
+and 2h-2p amplitudes alone can bring the spin mode down to the position slightly below
+the second excited state calculated in the rRPA-like approa ch. To clarify the contribution of
+the p-p and h-h amplitudes, we calculate the transition stre ngth in ERPA at U/t = 4 in two
+cases using an operator ˆQq =∑
+k σa†
+k+q,σ ak,σ : In one case ( Sfull) all components of xµ
+αα are
+included and in the other case ( Sph) only the p-h and h-p components of xµ
+αα are included.
+We found Sph/Sfull = 0.54. Thus the small-norm components have signiﬁcant contrib ution
+to the transition strength.
+3.3. Spin mode with |q| = π
+Next we consider a spin mode with momentum transfer |q| = π, which consists of the single-
+particle transitions from the h states with k = ±π/3 to the p states with k = ∓2π/3. In
+the Hubbard model the spin mode with |q| = π becomes the ﬁrst excited state for U > 0.
+8/11
+/s48 /s49 /s50 /s51 /s52
+/s48/s46/s53
+/s49/s46/s48
+/s49/s46/s53
+/s50/s46/s48/s69/s47/s116
+/s85/s47/s116
+Fig. 5 Excitation energy of the spin mode with |q| = π as a function of U/t calculated in
+ERPA(ﬁlled circles). The results in RPA, rRPA-like and SCRP A-like approaches are shown
+with the open triangles, ﬁlled triangles and squares, respe ctively. The crosses depict the
+results in SRPA. The ERPA results calculated using only the 2 p-2h and 2h-2p amplitudes
+are shown with the open circles. The results in EDA are depict ed with the solid line.
+Since only the transitions between the single-particle sta tes with k = ±2π/3 and k = ∓π/3
+can make |q| = π, there is no contribution to this mode from the p-p and h-h tra nsitions.
+The obtained results are shown in Fig. 5. The spin modes in RPA (open triangles) and
+SRPA(crosses) collapse beyond U/t = 2.3. Since the number of the 2p-2h conﬁgurations with
+|q| = π is small, the coupling to the 2h-2h states is small for this mo de. In the rRPA-like
+approach (ﬁlled triangles) which includes the eﬀects of frac tional occupation of the single-
+particles the point where the spin mode collapses goes sligh tly up to U/t = 2.6. This means
+that fractional occupation of the single-particle states i s not suﬃcient to suppress excess p-h
+correlations. In the SCRPA-like approach which includes nαα and Cαβα ′β ′ the spin mode
+is stable but the excitation energy deviates from the exact v alues with increasing U . In
+ERPA (ﬁlled circles) the coupling to the two-body amplitude s plays a role shifting down the
+result of the SCRPA-like approach but the 2p-2h and 2h-2p amp litudes are not important
+in contrast to the case of the spin mode with |q| = π/3: The ERPA results calculated only
+with the 2p-2h and 2h-2p amplitudes are shown in Fig. 5 with th e open circles. Thus the
+two-body amplitudes which have small eigenvalues of S2 play a role in this spin mode.
+3.4. Two-phonon states with q = 0
+Finally we consider a state with q = 0 excited by two-body operators such as a†
+k4↑a†
+k5↓ak3↓ak2↑.
+Since the two-body operator is written as [ a†
+k4↑ak2↑] × [a†
+k5↓ak3↓] or −[a†
+k4↑ak3↓] × [a†
+k5↓ak2↑],
+the state with q = 0 corresponds to the two-phonon states of the spin modes wit h |q| = π/3
+and π discussed above. In HF the matrix elements of S2 for the 2p-2p, 2h-2h and ph-
+ph amplitudes vanish (see Eq. (21)) and SRPA does not have suc h amplitudes. In ERPA
+these amplitudes contribute to Eq. (14). Since the two-phon on state with q = 0 has the same
+quantum number as the ground state, we neglect X µ
+αβα ′β ′ with odd number of p and h states,
+9/11
+/s48 /s49 /s50 /s51 /s52
+/s49
+/s50
+/s51
+/s52/s69/s47/s116
+/s85/s47/s116
+Fig. 6 Excitation energy of the two-phonon state with q = 0 calculated in ERPA (circles)
+as a function of U/t. The crosses depict the results in SRPA. The results in EDA ar e given
+with the solid line.
+/s48 /s49 /s50 /s51 /s52
+/s48
+/s53/s48/s48
+/s49/s48/s48/s48
+/s49/s53/s48/s48
+/s83/s40/s69/s41
+/s69/s47/s116
+Fig. 7 Strength distribution calculated in ERPA (dot-dashed line ) at U/t = 4 for the
+two-phonon state. The dotted line depict the ERPA result whe re only the 2p-2h and 2h-2p
+components of the two-body amplitude are included as the two -body amplitude. The result
+in EDA is given with the solid line. The distributions are smo othed with width Γ /t = 1/20.
+to be consistent with the treatment of the ground state. The e xcitation energy of the two-
+phonon state in ERPA (circles) is shown in Fig. 6 as a function of U/t. The results in EDA
+are given with the solid line. The results in ERPA slightly ov erestimate the excitation energy
+for large U but are in good agreement with the exact values. In SRPA the ex cited energy
+goes down with increasing U and deviates from the exact values. The diﬀerence between
+the results in ERPA and SRPA demonstrates the importance of t he eﬀects of ground-state
+correlations.
+The strength function calculated in ERPA (solid line) at U/t = 4 for the operator ˆQ2
+q is
+shown in Fig. 7, where ˆQq is the excitation operator for the spin mode with |q| = π. The
+dotted line depicts the ERPA result where only the 2p-2h and 2 h-2p components are included
+10/11
+as the two-body amplitudes. The result in EDA is given with th e dot-dashed line. The
+distributions are smoothed with artiﬁcial width Γ /t = 1/20. The full ERPA result has the
+strength comparable to the exact solution, while the ERPA re sult calculated with only the
+2p-2h and 2h-2p amplitudes has quite small strength. The cou pling of the 2p-2h amplitudes
+to the 2h-2p amplitudes is essential to increase the collect ivity of two-phonon states [22].
+The ph-ph amplitude plays an important role in such a couplin g because the number of the
+ph-ph conﬁgurations is much larger than that of the 2p-2p and 2h-2h conﬁgurations.
+4. Summary
+The role of the small-norm amplitudes such as the particle-p article and hole-hole components
+of the one-body amplitudes and the two-body amplitudes othe r than the two particle -
+two holes amplitudes were investigated for the one-dimensi onal Hubbard model using an
+extended RPA (ERPA) derived from the time-dependent densit y-matrix theory. It was found
+that these amplitudes cannot be neglected in strongly inter acting regions ( U/t > 1) where
+the eﬀects of ground-state correlations are signiﬁcant. In r ealistic applications of ERPA,
+however, we are usually forced to truncate the two-body ampl itudes because the number of
+their elements increases rapidly with increasing number of single-particle states.
+References
+[1] D. J. Rowe, Rev. Mod. Phys. 40, 153 (1968), and references therein.
+[2] P. Schuck and S. Ethofer, Nucl. Phys. A 212, 269(1973).
+[3] J. Dukelsky and P. Schuck, Nucl. Phys. A 512, 466 (1990).
+[4] S. Dro˙ zd˙ z, S. Nishizaki, J. Speth and J. Wambach, Phys. Rep. 197, 1 (1990), and references therein.
+[5] K. Takayanagi, K. Shimizu and A. Arima, Nucl. Phys. A 477, 205 (1988).
+[6] S. J. Wang and W. Cassing: Ann. Phys. 159, 328 (1985).
+[7] M. Gong and M. Tohyama: Z. Phys. A 335, 153 (1990).
+[8] M. Tohyama and M. Gong, Z. Phys. A 332, 269 (1989).
+[9] S. Adachi and E. Lipparini, Nucl. Phys. A 489, 445 (1988).
+[10] M. Tohyama and P. Schuck, Eur. Phys. J. A 19, 203 (2004).
+[11] M. Tohyama and P. Schuck, Eur. Phys. J. A 32, 139 (2007).
+[12] M. Tohyama and P. Schuck, Eur. Phys. J. A 50, 7 (2014).
+[13] M. Tohyama, Prog. Theor. Phys. 92, 95 (1994).
+[14] M. Tohyama, Phys. Rev. A 71 (2005) 043613.
+[15] M. Gell-Mann and F. Low, Phys. Rev. 84, 350 (1951).
+[16] M. Assi´ e and D. Lacroix, Phys. Rev. Lett. 102, 202501 (2009).
+[17] A. Pﬁtzner, W. Cassing, and A. Peter, Nucl. Phys. A 577, 753 (1994).
+[18] S. Takahara, M. Tohyama, P. Schuck, Phys. Rev. C 70, 057307 (2004).
+[19] M. Tohyama and P. Schuck, Eur. Phys. J A 36, 349 (2008).
+[20] D. Janssen and P. Schuck, Z. Phys. A 339, 43 (1991).
+[21] M. Jemai, P. Schuck, J. Dukelsky, R. Bennaceur, Phys. Re v. B 71, 085115 (2005).
+[22] M. Tohyama, Phys. Rev. C 64, 067304 (2001).
+11/11

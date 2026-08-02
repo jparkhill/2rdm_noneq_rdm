@@ -1,0 +1,1208 @@
+arXiv:nucl-th/0311016v1  6 Nov 2003
+Extended RPA with ground-state correlations
+M.Tohyama, S. Takahara
+Kyorin University School of Medicine, Mitaka, Tokyo 181-86 11, Japan
+P. Schuck
+Institut de Physique Nucl ´eaire, IN2P3-CNRS, Universit ´e Paris-Sud, F-91406 Orsay Cedex, France
+(Dated: November 4, 2018)
+We propose a time-independent method for ﬁnding a correlate d ground state of an extended time-
+dependent Hartree-Fock theory, known as the time-dependen t density-matrix theory (TDDM). The
+correlated ground state is used to formulate the small ampli tude limit of TDDM (STDDM) which
+is a version of extended RPA theories with ground-state corr elations. To demonstrate the feasibility
+of the method, we calculate the ground state of 22O and study the ﬁrst 2 + state and its two-phonon
+states using STDDM.
+I. INTRODUCTION
+The study of unstable nuclei is a subject of current experimental and theoretical interests. Self-consistent theories
+such as the Hartree-Fock Bogoliubov theory (HFB) and the quasi- particle random-phase approximation (QRPA),
+which have extensively been used for stable nuclei, have also been ap plied to unstable nuclei, and the importance
+of ground-state correlations has been demonstrated [1, 2, 3]. In troducing a pairing ﬁeld, HFB and QRPA deal with
+pairing correlations in the framework of a mean ﬁeld theory. In cont rast to HFB and QRPA, the time-dependent
+density-matrix theory (TDDM) [4], which is one of extended time-dep endent Hartree-Fock theories, deals with ground-
+state correlations as genuine two-body correlations. TDDM has be en applied to giant resonances in stable nuclei [5, 6]
+and also to low-lying collective states in unstable nuclei [7, 8]. The small amplitude limit of TDDM (STDDM)
+[9], which is a time-independent version of TDDM, has also been used to calculate low-lying states in an oxygen
+isotope [10]. The importance of ground-state correlations has also been demonstrated by these TDDM and STDDM
+calculations. The correlated ground state used in these nuclear st ructure calculations, however, is an approximate
+one which is obtained using a time-dependent method: The initial Hart ree-Fock (HF) ground state is evolved in
+time using the equations of motion in TDDM and a time-dependent resid ual interaction whose strength gradually
+approaches its intended value with a time constant τ . In the case of a solvable model where we can take τ quite large,
+the ground state obtained has been found practically stationary a nd close to the exact one[11]. However, in realistic
+cases where it is diﬃcult to take suﬃciently large τ , the mixing of excited states, which causes spurious oscillations
+of some ground-state quantities, is unavoidable though it is small [12 ]. Therefore, it is anticipated to develop another
+method for ﬁnding a correlated ground state of the TDDM equation s. In this paper we propose a time-independent
+approach based on Newton’s gradient method and demonstrate its feasibility by calculating the ground state of 22O
+for which we have previously performed time-dependent calculation s [7, 8]. 22O is one of neutron-rich nuclei which
+attracts recent experimental and theoretical interests, and is quite suitable for our present study: Although it is an
+open shell nucleus, the HF assumption which we use to obtain a start ing ground state in the gradient method is valid
+as ﬁrst-order approximation, and the omission of the proton degr ees of freedom may be allowed in this explorative
+study because of the proton shell closure. The obtained ground s tate is used to construct the hamiltonian matrix of
+STDDM, and the ﬁrst 2 + state and its two phonon states in 22O are calculated. The paper is organized as follows.
+In sect.2 the time-independent method for obtaining a correlated g round state is presented. In sect.3 the formalism
+of STDDM is given. The results of numerical calculations for the grou nd-state, the ﬁrst 2 + state, and its two phonon
+states are shown in sect.4 and sect.5 is devoted to a summary.
+II. METHOD FOR FINDING A CORRELATED GROUND STATE
+The ground state |Φ 0⟩ in TDDM is constructed so that
+F1(αα′) = ⟨Φ 0|[a+
+αaα ′,H ]|Φ 0⟩ = 0, (1)
+F2(α1α2α′
+2α′
+1) = ⟨Φ 0|[a+
+α 1a+
+α 2aα ′
+2
+aα ′
+1
+,H ]|Φ 0⟩ = 0, (2)
+are satisﬁed, where H is the total hamiltonian consisting of the kinetic energy term and a tw o-body interaction,
+and [ ] stands for the commutation relation. In other words, the o ccupation matrix n0
+αα ′ = ⟨Φ 0|a+
+α ′aα |Φ 0⟩ and the
+2
+two-body correlation matrix C0
+α 1α 2α ′
+1α ′
+2
+= ⟨Φ 0|a+
+α ′
+1
+a+
+α ′
+2
+aα 2aα 1 |Φ 0⟩ − A(n0
+α 1α ′
+1
+n0
+α 2α ′
+2
+), where A is the antisymmetrization
+operator, are determined so that Eqs.(1) and (2) are satisﬁed. T he expressions for Eqs.(1) and (2) have already been
+given in Ref.[9] but are shown again in Appendix A. The single-particle wa vefunctionψα is chosen to be an eigenstate
+of the mean ﬁeld hamiltonian h0(ρ0):
+h0(ρ0)ψα (1) = − ¯h2∇2
+2m ψα (1) +
+∫
+d2v(1, 2)[ρ0(2, 2)ψα (1) −ρ0(1, 2)ψα (2)] = ǫαψα (1), (3)
+where the numbers denote space, spin, and isospin coordinates, a nd the one-body density matrix ρ0 is given as
+ρ0(11′) =
+∑
+αα ′
+n0
+αα ′ψα (1)ψ∗
+α ′ (1′). (4)
+Attempts have been made to ﬁnd a solution of Eqs.(1) and (2) [13]. Ho wever, this is not evident partly because
+Eqs.(1) and (2) are not in the form of an eigenvalue problem. The time -dependent method has been developed and
+tested for a solvable model [11] and realistic nuclei [7, 8, 12] as ment ioned above. In the following we propose a
+time-independent approach using iterative Newton’s gradient meth od. We start from the HF ground state where
+n0
+αα ′ =δαα ′ (0) for occupied (unoccupied) single-particle states and C0
+α 1α 2α ′
+1α ′
+2
+= 0. Then we iterate
+(
+n0(N + 1)
+C0(N + 1)
+)
+=
+(
+n0(N )
+C0(N )
+)
+−α
+(
+δF1/δn0 δF1/δC 0
+δF2/δn0 δF2/δC 0
+) −1(
+F1(N )
+F2(N )
+)
+=
+(
+n0(N )
+C0(N )
+)
+−α
+(
+a c
+b d
+) −1(
+F1(N )
+F2(N )
+)
+(5)
+until convergence is achieved, where the matrix elements a, b, c, and d, which also depend on the iteration step N ,
+are equivalent to those appearing in the hamiltonian matrix of STDDM. They are given in Ref.[10] and also shown
+in Appendix B. We have to introduce a small parameter α to control the convergence process. We have tested this
+iterative method for a solvable model [14] and found that the obta ined result is equivalent to the solution which had
+been obtained using the time dependent approach [11].
+III. SMALL AMPLITUDE LIMIT OF TDDM
+TDDM gives the time-evolution of the one-body density-matrix ρ and the correlated part C2 of a two-body density-
+matrix [4, 15], and STDDM has been formulated by linearizing the equat ions of motion for ρ andC2 [9]. The equations
+of STDDM for the one-body amplitude xαα ′ (µ) and the two-body amplitude Xα 1α 2α ′
+1α ′
+2
+(µ) can be written in matrix
+form [10]
+(
+a c
+b d
+)(
+x
+X
+)
+=ωµ
+(
+x
+X
+)
+. (6)
+Eq.(6) can also be obtained from the following equations:
+⟨Φ 0|[a+
+α ′aα,H ]|Φ ⟩ = ωµ ⟨Φ 0|a+
+α ′aα |Φ ⟩, (7)
+⟨Φ 0|[a+
+α ′
+1
+a+
+α ′
+2
+aα 2aα 1,H ]|Φ ⟩ = ωµ ⟨Φ 0|a+
+α ′
+1
+a+
+α ′
+2
+aα 2aα 1 |Φ ⟩, (8)
+where |Φ ⟩ is the wavefunction for an excited state with excitation energy ωµ . Linearizing Eqs.(7) and (8) with respect
+to xαα ′ = ⟨Φ 0|a+
+α ′aα |Φ ⟩ and Xα 1α 2α ′
+1α ′
+2
+= ⟨Φ 0|a+
+α ′
+1
+a+
+α ′
+2
+aα 2aα 1 |Φ ⟩, and using n0
+αα ′ = ⟨Φ 0|a+
+α ′aα |Φ 0⟩ and C0
+α 1α 2α ′
+1α ′
+2
+=
+⟨Φ 0|a+
+α ′
+1
+a+
+α ′
+2
+aα 2aα 1 |Φ 0⟩ − A(n0
+α 1α ′
+1
+n0
+α 2α ′
+2
+), we can obtain Eq.(6). The fact that the linearization of Eqs.(7) an d (8)
+gives Eq.(6) might explain why the matrices a, b,c, and d are given by the variation of F1 and F2. The hamiltonian
+matrix of Eq.(6) is not hermitian as easily be understood from its explic it form (see Appendix B). In the case of
+a non-hermitian hamiltonian matrix, the ortho-normal and complete ness relations are given not by the hermitian
+conjugate of |µ⟩ = (x, X) but by the left-hand-side eigenvectors |˜µ⟩ = (˜x, ˜X) which satisfy
+(˜x∗, ˜X ∗)
+(
+a c
+b d
+)
+=ωµ (˜x∗, ˜X ∗), (9)
+3
+as explained in Ref.[10]. When the ground-state |Φ 0⟩ is assumed to be the HF one and only the particle (p) - hole
+(h) and 2p - 2h amplitudes (and their complex conjugates) are take n in Eq.(6), STDDM reduces to the second RPA
+(SRPA) [16, 17, 18].
+The strength function is deﬁned as
+S(E) =
+∑
+Eµ >0
+|⟨Ψ µ | ˆQ|Ψ 0⟩|2δ(E −Eµ ), (10)
+where |Ψ 0⟩ is the ground-state, |Ψ µ ⟩ is an excited state with an excitation energy Eµ , and ˆQ an excitation operator.
+The strength function in STDDM for a one-body operator ˆQ1 is given as [10]
+S(E) = − 1
+πIm{
+∑
+Re(ω µ )>0
+[
+( ∑
+αα ′
+⟨α|Q1|α′⟩xα ′α (µ)
+) 
+∑
+ββ ′
+⟨β|Q1|β′⟩˜xt
+β ′β (µ)
+
+
+∗
+1
+E −ωµ +iΓ/2
+−
+( ∑
+αα ′
+⟨α|Q1|α′⟩xα ′α (µ)
+) ∗
+∑
+ββ ′
+⟨β|Q1|β′⟩˜xt
+β ′β (µ)
+
+ 1
+E +ω∗µ +iΓ/2 ]}, (11)
+where an artiﬁcial width Γ is put to obtain a smooth distribution for S(E) and ˜xt
+αα ′ (µ) is deﬁned as
+˜xt
+αα ′ (µ) =
+∑
+λλ ′
+S11(αα′ :λλ′)˜xλλ ′ (µ) +
+∑
+λ 1λ 2λ ′
+1λ ′
+2
+T12(αα′ :λ1λ2λ′
+1λ′
+2) ˜Xλ 1λ 2λ ′
+1λ ′
+2
+(µ). (12)
+Here S11 and T12 are deﬁned as
+S11(αα′ :λλ′) = ⟨Φ 0|[a+
+α ′aα,a +
+λaλ ′ ]|Φ 0⟩, (13)
+T12(αα′ :λ1λ2λ′
+1λ′
+2) = ⟨Φ 0|[a+
+α ′aα, :a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+:]|Φ 0⟩, (14)
+where : : means that : a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+:=a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+− A(a+
+λ 1aλ ′
+1
+⟨Φ 0|a+
+λ 2aλ ′
+2
+|Φ 0⟩+a+
+λ 2aλ ′
+2
+⟨Φ 0|a+
+λ 1aλ ′
+1
+|Φ 0⟩). Similarly,
+the strength function in STDDM for a two-body excitation operato r ˆQ2 is given as
+S(E) = − 1
+πIm{
+∑
+Re(ω µ )>0
+[
+
+ ∑
+α 1α 2α ′
+1α ′
+2
+⟨α1α2|Q2|α′
+1α′
+2⟩Xα ′
+1α ′
+2α 1α 2 (µ)
+
+
+×
+
+ ∑
+β 1β 2β ′
+1β ′
+2
+⟨β1β2|Q2|β′
+1β′
+2⟩ ˜X t
+β ′
+1β ′
+2β 1β 2 (µ)
+
+
+∗
+1
+E −ωµ +iΓ/2
+−
+
+ ∑
+α 1α 2α ′
+1α ′
+2
+⟨α1α2|Q2|α′
+1α′
+2⟩Xα ′
+1α ′
+2α 1α 2(µ)
+
+
+∗
+×
+
+ ∑
+β 1β 2β ′
+1β ′
+2
+⟨β1β2|Q2|β′
+1β′
+2⟩ ˜X t
+β ′
+1β ′
+2β 1β 2 (µ)
+
+ 1
+E +ω∗µ +iΓ/2 ]}, (15)
+where ˜X t
+α 1α 2α 1α ′
+2
+(µ) is given by
+˜X t
+α 1α 2α 1α ′
+2
+(µ) =
+∑
+λλ ′
+T21(α1α2α′
+1α′
+2 :λλ′)˜xλλ ′ (µ)
++
+∑
+λ 1λ 2λ ′
+1λ ′
+2
+S22(α1α2α′
+1α′
+2 :λ1λ2λ′
+1λ′
+2) ˜Xλ 1λ 2λ ′
+1λ ′
+2
+(µ). (16)
+Here T21 and S22 are deﬁned as
+T21(α1α2α′
+1α′
+2 :λλ′) = ⟨Φ 0|[:a+
+α ′
+1
+a+
+α ′
+2
+aα 2aα 1 :,a +
+λaλ ′ ]|Φ 0⟩. (17)
+S22(α1α2α′
+1α′
+2 :λ1λ2λ′
+1λ′
+2) = ⟨Φ 0|[:a+
+α ′
+1
+a+
+α ′
+2
+aα 2aα 1 :, :a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+:]|Φ 0⟩. (18)
+S11, S22, T12 and T21 are written in terms of n0
+αα ′ and C0
+αβα ′β ′, and are given explicitly in Ref.[19]. The strength
+functions in STDDM are not guaranteed to be positive deﬁnite, as is e asily understood from Eqs.(11) and (15). In
+practical applications this has not caused problems.
+4
+IV. NUMERICAL SOLUTIONS
+A. Correlated ground state
+In this subsection we present how the correlated ground state of 22O is calculated and discuss some properties of
+the obtained ground state. To prepare the starting ground stat e for Eq.(5), we perform a static HF calculation as the
+ﬁrst step. The Skyrme III (SKIII) is used as the eﬀective interac tion to generate a mean ﬁeld. It has often been used
+as one of the standard parameterizations of the Skyrme force in n uclear structure calculations even for very neutron
+rich nuclei [1, 20]. We assume in the HF calculation that 1 d5/ 2 is the last fully occupied neutron orbit of 22O. Since
+Eq.(5) involves matrix inversion at each iteration step, it is diﬃcult to u se a large number of single-particle states
+to solve Eq.(5). In this explorative study we only use the two neutro n orbits, 1 d5/ 2 and 2s1/ 2, to evolve n0
+αα ′ and
+C0
+αβα ′β ′. Conﬁgurations consisting of these two orbits are considered to b e the major components of the correlated
+ground state and the ﬁrst 2 + state. The single-particle wavefunctions are conﬁned to a sphere with radius 12 fm.
+The mesh size used is 0.1 fm. At each iteration step of Eq.(5), Eq.(3) is solved. This means that the single-particle
+states also evolve in a consistent way. In a self-consistent calculat ion the residual interaction should be the same as
+that used to generate the mean ﬁeld. However, we had found in pre vious studies for giant resonances [21] that SKIII
+induces negligible ground-state correlations when the single-partic le space is signiﬁcantly truncated. This is the case
+also in this study of 22O as will be shown below. Therefore, we present the results using th e following pairing-type
+residual interaction of the density-dependent δ function form [22] which is known to induce signiﬁcant ground-state
+correlations [8]
+v(r − r′) = v0(1 −ρ(r)/ρ0)δ3(r − r′), (19)
+whereρ(r) is the nuclear density. The parameters ρ0 andv0 are set to be 0.16fm −3 and −900 MeV fm 3, respectively.
+Similar values of ρ0 and v0 have been used in HFB calculations [23, 24, 25] in truncated single-pa rticle space. The
+converged result somewhat depends on how the iteration process is chosen. We found that to achieve real convergence
+it is necessary to start with a small value of v0 and gradually increase it: In the calculation shown below we start
+withv0/20 and increase it by v0/20 for each 100 iterations. The sum of the absolute values of the ma trix elements of
+F1 andF2 is shown in Fig.1 as a function of the number of iterations. The ﬁnal va lue of∑ (|F1| + |F2|) at 2100th step
+is 2.5 × 10−5MeV. Figure 1 demonstrates that the iteration method Eq.(5) work s quite well. The ﬁnal single-particle
+energies of the 1 d5/ 2 and 2s1/ 2 are -6.9 MeV and -2.8 MeV, respectively. Their occupation probabilitie s are 0.98 and
+0.05, respectively. The correlation energy Ecor deﬁned as
+Ecor = 1
+2
+∑
+αβα ′β ′
+⟨αβ|v|α′β′⟩Cα ′β ′αβ (20)
+is -0.60 MeV. The total energy is decreased by 0.22 MeV from the HF v alue: The correlation energy is largely
+compensated by the increase of the HF energy.
+B. Low-lying 2+ states
+Using the correlated ground state shown above, we solve Eq.(6) an d calculate the strength function for 2 + states
+according to Eq.(11). To be consistent with the calculation of n0
+αα ′ and C0
+αβα ′β ′, we only use the neutron 1 d5/ 2 and
+2s1/ 2 orbits forxαα ′ andXαβα ′β ′. The eigenvalues of some 2 + states become imaginary because the hamiltonian matrix
+of Eq.(6) is not hermitian. However, their imaginary parts are quite s mall (less than 0.05MeV). Some 2 + states have
+also negative quadrupole strengths because positivity of S(E) is not guaranteed. However, the negative contributions
+are so small that S(E) becomes positive in the entire energy region when it is smoothed with Γ = 0 .5MeV. The
+obtained result for Q1 =r2Y20 in STDDM (solid line) is shown in Fig.2, where the strength functions in RP A (dot-
+dashed line) and SRPA (thin dotted line) is also presented for compar ison. The 2 + state calculated in STDDM is
+energetically shifted upward and becomes signiﬁcantly more collectiv e as compared with that in RPA. The increase in
+the excitation energy is due to the lowering of the ground state, wh ich is realized by the increase in the unperturbed
+p-h energy through the coupling to C0
+α ′β ′αβ . We will discuss this point in more detail below. The enhancement of
+the collectivity of the 2 + state is due to the mixing of two-body conﬁgurations. These prope rties of the ﬁrst 2 + state
+under the inﬂuence of ground-state correlations are similar to tho se obtained from QRPA calculations [2, 3]. The
+reduced transition probability obtained is 68 fm 4. If the neutron eﬀective charge is assumed to be 0 .5e, the value
+of B(E2 : 0 + → 2+
+1 ) becomes 17 e2fm4, which might be comparable with the experimental value of 21 ± 8 e2fm4
+[26]. The 2 + state in SRPA is simply shifted downwards due to the coupling to 2p-2h conﬁgurations located around
+8 MeV.
+5
+/s48 /s53/s48/s48 /s49/s48/s48/s48 /s49/s53/s48/s48 /s50/s48/s48/s48
+/s48/s46/s48
+/s48/s46/s50
+/s48/s46/s52
+/s48/s46/s54
+/s48/s46/s56
+/s49/s46/s48
+/s49/s46/s50
+/s49/s46/s52
+/s40/s124/s70/s49/s124/s43/s124/s70/s50/s124/s41/s32/s91/s77/s101/s86/s93
+/s78/s117/s109/s98/s101/s114/s32/s111/s102/s32/s105/s116/s101/s114/s97/s116/s105/s111/s110/s115
+FIG. 1: Sum of the absolute values of the matrix elements of F1 and F2 as a function of the number of iterations. Each spike
+corresponds to an increase of the interaction strength by v0/20 (see text).
+/s48 /s50 /s52 /s54 /s56 /s49/s48
+/s48
+/s53
+/s49/s48
+/s49/s53
+/s50/s48
+/s83/s40/s69/s41/s32/s91/s102/s109
+/s52
+/s47/s77/s101/s86/s93
+/s69/s32/s91/s77/s101/s86/s93
+FIG. 2: Strength distributions of the neutron quadrupole mo des in 22O calculated in STDDM (solid line), SRPA (thin dotted
+line) and RPA (dot-dashed line). The strength functions are smoothed with Γ = 0 .5 MeV.
+C. Two phonon states
+The strength functions for the two-body operators Q2 = [r2Y2 ⊗r2Y2]J
+0 withJ =0, 2, and 4 are also calculated using
+Eq.(15) and the obtained results are shown in Fig.3. The transition st rength decreases with increasing J, whereas it
+would be independent of J if a pure phonon picture were valid. The ratios of the transition stre ngths of the 2 + and
+4+ states to that of the 0 + state are 0.55 and 0.30, respectively. These ratios should be compa red with 4/5 and 1/3,
+respectively, which are obtained assuming unperturbed two 2 s1/ 2 particle - two 1 d5/ 2 hole conﬁgurations. Although
+the excitation energies of the 2 +and 4 + states are about twice the excitation of the 1 phonon state, the 0 + state is
+located at quite low energy. This originates in the nature of the resid ual interaction of the δ-function form (Eq.(19))
+which strongly favors a nucleon pair with J π = 0 +. The large spacing between the 0 + state and the 2 + state is
+similar to that obtained from the shell model calculation [27]. The stre ngth distribution of the 2 + state has some
+small components in the low energy region (below 5 MeV). This problem will be discussed in the next subsection. The
+6
+/s48 /s50 /s52 /s54 /s56 /s49/s48
+/s48
+/s49/s48/s48
+/s50/s48/s48
+/s51/s48/s48
+/s52/s48/s48
+/s53/s48/s48
+/s83/s40/s69/s41/s32/s91/s102/s109
+/s56
+/s47/s77/s101/s86/s93
+/s69/s32/s91/s77/s101/s86/s93
+FIG. 3: Strength distributions of the two-phonon states of t he neutron quadrupole modes in 22O calculated in STDDM. The
+solid, dotted and dot-dashed lines depict the results for 0 +, 2+ and 4+ states, respectively. The strength functions are smoothed
+with Γ = 0 .5 MeV.
+transition probability between the one-phonon state and one of th e two-phonon states is not well deﬁned in STDDM
+but may be calculated as [28]
+⟨Φ 0|[Oµ, ˆQ1]|µ′⟩⟨Φ 0|[Oµ ′, ˆQ1]|µ⟩
+⟨˜µ|µ⟩⟨˜µ′|µ′⟩ , (21)
+where Oµ is deﬁned as
+Oµ =
+∑
+(˜x∗
+λλ ′ (µ)a+
+λ ′aλ + ˜X ∗
+λ 1λ 2λ ′
+1λ ′
+2
+(µ)a+
+λ ′
+1
+a+
+λ ′
+2
+aλ 2aλ 1). (22)
+The reduced transition probabilities from the 0 +, 2 +, and 4 + states to the 1 phonon state are 16, 14, and 12 fm 4,
+respectively, which are close to the value 68/5 ≈14 fm 4 for the transition from the ﬁrs 2 + state to the ground state. If
+a pure phonon picture were valid, these values would be independent of the angular momenta of the 2 phonon states.
+In the following we compare STDDM with SRPA. The strength function s calculated in SRPA are shown in Fig. 4.
+The transition strengths in SRPA are much smaller than those in STDD M. Note that Fig. 4 is drawn in the same
+scale as Fig. 3. It had been pointed out [28] that the Xphph amplitude is important to reproduce the collectivity of
+low-lying two phonon states. To investigate this point, we performe d a calculation for the 0 + state using a modiﬁed
+SRPA (mSRPA) which includes Xphph: mSRPA can be obtained from Eq.(6) by evaluating the hamiltonian mat rix
+using the HF ground state. The result is shown in Fig. 5. The Xphph amplitude signiﬁcantly enhances the collectivity
+of the 0 + state. However, the transition strength in mSRPA is still smaller tha t that in STDDM. In Fig. 5 we also
+show the result of a further modiﬁed SRPA which includes all two-bod y amplitudes except for the 3p-1h, 1h-3p, 3h-1p
+and 1p-3h amplitudes. The 3p-1h and 3h-1p amplitudes do not increa se the transition strength, although they change
+somewhat the form of the strength function. Now the transition s trength becomes 91% of the strength in STDDM.
+Thus all two-body amplitudes except for the 3p-1h and 3h-1p type s seem to be important to describe the collectivity
+of the low-lying 2 phonon states. This is in contrast to two-phonon s tates of giant resonances where the transition
+strengths are exhausted by the 2p-2h, 2h-2p and 1p1h-1p1h am plitudes [29]. The fact that the 0 + state in STDDM
+is not much lowered as compared with the modiﬁed SRPA results is due t o ground-state correlations.
+We also performed a self-consistent STDDM calculation using SKIII a s a residual interaction. For simplicity, we
+neglected the spin-orbit force. Since there is a strong cancellation between the momentum dependent and independent
+terms, SKIII induces quite weak ground-state correlations in the truncated single-particle space considered in this
+work: The occupation probabilities of the 1 d5/ 2 and 2s1/ 2 are 0.9999 and 0.0003, respectively. The strength functions
+for the two-phonon states are shown in Fig.6. The ratios of the g.s. → 2+ and 4 + transition strengths to the g.s. → 0+
+one are 0.77 and 0.33, respectively, which are close to 4/5 and 1/3 ob tained assuming the unperturbed conﬁgurations
+as discussed above. Since SKIII is eﬀectively a very weak interactio n in the truncated single-particle space, there is
+no signiﬁcant diﬀerence between the STDDM and SRPA results.
+7
+/s48 /s50 /s52 /s54 /s56 /s49/s48
+/s48
+/s49/s48/s48
+/s50/s48/s48
+/s51/s48/s48
+/s52/s48/s48
+/s53/s48/s48
+/s83/s40/s69/s41/s32/s91/s102/s109
+/s56
+/s47/s77/s101/s86/s93
+/s69/s32/s91/s77/s101/s86/s93
+FIG. 4: Strength distributions of the two-phonon states of t he neutron quadrupole mode in 22O calculated in SRPA. The solid,
+dotted and dot-dashed lines depict the results for 0 +, 2+ and 4 + states, respectively. The strength functions are smoothed
+with Γ = 0 .5 MeV.
+/s48 /s50 /s52 /s54 /s56 /s49/s48
+/s48
+/s49/s48/s48
+/s50/s48/s48
+/s51/s48/s48
+/s52/s48/s48
+/s53/s48/s48
+/s83/s40/s69/s41/s32/s91/s102/s109
+/s56
+/s47/s77/s101/s86/s93
+/s69/s32/s91/s77/s101/s86/s93
+FIG. 5: Strength distributions of the 0 + two-phonon state of the neutron quadrupole modes in 22O calculated in STDDM (solid
+line), SRPA (dot-dashed line) and mSRPA (dotted line) which includes Xphph type amplitudes. The thin solid line indicates
+the result calculated using further modiﬁed SRPA where the Xpppp and Xhhhh type amplitudes are added to mSRPA. The
+strength functions are smoothed with Γ = 0 .5 MeV.
+D. Incoherent states
+Now we discuss incoherent states which are seen in the low energy re gion of the strength function of the 2 phonon
+state with J π = 2 + (Fig. 3). These incoherent states have large components of the 3 p-1h and 1p-3h conﬁgurations
+which have the same unperturbed energy as the 1p-1h conﬁgurat ions. Since the 3p-1h, 3h-1p amplitudes and their
+complex conjugates are used as dynamical amplitudes in Eq.(6), the se incoherent states naturally appear as eigenstates.
+However, the important physical role played by these amplitudes se ems to be a rather kinematical one. To clarify this
+point, we use a diﬀerent expression for Eq.(6) [10]. When the eigenve ctor (x,X ) in STDDM is transformed to ( y,Y )
+8
+/s50 /s52 /s54 /s56 /s49/s48 /s49/s50
+/s48
+/s49/s48/s48
+/s50/s48/s48
+/s51/s48/s48
+/s52/s48/s48
+/s53/s48/s48
+/s83/s40/s69/s41/s32/s91/s102/s109
+/s56
+/s47/s77/s101/s86/s93
+/s69/s32/s91/s77/s101/s86/s93
+FIG. 6: Strength distributions of the two-phonon states of t he neutron quadrupole modes in 22O calculated in STDDM using
+SKIII. The solid, dotted and dot-dashed lines depict the res ults for 0 +, 2+ and 4 + states, respectively. The result in SRPA for
+the 0 + state is also shown with the thin solid line. The strength fun ctions are smoothed with Γ = 0 .5 MeV.
+as
+(
+x
+X
+)
+=
+(
+S11 T12
+T21 S22
+)(
+y
+Y
+)
+, (23)
+Eq.(6) becomes
+(
+aS11 +cT21 aT12 +cS22
+bS11 +dT21 bT12 +dS22
+)(
+y
+Y
+)
+=ωµ
+(
+S11 T12
+T21 S22
+)(
+y
+Y
+)
+. (24)
+It has been pointed out [10] that this form of STDDM is a reasonable a pproximation for an extended RPA with
+hermiticity [19]. The kinematical eﬀects of ground-state correlatio ns are included in the hamiltonian matrix of
+Eq.(24). For example, the increase of the unperturbed energy of 1 phonon states due to ground-state correlations
+is given by cT21 in aS11 +cT21, whereas aS11 describes the renormalization of the RPA matrix due to the change
+in occupation factors. Omitting the 3p-1h and 3h-1p amplitudes and their complex conjugates in Y , we can avoid
+dynamical contributions of these amplitudes. This modiﬁed STDDM is r eferred to as mSTDDM. The obtained
+results for the 1 phonon state and the 2 phonon state with J π = 2 + are shown with thin dotted lines in Figs.7 and
+8, respectively. The coherent states are little aﬀected by the omis sion of the 3p-1h and 3h-1p amplitudes and their
+complex conjugates, and the incoherent states seen in the 2 phon on state can be eliminated. Thus it would be better
+to use Eq.(24) without the 3p-1h and 3h-1p type amplitudes instead of using Eq.(6) with full two-body amplitudes
+when we are interested in the calculation of the strength functions . However, we also found that the omission of the
+the 3p-1h and 3h-1p type amplitudes aﬀects the transition probab ility between excited states when it is evaluated
+using Eq.(21).
+Finally we discuss incoherent states associated with one-body and t wo-body amplitudes which have zero unperturbed
+energy: xpp,xhh,Xphph,Xpppp, and Xhhhh are such amplitudes. Some incoherent solutions of Eq.(6) or Eq.(24) have
+ﬁnite energies but most of them stay at zero or nearly zero energie s. The transition strengths to these states are so
+small that they are invisible in the strength functions shown above. If these amplitudes are neglected and only xph,
+xhp, Xpphh, and Xhhpp are taken in Eq.(24), these incoherent states disappear. Howeve r, a serious problem arises as
+to the collectivity of coherent states, especially of 2 phonon state s, as explained above. Therefore, what we must do
+would be to interpret these incoherent states as unphysical ones and consider only coherent states.
+9
+/s48 /s50 /s52 /s54 /s56 /s49/s48
+/s48
+/s53
+/s49/s48
+/s49/s53
+/s50/s48
+/s83/s40/s69/s41/s32/s91/s102/s109
+/s52
+/s47/s77/s101/s86/s93
+/s69/s32/s91/s77/s101/s86/s93
+FIG. 7: Strength distributions of the neutron quadrupole mo de calculated in STDDM (solid line) and mSTDDM (thin dotted
+line). The result in RPA (dot-dashed line) is also shown for c omparison. The strength functions are smoothed with Γ = 0 .5
+MeV.
+/s48 /s50 /s52 /s54 /s56 /s49/s48
+/s48
+/s53/s48
+/s49/s48/s48
+/s49/s53/s48
+/s50/s48/s48
+/s50/s53/s48
+/s51/s48/s48
+/s83/s40/s69/s41/s32/s91/s102/s109
+/s56
+/s47/s77/s101/s86/s93
+/s69/s32/s91/s77/s101/s86/s93
+FIG. 8: Strength distributions of the 2 + two-phonon state calculated in STDDM (solid line) and mSTDD M (thin dotted
+line).The strength functions are smoothed with Γ = 0 .5 MeV.
+E. Eﬀects of three-body amplitudes
+The hamiltonian matrix bT12 +dS22 for the two-body amplitudes in Eq.(24) cannot represent all terms in the
+extended RPA of Ref.[19]. The terms coming from
+∑
+γ 1γ 2γ 3γ ′
+1γ ′
+2γ ′
+3
+e(α1α2α′
+1α′
+2 :γ1γ2γ3γ′
+1γ′
+2γ′
+3)T32(γ1γ2γ3γ′
+1γ′
+2γ′
+3 :λ1λ2λ′
+1λ′
+2) (25)
+are the missing terms. Here e is a matrix that would come into the hamiltonian matrix if we included a thr ee-body
+amplitude in the evaluation of the left-hand side of Eq.(8), and is given as
+e(α1α2α′
+1α′
+2 :γ1γ2γ3γ′
+1γ′
+2γ′
+3) = −⟨α1γ′
+3|v|γ1γ2⟩δα 2γ 3δα ′
+1γ ′
+1
+δα ′
+2γ ′
+2
++ ⟨α2γ′
+3|v|γ1γ2⟩δα 1γ 3δα ′
+1γ ′
+1
+δα ′
+2γ ′
+2
++ ⟨γ′
+1γ′
+2|v|α′
+1γ3⟩δα 1γ 1δα 2γ 2δα ′
+2γ ′
+3
+− ⟨γ′
+1γ′
+2|v|α′
+2γ3⟩δα 1γ 1δα 2γ 2δα ′
+1γ ′
+3
+. (26)
+10
+/s48 /s50 /s52 /s54 /s56 /s49/s48
+/s48
+/s49/s48/s48
+/s50/s48/s48
+/s51/s48/s48
+/s52/s48/s48
+/s53/s48/s48
+/s83/s40/s69/s41/s32/s91/s102/s109
+/s56
+/s47/s77/s101/s86/s93
+/s69/s32/s91/s77/s101/s86/s93
+FIG. 9: Strength distributions of the 0 + two-phonon state calculated in mSTDDM with Eq.(25) (solid l ine) and without it
+(dotted line). The strength functions are smoothed with Γ = 0 .5 MeV.
+T32 is deﬁned as
+T32(γ1γ2γ3γ′
+1γ′
+2γ′
+3 :λ1λ2λ′
+1λ′
+2) = ⟨Φ 0|[:a+
+γ ′
+1
+a+
+γ ′
+2
+a+
+γ ′
+3
+aγ 3aγ 2aγ 1 :, :a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+]|Φ 0⟩. (27)
+This eT32 term contributes to the two-body sector of the hamiltonian matrix in Eq.(24) when the transformation
+of Eq.(23) includes the three-body amplitudes. Kinematical eﬀects of ground-state correlations such as the increase
+in unperturbed energies of 2 phonon states are expressed by som e terms in Eq.(25). We performed a calculation in
+mSTDDM including Eq.(25) and found that the 1 phonon state is little aﬀ ected: The excitation energy of the ﬁrst 2 +
+state is unchanged and the transition strength to the ﬁrst 2 + state is slightly increased (by 2.5%). The inclusion of
+the terms in Eq.(25) somewhat aﬀects the properties of the 2 phon on states as expected: The excitation energies are
+increased by 0.2 ∼ 0.5 MeV and the transition strengths are decreased by 8 ∼ 20 %, depending on J of the 2 phonon
+states. As an example the strength functions for the 0 + state calculated in mSTDDM with the terms in Eq.(25)
+(solid line) and without them (dotted line) are shown in Fig. 9. Thus the terms in Eq.(25) need to be included in
+quantitative study of 2 phonon states.
+V. SUMMAR Y
+We proposed a time-independent method for obtaining a correlated ground-state of the time-dependent density-
+matrix theory (TDDM). The method was applied to obtain the correla ted ground state of 22O. The eigenstates of the
+small amplitude limit of TDDM (STDDM) were calculated for the ﬁrst 2 + state in 22O using the correlated ground
+state. It is found that STDDM properly deals with the eﬀects of gro und-state correlations on the low-lying 2 + state
+and that the non-hermiticity of STDDM is quite moderate one: The eig envalues have quite small imaginary parts
+and the strength function is practically positive deﬁnite although it is not guaranteed in its non-hermitian form. The
+2 phonon states of the 2 + state were also studied. It was found that the 2 phonon state with J π = 0 + appears at
+very low excitation energy. This originates in the nature of the zero range force used. The results obtained using
+the Skyrme III force as a residual interaction were also presente d. It was found that SKIII acts as a weak residual
+interaction in the very truncated single-particle space considered in this study. The physical roles played by the 3
+particle -1 hole and 3 hole - 1 particle type amplitudes in STDDM were disc ussed and a method for eliminating the
+incoherent states associated with these amplitudes was presente d. It was also pointed out that the self-energy terms
+for unperturbed 2 phonon conﬁgurations, which are missing in STDD M, can be included using the extended RPA
+formalism of Ref.[10, 19].
+11
+APPENDIX A
+When ψα is chosen to be an eigenstate of the mean ﬁeld hamiltonian (Eq.(3)), E qs.(1) and (2) become
+(ǫα ′ −ǫα )n0
+αα ′ =
+∑
+λ 1λ 2λ 3
+(C0
+λ 1λ 2α ′λ 3 ⟨αλ3|v|λ1λ2⟩ −C0
+αλ 3λ 1λ 2 ⟨λ1λ2|v|α′λ3⟩) (A1)
+(ǫα ′ +ǫβ ′ −ǫα −ǫβ )C0
+αβα ′β ′ = B0
+αβα ′β ′ +P 0
+αβα ′β ′ +H 0
+αβα ′β ′, (A2)
+where
+B0
+αβα ′β ′ =
+∑
+λ 1λ 2λ 3λ 4
+⟨λ1λ2|v|λ3λ4⟩A[(δαλ 1 −n0
+αλ 1 )(δβλ 2 −n0
+βλ 2)n0
+λ 3α ′n0
+λ 4β ′
+− n0
+αλ 1n0
+βλ 2(δλ 3α ′ −n0
+λ 3α ′ )(δλ 4β ′ −n0
+λ 4β ′ )], (A3)
+P 0
+αβα ′β ′ =
+∑
+λ 1λ 2λ 3λ 4
+⟨λ1λ2|v|λ3λ4⟩[(δαλ 1δβλ 2 −δαλ 1n0
+βλ 2 −n0
+αλ 1δβλ 2)C0
+λ 3λ 4α ′β ′
+− (δλ 3α ′δλ 4β ′ −δλ 3α ′n0
+λ 4β ′ −n0
+λ 3α ′δλ 4β ′)C0
+αβλ 1λ 2 ], (A4)
+H 0
+αβα ′β ′ =
+∑
+λ 1λ 2λ 3λ 4
+⟨λ1λ2|v|λ3λ4⟩A[δαλ 1 (n0
+λ 3α ′C0
+λ 4βλ 2β ′ −n0
+λ 3β ′C0
+λ 4βλ 2α ′ )
++ δβλ 2(n0
+λ 4β ′C0
+λ 3αλ 1α ′ −n0
+λ 4α ′C0
+λ 3αλ 1β ′)
+− δα ′λ 3 (n0
+αλ 1C0
+λ 4βλ 2β ′ −n0
+βλ 1C0
+λ 4αλ 2β ′)
+− δβ ′λ 4 (n0
+βλ 2C0
+λ 3αλ 1α ′ −n0
+αλ 2C0
+λ 3βλ 1α ′ )]. (A5)
+Here the subscript A indicates that the corresponding matrix is antisymmetrized.
+APPENDIX B
+The matrices in Eq.(6) are shown below:
+a(αα′ :λλ′) = ( ǫα −ǫα ′)δαλ δα ′λ ′ −
+∑
+β
+(⟨βλ′|v|α′λ⟩An0
+αβ − ⟨αλ′|v|βλ⟩An0
+βα ′ ), (B1)
+b(α1α2α′
+1α′
+2 :λλ′) = −δα 1λ {
+∑
+βγδ
+((δα 2β −n0
+α 2β )n0
+γα ′
+1
+n0
+δα ′
+2
++n0
+α 2β (δγα ′
+1
+−n0
+γα ′
+1
+)(δδα ′
+2
+−n0
+δα ′
+2
+)⟨λ′β|v|γδ⟩A
++
+∑
+βγ
+(⟨λ′α2|v|βγ ⟩C0
+βγα ′
+1α ′
+2
++ ⟨λ′β|v|α′
+1γ⟩AC0
+α 2γα ′
+2β − ⟨λ′β|v|α′
+2γ⟩AC0
+α 2γα ′
+1β }
++ δα 2λ {
+∑
+βγδ
+[(δα 1β −n0
+α 1β )n0
+γα ′
+1
+n0
+δα ′
+2
++n0
+α 1β (δγα ′
+1
+−n0
+γα ′
+1
+)(δδα ′
+2
+−n0
+δα ′
+2
+)⟨λ′β|v|γδ⟩A]
++
+∑
+βγ
+[⟨λ′α1|v|βγ ⟩C0
+βγα ′
+1α ′
+2
++ ⟨λ′β|v|α′
+1γ⟩AC0
+α 1γα ′
+2β − ⟨λ′β|v|α′
+2γ⟩AC0
+α 1γα ′
+1β ]}
++ δα ′
+1λ ′ {
+∑
+βγδ
+[(δδα ′
+2
+−n0
+δα ′
+2
+)n0
+α 1βn0
+α 2γ +n0
+δα ′
+2
+(δα 1β −n0
+α 1β )(δα 2γ −n0
+α 2γ )⟨βγ |v|λδ⟩A]
++
+∑
+βγ
+[⟨βγ |v|λα′
+2⟩C0
+α 1α 2βγ + ⟨α1β|v|λγ⟩AC0
+α 2γα ′
+2β − ⟨α2β|v|λγ⟩AC0
+α 1γα ′
+2β ]}
+− δα ′
+2λ ′ {
+∑
+βγδ
+[(δδα ′
+1
+−n0
+δα ′
+1
+)n0
+α 1βn0
+α 2γ +n0
+δα ′
+1
+(δα 1β −n0
+α 1β )(δα 2γ −n0
+α 2γ )⟨βγ |v|λδ⟩A]
++
+∑
+βγ
+[⟨βγ |v|λα′
+1⟩C0
+α 1α 2βγ + ⟨α1β|v|λγ⟩AC0
+α 2γα ′
+1β − ⟨α2β|v|λγ⟩AC0
+α 1γα ′
+1β ]}
++
+∑
+β
+[⟨α1λ′|v|βλ⟩AC0
+βα 2α ′
+1α ′
+2
+− ⟨α2λ′|v|βλ⟩AC0
+βα 1α ′
+1α ′
+2
+− ⟨βλ′|v|α′
+2λ⟩AC0
+α 1α 2α ′
+1β + ⟨βλ′|v|α′
+1λ⟩AC0
+α 1α 2α ′
+2β ], (B2)
+12
+c(αα′ :λ1λ2λ′
+1λ′
+2) = ⟨αλ′
+2|v|λ1λ2⟩δα ′λ ′
+1
+− ⟨λ′
+1λ′
+2|v|α′λ2⟩δαλ 1, (B3)
+d(α1α2α′
+1α′
+2 :λ1λ2λ′
+1λ′
+2) = ( ǫα 1 +ǫα 2 −ǫα ′
+1
+−ǫα ′
+2
+)δα 1λ 1δα 2λ 2δα ′
+1λ ′
+1
+δα ′
+2λ ′
+2
++ δα ′
+1λ ′
+1
+δα ′
+2λ ′
+2
+∑
+βγ
+(δα 1βδα 2γ −δα 2γn0
+α 1β −δα 1βn0
+α 2γ )⟨βγ |v|λ1λ2⟩
+− δα 1λ 1δα 2λ 2
+∑
+βγ
+(δα ′
+1βδα ′
+2γ −δα ′
+2γn0
+α ′
+1β −δα ′
+1βn0
+α ′
+2γ )⟨λ′
+1λ′
+2|v|βγ ⟩
++ δα 2λ 2δα ′
+2λ ′
+2
+∑
+β
+(⟨α1λ′
+1|v|βλ1⟩An0
+βα ′
+1
+− ⟨βλ′
+1|v|α′
+1λ1⟩An0
+α 1β )
++ δα 2λ 2δα ′
+1λ ′
+1
+∑
+β
+(⟨α1λ′
+2|v|βλ1⟩An0
+βα ′
+2
+− ⟨βλ′
+2|v|α′
+2λ1⟩An0
+α 1β )
++ δα 1λ 1δα ′
+1λ ′
+1
+∑
+β
+(⟨α2λ′
+2|v|βλ2⟩An0
+βα ′
+2
+− ⟨βλ′
+2|v|α′
+2λ2⟩An0
+α 2β )
++ δα 1λ 1δα ′
+2λ ′
+2
+∑
+β
+(⟨α2λ′
+1|v|βλ2⟩An0
+βα ′
+1
+− ⟨βλ′
+1|v|α′
+1λ2⟩An0
+α 2β ), (B4)
+where n0
+αα ′ = ⟨Φ 0|a+
+α ′aα |Φ 0⟩ and C0
+α 1α 2α ′
+1α ′
+2
+= ⟨Φ 0|a+
+α ′
+1
+a+
+α ′
+2
+aα 2aα 1 |Φ 0⟩ − A(n0
+α 1α ′
+1
+n0
+α 2α ′
+2
+).
+[1] E. Khan and N. Van Giai, Phys. Lett. B 472 (2000) 253.
+[2] E. Khan, N. Sandulescu, M. Grasso and N. Van Giai, Phys. Re v. C66 (2002) 024309.
+[3] M. Matsuo, Nucl. Phys. A696 (2001) 371.
+[4] M. Gong and M. Tohyama, Z. Phys. A335 (1990) 153.
+[5] F. De Blasio et al., Phys. Rev. Lett. 68 (1992) 1663.
+[6] M. Tohyama, Nucl. Phys. A657 (1999) 343.
+[7] M. Tohyama and A. S. Umar, Phys. Lett. B516 (2001) 415.
+[8] M. Tohyama and A. S. Umar, Phys. Lett. B549 (2002) 72.
+[9] M. Tohyama and M. Gong, Z. Phys. A332 (1989) 269.
+[10] M. Tohyama and P. Schuck, nucl-th/0305088.
+[11] M. Tohyama, Prog. Theor. Phys. 92 (1994) 905.
+[12] M. Tohyama, Prog. Theor. Phys. 94 (1995) 147.
+[13] M. Tohyama, P. Schuck and S. J. Wang, Z. Phys. A 339 (1991) 341.
+[14] H. J. Lipkin, N. Meshkov and A. J. Glick, Nucl. Phys. 62 (1965) 188.
+[15] S. J. Wang and W. Cassing, Ann. Phys. 159 (1985) 328; W. Cassing and S. J. Wang, Z. Phys. 328 (1987) 423.
+[16] J. Sawicki, Phys. Rev. 126 (1962) 2231; J. Da Providencia, Nucl. Phys. 61 (1965) 87.
+[17] C. Yannouleas, Phys. Rev. C35 (1987) 1159.
+[18] S. Dro˙ zd˙ z, S. Nishizaki, J. Speth and J. Wambach, Phys. Rep. 197 (1990) 1.
+[19] M. Tohyama and P. Schuck, nucl-th/0305087.
+[20] T. Otsuka, N. Fukunishi and H. Sagawa, Phys. Rev. Lett. 7 0 (1993) 1385.
+[21] M. Tohyama, Phys. Rev. C58 (1998) 2603.
+[22] R. R. Chasman, Phys. Rev. C14 (1976) 1935.
+[23] J. Terasaki, H. Flocard, P. -H. Heenen, P. Bonche, Nucl. Phys. A 621 (1997) 706.
+[24] T. Duguet, P. Bonche and P.-H. Heenen, Nucl. Phys. A 679 ( 2001) 427.
+[25] M. Yamagami, K. Matsuyanagi and M. Matsuo, Nucl. Phys. A 693 (2001) 579.
+[26] P. G. Thirof et al., Phys. Lett. B485 (2000) 16.
+[27] B. A. Brown, Prog. in Part. and Nucl. Phys. 47 (2001) 517; http://www.nscl.msu.edu/ ∼ brown/database.htm.
+[28] N. Kanesaki, T. Marumori, F. Sakata and K. Takada, Prog. Theor. Phys. 50 (1973) 867.
+[29] M. Tohyama, Phys. Rev. C64 (2001) 067304.

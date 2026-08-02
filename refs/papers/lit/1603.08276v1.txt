@@ -1,0 +1,3343 @@
+arXiv:1603.08276v1  [cond-mat.str-el]  28 Mar 2016
+Progress in Many Body Theory with the Equation of Motion meth od. Time
+dependent Density Matrix meets Self-Consistent RPA. Appli cations to solvable
+Models.
+Peter Schuck 1,2, Mitsuru Tohyama 3
+1Institut de Physique Nucl ´eaire, IN2P3-CNRS, Universit ´e Paris-Sud, F-91406 Orsay Cedex, France
+2Laboratoire de Physique et de Mod´ elisation des Milieux Con dens´ es,
+CNRS and Universit´ e Joseph Fourier, 25 Av. des Martyrs, BP 1 66, F-38042 and
+3Kyorin University School of Medicine, Mitaka, Tokyo 181-86 11, Japan
+The Bogoliubov-Born-Green-Kirkwood-Yvon or Time-Depend ent Density Matrix (TDDM) hier-
+archy of equations for higher density matrices is truncated at the three body level in approximating
+the three body correlation function by a quadratic form of tw o body ones, closing the equations
+in this way. The procedure is discussed in detail and it is sho wn in non-trivial model cases that
+the approximate inclusion of three body correlation functi ons is very important to obtain precise
+results. A small amplitude approximation of this time depen dent nonlinear equation for the two
+body correlation function is performed (STDDM*-b) and it is shown that the one body sector of
+this generalised non-linear second RPA equation is equival ent to the Self-Consistent RPA (SCRPA)
+approach which had been derived previously by diﬀerent tech niques. It is discussed in which way
+SCRPA also contains the three body correlations. TDDM and SC RPA are tested versus exactly
+solvable model cases.
+PACS numbers: 21.60.Jz, 71.10-w
+I. INTRODUCTION
+Many body theory is well deﬁned at the lowest
+order, that is, at the mean ﬁeld level. Practically
+in all domains of many body physics the same type
+of mean ﬁeld equations are applied, even though in
+detail there may be quite important deviations. This
+concerns, for instance, density functional theory, e.g.,
+` a la Kohn-Sham [1] where already important many
+body correlations are incorporated in an equation for
+the single particle density (matrix). The cases where,
+like in atomic physics, one can work with a one body
+theory built on a non-renormalised bare force as is the
+case with the original Hartree-Fock theory, are quite
+rare. In spite of the extraordinary success of these
+“eﬀective” mean ﬁeld approaches, in many cases, there
+is need to go beyond and treat two, three, .. body
+correlations explicitly. Unfortunately, so far, no well
+accepted universal method applicable in practically
+same way in all domains, analogous to mean ﬁeld theory,
+does not exist for higher correlation functions. Rather
+the situation is such that the way how correlations
+are treated is tailored to the problem at hand. There
+exist the Brueckner Hartree-Fock (BHF) [2] approach
+with extensions to treat the diﬃcult hard core problem
+of the force as , e.g., in nuclear physics or in liquid
+3He; there is the Gutzwiller wave function [3] to deal
+with double occupancies in lattice models; there are
+extensions of RPA together with various forms of Time
+dependent density matrix (TDDM) theory to be dealt
+with again in this work. Coupled Cluster theory (CCT)
+has become quite in vogue in chemistry [4], [5]. An
+important branch of many body physics is, of course,
+represented by the Quantum Monte Carlo (QMC)
+approaches [6], [7] and also the very successful Density
+Matrix Renormalisation Group Methods (DMRG) [8],
+[9]. The method of correlated basis functions [10] is a
+further promising theory. The list could be extended
+with many examples more.
+In such a disperse situation, we ﬁnd it promising to
+present in this work the merging of two types of many
+body approaches which evolved so far independently
+from one another. We, indeed, discovered, and this will
+be the main subject of this paper, that the recently
+proposed extension of TDDM where the Bogoliubov-
+Born-Green-Kirkwood-Yvon (BBGKY) hierarchy of
+coupled time dependent density matrices is truncated
+at the three body level, approximating the three body
+density matrix by a quadratic form of two body densities
+leading to a self consistent closed non-linear equation
+for the two body density matrix, has a close relation
+to the so-called Self-Consistent RPA (SCRPA) existing
+in the literature under various forms since quite some
+time. Both TDDM and SCRPA have in recent years
+shown their high eﬃciency in applications to several
+non-trivial model cases as well as to a few more realistic
+cases [11–17] .
+In this paper we will demonstrate the non-trivial
+relation of these two many body theories which start
+from very diﬀerent ends, lending more credit to their
+well-foundedness and their wide spread applicability
+in several branches of physics. Applications to several
+model cases will further elucidate the structure of the
+theory.
+The paper is organised as follows. In Sect.II, we de-
+scribe our new decoupling method of TDDM where we
+give an expression for the 3-body correlation function C3
+2
+in terms of a quadratic form of the two body correla-
+tion functions C2. In Sect.III, the small amplitude limit
+(STDDM-b and STDDM*-b) of the coupled equations for
+the one body density matrix and the 2-body correlation
+functions is derived. In Sect.IV, we study the relation be-
+tween Self-Consistent RPA (SCRPA) and STDDM and
+in Sect. V we demonstrate that to good approximation
+the Coupled Cluster two-body subsystem approximation
+(SUB2) wave function is the ground state of SCRPA and,
+thus, to a certain extent also of STDDM-b and STDDM*-
+b. In Sect.VI, a short outline of how SCRPA is related
+to a many body Green’s function approach is presented.
+In Sect.VII, we show results of applications to a couple
+of exactly solvable models where the performances of the
+various methods can be appreciated.
+II. EXTENDED TIME DEPENDENT DENSITY
+MATRIX (TDDM) METHOD
+A. General formalism
+We will base our considerations on the following sec-
+ond quantized Hamiltonien with two body interactions
+written in a single particle basis where the single particle
+part of the Hamiltonian is diagonal (think, e.g., of kinetic
+energy in plane wave basis, or harmonic oscillator basis
+if the system is in an external quadratic potential as is
+mostly the case for trapped cold atoms).
+H =
+∑
+α
+eαa+
+α aα + 1
+4
+∑
+αβγδ
+¯vαβγδ a+
+α a+
+β aδaγ. (1)
+Here, the eα’s are the single particle energies ﬁguring
+together with the 2-body interaction part where the
+antisymmetrized matrix element of the force is deﬁned
+by ¯vαβγδ = ⟨αβ|v|γδ⟩ − ⟨αβ|v|δγ⟩.
+The BBGKY hierarchy for density matrices with their
+equation of motion (EOM) is well documented in the
+literature, see, e.g., [18] and references in there. It is
+straightforward to write down the ﬁrst two of these equa-
+tions which involve the one, two, and three body density
+matrices
+i ˙ραα′ = (eα − eα′ )ραα′
++ 1
+2
+∑
+λ1λ2λ3
+[¯vαλ1λ2λ3 ρλ2λ3α′λ1
+− ραλ1λ2λ3 ¯vλ2λ3α′λ1 ], (2)
+i ˙ραβα′β′ = (eα + eβ − eα′ − eβ′)ραβα′β′
++ 1
+2
+∑
+λ1λ2
+[¯vαβλ1λ2 ρλ1λ2α′β′ − ¯vλ1λ2α′β′ραβλ1λ2 ]
++ 1
+2
+∑
+λ1λ2λ3
+[¯vαλ1λ2λ3 ρλ2λ3βα′λ1β′
++ ¯vλ1βλ2λ3ρλ2λ3αα′λ1β′
+− ¯vλ1λ2α′λ3ραλ3βλ1λ2β′
+− ¯vλ1λ2λ3β′ραλ3βλ1λ2α′ ], (3)
+where ραα′ = ⟨Ψ( t)|a+
+α′ aα|Ψ( t)⟩, ραβ,α′β′ =
+⟨Ψ( t)|a+
+α′ a+
+β′aβaα|Ψ( t)⟩, ραβγ,α ′β′γ′ =
+⟨Ψ( t)|a+
+α′ a+
+β′a+
+γ′aγaβaα|Ψ( t)⟩ are the one, two, and
+three particle density matrices, respectively. The time
+dependent state is given by |Ψ( t)⟩ = e−iHt|Ψ(0) ⟩. For a
+system consisting of two particles Eq. (2) and Eq. (3)
+without the three-body density matrix are exact.
+It is preferable to introduce in (2,3) instead of the two
+and three body density matrices their fully correlated
+counterparts C2 and C3
+ραβα′β′ = A(ραα′ ρββ ′) + Cαβα′β′ (4)
+ραβγ,α ′β′γ′ = AS(ραα′ ρββ ′ργγ ′ + ραα′ Cβγβ ′γ′)
++ Cαβγ,α ′β′γ′ (5)
+where A and S shall indicate that the products in paren-
+theses are properly antisymmetrised and symmetrised,
+respectively.
+The resulting equations can be found, e.g., in [19]. For
+completeness, we will present them here again.
+i ˙ραα′ =
+∑
+λ
+(ǫαλρλα′ − ραλǫλα′ )
++ 1
+2
+∑
+λ1λ2λ3
+[¯vαλ1λ2λ3 Cλ2λ3α′λ1
+− Cαλ1λ2λ3 ¯vλ2λ3α′λ1 ], (6)
+i ˙Cαβα′β′ =
+∑
+λ
+(ǫαλCλβα′β′ + ǫβλCαλα′β′
+− ǫλα′ Cαβλβ ′ − ǫλβ′ Cαβα′λ)
++ B0
+αβα′β′ + P 0
+αβα′β′ + H 0
+αβα′β′
++ 1
+2
+∑
+λ1λ2λ3
+[¯vαλ1λ2λ3 Cλ2λ3βα′λ1β′
++ ¯vλ1βλ2λ3 Cλ2λ3αα′λ1β′
+− ¯vλ1λ2α′λ3 Cαλ3βλ1λ2β′
+− ¯vλ1λ2λ3β′Cαλ3βλ1λ2α′], (7)
+where Cαβγα ′β′γ′ is the correlated part of the three-body
+density-matrix in (5) which is neglected in the original
+3
+version of TDDM [20]. The energy (mean ﬁeld) matrix
+ǫαα′ is given by
+ǫαα′ = eαδαα′ +
+∑
+λ1λ2
+¯vαλ1α′λ2 ρλ2λ1 . (8)
+The matrix B0
+αβα′β′ in Eq. (7) does not contain Cαβα′β′
+and describes the 2 p − 2h and 2 h − 2p excitations:
+B0
+αβα′β′ =
+∑
+λ1λ2λ3λ4
+¯vλ1λ2λ3λ4
+× [(δαλ1 − ραλ1 )(δβλ2 − ρβλ2 )ρλ3α′ ρλ4β′
+− ραλ1 ρβλ2 (δλ3α′ − ρλ3α′ )(δλ4β′ − ρλ4β′)].
+(9)
+Particle - particle and h − h correlations are described by
+P 0
+αβα′β′
+P 0
+αβα′β′ = 1
+2
+∑
+λ1λ2λ3λ4
+¯vλ1λ2λ3λ4
+× [(δαλ1 δβλ2 − δαλ1 ρβλ2 − ραλ1 δβλ2)Cλ3λ4α′β′
+− (δλ3α′δλ4β′ − δλ3α′ ρλ4β′ − ρλ3α′ δλ4β′)Cαβλ1λ2 ].
+(10)
+H 0
+αβα′β′ contains the p − h correlations.
+H 0
+αβα′β′ =
+∑
+λ1λ2λ3λ4
+¯vλ1λ2λ3λ4
+× [δαλ1 (ρλ3α′Cλ4βλ2β′ − ρλ3β′ Cλ4βλ2α′ )
++ δβλ2(ρλ4β′Cλ3αλ1α′ − ρλ4α′ Cλ3αλ1β′)
+− δα′λ3 (ραλ1 Cλ4βλ2β′ − ρβλ1Cλ4αλ2β′)
+− δβ′λ4(ρβλ2 Cλ3αλ1α′ − nαλ2Cλ3βλ1α′ )].
+(11)
+So far things have been straightforward. The diﬃculty
+lies in the fact that the hierarchy of equations has to be
+decoupled in order to be applicable and to yield a self-
+contained system of equations. Many decoupling schemes
+have been proposed in the past, see, e.g., [18]. In nuclear
+physics the decoupling scheme of Cassing and Wang is of-
+ten applied. It consists in neglecting the 3-body correla-
+tion function in (7) ( C3) altogether [20]. This then leads
+to a closed system of equations where the two body corre-
+lation matrix ( C2) ﬁgures linearly. Recently the present
+authors have shown that three body correlations are very
+important [21]. Since they are diﬃcult to incorporate
+fully, it was proposed not to skip C3 entirely but to re-
+place it by a quadratic form in C2 [19]. This then yields
+a closed system of non-linear equations for the two body
+correlation functions C2. This approximation scheme is
+explained in the next section and in App. A.
+B. Quadradic form of C3 in terms of C2’s
+Roughly speaking, the way how to express the three
+body correlation functions, C3, as a quadratic form of
+D
+E
+J
+D’
+E’
+J’
+
+T 
+T 
+(a) 
+E E ’
+
+T 
+T 
+D
+J’
+
+D’
+J(b) 
+FIG. 1. One line reducible contributions to the 2 p-1h(2h-1p)
+propagator. T denotes the in-medium 2-body T matrix.
+two body ones ( C2) goes as follows. It is well known that
+the in medium 3-body Green’s function can be expanded
+in analogy to the free three body problem into a series of
+2-body in medium T -matrices, the equivalent of our C2
+correlation functions [22].
+In Fig.1 we show graphically the second order contribu-
+tion to the 3-body propagator in terms of the in-medium
+T -matrices. The ﬁrst order terms are the ones Cassing
+and Wang have considered. We want to keep also the
+second order terms. Imposing a speciﬁc time ordering
+where two particles and one hole (2 p-1h) (or 2 h-1p) are
+traveling together as it may be deduced from the 3-body
+terms in (7), we obtain for the second order terms the
+second graph in Fig.1. One easily checks that there are
+9 combinations of this type possible. Such contributions
+are contained in the 2 p-1h (2h-1p) propagator and are
+known as their one line reducible part, since they can be
+separated into two pieces in just cutting one line. The
+remainder is the so-called one line irreducible part and
+enters, e.g., the dynamic part of the single particle self
+energy in Dyson’s equation for the single particle prop-
+agator [23]. The fact that an important part of the 2 p-
+1h (2h-1p) many body propagator can be separated into
+some quadratic form of two body propagators is already
+manifest at this point. Let us, however, be more ana-
+lytic, since this will be a basic aspect of our theory. In
+[23], App. F, it is shown that the one line reducible part
+of the 2 p − 1h(2h − 1p) propagator can be expressed in
+a way which is shown in App. A.1 and graphically inter-
+preted in Fig.1. A more direct but less intuitive way is
+obtained using identity relations of density matrices via
+their trace relations, see App. A.2. We give here the
+ﬁnal result on which our approach will be based. Let
+us consider the ﬁrst 3-body term in Eq. (7) that is the
+4
+three-body correlation matrix Cλ2λ3βα′β′λ1 is written as
+Cλ2λ3βα′β′λ1 = 1
+3 − nλ2 − nλ3 − nβ − nα′ − nβ′ − nλ1
+×
+∑
+γ
+(−Cλ2λ3α′γCβγβ ′λ1 − Cλ2λ3λ1γCβγα ′β′
+− Cλ2λ3γβ ′Cβγα ′λ1 − Cλ2βα′γCγλ3β′λ1
+− Cλ2ββ ′γCλ3γα′λ1 − Cλ2βγλ 1Cλ3γα′β′
+− Cλ2γα′β′Cλ3βλ1γ − Cλ2γα′λ1 Cλ3βγβ ′
+− Cλ2γβ ′λ1Cλ3βα′γ). (12)
+where we supposed that the single density matrices are
+diagonal, that is
+ραα′ = nαδαα′ (13)
+with nα the single particle (s.p.)occupation numbers (one
+can always work in the basis where ραα′ is diagonal but,
+below, we will argue that the non-diagonal terms of the
+s.p. density matrix are of higher order anyway). As pre-
+dicted from the graphical analysis, there are nine terms.
+They may not all be of same importance. On the other
+hand, the correlated part of the single particle occupa-
+tions in the denominator may give raise to contributions
+which are of the same order of magnitude as the genuine
+four body correlations which have been neglected in (12).
+So we will replace the occupation numbers by their mean
+ﬁeld values 1 or 0. Before, we come to these further ap-
+proximations, let us analyse the content of the nine terms
+in (12). Inserting the expression (12) into (7) one may
+realise that this integral equation for the C2’s couples
+all channels, that is the C2’s in the quadratic terms are
+interconnected in all possible ways. This is reminiscent
+of what is done in parquet diagram technique, see, e.g.,
+[24]. However, there is an important diﬀerence: in par-
+quet diagrams the correlation functions are dynamic ones
+depending in general on three energies whereas here the
+correlation functions only depend on one energy which
+corresponds to the channel considered from the outset.
+Above equations constitute our most general non-
+linear set for the calculation of the two body correlation
+function C2.
+C. Static limit. Restriction to particle and hole
+indices
+Let us write down (7) for the static case
+0 = ( ǫα + ǫβ − ǫα′ − ǫβ′)Cαβα′β′ + B0
+αβα′β′ + P 0
+αβα′β′
++ H 0
+αβα′β′ + Tαβα′β′ (14)
+where we supposed to work in a single particle basis
+where the single particle energies (8) are diagonal. As
+above, the three body part is given by
+T αβα′β′ =
+1
+2
+∑
+λ1λ2λ3
+[¯vαλ1λ2λ3 Cλ2λ3βα′λ1β′ + ¯vλ1βλ2λ3 Cλ2λ3αα′λ1β′
+− ¯vλ1λ2α′λ3 Cαλ3βλ1λ2β′ − ¯vλ1λ2λ3β′Cαλ3βλ1λ2α′]. (15)
+In general, we will not consider the 2-body correlation
+functions with arbitrary indices. Since, with particle ( p)
+indices above and hole ( h) indices below the Fermi level,
+the inhomogeneous term B0, in the uncorrelated limit, is
+only non-zero for Cp1p2h1h2 and Ch1h2p1p2 = C∗
+p1p2h1h2,
+they are dominant but we consider additionally the fol-
+lowing three index-combinations
+Cp1h1p2h2 ; Cp1p2p3p4 ; Ch1h2h3h4,
+because they couple each other. One can suppose that
+they give the dominant contributions. One easily imag-
+ines that C2’s with an odd number of either p- or h-
+indices are suppressed with respect to the ones with an
+even number of p(h) indices.
+In the past the three body term T was usually ne-
+glected [20]. Here we want to treat it in the approximate
+form given above. We have four index combinations of T .
+In addition at least for situations not close to a macro-
+scopic phase transition or to systems with a Goldstone
+(zero) mode, the single following term out of the nine
+possible is dominant
+Cp1h1h2,p2h3h4 ≃
+∑
+p
+Cp1ph3h4Ch1h2p2p (16)
+that is the product of two correlation functions with 2p-
+2h indices is the most important one. There exists only
+one further 3-body correlation function which has this
+speciﬁc product property
+Ch1p1p2,h2p3p4 ≃
+∑
+h
+Cp1p2h2hChh1p3p4 . (17)
+Respecting this approximation, we obtain for the four
+possible three body terms
+T p1p2h1h2 = 1
+2
+∑
+pp′hh′
+[¯vp1phh′ Cp2p′h1h2Chh′pp′ − (p1 ↔ p2)]
++ 1
+2
+∑
+hh′pp′
+[¯vpp′h1hCp1p2h2h′Ch′hpp′ − (h1 ↔ h2)], (18)
+5
+Tp1h1p2h2 = 1
+2
+∑
+pp′hh′
+¯vp1hh′pCp′ph2hCh1h′p2p′
++ 1
+2
+∑
+pp′p′′h
+¯vp1pp′p′′ Cp′p′′hh2Ch1hp2p
+− 1
+2
+∑
+pp′hh′
+¯vph′p2hChh1pp′ Cp1p′h′h2
+− 1
+2
+∑
+pp′p′′h
+¯vp′p′′p2pCp1ph2hChh1p′p′′
+− 1
+2
+∑
+pp′hh′
+¯vh1pp′hCh′hp2pCp′p1h′h2
++ 1
+2
+∑
+phh′h′′
+¯vh1hh′h′′ Ch′h′′p2pCpp1hh2
++ 1
+2
+∑
+pp′hh′
+¯vph′h2p′ Cp1p′hh′Ch1hp2p
+− 1
+2
+∑
+phh′h′′
+¯vh′h′′hh2 Cpp1h′h′′ Ch1hp2p. (19)
+The exchange matrix Th1p1p2h2 of Tp1h1p2h2 is given not
+by changing p1 and h1 on the right-hand side of Eq. (19)
+but by using Eqs. (15), (16) and (17). Then the ex-
+change property Th1p1p2h2 = −Tp1h1p2h2 is satisﬁed. Fur-
+thermore, we have
+T p1p2p3p4 = 1
+2
+∑
+phh′h′′
+[¯vp1hph′ Cpp2hh′′Ch′′h′p3p4 − (p1 ↔ p2)]
+− 1
+2
+∑
+phh′h′′
+[¯vph′p3hCp1p2hh′′ Ch′′h′pp4 − (p3 ↔ p4)]. (20)
+T h1h2h3h4 = 1
+2
+∑
+pp′p′′h
+[¯vh1pp′hChh2p′′pCp′p′′h3h4 − (h1 ↔ h2)]
+− 1
+2
+∑
+pp′p′′h
+[¯vp′hh3pCh1h2p′′p′ Cpp′′hh4 − (h3 ↔ h4)]. (21)
+Inserting these four three body terms into (14), one ob-
+tains a set of four coupled equations for the four possible
+two body correlation functions. It is this set of equations
+which will be used in the TDDM applications presented
+below. In principle it is straightforward to include into
+the three body terms all nine quadratic forms deduced
+with their speciﬁc combinations of particle and hole in-
+dices from (12). However, this leads to a much more
+extended set of equations. In the numerical examples
+treated below, this does not seem necessary. However, as
+already mentioned, there may exist situations where the
+full set of equations is needed.
+Above four coupled equations for the four diﬀerent
+C2’s have a number of appealing properties. They are
+totally antisymmetric and they are number and energy
+conserving. The latter properties can easily be veriﬁed
+in just taking into account the (anti)symmetry proper-
+ties of the equations. Other properties will be discussed
+in Sect.IV.B. To obtain the exact solution for a general 2-
+body problem, we have to discard the three body density
+matrix in (3). So, our equations which approximately in-
+clude 3-body correlations are only valid for particle num-
+bers N ≥ 3.
+D. Procedures to obtain a static solution
+Two methods have been used to obtain a stationary
+state (ground state) of Eqs. (6) and (7). One is the
+gradient method [25, 26] and the other a time-dependent
+method . Since the latter is used in the applications of
+TDDM to the model Hamiltonians below, we explain it
+in some detail. The starting point is a non-interacting
+ground state where the single-particle states below the
+Fermi level are completely occupied. (In the application
+to 16O [27], we have also used the HF ground state where
+the mean-ﬁeld eﬀect is already included.) Then we solve
+Eqs. (6) and (7) by gradually increasing the strength of
+the interaction such that v(r, t) = v(r)×t/T . To sup-
+press mixing of excited states, we must take suﬃciently
+large T : For example, T ≫ 2π/E2p−2h where E2p−2h is
+the excitation energy of a 2p-2h state. This method is
+motivated by the Gell-mann-Low theorem [28] and has
+often been used to obtain nearly stationary solutions of
+time-dependent problems [29, 30].
+Let us explain how this method works using an illus-
+trative case. We try to obtain a perturbative expression
+for np assuming that only Cpp′hh′ and Chh′pp′ are impor-
+tant. Under this assumption Eq. (6) for np is written
+as
+i ˙np = 1
+2
+∑
+hh′p′
+[¯vpp′hh′Chh′pp′ − ¯vhh′pp′ Cpp′hh′]. (22)
+If we keep only the B0
+pp′hh′ term in Eq. (7), the equation
+for Cpp′hh′ is
+i ˙Cpp′hh′ = (ǫp + ǫp′ − ǫh − ǫh′)Cpp′hh′ + ¯vpp′hh′
+t
+T .
+(23)
+Equation (23) is solved as
+Cpp′hh′ = −i¯vpp′hh′
+∫ t
+0
+t′
+T eiEpp′hh′ t′
+dt′e−iEpp′hh′ t,
+(24)
+where Epp′hh′ = ǫp + ǫp′ − ǫh − ǫh′. Under the as-
+sumption Epp′hh′T > E pp′hh′t ≫ 1, Eq. (24) gives
+Cpp′hh′ ≈ − ¯vpp′hh′ t/T Epp′hh′ , which is the perturbative
+expression for the two-body correlation matrix. Inserting
+Eq. (24) into Eq. (22) and assuming that Epp′hh′t ≫ 1,
+we arrive at the perturbative expression for the occupa-
+tion probability of an unoccupied state
+np ≈ 1
+2
+∑
+hh′p′
+|¯vpp′hh′)|2
+E2
+pp′hh′
+( t
+T
+) 2
+. (25)
+6
+Having approximate expressions for very small times t/T
+for np and Cpp′hh′, we insert those into r.h.s. of Eqs. (6)
+and (7), assuming that single particle density matrix is
+diagonal and make one further time integration, incre-
+menting time by a small step. This creates on l.h.s. a
+s.p. density matrix and a new C2. Repeating this pro-
+cedure until t = T , one arrives at the stationary solution
+for C2 and the single particle density matrix ραβ. Most of
+the time, at the end of the calculation, one either works
+in the basis (the ’canonical’ basis) which diagonalises the
+density matrix as in (13) or one supposes that the den-
+sity matrix is approximately diagonal what generally is
+veriﬁed to good approximation.
+III. SMALL AMPLITUDE LIMIT OF TDDM
+(STDDM AND STDDM*)
+A. Derivation of STDDM with non-linear terms
+(STDDM*)
+It is well known that time dependent HF leads to stan-
+dard RPA (with exchange) in the small amplitude limit
+[23]. So, HF is the consistent ground state when the two
+body correlations C2 are neglected. On the contrary,
+considering in addition the inclusion of two body corre-
+lations, i.e., the coupled system of equations (6) and (7),
+the corresponding ground state will contain correlations.
+It will be interesting to see, in how far we can give an ex-
+plicit expression for this ground state and in which way
+standard RPA is modiﬁed due to the inclusion of ground
+state correlations. So, let us take the small amplitude
+limit of present form of TDDM, i.e., Eqs. (6) and (7) .
+With
+ρ1 = ρ(0)
+1 + δρ1; C2 = C(0)
+2 + δC2
+and
+δρ1 =
+∑
+ν
+[ ˜χνe−iΩ ν t + ˜χν,+eiΩ ν t];
+δC2 =
+∑
+ν
+[ ˜X ν e−iΩ ν t + ˜X ν,+eiΩ ν t]
+we obtain coupled equations for the one-body and two-
+body transition amplitudes ˜ χν
+αα′ = ⟨ν|a+
+α′ aα|0⟩ and
+˜X ν
+αβα′β′ = ⟨ν| : a+
+α′ a+
+β′aβaα : |0⟩:
+( a b
+c ˜d
+) ( ˜χν
+˜X ν
+)
+= Ω ν
+( ˜χν
+˜X ν
+)
+. (26)
+The matrix ˜d is written as ˜d = d+∆ d where d stems from
+variation of the linear terms of the two-body correlation
+matrix whereas ∆ d comes from the variation of the three-
+body correlation matrix when it is approximated as, e.g.,
+in Eq. (16) and (17) by quadratic forms of C2’s (that
+is the leading contributions). The matrices c and ∆ d
+include the two-body correlation matrix. The matrices
+in Eq. (26) are given in Appendix B. Equations (26)
+with ∆ d = 0 have been called in the past STDDM (small
+TDDM) equations [31]. With inclusion of the nonlinear
+terms ∆ d, we want to call those STDDM* equations.
+B. Derivation of STDDM and STDDM* from an
+Extended Second RP A (ESRP A) and connection
+with SCRP A
+Let us consider the Equation of Motion (EOM) ap-
+proach [23, 32] with one body and 2-body sectors in-
+cluded fully, that is without restriction on indices (greek
+labels). We deﬁne a generalised RPA operator
+Q+
+ν =
+∑
+[χν
+λλ′ a+
+λ aλ′ + X ν
+λ1λ2λ′
+1λ′
+2
+: a+
+λ1a+
+λ2 aλ′
+2 aλ′
+1 :] (27)
+where : a+
+λ1 a+
+λ2 aλ′
+2aλ′
+1 := a+
+λ1 a+
+λ2 aλ′
+2 aλ′
+1 − [ρλ1λ′
+1 ρλ2λ′
+2 −
+ρλ1λ′
+2 ρλ2λ′
+1 ]. As usual with EOM for such an ansatz, we
+suppose
+Q+
+ν |0⟩ = |ν⟩ and Qν|0⟩ = 0.
+Minimising the corresponding energy weighted sum rule
+2Ω ν = ⟨0|[Qν, [H, Qν
++]]|0⟩/⟨0|[Q, Q+]|0⟩, see Sect. V,
+we obtain the following eigenvalue problem
+(
+S B
+C D
+) (
+χ
+X
+)
+= Ω
+(
+N1 T
+T + N2
+) (
+χ
+X
+)
+, (28)
+where the various matrix elements are given in an obvi-
+ous way by the corresponding double commutators (lhs)
+and commutators (rhs) which correspond to the ones con-
+tained in the sum-rule for Ω ν. The matrix S contains the
+correlated occupation numbers and the two-body corre-
+lation matrix C2. The matrices B, C and N2 include the
+two-body correlation matrix C2 and the three-body cor-
+relation matrix C3, and D can have up to the four-body
+correlation matrix C4 though it is neglected. The ma-
+trices in Eq. (28) are given in [21] where this equation
+was coined ERPA (Extended RPA). However, a more
+appropriate name is ’Extended Second RPA’ (ESRPA)
+because it includes the two body sector and reduces to
+the standard second RPA in the limit where the expecta-
+tion values are evaluated with the HF state. It has been
+shown in the past that, under certain approximations,
+this ESRPA is equivalent to the STDDM equation [33].
+Let us sketch this again. For this, in ESRPA, we neglect
+everywhere C3 (and C4). This concerns B, C, D, and N2.
+In D we additionally neglect the terms which are named
+in [25] the T32 terms. Those T32 terms correspond to the
+expectation values of the commutator between two-body
+and three-body operators [25]. Then we arrive at the
+following structure of above eigenvalue equation (28)
+7
+(
+aN1 + bT + aT + bN2
+cN1 + dT + cT + dN2
+) (
+χ
+X
+)
+= Ω
+(
+N1 T
+T + N2
+) (
+χ
+X
+)
+,
+(29)
+where the matrices a, b, c, d are as in (26) (see App. B)
+containing at most C2’s.
+Let us notice that in the left matrix the elements [12]
+and [21] are hermitian conjugates to one another. This
+stems from the fact that already in (28) the matrices C
+and B are the hermitian conjugates of one another under
+the condition that they are evaluated at equilibrium, see
+[33] for a discussion of this point. The [11] element of the
+left matrix is also symmetric because at equilibrium we
+have i ˙ρ = 0. The one body sector of Eq.(29) corresponds
+to Self-Consistent RPA (SCRPA, see below) which was
+derived independently earlier [11]. So, in including corre-
+lations, the standard RPA has been upgraded to SCRPA.
+This is natural because, as mentioned, with correlations
+the corresponding ground state cannot be the HF state
+any longer. Therefore SCRPA has now found its nat-
+ural place when the time-dependent HF equations are
+extended in a consistent way to include two body cor-
+relations. We will come back to SCRPA in Sect.IV and
+Sect.V. The [22] element is not hermitian because at this
+level of our theory we do not fullﬁll that 3-body and 4-
+body density matrices are stationary.
+Equation (29) is intimately related to the STDDM equa-
+tion as we will show now. Deﬁning
+( ˜χ
+˜X
+)
+=
+(
+N1 T
+T + N2
+) (
+χ
+X
+)
+(30)
+we obtain the following modiﬁed eigenvalue equation
+(
+a b
+c d
+) ( ˜χ
+˜X
+)
+= Ω
+( ˜χ
+˜X
+)
+. (31)
+The remarkable fact is that this equation is also obtained
+in linearising around equilibrium the coupled EOM’s for
+nα and C2 as is seen from Eq. (26) without ∆ d. With
+the use of Eq. (30) the STDDM* equation (Eq. (26)
+with ∆ d ) can also be expressed as
+( aN1 + bT + aT + bN2
+cN1 + ˜dT + cT + ˜dN2
+) (
+χ
+X
+)
+= Ω
+(
+N1 T
+T + N2
+) (
+χ
+X
+)
+.
+(32)
+Notice that with respect to (29) the matrix d is changed
+into ˜d in (32). With respect to (26), we want to call
+the set of equations (32), the STDDM*-b equations (or
+STDDM-b when ∆ d is neglected). Since T , N2 and
+∆ d contain C2, the [21] and [22] elements of Eq. (32)
+have additional quadratic terms of C2 that correspond
+to C3. Thus STDDM*-b is a better approximation to
+ESRPA than STDDM. There is a great consistency
+between the ESRPA equation and STDDM (and also
+STDDM*-b). Though STDDM equations of (31) and
+(29) are equivalent, the explicit form of the two equations
+(29) and (31) is quite diﬀerent in detail. For example,
+it is obvious that neglecting the 2-body amplitudes in
+STDDM, eq. (31), this gives back standard RPA except
+for partial occupation of the single-particle states. On
+the other hand, the same reduces STDDM-b ( Eq. (29))
+to SCRPA which contains already, as we will see, much
+more correlations than standard RPA. In fact, as it
+was shown in the past [11, 12] and will be shown again
+with the applications below, it can already be a good
+approximation to STDDM. In a way, it seems natural
+that in STDDM appears SCRPA. As already discussed,
+standard RPA corresponds to linearised TDHF. There-
+fore, the HF Slater determinant is the consistent ground
+state for standard RPA. Linearised TDDM or STDDM
+(STDDM*) naturally correspond to a ground state
+containing correlations. Below, in Sect. V, we will give
+as a good approximation a correlated ground state wave
+function in terms of the one of Coupled Cluster Theory.
+It should be noticed that in above STDDM equation
+b ̸= c+ and thus the corresponding matrix is strongly
+non-symmetric. One, therefore, has to deﬁne left and
+right eigenvectors. How this goes in detail is explained
+in [33] where also applications with good success are
+presented. On the other hand, (29) and (32) are much
+more symmetric versions of STDDM and STDDM*.
+The remaining non-hermiticity in the [22] element of the
+interaction matrix in STDDM* may be eliminated by
+the prescription of Rowe [32] who explicitly symmetrised
+the matrix. If the two versions (31) and (29) of STDDM
+(STDDM*, if ∆ d is included) are solved in full, the
+results will be the same. However, the fact to transform
+the non-symmetric form of STDDM in (31) to the more
+symmetric STDDM one in (29) has apparently trans-
+ferred a lot of correlations from the 2-body sector to the
+one body sector (standard RPA vs SCRPA). This may
+be of importance if in STDDM (or in STDDM*) further
+approximations are applied. An extreme approximation
+is to neglect the 2-body amplitudes in both cases where
+the diﬀerence clearly shows up. On the other hand,
+a non hermitian eigenvalue problem may also entail
+some problems concerning spurious solutions or non
+positive deﬁnite spectral functions. However, in the
+past applications [26, 33, 34], this has never caused
+any serious problems. In a way, the situation is rather
+similar to the diﬀerence which exists between the Dyson
+boson expansion which leads to a non-hermitian problem
+and, e.g., the Holstein-Primakoﬀ (Belyaev-Zelevinsky)
+boson expansion leading to a hermitian matrix [23]. The
+basic diﬀerence between both methods is, as here, the
+treatment of the norm matrix.
+8
+C. Recovering TDDM at equilibrium
+1. Equation for Cαβα ′β ′
+WTo show that all equations are consistent, we now
+want to make a connection of STDDM (and, thus,
+STDDM*) with TDDM. For this, let us introduce the
+following identities supposing Ω real
+∑
+ν
+[
+Ω ν
+( ˜χν
+˜X ν
+)
+( ˜χν∗ ˜X ν∗) −
+( ˜χν
+˜X ν
+)
+( ˜χν∗ ˜X ν∗)Ω ν
+]
+= 0.
+(33)
+This equation can also be written as
+∑
+ν
+[ (
+a b
+c d
+) (
+˜χν ˜χν∗ ˜χν ˜X ν∗
+˜X ν ˜χν∗ ˜X ν ˜X ν∗
+)
+−
+(
+˜χν ˜χν∗ ˜χν ˜X ν∗
+˜X ν ˜χν∗ ˜X ν ˜X ν∗
+) (
+a c +
+b+ d
+) ]
+= 0. (34)
+The one body sector of this equation is the following
+(please note that in some earlier publications the deﬁni-
+tions of the b and c matrices has been inversed, see, e.g.,
+[33]).
+∑
+ν
+[a ˜χν ˜χν∗ + b ˜X ν ˜χν∗ − ˜χν ˜χν∗a − ˜χν ˜X ν∗b+] = 0 . (35)
+With the following identity
+∑
+ν
+˜X ν
+αβα′β′ ˜χν∗
+γ′γ = δαγ′Cγβα ′β′ − δβγ ′Cγαα′β′
++ nγα′Cαββ ′γ′ − nγβ ′Cαβα′γ′
+− nβγ ′Cαγα′β′ + nαγ′Cβγα ′β′
++ Cαβγα ′β′γ′, (36)
+we obtain, specialising to p and h indices the static form
+of the TDDM equations (14) - (21) which should be
+unique equations for the C2’s. It is interesting to note
+that if one restricts the C3 to p, h indices only and also
+keeping only χph or χhp components, then X amplitudes
+can only be of the 3 p-1h (3h-1p) type. This is consistent
+with the extended RPA operator treated in Sect. V
+where the two body sector also only contains 3 p-1h
+(3h-1p) amplitudes.
+2. Occupation probability from ESRPA
+We have shown that Eq. (35) is equivalent to the sta-
+tionary condition of Eq. (7). Now we must consider how
+the occupation probability nα is expressed by the transi-
+tion amplitudes in ESRPA. We assume the following re-
+lation for the diagonal occupation matrix ραα′ = nαδαα′
+∑
+ν
+˜χν
+αα′ ˜χν∗
+β′β =
+∑
+ν
+⟨0|a+
+α′aα|ν⟩⟨ν|a+
+β′ aβ|0⟩
+= δαβ′⟨0|a+
+α′ aβ|0⟩ + ⟨0|a+
+α′a+
+β′aβaα|0⟩
+= δαβ′δβα′nβ ¯nα + Cαβα′β′ , (37)
+where ¯nα = 1 − nα. From Eq. (37) we obtain
+∑
+ν
+˜χν
+αα ˜χν∗
+αα = nα(1 − nα) + Cαααα = nα − n2
+α. (38)
+The above equation gives for the occupation numbers
+nα = 1
+2
+
+1 ±
+√
+1 − 4
+∑
+ν̸=0
+˜χν
+αα ˜χν∗αα
+
+ . (39)
+In RPA and SCRPA there is no diagonal one-body am-
+plitude such as χν
+αα, whereas in ESRPA χν
+αα can couple
+to X ν
+αβα′β′ which has the same quantum numbers as the
+ground state. Thus the occupation probabilities in ES-
+RPA are determined by two-phonon states expressed by
+X ν
+αβα′β′ , which is in contrast with SCRPA. We use Eq.
+(39) to calculate the occupation probabilities in ESRPA.
+Let us notice that relation (39) has the same structure as
+the occupation numbers obtained from BCS theory when
+expressed via the BCS amplitudes viui = κi [23].
+3. Correlation energy from Cαβα ′β ′
+Usually, the correlation energy is deﬁned as the dif-
+ference of the total correlated energy minus the Hartree-
+Fock energy. In this work, we thought it more appropri-
+ate to consider what one could call the 2-body correlation
+energy (for example in the case of BCS theory, this would
+reduce to the pairing energy) E2bcor deﬁned by
+E2bcor = 1
+4
+∑
+αβα′β′
+¯vαβα′β′Cα′β′αβ. (40)
+The equation for ˜χν
+αα′ in STDDM, a ˜χν + b ˜X ν = Ω ν ˜χν,
+gives
+Ω ν ˜χν
+αα′ = (ǫα − ǫα′ ) ˜χν
+αα′
++ (nα′ − nα)
+∑
+λλ′
+¯vαλ′α′λ ˜χν
+λλ′
++ 1
+2
+∑
+λ1λ2λ3
+(¯vαλ1λ2λ3
+˜X ν
+λ2λ3α′λ1
+− ¯vλ1λ2α′λ3
+˜X ν
+αλ3λ1λ2 ) (41)
+Multiplying ˜χν∗
+β′β and using Eqs. (36) and (37), we obtain
+∑
+µα
+Ω ν ˜χν
+αα ˜χν∗
+αα =
+∑
+αλλ′
+¯vαλαλ′ Cαλ′αλ
+− 1
+2
+∑
+αλλ′λ′′
+¯vλλ′αλ′′ Cαλ′′λλ′ . (42)
+9
+The ﬁrst term on the right-hand side has no contribu-
+tion in the solvable models discussed below. In general,
+Cphph′ , Cpp′pp′′ , Chphp′ and Chh′hh′′ are smaller than
+Cpp′hh′ and Chh′pp′ in a perturbative regime. Therefore,
+E2bcor can approximately be expressed as
+E2bcor ≈ − 1
+2
+∑
+να
+Ω ν ˜χν
+αα ˜χν∗
+αα. (43)
+Equation (43) has only diagonal elements ˜ χν
+αα, what
+means that in ESRPA E2bcor is determined by two-
+phonon states similarly to the occupation probabilities
+(Eq. (39)). We calculate E2bcor in ESRPA using Eq.
+(43). It will also be the expression we use for the applica-
+tions in Sect.VII. Since with (39) we have the occupation
+numbers, we can also calculate the one body part of the
+energy and, thus, the total energy is given as well.
+IV. SELF-CONSISTENT RP A IN RELATION
+WITH TDDM
+A. General case
+As we have mentioned, the one body sector of
+STDDM-b and STDDM*-b is equivalent to what is
+known in the literature as SCRPA. Because the one
+body sector is of importance for applications but also in
+its own right, we, for completeness, will again dwell on it
+in this and the next section. However, the reader already
+familiar with SCRPA, or not specially interested in this
+issue, can directly jump to the applications, section VI.
+Let us start writing down the most general single par-
+ticle RPA operator as
+Q+
+ν =
+∑
+αβ,α̸=β
+χν
+αβa+
+α aβ, (44)
+where, as usual,
+|ν⟩ = Q+
+ν |0⟩ (45)
+is the excited state. The RPA operator also is supposed
+to possess the killing property (see Sect. V)
+Qν|0⟩ = 0. (46)
+We can deﬁne an average excitation energy using the en-
+ergy weighted sum rule
+Ω ν = 1
+2
+⟨0|[Qν, [H, Q+
+ν ]]|0⟩
+⟨0|[Qν, Q+
+ν ]|0⟩ . (47)
+Varying Ω ν with respect to the amplitudes χαβ leads to
+the following eigen value problem
+Sχµ = Ω µN1χµ, (48)
+where
+S (αα′ : λλ′) = ⟨0|[a+
+α′ aα, [H, a+
+λ aλ′ ]]|0⟩
+= (ǫα − ǫα′ )(nα′ − nα)δαλδα′λ′
++ (nα′ − nα)(nλ′ − nλ)¯vαλ′α′λ
+− δα′λ′
+1
+2
+∑
+γγ ′γ′′
+¯vαγγ ′γ′′Cγ′γ′′λγ
+− δαλ
+1
+2
+∑
+γγ ′γ′′
+¯vγγ ′α′γ′′Cλ′γ′′γγ ′
++
+∑
+γγ ′
+(¯vαγλγ ′Cλ′γ′α′γ + ¯vλ′γα′γ′Cαγ′λγ)
+− 1
+2
+∑
+γγ ′
+(¯vαλ′γγ ′Cγγ ′α′λ + ¯vγγ ′α′λCαλ′γγ ′), (49)
+N 1(αα′ : λλ′) = ( nα′ − nα)δαλδα′λ′ . (50)
+If we replace the RPA ground state by the HF one, then
+the matrix S reduces to the HF stability matrix and N (0)
+1
+becomes the metric matrix of RPA [23] and, thus, the
+standard RPA equations are recovered. The normalisa-
+tion of the amplitudes χν
+αβ is given by
+∑
+χν∗
+αβN1(αα′ : λλ′)χν′
+λλ′ = δν,ν′ , (51)
+where χν∗
+αβ is the left eigenvector. Above eigenvalue
+problem is equivalent to SCRPA [11] with amplitudes
+χαβ where there are no restrictions on the indices besides
+α ̸= β. This stems from the fact that N1 acts as a norm
+matrix like it appears in problems where one works with
+a non-orthonormal basis [23]. In such cases, in general,
+one has to diagonalise the norm matrix and divide the
+Hamilton matrix from left and right with the the square
+roots of the eigenvalues. Conﬁgurations with zero (or
+near zero) eigenvalues have to be excluded for obvious
+reasons. In the SCRPA case, this just happens for di-
+agonal, or nearly diagonal amplitudes χαα which, thus,
+cannot be included. This can only be done, as we dis-
+cussed before, if the two particle sector is also considered.
+The fact that the diagonal amplitudes cannot be in-
+cluded in (48), allows us to rewrite this equation in a
+form which has the mathematical structure of standard
+RPA. To this end, we re-write the RPA excitation oper-
+ator (44) in a somewhat diﬀerent form
+Q+
+ν =
+∑
+k1>k2
+(X ν
+k1k2 δQ+
+k1k2 − Y ν
+k1k2 δQk1k2 ) (52)
+with
+δQ+
+k1k2 = N −1/2
+k1k2 a+
+k1 ak2 (53)
+10
+and
+N 1/2
+k1k2
+=
+√
+nk2 − nk1 . (54)
+This leads straightforwardly to the following RPA
+eigenvalue problem
+(
+A B
+−B∗ −A∗
+) (
+X
+Y
+)
+= Ω ν
+(
+X
+Y
+)
+(55)
+with
+Ak1k2,k′
+1k′
+2 = ⟨[δQk1k2 , [H, δQ+
+k′
+1k′
+2
+]]⟩
+Bk1k2,k′
+1k′
+2 = −⟨[δQk1k2 , [H, δQk′
+1k′
+2 ]]⟩. (56)
+The X, Y amplitudes have the usual orthonormalisa-
+tion relations of standard ph-RPA with the replacements
+p ↔ k1 and h ↔ k2. Of course the A and B matrices are
+closely related to the S matrix of (49).
+In order to calculate the C2 correlation functions enter-
+ing the SCRPA matrix, one can either get them from the
+static solution of the TDDM equations with quadratic
+decoupling of C3 with respect to the C2’s (this will later
+be called the C-RPA scheme) or one establishes a selfcon-
+sistent cycle, for which we must give a relation between
+C2 and the RPA amplitudes X, Y . For this, it is conve-
+nient to introduce the ’bosonic’ density matrix R
+R =
+∑
+ν
+(
+Y ν∗Y ν Y ν∗X ν
+X ν∗Y ν X ν∗X ν
+)
+≡
+(
+R K
+K + 1 + R+
+)
+, (57)
+with ( N0R)2 = −N0R where N0 =
+(
+1 0
+0 −1
+)
+and where we can make the following identiﬁcations
+R k1k2k′
+1k′
+2 ≡ N −1/2
+k1k2 [nk2 ¯nk1 + Ck1k′
+2k2k′
+1 ]N −1/2
+k′
+1k′
+2
+Kk1k2k′
+1k′
+2 ≡ N −1/2
+k1k2 Ck1k′
+1k2k′
+2 N −1/2
+k′
+1k′
+2
+. (58)
+It may be interesting to rewrite the RPA equations in
+still a diﬀerent form. With
+(
+A B
+−B∗ −A∗
+)
+≡ H (59)
+we can write (55) as
+RH+ − HR = 0 (60)
+This form reminds the BCS (or HFB) equations of
+superconductivity [23] with, however some diﬀerent signs
+due to the bosonic structure of the RPA equations. The
+introduction of the density matrix R has the advantage
+C
+C
+C
+FIG. 2. Screening terms and self-energy corrections. Symme t-
+ric graphs exist where the interaction (full dot) is attache d to
+the hole line (arrow to the left)
+that one easily can restore a missing antisymmetry as
+we will see in Section IV.C.
+It remains to express the occupation numbers in terms
+of the RPA amplitudes to establish fully self-consistent
+RPA equations. Because of the Fermi surface the oc-
+cupation numbers can be divided in hole and particle
+occupancies nh and np. How the latter are connected to
+C2’s and, thus, to the RPA amplitudes will be shown in
+Sect. V.
+At this point, it may be appropriate to interpret
+the diﬀerent terms of the A and B-matrices. The
+standard terms are, of course, trivial and have been
+discussed in text books [23]. The other terms are
+displayed graphically in Fig.2. Analogous graphs exist
+(not displayed) where the interaction (full dot) is
+attached to the hole line with arrow to the left. Their
+interpretation is clear. The ﬁrst two terms constitute
+instantaneous ph and pp(hh) exchange terms with
+respect to the external p and h lines. They, therefore,
+screen (eventually anti screen) the bare interaction. Such
+screening terms have been discussed in the literature
+since very long. The iteration of the equations gives
+raise to so-called ’bubble into bubble’ terms [35]. The
+particularity of our formalism here is that those terms
+emerge from a general formalism and that they are
+instantaneous. They can, therefore, be incorporated
+into standard RPA programs. The third term in Fig.2
+obviously corresponds to a self-energy correction due
+to RPA modes. Those correspond to the famous parti-
+cle vibration corrections to the mean ﬁeld. Again the
+particularity here is that this correction is instantaneous.
+For the solution of the SCRPA equations, several
+routes are possible. The standard way is to express the
+correlation functions with the X and Y amplitudes as
+discussed just above. With the present formalism one
+also can evaluate the correlation functions C2’s either
+from (60) or below from (65) and then insert them
+into the A and B matrices. Also the single particle
+11
+occupancies can be included in this way via eq (78),
+see Sect. V. The results will depend on whether we
+take the non antisymmetrised or the antisymmetrised
+form of R. Only the non-antisymmetrised form will be
+equivalent to the standard way in expressing everything
+by the X, Y amplitudes. We will come back to this
+with the applications. A further possibility is to take
+the C2’s directly from the static limit of the TDDM
+equations quadratic in the C2’s. As mentioned, we call
+this the C-RPA (correlated RPA). We will see with the
+applications in Sect.VII that all these variants give quite
+close answers at least up to coupling strengths where
+the standard HF equations become unstable indicating
+that the system undergoes a phase transition.
+B. Properties of SCRP A
+Before we go into the details of how SCRPA is
+connected with TDDM, let us outline some properties of
+SCRPA. One of the most important ones, fulﬁlled by the
+standard RPA, is the so-called energy weighted sum-rule.
+S1 =
+∑
+ν
+Ω ν|⟨ν|F |0⟩|2 = 1
+2 ⟨0|[F, [H, F ]]|0⟩ (61)
+where F = ∑
+αβ fαβa+
+α aβ is supposed to be a hermitian
+one body (excitation) operator. Then for the right hand
+side we can write
+S1 = 1
+2
+∑
+ν
+T r[f +χνSχν,+f ]
+= 1
+2 T r[f + ∑
+ν
+Ω νN1χν,+f ]
+=
+∑
+ν
+Ω ν|⟨0|F |ν⟩|2 (62)
+Therefore also SCRPA fulﬁlls the f-sum rule. This has,
+e.g., been discussed in [38], [39]. From the fulﬁllment
+of the sum rule, it also follows that the Goldstone the-
+orem is satisﬁed. For example in nuclear physics the
+translational motion is always broken, if one works in a
+localised single particle basis. Then the SCRPA sepa-
+rates the so-called spurious mode at zero energy, if the
+single particle basis is chosen from the generalised mean
+ﬁeld equation ⟨0|[H, Q+
+ν ]|0⟩ = ⟨0|[H, a+
+α′ aα]|0⟩ = 0 which
+is the static limit of (6) [39]. The fullﬁllment of sum
+rule and Goldstone mode stems from the fact that the
+RPA operator (44) contains all types of indices, that is
+not only ph but also pp and hh ones. The RPA operator
+(44) contains as a particular case, e.g., the total momen-
+tum operator ˆP which commutes with the Hamiltonian.
+From (47) we then see that the zero mode appears. The
+fullﬁllment of the Goldstone theorem has already explic-
+itly been demonstrated in [40, 41]. Consequently SCRPA
+as deﬁned in this section has some important properties
+in common with standard RPA. This is a very rewarding
+feature because generally it is not easy to set up a prac-
+tical scheme, going beyond standard RPA, which obeys
+conservation laws, sum rules, and Goldstone theorem.
+However SCRPA is an approximation to STDDM-b (or
+STDDM*-b) and, therefore, also fails in some respects.
+For example in the superﬂuid (superconducting) case,
+the symmetry operator is the particle number operator
+which in the quasiparticle basis has a diagonal (hermi-
+tian) piece. This cannot be included into SCRPA be-
+cause the norm matrix (50) has a zero eigenvalue. Thus,
+self-consistent quasi-particle RPA will not give the zero
+or Goldstone mode. For this the consideration of the
+STDDM approach is necessary. It may, however, be pos-
+sible to include the 2-body sector only in approximate
+form, that is eventually to lowest order perturbation the-
+ory.
+Another important property of standard RPA which is
+fulﬁlled by SCRPA is gauge invariance. Gauge invari-
+ance of standard RPA is nicely demonstrated by Feld-
+man and Fulton [42]. The extra terms containing the
+two body correlation functions in (49) cancel in the limit
+where the two open legs are put on the same spot in
+position space. Actually, gauge invarince of standard
+RPA as well as SCRPA can easily be veriﬁed from (56).
+If in these equations the operator δQαβ is transformed
+into r-space and the diagonal element is taken, as de-
+manded to show gauge invariance (see [42], Eq. (3.69)),
+we immediately realise that this diagonal operator com-
+mutes with the remainder (also written in r space), once
+the Hamiltonian H is replaced by its interaction part V ,
+that is, the Coulomb interaction. Therefore, gauge in-
+variance is fullﬁlled. This argument is valid discarding
+spin but, as shown in [42], this does not invalidate the
+general proof. These considerations also entail that the
+so-called ’velocity-length’ equivalence in the dipole tran-
+sition is preserved [42], see also [39].
+C. SCRP A-content of TDDM
+Let us now investigate how much of TDDM is al-
+ready incorporated in SCRPA. To this end, we may con-
+sider the equation for the antisymmetrised density ma-
+trix ˜Rαβα′β′, rather than the non-antisymmetrized one
+of (57) (see (30) for the deﬁnition of ˜ χ)
+˜R αβα′β′ = 1
+2
+∑
+ν
+( ˜χν
+αα′ ˜χν∗
+β′β − ˜χν
+βα′ ˜χν∗
+β′α)
+= 1
+2 (δαβ′δβα′ nβ ¯nα − δαα′ δββ ′nα¯nβ) + Cαβα′β′ (63)
+to derive an equation for Cαβα′β′.
+12
+Using
+∑
+ν (Ω νN1χν ˜χν∗ − ˜χνχν∗N1Ω ν )
+=
+∑
+µ
+(Sχν ˜χν∗ − ˜χν χν∗S)
+=
+∑
+µ
+(SN −1
+1 N1χν ˜χν∗ − ˜χνχν∗N1N −1
+1 S)
+=
+∑
+µ
+(SN −1
+1 ˜χν ˜χν∗ − ˜χν ˜χν∗N −1
+1 S), (64)
+we can express the equation for ˜R as ˜H ˜R − ˜R ˜H+ = 0,
+where ˜H = SN −1
+1 .
+The explicit expression for ˜H ˜R − ˜R ˜H+ = 0 is
+( ǫα + ǫβ − ǫα′ − ǫβ′)Cαβα′β′
++ ¯vαβα′β′(¯nα¯nβnα′ nβ′ − nαnβ ¯nα′ ¯nβ′ )
++ 1
+2
+∑
+λλ′
+[¯vαλ′α′λ(nα′ − nα)Cλβλ′β′
++ ¯vβλ′α′λ(nα′ − nβ)Cαλλ′β′
+− ¯vβλ′β′λ(nβ′ − nβ)Cαλλ′α′
++ ¯vαλ′β′λ(nβ′ − nα)Cβλλ′α′ ]
++ Eαβα′β′ + Fαβα′β′ + Gαβα′β′ = 0. (65)
+We see that (65) has a similar structure as (14). In (65),
+the second term corresponds to B0
+αβα′β′ and the third
+term to H 0
+αβα′β′ except for a factor 1 /2. The additional
+factor 1/2 is contained in the F matrix, see App. C
+where the matrices Eαβα′β′ , Fαβα′β′ and Gαβα′β′ are
+given.
+Since the expressions for E, F, G are rather lengthy
+due to a somewhat complicated structure of how the sin-
+gle particle occupation factors enter, we want to simplify
+the analysis and replace the occupation numbers by their
+free, i.e., mean ﬁeld values n0
+α. This will be suﬃcient to
+show that SCRPA also contains quadratic forms in C2’s
+quite analogous to TDDM. Taking the free occupation
+numbers automatically projects all quantities to have p
+or h indices only. It can be veriﬁed that in this way
+from (65), the TDDM Eqs. (14) are fully recovered up
+to the linear terms in C2’s. Some diﬀerences appear in
+the quadratic expressions. They are contained in the G
+matrix in (65). Therefore, let us make some comparisons
+between the static TDDM and the above deﬁned form of
+SCRPA.
+1. Special cases
+i) 2p-2h conﬁgurations : Tp1p2h1h2
+Here we consider Eq.(65) for Cp1p2h1h2 assuming nα =
+1 or 0. Equation (C1) has no contribution for Cp1p2h1h2
+and it is easy to check that the terms in Eq.(65) except for
+Gαβα′β′ are the same as B0
+αβα′β′, P 0
+αβα′β′ and H 0
+αβα′β′ for
+Cp1p2h1h2. Therefore, we investigate only the terms with
+the three-body correlation matrix in (14). The TDDM
+equation gives Eq. (18). Only the terms in the ﬁrst
+two sums in Eq. (C3) contribute to Gp1p2h1h2 and it is
+written as
+Gp1p2h1h2 = − 1
+2
+∑
+pp′hh′
+[¯vp1phh′ Chh′p′pCp′p2h1h2
+− ¯vp2phh′ Chh′p′pCp′p1h1h2
++ ¯vpp′h1hCh′hpp′ Cp1p2h′h2
+− ¯vpp′h2hCh′hpp′ Cp1p2h1h′ ]. (66)
+Therefore, Eqs. (18) and (66) agree with each other.
+ii) ph-ph conﬁgurations : Tp1h1p2h2
+The TDDM equation gives Eq. (19). For Gp1h1p2h2 we
+obtain
+Gp1h1p2h2 = 1
+2
+∑
+pp′hh′
+¯vp1hh′pCp′ph2hCh1h′p2p′
++ 1
+4
+∑
+pp′p′′h
+¯vp1pp′p′′ Cp′p′′hh2Ch1hp2p
+− 1
+2
+∑
+pp′hh′
+¯vph′p2hChh1pp′ Cp1p′h′h2
+− 1
+4
+∑
+pp′p′′h
+¯vp′p′′p2pCp1ph2hChh1p′p′′
+− 1
+2
+∑
+pp′hh′
+¯vh1pp′hCh′hp2pCp′p1h′h2
++ 1
+4
+∑
+phh′h′′
+¯vh1hh′h′′ Ch′h′′p2pCpp1hh2
++ 1
+2
+∑
+pp′hh′
+¯vph′h2p′ Cp1p′hh′Ch1hp2p
+− 1
+4
+∑
+phh′h′′
+¯vh′h′′hh2Cpp1h′h′′ Ch1hp2p. (67)
+There is a factor of 2 diﬀerence between Eqs.(19) and
+(67). If Cphp′h′ is also included, Gp1h1p2h2 has still more
+terms.
+iii) 4p and 4h conﬁgurations : Tp1p2p3p4, Th1h2h3h4
+The TDDM equation for Cp1p2p3p4 is given by Eq. (20)
+In the case of Eq. (65) Gp1p2p3p4 = 0 and Gh1h2h3h4 =
+0 and, thus, this leads to another diﬀerence with the
+TDDM equations.
+2. Summary of special cases
+1) The equation for Cp1p2h1h2 derived from SCRPA has
+one to one correspondence with TDDM except for the
+13
+coupling to Cp1p2p3p4 and Ch1h2h3h4. However, there is a
+factor of 1/2 diﬀerence in the C2
+2 terms when Cp1h1p2h2
+is included.
+2) The equation for Cp1h1p2h2 derived from SCRPA
+has always a factor of 1/2 diﬀerence with TDDM if we
+assume the symmetry Cp1h1p2h2 = −Ch1p1p2h2. It was,
+however, discussed in [19] that most of the time Cphp′h′
+is smaller than Cpp′hh′ and then this diﬀerence between
+TDDM and SCRPA will not show up strongly.
+Therefore at equilibrium, we get with SCRPA very
+similar equations for the C2’s as with static TDDM. No-
+tably the terms quadratic in C2’s are quite analogous in
+both cases. There are some diﬀerences, however. First
+comes the fact that, as mentioned, the terms Cphp′h′
+are missing factors of two. They are, however, usually
+smaller than the Cpp′hh′ and, then, this should not aﬀect
+the results very much. There is, however, another dif-
+ference between TDDM and SCRPA. This concerns the
+fact that on the r.h.s. of (38) there is the norm matrix
+which leads to the division by nβ − nα in ˜H = SN −1
+1 of
+(43). The signiﬁcance of this for the ground state is not
+very evident and the occupation factors can be replaced
+by the free ones to good approximation. However, for
+excited states it may be very important to keep the cor-
+related nα’s, since the norm matrix serves to make out of
+the non-orthonormalised basis in (34) an orthonormalised
+one. This probably should be very signiﬁcant when the
+SCRPA eqs (49) are solved with non restricted indices
+where the diﬀerence of occupation numbers can become
+very small. In that case those conﬁgurations become de-
+coupled from the physically relevant space. It is the same
+as working with a non-orthonormal basis like, e.g., with
+the RGM or GCM, when one has to diagonalise the norm
+kernel and eliminate all conﬁgurations with vanishingly
+small eigen values [23].
+V. SELF-CONSISTENT RP A FROM THE
+COUPLED CLUSTER W A VE FUNCTION
+To be self-contained, in this section, we will re-derive
+SCRPA from a diﬀerent perspective which will have inter-
+esting connection with TDDM and which will give some
+insight into which kind of ground state is implicitly used
+in STDDM* and/or STDDM.
+Formally the SCRPA equations have been written down
+several times in the past [11, 12]. They can be qualiﬁed as
+some sort of Hartree-Fock-Bogoliubov (HFB) equations
+for fermionic ph pairs and they most of the time have
+been presented as a non-linear eigenvalue problem to be
+solved by iteration. SCRPA theory has recently known
+important new developments concerning its theoretical
+foundation [17]. This stems from the fact that it was
+shown in that reference that the SUB2 coupled cluster
+wave function
+|Z⟩ = e
+ˆZ|HF⟩
+with ˆZ = 1
+4
+∑
+p1p2h1h2
+zp1p2h1h2a+
+p1 a+
+p2 ah1ah2 (68)
+is the vacuum to the following generalised RPA operator
+˜Q+
+ν =
+∑
+ph
+[ ˜X ν
+pha+
+p ah − ˜Y ν
+pha+
+h ap
++ 1
+2
+∑
+php1p2
+ηphp1p2 a+
+p1ap2 a+
+h ap
+− 1
+2
+∑
+phh1h2
+ηh1h2pha+
+h1ah2 a+
+h ap. (69)
+That is there exists the killing condition
+˜Qν|Z⟩ = 0 (70)
+with the following relations between the various ampli-
+tudes
+˜Y ν
+ph =
+∑
+p′h′
+zpp′hh′ ˜X ν
+p′h′
+zpp′hh′ =
+∑
+ν
+˜Y ν
+ph( ˜X −1)ν
+p′h′
+ην
+p1p2ph =
+∑
+h1
+zpp2hh1
+˜X ν
+p1h1
+ην
+h1h2ph =
+∑
+p1
+zpp1hh2
+˜X ν
+p1h1. (71)
+The amplitudes zpp′hh′ are antisymmetric in pp′ and
+hh′. With the above relations, the vacuum state is en-
+tirely expressed by the RPA amplitudes ˜X, ˜Y . We re-
+mark that this vacuum state is exactly the one of cou-
+pled cluster theory (CCT) truncated at the two body
+level [24]. However, the use we will make of this vacuum
+is very diﬀerent from CCT. Of course, for the moment,
+all remains formal because this generalized RPA opera-
+tor contains, besides the standard one body terms, also
+speciﬁc two-body terms which cannot be handled in a
+straightforward way. For instance, this non-linear trans-
+formation cannot be inverted in a simple manner. How-
+ever, we ﬁnd the mere existence of an exact killing opera-
+tor of the coupled cluster ground state quite remarkable.
+One may develop approximate methods to cope with
+those extra two-body terms. A ﬁrst simple approxima-
+tion consists in replacing in (69) the occupation number
+operators in the η terms by their expectation values, that
+is a+
+p2 ap1 → ⟨ a+
+p1 ap1 ⟩δp1p2 and a+
+h1ah2 → ⟨ a+
+h1 ah1⟩δh1h2
+where we supposed that we work in a basis where the
+single particle density matrix is diagonal. With the deﬁ-
+nition of the occupation numbers nk = ⟨a+
+k ak⟩, we then
+14
+obtain the following approximate form of the Q-operator
+in (69)
+˜Qν =
+∑
+ph
+[ ˜X ν
+pha+
+h ap − ˜Y ν
+pha+
+p ah]
++ 1
+2
+∑
+php1
+ηp1p1phnp1 a+
+p ah
+− 1
+2
+∑
+phh1
+ηh1h1phnh1 a+
+p ah. (72)
+Evidently, this approximation, though suggestive, vio-
+lates the killing condition (70). However, as has been
+shown in [17], the violation remains quite moderate. On
+the other hand, this approximation leads to a renormal-
+isation of the ˜Y amplitudes in (72) and, therefore, we
+are back to the usual RPA operator with the one-body
+terms in (72) only. For simplicity, we will not change
+the nomenclature of the ˜Y amplitudes in the following.
+In spite of the approximation, we will henceforth assume
+that the killing condition still holds. However, we always
+should be aware that this only is true approximately with
+the atrophied form of the generalized RPA operator (72).
+The amplitudes ( ˜X, ˜Y ) form a complete orthogonal set
+of vectors as explained, e.g., in [23]. We, therefore can
+invert the approximate RPA operator to obtain
+a+
+p ah = √
+nh − np
+∑
+ν
+[X ν
+phQ+
+ν + Y ν
+phQν], (73)
+where we deﬁned new amplitudes X, Y via
+˜X ν
+ph = X ν
+ph/√
+nh − np; ˜Y ν
+ph = Y ν
+ph/√ nh − np (74)
+and new RPA operators Qν = ∑
+ph[X ν
+pha+
+h ap −
+Y ν
+pha+
+p ah]/√
+nh − np so that the state |ν⟩ = Q+
+ν |Z⟩ is
+normalized, i.e., ⟨ν|ν⟩ = ⟨Z|[Qν, Q+
+ν ]|Z⟩/⟨Z|Z⟩ = 1 with
+∑
+ph
+[|X ν
+ph|2 − |Y ν
+ph|2] = 1 . (75)
+The use of the CCT state |Z⟩ has the great advan-
+tage that now in the calculation of the expectation values
+where we also need the occupation numbers expressed in
+terms of the X, Y amplitudes, this can be achieved in
+a natural manner (this was in the past always a certain
+problem with SCRPA without the use of the CCT state).
+For example, we have
+a+
+h ah|Z⟩ = e
+ˆZ ˜Jhh|HF⟩ (76)
+with Jhh = a+
+h ah and ˜Jhh = e− ˆZJhhe ˆZ = Jhh + [Jhh, ˆZ].
+Evaluating the commutator and then using the relation
+∑
+ν
+( ˜X −1)ν
+p′h′Qν = a+
+h′ap′ −
+∑
+ph
+zpp′hh′a+
+p ah (77)
+we arrive at
+nh = ⟨a+
+h ah⟩ ≡ ⟨Z|a+
+h ah|Z⟩
+⟨Z|Z⟩
+= 1 − 1
+2
+∑
+p
+⟨a+
+p aha+
+h ap⟩
+= 1 − 1
+2
+∑
+p
+[np ¯nh − Cphph]. (78)
+This relation can be used in (65) to have a fully closed
+system of equations. For the evaluation of the two-body
+term in terms of the Y -amplitudes, we will use the inver-
+sion of the Q-operators and obtain
+nh ≡ ⟨a+
+h ah⟩ = 1 − 1
+2
+∑
+p,ν
+(nh − np)|Y ν
+ph|2. (79)
+The same can be repeated for np
+np ≡ ⟨a+
+p ap⟩ =
+∑
+h
+1
+2
+∑
+h
+⟨a+
+p aha+
+h ap⟩
+= 1
+2
+∑
+h
+[np¯nh − Cphph]
+= 1
+2
+∑
+h,ν
+(np − nh)|Y ν
+ph|2 (80)
+leading to a linear system of equations for np, nh which
+can be solved. The quadratic occupation number ﬂuctua-
+tions can be treated in a similar way. They are related to
+C2’s with either four particle or four hole indices. They
+can be approximated to leading order by quadratic forms
+of C2’s with pphh indices as shown in [19]
+Cp1p2p3p4 ≃ 1
+2
+∑
+hh′
+Cp1p2hh′Chh′p3p4 + ... (81)
+Ch1h2h3h4 ≃ 1
+2
+∑
+pp′
+Ch1h2pp′ Cpp′h3h4 + .... (82)
+We now can express all correlation functions and
+densities in A and B matrices by the RPA ampli-
+tudes X, Y and, thus, have a fully self-consistent
+system of equations for X, Y . It should be mentioned,
+however, that due to the fact that the present RPA
+operator only contains ph(hp) conﬁgurations, sum
+rules, Goldstone theorem, etc. are not strictly fullﬁlled.
+15
+The violations usually remain very weak though, see [41].
+There exists, however, a diﬀerent closing of the equations
+employing the so-called selfconsistent particle-particle
+RPA (SCppRPA [14]). It can be shown that the
+coupled cluster wave function is not only the vacuum to
+a generalised RPA operator in the ph channel but also
+in the pp(hh) channel. This is explained in Ref. [17].
+From SCppRPA one can naturally obtain the C2’s with
+four particle or four hole indices, that is Cp1p2p3p4 and
+Ch1h2h3h4 . Also the SCppRPA couples via the nonlinear-
+ity back to the particle-hole SCRPA considered here [11].
+Iterating SCphRPA and SCppRPA simultaneously,
+again corresponds approximately to summing the par-
+quet diagrams already discussed above.
+VI. SHOR T DESCRIPTION OF CONNECTION
+OF SCRP A WITH GREEN’S FUNCTIONS
+In condensed matter physics dealing with homoge-
+neous inﬁnite systems, one usually does not formulate
+the problems in the form of an eigenvalue equation. One
+rather employs propagators or many body Green’s func-
+tions. Of course, it is clear that every eigenvalue prob-
+lem has a corresponding formulation with Green’s func-
+tions but it may be useful to give some more details on
+the ingredients of the present formalism. The Green’s
+function equivalent to the eigenvalue equation of SCRPA
+(48, 55) is, in a way, somewhat particular. As one may
+immediately realise, it cannot come from the familiar
+many time Green’s function approach where, e.g., the
+two body propagator (and also its integral kernel) de-
+pends on four times once one goes beyond the standard
+HF-RPA scheme. This stems from the fact that in an
+eigenvalue problem only one energy (the eigenvalue) is
+involved and then the corresponding integral equation
+for the Green’s function also can involve only one energy,
+even in the integral kernel. Though the formalism has
+been described in earlier publications, see, for instance,
+refs. [11][15], we feel that it may be helpful for the reader
+to give a short outline of the procedure. To this purpose,
+we write down the corresponding integral equation form
+of (48), that is the Bethe-Salpeter equation
+( ω − Ek1 + Ek2 ) ˜Gω
+k1k2k3k4
+= N0,k1k2[δk1k′
+3 δk2k′
+4 +
+∑
+k3′ k4′
+Sk1k2k3′ k4′ ]
+× ˜Gω
+k3′ k4′ k3k4 . (83)
+Inserting the spectral representation of the Green’s
+function
+˜Gω =
+∑
+ν
+χνNνχν∗
+ω − Ω ν + iηNν
+(84)
+where the sum goes over positive and negative values of
+ν and Nν = −N−ν, Ω ν = −Ω −ν, and taking the limit
+ω → Ω ν, we obtain in comparing the singularities on left
+and right hand sides, the eigenvalue equation (48).
+In order to see how this scheme with the equation of
+motion technique can go on and lead to an ω-dependent
+term in the integral kernel of the Bethe-Salpeter equa-
+tion, we consider the operator (27) to include a two body
+term as a ﬁrst extension, eventually higher order terms.
+Eliminating the 2-body amplitudes from the coupled
+equations of one body and two body amplitudes, one ob-
+tains an eﬀective equation for the χ amplitudes with an
+eﬀective, energy dependent potential containing implic-
+itly the two body amplitudes. This eﬀective potential
+can be qualiﬁed to corresponds to the ω dependent part
+of a two body self energy. This procedure can formally
+be pushed up to the N-body amplitudes leading thus to
+an exact two body equation of a Dyson equation form in
+analogy to what is known from the single particle Green’s
+function.
+Let us shortly show how the same scheme can be ob-
+tained beginning directly with the Green’s function. We
+start with the following chronological propagator
+Gt−t′
+12 = −i⟨0|TA1(t)A+
+2 (t′)|0⟩, (85)
+with A(t) = eiHt A(0)e−iHt, T the time ordering operator
+and
+A1 = a+
+k1′ ak1 , A +
+2 = a+
+k2ak2′
+where a+, a are fermion creation and destruction opera-
+tors, respectively and the Green’s function in (85) is thus
+a density-density correlation function. It is always un-
+derstood that the indices ki comprise, as before, momen-
+tum and spin and, eventually more quantum numbers,
+such as isospin, etc. We remark that in this deﬁnition
+of the Green’s function we put pairs of fermion opera-
+tors on equal times so that the Green’s function depends
+only on one time diﬀerence at equlibrium. The ˜G func-
+tion is related to G in replacing in the latter the A1 by
+˜A1 = a+
+k1′ ak1 /√
+Nk1′ k1 , etc. We now claim that for this
+two time Green’s function, one can write down in a well
+deﬁned way a formally exact integral equation with an
+integral kernel which also depends only on one time dif-
+ference (or in energy space on one energy ω). We, thus,
+write
+Gω = Gω
+0 + Gω
+0 Σ ωGω , (86)
+where it is understood that this is a matrix equation with
+matrix multiplication of the various products. The lowest
+16
+order Green’s function G0 is thereby given for, e.g., a
+translationally invariant system as
+Gω
+0,12 = nk′
+1 − nk1
+ω − Ek1 + Ek′
+1
+δk1k2 δk′
+1k′
+2 (87)
+where nk = ⟨0|a+
+k ak|0⟩ are the single particle occupa-
+tion numbers and Ek = k2/(2m) +∑
+k′ ¯vkk′kk′ nk′ are the
+mean ﬁeld energies.
+In principle, Eq. (86) may thus serve as a deﬁnition
+of the kernel Σ ω. It turns out that Σ ω is a well deﬁned
+object for which expressions in terms of usual correlation
+functions and Green’s functions can be given, see, e.g.,
+[11]. This kernel can be considered as some kind of
+higher order self energy, here the self-energy of density
+ﬂuctuations. As the well known self-energy of the single
+particle Green’s function, it splits into an instantaneous,
+energy independent part Σ 0 and an explicitly energy
+dependent part Σ r(ω). It can be shown that Σ 0 is
+equivalent to the matrix S in (48) as this is explained
+in [11]. Therefore (48) and (86)) are equivalent once
+Σ ω is replaced by its static part Σ 0. Mathematically,
+this can be seen quite straightforwardly in apply-
+ing the equation of motion to the propagator (85):
+i ∂
+∂t G12 = δ(t − t′)⟨0|[A1, A+
+2 ]|0⟩ −i⟨0|T[A1, H]tA+
+2 (t′)|0⟩.
+Applying now the equation of motion a second time to
+the time t′ ﬁguring in the correlation function which
+appears on the r.h.s. of this equation, one realises that
+the part which acts on the chronological operator T leads
+to the double commutator also involved in S of Eq.(48)
+and, consequently, in the instantaneous part of the self
+energy Σ 0. The application of the time-derivative on t′
+contained in A+
+2 (t′) will lead to the energy dependent
+part of the self-energy in (86). This brief outline should
+only serve to give the reader a quick feeling how such
+a somewhat unusual integral equation like (86) with
+an integral kernel depending only on one energy can
+be obtained. For a more detailed outline, we refer the
+reader to [11].
+Concerning the practical solution of (83), it can be
+seen from (48), that the static part only contains up to
+two body correlation functions which can be calculated
+from (83) and, thus, a self-consistent cycle is established.
+As just explained, the dynamic, explicitly energy depen-
+dent part contains the coupling to higher conﬁgurations
+involving four body propagators. Their inclusion leads
+in some approximation to what is known in the equa-
+tion of motion method as the second RPA equations [36].
+It may be worth mentioning that a perturbative
+analysis of Σ in (86)) shows that the terms are not
+equivalent to Feynman diagrams. Nevertheless, one can
+present the various terms in Σ 0 (or equivalently in S of
+eq (48)) by the graphs shown in Fig. 2. If in this ﬁgure
+the two body correlation functions are replaced by the
+ﬁrst oder expression in the interaction, the standard
+second order perturbation graphs emerge with, however,
+the particularity that they occur instantaneously, that
+is they do not propagate. Even, if the correlation
+functions in Fig. 2 are replaced by their full expression,
+the graphs stay, as indicated in the ﬁgure, instan-
+taneous. This feature results from the minimisation
+of the energy weighted sum rule as explained in section 2.
+Similar type of equations with integral-kernels depend-
+ing only on one frequency are obtained from the hyper-
+netted chain equations, see [45].
+VII. APPLICATIONS
+A. Preliminaries
+In order to guide the reader in the following applica-
+tions with the various approximations used, let us make
+a short summary here.
+First, there is the TDDM method, described in Sect.II.
+It allows to calculate the occupation numbers nk and
+the four types of 2-body correlation functions consid-
+ered. Disposing of those quantities allows to calculate
+the total ground state energy or various partial quan-
+tities thereof, as. e.g., the so-called 2-body correlation
+energy. The nk and C2’s can also be used to set up the
+correlated RPA matrix, in which case we talk about the
+C-RPA scheme. The C-RPA and SCRPA schemes ap-
+pear naturally as the one body sector of the linearised
+TDDM equations. The latter equations have been called
+either STDDM*-b or STDDM-b equations according to
+whether one includes the approximate form of the 3-body
+correlation function C3, Eq. (12), or not. Let us recall
+that the one body sector of STDDM-b and STDDM*-b
+is not aﬀected by C3 when the 2-body space is decoupled
+from the 1-body one. The non-linearity in C2’s only af-
+fects the 2-body sector as seen when comparing (29) with
+(32). There also exist STDDM and STDDM* equations
+which are equivalent but very non-symmetric versions of
+STDDM-b and STDDM*-b. They are not considered in
+the applications. Finally there exists the so-called Ex-
+tended Second RPA (ESRPA) equation which does not
+follow from the TDDM approach but is obtained from
+a minimisation of the energy weighted sum-rule involv-
+ing 1-body and 2-body operators. Since STDDM-b and
+STDDM*-b equations can be shown to be approximate
+forms of ESRPA, we consider ESRPA (slightly) superior
+to all the other kinds of equations we have established.
+One should realise, however, that STDDM-b, STDDM*-
+b, and ESRPA which all include the 2-body sector can
+be solved for the model cases presented below which in-
+volve limited conﬁguration spaces but for realistic prob-
+17
+/s48/s46/s48 /s48/s46/s53 /s49/s46/s48 /s49/s46/s53 /s50/s46/s48
+/s48/s46/s48/s48
+/s48/s46/s48/s53
+/s48/s46/s49/s48
+/s48/s46/s49/s53
+/s69/s83/s82/s80/s65
+/s67/s45/s82/s80/s65
+/s83/s67/s82/s80/s65
+/s110/s112
+/s84/s68/s68/s77
+FIG. 3. Occupation probabilities of the upper state calcu-
+lated in TDDM (solid line), ESRPA (red squares), C-RPA
+(green squares) and SCRPA (blue circles) as a function of
+χ = ( N − 1)|V |/ǫ for N = 4. The exact solution is shown
+with the dot-dashed line. The occupation probability and
+correlation matrix in TDDM are used in the C-RPA and ES-
+RPA calculations.
+lems as the homogeneous electron gas or nuclear matter,
+etc., one must be happy if the equations of the 1-body
+sector, that is C-RPA and/or SCRPA can be tackled.
+One should appreciate the following results in the light
+of these preliminary remarks.
+B. Lipkin model
+We ﬁrst consider the Lipkin model [43]. The Lipkin
+model describes an N -fermions system with two N -fold
+degenerate levels with energies ǫ/2 and −ǫ/2, respec-
+tively. The upper and lower levels are labeled by quan-
+tum number p and −p, respectively, with p = 1 , 2, ..., N.
+We consider the standard Hamiltonian
+ˆH = ǫ ˆJz + V
+2 ( ˆJ 2
++ + ˆJ 2
+−), (88)
+where the operators are given as
+ˆJz = 1
+2
+N∑
+p=1
+(a+
+p ap − a−p+a−p), (89)
+ˆJ+ = ˆJ +
+− =
+N∑
+p=1
+a+
+p a−p. (90)
+The operators Jz, J± are pseudospin operators and fullﬁll
+commutation relations of angular momenta.
+The ground state in TDDM is obtained using the
+adiabatic method: Starting from the HF ground state,
+we solve the TDDM equations (Eqs. (6) and (7)) by
+gradually increasing the residual interaction such that
+/s48/s46/s48 /s48/s46/s53 /s49/s46/s48 /s49/s46/s53 /s50/s46/s48
+/s48/s46/s48/s48
+/s48/s46/s48/s53
+/s48/s46/s49/s48
+/s48/s46/s49/s53
+/s48/s46/s50/s48
+/s84/s68/s68/s77
+/s67/s45/s82/s80/s65
+/s69/s83/s82/s80/s65
+/s83/s67/s82/s80/s65
+/s67/s112/s112/s39/s45/s112/s45/s112/s39
+FIG. 4. Same as Fig. 3 but for the two-body correlation
+matrix Cpp′− p− p′ .
+/s48/s46/s48 /s48/s46/s53 /s49/s46/s48 /s49/s46/s53 /s50/s46/s48
+/s45/s51/s46/s53
+/s45/s51/s46/s48
+/s45/s50/s46/s53
+/s45/s50/s46/s48
+/s84/s68/s68/s77
+/s67/s45/s82/s80/s65
+/s83/s67/s82/s80/s65
+/s69/s83/s82/s80/s65
+/s69/s116/s111/s116/s32/s47
+FIG. 5. Same as Fig. 3 but for the ground-state energy.
+/s48/s46/s48 /s48/s46/s53 /s49/s46/s48 /s49/s46/s53 /s50/s46/s48
+/s48
+/s49
+/s50
+/s51
+/s52
+/s83/s67/s82/s80/s65
+/s69/s83/s82/s80/s65
+/s67/s45/s82/s80/s65
+/s69/s83/s82/s80/s65
+/s69/s47 /s82/s80/s65
+FIG. 6. Same as Fig. 3 but for the excitation energies of the
+ﬁrst and second excited states.
+18
+/s48/s46/s48 /s48/s46/s53 /s49/s46/s48 /s49/s46/s53 /s50/s46/s48
+/s48
+/s49
+/s50
+/s51
+/s52/s69/s47
+FIG. 7. Excitation energies of the ﬁrst and second excited
+states calculated in STDDM-b (triangles), STDDM ∗ -b (cir-
+cles) and ESRPA (squares) as a function of χ = (N − 1)|V |/ǫ
+for N = 4. The exact solution is shown with the dot-dashed
+line.
+V ′ = V × t/T , as described in section II.D. We use
+T = 4 × 2π/ǫ. For the 3-body terms in Eq. (7) we
+use the approximations Eqs. (16) and (17) which are
+supposed to be the leading terms. All possible single
+particle indices are taken into account one by one (the so-
+called m-scheme, see also [37]). The original basis is kept.
+In a ﬁrst application, the occupation numbers nα and
+2-body correlation functions Cαβα′β′ are determined from
+the TDDM calculation and the RPA matrix is set up
+with these values. We refer to this scheme as the corre-
+lated RPA (C-RPA), see Sect.IV.A to distinguish it from
+SCRPA which takes into account self-consistency. We
+found it necessary to include the factor 1 /2 in Eq. (79)
+when we consider non-collective amplitudes as χµ
+−p′,p and
+χµ
+p,−p′ in addition to χµ
+−p,p and χµ
+p,−p, that is all possible
+RPA-amplitudes. When we keep only the collective am-
+plitudes, the results deteriorate and in addition the factor
+1/2 (79) has to be suppressed. This is in line with the
+discussion about the factor 1/2 in the occupation number
+expressions by Rowe in [32] given a long time ago.
+In a second application we also performed self-consistent
+RPA calculations corresponding to Eq. (48), taking again
+all kinds of amplitudes, collective and non-collective, that
+is, we also included all the amplitudes χµ
+−p′,p and χµ
+p,−p′
+and consequently the factor 1 /2 in Eq. (79) was kept.
+In SCRPA the two-body correlation matrices Cp1p2p3p4
+and Ch1h2h3h4 which are not directly related to the one-
+body transition amplitudes ( X, Y ) are calculated using
+Eqs. (81) and (82). To calculate the 2 p − 2h elements
+ﬁguring in the above expressions for Cpp′−p−p′ of the two-
+body correlation matrix, we use their relation with the
+RPA amplitudes given in Eq. (58) with Eq. (57). The
+occupation probability np of the upper state and the two-
+body correlation matrix Cpp′−p−p′ calculated in TDDM
+(solid line) and ESRPA (red squares) are shown in Figs.
+3 and 4, respectively, as a function of χ = ( N − 1)|V |/ǫ
+for N = 4. The RPA solution becomes unstable at χ = 1
+as shown below in Fig.6. The results of SCRPA (round
+dots) are shown up to χ = 1 .6 because beyond χ ≈ 1.6
+the numerical solution becomes unstable.
+The Lipkin model is simple enough to solve the com-
+plicated self-consistent ESRPA equations (28), however
+still some approximations have been applied. For the
+three body correlation functions, again the approxima-
+tions Eqs. (16) and (17) are employed. The 4-body
+correlation functions C4 contained in the D-matrix are
+neglected. Furthermore, in the ESRPA calculations we
+included only the one-body amplitudes with the same
+quantum number ( this corresponds to the collective
+subspace as usually considered in RPA) such as χµ
+−p,p,
+χµ
+p,−p, χµ
+−p,−p and χµ
+p,p and used Eq. (39) to obtain np.
+All two body amplitudes Xαβα′β′ with either
+pα = pα′ ; pβ = pβ′ or pα = pβ′; pβ = pα′ are in-
+cluded, where pα is the p quantum number given in Eqs.
+(89) and (90).
+The occupation numbers and 2-body correlation func-
+tions shown in Figs. 3 and 4 are very sensitive quantities
+concerning the underlying wave function. Let us men-
+tion again that it is important for the accuracy of the
+results to work with all possible amplitudes (collective
+and non-collective), that is with the m-scheme. Taking
+into account only collective amplitudes sensitively dete-
+riorates the results (not shown in the ﬁgures). SCRPA
+and C-RPA are about on same grounds, since they both
+work with the m-scheme and take the non-linearities in
+the C2’s into account. ESRPA and TDDM are also more
+or less equivalent, since they both take into account two
+body amplitudes, see section III.C. We may, however,
+remark that in realistic situations ESRPA may be inap-
+plicable, besides in very restricted conﬁguration spaces,
+because of its numerical complexity whereas this is not
+the case with TDDM. As a general remark, we can say
+that all approximations perform quite well up to χ = 1
+but start to deviate more or less strongly from the ex-
+act result (dot dashed line) thereafter. SCRPA and C-
+RPA are simpler than the approaches including the two
+body sector because the dimensions of the matrices re-
+main much smaller in the ﬁrst case. The value χ = 1
+is the one where standard RPA becomes unstable and a
+change of the single particle basis becomes necessary (
+the ’deformed’ basis). Here, we do not operate a change
+of basis but still the system seems to feel the entering into
+a new ’phase’. We should also remember that N = 4, is
+the worst case where the quantum ﬂuctuations are the
+strongest (the N =2 case being more or less trivial be-
+comes exact in SCRPA), see [16] (anticipating, this will
+also be the case in the other two models treated below).
+The results will improve for higher values of N .
+The ground-state energies in TDDM (solid line), ES-
+RPA (red squares), C-RPA (green squares) and SCRPA
+19
+(blue circles) are shown in Fig. 5 as a function of χ
+for N = 4. The exact values are again given with the
+dot-dashed line. The ground state energy in ESRPA is
+calculated using np and Cpp′−p−p′ given in Figs. 3 and
+4. All calculations agree well with the exact values. The
+ground state energy is a more robust quantity than are,
+e.g., the occupation numbers.
+The excitation energies of the ﬁrst and second excited
+states are displayed in Fig. 6 as a function of χ. We
+see that ESRPA performs extremely well, even far be-
+yond the RPA instability point of χ = 1. C-RPA and
+SCRPA also are very good but deteriorate after the in-
+stability point. Apparently the selfconsistency (SCRPA)
+brings, in the domain where the results are stable, a slight
+advantage over the non-selfconsistent one (C-RPA) but
+this may not be very signiﬁcant in general cases. In the
+case of the second excited state which can be obtained
+with ESRPA, deviation from the exact solution becomes
+larger with increasing χ. This can be explained either
+by the neglect of the coupling to higher amplitudes or
+by the fact that in ESRPA non-collective amplitudes are
+not included. Let us mention again that ESRPA can only
+be tackled at the moment for simple models. In realis-
+tic cases this approach becomes numerically too compli-
+cated.
+The excitation energies of the ﬁrst and second excited
+states calculated in STDDM-b (triangles), STDDM ∗-b
+(circles) and ESRPA (squares) are shown in Fig. 7 as a
+function of χ = ( N − 1)|V |/ǫ for N = 4. The exact so-
+lution is shown with the dot-dashed line. Figure 7 shows
+that STDDM ∗-b is a good approximation to ESRPA but
+up to χ = 1, STDDM-b also works quite well. All two
+body amplitudes have been taken into account, that is
+Xpp′−p−p′ , X−p−p′pp′ , Xp−p′p−p′ , Xpp′pp′ , X−p−p′−p−p′ ,
+Xp−p′−p−p′ , X−p−p′−pp′ , Xpp′p−p′ , and X−pp′pp′ .
+Let us remind that the diﬀerence between ESRPA
+and STDDM-b and STDDM*-b is that in STDDM
+C3 is totally neglected. The small diﬀerence between
+STDDM*-b and ESRPA originates in the fact that D in
+Eq. (28) is not the same as cT + ˜dN2 in Eq. (32).
+C. Pairing model
+Next we consider the pairing Hamiltonian [44]
+H =
+Ω∑
+i=1
+ǫα(a+
+i ai + a+
+¯i a¯i) − g
+Ω∑
+i̸=j
+a+
+i a+
+¯i a¯jaj. (91)
+Here g is the strength of the pairing force acting in a
+space of Ω twofold degenerate equidistant orbitals with
+the single-particle energies ǫi = (i − 1)∆ ǫ. This Hamilto-
+nian has extensively been used to investigate the validity
+of theoretical approaches [44].
+The ground state in TDDM is obtained using again
+the adiabatic method. We use T = 6 × 2π/∆ ǫ. Since
+/s48/s46/s48 /s48/s46/s50 /s48/s46/s52 /s48/s46/s54 /s48/s46/s56 /s49/s46/s48
+/s54
+/s55
+/s56
+/s57
+/s69/s77/s70/s32/s47/s32
+/s103/s47
+FIG. 8. Mean-ﬁeld energy EMF calculated in ESRPA
+(squares) and SCRPA (circles) as a function of g/∆ ǫ for
+Ω = N = 6. The TDDM results and the exact values are
+shown with the solid and dot-dashed lines, respectively.
+/s48/s46/s48 /s48/s46/s50 /s48/s46/s52 /s48/s46/s54 /s48/s46/s56 /s49/s46/s48
+/s45/s54
+/s45/s52
+/s45/s50
+/s48
+/s69/s50/s98/s99/s111/s114/s32/s47/s32
+/s103/s47
+FIG. 9. Same as Fig. 8 but for the 2-body correlation energy
+E2bcor.
+there are several occupation probabilities and the num-
+ber of the elements of the two-body correlation matrix
+is not small in the pairing Hamiltonian, we discuss their
+average properties using the correlation energy E2bcor
+(Eq. (40)) and the mean-ﬁeld energy EMF, which is
+given by EMF = ∑
+α ǫαnαα in the case of the pairing
+model. The mean-ﬁeld energy in ESRPA is calculated
+from the occupation probabilities given by Eq. (39) and
+the correlation energy in ESRPA given by Eq. (43).
+Since the ﬁrst term on the right-hand side of Eq. (42)
+does not exist in the pairing Hamiltonian Eq. (91), Eq.
+(43) holds in ESRPA.
+In principle SCRPA is not adequate for the solution
+of the pairing case because it is essentially a particle-
+hole theory. Nevertheless, SCRPA also includes some
+20
+/s48/s46/s48 /s48/s46/s50 /s48/s46/s52 /s48/s46/s54 /s48/s46/s56 /s49/s46/s48
+/s51
+/s52
+/s53
+/s54
+/s69/s116/s111/s116/s32/s47/s32
+/s103/s47
+FIG. 10. Same as Fig. 8 but for the ground state energy Etot.
+The dotted line dipicts the results in BCS.
+particle-particle correlations and it is interesting to see
+how well the ph-SCRPA performs. In principle, how-
+ever, one should better use the pp-SCRPA as described
+in Section V and applied in [15]. As before, in SCRPA
+all p − h and h − p amplitudes are taken and the factor
+1/2 in Eq. (79) is kept. The matrix elements Cp1p2p3p4
+and Ch1h2h3h4 are calculated using Eqs. (81) and (82) in
+SCRPA.
+The results in ESRPA (squares) are compared with
+the results of other calculations in Figs. 8–10 as a func-
+tion g/∆ ǫ for Ω = N = 6. The results in SCRPA are
+given with the circles and those in TDDM with the solid
+line. The dot-dashed line depicts the exact values. The
+mean-ﬁeld energies in SCRPA are closer to the exact val-
+ues than those in ESRPA, whereas ESRPA and SCRPA
+give similar results as with TDDM for E2bcor. The good
+agreement of SCRPA results with exact ones for the mean
+ﬁeld energies may be an accident.
+The results of TDDM and ESRPA agree with each
+other and for Etot they are close to the exact values.
+The dotted line in Fig. 10 depicts the results of BCS,
+which are in poor agreement with the exact solution.
+One also can read oﬀ the critical coupling strength
+g ∼ 0.43. Since E2bcor in SCRPA is not large enough to
+compensate large EMF, Etot in SCRPA deviates from the
+exact values with increasing g. It is easy to understand
+that SCRPA cannot give suﬃcient E2bcor in the pairing
+model: As said before, the two-body interaction in Eq.
+(91) consists of p − p and h − h correlations which cannot
+be fully included by 1p-1h excitation modes in SCRPA.
+There are only non-collective 1p-1h excitation modes
+in the case of the pairing model. The good agreement
+of EMF in SCRPA with the exact solution suggests
+that such non-collective 1p-1h excitation modes are
+well described by SCRPA. In fact the excitation energy
+E1 of the ﬁrst excited state calculated in SCRPA is
+E1/∆ ǫ = 3 .44 at g/∆ ǫ = 1 and the corresponding exact
+value is 3 .54. As mentioned above, EMF and E2bcor in
+/s48 /s49 /s50 /s51 /s52
+/s45/s56
+/s45/s54
+/s45/s52
+/s45/s50
+/s48
+/s69/s77/s70/s47/s116
+/s85/s47/s116
+FIG. 11. Mean-ﬁeld energy EMF calculated in ESRPA
+(squares) and SCRPA (circles) as a function of U/t for the
+six-site Hubbard model with half-ﬁlling. The TDDM results
+and the exact values are shown with the solid and dot-dashed
+lines, respectively.
+ESRPA are determined by the properties of two-phonon
+states. Therefore, deviations of the results in ESRPA
+from the exact values indicate that description of the
+two-phonon states in ESRPA without coupling to
+higher amplitudes becomes not good with increasing
+interaction strength, as is the case of the Lipkin model:
+The excitation energy E2 of the ﬁrst two-phonon state
+in ESRPA is E2/∆ ǫ = 5.43 at g/∆ ǫ = 1, which is about
+25 % larger than the exact value 4 .37.
+All in all, one must say that the phSCRPA performs
+surprisingly well, at least up to the critical value g ∼ 0.43.
+So, it may be important in general to include ph corre-
+lations also in the pairing case. We have seen that pp-
+SCRPA contains ph correlations and phSCRPA pp cor-
+relations. It may be a good idea to couple both channels
+in a self consistent approach. As discussed earlier, this
+self consistent coupling of pp and ph channels has some
+similarity with parquet diagram summation.
+D. Hubbard model
+Finally we consider the one-dimensional (1D) Hubbard
+model with periodic boundary conditions. In momentum
+space the Hamiltonian is given by
+H =
+∑
+k,σ
+ǫka+
+k,σak,σ
++ U
+2N
+∑
+k,p,q,σ
+a+
+k,σak+q,σa+
+p,−σap−q,−σ, (92)
+where U is the on-site Coulomb matrix element, σ spin
+projection and the single-particle energies are given by
+21
+/s48 /s49 /s50 /s51 /s52
+/s45/s52
+/s45/s51
+/s45/s50
+/s45/s49
+/s48
+/s69/s50/s98/s99/s111/s114/s47/s116
+/s85/s47/s116
+FIG. 12. Same as Fig. 11 but for the 2-body correlation
+energy E2bcor.
+/s48 /s49 /s50 /s51 /s52
+/s45/s56
+/s45/s54
+/s45/s52
+/s69/s116/s111/s116/s47/s116
+/s85/s47/s116
+FIG. 13. Same as Fig. 11 but for the ground state energy
+Etot.
+ǫk = −2t ∑ D
+d=1 cos(kd) with the nearest-neighbor hop-
+ping potential t. We consider the case of six sites at half
+ﬁlling. In the ﬁrst Brillouin zone −π ≤ k < π there are
+the following wave numbers
+k1 = 0, k 2 = π
+3 , k 3 = − π
+3 ,
+k4 = 2π
+3 , k 5 = − 2π
+3 . k 6 = −π. (93)
+The single-particle energies are ǫ1 = −2t, ǫ2 = ǫ3 = −t,
+ǫ4 = ǫ5 = t and ǫ6 = 2 t. The ground state in TDDM
+is obtained using the adiabatic method starting from
+the HF ground state where the six lowest-energy single-
+particle states are completely occupied: T used here is
+5 × 2π/t. The mean-ﬁeld energy in ESRPA is calculated
+from the occupation probabilities given by Eq. (39) and
+the correlation energy in ESRPA given by Eq. (43): The
+ﬁrst term on the right-hand side of Eq. (42) vanishes
+due to p − h symmetry in the case of half-ﬁlling consid-
+/s48 /s49 /s50 /s51 /s52
+/s48/s46/s48
+/s48/s46/s53
+/s49/s46/s48
+/s49/s46/s53
+/s50/s46/s48/s69/s47/s116
+/s85/s47/s116
+FIG. 14. Excitation energy of the ﬁrst excited state calcula ted
+in SCRPA (circles) and ESRPA (squares) as a function of U/t
+for the six-site Hubbard model with half-ﬁlling. The exact
+values are shown with the do-dashed line.The open circles
+depict the results in RPA.
+ered here. In SCRPA all p − h and h − p amplitudes are
+taken and the factor 1/2 in Eq. (79) is kept. That is, we
+considered the following RPA excitation operator
+Q+
+ν =
+∑
+ph
+[X ν
+pha+
+p ah − Y ν
+pha+
+h ap] (94)
+where p, h = (p, h, σ) includes momenta and spin indices.
+Of course, in the end the SCRPA matrix will turn out
+to be block-diagonal in transferred momenta and charge
+and spin quantum numbers. However, in the set up of
+the SCRPA matrix, in the construction of the two body
+correlation functions all possible contributions are kept.
+Therefore, there is indirect coupling between all channels.
+This is diﬀerent from [16] where the channels have been
+decoupled.
+The matrix elements Cp1p2p3p4 and Ch1h2h3h4 are cal-
+culated using Eqs. (81) and (82) in SCRPA. In the ES-
+RPA calculations we take only the 2p-2h and 2h-2p com-
+ponents of X µ
+αβα′β′ to facilitate the numerics. Since the
+three-body correlation matrix is an approximate one, the
+stationary condition for the three-body correlation ma-
+trix is not completely fulﬁlled, which makes the Hamil-
+tonian matrix of Eq. (28) non-hermitian, especially in
+the case of the Hubbard model which has more general
+two-body interaction than the Lipkin model and pairing
+models.
+The mean-ﬁeld energy EMF, which is given by
+EMF =
+∑
+k,σ
+ǫknk,σ + U
+2N
+∑
+k,p,σ
+nk,σnp,−σ, (95)
+the correlation energy E2bcor and the ground-state en-
+ergy Etot calculated in ESRPA (squares) are shown in
+Figs. 11–13 as a function of U/t. The results in SCRPA
+22
+are also given with the circles up tp U/t = 3 but cannot
+be distinguished from those in ESRPA. Beyond U/t ≈ 3,
+SCRPA cannot give meaningful solutions because of nu-
+merical instabilities as is the case for the Lipkin model.
+The TDDM results and the exact values are shown with
+the solid and dot-dashed lines, respectively. The results
+in ESRPA agree well with those in TDDM. The excita-
+tion energy of the ﬁrst excited state is shown in Fig. 14
+as a function of U/t. The results in ESRPA (squares)
+show good agreement with the exact values (dot-dashed
+line). The SCRPA results (blue circles) are reasonable
+and avoid the instability of RPA (open circles). The
+SCRPA results in Fig. 14 are, however, less good than
+the ones in [16]. For the second excited state (not shown)
+the situation becomes even worse. This fact needs some
+discussion. The reason for the present SCRPA results for
+the excitation energies apparently is due to the implicit
+cross channel couplings meaning that in the block matrix
+belonging to, e.g., a certain momentum transfer q, im-
+plicitly via the non-linear terms other momentum trans-
+fers also can enter. In [16], we discarded those ’intruder’
+channels for the following reason: since SCRPA does not
+strictly satisfy the killing condition (70), the various RPA
+operators Q+
+ν are not independent of one another. In
+[17], it was shown that this violation of independence is
+very weak. Apparently it is, however, still strong enough
+to perturb the equilibrium of the screening terms in the
+case of excitation energies. For correlation and ground
+state energies, the problem seems to be much less severe.
+It may, thus, be better to discard the implicit channel
+coupling for the excitation energies in SCRPA which is
+an approximation to ESRPA or STDDM* (STDDM*-b).
+The channel couplings can be restored if the two body
+amplitudes are taken care of as is seen in Fig.14 what,
+however, renders the problem much harder to be solved.
+E. Summary of applications
+We applied TDDM, STDDM-b and STDDM*-b, ES-
+RPA, SCRPA, and C-RPA to three exactly solvable mod-
+els. We found that the ground-state properties obtained
+from the excites states in ESRPA agree well with those
+in TDDM and the exact values. This indicates that the
+TDDM equations (Eqs. (6) and (7)) build the ground
+state which is consistent with excited states. We also
+found that the results of SCRPA (and C-RPA) agree with
+those in ESRPA except for strongly interacting regions
+where the systems enter a new phase as, e.g., superﬂu-
+idity in the case of pairing or anti-ferromagnetism in the
+case of the Hubbard model.
+VIII. CONCLUSIONS
+In this work, we give a coherent outline of the BBGKY
+hierarchy or the time-dependent density matrix (TDDM)
+approach decoupled at the 3-body level in approximat-
+ing the 3-body correlation function by a quadratic form
+of the 2-body correlation functions. The coupled equa-
+tions for the 1-body density matrix and the 2-body cor-
+relation functions are then linearised around the equilib-
+rium leading to eigenvalue equations coined STDDM-b
+and STDDM*-b which couple 1-body and 2-body ampli-
+tudes. The central part of the work is to show that the
+1-body sector of the STDDM-b and STDDM*-b equa-
+tions contains extended RPA equations which, contrary
+to standard RPA, are built on a correlated ground state.
+These extended RPA equations existed independently in
+the past and were called Self-Consistent RPA (SCRPA)
+because the RPA matrix, due to the ground state cor-
+relations, depends on the 2-body correlation functions
+(screening terms) and, thus, a self-consistent cycle is
+needed for the solution. However, a second option is to
+take the 2-body correlation function (and the correlated
+occupation numbers) from an independent TDDM calcu-
+lation for the ground state. This option has been coined
+correlated RPA (C-RPA). It was shown that the results
+in model cases are in both cases, as can be suspected, of
+similar quality. It was also shown in the present work
+that in SCRPA (C-RPA) equations a very important
+part of the correlations contained in the full TDDM and
+STDDM-b (STDDM*-b) approaches is already incorpo-
+rated. For instance, SCRPA (C-RPA) equations are, like
+TDDM non-linear in the 2-body correlations. This re-
+mark is very important from the practical point of view,
+since the dimension of the SCRPA (C-RPA) matrices is
+much reduced with respect to STDDM-b and STDDM*-
+b where the 2-body sector is included. The results for
+model cases show that at least for values of the cou-
+pling constants which are below or equal to the critical
+value where in mean ﬁeld a phase transition occurs (ex-
+emple: BCS-pairing instability), the results from SCRPA
+(C-RPA) are practically of the same quality as the ones
+where the 2-body sector is included. We also could show
+that SCRPA fullﬁlls all the desirable properties of stan-
+dard RPA as there are: fullﬁlment of f-sum-rule, Gold-
+stone (zero mode) theorem, conservation laws, and gauge
+invariance. It should be pointed out that those proper-
+ties are usually very diﬃcult to keep satisﬁed in beyond
+HF-RPA approaches with numerically manageable theo-
+ries. For example the Kadanoﬀ-Baym Φ-derivable func-
+tional approach [46] would face serious diﬃculties when
+applied to the models treated in this paper. SCRPA and
+C-RPA can also be applied in cases with a broken sym-
+metry in allowing for symmetry broken mean ﬁeld solu-
+tions. However, much less experience has accumulated in
+this regime. Only one work exists where the appearance
+of the Goldstone (zero) mode has been explicitly shown
+[41]. The results though good, suﬀer from the fact that
+the transition from the case with good symmetry to the
+one with broken symmetry is discontinuous, simulating
+a ﬁrst order phase transition where there should not be
+any. A similar diﬃculty popped up with the Coupled
+Cluster Theory when applied to the pairing Hamiltonian
+[47]. Very recently this diﬃculty of CCT has been cir-
+23
+cumvented in interpolating between the two regimes [48].
+Something similar is eventually also possible with TDDM
+and SCRPA. In any case the diﬃculty of artiﬁcial ﬁrst
+order phase transition, see also [12], probably arises from
+the fact that SCRPA is a truncated form of the more
+complete STDDM-b (STDDM*-b) theories. However, as
+mentioned, for practical (numerical) reasons, one would
+like to stay at the 1-body sector. For reasons of self-
+containedness, we repeated in this work some formalism
+already published elsewhere.
+Other features to be pointed out concerning the present
+theory are that TDDM yields fully antisymmetric 2-body
+correlation functions and that they are number and en-
+ergy conserving. They democratically couple particle-
+hole and particle-particle (hole-hole) channels and, thus,
+have some similarity with resummation of parquet di-
+agrams. The quadratic form in the 2-body correlation
+functions is rather analogous, but one level higher, to
+the quadratic dependence of HF theory on the s.p. den-
+sity matrix. Indeed the SCRPA matrix may be viewed as
+the mean ﬁeld Hamiltonien of density ﬂuctuations. We
+also pointed out that SCRPA also exists in the particle-
+particle (hole-hole) channel and, then, the SCppRPA
+matrix can be interpreted as the mean ﬁeld of, e.g.,
+a two fermion bound state in an environment of those
+bound states. Our extended RPA equations are of the
+Schroedinger type and thus amenable to numerical solu-
+tion. This is radically diﬀerent from the usual many time
+Green’s function formalism employed in several branches
+of physics.
+It may be interesting to transform our TDDM equations
+with the non-linear decoupling of the 3-body correlations
+into classical transport equations. This shall be work for
+the future.
+ACKNOWLEDGMENTS
+We are very greatful to D. Delion, J. Dukelsky, M.
+Jemai, and A. Storozhenko for previous collaborations
+on the subject of SCRPA. The present new developments
+are based on those earlier works.
+Appendix A: Quadratic form of C3
+1. Green’s function
+In the ﬁrst part of this section, we give a sketchy
+derivation using many body Green’s functions how C3
+can be expressed as a quadratic form of C2’s. In the
+second part a much more formal derivation will be given
+using identites of many particle density matrices.
+The one line reducible part of the 2 p − 1h(2h − 1p)
+Green’s function can be written as [23], App. F, see also
+Fig.1
+Gcorr,t−t′
+αβγ ′α′β′γ =
+∫
+dtδ
+∫
+dtδ′ Gt−tδ
+αβγ ′jδ
+Gtδ −tδ ′
+δδ′ Gtδ ′ −t′
+jδ ′ γβ ′α′
+(A1)
+with
+Gt−t1
+αβγ ′jδ 1
+= (−i)⟨0|T (a+
+γ′aαaβ)tj+
+δ1,t1 |0⟩irr (A2)
+and j+
+δ1,t1 = 1
+2
+∑ (a+
+γ a+
+δ aβ)t1 ¯vδγβδ 1. The index ’irr’
+stands for ’one line irreducible’. For convenience, we
+make for the single particle Green’s function the quasi-
+particle approximation
+Gt−t′
+δ
+δδ′ = δδδ′ {¯nδΘ( t − t′) − nδΘ( t′ − t)}e−iǫδ (t−t′) (A3)
+where the nδ are the correlated quasi-particle occupation
+numbers and ǫδ is the energy of the quasi-particle pole
+of the s.p. Green’s function, see [23]. Let us now in-
+sert this quasi-particle expression into (A1) and take the
+equal time limit, so that the 3-body correlation function
+C3 appears. We will see that the quadratic form in C2’s
+is obtained.
+This derivation is kept very qualitative, just to give
+the reader an impression how from the very natural ex-
+pression for (A1) for the one line reducible part of the
+2p − 1h(2h − 1p) Green’s function our quadratic form for
+C3 in terms of C2’s can appear. Let us now switch to
+a mathematically very transparent derivation involving
+identies of density matrices.
+2. Identity
+The quadratic form of the three-body correlation ma-
+trix is also obtained from the identity between three-body
+and four-body density matrices:
+ραβγα ′β′γ′ = 1
+N − 3
+∑
+λ
+ραβγλα ′β′γ′λ. (A4)
+The above identity is written in terms of correlation ma-
+trices as
+Cαβγα ′β′γ′ = 1
+3
+∑
+λ
+(nαλCλβγα ′β′γ′ + nβλCαλγα′β′γ′
++ nγλCαβλα′β′γ′ + nλα′ Cαβγλβ ′γ′
++ nλβ′ Cαβγα ′λγ′ + nλγ′Cαβγα ′β′λ
+− Cαβα′λCγλβ ′γ′ − Cαβγ ′λCγλα′β′
+− Cαβλβ ′ Cγλα′γ′ − Cαγα′λCλββ ′γ′
+− Cαγβ ′λCβλα′γ′ − Cαγλγ ′ Cβλα′β′
+− Cαλα′β′Cβγγ ′λ − Cαλα′γ′Cβγλβ ′
+− Cαλβ′γ′Cβγα ′λ − Cαβγλα ′β′γ′λ), (A5)
+24
+where Cαβγλα ′β′γ′λ is a four-body correlation matrix.
+Under the assumptions that nαα′ = δαα′ nα and
+Cαβγλα ′β′γ′λ = 0, the above relation is given as
+Cαβγα ′β′γ′ = 1
+3 − nα − nβ − nγ − nα′ − nβ′ − nγ′
+×
+∑
+λ
+(−Cαβα′λCγλβ ′γ′ − Cαβγ ′λCγλα′β′
+− Cαβλβ ′ Cγλα′γ′ − Cαγα′λCλββ ′γ′
+− Cαγβ ′λCβλα′γ′ − Cαγλγ ′Cβλα′β′
+− Cαλα′β′Cβγγ ′λ − Cαλα′γ′Cβγλβ ′
+− Cαλβ′γ′Cβγα ′λ). (A6)
+For Cp1h1h2,p2h3h4 the denominator of Eq. (A6) is −1
+and Eq. (12) is obtained.
+Appendix B: Matrices in STDDM
+The matrices a =, b, c, d and ∆ d in Eq. (26) are given
+below.
+a(αα′ : λλ′) = ( ǫα − ǫα′ )δαλδα′λ′
++
+∑
+β
+(¯vαλ′βλnβα′ − ¯vβλ′α′λnαβ), (B1)
+b(αα′ : λ1λ2λ′
+1λ′
+2) = 1
+2 (¯vαλ′
+2λ1λ2 δα′λ′
+1 − ¯vλ′
+1λ′
+2α′λ2 δαλ1 ),
+(B2)
+c( α1α2α′
+1α′
+2 : λλ′) = −δα1λ{
+∑
+βγδ
+[(δα2β − nα2β)nγα′
+1nδα′
+2
++ nα2β(δγα′
+1 − nγα′
+1)(δδα′
+2 − nδα′
+2)]¯vλ′βγδ
++
+∑
+βγ
+[ 1
+2 ¯vλ′α2βγ Cβγα ′
+1α′
+2 + ¯vλ′βα′
+1γCα2γα′
+2β
+− ¯vλ′βα′
+2γCα2γα′
+1β]}
++ δα2λ{
+∑
+βγδ
+[(δα1β − nα1β)nγα′
+1 nδα′
+2
++ nα1β(δγα′
+1 − nγα′
+1)(δδα′
+2 − nδα′
+2)]¯vλ′βγδ
++
+∑
+βγ
+[ 1
+2 ¯vλ′α1βγ Cβγα ′
+1α′
+2 + ¯vλ′βα′
+1γCα1γα′
+2β
+− ¯vλ′βα′
+2γCα1γα′
+1β]}
++ δα′
+1λ′ {
+∑
+βγδ
+[(δδα′
+2 − nδα′
+2 )nα1βnα2γ
++ nδα′
+2(δα1β − nα1β)(δα2γ − nα2γ)]¯vβγ |v|λδ
++
+∑
+βγ
+[ 1
+2 ¯vβγλα ′
+2Cα1α2βγ + ¯vα1βλγ Cα2γα′
+2β
+− ¯vα2βλγ Cα1γα′
+2β]}
+− δα′
+2λ′ {
+∑
+βγδ
+[(δδα′
+1 − nδα′
+1 )nα1βnα2γ
++ nδα′
+1(δα1β − nα1β)(δα2γ − nα2γ)]¯vβγλδ
++
+∑
+βγ
+[ 1
+2 ¯vβγλα ′
+1Cα1α2βγ + ¯vα1βλγ Cα2γα′
+1β
+− ¯vα2βλγ Cα1γα′
+1β]}
++
+∑
+β
+[¯vα1λ′βλCβα2α′
+1α′
+2 − ¯vα2λ′βλCβα1α′
+1α′
+2
+− ¯vβλ′α′
+2λCα1α2α′
+1β + ¯vβλ′α′
+1λCα1α2α′
+2β], (B3)
+d( α1α2α′
+1α′
+2 : λ1λ2λ′
+1λ′
+2) = ( ǫα1 + ǫα2 − ǫα′
+1 − ǫα′
+2)
+× δα1λ1 δα2λ2 δα′
+1λ′
+1 δα′
+2λ′
+2
++ 1
+2 δα′
+1λ′
+1 δα′
+2λ′
+2
+∑
+βγ
+(δα1βδα2γ − δα2γnα1β − δα1βnα2γ)
+× ¯vβγλ 1λ2
+− 1
+2 δα1λ1 δα2λ2
+∑
+βγ
+(δα′
+1βδα′
+2γ − δα′
+2γnβα′
+1 − δα′
+1βnγα′
+2)
+× ¯vλ′
+1λ′
+2βγ
++ δα2λ2 δα′
+2λ′
+2
+∑
+β
+(¯vα1λ′
+1βλ1 nβα′
+1 − ¯vβλ′
+1α′
+1λ1 nα1β)
++ δα2λ2 δα′
+1λ′
+1
+∑
+β
+(¯vα1λ′
+2βλ1 nβα′
+2 − ¯vβλ′
+2α′
+2λ1 nα1β)
++ δα1λ1 δα′
+1λ′
+1
+∑
+β
+(¯vα2λ′
+2βλ2 nβα′
+2 − ¯vβλ′
+2α′
+2λ2 nα2β)
++ δα1λ1 δα′
+2λ′
+2
+∑
+β
+(¯vα2λ′
+1βλ2 nβα′
+1 − ¯vβλ′
+1α′
+1λ2 nα2β). (B4)
+We now give the expression for ∆ d which arises from
+the quadratic forms in C2’s of the 3-body correlation
+25
+functions. We use Eqs. (16) and (17) for the three-body
+correlation matrix.
+∆ d(αβα′β′ : λ1λ2λ′
+1λ′
+2) = − 1
+2 ¯vα(h)λ′
+1(h)λ1(p)λ2(p)
+× Cλ′
+2(h)β(h)α′(p)β′(p)
++ 1
+2 ¯vα(p)λ′
+1(p)λ1(h)λ2(h)Cλ′
+2(p)β(p)α′(h)β′(h)
+− 1
+2 δβλ2 δα′λ′
+1 δβ′λ′
+2
+∑
+λ(h)λ′(p)λ′′(p)
+¯vαλλ′λ′′ Cλ′λ′′λλ1(h)
+− 1
+2 δβλ1 δα′λ′
+1 δβ′λ′
+2
+∑
+λ(p)λ′(h)λ′′(h)
+¯vαλλ′λ′′ Cλ′λ′′λλ2(p)
++ 1
+2 ¯vβ(h)λ′
+1(h)λ1(p)λ2(p)Cλ′
+2(h)α(h)α′(p)β′(p)
+− 1
+2 ¯vβ(p)λ′
+1(p)λ1(h)λ2(h)Cλ′
+2(p)α(p)α′(h)β′(h)
++ 1
+2 δαλ2 δα′λ′
+1 δβ′λ′
+2
+∑
+λ(h)λ′(p)λ′′(p)
+¯vβλλ′λ′′ Cλ′λ′′λλ1(h)
++ 1
+2 δαλ1 δα′λ′
+1 δβ′λ′
+2
+∑
+λ(p)λ′(h)λ′′(h)
+¯vβλλ′λ′′ Cλ′λ′′λλ2(p)
++ 1
+2 ¯vλ′
+1(p)λ′
+2(p)α′(h)λ2(h)Cα(p)β(p)β′(h)λ1(h)
+− 1
+2 ¯vλ′
+1(h)λ′
+2(h)α′(p)λ2(p)Cα(h)β(h)β′(p)λ1(p)
++ 1
+2 δαλ1 δβλ2 δβ′λ′
+1
+∑
+λ(p)λ′(p)λ′′(h)
+¯vλλ′α′λ′′ Cλ′
+2(h)λ′′λλ′
+− 1
+2 δαλ1 δβλ2 δβ′λ′
+1
+∑
+λ(h)λ′(h)λ′′(p)
+¯vλλ′α′λ′′ Cλ′
+2(p)λ′′λλ′
+− 1
+2 ¯vλ′
+1(p)λ′
+2(p)β′(h)λ2(h)Cα(p)β(p)α′(h)λ1(h)
++ 1
+2 ¯vλ′
+1(h)λ′
+2(h)β′(p)λ2(p)Cα(h)β(h)α′(p)λ1(p)
+− 1
+2 δαλ1 δβλ2 δα′λ′
+1
+∑
+λ(p)λ′(p)λ′′(h)
+¯vλλ′β′λ′′ Cλ′
+2(h)λ′′λλ′
++ 1
+2 δαλ1 δβλ2 δα′λ′
+1
+∑
+λ(h)λ′(h)λ′′(p)
+¯vλλ′β′λ′′ Cλ′
+2(p)λ′′λλ′
+(B5)
+The terms with and without summation describe self-
+energy corrections and vertex corrections, respectively,
+and indices p (h) mean that the corresponding single-
+particle state is a particle (hole) state.
+Appendix C
+The matrix Eαβα′β′ is the product of the self-energy
+terms in Eq. (49) and the ﬁrst term on rhs in Eq. (63)
+Eαβα′β′ = − 1
+4
+∑
+λλ′λ′′
+[¯vαλλ′λ′′ Cλ′λ′′β′λ
+× δβα′ (Lα′β′ − Lα′α)
+− ¯vβλλ′λ′′ Cλ′λ′′β′λδαα′ (Lα′β′ − Lα′β)
++ ¯vλλ′α′λ′′ Cβλ′′λλ′ δαβ′ (Lβα − Lα′α)
+− ¯vλλ′α′λ′′ Cαλ′′λλ′ δββ ′ (Lαβ − Lα′β)], (C1)
+where Lαβ = nα ¯nβ
+nα −nβ
+. The matrix Eαβα′β′ describes the
+self-energy corrections but has no contribution to the 2p-
+2h and 2h-2p elements of Cαβα′β′.
+The matrix Fαβα′β′ is obtained from the product of the
+vertex correction terms in Eq. (49) and the ﬁrst term on
+rhs in Eq. (63).
+Fαβα′β′ = 1
+2
+∑
+λλ′
+[(¯vαλβ′λ′ Cβλ′α′λ + ¯vβλα′λ′ Cαλ′β′λ)
+× (Lββ ′ − Lα′α)
+− (¯vβλβ ′λ′ Cαλ′α′λ + ¯vαλα′λ′ Cβλ′β′λ)
+× (Lαβ′ − Lα′β)]
+− 1
+4
+∑
+λλ′
+(¯vαβλλ′ Cλλ′α′β′ + ¯vλλ′α′β′Cαβλλ′ )
+× (Lββ ′ + Lαβ′ − Lα′α − Lα′β). (C2)
+As shown below, the factor 1 /2 in front of the p − h
+correlation terms in Eq. (65) is dropped due to the p − h
+correlation terms of Fp1p2h1h2 in Eq. (C2) (the ﬁrst sum)
+in the case that nα = 0 or 1. The p − p and h − h
+correlations are also included in Eq. (C2) (the last sum).
+The matrix Gαβα′β′ is obtained from the product of
+the terms with Cαβα′β′ in Eq. (49) and the second term
+26
+on rhs in Eq. (63).
+Gαβα′β′ = − 1
+4
+∑
+λλ′λ′′γ
+[¯vαλλ′λ′′ Cλ′λ′′γλUα′γCγβα ′β′
+− ¯vβλλ′λ′′ Cλ′λ′′γλUα′γCγαα′β′
++ ¯vλλ′α′λ′′ Cγλ′′λλ′ UγαCαβγβ ′
+− ¯vλλ′α′λ′′ Cγλ′′λλ′ Uγβ Cβαγβ ′]
++ 1
+4
+∑
+λλ′λ′′γ
+[¯vλ′λ′′β′λCγλλ′λ′′ Uβγ Cαβα′γ
++ ¯vβλ′′λλ′ Cλλ′γλ′′ Uγβ ′Cαγα′β′
+− ¯vλ′λ′′β′λCγλλ′λ′′ UαγCβαα′γ
+− ¯vαλ′′λλ′ Cλλ′γλ′′ Uγβ ′Cβγα ′β′]
++ 1
+2
+∑
+λλ′λ′′γ
+[¯vαλλ′λ′′ Cγλ′′α′λUγλ′Cλ′βγβ ′
+− ¯vβλλ′λ′′ Cγλ′′α′λUγλ′ Cλ′αγβ ′
++ ¯vλλ′α′λ′′ Cαλ′′γλ′UλγCγβλβ ′
+− ¯vλλ′α′λ′′ Cβλ′′γλ′ UλγCγαλβ ′]
+− 1
+4
+∑
+λλ′λ′′γ
+[¯vαλ′′λλ′ Cλλ′α′γUλ′′γCγβλ ′′β′
+− ¯vβλ′′λλ′ Cλλ′α′γUλ′′γCγαλ′′β′
++ ¯vλλ′α′λ′′ Cαγλλ′ Uγλ′′Cλ′′βγβ ′
+− ¯vλλ′α′λ′′ Cβγλλ ′ Uγλ′′ Cλ′′αγβ ′
+− 1
+2
+∑
+λλ′λ′′γ
+[¯vλλ′β′λ′′ Cβλ′′γλ′UγλCαγα′λ
+− ¯vλλ′β′λ′′ Cαλ′′γλ′ UγλCβγα ′λ
++ ¯vβλλ′λ′′ Cγλ′′β′λUλ′γCαλ′α′γ
+− ¯vαλλ′λ′′ Cγλ′′β′λUλ′γCβλ′α′γ]
++ 1
+4
+∑
+λλ′λ′′γ
+[¯vλβλ′λ′′ Cλ′λ′′γβ ′UγλCαγα′λ
+− ¯vλαλ′λ′′ Cλ′λ′′γβ ′UγλCβγα ′λ
++ ¯vλλ′λ′′β′Cγβλλ ′ Uλ′′γCαλ′′α′γ
+− ¯vλλ′λ′′β′Cγαλλ′ Uλ′′γCβλ′′α′γ], (C3)
+where Uαβ = 1
+nα −nβ
+. Here, we used the stationary con-
+dition for nα ((Eq. (6)) in the second sum, which is given
+by
+∑
+λ1λ2λ3
+[¯vαλ1λ2λ3 Cλ2λ3α′λ1 − Cαλ1λ2λ3 ¯vλ2λ3α′λ1 ] = 0 .
+(C4)
+The terms in Eq. (C3) describe the contributions of the
+three-body correlation matrix Cαβγα ′β′γ. Comparing Eq.
+(C3) with Eq. (12), we notice that there is a factor 2 dif-
+ference and that the term with Cλ2γα′β′Cλ3βλ1γ is miss-
+ing in Eq. (C3). So, Eq. (65) is very similar to Eq. (7)
+but there are diﬀerences in the three-body terms.
+[1] J. P. Perdew, M. Levy, Phys. Rev. Lett. 51,1884 (1983).
+[2] W. Zuo, I. Bombaci, U. Lombardo, Phys. Rev. C 60,
+024605 (1999).
+[3] P. Fulde, Electron correlations in molecules and solids ,
+Springer Series in Solid state Sciences, 100. Springer,
+Berlin 1991.
+[4] P. J. Knowles, C. Hampel, H.-J. Werner, J. Chem. Phys.
+99, 5219 (1993).
+[5] R. F. Bishop, Theor. Chim. Acta, 80, 95 (1991).
+[6] M. P. Nightingale, C. J. Umrigar, (Eds.) Quantum Monte
+Carlo Methods in Physics and Chemistry , (Springer,
+Berlin, 1999).
+[7] M. Holzmann, B. Bernu, C. Pierleoni, J. Mc Minis, D.
+M. Ceperly, V. Olevano, L. Delle Site, Phys. Rev. Lett.
+107,110402 (2011).
+[8] I. Peschel, X. Wang, M. Kaulke, K. Hallberg (Eds.),
+Density-Matrix Renormalisation, A new Numerical
+Method in Physics , (Springer, Berlin, 1999).
+[9] U. Schollwoeck, Ann. Physics 326, 96 (2011) and Rev.
+Mod. Phys. 77, 259 (2005).
+[10] J. W. Clark, P. Westhaus, Phys. Rev. 141, 833 91966).
+[11] J. Dukelsky, G. Roepke, P. Schuck, Nucl. Phys. A 628,
+17 (1998).
+[12] J. Dukelsky, P. Schuck, Nucl. Phys. A 512, 466 (1990).
+[13] D. S. Delion, P. Schuck, J. Dukelsky, Phys. Rev. C 71,
+064305 (2005).
+[14] J. G. Hirsch, A. Mariano, J. Dukelsky, P. Schuck, Ann.
+Physics 296, 187 (2002).
+[15] A. Storozhenko, P. Schuck, J. Dukelsky, G. Roepke, A.
+Vdovin, Ann. Physics 307, 308 (2003).
+[16] M. Jemai, P. Schuck, J. Dukelsky, R. Bennaceur, Phys.
+Rev. B 71, 085115 (2005).
+27
+[17] M. Jemai, D. S. Delion, P. Schuck, Phys. Rev. C 88,
+044004 (2013).
+[18] M. Bonitz, Quantum kinetic theory, second edition ,
+Springer 2015.
+[19] M. Tohyama, P. Schuck, Eur. Phys. J. A 50, 77 (2014).
+[20] S. J. Wang and W. Cassing: Ann. Phys. 159, 328 (1985).
+[21] M. Tohyama, P. Schuck, Eur. Phys. J. A 45, 257 (2010).
+[22] S. Ethofer, P. Schuck, Z. Physik 228, 264 (1969).
+[23] P. Ring and P. Schuck, The nuclear many-body problem ,
+(Springer-Verlag, Berlin, 1980).
+[24] J.-P. Blaizot, G. Ripka, Quantum Theory of Finite Sys-
+tems, The MIT Press, 1986.
+[25] M. Tohyama, S. Takahara, P. Schuck, Eur. Phys. J. A
+21, 217 (2004).
+[26] S. Takahara, M. Tohyama, P. Schuck, Phys. Rev. C 70,
+057307 (2004).
+[27] M. Tohyama, Phys. Rev. C 91, 017301 (2015).
+[28] M. Gell-Mann and F. Low, Phys. Rev. 84, 350 (1951).
+[29] M. Assi´ e and D. Lacroix, Phys. Rev. Lett. 102, 202501
+(2009).
+[30] A. Pﬁtzner, W. Cassing, and A. Peter, Nucl. Phys. A 577,
+753 (1994).
+[31] M. Gong and M. Tohyama: Z. Phys. A 335, 153 (1990).
+[32] D. J. Rowe, Rev. Mod. Phys. 40, 153 (1968); D. J. Rowe,
+Nuclear Collective Motion, Models and Theory , World
+Scientiﬁc 2010.
+[33] M. Tohyama, P. Schuck, Eur. Phys. J. A 19, 215 (2004).
+[34] M. Tohyama, Phys. Rev. C 75, 044310 (2007).
+[35] M. Kirson, Annals of Physics 66, 624 (1971).
+[36] D. Gambacurta, M. Grasso, J. Engel, Phys. Rev. C 92,
+034303 (2015).
+[37] D. Janssen, P. Schuck, Z. Physik A 339, 43 (1991).
+[38] F. Catara, G. Piccitto, M. Sambataro, N. Van Giai, Phys.
+Rev. B 54, 17536 (1996); F. Catara, M. Grasso, G. Pic-
+citto, M. Sambataro, ibid. 58, 16070 (1998).
+[39] D. S. Delion, P. Schuck, and M. Tohyama, Eur. Phys. J.
+B 89, 45 (2016).
+[40] M. Tohyama and P. Schuck, Eur. Phys. J. A 32, 139
+(2007).
+[41] D. S. Delion, P. Schuck, J. Dukelsky, Phys. Rev. C 72,
+064305 (2005).
+[42] G. Feldman, T. Fulton, Annals of Physics 152, 376
+(1984).
+[43] H. J. Lipkin, N. Meshkov and A. J. Glick, Nucl. Phys.
+62, 188 (1965).
+[44] R. W. Richardson, Phys. Rev. 141, 949 (1966).
+[45] M. Saarela, Lecture notes at fall 2008, University of
+Oulu; Material for reading: A. Fabrocinini, S. Fantoni,
+E. Krotscheck (Eds0: Introduction to Modern Methods
+of Quantum Many-Body Theories and their Applications ,
+Series on Advances in Many Body Theory-Vol. 7, World
+Scientiﬁc, London (2002).
+[46] L. P. Kadanoﬀ, G. Baym, Quantum Statistical Mechan-
+ics, Benjamin, New York, 1962.
+[47] T. M. Henderson, G. E. Scuseria, J. Dukelsky, A. Signo-
+racci, T. Duguet, Phys. Rev. C 89, 054305 (2014).
+[48] M. Degroote, T. M. Henderson, Jinmo Zhao, J. Dukelsky,
+G. E. Scuseria, arXiv:1512.06111.

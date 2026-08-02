@@ -1,0 +1,1470 @@
+A correlated-polaron electronic propagator: open electronic dynamics beyond the
+Born-Oppenheimer approximation
+John A. Parkhill,1, a) Thomas Markovich,1 David G. Tempel,1 and Alan Aspuru-Guzik2, b)
+1)Department of Chemistry and Chemical Biology, Harvard University,
+12 Oxford St. Cambridge, MA 02138, USA
+2)Department of Chemistry and Chemical Biology, Harvard University,
+12 Oxford St. Cambridge, MA 02138, USA
+In this work we develop an approach to treat correlated many-electron dynamics,
+dressed by the presence of a ﬁnite-temperature harmonic bath. Our theory combines
+a small polaron transformation with the second-order time-convolutionless master
+equation and includes both electronic and system-bath correlations on equal
+footing. Our theory is based on the ab-initio Hamiltonian, and thus well-deﬁned
+apart from any phenomenological choice of basis states or electronic system-
+bath coupling model.
+The equation-of-motion for the density matrix we derive
+includes non-Markovian and non-perturbative bath eﬀects and can be used to
+simulate environmentally broadened electronic spectra and dissipative dynamics,
+which are subjects of recent interest. The theory also goes beyond the adiabatic
+Born-Oppenheimer approximation, but with computational cost scaling like the
+Born-Oppenheimer approach.
+Example propagations with a developmental code
+are performed, demonstrating the treatment of electron-correlation in absorp-
+tion spectra, vibronic structure, and decay in an open system. An untransformed
+version of the theory is also presented to treat more general baths and larger systems.
+a)Electronic mail: john.parkhill@gmail.com
+b)Electronic mail: aspuru@chemistry.harvard.edu
+1
+arXiv:1206.2567v2  [quant-ph]  2 Oct 2012
+
+I.
+INTRODUCTION
+The small-polaron transformation of the electronic Hamiltonian was originally developed
+in the 1960’s91, and more recently revived92,93 in the many-electron context. It is a classic
+example94 of the utility of canonical transformations in quantum physics. Its usefulness is
+well-established94 yet it is also experiencing renewed interest95–98. In particular, second-order
+master equations in the polaron frame aﬀord good results in all bath strength regimes99–101
+employing the variational technique of Harris and Silbey102 . In the many-electron case,
+there has also been some recent pioneering work toward developing random-phase approxi-
+mation equations92,93. The electronic structure community has also produced some related
+work103–108, including phenomenologically damped109 response theory.
+In this paper we formulate and implement a correlated many-electron master equation
+that overcomes several limitations of the adiabatic Born-Oppenheimer approximation, and
+includes eﬀects such as excited-state lifetimes and vibronic structure. The basic goal of
+our method is to produce electronic spectra for small molecules that include the eﬀects of
+coupling to an environment.
+With continued development our formalism could describe
+environmental localization of electronic states and the decay of quantum entanglement in
+correlated electronic systems.
+The theory we present exploits the polaron transformation to combine both electron corre-
+lation and system-bath couplings in a single perturbation theory. In the transformed frame,
+high-rank quantum expressions are dressed by environmental factors, which cause them to
+decay during dynamics. This introduces the possibility for environmentally induced decay
+of the correlations in an electronic system, thereby making the problem computationally
+more tractable. We also discuss how a general one-particle perturbation to the electronic
+system may be treated in a closely related untransformed version of the theory. Physically
+relevant coupling models of this form are numerous, and several examples include nuclear
+motion coupled to electronic degrees of freedom110,111, Coulomb coupling to a nearby nano-
+particle surface112, the electromagnetic vacuum113, and perhaps even Coulomb coupling to
+surrounding molecules in a condensed phase.
+The present method is distinguished from previous work by a few characteristic features.
+Unlike virtually all master equation approaches, it treats the dynamics without assum-
+ing the many-body problem of the electronic system to be solved. We emphasize
+2
+
+that our correlated theory is one half of a ﬁnal theory with the other involving a recipe to
+calculate system speciﬁc couplings with Ehrenfest type dynamics or another scheme. The
+reason being that, in general, the appropriate basis of a few electronic states to prepare a
+master equation can’t be found a priori. As a result, this theory begins from a system-bath
+Hamiltonian which is well-deﬁned and atomistic in terms of single-electron states and em-
+ploys a non-Markovian equation of motion (EOM) in place of phenomenological damping.
+Conveniently, we ﬁnd that high-rank operator expressions responsible for the computational
+intractability of exact, closed, many-particle quantum mechanics are multiplied by factors
+which exponentially vanish in many circumstances.
+The picture of electronic dynamics oﬀered by a master equation is complementary to the
+time-dependent wave-packet picture of absorption114–120. In the latter approach the elec-
+tronic degrees of freedom are described as a superposition of a few adiabatic surfaces, and
+nuclear wave-packets are studied in the dynamics. In our approach the electronic degrees of
+freedom are described in all-electron detail, but the dynamics of the nuclei are approximated
+by the choice of the Holstein Hamiltonian. It is possible to combine a wave-packet calcula-
+tion of the bath correlation function with the untransformed equation of motion presented
+in this work, to leverage the physical strengths of both approaches.
+We demonstrate the implementation of the formalism in a pilot code, and apply it to
+calculate some dynamic properties of model small molecules. The spectra produced by the
+electron correlation theory are shown to compare favorably to related methods in the adia-
+batic limit. Vibronically progressed spectra are shown to be produced by the dressed theory,
+and a Markovian version is applied to a basic model of electronic energy transport between
+chromophores. Finally the undressed, uncorrelated theory is used to simulate the ultraviolet
+absorption spectrum of 1,1-diﬂouroethylene and compared with available experimental data.
+II.
+THEORY
+A.
+Hamiltonian
+As in the work of references92,93, we use the non-relativistic ab-initio many-electron Hamil-
+tonian with a Holstein-type121 (linear) coupling to a bath of non-interacting bosons (summa-
+tion over repeated indices is implied throughout this paper unless stated otherwise), given
+3
+
+by
+ˆH = ˆF + ˆV + ˆHboson + ˆHel-boson = f q
+pa†
+qap + V rs
+pq a†
+sa†
+rapaq + ωkb†
+kbk + a†
+papM p
+k(b†
+k + bk) . (1)
+Here, a†
+s creates an electron in the single-particle basis state s, while b†
+k creates a bosonic
+bath particle in the kth mode. ˆF is the Fock operator of the reference determinant, and ˆV
+is the two-electron part of the electronic Hamiltonian in the same single-particle basis. The
+third term is the boson Hamiltonian, ˆHb and the last is the coupling of the electronic system
+to the bath. For a general bath mode with dimensionless displacement Qk, the bi-linear
+coupling constant M p
+k, is related to the derivative of the orbital energy via M p
+k = ω−1
+k
+dfp
+p
+dQk
+(no summation over p and q implied). Assuming this sort of coupling is only appropriate
+for nuclear conﬁgurations near the minimum of the Born-Oppenheimer well.
+There are
+prescriptions for deﬁning these parameters from normal-mode analysis111 and molecular
+dynamics122 for the semiclassical treatment of anharmonicity. The latter approach can also
+include electrostatic ﬂuctuations. For the purposes of this work we are only interested in
+the properties of the method we develop, and do not present any calculations of the bath
+Hamiltonian. In the following discussion, we will assume the one-electron parts of ˆH and ˆF
+to be diagonal in the (canonical) one-electron basis with eigenvalues ϵp = f p
+p.
+We now introduce the displacement operator,
+exp[ ˆS] = exp[a†
+pap ˜
+M p
+k(b†
+k −bk)]
+(2)
+˜
+M k
+p ≡M k
+p /ωk ,
+(3)
+which generates the polaron transformation.
+Since the operator ˆS is anti-Hermitian, it
+generates a unitary transformation of the electron-boson Hamiltonian ˆH →˜H = e−ˆS ˆHe ˆS.
+Explicitly, the polaron transformed Hamiltonian is given by
+˜H = ˜F + ˜Hint,
+(4)
+where the one-particle part of the transformed Hamiltonian is given by
+˜F = ˜Fele + ˜Hboson = (ϵp −λp)a†
+pap + ωkb†
+kbk,
+(5)
+4
+
+and we have introduced the reorganization energy λp = P
+k M p
+k/ωk.
+The transformed
+electron-electron interaction is given by
+˜Hint = ˜V rs
+pq a†
+sa†
+rapaqX†
+sX†
+rXpXq,
+(6)
+where the transformed matrix elements are
+˜V rs
+pq = V rs
+pq −2(ωk ˜
+M r
+k ˜
+M s
+k)δpsδqr(1 −δsr),
+(7)
+and we have deﬁned the bath operators ˆXp as
+ˆXp = exp[ ˜
+M p
+k(b†
+k −bk)].
+(8)
+For future reference it will also be useful to deﬁne dressed electronic creation and annihilation
+operators, denoted by ˜a†
+s ≡a†
+sX†
+s and ˜as ≡asXs.
+The key feature of the polaron transformation is that ˜H has no electron-phonon coupling
+term. As a result, the two-electron and electron-boson parts of the original Hamiltonian
+are combined into a single term which now couples two dressed electrons and two dressed
+bosons (Eq. 6). One should intuitively imagine the situation depicted in Fig. 1, where two
+displaced electronic energy surfaces are dragged into alignment by the polaron transfor-
+mation, altering the coupling region between them, which now absorbs the electron-boson
+coupling.
+In what follows, our expressions will be derived in the interaction picture with respect to
+Eq. 6 and then switched to the Schr¨odinger picture. The harmonic nature of the bosons
+means that the correlation functions of ˆX operators (in any combination and at multiple
+times) can be given as simple functions of ωp, ˜
+M and β = kbT 92. The transformed electron-
+boson problem takes the form of the usual many-electron problem with a time-dependent
+electron-electron interaction. This allows us to harness powerful methodologies that stem
+from two distinct areas of research: quantum master equations123 and quantum chemistry
+methods124. We exploit this feature to produce a model of electronic dynamics which treats
+system-bath dynamics and correlation eﬀects within the same perturbation theory.
+5
+
+FIG. 1: A schematic representation of the polaron transformation. One-electron energies of
+the underlying Hamiltonian take the form of displaced parabolas coupled to the Coulomb
+interaction V . In the transformed frame, the boson eﬀects are absorbed into a ˜V , which
+depends on the boson operators, ˆX. This makes ˜V eﬀectively time-dependent via the bath
+correlation function B(t).
+B.
+Electronic dynamics
+Having reviewed the polaron transformation in the previous section, we now combine
+it with the time-convolutionless perturbation theory (TCL)125,126 to arrive at the central
+theoretical result of this manuscript. Our goal is to derive an equation-of-motion for a dressed
+particle-hole excitation operator, which we denote ˜oi
+a ≡oa
+i ˜a†
+a˜ai (here i, j, k... are zeroth-order
+occupied levels and a, b, c... are unoccupied). We consider only the particle-hole part of the
+density matrix, commonly referred to as the Tamm-Dancoﬀapproximation127,128(TDA), to
+simplify the derivation of our equations and avoid the possible issues associated with the
+non-linearity of the other blocks129. To derive Fock-space expressions130, it is convenient
+to assume the initial equilibrium state is the canonical Hartree-Fock (HF) determinant i.e.
+the initial density matrix is |Ψ(0)⟩⟨Ψ(0)| ≈|0⟩⟨0|, with |0⟩the HF determinant.
+This
+assumption relies on two approximations: 1) The ﬁrst excited-state energy of the systems
+we will study is much larger than kbT, so that the system is eﬀectively in the ground-state.
+2) The initial state of the system is weakly correlated and hence dominated by a single Slater
+determinant. Assumption 1 is clearly valid for the small molecular systems we will study,
+while assumption 2 requires more care and the eﬀects of initial correlations are discussed in
+6
+
+detail in section II. E.
+We deﬁne projection operators:
+P ˜
+A = PF(Trb( ˜
+A)) × ⟨X†...X⟩b,eq, and Q = 1 −P.
+(9)
+PF is a Fock space projector onto maps between single-electron {a†a} operators like the
+typical projector of a partitioned electron-correlation perturbation theory ie:
+PF(L1 : oq
+pa†
+qap →ηs
+ra†
+sar) = L1
+(10)
+PF(L>=2 : o...rs
+pq...a†
+sa†
+r...apaq →η...r′s′
+p′q′...a†
+s′a†
+r′...ap′aq′) = 0.
+(11)
+This partitioning is consistent with the perturbative ordering of ˜H by powers of ˜V . We treat
+the description of the many-electron state in terms of only one-body operators (neglecting all
+higher density matrices) on the same footing as tracing over the bath degrees of freedom131,
+so both phenomena are easily incorporated in the same master equation.
+The eﬀective Liouvillian becomes time-dependent due to the polaron transformation.
+Consequently, there exists no simple analytical formula for its Fourier transform. Instead,
+we must give a diﬀerential representation of the EOM for a particle-hole excitation, which
+can then be integrated numerically. Given these projectors, the time-convolutionless per-
+turbation theory125 (TCL) over the space of P is:132.
+d
+dtP˜o(t) =
+
+PL(t)P +
+Z t
+0
+dsPL(t)QL(s)P
+
+˜o(t) + I(t)
+(12)
+This is written in the interaction picture where L = −i[˜V (t), ·].
+The ﬁrst term above
+is the uncorrelated part of the evolution133, the second is a homogenous term reﬂect-
+ing correlation between the system and the bath, and the last term is an inhomogene-
+ity reﬂecting correlations of the initial state.
+The interaction picture perturbation134 is
+˜V (t) = (˜V pq
+rs ei∆pq
+rsta†
+qa†
+paras)×(X†
+q(t)X†
+p(t)Xr(t)Xs(t)), where ∆γδ...
+αβ... = (ϵγ+ϵδ+...−ϵα−ϵβ−...).
+Expanding the ﬁrst term over the one-particle space and moving into the Schrodinger picture
+we obtain (left arrows, ←, are used to indicate the contribution of a term to d˜o/dt ):
+d
+dtP˜ou
+v(t) ←−i(ϵu −ϵv + ˜V vp
+us Bvs
+pu(t, t))˜os
+p(t)
+(13)
+7
+
+We have introduced a shorthand for the correlation function B(a†),(a)
+(a†),(a)(lower time, upper
+time):
+Bmnop
+pqrs (t, s) = ⟨X†
+m(s)X†
+n(s)Xo(s)Xp(s)X†
+p(t)X†
+q(t)Xr(t)Xs(t).⟩
+(14)
+Term (13) is comparable in dimension and physical content to the response matrices of
+conﬁguration interaction singles (CIS)135 with an attached, time-local boson correlation
+function. Because all arguments have the same time-index, B only applies a real factor
+(∼1 as ˜
+M →0) to values of the interaction and thus introduces no new time-dependence.
+The indices of the boson correlation function, and their order, are simply read-oﬀthe ˜V
+integral they multiply.
+The second homogeneous term introduces bath correlation functions between boson op-
+erators occurring at diﬀerent times (t and s) according to
+d
+dtP˜ou
+v(t) ←
+−i
+ℏ
+2 Z t
+t0
+ds(PL(t)QL(s)P˜o(t))
+(15)
+= −[˜V rs
+pq (t), Q[
+Z t
+t0
+Bab,xy
+rs,qp (t, s)˜V ab
+xy (s)ds, ˜on
+m(t)]]
+(16)
+Moving the electronic part into the Schodinger picture and rearranging this becomes:
+= −[˜V rs
+pq , Q[˜V ab
+xy , ˜on
+m]]ei(∆rs
+pq)tei(∆n
+m)t
+Z t
+t0
+Bab,xy
+rs,qp (t, s)ei(∆ab
+xy)sds
+(17)
+Expanding the commutators in Eq. 17, applying Wick’s theorem to remove the many vanish-
+ing terms, and enforcing the connectivity constraint, one obtains many topologically distinct
+terms. In our implementation this is done automatically before the execution of a simula-
+tion. The terms are easily related to terms which occur in the expansion of the second-order
+Fermion propagator (SOPPA)136–138 and diagonalization-based excited-state theories like
+CIS(D)139. Since we employ the time-convolutionless perurbation theory, the oscillating ei∆t
+factors are diﬀerent than those which occur in Rayleigh-Schrodinger perturbation theories
+(in the energy-domain denominator
+1
+ω−∆) and warrants further study. We some terms from
+a hole →particle excitation which is obtained by multiplying both sides of equation (27) on
+8
+
+FIG. 2: The particle-hole →particle-hole skeleton Brandow141 diagrams in the
+second-order homogeneous term, the ﬁrst two come from the VtVso term in the expanded
+double-commutator and third from VtoVs. The fourth occurs in VtoVs, VsoVt and VtVso.
+The boson correlation function depends on any lines emerging from the ellipses which
+represent virtual electron scattering events at times t, s.
+the left with (a†
+uav)† and applying Wick’s theorem.
+˙˜oa
+i (t) ←˜V aj
+bd ˜V bd
+cj ˜oc
+iei(∆cj
+bd)t
+Z t
+t0
+Bbd,cj
+aj,bd(t, s)ei(∆bd
+cj )sds
+(18)
+This term has six indices overall, but can be factorized as follows:
+˙˜oa
+i (t) ←Ia
+c (t)˜oc
+i where: Ia
+c (t) = ˜V aj
+bd ˜V bd
+cj ei(∆cj
+bd)t
+Z t
+t0
+Bbd,cj
+aj,bd(t, s)ei(∆bd
+cj )sds
+(19)
+The calculation of Ia
+c scales ﬁfth order with the number of single electron states, and linearly
+with the number of bath modes (which go into the calculation of B(t)). This low scaling
+with number of bath modes is inherited from the approach of Silbey102, Jang97 and Nazir140.
+The algebraic version of the second term in Fig. 2 is:
+˙˜ob
+k(t) ←˜V ij
+ak ˜V ab
+cj ˜oc
+iei(∆cj
+ab)t
+Z t
+t0
+Bab,cj
+ij,ak(t, s)ei(∆ab
+cj )sds
+(20)
+This term is sixth order with the size of the system, with the boson correlation function
+preventing a desirable factorization of the V-V contractions. 14 sixth-or-less-order terms are
+found which couple hole-particle excitations to each other; skeletons141 of these are shown
+diagrammatically in Fig. (2) with explicit expressions for each of these terms given in the
+supplementary information142.We should note that our formalism lacks several terms which
+occur in the SOPPA because of the Q projector and the absence of VtovacoVs ordered terms
+that are invoked in the formal expansion of the time-ordered exponential.
+As described so-far the EOM is not time-reversible even when ˜
+M = 0 because neither
+9
+
+the homogenous term nor the normal excitation operator take the form of an anti-Hermitian
+matrix.143. We remedy this by adding the terms which result from the normal excitation’s
+operator’s Hermitian conjugate, ie: the indices of the vacuum and o are swapped, and the
+signs of ∆s and prefactor are ﬂipped and the new term is added to the other perturbative
+terms. For example Term 20 becomes the following two terms:
+˙˜ob
+k ←1
+2
+˜V ij
+ak ˜V ab
+cj ˜oc
+i
+Z t
+t0
+Bab,cj
+ij,ak(t, s)(ei(∆cj
+ab)(t−s))ds
+˙˜oc
+i ←−1
+2
+˜V ij
+ak ˜V ab
+cj ˜ob
+k
+Z t
+t0
+Bab,cj
+ij,ak(t, s)(ei(∆ab
+cj )(t−s))ds
+(21)
+Making this modiﬁcation, the linear response spectrum of the adiabatic model is not signif-
+icantly altered, but the adiabatic norm conservation is enforced, and changes by less than 1
+percent after 1700 atomic units in the case of H4 with 4th order Runge-Kutta and a timestep
+of 0.05 au.
+C.
+Dipole Correlation function
+Like any canonical transformation144, the polaron transformation preserves the spectrum
+of the overall electron-phonon Hamiltonian but the statistical meaning of the state related to
+a particular eigenvalue is changed. In other words: the operators of our theory are diﬀerent
+objects from the adiabatic Fock space. To lowest order in system-bath coupling140, electronic
+observables like the time-dependent dipole correlation function, which predicts the results
+linear optical experiments, can be obtained by generating the transformed property operator
+˜µ = e ˆS ˆµe−ˆS = µi
+ja†
+iajX†
+i Xj.
+Within the Condon approximation the dipole correlation
+function is then the product of the electronic trace and bath trace over the ˆX operators
+introduced in ˜µ. This adds a bath correlation function to the usual observable. Taking all
+the relevant expectation values gives the following explicit numerical formula for the dipole
+moment expression:
+Cd−d(t) =
+X
+ijab
+{µia˜oia(t)µjb˜ojb(0)} · TrB{X†
+a(t)Xi(t)X†
+b(0)Xj(0))}
+(22)
+10
+
+This expression for the dipole-dipole correlation function assumes the bath remains at equi-
+librium. CIS likewise only oﬀers a zeroth-order oscillator strength145. The spectra in this
+work are generated by “kicking” the electronic system with the dipole operator instanta-
+neously, and Fourier transforming the resulting dipole-dipole oscillations.
+D.
+Untransformed Version
+Because of the polaron transformation the above formalism is accurate in the strong bath
+regime with diagonal system-bath couplings. To treat an oﬀ-diagonal, weak coupling one can
+develop the complementary untransformed theory. With a bi-linear system-bath coupling
+of the form:
+Hsb =
+X
+ij
+a†
+iajM ij
+k
+
+b†
+k + bk
+
+,
+(23)
+development of an uncorrelated particle-hole equation of motion follow similarly to the
+above with Hsb taking the place of ˜V . The untransformed version also makes it possible to
+introduce an Ehrenfest scheme for the nuclear bath which may be pursued in future work.
+The projector of the untransformed version is simply the equilibrium trace over b operators.
+The TCL produces second-order contribution of the form:
+˙ˆo(t) ←
+Z t
+t0
+[Hsb(t), [Hsb(s), ˆo(t)]]ds
+(24)
+which after translation into the Schrodinger picture and application of Wick’s theorem pro-
+duces several terms146 similar to the following:
+˙oa
+l (t) ←M j,l
+k M m,j
+k
+oa
+m(t)ei∆j
+kt
+Z t
+t0
+ei∆m
+j sC(t −s)ds
+(25)
+11
+
+with τ = t −s.
+The correlation function Cm(t) = ⟨b†
+m(t)bm(0)⟩is given by the usual
+formula147:
+Re (C(τ)) =
+X
+i
+coth
+βωi
+2
+
+cos (ωiz)
+Im (C(τ)) =
+X
+i
+sin (ωiz) .
+(26)
+These contributions to the equations of motion scale with the 4th order of the system size;
+two-orders of magnitude cheaper than the transformed version. They can be combined with
+just the uncorrelated part of the particle-hole equation of motion, or added to the correla-
+tion terms developed above with the bath factor removed. To treat a continuous bath of
+oscillators, one can introduce a continuous parameterization of (Mk)2 = J(ω)/ω2 = ηi
+ω
+e
+−ω/ωc
+as an ohmic spectral density under the assumption that the coupling to the continuous bath
+is the same for every state up to a factor.
+Furthermore, we ﬁnd that the reorganization energy is given by λi = ωid2
+ii which can be
+subtracted from the original Hamiltonian.
+E.
+Initial Correlations
+In the above we have expanded on existing master equations by giving the electronic
+system a many-body Hamiltonian with Fermionic statistics. We have also improved typi-
+cal electronic response theories by incorporating bath dynamics, but we have assumed that
+the initial state was a single determinant and employed the corresponding Wick’s theorem.
+These approximations are made in many other treatments of electronic spectra110,148,149,
+and are acceptable for situations where a molecule begins in a nearly determinantal state.
+Optical absorption experiments of gapped small molecules belong to this regime. To rig-
+orously study electron transport in a biased junction150, or otherwise more exotic initial
+state requires a treatment of initial correlations151–154, as in the non-equilibrium Green’s
+function(NEGF) method155–157. These methods ﬁrst propagate an initial determinant in
+imaginary time150 thermalizing and correlating the system before the dynamics, but numer-
+ical applications of the NEGF formalism require storage an manipulation of a state variable
+with three indices: Gpq(ω), and are usually limited to small systems158, and short times. We
+12
+
+can similarly perform an imaginary time propagation, and have performed some exploratory
+calculations which are described in the supporting supporting material142.
+Instead of performing an imaginary time integration, one can replace the usual Wick’s
+theorem, and build the theory beginning from a state which is already correlated. Extended
+normal ordering159, makes it possible to take expectation values with a multi-conﬁgurational
+reference function via a generalization of Wick’s theorem160. Using the extended normal or-
+dering technique, the expressions of the present paper can be promoted to treat a general
+initial state directly, so long as the density operator of that state is known. This approach
+would eliminate the need for any adiabatic preparation of the initial state, but would gen-
+erate more complex equations, and is a matter for future work.
+For weakly correlated systems it’s reasonable to keep the approximation that the usual
+Wick’s theorem applies to the initial state of the electronic system, and instead of adiabat-
+ically preparing an initial state, choose a perturbative approximation to the correlated part
+of the initial state, Q˜o(0) =
+R 0
+−∞dsL(s)˜o(0), and treat the ﬁrst inhomogenous161 term of
+the master equation:
+I(t) = PL(t)Q
+Z 0
+−∞
+dsL(s)˜o(0)
+(27)
+The bath parts of the inhomogenous term are known to be relatively unimportant from
+studies of tight-binding Hamiltonians97, and only slightly perturb the results of a propagation
+for short times, and so we will not include them.
+It is interesting to note that with the addition of this inhomogenous term, there is a
+correspondence between the present theory and a model of electronic linear response derived
+from an eﬀective Hamiltonian, CIS(D)149. The CIS(D) excited states are the eigenvectors of
+a frequency dependent matrix, ACIS(D)
+ai,bj
+(ω), with the dimension of the particle-hole space:
+ACIS(D)
+ai,bj
+(ω) = ˆHCIS −P ˆV QˆV P
+(∆−ω) + P ˆV Q ˆT2P
+(28)
+In the above ˆT2 is the second-order excitation operator from Moller-Plesset perturbation the-
+ory. These terms correspond respectively to the Fourier transform of our PVP, PVQVP, and
+I(t) terms with diﬀerent denominators. This correspondence suggests the present method
+should produce linear response spectra of quality similar to CIS(D), which is usually slightly
+13
+
+Approximation
+Extension
+|Ψeq⟩≈|0⟩
+Extended normal ordering159
+Second-Order in ˜V
+TCL-4162
+⟨µ(t)⟩≈Tr(˜µ · ˜o(t))
+Use basis commuting with µ
+TDA
+Include the additional blocks145.
+Orbital relaxation
+Variational condition102
+TABLE I: Limitations of this work and how they may be relaxed. Orbital relaxation isn’t
+really an approximation, per-se, but would be beneﬁcial for the results of the perturbation
+theory.
+better than TDDFT. Because the formalism is somewhat involved and many approxima-
+tions have been made, we have summarized the limitations of this work in a table (I) with
+references that point to possible improvements. The formalism is now developed to the
+point where particle-hole excitations can be usefully propagated, and the main features of
+the approach can be demonstrated in calculations.
+III.
+RESULTS
+A.
+Adiabatic ( ˜
+M →0) spectrum
+To incorporate both bath and electron correlation eﬀects it was necessary to write down
+a second-order, time-local EOM for electronic dynamics based on the time-convolutionless
+perturbation theory which we will call ”2-TCL”. The zeroth order poles of the correlation
+terms in this theory diﬀer from those which occur in other second-order theories of electronic
+response (SOPPA163, ADC(2)145 , CIS(D)149, and CC2148) which arise from perturbative
+partitioning of what is essentially an energy-domain propagator matrix. Interestingly, the
+denominator of the present theory is naturally factorized and in the adiabatic limit all terms
+can be evaluated in ﬁfth order time, unlike Rayleigh-Schodinger perturbation theory which
+requires a denominator factorization approximation to avoid a 6-index denominator139. To
+verify that the electronic part of this work is indeed a reasonable model of electronic dynam-
+ics and check our implementation (signs, factors etc.) it is useful to compare an adiabatic
+spectrum (a calculation with no bath coupling, ˜
+M →0) to one arising from exact diago-
+nalization. We’ve coded the above formalism into a standalone extension of the Q-Chem
+package164 from which we take the results of some other standard models. The particle hole
+14
+
+FIG. 3: Left: Adiabatic dipole absorption spectra of H4 in the minimal basis, CIS which is
+a part of the ﬁrst term in 27, CIS(D), and the present theory. Numbers indicate maxima
+in eV and horizontal axis is given in Hartree. The largest maxima have been normalized to
+the same value. Right: adiabatic 2-TCL applied to the BH3 molecule. The placement of
+red peaks nearer to blue than green indicates success as a perturbation theory. The atomic
+geometries (given in a footnote, are also shown).
+equation of motion is integrated with the Runge-Kutta 4th/5th method with an adaptive
+time step. Propagations in all three directions are followed at once, and the resulting time
+dependent dipole tensor is Fourier transformed to produce the spectra presented below.
+Bath integrals are calculated with 3rd-order Gaussian quadrature with the same time-step
+as the electronic Runge-Kutta integration, or integrated analytically in the adiabatic limit.
+The exact results and moments shown below come from the PSI3165 program package.
+To check the adiabatic theory, we present calculations of dipole spectra on the H4 and
+BH3 molecules166. In both cases the molecules have been stretched from their equilibrium
+bond lengths to a geometry where correlation eﬀects are stronger167 and excitations are
+anomalously low-in-energy because of near degeneracy of the single-particle levels.
+We
+prepared the minimal basis molecule of H4 in a density excited by the dipole operator, and
+propagated it for 250au. The dipole-dipole correlation functions Cαβ(t) = ⟨µα(t)µβ(0)⟩were
+collected during the simulation and Fourier transformed. The real part of this spectrum
+of spherically-averaged dipole oscillations is compared against stick spectra with the height
+given by the transition moment at the poles of an exact adiabatic calculation within this
+basis, and related theories. One sees that the propagator of the present work is a meaningful
+correction to CIS, moving poles away from the green positions towards the blue (Fig. 3) as
+15
+
+CIS involves exact diagonalization of the single-excitation part of the many electron Hamil-
+tonian while the present theory involves correlation eﬀects as well. In the adiabatic limit of
+the response model, only correlation eﬀects (and not bath eﬀects) are present. The excited
+state near 12.52eV in H4 has increased in energy from the green position of 11.54eV toward
+the exact pole at 13eV. A more strongly correlated state just below this is unresolved. This
+is likely because the dipole moment operator doesn’t couple the reference determinant to
+this multi-conﬁgurational state. The higher energy peak of the spectrum is brought into
+good agreement with the exact result. Similar performance is seen in the case of a distorted
+BH3 molecule, albeit with corrections of the higher energy peaks near 23eV being too small.
+B.
+Vibronic features
+The spectra of Markovian system-bath perturbation theories take the form of Lorentzians113
+at the poles of the response matrix. Because the present theory is non-Markovian it should
+be capable of yielding new poles oﬀmain transitions. To evaluate this eﬀect we add a strong
+bath oscillator at 1600cm−1 and calculate absorption spectra. We choose this bath oscil-
+lator at high energy to observe vibronic peaks in a reasonable amount of propagation time
+(1700 a.u.), and choose a correspondingly high temperature (4397.25 K) so that there are
+several peaks in the progression which should take-on a Boltzmann-ian shape. The resulting
+absorption spectrum is pictured in Figure 4, with a close up of the promised progression. It
+is relevant to wonder whether the vibronic peaks are simply the result of the bath displace-
+ment operators present in the dipole correlation function expression, or the result of the
+polaron density matrix dynamics. Simply eliminating the bath-correlation function from
+the dipole expression and generating the same spectrum, a vibronic progression still results,
+indicating that it is the non-Markovian dynamics of the system operators which provides
+the vibronic progression.
+C.
+Energy Transport and Markovian Evolution
+The continuous integration of rank-6 bath correlation tensors required for the Non-
+Markovian propagation executed above is a rather costly proposition for large systems. This
+16
+
+FIG. 4: Polaron-transformed absorption spectrum of H4 with a Lorentizan bath oscillator
+at 1600cm−1. Each adiabatic peak is split into a Boltzman-weighted vibronic progression
+magniﬁed at inset.
+is especially true if one would like to study incoherent electronic energy transport which takes
+place in times on the order of picoseconds, roughly a million times more than the electronic
+timestep required to integrate Eq. (27) for a typical molecule. A useful approximation to
+overcome this is a Markov approximation, by which we mean taking the limit of the integral
+to inﬁnity for each term, such as:
+Rab,cj
+ij,ak = lim
+t→∞
+Z t
+t0
+Bab,cj
+ij,ak(t, s)(ei(∆cj
+ab)(t−s))ds
+(29)
+where R is now a factor replacing the integral expression. Each term possesses its own R
+tensor, but these must only be calculated once. Numerically, this limit can be taken in
+the case of a continuous super-ohmic bath with cutoﬀfrequency ωc by introducing a cutoﬀ
+time tc, above which the bath correlation function is assumed to be equal to it’s equilibrium
+value, which is a good approximation for βωc(tc)2 >> 2.
+We have used the letter R to suggest the analogy between this time-independent rate
+tensor and that occurring in the Redﬁeld theory169,170, although in this theory there are 28
+such ﬁfth and sixth rank tensors. These tensors also diﬀer because they use the transformed,
+rather than the bare correlation function. The value of the integral above only depends on
+the values of a Laplace-transformed B(ω) =
+R ∞
+0 eiωtB(t, 0) at the zeroth order electronic
+frequencies (∆). The Markovian rate matrix can then be calculated once in sixth order
+time, giving eﬀective kinetic rates which include the eﬀects of correlation and bath coupling.
+17
+
+FIG. 5: Adiabatic linear response spectrum of a minimal model of transport between
+electronically excited states, two H2 molecules in the DZ168 basis.
+These can be used to calculate dynamics at a drastically reduced fourth order cost (since the
+perturbative EOM then takes the form of a single matrix product with time-independent
+eﬀective Hamiltonian) or diagonalized directly to obtain spectra. The frequency independent
+nature of this term means that no new peaks can appear due to correlation or system-
+bath coupling. Only damping of dynamics between correlation and bath shifted CIS-like
+poles leading to Lorentzian spectra can be expected within the conﬁnes of this Markovian
+approximation.
+To give an example of how this methodology could be applied to transfer of electronic
+energy, we examine two Hydrogen molecules separated several bond lengths171 in a DZ
+basis. The basis has been expanded to allow for the induced dipole moment between the
+two molecules. Since these two molecules are well separated and held at nearly their Born-
+Oppenheimer minima there is no longer any strong correlation or spin-frustration in this
+system. The adiabatic linear response spectrum is shown in Fig (5), again showing good
+agreement with the stick spectra emerging from exact diagonalization as in H4. The CIS
+states of this pair of molecules are well-localized. The splitting between the two peaks around
+18eV corresponds to a weak coupling between them, and a distortion to the molecule on
+the right which has been imposed to lower the energy of the state localized on that side
+so that a bath can induce transfer of population. We initialize the pair of molecules into
+an even superposition of their excited states and couple a 2831cm−1 oscillator at 273.0K to
+the HOMO, HOMO-1, LUMO and LUMO+1 with dimensionless ˜
+M’s of (0.025, 0.05, .165,
+and .055) respectively. Over the course of ∼60fs (Fig. 6) the overlap of the time-dependent
+18
+
+FIG. 6: Transfer of probability between H2 molecules in the DZ basis. After being
+initialized in a transition density which is the superposition of the adiabatic states at 17.3
+and 18.1 eV, probabilities relaxation proceeds because of interaction with the bath. To
+zeroth-order in bath coupling State 1 is localized on the left, undistorted H2, and State 0 is
+localized on the right, distorted H2.
+state with the higher energy state 0 has halved the overlap with the lower energy state has
+grown, and the overall norm of the state has decreased by about 10 percent, corresponding
+to non-radiative decay. The rapid beating between the states corresponds to what would
+tight binding-model would describe as the coherence between collective states 0 and 1.
+The evolution of this ”coherence” isn’t captured well in the Tamm-Dancoﬀapproximation
+because we have truncated the blocks of the propagator coupling particle-hole excitations
+and their conjugate hole-particle modes.
+D.
+Untransformed and uncorrelated version
+The transformed version of the theory has several interesting formal advantages, but
+to treat larger systems or oﬀ-diagonal system-bath couplings we have also presented the
+untransformed version of our theory which is similar to a propagation of the CIS wave-
+function with dissipative bath terms. Even in our relatively rudimentary code it is possible
+treat much larger systems with the undressed version especially if the electron correlation
+terms are neglected. To demonstrate the idea we have simulated the ultraviolet photoabsorp-
+tion spectrum of 1,1-diﬂouroethylene172. We will compare the result of an untransformed
+calculation (Fig. 7) with available experimental data173 for the valence π →π∗transition.
+Bath bosons are positioned at the experimentally raman active frequencies, the C=C stretch
+19
+
+FIG. 7: Experimental and simulated UV absorption cross-section of 1,1-diﬂouroethlyene in
+the region dominated by the π →π∗transition produced by 1500a.u. of propagation at
+303K. The untransformed version of the theory is employed and correlation terms are
+neglected.
+at 0.214eV, the CF2 symmetric mode at .114eV, and the CH2 rocking mode at .162eV. We
+have also added a super-ohmic spectral (n=3) density with coupling constant α = 0.01 and
+cutoﬀfrequency of 5580 cm−1. Because of a mixture of basis limitations and the absence of
+electron correlation the simulated absorption is centered an electron-volt higher in energy
+than the gas-phase experiment, but both transitions appear in a qualitatively similar way.
+The somewhat irregular vibronic progression of the experimental peak hints at limitations
+of approximating the nuclear degrees of freedom as a harmonic bath. This suggests that in
+future work it may be interesting to explore more accurate ways to calculate ⟨b†(t)b(0)⟩, for
+example by propagating frozen gaussians or pursuing an Ehrenfest-type174 scheme. In this
+untransformed version semiclassical or wave-packet175 approaches to calculate ⟨b†(t)b(0)⟩are
+easily combined into the electronic equation of motion.
+IV.
+CONCLUSION
+In this paper we have presented a model of correlated electronic dynamics that is trans-
+formed by a Bosonic bath. This allows us to study the eﬀects of environmental dephasing
+on electronic excited states without assuming a reduced model for the electrons and their
+coupling to each other. Intriguingly, factors appear in the theory which damp high-rank
+operator expectation values.
+The possibility of exploiting this damping to reduce the
+cost of high-level electronic structure is interesting176.
+The adiabatic limit of the prop-
+20
+
+agation developed here oﬀers a useful correction to the placement of electronic energies.
+The linear-response spectrum of the complete model has been shown to exhibit vibronic
+structure. A Markovian, Tamm-Dancoﬀapproximation to an energy transport problem has
+been examined, leading to bath-induced transfer of electronic energy between H2 molecules,
+although coherence decay cannot yet be captured because several oﬀ-diagonal blocks of
+the transition density matrix have been neglected in the EOM of this initial work. The
+untransformed version of this formalism could be made eﬃcient enough to study non-linear
+optical experiments177–179 via propagation.
+Accurate protocols for providing a per-orbital spectral density must be developed and
+the accuracy of the resulting lineshapes and lifetimes must be assessed. Simply projecting
+the orbital energy gradient onto the normal modes of the molecule is an obvious choice,
+but it would be appealing to treat the inﬂuence of surrounding molecules in a similar way.
+The Tamm-Dancoﬀequation of motion provided in this work propagates only one-block of
+a much larger transition density matrix which must be treated to capture coherence phe-
+nomena between particles amongst themselves (and holes). The treatment of a thermalized
+initial condition is an interesting, but computationally demanding question. The payoﬀfor
+developing these additional features would be electronic excited states with more realism
+than can be oﬀered in the adiabatic picture. These states would be naturally localized, with
+a size depending on vibronic structure and temperature and evolve and relax irreversibly.
+V.
+APPENDIX: EXPRESSIONS FOR THE CORRELATION FUNCTIONS
+AND FACTORIZATION
+Time-ordered harmonic correlation functions (HCF’s) of all orders of the type ⟨ˆX ˆX†... ˆX ˆX†⟩
+were made available in Dahnovsky’s pioneering work92 by expanding the exponentials in ˆX
+as power series in ˆAk = (ˆbkeiωkt −ˆb†
+ke−iωkt) and applying Wick’s theorem to the resulting ˆA
+operator strings paying careful attention to the combinatorial statistics. Since we employ
+a master equation theory rather than a Green’s function theory, our version of the HCF
+depends on the sign of (t −s) but is otherwise the same after making the simpliﬁcations
+21
+
+which appear in our second order theory.
+Bp1p2p3p4
+q1q2q3q4 (s, t) = ⟨ˆX†
+p1(t) ˆX†
+p2(t) ˆXp3(t) ˆXp4(t) ˆX†
+q1(s) ˆX†
+q2(s) ˆXq3(s) ˆXq4(s)⟩=
+exp{−
+X
+m
+1
+2Coth(βωm/2)( ˜
+M p1p2q1q2
+p3p4q3q4 (m))2} · exp{−
+X
+m
+( ˜
+M p1p2
+p3p4 (m) ˜
+M q1q2
+q3q4 (m))Fm(t −s)}
+where: Fm(t) = Coth(βωm/2)Cos(ωmt) −iSin(ωmt)
+(30)
+We use an abbreviated notation (the same as ∆), ˜
+M ab...
+ij... (s) = ( ˜
+M a
+s + ˜
+M b
+s...−˜
+M i
+s−˜
+M j
+s...). The
+correlation function above includes equilibrium value of the HCF. The qualitative behavior
+of the real part of bath integrals in terms like 20 governs relaxation and is worth comment.
+If ωs ∼∆> 0 at time s, and
+˜
+Mat t ˜
+Mat s < 0 then summed over all terms Re(B(t)) is
+negative(causing relaxation) for a time on the order of 1/(ωs −∆s), after which it oscillates.
+If ∆< 0 then relaxation occurs if ˜
+Mat t ˜
+Mat s > 0. In most applications of Master equations
+a single, positive, spectral density is assumed for all states which basically parameterizes
+˜
+Mat t ˜
+Mat s as a function of ω. This approximation is more than a mere convenience; if ˜
+M
+is assigned generally and diﬀerent states are allowed to couple to a single frequency with
+diﬀerent strengths it’s quite easy to for some elements of the EOM to have ˜
+Mat t ˜
+Mat s > 0
+causing exponential growth in the Markovian limit and at short times.
+To treat a continuous number of bath oscillators one can introduce a continuous param-
+eterization of ˜
+M called the spectral density, Ji(ω), ˜
+M i
+ωα =
+R ∞
+0
+p
+Ji(ω)/ωδ(ω −ωα)dω. The
+renormalization of the electronic integrals is clear given this form. With a relatively simple
+functional form for J, such as a super ohmic spectral density with cutoﬀparameter ωc,
+Ji(ω) = ηi
+6
+ω3
+ω2c e−ω/ωc, the time dependence of of correlation function B(t, s) can be analyti-
+cally calculated180 to a good approximation. So long as ωc is the same for all single-electron
+states, and only ηi changes the whole formalism works identically with √ηi taking the role of
+˜
+M i
+ωα. We note that the requirement that the correlation function be easily integrable is only
+a pre-requisite for the polaron transformation. If only the time-convolutionless equation of
+motion is used, any correlation function which is known can be easily incorporated.
+Without further approximation a sixth-order number of B’s must be calculated and in-
+tegrated (in our code a third order Gaussian Quadrature with the electronic time-step was
+found suﬃcient), since at least two indices are shared between each ˜V . Consider the cost
+22
+
+limiting term Eq. (20). It would be advantageous to evaluate the implied sum over c and
+make a 5-index intermediate, since then the remaining indices are also a ﬁfth order loop,
+unfortunately the HCF depends on index c. On the other hand, High-rank operator strings
+are exponentially damped by the presence of this HCF in the Markovian limit. It seems
+likely that this feature could be used as a new locality principle which would lift the curse
+of dimensionality in the strong bath regime.
+ACKNOWLEDGMENTS
+We would like to thank Shervin Fatehi and Jarrod McClean for help with the manuscript,
+and Prof. Seogjoo Jang for valuable conversations. We acknowledge the ﬁnancial support
+of Defense Advanced Research Projects Agency grant N66001-10-1-4063, A.A.G. thanks the
+Camille and Henry Dreyfus and Sloan foundations, and RLE Center for EXcitonics for their
+generous support.
+REFERENCES
+1J.T. Devreese, Polarons in ionic crystals and polar semiconductors: Antwerp Advanced
+Study Institute 1971 on Fr¨ohlich polarons and electron-phonon interaction in polar semi-
+conductors, NATO Advanced Study Institutes Series (North-Holland Pub. Co., 1972).
+2Yuri Dahnovsky, “Ab initio electron propagators in molecules with strong electron-phonon
+interaction. i. phonon averages,” The Journal of Chemical Physics 126, 234111 (2007).
+3Yuri Dahnovsky, “Ab initio electron propagators in molecules with strong electron-phonon
+interaction: Ii. electron green’s function,” The Journal of Chemical Physics 127, 014104
+(2007).
+4I. G. Lang and Y. A. Firsov, Sov. Phys. JETP 16, 1301 (1962).
+5Andrey Pereverzev and Eric R. Bittner, “Time-convolutionless master equation for meso-
+scopic electron-phonon systems,” The Journal of Chemical Physics 125, 104906 (2006).
+6Seogjoo Jang, Yuan-Chung Cheng, David R. Reichman, and Joel D. Eaves, “Theory of
+coherent resonance energy transfer,” The Journal of Chemical Physics 129, 101104 (2008).
+23
+
+7Seogjoo Jang, “Theory of coherent resonance energy transfer for coherent initial condi-
+tion,” J. Chem. Phys. 131, 164101 (2009).
+8Alex W. Chin, Javier Prior, Susana F. Huelga, and Martin B. Plenio, “Generalized polaron
+ansatz for the ground state of the sub-ohmic spin-boson model: An analytic theory of the
+localization transition,” Phys. Rev. Lett. 107, 160601 (Oct 2011).
+9Ahsan Nazir, “Correlation-dependent coherent to incoherent transitions in resonant en-
+ergy transfer dynamics,” Phys. Rev. Lett. 103, 146404 (Oct 2009).
+10Dara P. S. McCutcheon and Ahsan Nazir, “Consistent treatment of coherent and inco-
+herent energy transfer dynamics using a variational master equation,” The Journal of
+Chemical Physics 135, 114501 (2011).
+11Chee Kong Lee, Jeremy Moix, and Jianshu Cao, “Accuracy of second order perturbation
+theory in the polaron and variational polaron frames,” The Journal of Chemical Physics
+136, 204120 (2012).
+12Robert Silbey and Robert A. Harris, “Variational calculation of the dynamics of a two
+level system interacting with a bath,” J. Chem. Phys. 80, 2615–2617 (1984).
+13Hendrik J. Monkhorst, “Chemical physics without the born-oppenheimer approximation:
+The molecular coupled-cluster method,” Phys. Rev. A 36, 1544–1561 (Aug 1987).
+14David A. Micha, “Time-dependent many-electron treatment of electronic energy and
+charge transfer in atomic collisions,” The Journal of Physical Chemistry A 103, 7562–7574
+(1999).
+15Alan A. Dzhioev and D. S. Kosov, “Super-fermion representation of quantum kinetic
+equations for the electron transport problem,” The Journal of Chemical Physics 134,
+044121 (2011).
+16Pascal Krause, Tillmann Klamroth, and Peter Saalfrank, “Time-dependent conﬁguration-
+interaction calculations of laser-pulse-driven many-electron dynamics: Controlled dipole
+switching in lithium cyanide,” The Journal of Chemical Physics 123, 074105 (2005).
+17Jean Christophe Tremblay, Pascal Krause, Tillmann Klamroth, and Peter Saalfrank,
+“Time-dependent response of dissipative electron systems,” Phys. Rev. A 81, 063420
+(Jun 2010).
+18Taras Petrenko and Frank Neese, “Analysis and prediction of absorption band shapes,
+ﬂuorescence band shapes, resonance raman intensities, and excitation proﬁles using the
+time-dependent theory of electronic spectroscopy,” Journal of Chemical Physics 127, 4319
+24
+
+(2007).
+19Kasper Kristensen, Joanna Kauczor, Andreas J Thorvaldsen, Poul Jo?rgensen, Thomas
+Kjærgaard, and Antonio Rizzo, “Damped response theory description of two-photon ab-
+sorption,” The Journal of Chemical Physics 134, 214104 (2011).
+20Craig T. Chapman, Wenkel Liang, and Xiaosong Li, “Open-system electronic dynamics
+and thermalized electronic structure,” The Journal of Chemical Physics 134, 024118
+(2011).
+21John A. Parkhill, David G. Tempel, and Alan Aspuru-Guzik, “Exciton coherence lifetimes
+from electronic structure,” The Journal of Chemical Physics 136, 104510 (2012).
+22Seth Michael Morton and Lasse Jensen, “A discrete interaction model/quantum mechan-
+ical method to describe the interaction of metal nanoparticles and molecular absorption,”
+The Journal of Chemical Physics 135, 134103 (2011).
+23David G. Tempel, Mark A. Watson, Roberto Olivares-Amaya, and Al´an Aspuru-Guzik,
+“Time-dependent density functional theory of open quantum systems in the linear-
+response regime,” The Journal of Chemical Physics 134, 074116 (2011).
+24Eric J. Heller, “Time-dependent approach to semiclassical dynamics,” The Journal of
+Chemical Physics 62, 1544–1555 (1975).
+25Ann E. Orel and William H. Miller, “Collision induced absorption spectra for gas phase
+chemical reactions in a high power ir laser ﬁeld,” The Journal of Chemical Physics 72,
+5139–5144 (1980).
+26M. Ben-Nun and Todd J. Mart´ınez, “Electronic absorption and resonance raman spec-
+troscopy from ab initio quantum molecular dynamics,” The Journal of Physical Chemistry
+A 103, 10517–10527 (1999).
+27Alexey L. Kaledin and William H. Miller, “Time averaging the semiclassical initial value
+representation for the calculation of vibrational energy levels,” The Journal of Chemical
+Physics 118, 7174–7182 (2003).
+28Kenneth G. Kay, “Semiclassical inital value treatments of atoms and molecules,” Annual
+Review of Physical Chemistry 56, 255–280 (2005).
+29Jorg Tatchen and Eli Pollak, “Semiclassical on-the-ﬂy computation of the s0 s1 absorption
+spectrum of formaldehyde,” The Journal of Chemical Physics 130, 041103 (2009).
+30Michele Ceotto, St´ephanie Valleau, Gian Franco Tantardini, and Al´an Aspuru-Guzik,
+“First principles semiclassical calculations of vibrational eigenfunctions,” The Journal of
+25
+
+Chemical Physics 134, 234103 (2011).
+31T. Holstein, “Studies of polaron motion-part i: The molecular-crystal model,” Annals of
+Physics 8, 325–342 (1959).
+32Joel Gilmore and Ross H. McKenzie, “Quantum dynamics of electronic excitations in
+biomolecular chromophores: Role of the protein environment and solvent,” The Journal
+of Physical Chemistry A 112, 2162–2176 (2008).
+33Breuer and Petruccioni, Theory of Open Quantum Systems.
+34T. Helgaker, P. Jørgensen, and J. Olsen, Molecular electronic-structure theory (Wiley,
+2000) ISBN 9780471967552.
+35Fumiaki Shibata, Yoshinori Takahashi, and Natsuki Hashitsume, “A generalized stochas-
+tic liouville equation. non-markovian versus memoryless master equations,” Journal of
+Statistical Physics 17, 171–187 (1977).
+36Heinz-Peter
+Breuer,
+Bernd
+Kappler,
+and
+Francesco
+Petruccione,
+“The
+time-
+convolutionless projection operator technique in the quantum theory of dissipation and
+decoherence,” Annals of Physics 291, 36 – 70 (2001).
+37Freeman J. Dyson, “The use of the tamm-dancoﬀmethod in ﬁeld theory,” Phys. Rev. 90,
+994–994 (Jun 1953).
+38O Walter and J Schirmer, “The two-particle-hole tamm-dancoﬀapproximation (2ph-tda)
+for atoms,” Journal of Physics B: Atomic and Molecular Physics 14, 3805 (1981).
+39Mitsuru Tohyama, “Correlated ground state and e2 giant resonance built on it,” Progress
+of Theoretical Physics 94, 147–150 (1995).
+40John A Parkhill and Martin Head-Gordon, “A sparse framework for the derivation and
+implementation of fermion algebra,” Molecular Physics 108, 513 (2010).
+41R. Alicki, M. Fannes, and M. Pogorzelska, “Quantum generalized subsystems,” Phys.
+Rev. A 79, 052111 (May 2009).
+42Usually the TCL is applied to a phenomenological density operator and 1-body Liouvil-
+lian. Here we will apply it to a one-particle transition density operator. The projection
+operator technique and quantum Ehrenfest theorem required for the TCL both carry over.
+43Since the perturbation is a two-particle operator, we cannot trivially diagonalize the ﬁrst
+order term, as one does when working with tight-binding type Hamiltonians.
+44We leave X operators in the interaction picture while pulling electronic operators into
+the Schodinger picture throughout the text.
+26
+
+45Loren Greenman, Phay J. Ho, Stefan Pabst, Eugene Kamarchik, David A. Mazziotti, and
+Robin Santra, “Implementation of the time-dependent conﬁguration-interaction singles
+method for atomic strong-ﬁeld processes,” Phys. Rev. A 82, 023406 (Aug 2010).
+46W. M. Alberico, A. De Pace, A. Drago, and A. Molinari, “Second-order eﬀects in the
+nuclear-response functions..” Rivista Del Neuovo Cimento 14, 1–46 (1991).
+47Jack Simons and Wesley D. Smith, “Theory of electron aﬃnities of small molecules,” The
+Journal of Chemical Physics 58, 4899–4907 (1973).
+48Poul Jorgensen and Jack Simons, “A complete treatment of the electron propagator
+through third order,” The Journal of Chemical Physics 63, 5302–5304 (1975).
+49So Hirata, “Third- and fourth-order perturbation corrections to excitation energies from
+conﬁguration interaction singles,” The Journal of Chemical Physics 122, 094105 (2005).
+50Avinash Kolli, Ahsan Nazir, and Alexandra Olaya-Castro, “Electronic excitation dynam-
+ics in multichromophoric systems described via a polaron-representation master equa-
+tion,” The Journal of Chemical Physics 135, 154112 (2011).
+51Baird H. Brandow, “Linked-cluster expansions for the nuclear many-body problem,” Rev.
+Mod. Phys. 39, 771–828 (Oct 1967).
+52“Supplementary information is available..”.
+53This same issue occurs in SOPPA and CIS(D). Since CIS(D) is derived from diagonaliza-
+tion of the response matrix, this problem appears as a non-Hermitian eﬀective response
+matrix instead of time-irreversibility, but these issues are the same.
+54Takeshi Yanai and Garnet Kin-Lic Chan, “Canonical transformation theory from extended
+normal ordering,” J. Chem. Phys. 127, 104107 (2007).
+55J. Schirmer, “Beyond the random-phase approximation: A new approximation scheme
+for the polarization propagator,” Phys. Rev. A 26, 2395 (1982).
+56Given in the supplementary material142.
+57Shaul Mukamel, Principles of Nonlinear Optical Spectroscopy (Oxford University Press,
+1995).
+58Ove Christiansen, Henrik Koch, and Poul Jrgensen, “The second-order approximate cou-
+pled cluster singles and doubles model cc2,” Chemical Physics Letters 243, 409 – 418
+(1995), ISSN 0009-2614.
+59Martin Head-Gordon, Manabu Oumi, and David Maurice, “Quasidegenerate second-order
+perturbation corrections to single-excitation conﬁguration interaction,” Molecular Physics
+27
+
+96, 593–602 (1999).
+60P. My¨oh¨anen, A. Stan, G. Stefanucci, and R. van Leeuwen, “A many-body approach to
+quantum transport dynamics: Initial correlations and memory eﬀects,” EPL (Europhysics
+Letters) 84, 67001 (2008).
+61A G Hall, “Non-equilibrium green functions: generalized wick’s theorem and diagram-
+matic perturbation with initial correlations,” Journal of Physics A: Mathematical and
+General 8, 214 (1975).
+62P Danielewicz, “Quantum theory of nonequilibrium processes, i,” Annals of Physics 152,
+239 – 304 (1984).
+63M. Bonitz, D. Kremp, and D. Semkat, “Kadanoﬀ-baym equations with inital correlations,”
+in Progress In Nonequilibrium Green’s Functions, Chap. 5, pp. 34–44.
+64Nils Erik Dahlen and Robert van Leeuwen, “Solving the kadanoﬀ-baym equations for in-
+homogeneous systems: Application to atoms and molecules,” Phys. Rev. Lett. 98, 153004
+(Apr 2007).
+65V.G. Morozov and G. R¨opke, “The “mixed” green’s function approach to quantum kinet-
+ics with initial correlations,” Annals of Physics 278, 127 – 177 (1999), ISSN 0003-4916.
+66Mathias Garny and Markus Michael M¨uller, “Kadanoﬀ-baym equations with non-gaussian
+initial conditions: The equilibrium limit,” Phys. Rev. D 80, 085011 (Oct 2009).
+67R. van Leeuwen and G. Stefanucci, “Wick theorem for general initial states,” Phys. Rev.
+B 85, 115119 (Mar 2012).
+68K. Balzer, S. Bauch, and M. Bonitz, “Eﬃcient grid-based method in nonequilibrium
+green’s function calculations: Application to model atoms and molecules,” Phys. Rev. A
+81, 022510 (Feb 2010).
+69Werner Kutzelnigg and Debashis Mukherjee, “Normal order and extended wick theorem
+for a multiconﬁguration reference wave function,” J. Chem. Phys. 107, 432–449 (1997).
+70A related technique was recently develop for the Green’s function157.
+71Chikako Uchiyama, Masaki Aihara, Mizuhiko Saeki, and Seiji Miyashita, “Master equa-
+tion approach to line shape in dissipative systems,” Phys. Rev. E 80, 021128 (Aug 2009).
+72Carsten Timm, “Time-convolutionless master equation for quantum dots: Perturbative
+expansion to arbitrary order,” Phys. Rev. B 83, 115416 (Mar 2011).
+73J. Oddershede and P. Jorgenson, “An order analysis of the particle-hole propagator,” J.
+Chem. Phys. 66, 1541 (1977).
+28
+
+74Y. Shao, L. Fusti-Molnar, Y. Jung, J. Kussmann, C. Oschsenfeld, S. T. Brown, A. T. B.
+Gilbert, L. V. Slipchenko, S. V. Levchenko, D. P. O’Neill, R. A. DiStasio Jr., R. C.
+Lochan, T. Want, G. J. O. Beran, N. A. Besley, J. M. Herbert, C. Y. Lin, T. Van Voorhis,
+S. H. Chien, A. Sodt, R. P. Steele, V. A. Rassolov, P. E. Maslen, P. P. Korambath, R. D.
+Adamson, B. Austin, J. Baker, E. F. C. Byrd, H. Dachsel, R. J. Doerksen, A. Dreuw, B. D.
+Dunietz, A. D. Dutoi, T. R. Furlani, S. R. Gwaltney, A. Heyden, S. Hirata, C.-P. Hsu,
+G. Kedziora, R. Z. Khalliulin, P. Klunzinger, A. M. Lee, M. S. Lee, W. Liang, I. Lotan,
+N. Nair, B. Peters, E. I. Proynov, P. A. Pieniazek, Y. M. Rhee, J. Ritchie, E. Rosta, C. D.
+Sherrill, A. C. Simmonett, J. E. Subotnik, H. L. Woodcock III, W. Zhang, A. T. Bell,
+A. K. Chakraborty, D. M. Chipman, F. J. Keil, A. Warshel, W. J. Hehre, H. F. Schaefer
+III, J. Kong, A. I. Krylov, P. M. W. Gill, and M. Head-Gordon, “Advances in methods
+and algorithms in a modern quantum chemistry program package,” Phys. Chem. Chem.
+Phys. 8, 3172 (2006).
+75T. D. Crawford, C. D. Sherrill, E. F. Valeev, J. T. Fermann, R. A. King, M. L. Leininger,
+S. T. Brown, C. L. Janssen, E. T. Seidl, J. P. Kenny, and W. D. Allen, “Psi3: An open-
+source ab initio electronic structure package,” J. Comp. Chem. 28, 1610–1616 (2007).
+76Coordinates: ((Bohr) H: -1, 0, 0. ; H: 1, 0, 0 ; H: -2.17557, 1.61803, 0; H: 2.17557, 1.61803,
+0) and (B (˚A): -0.26429,0.47149,0 H: 0.84371, 0.47149, -0.40000; H: -0.81829, 1.43104, 0.4;
+H: -0.81829, -0.48807,0.4).
+77David Casanova, Lyudmila V. Slipchenko, Anna I. Krylov, and Martin Head-Gordon,
+“Double spin-ﬂip approach within equation-of-motion coupled cluster and conﬁguration
+interaction formalisms: Theory, implementation, and examples,” The Journal of Chemical
+Physics 130, 044103 (2009).
+78Thom H Dunning, J. Chem. Phys. 53, 2823 (1970).
+79A. G. Redﬁeld, IBM J. Res. Dev. 1, 19 (1957).
+80A. G. Redﬁeld, Adv. Magn. Reson. 1, 1 (1965).
+81Coordinates: ((Bohr) H: -.45 0. 0.0; H: .45 0. 0.0; H -0.48296291 0. 5.0; H 0.48296291 0.
+5.2588190).
+82Geometry (Angstrom):
+F: 0.979002, -0.062874, -0.111271;
+C, 2.253554, 0.247708,
+-0.293548;
+F:
+2.903831,
+-0.802928,
+-0.770347;
+C:
+2.791571,1.423625,-0.041291;H:
+3.843081,1.582482, -0.222345;H:2.177490,2.222097,0.344802, Basis: 6-31+G* on C, 3-21G
+on all other atoms.
+29
+
+83P. Limao-Vieira, Eva Vasekova, B. N. Raja Sekhar, N. J. Mason, and S. V. Hoﬀmann,
+“Vuv electronic state spectroscopy of 1,1-diﬂuoroethene and diﬂuorochloromethane by
+high resolution synchrotron radiation,” Phys. Chem. Chem. Phys. 8, 4766–4772 (2006).
+84Joseph E. Subotnik, “Augmented ehrenfest dynamics yields a rate for surface hopping,”
+The Journal of Chemical Physics 132, 134112 (2010).
+85E. J. Heller, “Dynamic tunneling and molecular spectra,” The Journal of Physical Chem-
+istry 99, 2625–2634 (1995).
+86Per-Olov L¨owdin, “Some current problems in theoretical chemical physics to be solved,”
+International Journal of Quantum Chemistry 51, 473–485 (1994), ISSN 1097-461X.
+87Elisabetta Collini and Gregory D. Scholes, “Coherent intrachain energy migration in a
+conjugated polymer at room temperature,” Science 323, 369–373 (2009).
+88Dugan Hayes, Jianzhong Wen, Gitt Panitchayangkoon, Robert E. Blankenship, and Gre-
+gory S. Engel, “Robustness of electronic coherence in the fenna-matthews-olson complex
+to vibronic and structural modiﬁcations,” Faraday Discuss. 150, 459–469 (2011).
+89Patrick F. Tekavec, Geoﬀrey A. Lott, and Andrew H. Marcus, “Fluorescence-detected
+two-dimensional electronic coherence spectroscopy by acousto-optic phase modulation,”
+The Journal of Chemical Physics 127, 214307 (2007).
+90Seogjoo Jang, Jianshu Cao, and Robert J. Silbey, “On the temperature dependence of
+molecular line shapes due to linearly coupled phonon bands,” The Journal of Physical
+Chemistry B 106, 8313–8317 (2002).
+91J.T. Devreese, Polarons in ionic crystals and polar semiconductors: Antwerp Advanced
+Study Institute 1971 on Fr¨ohlich polarons and electron-phonon interaction in polar semi-
+conductors, NATO Advanced Study Institutes Series (North-Holland Pub. Co., 1972).
+92Yuri Dahnovsky, “Ab initio electron propagators in molecules with strong electron-phonon
+interaction. i. phonon averages,” The Journal of Chemical Physics 126, 234111 (2007).
+93Yuri Dahnovsky, “Ab initio electron propagators in molecules with strong electron-phonon
+interaction: Ii. electron green’s function,” The Journal of Chemical Physics 127, 014104
+(2007).
+94I. G. Lang and Y. A. Firsov, Sov. Phys. JETP 16, 1301 (1962).
+95Andrey Pereverzev and Eric R. Bittner, “Time-convolutionless master equation for meso-
+scopic electron-phonon systems,” The Journal of Chemical Physics 125, 104906 (2006).
+30
+
+96Seogjoo Jang, Yuan-Chung Cheng, David R. Reichman, and Joel D. Eaves, “Theory of
+coherent resonance energy transfer,” The Journal of Chemical Physics 129, 101104 (2008).
+97Seogjoo Jang, “Theory of coherent resonance energy transfer for coherent initial condi-
+tion,” J. Chem. Phys. 131, 164101 (2009).
+98Alex W. Chin, Javier Prior, Susana F. Huelga, and Martin B. Plenio, “Generalized polaron
+ansatz for the ground state of the sub-ohmic spin-boson model: An analytic theory of the
+localization transition,” Phys. Rev. Lett. 107, 160601 (Oct 2011).
+99Ahsan Nazir, “Correlation-dependent coherent to incoherent transitions in resonant en-
+ergy transfer dynamics,” Phys. Rev. Lett. 103, 146404 (Oct 2009).
+100Dara P. S. McCutcheon and Ahsan Nazir, “Consistent treatment of coherent and inco-
+herent energy transfer dynamics using a variational master equation,” The Journal of
+Chemical Physics 135, 114501 (2011).
+101Chee Kong Lee, Jeremy Moix, and Jianshu Cao, “Accuracy of second order perturbation
+theory in the polaron and variational polaron frames,” The Journal of Chemical Physics
+136, 204120 (2012).
+102Robert Silbey and Robert A. Harris, “Variational calculation of the dynamics of a two
+level system interacting with a bath,” J. Chem. Phys. 80, 2615–2617 (1984).
+103Hendrik J. Monkhorst, “Chemical physics without the born-oppenheimer approximation:
+The molecular coupled-cluster method,” Phys. Rev. A 36, 1544–1561 (Aug 1987).
+104David A. Micha, “Time-dependent many-electron treatment of electronic energy and
+charge transfer in atomic collisions,” The Journal of Physical Chemistry A 103, 7562–7574
+(1999).
+105Alan A. Dzhioev and D. S. Kosov, “Super-fermion representation of quantum kinetic
+equations for the electron transport problem,” The Journal of Chemical Physics 134,
+044121 (2011).
+106Pascal Krause, Tillmann Klamroth, and Peter Saalfrank, “Time-dependent conﬁguration-
+interaction calculations of laser-pulse-driven many-electron dynamics: Controlled dipole
+switching in lithium cyanide,” The Journal of Chemical Physics 123, 074105 (2005).
+107Jean Christophe Tremblay, Pascal Krause, Tillmann Klamroth, and Peter Saalfrank,
+“Time-dependent response of dissipative electron systems,” Phys. Rev. A 81, 063420
+(Jun 2010).
+31
+
+108Taras Petrenko and Frank Neese, “Analysis and prediction of absorption band shapes,
+ﬂuorescence band shapes, resonance raman intensities, and excitation proﬁles using the
+time-dependent theory of electronic spectroscopy,” Journal of Chemical Physics 127, 4319
+(2007).
+109Kasper Kristensen, Joanna Kauczor, Andreas J Thorvaldsen, Poul Jorgensen, Thomas
+Kjærgaard, and Antonio Rizzo, “Damped response theory description of two-photon ab-
+sorption,” The Journal of Chemical Physics 134, 214104 (2011).
+110Craig T. Chapman, Wenkel Liang, and Xiaosong Li, “Open-system electronic dynamics
+and thermalized electronic structure,” The Journal of Chemical Physics 134, 024118
+(2011).
+111John A. Parkhill, David G. Tempel, and Alan Aspuru-Guzik, “Exciton coherence lifetimes
+from electronic structure,” The Journal of Chemical Physics 136, 104510 (2012).
+112Seth Michael Morton and Lasse Jensen, “A discrete interaction model/quantum mechan-
+ical method to describe the interaction of metal nanoparticles and molecular absorption,”
+The Journal of Chemical Physics 135, 134103 (2011).
+113David G. Tempel, Mark A. Watson, Roberto Olivares-Amaya, and Al´an Aspuru-Guzik,
+“Time-dependent density functional theory of open quantum systems in the linear-
+response regime,” The Journal of Chemical Physics 134, 074116 (2011).
+114Eric J. Heller, “Time-dependent approach to semiclassical dynamics,” The Journal of
+Chemical Physics 62, 1544–1555 (1975).
+115Ann E. Orel and William H. Miller, “Collision induced absorption spectra for gas phase
+chemical reactions in a high power ir laser ﬁeld,” The Journal of Chemical Physics 72,
+5139–5144 (1980).
+116M. Ben-Nun and Todd J. Mart´ınez, “Electronic absorption and resonance raman spec-
+troscopy from ab initio quantum molecular dynamics,” The Journal of Physical Chemistry
+A 103, 10517–10527 (1999).
+117Alexey L. Kaledin and William H. Miller, “Time averaging the semiclassical initial value
+representation for the calculation of vibrational energy levels,” The Journal of Chemical
+Physics 118, 7174–7182 (2003).
+118Kenneth G. Kay, “Semiclassical inital value treatments of atoms and molecules,” Annual
+Review of Physical Chemistry 56, 255–280 (2005).
+32
+
+119Jorg Tatchen and Eli Pollak, “Semiclassical on-the-ﬂy computation of the s0 s1 absorption
+spectrum of formaldehyde,” The Journal of Chemical Physics 130, 041103 (2009).
+120Michele Ceotto, St´ephanie Valleau, Gian Franco Tantardini, and Al´an Aspuru-Guzik,
+“First principles semiclassical calculations of vibrational eigenfunctions,” The Journal of
+Chemical Physics 134, 234103 (2011).
+121T. Holstein, “Studies of polaron motion-part i: The molecular-crystal model,” Annals of
+Physics 8, 325–342 (1959).
+122Joel Gilmore and Ross H. McKenzie, “Quantum dynamics of electronic excitations in
+biomolecular chromophores: Role of the protein environment and solvent,” The Journal
+of Physical Chemistry A 112, 2162–2176 (2008).
+123Breuer and Petruccioni, Theory of Open Quantum Systems.
+124T. Helgaker, P. Jørgensen, and J. Olsen, Molecular electronic-structure theory (Wiley,
+2000) ISBN 9780471967552.
+125Fumiaki Shibata, Yoshinori Takahashi, and Natsuki Hashitsume, “A generalized stochas-
+tic liouville equation. non-markovian versus memoryless master equations,” Journal of
+Statistical Physics 17, 171–187 (1977).
+126Heinz-Peter
+Breuer,
+Bernd
+Kappler,
+and
+Francesco
+Petruccione,
+“The
+time-
+convolutionless projection operator technique in the quantum theory of dissipation and
+decoherence,” Annals of Physics 291, 36 – 70 (2001).
+127Freeman J. Dyson, “The use of the tamm-dancoﬀmethod in ﬁeld theory,” Phys. Rev. 90,
+994–994 (Jun 1953).
+128O Walter and J Schirmer, “The two-particle-hole tamm-dancoﬀapproximation (2ph-tda)
+for atoms,” Journal of Physics B: Atomic and Molecular Physics 14, 3805 (1981).
+129Mitsuru Tohyama, “Correlated ground state and e2 giant resonance built on it,” Progress
+of Theoretical Physics 94, 147–150 (1995).
+130John A Parkhill and Martin Head-Gordon, “A sparse framework for the derivation and
+implementation of fermion algebra,” Molecular Physics 108, 513 (2010).
+131R. Alicki, M. Fannes, and M. Pogorzelska, “Quantum generalized subsystems,” Phys.
+Rev. A 79, 052111 (May 2009).
+132Usually the TCL is applied to a phenomenological density operator and 1-body Liouvil-
+lian. Here we will apply it to a one-particle transition density operator. The projection
+operator technique and quantum Ehrenfest theorem required for the TCL both carry over.
+33
+
+133Since the perturbation is a two-particle operator, we cannot trivially diagonalize the ﬁrst
+order term, as one does when working with tight-binding type Hamiltonians.
+134We leave X operators in the interaction picture while pulling electronic operators into
+the Schodinger picture throughout the text.
+135Loren Greenman, Phay J. Ho, Stefan Pabst, Eugene Kamarchik, David A. Mazziotti, and
+Robin Santra, “Implementation of the time-dependent conﬁguration-interaction singles
+method for atomic strong-ﬁeld processes,” Phys. Rev. A 82, 023406 (Aug 2010).
+136W. M. Alberico, A. De Pace, A. Drago, and A. Molinari, “Second-order eﬀects in the
+nuclear-response functions..” Rivista Del Neuovo Cimento 14, 1–46 (1991).
+137Jack Simons and Wesley D. Smith, “Theory of electron aﬃnities of small molecules,” The
+Journal of Chemical Physics 58, 4899–4907 (1973).
+138Poul Jorgensen and Jack Simons, “A complete treatment of the electron propagator
+through third order,” The Journal of Chemical Physics 63, 5302–5304 (1975).
+139So Hirata, “Third- and fourth-order perturbation corrections to excitation energies from
+conﬁguration interaction singles,” The Journal of Chemical Physics 122, 094105 (2005).
+140Avinash Kolli, Ahsan Nazir, and Alexandra Olaya-Castro, “Electronic excitation dynam-
+ics in multichromophoric systems described via a polaron-representation master equa-
+tion,” The Journal of Chemical Physics 135, 154112 (2011).
+141Baird H. Brandow, “Linked-cluster expansions for the nuclear many-body problem,” Rev.
+Mod. Phys. 39, 771–828 (Oct 1967).
+142“Supplementary information is available..”.
+143This same issue occurs in SOPPA and CIS(D). Since CIS(D) is derived from diagonaliza-
+tion of the response matrix, this problem appears as a non-Hermitian eﬀective response
+matrix instead of time-irreversibility, but these issues are the same.
+144Takeshi Yanai and Garnet Kin-Lic Chan, “Canonical transformation theory from extended
+normal ordering,” J. Chem. Phys. 127, 104107 (2007).
+145J. Schirmer, “Beyond the random-phase approximation: A new approximation scheme
+for the polarization propagator,” Phys. Rev. A 26, 2395 (1982).
+146Given in the supplementary material142.
+147Shaul Mukamel, Principles of Nonlinear Optical Spectroscopy (Oxford University Press,
+1995).
+34
+
+148Ove Christiansen, Henrik Koch, and Poul Jrgensen, “The second-order approximate cou-
+pled cluster singles and doubles model cc2,” Chemical Physics Letters 243, 409 – 418
+(1995), ISSN 0009-2614.
+149Martin Head-Gordon, Manabu Oumi, and David Maurice, “Quasidegenerate second-order
+perturbation corrections to single-excitation conﬁguration interaction,” Molecular Physics
+96, 593–602 (1999).
+150P. My¨oh¨anen, A. Stan, G. Stefanucci, and R. van Leeuwen, “A many-body approach to
+quantum transport dynamics: Initial correlations and memory eﬀects,” EPL (Europhysics
+Letters) 84, 67001 (2008).
+151A G Hall, “Non-equilibrium green functions: generalized wick’s theorem and diagram-
+matic perturbation with initial correlations,” Journal of Physics A: Mathematical and
+General 8, 214 (1975).
+152P Danielewicz, “Quantum theory of nonequilibrium processes, i,” Annals of Physics 152,
+239 – 304 (1984).
+153M. Bonitz, D. Kremp, and D. Semkat, “Kadanoﬀ-baym equations with inital correlations,”
+in Progress In Nonequilibrium Green’s Functions, Chap. 5, pp. 34–44.
+154Nils Erik Dahlen and Robert van Leeuwen, “Solving the kadanoﬀ-baym equations for in-
+homogeneous systems: Application to atoms and molecules,” Phys. Rev. Lett. 98, 153004
+(Apr 2007).
+155V.G. Morozov and G. R¨opke, “The “mixed” green’s function approach to quantum kinet-
+ics with initial correlations,” Annals of Physics 278, 127 – 177 (1999), ISSN 0003-4916.
+156Mathias Garny and Markus Michael M¨uller, “Kadanoﬀ-baym equations with non-gaussian
+initial conditions: The equilibrium limit,” Phys. Rev. D 80, 085011 (Oct 2009).
+157R. van Leeuwen and G. Stefanucci, “Wick theorem for general initial states,” Phys. Rev.
+B 85, 115119 (Mar 2012).
+158K. Balzer, S. Bauch, and M. Bonitz, “Eﬃcient grid-based method in nonequilibrium
+green’s function calculations: Application to model atoms and molecules,” Phys. Rev. A
+81, 022510 (Feb 2010).
+159Werner Kutzelnigg and Debashis Mukherjee, “Normal order and extended wick theorem
+for a multiconﬁguration reference wave function,” J. Chem. Phys. 107, 432–449 (1997).
+160A related technique was recently develop for the Green’s function157.
+35
+
+161Chikako Uchiyama, Masaki Aihara, Mizuhiko Saeki, and Seiji Miyashita, “Master equa-
+tion approach to line shape in dissipative systems,” Phys. Rev. E 80, 021128 (Aug 2009).
+162Carsten Timm, “Time-convolutionless master equation for quantum dots: Perturbative
+expansion to arbitrary order,” Phys. Rev. B 83, 115416 (Mar 2011).
+163J. Oddershede and P. Jorgenson, “An order analysis of the particle-hole propagator,” J.
+Chem. Phys. 66, 1541 (1977).
+164Y. Shao, L. Fusti-Molnar, Y. Jung, J. Kussmann, C. Oschsenfeld, S. T. Brown, A. T. B.
+Gilbert, L. V. Slipchenko, S. V. Levchenko, D. P. O’Neill, R. A. DiStasio Jr., R. C.
+Lochan, T. Want, G. J. O. Beran, N. A. Besley, J. M. Herbert, C. Y. Lin, T. Van Voorhis,
+S. H. Chien, A. Sodt, R. P. Steele, V. A. Rassolov, P. E. Maslen, P. P. Korambath, R. D.
+Adamson, B. Austin, J. Baker, E. F. C. Byrd, H. Dachsel, R. J. Doerksen, A. Dreuw, B. D.
+Dunietz, A. D. Dutoi, T. R. Furlani, S. R. Gwaltney, A. Heyden, S. Hirata, C.-P. Hsu,
+G. Kedziora, R. Z. Khalliulin, P. Klunzinger, A. M. Lee, M. S. Lee, W. Liang, I. Lotan,
+N. Nair, B. Peters, E. I. Proynov, P. A. Pieniazek, Y. M. Rhee, J. Ritchie, E. Rosta, C. D.
+Sherrill, A. C. Simmonett, J. E. Subotnik, H. L. Woodcock III, W. Zhang, A. T. Bell,
+A. K. Chakraborty, D. M. Chipman, F. J. Keil, A. Warshel, W. J. Hehre, H. F. Schaefer
+III, J. Kong, A. I. Krylov, P. M. W. Gill, and M. Head-Gordon, “Advances in methods
+and algorithms in a modern quantum chemistry program package,” Phys. Chem. Chem.
+Phys. 8, 3172 (2006).
+165T. D. Crawford, C. D. Sherrill, E. F. Valeev, J. T. Fermann, R. A. King, M. L. Leininger,
+S. T. Brown, C. L. Janssen, E. T. Seidl, J. P. Kenny, and W. D. Allen, “Psi3: An open-
+source ab initio electronic structure package,” J. Comp. Chem. 28, 1610–1616 (2007).
+166Coordinates: ((Bohr) H: -1, 0, 0. ; H: 1, 0, 0 ; H: -2.17557, 1.61803, 0; H: 2.17557, 1.61803,
+0) and (B (˚A): -0.26429,0.47149,0 H: 0.84371, 0.47149, -0.40000; H: -0.81829, 1.43104, 0.4;
+H: -0.81829, -0.48807,0.4).
+167David Casanova, Lyudmila V. Slipchenko, Anna I. Krylov, and Martin Head-Gordon,
+“Double spin-ﬂip approach within equation-of-motion coupled cluster and conﬁguration
+interaction formalisms: Theory, implementation, and examples,” The Journal of Chemical
+Physics 130, 044103 (2009).
+168Thom H Dunning, J. Chem. Phys. 53, 2823 (1970).
+169A. G. Redﬁeld, IBM J. Res. Dev. 1, 19 (1957).
+170A. G. Redﬁeld, Adv. Magn. Reson. 1, 1 (1965).
+36
+
+171Coordinates: ((Bohr) H: -.45 0. 0.0; H: .45 0. 0.0; H -0.48296291 0. 5.0; H 0.48296291 0.
+5.2588190).
+172Geometry (Angstrom):
+F: 0.979002, -0.062874, -0.111271;
+C, 2.253554, 0.247708,
+-0.293548;
+F:
+2.903831,
+-0.802928,
+-0.770347;
+C:
+2.791571,1.423625,-0.041291;H:
+3.843081,1.582482, -0.222345;H:2.177490,2.222097,0.344802, Basis: 6-31+G* on C, 3-21G
+on all other atoms.
+173P. Limao-Vieira, Eva Vasekova, B. N. Raja Sekhar, N. J. Mason, and S. V. Hoﬀmann,
+“Vuv electronic state spectroscopy of 1,1-diﬂuoroethene and diﬂuorochloromethane by
+high resolution synchrotron radiation,” Phys. Chem. Chem. Phys. 8, 4766–4772 (2006).
+174Joseph E. Subotnik, “Augmented ehrenfest dynamics yields a rate for surface hopping,”
+The Journal of Chemical Physics 132, 134112 (2010).
+175E. J. Heller, “Dynamic tunneling and molecular spectra,” The Journal of Physical Chem-
+istry 99, 2625–2634 (1995).
+176Per-Olov L¨owdin, “Some current problems in theoretical chemical physics to be solved,”
+International Journal of Quantum Chemistry 51, 473–485 (1994), ISSN 1097-461X.
+177Elisabetta Collini and Gregory D. Scholes, “Coherent intrachain energy migration in a
+conjugated polymer at room temperature,” Science 323, 369–373 (2009).
+178Dugan Hayes, Jianzhong Wen, Gitt Panitchayangkoon, Robert E. Blankenship, and Gre-
+gory S. Engel, “Robustness of electronic coherence in the fenna-matthews-olson complex
+to vibronic and structural modiﬁcations,” Faraday Discuss. 150, 459–469 (2011).
+179Patrick F. Tekavec, Geoﬀrey A. Lott, and Andrew H. Marcus, “Fluorescence-detected
+two-dimensional electronic coherence spectroscopy by acousto-optic phase modulation,”
+The Journal of Chemical Physics 127, 214307 (2007).
+180Seogjoo Jang, Jianshu Cao, and Robert J. Silbey, “On the temperature dependence of
+molecular line shapes due to linearly coupled phonon bands,” The Journal of Physical
+Chemistry B 106, 8313–8317 (2002).
+37

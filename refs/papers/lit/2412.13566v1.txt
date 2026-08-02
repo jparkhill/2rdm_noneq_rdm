@@ -1,0 +1,1628 @@
+Projective purification of correlated reduced density matrices
+Elias Pescoller, 1, ∗ Marie Eder, 1 and Iva Bˇ rezinov´ a1, †
+1Institute for Theoretical Physics, Vienna University of Technology,
+Wiedner Hauptstraße 8-10/136, 1040 Vienna, Austria, EU
+(Dated: December 19, 2024)
+In the search for accurate approximate solutions of the many-body Schr¨ odinger equation, reduced
+density matrices play an important role, as they allow to formulate approximate methods with
+polynomial scaling in the number of particles. However, these methods frequently encounter the issue
+of N -representability, whereby in self-consistent applications of the methods, the reduced density
+matrices become unphysical. A number of algorithms have been proposed in the past to restore
+a given set of N -representability conditions once the reduced density matrices become defective.
+However, these purification algorithms have either ignored symmetries of the Hamiltonian related
+to conserved quantities, or have not incorporated them in an efficient way, thereby modifying the
+reduced density matrix to a greater extent than is necessary. In this paper, we present an algorithm
+capable of efficiently performing all of the following tasks in the least invasive manner: restoring a
+given set of N -representability conditions, maintaining contraction consistency between successive
+orders of reduced density matrices, and preserving all conserved quantities. We demonstrate the
+superiority of the present purification algorithm over previous ones in the context of the time-
+dependent two-particle reduced density matrix method applied to the quench dynamics of the Fermi-
+Hubbard model.
+I. INTRODUCTION
+One of the greatest challenges in theoretical physics to
+date is the development of accurate approximate solu-
+tions to the Schr¨ odinger equation for electronic systems.
+The ability to accurately describe the properties of sys-
+tems as diverse as multi-electron atoms, molecules, nano-
+systems, and solids in and out of equilibrium has the po-
+tential to facilitate significant future discoveries and tech-
+nological applications. Consequently, considerable effort
+has been devoted to the development of methods for ob-
+taining approximate solutions to the Schr¨ odinger equa-
+tion at various levels of complexity.
+A large class of these approximate methods avoids the
+exponential scaling of the Schr¨ odinger equation by using
+a reduced object instead of the many-body wavefunction
+|Ψ⟩. The reduced object is obtained by tracing out most
+of the degrees of freedom of |Ψ⟩. A prominent exam-
+ple is density-functional theory (DFT) [1] and its time-
+dependent extension (TDDFT) [2], which uses the small-
+est non-trivial object derivable from |Ψ⟩, i. e. the parti-
+cle density. Within the Kohn-Sham ansatz, (TD)DFT
+scales linearly with the number of particles and is thus
+the only method to date applicable to bulk solid state
+systems. Other examples of reduced objects are reduced
+density matrices (RDMs) [3–5], most importantly the
+one-particle RDM (1RDM) and the two-particle RDM
+(2RDM), or one- and two-body propagators within (non-
+equilibrium) Green’s function methods [6]. The use of
+a reduced object instead of the wavefunction typically
+leads to a polynomial scaling of the methods with parti-
+cle number. Furthermore, for the majority of physical ob-
+∗ elias.pescoller@tuwien.ac.at
+† iva.brezinova@tuwien.ac.at
+servables of interest, a reduced object is sufficient to de-
+termine the expectation values of these observables, and
+the knowledge of the full wavefunction is not required, or
+even not desirable.
+However, eliminating the wavefunction comes at a price.
+On the one hand, the equations to be solved for the re-
+duced objects are either not known, as in (TD)DFT, or
+have to be approximated, as in (non-equilibrium) Green’s
+function methods [6] and in approximate closures of the
+Bogoliubov-Born-Green-Kirkwood (BBGKY) hierarchy
+for RDMs [5]. Furthermore, the absence of a reference
+to a many-body wavefunction inherent to these meth-
+ods places the issue of N -representability [7, 8] at the
+forefront. N -representability refers to the question of
+what are the necessary and sufficient properties of a re-
+duced object such that it can be obtained from a pure
+wavefunction (pure state N -representability) or a many-
+body density matrix (ensemble N -representability) upon
+tracing out degrees of freedom. While the ensemble N -
+representability problem is solved for the 1RDM [1], the
+pure state N -representability of the 1RDM poses already
+considerable challenges (see e.g. [9, 10]). For higher-order
+RDMs the problem is still widely open. For the 2RDM a
+method has been formulated to construct necessary N -
+representability conditions given a discrete single-particle
+basis [11].
+It has been shown that imposing N -representability con-
+ditions in variational calculations of the ground state
+energy using the 2RDM substantially improves the ob-
+tained energies [12]. In the context of the so-called con-
+tracted Schr¨ odinger equation [13] for approximate solu-
+tions of the ground state problem, the concept of purifica-
+tion of correlated RDMs has been introduced [14–16]: Af-
+ter each iterative step within the contracted Schr¨ odinger
+equation, the 2RDM is modified to preserve a certain
+set of N -representability conditions and spin symmetries
+arXiv:2412.13566v1  [quant-ph]  18 Dec 2024
+2
+while maintaining its contraction consistency with the
+1RDM. This is achieved by using the unitary decompo-
+sition of hermitian matrices [17–19].
+In time-dependent settings, attempts to close the
+BBGKY hierarchy on the second level and propagat-
+ing the 2RDM self-consistently based on approxima-
+tions of the three-paricle RDM (3RDM) faced several
+stability issues (see e. g. [20, 21]). Stability could
+be restored for many parameter regimes of interest in
+terms of correlation energies and external driving within
+the time-dependent two-particle reduced density ma-
+trix (TD2RDM) method by applying purification to
+the 2RDM [22–25]. It has been shown that in these
+parameter regimes it is sufficient for stability to re-
+quire the positive semidefiniteness of the 2RDM and
+the related two-hole RDM, which correspond to two N -
+representability conditions often referred to as the D-
+and the Q-conditions, respectively. In [23], an efficient
+purification scheme was proposed that incorporates the
+D- and the Q-conditions of the 2RDM while maintaining
+contraction consistency with the 1RDM. However, this
+algorithm did not guarantee that other symmetries of
+the Hamiltonian associated with conserved quantities are
+preserved after the purification. Therefore, the algorithm
+was subsequently corrected to incorporate energy conser-
+vation [26] and the η-symmetry of the Fermi-Hubbard
+model [25]. In both cases, the preservation of these sym-
+metries was achieved, but at the cost of modifying the
+2RDM to such an extent that the iterative purification
+failed to converge in some cases, especially in the pres-
+ence of large correlation energies [24].
+More recently, it has been observed that similar stability
+issues also affect non-equilibrium Green’s function meth-
+ods that scale linearly in time [26–31]. These methods
+involve equal-time-limits of Green’s functions, which cor-
+respond to RDMs. Therefore, it is expected that the sta-
+bility issues observed in closures of the BBGKY hierarchy
+are carried over.
+In this paper, we propose a new purification algorithm
+applicable to general pRDMs, which is able to incorpo-
+rate several N -representability conditions, while preserv-
+ing the contraction to the lower ( p − 1)RDM space and
+any number of conserved quantities. This is achieved
+by exploiting the geometric picture within the so-called
+unitary decomposition of hermitian matrices [4, 17, 18]
+and by applying the Hilbert-Schmidt inner product for
+projections within the convex space of RDMs. For the
+specific case of purification within the TD2RDM method
+and application to the quench dynamics of the Fermi-
+Hubbard model as in [24], we show that this projec-
+tive purification scheme is superior to those previously
+applied in terms of the number of iterative steps re-
+quired for purification, the flexibility in incorporating
+conserved quantities, and the stability achieved. Parame-
+ter regimes of interaction strengths and quenches become
+accessible that were previously inaccessible due to con-
+vergence issues. Our method is relevant for purifications
+of RDMs and (equal-time limits of) Green’s functions in
+both time-independent and time-dependent settings. It
+enhances the precision of these methods, as well as ex-
+pands their applicability to previously unattainable pa-
+rameter regimes.
+The paper is structured as follows: We introduce our pro-
+jective purification scheme in Sec. II. Based on a specific
+test case of a quenched Fermi-Hubbard model explained
+in Sec. III, we demonstrate the performance of the pro-
+jective purification in Sec. IV. We conclude in Sec. V.
+The appendices contain an outline of a generalization of
+our projective purification algorithm and more detailed
+derivations related to the specific test case examined.
+II. REDUCED DENSITY MA TRICES AND THE
+PROJECTIVE PURIFICA TION SCHEME
+The goal of our projective purification scheme is to en-
+force N -representability conditions onto reduced density
+matrices, while preserving observables related to sym-
+metries of the Hamiltonian. The main structure of this
+algorithm is based on the earlier work of [23, 25, 26].
+However, significant changes have been made to how ad-
+ditional constraints related to symmetries of the Hamil-
+tonian are implemented. We limit our discussion in the
+following to time-dependent problems. The algorithm is
+equally applicable to time-independent problems, when
+purifications of RDMs are necessary.
+We consider a system of N identical fermionic parti-
+cles with the wavefunction |Ψ⟩ and we assume that the
+many-body Hilbert space is spanned by Slater determi-
+nants formed from a finite number of one-particle or-
+bitals ϕ1, . . . , ϕr, r ∈ N. The pRDM D1...p ∈ Crp×rp
+is obtained from the expectation value of the following
+normal-ordered string of creation and annihilation oper-
+ators:
+(D1...p)i1...ip
+j1...jp = ⟨Ψ|a†
+j1 . . . a†
+jp aip . . . ai1 |Ψ⟩. (1)
+In complete analogy we define the p-hole reduced density
+matrix (pHRDM) Q1...p as follows:
+(Q1...p)i1...ip
+j1...jp = ⟨Ψ|ai1 . . . aip a†
+jp . . . a†
+j1 |Ψ⟩. (2)
+The operators are thereby all evaluated at the same time
+t. The pRDM D1...p(t) as well as the pHRDM Q1...p(t)
+may thus be thought of as equal-time limits of the corre-
+sponding p-body Green’s functions [26].
+Note that D1...p and Q1...p are by no means independent.
+Instead, Q1...p may be computed in terms of D1...p via
+the relation [32, 33]
+Q1...p =
+pX
+q=0
+(−1)q ˆAD1...qI(q+1)...p, (3)
+where ˆA is the anti-symmetrization operator counting
+equivalent permutations only once, and I(q+1)...p are
+identity matrices in the corresponding reduced spaces.
+3
+The N -representability conditions we will focus on in the
+following are the positive semidefiniteness of both D1...p
+and Q1...p, i. e. the D- and the Q-condition:
+D1...p ≥ 0, Q 1...p ≥ 0. (4)
+These two conditions enforced upon the 2 RDM proved
+essential in stabilizing the TD2RDM method [22–25].
+Generalizations to further N -representability conditions
+are explained in App. A.
+A further class of constraints onto the matrixD1...p arises
+in systems with fixed particle number. In that case, the
+pRDM and the ( p − 1)RDM are not independent. In-
+stead, the (p − 1)RDM may be computed from D1...p by
+taking the partial trace over the pth index:
+D1...(p−1) = 1
+N − p Trp D1...p. (5)
+Typically, propagation errors appear first in higher-order
+objects, and it is natural to try to purify the pRDM
+without altering the ( p − 1)RDM. The proposed algo-
+rithm includes a way to do so. We call this additional
+condition the contraction consistency (CC).
+Finally, during the time evolution within the approx-
+imate method the matrix D1...p has to satisfy fur-
+ther constraints that are not directly linked to its N -
+representability but are related to conserved observables,
+i. e. to all operators Xi that commute with the Hamilto-
+nian. Even if the equations of motion for the pRDM
+are sufficiently well approximated such that these ob-
+servables are conserved, the purification of the pRDM
+applied after propagation steps might destroy these sym-
+metries if special care is not taken. The fixed value of
+the operators Xi is determined by the initial state:
+Tr(D1...pXi) = Xi(t = 0). (6)
+Given a defective pRDM, the goal of the purification
+algorithm is to restore the D- and the Q-conditions
+[Eq. (4)] while retaining contraction-consistency [Eq. (5)]
+and the conservation of constants of motion [Eq. (6)].
+This task can be visualized in a geometrical picture. In
+fact, both the D- and the Q-condition [Eq. (4)] state that
+D1...p lies in a corresponding affine pointed convex cone.
+The CC condition as well as any constants of motion re-
+quire the D1...p to lie in certain affine subspaces. The task
+achieved by the proposed algorithm is then to project a
+given pRDM onto the intersection of all these sets (see
+Fig. 1). This can be done with the help of the classi-
+cal alternating projections algorithm [34], consisting of
+alternating projections onto the individual convex sets.
+Instead of implementing the affine constraints directly, it
+is easier to restrict any change ofD1...p to the correspond-
+ing linear spaces. As long as the defective pRDM D1...p,
+which is input to the algorithm, fulfills Eqs. (5)-(6), so
+will then the purified pRDM. This requires that the ap-
+proximate equations of motion are conserving, i. e. con-
+serve all the required symmetries. The linear spaces cor-
+responding to Eqs. (5)-(6) are defined respectively via
+Trp δD1...p = 0, (7)
+D(0)
+1...pD(1)
+1...p
+D ≥ 0 Q ≥ 0
+CC & Xi
+Figure 1. A sketch of the working principle of the projec-
+tive purification. The defective pRDM is projected onto the
+two cones corresponding to Eq. (4). The two results are then
+combined according to Eq. (13) and projected onto the set
+of affine constraints resulting in Eq. (18). This gives a new
+pRDM D(1)
+1...p, which is subjected to the same procedure re-
+sulting eventually in a purified D(k)
+1...p after a finite number of
+iteration steps k.
+and
+Tr (δD1...pXi) = 0, (8)
+where δD1...p is any change that the purification algo-
+rithm enforces upon the pRDM D1...p.
+In practice, the projection can be achieved as follows:
+Given the pRDM D(0)
+1...p, we first compute the pHRDM
+Q(0)
+1...p using Eq. (3). We then summarize both matrices
+within a vector
+M(0) =
+ 
+D(0)
+1...p
+Q(0)
+1...p
+!
+. (9)
+This vector denotes now the initial value for the iteration
+described in the following. We first compute the defective
+component D(k)
+1...p;def and Q(k)
+1...p;def of each of the entries of
+M(k), corresponding to that part of M(k) violating the
+D- or the Q-condition. At each step k of the iteration, the
+defective component of each density matrix is computed
+by employing its spectral decomposition and keeping only
+negative eigenvalues:
+D(k)
+1...p =
+X
+gi<0
+gi|gi⟩⟨gi|
+| {z }
+D(k)
+1...p;def
++
+X
+gi≥0
+gi|gi⟩⟨gi|. (10)
+We thus get
+M(k)
+def :=
+ 
+D(k)
+1...p;def
+Q(k)
+1...p;def
+!
+. (11)
+Now simply subtracting the defective M(k)
+def from M(k)
+would break the relation Eq. (3) between the pRDM
+4
+and the pHRDM. Therefore, in the next step we must
+project the iteration update M(k)
+def onto the linear space
+that corresponds to Eq. (3), in addition to the spaces
+corresponding to contraction consistency and conserved
+quantities [Eqs. (7)-(8)]. Bearing in mind that we simul-
+taneously enforce the contraction consistency, this linear
+constraint simply reads
+δQ1...p = (−1)pδD1...p. (12)
+We will now explain how the projections onto the con-
+straints Eqs. (12),(7) and (8) can be attained. The first
+projection results from basic linear algebra and corre-
+sponds to simply setting
+M(k)
+def;DQ := 1
+2
+
+1 ( −1)p
+(−1)p 1
+
+M(k)
+def (13)
+= 1
+2
+ 
+D(k)
+1...p;def + (−1)pQ(k)
+1...p;def
+Q(k)
+1...p;def + (−1)pD(k)
+1...p;def
+!
+.
+In order to simplify further notation we denote the sum
+appearing in Eq. (13) in the following by M (k)
+1...p;def
+M (k)
+1...p;def := D(k)
+1...p;def + (−1)pQ(k)
+1...p;def. (14)
+The projection onto the space defined by Eq. (7) is effec-
+tively the projection onto the kernel of the partial trace
+map. As has been argued earlier (see e.g. [14, 23]), this
+can be computed by employing the unitary decomposi-
+tion [4, 17, 18, 23], giving a representation of any density
+matrix in terms of the sum of a contraction-free com-
+ponent (i. e. the kernel component) and another compo-
+nent which is orthogonal to the kernel with respect to the
+Hilbert-Schmidt inner product
+M1...p;def = M1...p;def;K + M1...p;def;⊥. (15)
+This decomposition can be applied to the sum M (k)
+1...p;def
+resulting in
+M(k)
+def;DQ;K := 1
+2
+ 
+M (k)
+1...p;def;K
+(−1)pM (k)
+1...p;def;K
+!
+. (16)
+Finally, we want to explain how to implement the pro-
+jection onto the spaces defined by Eq. (8). In earlier
+work [24–26], this was done by analyzing which matrix
+elements of D1...p contribute to the computation of the
+respective observables. All these matrix elements would
+then have been set to zero in order to achieve this pro-
+jection. However, this corresponds to a projection onto
+a much smaller space than the one described by Eq. (8).
+As such it imposes a much more stringent constraint onto
+to the purification, leading to slower convergence of the
+algorithm. In some cases, the additional constraints may
+even conflict with any of the other conditions Eqs. (4)-(5)
+resulting in a failure to converge at all.
+In our new algorithm the projection is instead achieved
+as follows: We first project all the operators X1, . . . Xn
+onto the kernel of the partial trace by using again the
+unitary decomposition. This ensures that the projection
+defined in the following does not conflict with the ear-
+lier projection Eq. (16). We then orthonormalize the set
+of all operators {X1;K, . . . , Xn;K} with respect to each
+other using the Gram-Schmidt-routine and the Hilbert-
+Schmidt inner product of matrices. This gives rise to a
+new set of operators {Y1, . . . Yn}. With these operators at
+hand, we may implement the third projection as follows:
+M1...p;def;K;X := M1...p;def;K −
+nX
+i=1
+Tr(M1...p;def;KYi)Yi.
+(17)
+This is the orthogonal projection with respect to the
+Hilbert-Schmidt inner product onto the admissible space
+of iteration updates that have zero expectation in the
+space spanned by {X1, . . . , Xn}. As such this projec-
+tion enforces the conservation of these quantities with the
+least possible change (measured in terms of the Hilbert-
+Schmidt metric) to the iteration update. In fact, eval-
+uating this projection amounts to the removal of only
+one degree of freedom per operator Xi. Altogether, the
+iteration update becomes
+M(k)
+def;DQ;K;X := 1
+2
+
+M1...p;def;K;X
+(−1)pM1...p;def;K;X
+
+. (18)
+And one iteration of the algorithm reads
+M(k+1) = M(k) − αM(k)
+def;DQ;K;X . (19)
+Here, we introduced an additional steering parameter
+α > 0, which may be used to control the algorithm’s
+convergence.
+III. TEST CASE
+We now study the performance of the projective pu-
+rification algorithm within the TD2RDM method. Our
+criteria for assessing the quality of the projective pu-
+rification scheme are the ability to stabilize the prop-
+agation, the convergence of the computed observables
+with the time steps at which the purification is per-
+formed, and the convergence of the iteration within the
+purification algorithm itself. As a platform for bench-
+marking, we use the quench dynamics in the paradig-
+matic Fermi-Hubbard model, which was studied within
+the TD2RDM method in [24] using previously applied
+purification schemes [23, 26]. In the following, we will
+assume a unit system in which e, ℏ, and me are all equal
+to 1.
+Specifically, we consider a system described by the fol-
+lowing one-dimensional Fermi-Hubbard Hamiltonian in-
+cluding an external potential given by
+H = −J
+X
+⟨i,j⟩,σ
+a†
+iσajσ + U
+X
+i
+ni↑ni↓ +
+X
+i,σ
+Vi(t)niσ, (20)
+5
+where J is the hopping amplitude, ⟨i, j⟩ are the indices of
+each possible nearest-neighbor pair, U is the interaction
+strength, and Vi(t) is a time-dependent potential. We
+assume hard wall boundary conditions at the border of
+the system. The number of sites is denoted as Ms, the
+number of particles N is set to half-filling, i. e. N =
+Ms, and the number of spin-up electrons is equal to the
+number of spin-down electrons. In all that follows we will
+set
+Vi(t) = θ(−t) V 2
+2
+
+i − Ms + 1
+2
+2
+, (21)
+which amounts to simulating the free dynamics of an ini-
+tially harmonically trapped system. The initial state is
+taken as the ground state of the system with harmonic
+trap.
+Within the TD2RDM method, the dynamics of the
+2RDM is governed by the second element of the
+BBGKY-hierarchy [22, 23, 31]. The corresponding equa-
+tion reads
+i∂tD12 =[h1 + h2 + W12, D12] (22)
++ Tr3[W13 + W23, D123].
+Here, hi comprises all single-particle operators entering
+the Hamiltonian Eq. (20), while Wij denotes the inter-
+action. The matrix elements of h1 and W12 are given in
+the present case by
+⟨iσ′|h1|jσ⟩ = −J δi−1
+j δσ′
+σ − J δi+1
+j δσ′
+σ
+⟨i1σ′
+1i2σ′
+2|W12|j1σ1j2σ2⟩ = U δi1
+j1 δi2
+j2 δj1j2 δσ′
+1
+σ1 δσ′
+2
+σ2 (1 − δσ1σ2 ).
+(23)
+In order to close the system of equations Eq. (22) and
+make it explicit in D12, it is necessary to approximate
+D123 in terms of D12. This is done by employing ap-
+proximate reconstruction functionals based on the cumu-
+lant decomposition of reduced density-matrices [35]. In
+this paper, we made use of the Valdemoro reconstruction
+functional [36, 37] (for a review see e.g. [4]) enforcing
+contraction consistency of the 3 RDM [22, 23]. For more
+details about the reconstruction within the present test
+case we refer to [24, 25].
+Eq. (22) becomes approximate as soon as one replaces
+D123 with the reconstruction such that the dynamics
+of D12 will in general deviate from the exact dynamics.
+This can lead to the 2RDM losing its N -representability,
+which, if not taken care of, gives rise to the problem of
+instabilities [21]. In order to solve this problem, the pro-
+jective purification algorithm as described in Sec. II is
+applied between any two propagation steps.
+In order to be able to perform large parameter scans and
+still compare to exact results, we choose a rather small
+system size of Ms = 6. The ground state of this system
+fulfills S2 = 0 [38]. This fact may be exploited to decom-
+pose the 2 RDM D12 into a spin-singlet component DS
+12
+and a spin-triplet component DT
+12 and to apply the pu-
+rification scheme separately to both components [16, 22].
+The two components are given by
+(DS
+12)i1i2
+j1j2 = ⟨ψ|a†
+j1j2;Sai1i2;S|ψ⟩ (24)
+and
+(DT
+12)i1i2
+j1j2 = ⟨ψ|a†
+j1j2;T ai1i2;T |ψ⟩, (25)
+where
+a†
+j1j2;T /S= 1√
+2 (a†
+j1↑a†
+j2↓ ± a†
+j1↓a†
+j2↑). (26)
+Just like in the general description of the algorithm, we
+only enforce the D- and the Q-condition [Eq. (4)] since
+these two have proven to stabilize the time propagation
+of the TD2RDM method [22–24]. We have observed em-
+pirically that the so-called G-condition [4, 39], i. e., the
+positive semidefinitness of the particle-hole RDM, is au-
+tomatically satisfied when the D- and the Q-conditions
+are satisfied, such that it does not have to be enforced
+in addition. At this point we would like to mention
+that the computationally expensive full diagonalization
+of the 2 RDM and 2HRDM is not necessary within the
+purification, since the space spanned by negative eigen-
+values can be computed with more efficient methods,
+such as the Arnoldi iteration algorithm [40]. General-
+izations to further N -representability conditions are also
+possible and the path towards them is demonstrated in
+App. A. However, from a computational point of view, it
+is numerically increasingly expensive to implement fur-
+ther N -representability constraints, such that within a
+time propagation one is essentially limited to a few of
+them.
+As the Hamiltonian Eq. (20) conserves the number of par-
+ticles, we also ensure contraction consistency [Eq. (5)].
+The remaining constraints come from physically con-
+served observables. Since the system at hand is closed,
+energy is a conserved quantity. The contraction consis-
+tency already ensures the conservation of single-particle
+energy contributions, which is why as an additional con-
+served operator we only have to include the interaction
+W . The expectation value of the interaction energy may
+be computed from D12 using
+⟨W ⟩ = U
+2
+X
+i
+
+DS
+12
+ii
+ii . (27)
+DT
+12 does not contribute to the interaction energy. The
+first operator X1 from Eq. (6) appears therefore only in
+the purification of DS
+12 and is explicitly given by
+(X1)i1i2
+j1j2 = U
+2 δi1
+j1 δi1
+j2 δi2
+j1 . (28)
+For the purification, only the normalized contraction-free
+component Y1 of X1 is used
+(Y1)i1i2
+j1j2 =
+(Ms + 1)δi1
+j1 δi1
+j2 δi2
+j1 − δi1
+j1 δi2
+j2 − δi1
+j2 δi2
+j1p
+(Ms − 1)Ms(Ms + 1)
+. (29)
+6
+The Fermi-Hubbard model also exhibits the η-symmetry
+[41]. This symmetry is associated with the conservation
+of the expectation value ⟨η+η−⟩, where the operators η+
+and η− are defined via:
+η+ =
+X
+j
+(−1)ja†
+j↓a†
+j↑, η − = (η+)†. (30)
+In terms of D12, the expectation value ⟨η+η−⟩ is evalu-
+ated as follows:
+⟨η+η−⟩ = 1
+2
+X
+i,j
+(−1)i+j 
+DS
+12
+jj
+ii . (31)
+Again, DT
+12 does not contribute to the expectation value
+and the purification of the triplet component of D12 con-
+serves this symmetry trivially. The second operator X2
+from Eq. (6) becomes thus
+(X2)i1i2
+j1j2 = (−1)i1+j1
+2 δi1i2 δj1j2 . (32)
+As is described in Sec. II, the kernel component of this
+operator must be orthogonalized to Y1 to yield Y2. The
+result of this is
+(Y2)i1i2
+j1j2 =
+(−1)i1+j1 δi1i2 δj1j2 − δi1
+j1 δi1
+j2 δi2
+j1p
+(Ms − 1)Ms
+. (33)
+The conservation of S2 = 0 is incorporated partly within
+the parametrization of the density matrix and partly by
+the requirement of contraction-consistency with respect
+to the 1RDM. Therefore, it does not appear as a separate
+conserved operator X3. Hence, the two operators Y1 and
+Y2 may now be plugged into Eq. (17) to yield the final
+expressions for M (k)
+def;DQ;K;X needed in Eq. (19). Their
+specific form can be found in App. B.
+IV. RESUL TS
+In this section, we compare the performance of the
+newly proposed projective purification algorithm with
+the implementation used in previous works [24–26]. For
+this purpose, the purification algorithm described in
+Sec. II is applied to the TD2RDM simulation of the
+Fermi-Hubbard model described in Sec. III. Further de-
+tails on the numerical parameters used to produce the
+presented data are discussed in App. C. The previous
+and present purification algorithms differ from each other
+by the way the conservation of constants of motion is
+achieved. Instead of projecting out the components of the
+iteration update D12 in the direction of the operators Yi
+[Eq. (17)], the previous implementation would set any el-
+ement of the iteration update appearing in Eqs. (27) and
+(31) to zero. Doing so results in a much more stringent
+constraint on the purification algorithm and is therefore
+expected to yield slower convergence. In some cases, the
+previous implementation might even fail to purify a given
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+V [J]
+(a)
+(ii)
+(i)
+0.4 1.0 1.6 2.2 2.8 3.4 4.0
+U [J]
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+V [J]
+(b)
+(ii)
+(i)
+0.00
+0.05
+0.10
+0.15
+0.20
+0.25
+0.30
+Figure 2. (a) The error in the density fluctuations as defined
+in Eq. (35) for different parameters U and V in a compu-
+tation employing the previously used purification algorithm
+[25]. White pixels correspond to computations that were not
+converged with respect to the threshold given in Eq. (34).
+The labels (i) and (ii) refer to the two exemplary systems in-
+vestigated in more detail in Figs. 3-4. (b) The same data and
+labels as in (a), here in a computation using the new projec-
+tive purification. No problems with convergence appeared in
+this simulation.
+density matrix. If the purification routine fails or con-
+verges too slowly, the outcome of the simulation depends
+strongly on the frequency of how often the purification is
+applied. Since the purification is applied between any two
+propagation steps whenever the defective part of M12 is
+non-vanishing, this frequency is directly linked to the nu-
+merical time step dt. Hence, a failure of the purification
+to converge can lead to results that are not converged
+with respect to the numerical time step dt. This is ex-
+actly where the projective purification leads to a striking
+advantage compared to the previous algorithm. Using
+the same convergence criterion as in [24], i. e.
+1
+T
+Z T
+0
+dt
+ndt
+1 (t) − ndt′
+1 (t)
+ < 5 · 10−3, (34)
+where n1(t) is the density at first site chosen as a rep-
+resentative observable, and computed for two different
+time steps dt and dt′ = 0 .5dt, we observe that a large
+range of previously inaccessible parameters V and U be-
+come accessible, see Fig. 2. Note that results for sub-
+stantially larger interaction strengths U can now be cal-
+culated without convergence problems compared to the
+results obtained in [24]. These parameter ranges were
+inaccessible exactly because the purification did not con-
+7
+verge even with a large amount of maximal iterations
+kmax allowed. There are slight deviations of Fig. 2 (a)
+compared to the corresponding Fig. 12 in [24], which re-
+sult from the fact that only the conservation of energy has
+been taken into account within the purification in [24].
+The conservation of η+η− within the TD2RDM simu-
+lations of the Fermi-Hubbard model where introduced
+later in [25]. Constraining the purification to conserve
+multiple observables renders the purification algorithm
+even more difficult to converge within the previous pu-
+rification scheme and leads to an even larger inaccessible
+parameter range in Fig. 2 (a). However, as is visible
+in Fig. 2 (b), with the projective purification introduced
+here we obtain converged results for all parameter pairs
+analyzed.
+The quantity visualized in Fig. 2 is the averaged devia-
+tion of the occupation number of the left-most site from
+exact results
+δn1 =
+R T
+0 dt |n1(t) − nexact
+1 (t)|
+R T
+0 dt nexact
+1 (t)
+. (35)
+It can thus be seen from Fig. 2 that the TD2RDM is
+in good agreement with the exact results within the re-
+gion hitherto inaccessible. Comparing the results within
+TD2RDM for the two different purification schemes, we
+observe that the results do not depend on the purification
+scheme as long as the purification procedure is sufficiently
+well behaved. Slight deviations between Fig. 2 (a) and
+(b) are only present in parameter regions that are close
+to the white pixels in Fig. 2 (a), i. e. parameter regions
+where the previously applied purification starts to strug-
+gle to produce convergent results.
+We now want to analyze in detail, for a few specific
+examples marked in Fig. 2 (a) and (b), to what ex-
+tent the projective purification is more efficient com-
+pared to the previous algorithm in restoring the required
+N -representability conditions. As a figure of merit we
+use the number of iterations k needed to restore N -
+representability without touching all the other symme-
+tries discussed in Sec. II. In cases where the purification
+does not converge after a maximum number of iterations
+set to kmax = 100, we take the remaining defect d
+d := − min
+
+min
+gi<0
+gi, min
+qi<0
+qi
+
+(36)
+as a figure of merit. In the above formula, {gi}i and
+{qi}i denote the sets of eigenvalues of D12 and Q12, re-
+spectively.
+By looking at d for different systems as a function of
+time (Fig. 3), one can make several observations. For
+some parameters, both purification schemes manage to
+enforce the N -representability of D12 and Q12 at each
+time step. An example of such a system is given by the
+parameters U = 2.2J and V = 1.0J, system (i) in Fig. 2.
+In these cases, both purification schemes may be applied
+without significant influence on the results, see Fig. 3
+(a) and (b). In other cases, the previous implementation
+0 20 40
+0.0
+0.5
+1.0
+1.5
+d
+×10−3
+system (i)
+(a)
+0 20 40
+system (i)
+(b)
+0 20 40
+t[J −1]
+0.0
+1.0
+2.0
+3.0
+d
+×10−4
+system (ii)
+(c)
+0 20 40
+t[J −1]
+system (ii)
+(d)
+Figure 3. The defect Eq. (36) as a function of time for the
+two systems marked in Fig. 2 as (i) [subplots (a) and (b)] and
+(ii) [subplots (c) and (d)] for both the previous purification
+scheme [subplots (a) and (c)] and the projective purification
+[subplots (b) and (d)]. Every subplot contains two curves, the
+lighter one representing the value of the defect before apply-
+ing the purification, and the darker one the respective value
+after at most 100 iterations of the purification algorithm. In
+subplots (b) and (d) the input-2 RDM used for the conver-
+gence analysis in Fig. 4 is marked with a black dot on top of
+a dashed line.
+fails to purify the 2 RDM within the maximal amount
+of allowed iterations kmax. An example of such a sys-
+tem is given by U = 1 .0J and V = 0 .4J [system (ii)].
+While the defect is still small, and importantly smaller
+than the convergence criterion Eq. (34), it will accumu-
+late over time. Especially, after around t = 35J −1, the
+purification scheme ceases to have any meaningful mit-
+igation effect, leading to a steady increase in d, which
+could lead to a failure of convergence and numerical sta-
+bility if propagated further. For the same system, the
+projective purification succeeds in reducing the defect to
+zero at almost all time steps and thereby stabilizes the
+value of the defect before another propagation and purifi-
+cation step is applied to an amount still manageable for
+the scheme. For the parameter combinations which are
+not converged in Fig. 2, the previously used purification
+is incapable of mitigating d right from the start.
+While the advantage of using the projective purification
+is most pronounced for systems with large U and small
+to moderate V , even for those systems where both pu-
+rification algorithms are applicable, the newly proposed
+projective purification offers an advantage over the pre-
+viously used algorithm. In these cases, it manages to
+reduce the defect to zero after significantly fewer itera-
+tions. This is visualized in Fig. 4. Here, the same two
+exemplary systems are analyzed and the reduction of the
+defect by subsequent iterations is shown. In order to
+8
+0 25 50 75
+k
+10−9
+10−7
+10−5
+10−3
+d
+(a)
+system (i)
+0 25 50 75 100
+k
+(b)
+system (ii)
+Figure 4. The defect Eq. (36) at one time-step as a func-
+tion of the iteration index k within the purification scheme.
+The subplots (a) and (b) correspond to the systems (i) and
+(ii) marked in Fig. 2. The red curve shows the convergence of
+the purification when using the old implementation, while the
+blue curve corresponds to the projective purification. The in-
+put 2RDM for both purification algorithms was computed by
+propagating the initial states up to t = 25J −1 using the pro-
+jective purification. The defect of the input 2 RDM is marked
+in Fig. 3 (b) and (d) with a black dot on top of a dashed line.
+have a direct comparison between the two algorithms, the
+same input 2RDM was used in both cases, taken from the
+TD2RDM computation using the projective purification
+up until the time t = 25J −1. It is clearly visible that the
+convergence is faster for the projective purification for
+both systems, even though the reduction of the defect
+with the iteration step k is exponential in both cases [ex-
+cept for the sharper decrease during the first few iteration
+steps for system (ii)]. Note that, even though being sig-
+nificantly less efficient than the projective purification,
+the previous purification reduces the defect by several
+orders of magnitude even for the system with small V
+[system (ii)]. This seems contradictory to Fig. 3, where
+for the weakly excited system [system (ii)] at t = 25J −1,
+the previous algorithm leads to a decrease of the defect
+by only a few percent. This is a direct consequence of
+the accumulation of the error over time, since the input
+2RDM for Fig. 3 (c) originates entirely from a compu-
+tation using the previous purification, while in Fig. 4 (b)
+the projective purification is used until t = 25 J −1 and
+only then is the previous purification scheme applied.
+The fact that the previous implementation is still able to
+locally purify 2RDMs from a computation using the new
+projective purification hints to the fact that the projec-
+tive purification might contribute to restoring also other
+N -representability constraints not caught by the defect
+measure d.
+V. CONCLUSIONS
+In conclusion, we have presented a projective pu-
+rification scheme to restore N -representability condi-
+tions in non- N -representable reduced density matrices
+(RDMs). The projective purification scheme presented
+here is applicable to arbitrary RDMs and a wide va-
+riety of N -representability conditions, while maintain-
+ing the contraction consistency between successive or-
+ders of RDMs and the conservation of observables re-
+lated to symmetries of the Hamiltonian. The purifi-
+cation scheme is firmly rooted in the geometric repre-
+sentation of N -representability and the symmetries of
+the Hamiltonian. It employs the alternating projec-
+tions algorithm with the Hilbert-Schmidt inner prod-
+uct for matrices. We have demonstrated the applica-
+tion of the projective purification to the specific case
+of the time-dependent two-particle reduced density ma-
+trix (TD2RDM) method, where purifications of the two-
+particle reduced density matrix (2RDM) are necessary
+to obtain stable solutions in several parameter regimes
+of interaction strengths and external driving. Using the
+quench dynamics of the one-dimensional Fermi-Hubbard
+model as a benchmark system, we have shown that the
+present projective purification scheme greatly expands
+the accessible parameter regimes in terms of interactions
+and quench strengths compared to previous purification
+schemes. The projective purification safely reaches the
+required N -representability conditions in all parameter
+regimes investigated, even in regimes where the previ-
+ous purification schemes fail. In regimes where both
+the previous and the present purification schemes are
+applicable, the number of iterations required to restore
+the relevant N -representability conditions is significantly
+smaller than within previous purification schemes. This
+is attributed to the fact that the present algorithm mini-
+mizes the amount of modifications to the RDM while still
+restoring or preserving all relevant symmetries.
+Our purification scheme is relevant to all time-dependent
+and time-independent methods, which use reduced ob-
+jects that might lose N -representability within self-
+consistent applications of the method. These methods
+include RDM methods and non-equilibrium Green’s func-
+tion methods with linear scaling in time. Our projec-
+tive purification algorithm might also find applications
+in the realm of quantum error mitigations [42] relevant
+for quantum chemistry computations on noisy interme-
+diate scale quantum computers (see e. g. [43–46]).
+ACKNOWLEDGEMENTS
+This research was funded by the Austrian Science
+Fund (FWF) grant P 35539-N, as well as by the FWF
+10.55776/COE1. Calculations were performed on the Vi-
+enna Scientific Cluster (VSC4).
+Appendix A: Generalization to other
+N -representability constraints
+In Sec. II we presented the purification algorithm for
+the case when only two N -representability constraints
+are imposed: The D- and the Q-condition. However, the
+generalization to other N -representability constraints is
+9
+straightforward from a mathematical point of view and
+will be the content of this appendix. From a numerical
+point of view, high-order N -representability conditions
+may still be unfeasible to implement due to their large
+polynomial scaling with the number of orbitals in the
+single-particle basis.
+The set of N -representable pRDMs has been intensely
+studied by Mazziotti, who managed to characterize it
+in terms of a sequence of positivity constraints [47, 48].
+These constraints may be organized in form of a hier-
+archical structure, where constraints on higher pRDMs
+imply those on lower pRDMs by constructing appropri-
+ate convex combinations.
+An important subset of these constraints are those that
+can be expressed as the condition of positive semidefi-
+niteness of some matrices M ∈ Ck×k, k ∈ N depending
+directly and in an affine way on the pRDM:
+M = f [D1...p] = K + L[D1...p] ≥ 0 (A1)
+Here, K ∈ Ck×k is some fixed matrix and L : Crp×rp
+→
+Ck×k is a linear map.
+An example is clearly the positive semidefiniteness of
+D1...p itself, where K = 0 and L = id, as well as the
+positive semidefiniteness of the corresponding pHRDM
+Q1...p. There are, however, many more such constraints.
+These constraints are exactly those that can readily be in-
+cluded in a generalized version of the purification scheme
+proposed in Sec. II.
+In the following, we will explain how to do so. Every
+constraint f1, . . . , fn, n ∈ N of the form Eq. (A1) de-
+fines a pointed convex cone in the space of pRDMs. The
+goal of the purification scheme is then the projection
+of D1...p onto the intersection of all these cones. This
+is achieved through an iterative procedure: Given the
+pRDM D1...p, we first compute all corresponding ma-
+trices Mi = fi[D1...p] and align them, together with
+D1...p ≡ M0, in a large vector
+M :=
+
+
+D1...p
+M1
+...
+Mn
+
+ . (A2)
+Note that the matrices M0, . . . , Mn need not be of the
+same size. The vector M is thus not a complex matrix
+consisting of separate blocks, but a vector in the Hilbert
+space C k0×k0 ⊕ . . .⊕ C kn×kn , where ki is the dimension
+of Mi.
+We may then project every entry of this vector inde-
+pendently onto its corresponding cone. Since this cone
+is simply the cone of positive semidefinite matrices, the
+projection can be done by computing the negative eigen-
+pairs and subtracting the corresponding projectors from
+Mi. We denote the results by Mi,pos and the subtracted
+(defective) part by Mi,def, i = 1, . . . , n. Altogether, this
+amounts to a projection of M, the result of which we de-
+note by Mpos. Accordingly, we will use Mdef to refer to
+the difference M − Mpos. Simultaneously, we want to in-
+troduce the notation for the projection πdef(M) := Mdef.
+Now, clearly, the new matrices Mi,pos will in general not
+satisfy the defining equality in Eq. (A1) anymore. This
+can be repaired as follows: Since M0 = D1...p, the con-
+straints Mi = fi[D1...p] are nothing but a series of affine
+constraints onto M:
+Li[M0] − Mi = −Ki. (A3)
+We can enforce these constraints by making sure that the
+difference Mdef = M − Mpos satisfies the corresponding
+linear constraints:
+Li[M0,def] − Mi,def = 0, i = 1, . . . , n.(A4)
+All constraints can be summarized in the following ma-
+trix equation featuring an n × (n + 1)-matrix of linear
+maps:
+
+
+L1 − id
+L2 − id
+... . . .
+Ln − id
+
+ Mdef = 0. (A5)
+It is useful to summarize the linear maps Li in an n-
+dimensional vector as well:
+L =
+
+
+L1
+L2
+...
+Ln
+
+ , (A6)
+since then Eq. (A5) simply reads:
+ L − idn
+
+Mdef = 0. (A7)
+Here, we have introduced the symbol id n for a diagonal
+n × n-matrix containing only identities. We thus search
+for the projection of Mdef onto the kernel of
+ L − idn
+
+.
+Using well-established formulae for the Moore-Penrose
+pseudoinverse, this (n+1)×(n+1)-dimensional projection
+matrix can be expressed as:
+P = idn+1 −
+
+LT
+− idn
+  
+idn +LLT −1  L − idn
+
+. (A8)
+The inversion of the matrix (id n +LLT ) might at first
+glance seem to pose a problem because of vanishing eigen-
+values. However, it can be obtained by making use of the
+Woodbury matrix identity, resulting in:
+ 
+idn +LLT −1
+= idn −L(id +LT L)| {z }
+=: C
+−1
+LT . (A9)
+In order to make the following formulas more read-
+able, we introduce a new symbol for the linear map
+10
+C := id +LT L. Inserting Eq. (A9) into Eq. (A8) and
+distributing terms gives:
+P = idn+1 −
+
+LT L −LT
+−L idn
+
+(A10)
++
+
+LT L
+−L
+
+C −1  
+LT L −LT 
+.
+Using the fact that
+LT L C −1 = C −1 LT L = id − C −1, (A11)
+we arrive at:
+P = idn+1 −
+
+LT L −LT
+−L idn
+
+(A12)
++
+
+LT L −id +C −1 −LT + C −1LT
+−L + LC −1 LC −1LT
+
+.
+A great part of the terms cancel and the projection sim-
+plifies to:
+P =
+
+C −1 C −1LT
+LC −1 LC −1LT
+
+, (A13)
+which may finally be rewritten as
+P =
+
+id
+L
+
+C −1  
+id LT 
+. (A14)
+Still, the evaluation of P might seem complicated. How-
+ever, for many practical N -representability constraints
+Mi ≥ 0 the corresponding linear functional Li has a very
+simple form and thus also P becomes straightforward to
+evaluate. This is especially the case if one requires con-
+traction consistency along with other affine constraints,
+as then only the dependence of Mi on the contraction-
+free part of D1...p is important and any contribution of
+its traces can be ignored. In Sec. II we explained how
+to implement the D- and the Q-condition. Eq. (A14)
+becomes in this case simply
+P = 1
+2
+
+id ( −1)p id
+(−1)p id id
+
+. (A15)
+Summarizing, one iteration of the purification scheme up
+to this point involves computing
+M(k+1) = M(k) − (P ◦πdef)M(k). (A16)
+Since Mdef resulted from a rejection from a convex set
+and P is the projection onto a convex set, this is an in-
+stance of the alternating projections algorithm, known to
+converge to a point in the intersection of the correspond-
+ing convex sets [34, 49]. There are many ways to control
+the algorithm’s rate of convergence. For our purposes we
+include an additional steering factor α > 0, such that
+Eq. (A16) becomes:
+M(k+1) = M(k) − α(P ◦πdef)M(k). (A17)
+We are now ready to include the constraints that the
+expectation values of specific observables have to be
+preserved. Here, we can proceed in complete analogy
+to Sec. II. Since the observables X1, . . . , Xn are typi-
+cally given in terms of the RDM, we have to implement
+these additional constraints only for the zero’th row of
+Eq. (A17), which reads:
+D(k+1)
+1...p = D(k)
+1...p − δD(k)
+1...p, (A18)
+with
+δD(k)
+1...p = α(P0 ◦ πdef)M[D(k)
+1...p], (A19)
+where
+P0 = C −1  
+id LT 
+, (A20)
+see Eq. (A14). For the sake of clarity, we want to em-
+phasize that
+LT =
+ 
+LT
+1 . . . LT
+n
+
+(A21)
+consists of the transposes (adjoints) of the linear maps
+Li, where the transpose is to be taken with respect to
+the Hilbert-Schmidt inner product.
+On the level of RDMs, physical observables correspond
+to linear functionals. By the representation theorem of
+Riesz, we may as well consider the linear functionals as
+actual vectors in the Hilbert space Crp×rp
+of RDMs. The
+statement that the purification scheme should conserve
+the expectation value of some operator X becomes then
+the requirement that the subtrahend [Eq. (A19)] be or-
+thogonal to X. If we define the space of conserved quan-
+tities by
+X := span {Xi|i = 1, . . . , n}, (A22)
+then all we need to do is to subtract from δD(k)
+1...p its com-
+ponent within X . We may therefore determine any or-
+thonormal basis of X via the Gram-Schmidt orthogonal-
+ization procedure and use this to project δD(k)
+1...p onto the
+orthogonal complement of X . If we denote by Y1, . . . , Yn
+the orthonormal basis vectors of X , then the new itera-
+tion update may be written as:
+δD(k)
+1...p = α(Π⊥
+X ◦ P0 ◦ πdef)M[D(k)
+1...p], (A23)
+where
+Π⊥
+X (δD1...p) := δD1...p −
+nX
+i=0
+Tr(YiδD1...p)Yi. (A24)
+Using the update from Eq. (A23) instead of Eq. (A19)
+in Eq. (A18) amounts to one iteration of the purification
+algorithm. By repeating the routine several times, a puri-
+fied pRDM may be generated. As long as the constraints
+related to conserved observables are not in contradic-
+tion with the N -representability constraints, this algo-
+rithm, being an instance of the more general alternating-
+projections algorithm, is guaranteed to converge.
+11
+Note that so far we did not mention the contraction-
+consistency constraint Eq. (5) and its implementation
+here. It turns out that ensuring contraction-consistency
+is equivalent to the conservation of all possible ( p − 1)-
+particle operators. As such, it is already covered by this
+description as one may simply add them to the set X .
+The unitary decomposition is then nothing but a short-
+cut, resulting immediately in the orthonormalized basis,
+which would otherwise have to be computed with the
+help of Gram-Schmidt.
+Appendix B: Purification iteration formulas for the
+F ermi-Hubbard model
+In this section, we explicitly give the formulae for one
+step in the iterative purification scheme for the Fermi-
+Hubbard model within the TD2RDM from Sec. III. By
+inserting the expressions for the operators Y1 and Y2
+[Eqs. (29) and (33)] into Eq. (17), we arrive at explicit
+expressions for the subtrahend δD(k)
+def;DQ;K;X of the iter-
+ation formula Eq. (19). As both the interaction W and
+η+η−, and hence also Y1 and Y2 depend only on the sin-
+glet component of D12 and Q12, the expression for the
+triplet component simply reads
+M T
+1...p;def;K;X = M T
+1...p;def;K. (B1)
+For the singlet component, the additional conservation
+laws lead to the following expressions in index notation:
+∀i : (B2)
+
+M S
+12;def;K;X
+ii
+ii =
+
+M S
+12;def;K
+ii
+ii −
+P
+l
+h
+M S
+12;def;K
+ill
+ll
+Ms
+,
+∀i ̸= j :
+
+M S
+12;def;K;X
+ij
+ij =
+
+M S
+12;def;K
+ij
+ij +
+P
+l
+h
+M S
+12;def;K
+ill
+ll
+Ms(Ms − 1) ,
+
+M S
+12;def;K;X
+ij
+ji =
+
+M S
+12;def;K
+ij
+ji +
+P
+l
+h
+M S
+12;def;K
+ill
+ll
+Ms(Ms − 1) ,
+
+M S
+12;def;K;X
+ii
+jj =
+
+M S
+12;def;K
+ii
+jj −
+(−1)i+j
+P
+k̸=l(−1)k+l
+h
+M S
+12;def;K
+ikk
+ll
+Ms(Ms − 1) .
+For any other indices i, j, k, lwe have:
+[M S
+12;def;K;X ]ij
+kl = [M S
+12;def;K]ij
+kl. (B3)
+Appendix C: Numerical details
+The purification of the 2 RDM is applied after global
+time steps of dt = 0.01J −1. The iteration is stopped as
+soon as the defect d is reduced to zero or if the maximum
+number of iterations of kmax = 100 is reached. The time
+evolution within the global time steps is performed by
+the application of a time adaptive Runge-Kutta-Fehlberg
+propagator of fourth and fifth order to the equations of
+motions [Eq. (22)]. The steering factor α was set to a con-
+stant value of two, increasing convergence speed. How-
+ever, no systematic investigation concerning the optimal
+scaling factor was made. It should be noted that more
+advanced schemes using an adaptive α could further im-
+prove convergence behavior.
+[1] R. G. Parr and W. Yang, Density-Functional Theory of
+Atoms and Molecules , auflage: reprint ed. (Oxford Uni-
+versity Press USA, New York; Oxford England, 1989).
+[2] C. A. Ullrich, Time-Dependent Density-Functional The-
+ory: Concepts and Applications (Oxford University
+Press, 2011).
+[3] A. J. Coleman and V. I. Yukalov, Reduced Density Ma-
+trices: Coulson ’s Challenge (Springer Science & Business
+Media, 2000).
+[4] D. A. Mazziotti, Advances in Chemical Physics, Reduced-
+Density-Matrix Mechanics: With Application to Many-
+Electron Atoms and Molecules (John Wiley & Sons,
+2007).
+[5] M. Bonitz, Quantum Kinetic Theory (Springer Interna-
+tional Publishing, Cham, 2016).
+[6] G. Stefanucci and R. Van Leeuwen, Nonequilibrium
+Many-Body Theory of Quantum Systems: A Modern In-
+troduction, 1st ed. (Cambridge University Press, 2013).
+[7] C. A. Coulson, Present State of Molecular Structure Cal-
+culations, Reviews of Modern Physics 32, 170 (1960).
+[8] A. J. Coleman, Structure of Fermion Density Matrices,
+Reviews of Modern Physics 35, 668 (1963).
+[9] A. A. Klyachko, Quantum marginal problem and N-
+representability, Journal of Physics: Conference Series
+36, 72 (2006).
+[10] C. Schilling, D. Gross, and M. Christandl, Pinning of
+Fermionic Occupation Numbers, Physical Review Letters
+110, 040404 (2013).
+[11] D. A. Mazziotti, Structure of Fermionic Density Matri-
+ces: Complete N -Representability Conditions, Physical
+Review Letters 108, 263002 (2012).
+[12] Z. Zhao, B. J. Braams, M. Fukuda, M. L. Overton, and
+J. K. Percus, The reduced density matrix method for
+electronic structure calculations and the role of three-
+index representability conditions, The Journal of Chem-
+ical Physics 120, 2095 (2004).
+12
+[13] C. Valdemoro, L. Tel, and E. P´ erez-Romero, The Con-
+tracted Schr¨ odinger Equation: Some Results, in Ad-
+vances in Quantum Chemistry , Vol. 28 (Elsevier, 1997)
+pp. 33–46.
+[14] D. A. Mazziotti, Purification of correlated reduced den-
+sity matrices, Physical Review E 65, 026704 (2002).
+[15] C. Valdemoro, L. M. Tel, and E. P´ erez-Romero, N -
+representability problem within the framework of the
+contracted Schr¨ odinger equation, Physical Review A61,
+032507 (2000).
+[16] D. R. Alcoba and C. Valdemoro, Spin structure and prop-
+erties of the correlation matrices corresponding to pure
+spin states: Controlling the S-representability of these
+matrices, International Journal of Quantum Chemistry
+102, 629 (2005).
+[17] T. Au-Chin and G. Hong, Characteristic operators and
+unitarily invariant decomposition of hermitian operators,
+International Journal of Quantum Chemistry 23, 217
+(1983).
+[18] C. Sun, X. Li, and A. Tang, Lie algebra and unitarily
+invariant decomposition of Hermitian operators, Interna-
+tional Journal of Quantum Chemistry 25, 653 (1984).
+[19] M. E. Casida and J. E. Harriman, Geometry of den-
+sity matrices. VI. Superoperators and unitary invariance,
+International Journal of Quantum Chemistry 30, 161
+(1986).
+[20] B. Sch¨ afer-Bung and M. Nest, Correlated dynamics of
+electrons with reduced two-electron density matrices,
+Physical Review A 78, 012512 (2008).
+[21] A. Akbari, M. J. Hashemi, A. Rubio, R. M. Nieminen,
+and R. van Leeuwen, Challenges in truncating the hier-
+archy of time-dependent reduced density matrices equa-
+tions, Phys. Rev. B 85, 235121 (2012).
+[22] F. Lackner, I. Brezinova, T. Sato, K. L. Ishikawa, and
+J. Burgd¨ orfer, Propagating two-particle reduced density
+matrices without wavefunctions, Physical Review A 91,
+023412 (2015), arXiv:1411.0495 [physics].
+[23] F. Lackner, I. Bˇ rezinov´ a, T. Sato, K. L. Ishikawa,
+and J. Burgd¨ orfer, High-harmonic spectra from time-
+dependent two-particle reduced-density-matrix theory,
+Physical Review A 95, 033414 (2017).
+[24] S. Donsa, F. Lackner, J. Burgd¨ orfer, M. Bonitz, B. Kloss,
+A. Rubio, and I. Bˇ rezinov´ a, Nonequilibrium correlation
+dynamics in the one-dimensional Fermi-Hubbard model:
+A testbed for the two-particle reduced density matrix
+theory, Physical Review Research 5, 033022 (2023).
+[25] I. Bˇ rezinov´ a, M. Stimpfle, S. Donsa, and A. Rubio,
+Dynamical quasicondensation in the weakly interacting
+Fermi-Hubbard model, Physical Review B 109, 174308
+(2024).
+[26] J.-P. Joost, N. Schl¨ unzen, H. Ohldag, M. Bonitz, F. Lack-
+ner, and I. Bˇ rezinov´ a, Dynamically screened ladder ap-
+proximation: Simultaneous treatment of strong elec-
+tronic correlations and dynamical screening out of equi-
+librium, Physical Review B 105, 165155 (2022).
+[27] N. Schl¨ unzen, J.-P. Joost, and M. Bonitz, Achieving the
+Scaling Limit for Nonequilibrium Green Functions Sim-
+ulations, Physical Review Letters 124, 076601 (2020).
+[28] J.-P. Joost, N. Schl¨ unzen, and M. Bonitz, G1-G2 scheme:
+Dramatic acceleration of nonequilibrium Green func-
+tions simulations within the Hartree-Fock generalized
+Kadanoff-Baym ansatz, Physical Review B 101, 245101
+(2020).
+[29] R. Tuovinen, Y. Pavlyukh, E. Perfetto, and G. Ste-
+fanucci, Time-Linear Quantum Transport Simulations
+with Correlated Nonequilibrium Green’s Functions,
+Physical Review Letters 130, 246301 (2023).
+[30] K. Balzer, N. Schl¨ unzen, H. Ohldag, J.-P. Joost, and
+M. Bonitz, Accelerating nonequilibrium Green function
+simulations with embedding self-energies, Physical Re-
+view B 107, 155141 (2023).
+[31] M. Bonitz, J. Joost, C. Makait, E. Schroedter, T. Kals-
+berger, and K. Balzer, Accelerating Nonequilibrium
+Green Functions Simulations: The G1–G2 Scheme and
+Beyond, physica status solidi (b) 261, 2300578 (2024).
+[32] M. B. Ruskai, N -Representability Problem: Particle-
+Hole Equivalence, Journal of Mathematical Physics 11,
+3218 (1970).
+[33] D. A. Mazziotti, Contracted schr¨ odinger equation, in
+Reduced-Density-Matrix Mechanics: With Application to
+Many-Electron Atoms and Molecules , edited by D. A.
+Mazziotti (Wiley, 2007) pp. 165–203.
+[34] H. H. Bauschke and J. M. Borwein, On the convergence of
+von neumann’s alternating projection algorithm for two
+sets, Set-Valued Analysis 1, 185–212 (1993).
+[35] D. A. Mazziotti, Approximate solution for electron cor-
+relation through the use of Schwinger probes, Chemical
+Physics Letters 289, 419 (1998).
+[36] F. Colmenero, C. P´ erez Del Valle, and C. Valdemoro, Ap-
+proximating q -order reduced density matrices in terms
+of the lower-order ones. I. General relations, Physical Re-
+view A 47, 971 (1993).
+[37] C. Valdemoro, Theory and methodology of the con-
+tracted schr¨ odinger equation, inReduced-Density-Matrix
+Mechanics: With Application to Many-Electron Atoms
+and Molecules , edited by D. A. Mazziotti (Wiley, 2007)
+pp. 121–164.
+[38] E. H. Lieb, Two theorems on the hubbard model, Phys-
+ical Review Letters 62, 1201–1204 (1989).
+[39] C. Garrod and J. K. Percus, Reduction of the N-Particle
+Variational Problem, Journal of Mathematical Physics 5,
+1756 (1964).
+[40] W. E. Arnoldi, The principle of minimized iterations in
+the solution of the matrix eigenvalue problem, Quarterly
+of Applied Mathematics 9, 17 (1951).
+[41] C. N. Yang, η pairing and off-diagonal long-range order
+in a Hubbard model, Physical Review Letters 63, 2144
+(1989).
+[42] Z. Cai, R. Babbush, S. C. Benjamin, S. Endo, W. J. Hug-
+gins, Y. Li, J. R. McClean, and T. E. O’Brien, Quantum
+error mitigation, Reviews of Modern Physics 95, 045005
+(2023).
+[43] N. C. Rubin, R. Babbush, and J. McClean, Application
+of fermionic marginal constraints to hybrid quantum al-
+gorithms, New Journal of Physics 20, 053020 (2018).
+[44] S. McArdle, S. Endo, A. Aspuru-Guzik, S. C. Benjamin,
+and X. Yuan, Quantum computational chemistry, Re-
+views of Modern Physics 92, 015003 (2020).
+[45] T. E. O’Brien, G. Anselmetti, F. Gkritsis, V. E. Elfving,
+S. Polla, W. J. Huggins, O. Oumarou, K. Kechedzhi,
+D. Abanin, R. Acharya, I. Aleiner, R. Allen, T. I. An-
+dersen, K. Anderson, M. Ansmann, F. Arute, K. Arya,
+A. Asfaw, J. Atalaya, J. C. Bardin, A. Bengtsson, G. Bor-
+toli, A. Bourassa, J. Bovaird, L. Brill, M. Broughton,
+B. Buckley, D. A. Buell, T. Burger, B. Burkett,
+N. Bushnell, J. Campero, Z. Chen, B. Chiaro, D. Chik,
+J. Cogan, R. Collins, P. Conner, W. Courtney, A. L.
+13
+Crook, B. Curtin, D. M. Debroy, S. Demura, I. Droz-
+dov, A. Dunsworth, C. Erickson, L. Faoro, E. Farhi,
+R. Fatemi, V. S. Ferreira, L. Flores Burgos, E. Fo-
+rati, A. G. Fowler, B. Foxen, W. Giang, C. Gidney,
+D. Gilboa, M. Giustina, R. Gosula, A. Grajales Dau,
+J. A. Gross, S. Habegger, M. C. Hamilton, M. Hansen,
+M. P. Harrigan, S. D. Harrington, P. Heu, M. R.
+Hoffmann, S. Hong, T. Huang, A. Huff, L. B. Ioffe,
+S. V. Isakov, J. Iveland, E. Jeffrey, Z. Jiang, C. Jones,
+P. Juhas, D. Kafri, T. Khattar, M. Khezri, M. Kieferov´ a,
+S. Kim, P. V. Klimov, A. R. Klots, A. N. Korotkov,
+F. Kostritsa, J. M. Kreikebaum, D. Landhuis, P. Laptev,
+K.-M. Lau, L. Laws, J. Lee, K. Lee, B. J. Lester, A. T.
+Lill, W. Liu, W. P. Livingston, A. Locharla, F. D.
+Malone, S. Mandr` a, O. Martin, S. Martin, J. R. Mc-
+Clean, T. McCourt, M. McEwen, X. Mi, A. Mieszala,
+K. C. Miao, M. Mohseni, S. Montazeri, A. Morvan,
+R. Movassagh, W. Mruczkiewicz, O. Naaman, M. Neeley,
+C. Neill, A. Nersisyan, M. Newman, J. H. Ng, A. Nguyen,
+M. Nguyen, M. Y. Niu, S. Omonije, A. Opremcak,
+A. Petukhov, R. Potter, L. P. Pryadko, C. Quintana,
+C. Rocque, P. Roushan, N. Saei, D. Sank, K. Sankarago-
+mathi, K. J. Satzinger, H. F. Schurkus, C. Schuster, M. J.
+Shearn, A. Shorter, N. Shutty, V. Shvarts, J. Skruzny,
+W. C. Smith, R. D. Somma, G. Sterling, D. Strain,
+M. Szalay, D. Thor, A. Torres, G. Vidal, B. Villa-
+longa, C. Vollgraff Heidweiller, T. White, B. W. K. Woo,
+C. Xing, Z. J. Yao, P. Yeh, J. Yoo, G. Young, A. Zal-
+cman, Y. Zhang, N. Zhu, N. Zobrist, D. Bacon, S. Boixo,
+Y. Chen, J. Hilton, J. Kelly, E. Lucero, A. Megrant,
+H. Neven, V. Smelyanskiy, C. Gogolin, R. Babbush,
+and N. C. Rubin, Purification-based quantum error mit-
+igation of pair-correlated electron simulations, Nature
+Physics 19, 1787 (2023).
+[46] I. Avdic and D. A. Mazziotti, Fewer Measurements from
+Shadow Tomography with N -Representability Condi-
+tions, Physical Review Letters 132, 220802 (2024).
+[47] D. A. Mazziotti, Structure of fermionic density matrices:
+Complete n-representability conditions, Physical Review
+Letters 108, 10.1103/physrevlett.108.263002 (2012).
+[48] D. A. Mazziotti, Significant conditions for the two-
+electron reduced density matrix from the constructive
+solution of N representability, Physical Review A 85,
+062507 (2012).
+[49] L. Gubin, B. Polyak, and E. Raik, The method of projec-
+tions for finding the common point of convex sets, USSR
+Computational Mathematics and Mathematical Physics
+7, 1–24 (1967).

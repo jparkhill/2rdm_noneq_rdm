@@ -1,0 +1,1137 @@
+arXiv:1904.06780v1  [nucl-th]  14 Apr 2019
+EPJ manuscript No.
+(will be inserted by the editor)Truncation scheme of time-dependent density-matrix appro ach
+III
+Mitsuru Tohyama1 and Peter Schuck 2,3
+1 Kyorin University School of Medicine, Mitaka, Tokyo 181-86 11, Japan
+2 Institut de Physique Nucl´ eaire, IN2P3-CNRS, Universit´ eParis-Sud, F-91406 Orsay Cedex, France
+3 Laboratoire de Physique et de Mod´ elisation des Milieux Con dens´ es, CNRS et, Universit´ e Joseph Fourier, 25 Av. des Martyrs,
+BP 166, F-38042 Grenoble Cedex 9, France
+Received: date / Revised version: date
+Abstract. The time-dependent density-matrix theory (TDDM) where the Bogoliubov-Born-Green-
+Kirkwood-Yvon hierarchy for reduced density matrices is tr uncated by approximating a three-body density
+matrix with one-body and two-body density matrices is appli ed to the Lipkin model. It is shown that in
+the large N limit the ground state in TDDM approaches the exact solution . Various truncation schemes
+for the three-body density matrix are also tested for an exte nded three-level Lipkin model.
+PACS. 21.60.Jz Nuclear Density Functional Theory and extensions (includes Hartree-Fock and random-
+phase approximations)
+1 Introduction
+The equations of motion for reduced density matrices have
+a coupling scheme known as the Bogoliubov-Born-Green-
+Kirkwood-Yvon (BBGKY) hierarchy [1] where an n-body
+density matrix couples to n-body and n + 1-body density
+matrices. To solve the equations of motion for the one-
+body and two-body density matrices, we need to truncate
+the BBGKY hierarchy at a two-body level. The simplest
+truncation scheme is to approximate a three-body den-
+sity matrix with the antisymmetrized products of the one-
+body and two-body density matrices neglecting the cor-
+related part of the three-body density matrix (the three-
+body correlation matrix) [2, 3]. We refer to this trunca-
+tion scheme as the time-dependent density-matrix theory
+(TDDM). In some cases TDDM overestimates ground-
+state correlations [4], gives unphysical results [5, 6] and
+causes instabilities of the obtained solutions [7] for strongly
+interacting cases. Obviously the problems originate in the
+truncation scheme where the three-body correlation ma-
+trix is completely neglected. This is related to the loss of
+N -representability [8] which is preserved only in the case
+of the untruncated BBGKY hierarchy. To remedy to such
+diﬃculties of the naive truncation scheme, better approx-
+imations for the three-body correlation matrix have been
+proposed. One is to approximate the three-body corre-
+lation matrix with the products of the correlated part of
+the two-body correlation matrices based on a perturbative
+consideration [9], which corresponds to the cumulant ex-
+pansion [10]: The three-body correlation matrix may also
+be called the three-body cumulant. We refer to this trun-
+cation scheme as TDDM1. It was found in the applications
+of TDDM1 to the Lipkin model [11] that TDDM1 can
+remedy the overestimation of ground-state correlations in
+TDDM. It was also found that TDDM1 underestimates
+ground-state correlations in strongly interacting regions
+when the number of particles N becomes large. This sug-
+gests that higher-order eﬀects which eﬀectively reduce the
+contribution of the three-body correlation matrix should
+be taken into account. We proposed another truncation
+scheme [12] which includes a normalization factor in the
+three-body correlation matrix in TDDM1. We refer to it
+as TDDM2. In this work we pursue our investigation of
+the cumulant approximation to the correlated part of the
+three-body density matrix which enters the equation of
+motion for the two-body density matrix. In particular we
+will continue in this sense our investigation of the two-
+level Lipkin model where we will ﬁnd that TDDM solves
+this model exactly in the thermodynamic limit staying in
+the symmetry unbroken (spherical) basis. Additionally we
+then also study the three-level Lipkin model [13] which
+will turn out to have a quite diﬀerent behavior with re-
+spect to the three-body correlations. We will ﬁnd a par-
+ticular approximation scheme for the cumulant expression
+of the three-body correlation matrix which also solves the
+three-level Lipkin model almost exactly for the ground
+state energy in the large N limit staying in the symme-
+try unbroken description. However, this scheme will not
+be able to reproduce the rotational spectrum. A detailed
+discussion of this behavior will be given and the particu-
+larities of the three-level Lipkin model in this respect will
+be discussed. At the end, we will try to give some general
+conclusions concerning the performance of the cumulant
+2 Mitsuru Tohyama, Peter Schuck: Truncation scheme of time- dependent density-matrix approach III
+approximation to the three-body correlation matrix in the
+TDDM approach.
+The paper is organized as follows. The three trunca-
+tion schemes TDDM, TDDM1 and TDDM2 are explained
+in sect. 2. The results for the two and three-level Lipkin
+models are presented in sect. 4 and sect. 4 is devoted to
+summary.
+2 Formulation
+We consider a system of N fermions and assume that the
+Hamiltonian H consisting of a one-body part and a two-
+body interaction
+H =
+∑
+αα′
+⟨α|t|α′⟩a†
+αaα′ + 1
+2
+∑
+αβα′β′
+⟨αβ|v|α′β′⟩a†
+αa†
+βaβ′aα′ ,
+(1)
+where a†
+α and aα are the creation and annihilation opera-
+tors of a particle at a single-particle state α.
+2.1 Time-dependent density-matrix theories
+The TDDM approaches give the coupled equations of mo-
+tion for the one-body density matrix (the occupation ma-
+trix) nαα′ and the correlated part of the two-body density
+matrix Cαβα′β′. These matrices are deﬁned as
+nαα′(t) = ⟨Φ(t)|a†
+α′ aα|Φ(t)⟩, (2)
+Cαβα′β′(t) = ⟨Φ(t)|a†
+α′ a†
+β′aβaα|Φ(t)⟩
+− (nαα′ (t)nββ ′ (t) − nαβ′(t)nβα′ (t)), (3)
+where |Φ(t)⟩ is the time-dependent total wavefunction |Φ(t)⟩ =
+exp[−iHt]|Φ(t = 0) ⟩. We use units such that ¯ h = 1. The
+equations of motion for nαα′ and Cαβα′β′ are written as
+i ˙nαα′ =
+∑
+λ
+(ǫαλnλα′ − nαλǫλα′ )
++
+∑
+λ1λ2λ3
+[⟨αλ1|v|λ2λ3⟩Cλ2λ3α′λ1
+− Cαλ1λ2λ3 ⟨λ2λ3|v|α′λ1⟩], (4)
+i ˙Cαβα′β′ =
+∑
+λ
+(ǫαλCλβα′β′ + ǫβλCαλα′β′
+− ǫλα′ Cαβλβ ′ − ǫλβ′Cαβα′λ)
++ Bαβα′β′ + Pαβα′β′ + Hαβα′β′
++
+∑
+λ1λ2λ3
+[⟨αλ1|v|λ2λ3⟩Cλ2λ3βα′λ1β′
++ ⟨λ1β|v|λ2λ3⟩Cλ2λ3αα′λ1β′
+− ⟨λ1λ2|v|α′λ3⟩Cαλ3βλ1λ2β′
+− ⟨λ1λ2|v|λ3β′⟩Cαλ3βλ1λ2α′ ], (5)
+where Cαβγα ′β′γ′ is the three-body correlation matrix which
+is neglected in the original version of TDDM [2, 3]. The en-
+ergy matrix ǫαα′ is given by
+ǫαα′ = ⟨α|t|α′⟩ +
+∑
+λ1λ2
+⟨αλ1|v|α′λ2⟩Anλ2λ1 , (6)
+where the subscript A means that the corresponding ma-
+trix is antisymmetrized. The matrix Bαβα′β′ in eq. (5)
+does not contain Cαβα′β′ and describes 2p–2h and 2h–
+2p excitations, where p and h refer to particle and hole
+states, respectively. The terms Pαβα′β′ and Hαβα′β′ con-
+tain Cαβα′β′ and describe p–p (and h–h) and p–h corre-
+lations to inﬁnite order, respectively [3]. These matrices
+are given in ref. [3] but listed again in Appendix A for
+completeness. Equations (4) and (5) satisfy the conser-
+vation laws of the total energy and the total number of
+particles [2, 3]. As mentioned above, Cαβγα ′β′γ′ in eq. (5)
+is neglected in TDDM [2, 3]. In order to remedy diﬃcul-
+ties of TDDM, we have proposed a truncation scheme for
+Cαβγα ′β′γ′ [9] such that
+Cp1p2h1p3p4h2 =
+∑
+h
+Chh1p3p4Cp1p2h2h, (7)
+Cp1h1h2p2h3h4 =
+∑
+p
+Ch1h2p2pCp1ph3h4 . (8)
+These expressions were derived from perturbative con-
+sideration [9] using the following CCD (Coupled-Cluster-
+Doubles)-like ground state wavefunction |Z⟩ [14]
+|Z⟩ = eZ|HF⟩ (9)
+with
+Z = 1
+4
+∑
+pp′hh′
+zpp′hh′a†
+pa†
+p′ah′ah, (10)
+where |HF⟩ is the Hartree-Fock (HF) ground state and
+zpp′hh′ is antisymmetric under the exchanges of p ↔ p′
+and h ↔ h′. We refer to the truncation scheme given
+by eqs. (7) and (8) as TDDM1. In the applications of
+TDDM1 to the Lipkin model it was found that although
+TDDM1 eﬀectively suppresses excess two-body correla-
+tions in small N systems, it overestimates the contribu-
+tions of the three-body correlation matrix in large N sys-
+tems. To make TDDM1 applicable to large N systems, we
+modiﬁed the truncation scheme [12] to
+Cp1p2h1p3p4h2 = 1
+N
+∑
+h
+Chh1p3p4Cp1p2h2h, (11)
+Cp1h1h2p2h3h4 = 1
+N
+∑
+p
+Ch1h2p2pCp1ph3h4 . (12)
+The factor N is given by
+N = 1 + 1
+4
+∑
+pp′hh′
+Cpp′hh′Chh′pp′, (13)
+Mitsuru Tohyama, Peter Schuck: Truncation scheme of time-d ependent density-matrix approach III 3
+which plays a role in reducing the three-body correlation
+matrix in strongly interacting regions of the Lipkin model.
+We refer to the truncation scheme given by eqs. (11) and
+(12) as TDDM2. The conservation of the total energy and
+total particle number is not aﬀected by the above approx-
+imations for the three-body correlation matrix because its
+anti-symmetry properties under the exchange of single-
+particle indices is respected.
+3 Results
+3.1 Two-level Lipkin model
+First we consider the usual two-level Lipkin model. The
+Lipkin model [11] describes an N -fermions system with
+two N -fold degenerate levels with energies ǫ/2 and −ǫ/2,
+respectively. The upper and lower levels are labeled by
+quantum number p and −p, respectively, with p = 1, 2, ..., N.
+We consider the standard Hamiltonian
+H = ǫJz + V
+2 (J 2
++ + J 2
+−), (14)
+where the operators are given as
+Jz = 1
+2
+N∑
+p=1
+(c†
+pcp − c−p
+†c−p), (15)
+J+ = J †
+− =
+N∑
+p=1
+c†
+pc−p. (16)
+The HF ground state where the lowest single-particle states
+given by the operators {a−p} (p = 1 , 2, · · · N ) are fully
+occupied
+|HF⟩ =
+N∏
+p=1
+a†
+−p|0⟩ (17)
+is obtained by the transformation
+(
+a†
+−p
+a†
+p
+)
+=
+(
+cos α sin α
+− sin α cos α
+) (
+c†
+−p
+c†
+p
+)
+.
+(18)
+The HF energy is given by
+E(α) = − N ǫ
+2 + N ǫsin2 α
++ V N (N − 1) sin2 α cos2 α. (19)
+Using χ = |V |(N − 1)/ǫ, we can express EHF which mini-
+mizes E(α) as
+EHF =
+{
+− N ǫ
+2 (χ ≤ 1)
+N ǫ
+4 (−χ − 1/χ) ( χ > 1), (20)
+where cos 2 α = 1/χ is satisﬁed.
+Since the solution in TDDM is closely related to that in
+the deformed Hartree-Fock theory (DHF) as shown below,
+we discuss some properties of the DHF solution. In DHF
+the occupation matrix is given by
+n−p(n−p−p) = cos 2 α, (21)
+np(npp) = 1 − n−p = sin 2 α, (22)
+np−p = cos α sin α. (23)
+In DHF higher reduced density matrices have no corre-
+lated parts. For example the 2p–2h element of the two-
+body density matrix is expressed with the occupation ma-
+trices as
+ρpp′−p−p′ = ⟨DHF|c†
+−pc†
+−p′ cp′cp|DHF⟩
+= np−pnp′−p′ = cos 2 α sin2 α. (24)
+Similarly, the ph–ph element is given by
+ρp−p′−pp′ (p ̸= p′) = ⟨DHF|c†
+−pc†
+p′ c−p′cp|DHF⟩
+= np−pn−p′p′ = cos 2 α sin2 α. (25)
+The three-body density matrix is also expressed as the an-
+tisymmetrized products of three occupation matrices such
+that
+ρp−p′p′′pp′−p′′ = cos 2 α sin4 α, (26)
+which is the same as nppρ−p′p′′p′−p′′ . This means that the
+correlated part of the three-body density matrix Cp−p′p′′pp′−p′′
+vanishes in DHF.
+In TDDM (also in TDDM1 and TDDM2) the ground
+state is obtained using the adiabatic method [18, 19] start-
+ing from the non-interacting ”spherical” HF state where
+the occupation matrix nαα′ has no oﬀ-diagonal elements.
+Since the TDDM equations eqs. (4) and (5) maintain the
+symmetry, nαα′ always has no oﬀ-diagonal elements. Sim-
+ilarly, ρpp′−p−p′ and ρp−p′−pp′ (p ̸= p′) have no uncorre-
+lated parts in TDDM. As shown below, there are strong
+similarities between the TDDM and DHF solutions such
+that Cpp′−p−p′ and Cp−p′−pp′ correspond to eqs. (24) and
+(25), respectively. The diagonal elements eqs. (21) and
+(22) in DHF also correspond to those in TDDM. This
+suggests the following relation for the expectation value
+of an operator ˆQ
+⟨ ˆQ⟩TDDM ≈ ⟨ΨDHF| ˆQ|ΨDHF⟩
+≈ 1
+2 (⟨DHF(α)| ˆQ|DHF(α)⟩
++ ⟨DHF(−α)| ˆQ|DHF(−α)⟩), (27)
+where |ΨDHF⟩ is a ’spherical’ wavefunction given by
+|ΨDHF⟩ = |DHF(α)⟩ + |DHF(−α)⟩√
+2 . (28)
+Here |DHF(α)⟩ means the deformed HF ground state with
+α. In fact the following relations hold
+⟨DHF(α)|DHF(−α)⟩ = (cos 2 α − sin2 α)N
+4 Mitsuru Tohyama, Peter Schuck: Truncation scheme of time- dependent density-matrix approach III
+/s48 /s49 /s50 /s51 /s52 /s53
+/s45/s49/s56
+/s45/s49/s54
+/s45/s49/s52
+/s45/s49/s50
+/s45/s49/s48
+/s45/s56
+/s45/s54
+/s69/s48/s47
+/s32/s84/s68/s68/s77
+/s32/s84/s68/s68/s77/s50
+/s32/s72/s70/s44/s32/s68/s72/s70
+/s32/s69/s120/s97/s99/s116
+/s32/s84/s68/s68/s77/s49
+/s32/s68/s84/s68/s68/s77
+/s78/s61/s49/s50
+Fig. 1. Ground-state energy in TDDM (solid line) as a func-
+tion of χ = |V |(N − 1)/ǫ for N = 12. The results in TDDM1
+where the three-body correlation matrix is given by eqs. (7)
+and (8) are shown with the dashed line. The green (gray) line
+depicts the results in TDDM2 where the three-body correla-
+tion matrix is given by eqs. (11) and (12). The results in HF
+and DHF( χ > 1) are shown with the dotted line. The open
+circles (DTDDM) indicate the results in TDDM calculated us-
+ing the ’deformed’ single-particle states and the DHF groun d
+state. The exact values are given by the dot-dashed line.
+(29)
+⟨DHF(α)|c†
+αcβ|DHF(−α)⟩ ∝ (cos2 α − sin2 α)N −1
+(30)
+⟨DHF(α)|c†
+αc†
+βcβ′ cα′|DHF(−α)⟩ ∝ (cos2 α − sin2 α)N −2.
+(31)
+Since 0 < (cos2 α − sin2 α) < 1, the above expectation
+values between |DHF(α)⟩ and |DHF(−α)⟩ become quite
+small for large N , justifying eq. (27).
+To illustrate how TDDM, TDDM1 and TDDM2 be-
+have in small N regions, we ﬁrst present the results for
+N = 12. The ground-state energy E0 calculated in TDDM
+(solid line) is shown in ﬁg. 1 as a function of χ. The re-
+sults in TDDM1 where the three-body correlation matrix
+is given by eqs. (7) and (8) are shown with the dashed line.
+The results in TDDM2 where the three-body correlation
+matrix is given by eqs. (11) and (12) are shown with the
+green (gray) line. The results in HF and DHF ( χ > 1) and
+the exact values are shown with the dotted and dot-dashed
+lines, respectively. The open circles indicate the results in
+TDDM calculated using the ’deformed’ (symmetry bro-
+ken) single-particle states and the DHF ground state as
+the starting ground state. We refer to this scheme as the
+deformed TDDM (DTDDM). When the ’deformed’ basis
+is used, the two-body correlation matrix is so small that
+both DTDDM and the deformed TDDM1 give similar re-
+sults. The exact values are given by the dot-dashed line.
+In this small N system TDDM overestimates two-body
+correlations [9, 12] and TDDM1 underestimates them in
+/s48 /s49 /s50 /s51 /s52 /s53
+/s48/s46/s48
+/s48/s46/s49
+/s48/s46/s50
+/s48/s46/s51
+/s48/s46/s52
+/s48/s46/s53 /s78/s61/s49/s50
+/s110/s112
+/s32/s84/s68/s68/s77
+/s32/s84/s68/s68/s77/s50
+/s32/s72/s70/s44/s32/s68/s72/s70
+/s32/s69/s120/s97/s99/s116
+/s32/s84/s68/s68/s77/s49
+/s32/s68/s84/s68/s68/s77
+Fig. 2. Same as ﬁg. 1 but for the occupation probability np of
+the upper state.
+/s48 /s49 /s50 /s51 /s52 /s53
+/s48/s46/s48
+/s48/s46/s49
+/s48/s46/s50
+/s48/s46/s51 /s78/s61/s49/s50
+/s67/s112/s112/s39/s45/s112/s45/s112/s39
+/s32/s84/s68/s68/s77
+/s32/s84/s68/s68/s77/s50
+/s32/s72/s70/s44/s32/s68/s72/s70
+/s32/s69/s120/s97/s99/s116
+/s32/s84/s68/s68/s77/s49
+/s32/s68/s84/s68/s68/s77
+Fig. 3. Same as ﬁg. 1 but for the 2p–2h element Cpp′− p− p′
+of the two-body correlation matrix. The results in DHF show
+n2
+p− p.
+strongly interacting regions. TDDM2 cures this problem
+and the agreement with the exact solutions is much im-
+proved. DTDDM also provides the additional correlation
+energy missing in DHF. The occupation probability np of
+the upper state and the 2p–2h element Cpp′−p−p′ of the
+correlation matrix calculated in TDDM are shown in ﬁgs.
+2 and 3, respectively. In DHF n2
+p−p is shown as a quan-
+tity corresponding to Cpp′−p−p′ . TDDM1 and TDDM2 de-
+scribe well E0, np and Cpp′−p−p′ in the transition region
+χ ≈ 1, where DHF fails to reproduce the exact values.
+Figures 2 and 3 indicate that the improvement in E0 from
+TDDM to TDDM2 is due to the appropriate reduction
+of Cpp′−p−p′. Figures 1–3 also show that DHF becomes
+good approximation with increasing interaction strength
+and that the improvement in E0 from DHF to DTDDM is
+brought by that in np. The deviation of np and Cpp′−p−p′
+Mitsuru Tohyama, Peter Schuck: Truncation scheme of time-d ependent density-matrix approach III 5
+/s48 /s49 /s50 /s51 /s52 /s53
+/s45/s55/s48
+/s45/s54/s48
+/s45/s53/s48
+/s45/s52/s48
+/s45/s51/s48
+/s45/s50/s48
+/s69/s48/s47
+/s32/s84/s68/s68/s77
+/s32/s72/s70/s44/s32/s68/s72/s70
+/s32/s69/s120/s97/s99/s116
+/s32/s84/s68/s68/s77/s49
+/s78/s61/s53/s48
+Fig. 4. Ground-state energy in TDDM (solid line) as a func-
+tion of χ for N = 50. The exact values are given by the dot-
+dashed line. The dashed line depicts the results in TDDM1.
+The results in TDDM2 lie between the TDDM results and the
+exact values and are not shown here. The results in HF and
+DHF(χ > 1) are shown with the dotted line but cannot be
+distinguished from the exact values in the scale of the ﬁgure
+except for the region χ ≈ 1.
+/s48 /s49 /s50 /s51
+/s48/s46/s48
+/s48/s46/s49
+/s48/s46/s50
+/s48/s46/s51
+/s78/s61/s53/s48
+/s110/s112 /s32/s84/s68/s68/s77
+/s32/s72/s70/s44/s32/s68/s72/s70
+/s32/s69/s120/s97/s99/s116
+Fig. 5. Same as ﬁg. 4 but for the occupation probability np of
+the upper state.
+in DTDDM at χ = 1.5 is due to the fact that the deformed
+state becomes unstable in DTDDM near χ = 1.
+Now we present the TDDM results for N = 50. The
+ground-state energy E0 calculated in TDDM (solid line) is
+shown in ﬁg. 4 as a function of χ. The results in TDDM1
+are given by the dashed line. The dotted and dot-dashed
+lines depict the results in HF and DHF ( χ > 1) and the
+exact values, respectively. The results in HF and DHF
+cannot be distinguished from the exact values in the scale
+of the ﬁgure except for the region χ ≈ 1. The results
+in TDDM2 lie between the TDDM results and the exact
+values and are not shown here. In this large N system,
+/s48 /s49 /s50 /s51
+/s48/s46/s48
+/s48/s46/s49
+/s48/s46/s50
+/s78/s61/s53/s48
+/s67/s112/s112/s39/s45/s112/s45/s112/s39 /s32/s84/s68/s68/s77
+/s32/s72/s70/s44/s32/s68/s72/s70
+/s32/s69/s120/s97/s99/s116
+Fig. 6. Same as ﬁg. 4 but for the 2p–2h element Cpp′− p− p′
+of the two-body correlation matrix. The results in DHF show
+n2
+p− p.
+/s48/s46/s48 /s48/s46/s53 /s49/s46/s48 /s49/s46/s53
+/s48/s46/s48
+/s48/s46/s53
+/s49/s46/s48
+/s49/s46/s53
+/s50/s46/s48
+/s40/s69/s49/s45/s69/s48/s41/s47
+/s32/s84/s68/s68/s77
+/s32/s82/s80/s65
+/s32/s69/s120/s97/s99/s116
+/s78/s61/s50/s48/s48
+Fig. 7. Excitation energy of the ﬁrst excited state calculated
+in TDDM (dots) a function of χ for N = 200. The exact values
+are shown with the dot-dashed line. The dotted line depicts t he
+results in RPA.
+the ground-state energies in TDDM and TDDM2 agree
+well with the exact solutions and the DHF energies also
+become close to the exact values including the transition
+region. This is also seen in np and Cpp′−p−p′ shown in
+ﬁgs. 5 and 6, respectively. The factor N in eqs. (11) and
+(12) plays a role in drastically reducing the three-body
+correlation matrix, which makes TDDM2 almost equiva-
+lent to TDDM [12]. In DHF the three-body density matrix
+has no correlated parts. The fact that DHF becomes good
+approximation for the ground state of the Lipkin model
+with increasing number of particles explains that TDDM
+which has no three-body correlation matrix becomes good
+approximation for large N . We checked that TDDM gives
+the almost exact ground state for much larger N .
+6 Mitsuru Tohyama, Peter Schuck: Truncation scheme of time- dependent density-matrix approach III
+/s48 /s49 /s50 /s51
+/s48
+/s49
+/s50
+/s51
+/s52
+/s40/s69/s50/s45/s69/s48/s41/s47
+/s78/s61/s50/s48/s48
+/s32/s69/s120/s97/s99/s116
+/s32/s84/s68/s68/s77
+/s32/s82/s80/s65
+Fig. 8. Same as ﬁg. 7 but for the second excited state. The
+dotted line depicts the RPA results for the ﬁrst excited stat e.
+Finally we present the excitation energies of the ﬁrst
+and second excited states calculated in TDDM for N =
+200 where TDDM gives the almost exact ground-state.
+The energy of the ﬁrst excited state is calculated using
+the TDDM equations eqs. (4) and (5) and assuming np−p,
+Cpp′−pp′ and C−p−p′−pp′ are small. The second excited
+state which has the same symmetry as the ground state is
+calculated in a diﬀerent manner. In the adiabatic method
+used for the ground-state calculations there is a small mix-
+ing of excited states which have the same symmetry as the
+ground state. The excitation energy of the second excited
+state can be estimated from the frequency of the small
+oscillation of npp in the adiabatic method. The obtained
+results for the ﬁrst and second excited states are compared
+with the exact solutions (dot-dashed line) in ﬁgs. 7 and 8,
+respectively. The dots in ﬁgs. 7 and 8 depict the TDDM
+results. The results in RPA for the ﬁrst excited state are
+shown in ﬁgs. 7 and 8 with the dotted line. In contrast to
+RPA TDDM describes the decreasing excitation energy of
+the ﬁrst excited state with increasing interaction strength
+beyond χ = 1. For χ > 1.073 TDDM does not give an os-
+cillating solution to the ﬁrst excited state. This indicates
+that the three-body correlation matrix plays some role in
+the ﬁrst excited state. With increasing χ the RPA results
+for the ﬁrst excited state approach the exact results for the
+second excited states as shown in ﬁg. 8. The agreement of
+the TDDM results with the exact values is good for both
+the ﬁrst and second excited states. This is related to the
+fact that TDDM becomes exact with increasing number
+of particles.
+In this subsection we found out that in the two-level
+Lipkin model the three-body correlation matrix vanishes
+in the large N (thermodynamic) limit and that TDDM
+solves the ground state of this model exactly staying in
+the symmetry unbroken description. How far our ﬁndings
+can be transposed to other models of this type of a one
+site spin model is an open question but our studies may
+help to analyze the situation also in other cases. We now
+will turn to the case of the three-level Lipkin model.
+3.2 Three-level Lipkin model
+Next we consider the three-level Lipkin model [13] with
+the single-particle levels labeled 0, 1 and 2. Since the num-
+ber of unoccupied states is larger than that of the occupied
+states, the three-level Lipkin model may be more realistic
+than the two-level Lipkin model and it has often been used
+to test extended mean-ﬁeld theories [15, 16, 17]. We choose
+the Hamiltonian which is invariant under the exchange of
+1 and 2:
+H = ǫ(ˆn1 + ˆn2) + V
+2
+(
+K 2
+1 + K 2
+2 + (K †
+1)2 + (K †
+2)2
+)
+,
+(32)
+where
+ˆnα =
+N∑
+i=1
+c†
+αicαi α = 0 , 1, 2, (33)
+Kα =
+N∑
+i=1
+c†
+αic0i α = 1 , 2. (34)
+The HF ground state where the lowest single-particle states
+given by the operators {a0i} (i = 1, 2, · · ·N ) are fully oc-
+cupied
+|HF⟩ =
+N∏
+i=1
+a†
+0i|0⟩ (35)
+is obtained by the transformation
+
+
+a†
+0i
+a†
+1i
+a†
+2i
+
+ =
+
+
+cos α cos β sin α sin β sin α
+− sin α cos β cos α sin β cos α
+0 − sin β cos β
+
+
+
+
+c†
+0i
+c†
+1i
+c†
+2i
+
+ .
+(36)
+The HF energy is independent of β and given by
+E(α, β) = N ǫsin2 α + V N (N − 1) sin2 α cos2 α. (37)
+Using χ = |V |(N − 1)/ǫ, we can express EHF which mini-
+mizes E(α, β) as
+EHF =
+{ 0 ( χ ≤ 1)
+N ǫ
+4 (2 − χ − 1/χ) ( χ > 1). (38)
+The ground-state wavefunction which has the symmetry
+under the exchange of 1 and 2 may be written as
+|Ψ ⟩ = 1
+π
+∫ π/2
+−π/2
+|DHF(α, β)⟩dβ, (39)
+where |DHF(α, β)⟩ is the DHF ground state with α and
+β. In the following we show that eq. (39) gives a non-
+vanishing three-body correlation matrix. To evaluate an
+Mitsuru Tohyama, Peter Schuck: Truncation scheme of time-d ependent density-matrix approach III 7
+expectation value of an operator ˆQ using eq. (39), we need
+the overlap ⟨DHF(α, β′)| ˆQ|DHF(α, β)⟩. We show some ex-
+amples of the overlaps using X = cos 2 α+cos(β′−β) sin2 α
+[15]:
+⟨DHF ( α, β′)|DHF(α, β)⟩ = X N , (40)
+⟨DHF ( α, β′)|c†
+11c11|DHF(α, β)⟩
+= cos β′ cos β sin2 αX (N −1), (41)
+⟨DHF ( α, β′)|c†
+01c†
+02c12c11|DHF(α, β)⟩
+= cos 2 β cos2 α sin2 αX (N −2), (42)
+⟨DHF ( α, β′)|c†
+01c†
+12c02c11|DHF(α, β)⟩
+= cos β′ cos β cos2 α sin2 αX (N −2), (43)
+⟨DHF ( α, β′)|c†
+11c†
+12c†
+03c13c02c11|DHF(α, β)⟩
+= cos 2 β′ cos2 β cos2 α sin4 αX (N −3), (44)
+where 01, 11, · ·· mean the quantum number ( α, i) for the
+single-particle state given in eq. (33). All components of
+the density matrices do not depend on the quantum num-
+ber i. Since X N for large N is sharply peaked at β′−β ≈ 0,
+the diagonal assumption β′ = β is justiﬁed for the over-
+laps. Then the density matrices obtained with eq. (39) are
+given as follows after the β integration (we choose mag-
+netic quantum numbers so that the expressions are general
+but in the end there will, of course, be no dependence on
+magnetic states):
+npp = ⟨Ψ |c†
+11c11|Ψ ⟩ = 1
+2 sin2 α, (45)
+Cpp′hh′ = ⟨Ψ |c†
+01c†
+02c12c11|Ψ ⟩
+= 1
+2 cos2 α sin2 α, (46)
+Cph′hp′ = ⟨Ψ |c†01c†12c02c11|Ψ ⟩
+= 1
+2 cos2 α sin2 α, (47)
+ρph′p′′pp′h′′ = ⟨Ψ |c†
+11c†
+12c†
+03c13c02c11|Ψ ⟩
+= 3
+8 cos2 α sin4 α. (48)
+Since ρph′p′′pp′h′′ contains four particle-state indices, the
+β integration makes it impossible to express ρph′p′′pp′h′′
+by the product of npp and Cph′hp′ which respectively have
+two particle-state indices. From the above expressions we
+obtain the correlated part of the three-body density ma-
+trix as
+Cph′p′′pp′h′′ = C11,02,13,11,12,03
+= ⟨Ψ |c†
+11c†
+12c†
+03c13c02c11|Ψ ⟩
+− ⟨Ψ |c†
+11c11|Ψ ⟩⟨Ψ |c†
+12c†
+03c13c02|Ψ ⟩
+= 1
+8 cos2 α sin4 α. (49)
+Similarly, the three-body correlation matrix Cph′h′′p′hh′′ =
+C11,02,03,12,01,03 corresponding to eq. (8) is evaluated us-
+ing the DHF wavefunction eq. (39) and it is found that
+/s48 /s49 /s50 /s51 /s52 /s53
+/s45/s50/s53
+/s45/s50/s48
+/s45/s49/s53
+/s45/s49/s48
+/s45/s53
+/s48
+/s69/s48/s47 /s32/s84/s68/s68/s77/s49/s45/s98
+/s32/s69/s120/s97/s99/s116
+/s32/s68/s72/s70
+/s32/s84/s68/s68/s77
+/s32/s84/s68/s68/s77/s50
+/s32/s84/s68/s68/s77/s49
+/s78/s61/s50/s48
+Fig. 9. Ground-state energy of the three-level Lipkin model
+calculated in TDDM1-b (solid line) as a function of χ for N =
+20. The dashed, dot-dashed and two-dot-dashed lines depict
+the results in TDDM, TDDM1 and TDDM2, respectively. The
+results in HF and DHF( χ > 1) are shown with the dotted line.
+The exact values are given by the dots.
+C11,02,03,12,01,03 = 0 as is the case of the two-level Lip-
+kin model. This is because ρph′h′′p′hh′′ contains only two
+particle-state indices, which allows us to express it as
+nhhCph′hp′. On the other hand, the three-body correlation
+matrix of the form Cpp′p′′hp′h′′ , which enters the equation
+of motion for Cph′p′h, is also non-vanishing because it con-
+tains four particle-state indices. Using eq. (39) it is eval-
+uated to be the same as eq. (49) that is (cos 2 α sin4 α/8).
+The above analysis indicates that the three-body correla-
+tion matrix in the strongly interacting region ( χ > 1) of
+the three-level Lipkin model is quite diﬀerent from that
+of the two-level Lipkin model and that it should be prop-
+erly treated. However, extending the truncation scheme to
+include the equation of motion for the three-body corre-
+lation matrix is a diﬃcult task and is not pursued in this
+work. In the following we just point out that there exists
+a simple truncation scheme for the three-body correlation
+matrix which gives a good description of the ground state
+for the whole range of the interaction strength. In this ap-
+proach the quadratic approximation for the pph–pph type
+three-body correlation matrix given by eq. (7) is used and
+the phh–phh type given by eq. (8) is omitted consider-
+ing the above analysis based on the DHF wavefunction.
+We refer to this truncation scheme as TDDM1-b. We ﬁrst
+present the results in TDDM1-b and then discuss why
+TDDM1-b works.
+The ground-state energy calculated in TDDM1-b (solid
+line) is shown in ﬁgs. 9 and 10 as a function of χ for N = 20
+and 200, respectively. The exact values are given by the
+dots. The dashed and dot-dashed lines depict the results
+in TDDM and TDDM1, respectively. The results in HF
+and DHF( χ > 1) are shown with the dotted line but in
+the case of N = 200 they cannot be easily distinguished
+from the TDDM1-b results in the scale of the ﬁgure. The
+8 Mitsuru Tohyama, Peter Schuck: Truncation scheme of time- dependent density-matrix approach III
+/s48 /s49 /s50 /s51 /s52 /s53
+/s45/s50/s53/s48
+/s45/s50/s48/s48
+/s45/s49/s53/s48
+/s45/s49/s48/s48
+/s45/s53/s48
+/s48
+/s69/s48/s47
+/s32/s72/s70/s44/s32/s68/s72/s70
+/s32/s84/s68/s68/s77/s49/s45/s98
+/s32/s69/s120/s97/s99/s116
+/s32/s84/s68/s68/s77
+/s32/s84/s68/s68/s77/s49
+/s78/s61/s50/s48/s48
+Fig. 10. Ground-state energy of the three-level Lipkin model
+calculated in TDDM1-b (solid line) as a function of χ for N =
+200. The exact values are given by the dots. The dashed and
+dot-dashed lines depict the results in TDDM and TDDM1,
+respectively. The results in HF and DHF( χ > 1) are shown
+with the dotted line but cannot be easily distinguished from
+the TDDM1-b results in the scale of the ﬁgure.
+/s48 /s49 /s50 /s51
+/s48/s46/s48/s48
+/s48/s46/s48/s53
+/s48/s46/s49/s48
+/s48/s46/s49/s53
+/s48/s46/s50/s48
+/s110/s49
+/s78/s61/s50/s48
+/s32/s84/s68/s68/s77/s49
+/s32/s84/s68/s68/s77/s49/s45/s98
+/s32/s69/s120/s97/s99/s116
+/s32/s72/s70/s44/s32/s68/s72/s70
+Fig. 11. Occupation probability of the state 1 of the three-level
+Lipkin model calculated in TDDM1-b (solid line) as a functio n
+of χ for N = 20. The dot-dashed line depicts the results in
+TDDM1. The results in HF and DHF( χ > 1) given by eq. (45)
+are shown with the dotted line. The exact values are given by
+the dots.
+results in TDDM2 are given with the two-dot-dashed line
+in ﬁg. 9. In the case of N = 200 they are close to those
+in TDDM as in the case of the two-level Lipkin model
+and are not shown in ﬁg. 10. In contrast to the case of
+the two-level Lipkin model TDDM strongly overestimates
+two-body correlations in the three-level Lipkin model even
+for N = 200. This is due to the fact that the three-body
+correlation matrix cannot be neglected in the three-level
+Lipkin model as discussed above. DHF gives a good de-
+/s48 /s49 /s50 /s51
+/s48/s46/s48/s48
+/s48/s46/s48/s53
+/s48/s46/s49/s48
+/s48/s46/s49/s53 /s78/s61/s50/s48
+/s67/s112/s112/s39/s104/s104/s39
+/s32/s84/s68/s68/s77/s49
+/s32/s84/s68/s68/s77/s49/s45/s98
+/s32/s69/s120/s97/s99/s116
+/s32/s72/s70/s44/s32/s68/s72/s70
+Fig. 12. Same as ﬁg. 11 but for Cpp′hh′ . The results in HF
+and DHF are given by eq. (46).
+/s48 /s49 /s50 /s51
+/s48/s46/s48/s48
+/s48/s46/s48/s53
+/s48/s46/s49/s48
+/s48/s46/s49/s53
+/s48/s46/s50/s48
+/s110/s49
+/s32/s84/s68/s68/s77/s49/s45/s98
+/s32/s72/s70/s44/s32/s68/s72/s70
+/s32/s69/s120/s97/s99/s116
+/s32/s84/s68/s68/s77/s49
+/s78/s61/s50/s48/s48
+Fig. 13. Same as ﬁg. 11 but for N = 200.
+/s48 /s49 /s50 /s51
+/s48/s46/s48/s48
+/s48/s46/s48/s53
+/s48/s46/s49/s48
+/s48/s46/s49/s53/s67/s112/s112/s39/s104/s104/s39
+/s78/s61/s50/s48/s48
+/s32/s84/s68/s68/s77/s49/s45/s98
+/s32/s72/s70/s44/s32/s68/s72/s70
+/s32/s69/s120/s97/s99/s116
+/s32/s84/s68/s68/s77/s49
+Fig. 14. Same as ﬁg. 12 but for N = 200.
+Mitsuru Tohyama, Peter Schuck: Truncation scheme of time-d ependent density-matrix approach III 9
+scription of the ground-state energy for N = 200 as in the
+case of the two-level Lipkin model. The results in TDDM1-
+b agree well with the exact solutions both in N = 20
+and 200. TDDM1 underestimates the correlation eﬀects
+for large χ because the phh–phh component of the three-
+body correlation matrix given by eq. (8) is non-vanishing.
+The occupation probability n1 of the single-particle level
+labeled 1 and the 2p–2h element of the two-body corre-
+lation matrix calculated in TDDM1-b are also in good
+agreement with the exact values as shown in ﬁgs. 11–14.
+We have checked that the agreement of the TDDM1-b re-
+sults with the exact solutions extends at least to χ = 10
+in the case of N = 200. The results in TDDM1 are not so
+good as those in TDDM1-b but the agreement with the ex-
+act values are reasonable in the transition region ( χ ≈ 1).
+In the case of the two-level Lipkin model the ground state
+energies calculated in TDDM1-b approximately come in
+the middle between the results in TDDM and TDDM1.
+In the following we try to explain why TDDM1-b gives
+good results for the three-level Lipkin model. In the large
+N case of the three-level Lipkin model (and also the two-
+level Lipkin model) the coupling of Cpp′hh′ and Chh′pp′
+to Cph′p′h described by the Hαβα′β′ term in eq. (5) is
+dominant (see eq. (53)). The three-body correlation ma-
+trix of the form Cpp′p′′hp′h′′ , which enters the equation of
+motion for Cph′p′h, is neglected in TDDM1-b(and also in
+TDDM1). This is because such an element of the three-
+body correlation matrix is of higher order than eq. (7) in
+the perturbative regime. In the strongly interacting region
+of the three-level Lipkin model Cpp′p′′hp′h′′ becomes non-
+vanishing as discussed above. As a consequence of the ne-
+glect of Cpp′p′′hp′h′′ , Cph′p′h is overestimated in TDDM1-
+b. If Cpp′p′′hp′h′′ is assumed to be np′p′Cpp′′hh′′ /2 using
+eqs. (45) and (46), the overestimation in eq. (5) for Cph′p′h
+can be evaluated to be n1Cpp′hh′/(n0 − 2n1), where n0 is
+the occupation probability of the single-particle level la-
+beled 0. It is impossible to analytically calculate its contri-
+bution to Cph′p′h but comparison of Cph′p′h in TDDM1-b
+and that in DHF which is given by eq. (47) shows that
+the deviation of Cph′p′h is well expressed as
+C2
+pp′hh′
+2(n0 − n1) . (50)
+The quadratic form is understandable because n1 is deter-
+mined by Cpp′hh′ in eq. (4). In the equation of motion for
+Cpp′hh′ in TDDM1-b one of the four terms in eq. (5) which
+include the three-body correlation matrix ( C3) cancels the
+overestimated part of Cph′p′h: eq. (50) is multiplied by
+−2(n0 − n1) due to the occupation factors in eq. (53).
+Consequently, the three remaining C3 terms in TDDM1-b
+play a role as the eﬀective C3 terms. In ﬁg. 15 the three
+quarters of eq. (7) calculated in TDDM1-b (solid line) are
+compared with the exact values of C3 (dots) and the DHF
+values (dotted line) given by eq. (49). The TDDM1-b val-
+ues well simulates the χ dependence of the exact C3. This
+is the reason behind why the simple truncation scheme eq.
+(7) gives good results.
+Our study of the three-level Lipkin model has shown
+that contrary to the two-level case the three-body corre-
+/s48 /s49 /s50 /s51 /s52 /s53
+/s48/s46/s48/s48/s48
+/s48/s46/s48/s48/s53
+/s48/s46/s48/s49/s48
+/s48/s46/s48/s49/s53
+/s67/s51
+/s78/s61/s50/s48/s48
+/s32/s68/s72/s70
+/s32/s84/s68/s68/s77/s49/s45/s98/s40/s51/s47/s52/s41
+/s32/s69/s120/s97/s99/s116
+Fig. 15. Three-body correlation matrix C11,02,13,11,12,03 (C3)
+used in TDDM1-b (solid line) multiplied by a factor 3 /4 as a
+function of χ for N = 200. The results in HF and DHF( χ > 1)
+are shown with the dotted line. The exact values are given by
+the dots.
+lation matrix cannot be neglected in the large N (thermo-
+dynamic) limit. Working in the symmetry unbroken basis,
+the cumulant approximation to the correlated part of the
+three body density matrix works very well for the ground
+state energy if only the pph–pph term is retained. We gave
+arguments why the phh–phh particle contribution must
+be discarded. However, the validity of TDDM1-b remains
+restricted to the particularities of the model and conclu-
+sions for the general case cannot be made. On the other
+hand, staying in the symmetry unbroken description, one
+cannot describe the rotational spectrum which emerges
+in the three-level Lipkin model [13] if the two upper lev-
+els become degenerate as is the case of eq. (32). For such
+cases with a spontaneously broken symmetry it is in gen-
+eral better to start with a symmetry broken basis and to
+recover good symmetry with projection techniques. DT-
+DDM which consists of the simplest truncation scheme
+for C3 and the symmetry broken single-particle basis may
+be applicable for such cases. In the past we applied our
+cumulant approximation eqs. (7) and (8) to the more re-
+alistic case of 16O with promising results [20]. In these
+examples the symmetry unbroken (spherical) description
+is certainly the choice to be used.
+The excited states of the three-level Lipkin model can
+be calculated in the same manners as those used for the
+two-level Lipkin model. The results obtained from the
+TDDM1-b based approaches are shown in ﬁgs. 16 and 17.
+The exact eigenstates are labeled by the quantum num-
+ber ⟨L2
+0⟩ = 0 , 1, 2, · · · where L0 = i(K12 − K21) [17]
+with K12(= K †
+21) = ∑
+i c†
+1ic2i, and the ground state has
+⟨L2
+0⟩ = 0. In ﬁg. 17 the exact values for the lowest ex-
+cited state with the same quantum number as the ground
+state are shown. Both the ﬁrst and second excited states
+in TDDM1-b have χ dependence which is similar to the
+case of the two-level Lipkin model. The ﬁrst excited state
+10 Mitsuru Tohyama, Peter Schuck: Truncation scheme of time -dependent density-matrix approach III
+/s48/s46/s48 /s48/s46/s53 /s49/s46/s48 /s49/s46/s53
+/s48/s46/s48
+/s48/s46/s53
+/s49/s46/s48
+/s49/s46/s53
+/s50/s46/s48/s69/s49/s47
+/s78/s61/s50/s48/s48
+/s32/s69/s120/s97/s99/s116
+/s32/s84/s68/s68/s77/s49/s45/s98
+/s32/s82/s80/s65
+Fig. 16. Excitation energy of the ﬁrst excited state in
+TDDM1-b (open squares) as a function of χ for N = 200.
+The results in RPA are shown with the dotted line and the
+exact values are given by the dots.
+/s48 /s49 /s50 /s51
+/s48
+/s49
+/s50
+/s51
+/s52
+/s69/s50/s47
+/s78/s61/s50/s48/s48
+/s32/s69/s120/s97/s99/s116
+/s32/s84/s68/s68/s77/s49/s45/s98
+Fig. 17. Excitation energy of the second excited state in
+TDDM1-b (open squares) as a function of χ for N = 200.
+The results in RPA for the ﬁrst excited states are shown with
+the dotted line. The dots depict the exact values for the lowe st
+excited state with ⟨L2
+0⟩ = 0.
+in TDDM1-b collapses beyond χ = 1 .045. A more accu-
+rate treatment of the three-body correlation matrix than
+TDDM1-b is required.
+4 Summary
+We studied the time-dependent density-matrix theory (
+TDDM) in the large N and strong coupling limits of the
+Lipkin models. It was found that in the two-level Lip-
+kin model the ground state calculated using the original
+truncation scheme of TDDM where the three-body corre-
+lation matrix is completely neglected approaches the ex-
+act solution with increasing number of particles. It was
+pointed out that this is related to the fact that the de-
+formed Hartree-Fock approximation (DHF) gives the ex-
+act ground-state energies in the large N limit. The relation
+between the occupation matrix in DHF and the correla-
+tion matrix in TDDM was also discussed. The small am-
+plitude limit of TDDM was also found to describe the ex-
+cited states of the two-level Lipkin model very well in the
+’spherical’ region. In the ’deformed’ region the ﬁrst excited
+state falls to zero as it should. However, it falls to zero with
+a ﬁnite slope contrary to the exact solution which goes to
+zero asymptotically. It indicates that the three-body cor-
+relation matrix neglected in TDDM still plays some role
+in excited states.
+It was shown that in the three-level Lipkin model a
+simple truncation scheme where the three-body correla-
+tion matrix is approximated by the square of the two-body
+correlation matrix gives good results for the ground-state
+properties. Also the ﬁrst two excited states are quite well
+reproduced far into the strongly correlated (deformed) re-
+gion working in the symmetry unbroken basis.
+We pointed to the fact that the inﬂuence of the three-
+body correlation matrix in the two- and three-level Lipkin
+models is quite diﬀerent. While in the former model the
+genuine three-body correlations totally disappear in the
+large N limit, they partially vanish in the latter model.
+We gave reasons for this diﬀerent behavior and suggested
+that for other spin models similar studies could eventually
+also give insight into the role of three-body correlations
+there.
+The fact that three-body correlation matrix in the
+strong coupling (’deformed’) regions is apparently quite
+model dependent is perturbing and sheds some doubt of
+the ’blind’ applicability of the cumulant approximation
+(TDDM1) to the three-body correlation matrix in ’de-
+formed’ regions while working in the spherical basis. On
+the other hand more realistic applications to 16O [20] and
+other models [9] where the three-body correlation matrix
+does not disappear have shown in the past that the cumu-
+lant approximation is quite powerful for symmetry unbro-
+ken systems. It was also shown that TDDM1 gives reason-
+able results for the three-level Lipkin model as long as the
+interaction is not so strong. Therefore we think that the
+cumulant approximation is applicable to realistic systems.
+A Terms in eq. (5)
+The terms in eq. (5) are given below. Bαβα′β′ describes
+the 2p–2h and 2h–2p excitations.
+Bαβα′β′ =
+∑
+λ1λ2λ3λ4
+⟨λ1λ2|v|λ3λ4⟩A
+× [(δαλ1 − nαλ1 )(δβλ2 − nβλ2)nλ3α′ nλ4β′
+− nαλ1nβλ2 (δλ3α′ − nλ3α′)(δλ4β′ − nλ4β′)].
+(51)
+Mitsuru Tohyama, Peter Schuck: Truncation scheme of time-d ependent density-matrix approach III 11
+Particle – particle and h–h correlations are described by
+Pαβα′β′
+Pαβα′β′ =
+∑
+λ1λ2λ3λ4
+⟨λ1λ2|v|λ3λ4⟩
+× [(δαλ1 δβλ2 − δαλ1 nβλ2 − nαλ1δβλ2 )Cλ3λ4α′β′
+− (δλ3α′ δλ4β′ − δλ3α′ nλ4β′ − nλ3α′ δλ4β′ )Cαβλ1λ2 ].
+(52)
+Hαβα′β′ describes p–h correlations.
+Hαβα′β′ =
+∑
+λ1λ2λ3λ4
+⟨λ1λ2|v|λ3λ4⟩A
+× [δαλ1 (nλ3α′ Cλ4βλ2β′ − nλ3β′ Cλ4βλ2α′ )
++ δβλ2(nλ4β′Cλ3αλ1α′ − nλ4α′ Cλ3αλ1β′)
+− − δα′λ3 (nαλ1 Cλ4βλ2β′ − nβλ1 Cλ4αλ2β′)
+− δβ′λ4 (nβλ2Cλ3αλ1α′ − nαλ2 Cλ3βλ1α′ )].
+(53)
+References
+1. M. Bonitz, Quantum kinetic theory, second edition
+(Springer, 2015).
+2. S. J. Wang and W. Cassing, Ann. Phys. 159, 328 (1985).
+3. M. Gong and M. Tohyama, Z. Phys. A 335, 153 (1990).
+4. S. Takahara, M. Tohyama and P. Schuck, Phys. Rev. C 70,
+057307 (2004).
+5. K.-J. Schmitt, P. -G. Reinhard and C. Toepﬀer, Z. Phys.
+A 336, 123 (1990).
+6. T. Gherega, R. Krieg, P. -G. Reinhard and C. Toepﬀer,
+Nucl. Phys. A 560, 166 (1993).
+7. M. Tohyama, J. Phys. Soc. Jpn. 81, 054707 (2012).
+8. A. J. Coleman and V. I. Yukalov, Reduced density matrices:
+Coulson ’s challenge(Springer, New York, 2000).
+9. M. Tohyama and P. Schuck, Eur. Phys. J. A 50, 7 (2014).
+10. D. A. Mazziotti, Phys. Rev. A 60, 3618 (1999).
+11. H. J. Lipkin, N. Meshkov and A. J. Glick, Nucl. Phys. 62,
+188 (1965).
+12. M. Tohyama and P. Schuck, Eur. Phys. J. A 53, 186 (2017).
+13. S. Y. Li, A. Klein and R. M. Dreizler, J. Math. Phys. 11,
+975 (1970).
+14. I. Shavitt and R. J. Bartlett, Many-body methods in chem-
+istry and physics (Cambridge, 2009).
+15. G. Holzwarth and T. Yukawa, Nucl. Phys. A 219, 125
+(1974).
+16. K. Hagino and G. F. Bertsch, Phys. Rev. C 61, 024307
+(2000).
+17. D. S. Delion, P. Schuck and J. Dukelsky, Phys. Rev. C 72,
+064305 (2005).
+18. M. Tohyama, Phys. Rev. A 71 (2005) 043613.
+19. D. A. Mazziotti, Phys. Rev. Lett. 97, 143002 (2006).
+20. M. Tohyama, Phys. Rev. C 91, 017301 (2015).

@@ -1,0 +1,721 @@
+arXiv:1312.3703v1  [nucl-th]  13 Dec 2013
+Truncation scheme of time-dependent density-matrix appro ach
+Mitsuru Tohyama
+Kyorin University School of Medicine, Mitaka, Tokyo 181-86 11, Japan
+Peter Schuck
+Institut de Physique Nucl ´eaire, IN2P3-CNRS, Universit ´e Paris-Sud, F-91406 Orsay Cedex, France and
+Laboratoire de Physique et de Mod´ elisation des Milieux Con dens´ es, CNRS et,
+Universit´ e Joseph Fourier, 25 Av. des Martyrs, BP 166, F-38 042 Grenoble Cedex 9, France
+A truncation scheme of the Bogoliubov-Born-Green-Kirkwoo d-Yvon hierarchy for reduced density
+matrices, where a three-body density matrix is approximate d by the antisymmetrized products of
+two-body density matrices, is proposed. This truncation sc heme is tested for three model hamilto-
+nians. It is shown that the obtained results are in good agree ment with the exact solutions.
+PACS numbers: 21.60.Jz
+I. INTRODUCTION
+The equations of motion for reduced density matri-
+ces have a coupling scheme known as the Bogoliubov-
+Born-Green-Kirkwood-Yvon (BBGKY) hierarchy where
+an n-body density matrix couples to n-body and n + 1-
+body density matrices. An approximation of a two-
+body density matrix with the antisymmetrized products
+of one-body density matrices in the equation of motion
+for the one-body density matrix gives the time-dependent
+Hartree-Fock theory (TDHF). If we approximate a three-
+body density matrix with the antisymmetrized products
+of one-body and two-body density matrices in the equa-
+tion of motion for the two-body density matrix, we can
+truncate the BBGKY hierarchy and obtain the coupled
+equations of motion for the one-body and two-body den-
+sity matrices. This is the time-dependent density-matrix
+theory (TDDM) [1, 2]. A stationary solution of TDDM
+gives the correlated ground state and its small ampli-
+tude limit (STDDM) is an extension of the random-phase
+approximation (RPA) where the eﬀects of ground-state
+correlations and the coupling to two-body amplitudes
+are included. TDDM and STDDM have been applied
+to model hamiltonians [3, 4] and realistic ones [4–7]. In
+some cases TDDM overestimates ground-state correla-
+tions [3] and shows instabilities of the obtained solutions
+[7] for strongly interacting cases. Obviously the prob-
+lems of TDDM originate in the truncation scheme of the
+BBGKY hierarchy where the three-body density matrix
+is approximated by the one-body and two-body density
+matrices and true three-body correlations are completely
+neglected. One way of overcoming the problems is to
+include the equation of motion for the three-body den-
+sity matrix approximating a four-body density matrix
+with lower-level density matrices. Such an attempt has
+been made for a model hamiltonian [8] and showed that
+the results are drastically improved by including genuine
+three-body correlations. However, it is impractical to
+treat explicitly the equation of motion for the three-body
+density matrix in realistic cases. In this paper we show
+that an approximation for the three-body density matrix
+with the antisymmetrized products of the two-body den-
+sity matrices can simulate well the time-evolution of the
+three-body density matrix without explicitly solving its
+equation of motion. The paper is organized as follows;
+the formulation and the model hamiltonians are given in
+sect. 2, the results are presented in sect. 3 and sect. 4 is
+devoted to a summary.
+II. FORMULATION
+A. Equations of motion for reduced density
+matrices
+We consider a system of N fermions and assume that
+the hamiltonian H consisting of a one-body part and a
+two-body interaction
+H =
+∑
+α
+ǫα a†
+α aα + 1
+2
+∑
+αβα ′β ′
+⟨αβ|v|α′β′⟩a†
+α a†
+β aβ ′ aα ′, (1)
+where a†
+α and aα are the creation and annihilation oper-
+ators of a particle at a single-particle state α.
+TDDM gives the coupled equations of motion for the
+one-body density matrix (the occupation matrix) nαα ′
+and the two-body density matrix ραβα ′β ′. These matrices
+are deﬁned as
+nαα ′(t) = ⟨Φ( t)|a†
+α ′ aα |Φ( t)⟩, (2)
+ραβα ′β ′(t) = ⟨Φ( t)|a†
+α ′ a†
+β ′aβ aα |Φ( t)⟩, (3)
+where |Φ( t)⟩ is the time-dependent total wavefunction
+|Φ( t)⟩ = exp[ −iHt/ℏ]|Φ( t = 0) ⟩. The equations in
+TDDM are written as
+iℏ ˙nαα ′ = (ǫα − ǫα ′)nαα ′
++
+∑
+λ 1λ 2λ 3
+[⟨αλ1|v|λ2λ3⟩ρλ 2λ 3α ′λ 1
+− ραλ 1λ 2λ 3 ⟨λ2λ3|v|α′λ1⟩], (4)
+2
+iℏ ˙ραβα ′β ′ = (ǫα + ǫβ − ǫα ′ − ǫβ ′)ραβα ′β ′
++
+∑
+λ 1λ 2
+[⟨αβ|v|λ1λ2⟩ρλ 1λ 2α ′β ′
+− ⟨λ1λ2|v|α′β′⟩ραβλ 1λ 2 ]
++
+∑
+λ 1λ 2λ 3
+[⟨αλ1|v|λ2λ3⟩ρλ 2λ 3βα ′λ 1β ′
++ ⟨λ1β|v|λ2λ3⟩ρλ 2λ 3αα ′λ 1β ′
+− ⟨λ1λ2|v|α′λ3⟩ραλ 3βλ 1λ 2β ′
+− ⟨λ1λ2|v|λ3β′⟩ραλ 3βλ 1λ 2α ′ ], (5)
+where ραβγα ′β ′γ ′ is a three-body density-matrix. In
+TDDM the BBGKY hierarchy is truncated by approx-
+imating the three-body density matrix with the antisym-
+metrized products of the one-body and two-body density
+matrices [1, 2]. The TDDM equations eqs. (4) and (5)
+conserve the total number of particles N = ∑
+α nαα and
+the total energy [1, 2]
+Etot =
+∑
+α
+ǫα nαα + 1
+2
+∑
+αβα ′β ′
+⟨αβ|v|α′β′⟩ρα ′β ′αβ . (6)
+B. Approximation for the three-body density
+matrix
+To separate the mean-ﬁeld contributions, it is conve-
+nient to introduce the two-body and three-body corre-
+lation matrices Cαβα ′β ′ and Cαβγα ′β ′γ ′ which describe
+genuine two-body and three-body correlations such that
+ραβα ′β ′ = A(nαα ′ nββ ′) + Cαβα ′β ′, (7)
+ραβγα ′β ′γ ′ = A(nαα ′ nββ ′nγγ ′ + nαα ′ Cβγβ ′γ ′)
++ Cαβγα ′β ′γ ′, (8)
+where A(··) means that the quantities in the parenthesis
+are appropriately antisymmetrized. In TDDM the three-
+body correlation matrix Cαβγα ′β ′γ ′ is neglected.
+First we consider a perturbative expression for the
+three-body correlation matrix using the following ground
+state |Z⟩ [9] of coupled cluster theory
+|Z⟩ = eZ|HF⟩ (9)
+with
+Z = 1
+4
+∑
+pp′hh′
+zpp′hh′ a†
+pa†
+p′ ah′ah, (10)
+where |HF⟩ is the Hartree-Fock (HF) ground state and
+zpp′hh′ is antisymmetric under the exchanges of p ↔ p′
+and h ↔ h′. Here, p and h refer to particle and hole
+states, respectively. In the lowest order of zpp′hh′ the
+two-body correlation matrices are given by
+Cpp′hh′ ≈ zpp′hh′, (11)
+Chh′pp′ ≈ z∗
+pp′hh′, (12)
+and the three-body correlation matrices by
+Cp1p2h1p3p4h2 ≈
+∑
+h
+z∗
+p3p4hh1 zp1p2h2h, (13)
+Cp1h1h2p2h3h4 ≈
+∑
+p
+z∗
+p2ph1h2 zp1ph3h4 . (14)
+These relations give the perturbative expressions for
+Cαβγα ′β ′γ ′ in terms of Cpp′hh′
+Cp1p2h1p3p4h2 ≈
+∑
+h
+Chh1p3p4 Cp1p2h2h, (15)
+Cp1h1h2p2h3h4 ≈
+∑
+p
+Ch1h2p2pCp1ph3h4 . (16)
+Similarly, in the second order of zpp′hh′ the occupation
+matrix and other elements of the two-body correlation
+matrices are given by
+nhh ≈ 1 − 1
+2
+∑
+pp′h′
+Cpp′hh′Chh′pp′ , (17)
+npp ≈ 1
+2
+∑
+hh′p′
+Cpp′hh′Chh′pp′ , (18)
+Cp1h1p2h2 ≈
+∑
+ph
+Cp1ph1hChh1p2p, (19)
+Cp1p2p3p4 ≈ 1
+2
+∑
+hh′
+Cp1p2hh′Chh′p3p4, (20)
+Ch1h2h3h4 ≈ 1
+2
+∑
+pp′
+Ch1h2pp′ Cpp′h3h4. (21)
+Equations (15)-(16) and (19)-(21) imply that the three-
+body correlation matrix is of the same order of magni-
+tude as some of the two-body correlation matrix. From
+the above perturbative considerations we propose a trun-
+cation scheme of the BBGKY hierarchy that in stead of
+neglecting the three-body correlation matrix we include
+them using eqs. (15) and (16) in the equation of motion
+for the two-body density matrix eq. (5).
+There are identities which are satisﬁed by exact re-
+duced density matrices:
+nαα ′ = 1
+N − 1
+∑
+λ
+ραλα ′λ (22)
+ραβα ′β ′ = 1
+N − 2
+∑
+λ
+ραβλα ′β ′λ (23)
+ραβγα ′β ′γ ′ = 1
+N − 3
+∑
+λ
+ραβγλα ′β ′γ ′λ (24)
+and so on, where ραβγλα ′β ′γ ′λ is a four-body density ma-
+trix. Using the correlation matrices, the ﬁrst three iden-
+3
+tities are explicitly written as [10]
+nαα ′ =
+∑
+λ
+(nαλ nλα ′ − Cαλα ′λ ), (25)
+Cαβα ′β ′ = 1
+2
+∑
+λ
+(nαλ Cλβα ′β ′ + nβλ Cαλα ′β ′
++ nλα ′ Cαβλβ ′ + nλβ ′Cαβα ′λ
+− Cαβλα ′β ′λ ), (26)
+Cαβγα ′β ′γ ′ = 1
+3
+∑
+λ
+(nαλ Cλβγα ′β ′γ ′ + nβλ Cαλγα ′β ′γ ′
++ nγλ Cαβλα ′β ′γ ′ + nλα ′ Cαβγλβ ′γ ′
++ nλβ ′Cαβγα ′λγ ′ + nλγ ′Cαβγα ′β ′λ
+− Cαβα ′λ Cγλβ ′γ ′ − Cαβγ ′λ Cγλα ′β ′
+− Cαβλβ ′Cγλα ′γ ′ − Cαγα ′λ Cλββ ′γ ′
+− Cαγβ ′λ Cβλα ′γ ′ − Cαγλγ ′Cβλα ′β ′
+− Cαλα ′β ′Cβγγ ′λ − Cαλα ′γ ′Cβγλβ ′
+− Cαλβ ′γ ′Cβγα ′λ − Cαβγλα ′β ′γ ′λ ), (27)
+where Cαβγλα ′β ′γ ′λ is the four-body correlation matrix.
+The TDDM equations without the three-body correlation
+matrix do not conserve the identity eq. (25) [2]. Suppose
+that the dominant two-body correlation matrices are ei-
+ther two particle - two hole and two hole - two particle
+types and that the deviation of nαα ′ from the HF values
+are small. Then eq. (27) without Cαβγλα ′β ′γ ′λ is reduced
+to eqs. (15) and (16). Similarly, it can be shown using
+eqs. (15) and (16) that the occupation matrices and the
+two-body correlation matrices given by eqs. (17)-(21)
+satisfy eqs. (25) and (26). We also test the following
+truncation scheme: Neglecting the four-body correlation
+matrix Cαβγδα ′β ′γ ′δ′ in eq. (27), we use the three-body
+correlation matrix given by eq. (27) in the equation of
+motion for the two-body density matrix. For simplicity
+we do not consider the oﬀ-diagonal elements of nαα ′ in
+the applications shown below. We show that eqs. (15)
+and (16) give better results than eq. (27) in the case
+of the Lipkin model, indicating that the use of the frac-
+tional occupation in eq. (27) sometimes overestimates
+the eﬀects of the three-body correlation matrix when the
+four-body correlation matrix is neglected.
+The ground state in TDDM is given as a stationary
+solution of the TDDM equations (eqs. (4) and (5)). We
+use the following adiabatic method to obtain a nearly
+stationary solution [11]: Starting from a non-interacting
+conﬁguration, we solve eqs. (4) and (5) gradually in-
+creasing the interaction v(r) × t/T . To suppress oscillat-
+ing components which come from the mixing of excited
+states, we must take large T . This method is based on
+the Gell-Mann-Low adiabatic theorem [12] and has often
+been used to obtain correlated ground states [5, 6].
+C. Model hamiltonians
+We apply our truncation schemes to the following three
+cases where comparison with the exact solutions can be
+made.
+1. Lipkin mdel
+The Lipkin model [13] describes an N -fermions system
+with two N -fold degenerate levels with energies ǫ/2 and
+−ǫ/2, respectively. The upper and lower levels are la-
+beled by quantum number p and −p, respectively, with
+p = 1, 2, ..., N. We consider the standard hamiltonian
+ˆH = ǫ ˆJz + V
+2 ( ˆJ 2
++ + ˆJ 2
+−), (28)
+where the operators are given as
+ˆJz = 1
+2
+N∑
+p=1
+(a†
+pap − a−p†a−p), (29)
+ˆJ+ = ˆJ †
+− =
+N∑
+p=1
+a†
+pa−p. (30)
+2. Hubbard model
+To test our truncation schemes for a case which in-
+volves more single-particle states than the Likin model,
+we consider the one-dimensional (1D) Hubbard model
+with periodic boundary conditions. In momentum space
+the hamiltonian is given by
+H =
+∑
+k,σ
+ǫka†
+k,σ ak,σ
++ U
+2N
+∑
+k, p, q,σ
+a†
+k,σ ak+q,σ a†
+p, −σ ap−q, −σ , (31)
+where U is the on-site Coulomb matrix element, σ spin
+projection and the single-particle energies are given by
+ǫk = −2t ∑ D
+d=1 cos(kd) with the nearest-neighbor hop-
+ping potential t. We consider the case of the six sites at
+half ﬁlling. In the ﬁrst Brillouin zone −π ≤ k < π there
+are the following wave numbers
+k1 = 0, k 2 = π
+3 , k 3 = − π
+3 ,
+k4 = 2π
+3 , k 5 = − 2π
+3 . k 6 = −π. (32)
+The single-particle energies are ǫ1 = −2t, ǫ2 = ǫ3 = −t,
+ǫ4 = ǫ5 = t and ǫ6 = 2t.
+3. Dipolar fermion gas
+As a more realistic case, we consider a magnetic dipolar
+gas of fermions with spin one half, which is trapped in a
+spherically symmetric harmonic potential with frequency
+ω. The system is described by the hamiltonian
+H =
+∑
+α
+ǫα a†
+α aα + 1
+2
+∑
+αβα ′β ′
+⟨αβ|v|α′β′⟩a†
+α a†
+β aβ ′ aα ′,(33)
+4
+/s48/s46/s48 /s48/s46/s53 /s49/s46/s48 /s49/s46/s53 /s50/s46/s48
+/s45/s51/s46/s53
+/s45/s51/s46/s48
+/s45/s50/s46/s53
+/s45/s50/s46/s48
+/s69/s116/s111/s116/s32/s47/s32
+FIG. 1. Ground-state energies in TDDM with the three-body
+correlation matrix given by eq. (27) (dotted line) and by
+eqs. (15) and (16) (green (gray) solid line) as a function of
+χ = ( N − 1)|V |/ǫ for N = 4. The dashed line depicts the
+results in TDDM where the three-body correlation matrix
+is neglected, and the dot-dashed line the exact values. The
+results with the three-body correlation matrix obtained fr om
+solving the equation of motion are given by the black solid
+line.
+where a†
+α and aα are the creation and annihilation op-
+erators of an atom at a harmonic oscillator state α cor-
+responding to the trapping potential V (r) = mω2r2/2
+and ǫα = ω(n + 3 /2) with n = 0 , 1, 2, ..... We as-
+sume that α contains the spin quantum number σ. In eq.
+(33) ⟨αβ|v|α′β′⟩ is the matrix element of a pure magnetic
+dipole-dipole interaction [14]
+v(r) = − 1
+r3 (3(d1 · ˆr)(d2 · ˆr) − d1 · d2)
+− 8π
+3 d1 · d2δ3(r),
+(34)
+where d is the magnetic dipole moment, r = r1 − r2
+and ˆr = r/r. The magnetic dipole moment for spin
+1/2 is given by d = dσ where σ is Pauli matrix. In the
+case of completely polarized gases the second term on the
+right-hand side of eq. (34) can be neglected because the
+exchange term cancels out the direct term. The contact
+term (the second term on the right-hand side of eq. (34))
+is usually omitted in the study of dipolar gases. However,
+it is well-known that the contact term for the proton and
+electron magnetic dipole moments is essential to explain
+the hyperﬁne splitting of a hydrogen atom. Therefore, in
+the following calculations we keep it as it is. We consider
+the N = 8 case where noninteracting HF ground state
+consists of the fully occupied 1 s and 1 p harmonic oscil-
+lator states. For simplicity we take only the 2 s and 1 d
+states as particle states and keep the 1 s state frozen, i.e.,
+only the 1 p state is active as a hole-state.
+/s48/s46/s48 /s48/s46/s53 /s49/s46/s48 /s49/s46/s53 /s50/s46/s48
+/s48/s46/s48
+/s48/s46/s49
+/s48/s46/s50
+/s48/s46/s51
+/s110/s112/s112
+FIG. 2. Occupation probability of the upper state as a func-
+tion of χ for N = 4. The meaning of the ﬁve lines is the same
+as in ﬁg. 1.
+/s48/s46/s48 /s48/s46/s53 /s49/s46/s48 /s49/s46/s53 /s50/s46/s48
+/s48/s46/s48
+/s48/s46/s49
+/s48/s46/s50
+/s48/s46/s51
+/s67/s112/s112/s39/s45/s112/s45/s112/s39
+FIG. 3. Two-body correlation matrix Cpp′− p− p′ as a function
+of χ for N = 4. The meaning of the ﬁve lines is the same as
+in ﬁg. 1.
+III. RESULTS
+A. Lipkin model
+The ground-state energies obtained from various ap-
+proximations for the three-body correlation matrix are
+shown in ﬁg. 1 as a function of χ = ( N − 1)|V |/ǫ for
+N = 4. The RPA solution becomes unstable at χ = 1.
+The dashed line shows the results in TDDM where the
+three-body correlation matrix is neglected. The dotted
+and green (gray) solid lines are for the results with the
+three-body correlation matrix given by eq. (27) and by
+eqs. (15) and (16), respectively. The results with the
+three-body correlation matrix obtained from solving the
+equation of motion are given by the black solid line [8].
+The exact solutions are given by the dot-dashed line. The
+5
+/s48 /s49 /s50 /s51
+/s45/s56
+/s45/s55
+/s45/s54
+/s45/s53
+/s45/s52
+/s69/s116/s111/s116/s32/s47/s116
+/s85/s47/s116
+FIG. 4. Ground-state energy in TDDM (solid line) with
+Cαβγα ′β ′γ ′ given by eqs. (15) and (16) as a function of U/t for
+the half-ﬁlling six-site Hubbard model. The dashed line de-
+picts the results in TDDM where the three-body correlation
+matrix is neglected, and the squares the exact values.
+occupation probability of the upper state and the two-
+body correlation matrix Cpp′−p−p′ are shown in ﬁgs. 2
+and 3, respectively. It is clear from ﬁgs. 1-3 that the ne-
+glect of the three-body correlation matrix overestimates
+the ground-state correlations. The perturbative treat-
+ment eqs. (15) and (16) seems to give better results
+than the approximation eq. (27) which overly suppresses
+ground-state correlations. Comparing with the results
+obtained with the HF values of nαα , we found that the
+use of the fractional occupation nαα in eq. (27) causes
+this over suppression. We also found that the omission
+of Cphp′h′ in eq. (5) does not bring serious overestima-
+tion of the ground-state correlations even if the three-
+body correlation matrix is excluded. This means that the
+three-body correlation matrix plays an important role in
+suppressing the particle - hole correlations. This is true
+for the other two cases of the model hamiltonians.
+B. Hubbard model
+The total energy calculated in TDDM with the three-
+body correlation matrix given by eqs. (15) and (16)
+(solid line) is shown in ﬁg. 4 as a function of U/t for
+the six-site Hubbard model with half-ﬁlling. The re-
+sults obtained with eq. (27) are similar and not shown.
+The RPA solution becomes unstable at U/t = 2 .4 [15].
+The dashed line shows the results in TDDM without
+the three-body correlation matrix. The exact solutions
+are given by the squares. The occupation probabili-
+ties of the single-particle states are shown in ﬁgs. 5 -
+8. Since it is not convenient to show each matrix ele-
+ment of Cαβα ′β ′, we show the correlation energy given by
+Ecor = ∑
+αβα ′β ′ ⟨αβ|v|α′β′⟩Cα ′β ′αβ /2 in ﬁg. 9. Figures
+4-5 and 8-9 show that the neglect of the three-body corre-
+/s48 /s49 /s50 /s51
+/s48/s46/s56/s53
+/s48/s46/s57/s48
+/s48/s46/s57/s53
+/s49/s46/s48/s48
+/s110/s32/s104
+/s85/s47/s116
+FIG. 5. Occupation probability of the initially occupied st ate
+with k1 as a function of U/t. The meaning of the lines and
+symbol is the same as in ﬁg. 4.
+/s48 /s49 /s50 /s51
+/s48/s46/s57/s50
+/s48/s46/s57/s52
+/s48/s46/s57/s54
+/s48/s46/s57/s56
+/s49/s46/s48/s48
+/s110/s32/s104
+/s85/s47/s116
+FIG. 6. Occupation probability of the second occupied state
+with k2 as a function of U/t. The meaning of the lines and
+symbol is the same as in ﬁg. 4.
+lation matrix overestimate the ground-state correlations
+and that the approximation given by eqs. (15) and (16)
+improves the results. The diﬀerences among the three
+calculations are not so large in the ground-state energy
+as in the correlation energy. This is due to the fact that
+the increase in the correlation energy is compensated by
+that in the mean-ﬁeld energy.
+C. Dipolar atomic gas
+The total energy calculated in TDDM with the three-
+body correlation matrix given by eqs. (15) and (16)
+is shown by the solid line in ﬁg. 10 as a function of
+C = d2/ℏωξ 3 for the N = 8 dipolar fermion gas. Here ξ
+is the oscillator length given by ξ =
+√
+ℏ/mω. The dashed
+6
+/s48 /s49 /s50 /s51
+/s48/s46/s48/s48
+/s48/s46/s48/s50
+/s48/s46/s48/s52
+/s48/s46/s48/s54
+/s48/s46/s48/s56
+/s48/s46/s49/s48
+/s110/s32/s112
+/s85/s47/s116
+FIG. 7. Occupation probability of the ﬁrst unoccupied state
+with k4 as a function of U/t. The meaning of the lines and
+symbol is the same as in ﬁg. 4.
+/s48 /s49 /s50 /s51
+/s48/s46/s48/s48
+/s48/s46/s48/s53
+/s48/s46/s49/s48
+/s48/s46/s49/s53
+/s110/s32/s112
+/s85/s47/s116
+FIG. 8. Occupation probability of the last unoccupied state
+with k6 as a function of U/t. The meaning of the lines and
+symbol is the same as in ﬁg. 4.
+line shows the results in TDDM without the three-body
+correlation matrix. The exact solutions are given by the
+squares. The RPA solution becomes unstable for a spin-
+orbit coupling mode at C = 0 .34 [16]. Due to the spin-
+orbit coupling in the tensor force, the magnetic quantum
+number m of orbital angular momentum and σ are not
+good quantum numbers, and nαα ′ has nonvanishing oﬀ-
+diagonal elements. In the application of eq. (27) we ne-
+glected the oﬀ-diagonal elements because they are small.
+The results with eq. (27) are similar to those with eqs.
+(15) and (16) and not shown here. The occupation prob-
+abilities of the 1 p state with m = 1 and σ = −1/2 and
+the 1 d state with m = 2 and σ = −1/2 are shown in ﬁgs.
+11 and 12, respectively. The correlation energy Ecor is
+shown in ﬁg. 13. Figures 10-13 again show that the ne-
+glect of the three-body correlation matrix overestimates
+the ground-state correlations and that the approximation
+/s48 /s49 /s50 /s51
+/s45/s51
+/s45/s50
+/s45/s49
+/s48
+/s85/s47/s116
+/s69/s32/s99/s111/s114/s32/s47/s116
+FIG. 9. Correlation energy Ecor as a function of U/t. The
+meaning of the lines and symbol is the same as in ﬁg. 4.
+/s48/s46/s48 /s48/s46/s49 /s48/s46/s50 /s48/s46/s51 /s48/s46/s52 /s48/s46/s53
+/s49/s53/s46/s48
+/s49/s53/s46/s53
+/s49/s54/s46/s48
+/s49/s54/s46/s53
+/s49/s55/s46/s48
+/s49/s55/s46/s53
+/s69/s116/s111/s116/s32/s47
+/s67
+FIG. 10. Ground-state energy in TDDM (solid line) with
+Cαβγα ′β ′γ ′ given by eqs. (15) and (16) as a function of C for
+the N = 8 dipolar fermion gas. The dashed line depicts the
+results in TDDM where the three-body correlation matrix is
+neglected, and the squares the exact values.
+eqs. (15) and (16) drastically improves the results of the
+occupation probabilities and the correlation energy.
+D. Stability of the ground state solution
+In the above we demonstrated that the inclusion of the
+three-body correlation matrix improves the ground-state
+properties in TDDM. We now show that it also stabi-
+lizes long-time behavior of the ground state. To show
+the stability of the ground-state solution in TDDM, we
+present the sum S of the absolute value of eq. (25)
+S = ∑
+αα ′ |nαα ′ − ∑
+λ (nαλ nλα ′ − Cαλα ′λ )| in ﬁg. 14
+for the Hubbard model. In this model nαα ′ has no oﬀ-
+diagonal elements. The time step 4000 corresponds to
+T and for t > T the interaction strength is ﬁxed at
+7
+/s48/s46/s48 /s48/s46/s49 /s48/s46/s50 /s48/s46/s51 /s48/s46/s52 /s48/s46/s53
+/s48/s46/s56/s53
+/s48/s46/s57/s48
+/s48/s46/s57/s53
+/s49/s46/s48/s48
+/s110/s32/s104
+/s67
+FIG. 11. Occupation probability of the 1 p state with m = 1
+and σ = − 1/2 as a function of C. The meaning of the lines
+and symbol is the same as in ﬁg. 10.
+/s48/s46/s48 /s48/s46/s49 /s48/s46/s50 /s48/s46/s51 /s48/s46/s52 /s48/s46/s53
+/s48/s46/s48/s48
+/s48/s46/s48/s52
+/s48/s46/s48/s56
+/s48/s46/s49/s50
+/s110/s32/s112
+/s67
+FIG. 12. Occupation probability of the 1 d state with m = 2
+and σ = − 1/2 as a function of C. The meaning of the lines
+and symbol is the same as in ﬁg. 10.
+U/t = 3. The dotted and solid lines show the results
+in TDDM with the three-body correlation matrix given
+by eq. (27) and by eqs. (15) and (16) while the results
+without the three-body correlation matrix are given by
+the dashed line. Since the ground-state solution obtained
+in the adiabatic approach inevitably contains small time-
+dependent components, it has time evolution. If the gra-
+dient method ref. [4] is used to obtain a true stationary
+solution of the TDDM equations, the occupation matrix
+and the two-body correlation matrix have no time evo-
+lution and S stays constant though the identity eq. (25)
+is violated. The violation of the identity eq. (25) causes
+such a serious problem for strong interactions that nαα
+exceeds unity or becomes negative. When nαα become
+unphysical, the TDDM solution is no longer stable as
+shown in ﬁg. 14. The three-body correlation matrix
+plays a role in approximately conserving the identity eq.
+/s48/s46/s48 /s48/s46/s49 /s48/s46/s50 /s48/s46/s51 /s48/s46/s52 /s48/s46/s53
+/s45/s49/s46/s53
+/s45/s49/s46/s48
+/s45/s48/s46/s53
+/s48/s46/s48
+/s69/s32/s99/s111/s114/s32/s47
+/s67
+FIG. 13. Correlation energy Ecor as a function of C. The
+meaning of the lines and symbol is the same as in ﬁg. 10.
+/s48 /s50/s48/s48/s48 /s52/s48/s48/s48 /s54/s48/s48/s48
+/s48/s46/s48
+/s48/s46/s53
+/s49/s46/s48
+/s49/s46/s53
+/s50/s46/s48
+/s83
+/s84/s105/s109/s101/s32/s115/s116/s101/s112/s115
+FIG. 14. Sum of the absolute value of eq.(25) as a function
+of time steps at U/t = 3 for the six-site Hubbard model. The
+dotted line and the green line show the results in TDDM with
+the three-body correlation matrix given by eq. (27) and by
+eqs. (15) and (16) while the results without the three-body
+correlation matrix are given by the dashed line.
+(25) and stabilizing the time evolution. We found that
+neglect of the two-body correlation matrices of three par-
+ticle - one hole and three hole - one particle types such
+as Cpp′p′′h and Chh′h′′p also stabilizes the time evolution
+in the Hubbard model even if the three-body correlation
+matrix is neglected.
+IV. SUMMAR Y
+We proposed truncation schemes of the time-
+dependent density-matrix approach in which the three-
+body density matrix is approximated in terms of the
+squares of the two-body density matrices. We applied
+them to the ground states of the Lipkin model, the Hub-
+8
+bard model and the trapped dipolar fermion gas and com-
+pared with the exact solutions. It was shown that the
+truncation schemes give better results than the approach
+without the three-body density matrix. It was pointed
+out that the three-body correlation matrix plays a role
+in suppressing the particle - hole correlations. It was also
+shown that such approximations for the three-body den-
+sity matrix also drastically improve the stability of the
+ground-state solutions because of approximate conserva-
+tion of the identity for the one-body and two-body den-
+sity matrices. Thus it was found that our density-matrix
+approach supplemented by the truncation schemes for
+the three-body density matrix gives good approximation
+for the total ground-state wavefunction. TDDM is now
+on good grounds for realistic approximations.
+[1] S. J. Wang and W. Cassing, Ann. Phys. 159, 328 (1985).
+[2] M. Gong and M. Tohyama, Z. Phys. A 335, 153 (1990).
+[3] S. Takahara, M. Tohyama and P. Schuck, Phys. Rev.
+C70, 057307 (2004).
+[4] M. Tohyama, Phys. Rev. C 75, 044310 (2007).
+[5] A. Pﬁtzner, W. Cassing, and A. Peter, Nucl. Phys. A 577,
+753 (1994).
+[6] M. Assi´ e and D. Lacroix, Phys. Rev. Lett. 102, 202501
+(2009).
+[7] M. Tohyama, J. Phys. Soc. Jpn. 81, 054707 (2012).
+[8] M. Tohyama and P. Schuck, Eur. Phys. J. A 45, 257
+(2010).
+[9] M. Jema ¨i and P. Schuck, Atomic Nuclei 74, N0. 8, 1139
+(2011).
+[10] M. Tohyama, P. Schuck and S. J. Wang, Z. Phys. A 339,
+341 (1991).
+[11] M. Tohyama, Phys. Rev. A 71 (2005) 043613.
+[12] M. Gell-Mann and F. Low, Phys. Rev. 84, 350 (1951).
+[13] H. J. Lipkin, N. Meshkov and A. J. Glick, Nucl. Phys.
+62, 188 (1965).
+[14] V. D. Barger and M. G. Olsson, Classical electricity and
+magnetism (Allyn and Bacon, Boston, 1987).
+[15] M. Jema ¨i, P. Schuck, J. Dekelsky and R. Bennaceur,
+Phys. Rev. B 71, 085115 (2005).
+[16] M. Tohyama, J. Phys. Soc. Jpn. 82, 124004 (2013).

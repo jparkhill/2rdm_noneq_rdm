@@ -1,0 +1,1544 @@
+arXiv:nucl-th/0305087v1  29 May 2003
+Spurious modes in extended RPA theories
+Mitsuru Tohyama
+Kyorin University School of Medicine, Mitaka, Tokyo 181-86 11, Japan
+Peter Schuck
+Institut de Physique Nucl ´eaire, IN2P3-CNRS, Universit ´e Paris-Sud, F-91406 Orsay Cedex, France
+(Dated: November 26, 2018)
+Necessary conditions that the spurious state associated wi th the translational motion and its
+double-phonon state have zero excitation energy in extende d RPA (ERPA) theories which include
+both one-body and two-body amplitudes are investigated usi ng the small amplitude limit of the
+time-dependent density-matrix theory (STDDM). STDDM prov ides us with a quite general form
+of ERPA as compared with other similar theories in the sense t hat all components of one-body
+and two-body amplitudes are taken into account. Two conditi ons are found necessary to guarantee
+the above property of the single and double spurious states: The ﬁrst is that no truncation in the
+single-particle space should be made. This condition is nec essary for the closure relation to be used
+and is common for the single and double spurious states. The s econd depends on the mode. For
+the single spurious state all components of the one-body amp litudes must be included, and for the
+double spurious state all components of one-body and two-bo dy amplitudes have to be included.
+It is also shown that the Kohn theorem and the continuity equa tions for transition densities and
+currents hold under the same conditions as the spurious stat es. ERPA theories formulated using
+the Hartree-Fock ground state have a non-hermiticity probl em. A method for formulating ERPA
+with hermiticity is also proposed using the time-dependent density-matrix formalism.
+PACS numbers: 21.60.Jz
+I. INTRODUCTION
+The double phonon states of giant resonances have become the su bject of a number of recent experimental and
+theoretical investigations[1, 2]. In the case of giant resonances ( single phonon states), the random phase approximation
+(RPA) has extensively been used as a standard microscopic theory to study basic properties of giant resonances [3]. It
+is guaranteed in RPA that physical states do not couple to spurious states such as that associated with the translational
+motion because RPA in the Hartree-Fock (HF) basis gives zero excit ation energy to spurious states. For a microscopic
+study of the double phonon states of giant resonances, we need t o extend RPA to deal with two-body amplitudes as
+well as one-body amplitudes. One of such an extended RPA theory ( ERPA) may be the Second RPA (SRPA) [4] which
+has also extensively been used to study decay properties of giant r esonances [5, 6]. When the double phonon states are
+studied in ERPA, it should be guaranteed that both spurious states and their double-phonon states are decoupled from
+physical states. The aim of this paper is to investigate necessary c onditions that the spurious state associated with the
+translational motion and its double-phonon state have zero excita tion energy in ERPA. We use the small amplitude
+limit of the time-dependent density-matrix theory (STDDM) [7]. The r eason why STDDM is used is that containing
+all components of one-body and two-body amplitudes, STDDM cons titutes a more general framework of ERPA than
+SRPA. It will be shown that keeping all components of the one-body and two-body amplitudes in ERPA is essential
+in bringing the spurious states to zero excitation energy. Any ERPA including STDDM , which is formulated using
+an approximate ground state, inherently has asymmetry and non- hermiticity. A method for recovering symmetry and
+hermiticity in the framework of the time-dependent density-matrix formalism is also proposed in this paper. The
+paper is organized as follows: STDDM is presented and its relation to o ther ERPA formulations is discussed in Sect.2.
+Necessary conditions to give zero excitation energy to the spuriou s state associated with the translational motion
+and its double-phonon state are discussed in Sect.3. The Kohn theo rem [8, 9, 10] and the continuity equations for
+transition densities and currents are also discussed as related sub jects in Sect.3. In Sect.4 a method for formulating
+ERPA with hermiticity is proposed and Sect.5 is devoted to a summary.
+II. EXTENDED RP A FORMALISM
+A. Small amplitude limit of the time-dependent density-mat rix theory
+The time-dependent density-matrix theory (TDDM) gives the time- evolution of a one-body density-matrix ρ(1, 1′)
+and the correlated part C(12, 1′2′) of a two-body density-matrix [11], where numbers denote space , spin, and isospin
+2
+coordinates. Linearizing the equations of motion for ρ and C with respect to δρ and δC , where δρ and δC denote
+deviations from the ground-state values ρ0 and C0 i.e. δρ = ρ −ρ0 and δC = C −C0, respectively, we obtain
+STDDM[7]. Expanding δρ and δC with single-particle states ψα as
+δρ(11′,t ) =
+∑
+αα ′
+xαα ′ (t)ψα (1,t )ψ∗
+α ′(1′,t ), (1)
+δC (121′2′,t ) =
+∑
+αβα ′β ′
+Xαβα ′β ′(t)ψα (1,t )ψβ (2,t )ψ∗
+α ′ (1′,t )ψ∗
+β ′ (2′,t ), (2)
+and assuming the HF ground state, that is, ρ0 is the one-body density-matrix in HF approximation and C0 = 0, we
+obtain the following equations of STDDM for the Fourier components of xαα ′ (t) and Xαβα ′β ′ (t) [7]:
+(ω −ǫα +ǫα ′)xαα ′ = ( fα ′ −fα )
+∑
+λλ ′
+⟨αλ|v|α′λ′⟩Axλ ′λ
++
+∑
+λλ ′λ ′′
+[Xλλ ′α ′λ ′′ ⟨αλ′′|v|λλ′⟩ −Xαλ ′λλ ′′ ⟨λλ′′|v|α′λ′⟩], (3)
+(ω − ǫα −ǫβ +ǫα ′ +ǫβ ′)Xαβα ′β ′ = −
+∑
+λ
+[( ¯fβfα ′fβ ′ +fβ ¯fα ′ ¯fβ ′)⟨λβ|v|α′β′⟩Axαλ
++ ( ¯fαfα ′fβ ′ +fα ¯fα ′ ¯fβ ′)⟨αλ|v|α′β′⟩Axβλ − ( ¯fα ¯fβfβ ′ +fαfβ ¯fβ ′)⟨αβ|v|λβ′⟩Axλα ′
+− ( ¯fα ¯fβfα ′ +fαfβ ¯fα ′)⟨αβ|v|α′λ⟩Axλβ ′ ]
++
+∑
+λλ ′
+[(1 −fα −fβ )⟨αβ|v|λλ′⟩Xλλ ′α ′β ′ − (1 −fα ′ −fβ ′)⟨λλ′|v|α′β′⟩Xαβλλ ′ ]
++
+∑
+λλ ′
+[(fα ′ −fα )⟨αλ|v|α′λ′⟩AXλ ′βλβ ′ − (fβ ′ −fα )⟨αλ|v|λ′β′⟩AXλ ′βα ′λ
++ ( fβ ′ −fβ )⟨λβ|v|λ′β′⟩AXαλ ′α ′λ − (fα ′ −fβ )⟨λβ|v|α′λ′⟩AXαλ ′λβ ′ ], (4)
+whereǫα is the HF single-particle energy, fα = 1(0) for occupied (unoccupied) single-particle states and ¯fα = 1 −fα ,
+and the subscript A indicates that the corresponding matrix element is antisymmetrized . Let us mention that eqs.(3)
+and (4) may also be obtained from the following equations of motion
+⟨Φ 0|[a+
+α ′aα,H ]|Φ ⟩ = ω⟨Φ 0|a+
+α ′aα |Φ ⟩, (5)
+⟨Φ 0|[a+
+α ′a+
+β ′aβaα,H ]|Φ ⟩ = ω⟨Φ 0|a+
+α ′a+
+β ′aβaα |Φ ⟩, (6)
+where [ ] is the commutation relation, H the total hamiltonian consisting of the kinetic energy term and a two -body
+interaction, |Φ 0⟩ the ground-state wavefunction and |Φ ⟩ the wavefunction for an excited state with excitation energy ω.
+Linearizing eqs.(5) and (6) with respect to xαα ′ = ⟨Φ 0|a+
+α ′aα |Φ ⟩ andXαβα ′β ′ = ⟨Φ 0|a+
+α ′a+
+β ′aβaα |Φ ⟩, and assuming the
+HF ground state for |Φ 0⟩ when expectation values for the ground state are evaluated such as ⟨Φ 0|a+
+αaα ′ |Φ 0⟩ ≈δαα ′fα ,
+we obtain eqs.(3) and (4).
+In the following we discuss some relations of STDDM with RPA and other versions of ERPA. When the coupling
+to the two-body amplitudes Xαβα ′β ′ is neglected in eq.(3), the equation for the one-body amplitudes bec omes
+(ω −ǫα +ǫα ′ )xαα ′ = ( fα ′ −fα )
+∑
+λλ ′
+⟨αλ|v|α′λ′⟩Axλ ′λ. (7)
+Whenfα is the Fermi-Dirac distribution, eq.(7) is equivalent to the ﬁnite tempe rature RPA [12, 13]. Hereafter single-
+particle indices p and h are used to refer to unoccupied and occupied single-particle state s, respectively. Since the
+sums on the right-hand sides of the equations for xph and xhp are unrestricted, xph and xhp can couple to xpp′ and
+xhh′ . Such a coupling scheme of eq.(7) may be better understood in matr ix form
+
+
+
+ǫp −ǫh + ⟨ph′|v|hp′⟩A ⟨pp′|v|hh′⟩A ⟨pp′|v|hp′′⟩A ⟨ph′|v|hh′′⟩A
+−⟨hh′|v|pp′⟩A ǫh −ǫp − ⟨hp′|v|ph′⟩A −⟨hp′|v|pp′′⟩A −⟨hh′|v|ph′′⟩A
+0 0 ǫp −ǫp′ 0
+0 0 0 ǫh −ǫh′
+
+
+
+
+
+
+xp′h′
+xh′p′
+xp′′p′
+xh′′h′
+
+
+ =ω
+
+
+
+xph
+xhp
+xpp′
+xhh′
+
+
+, (8)
+3
+where obvious summation symbols and Kronecker’s δ’s are omitted for simplicity. Since the hamiltonian matrix is
+non-hermitian, xαα ′ is orthogonal not to xαα ′ but to a left-hand-side eigenvector ˜xαα ′ which satisﬁes
+(ω −ǫα +ǫα ′)˜x∗
+αα ′ =
+∑
+λλ ′
+(fλ ′ −fλ )⟨λα′|v|λ′α⟩A ˜x∗
+λλ ′
+=
+∑
+ph
+(⟨pα′|v|hα⟩A ˜x∗
+ph − ⟨hα′|v|pα⟩A ˜x∗
+hp) (at temperature T = 0). (9)
+The matrix form of eq.(9) becomes
+( ˜x∗
+p′′h′′, ˜x∗
+h′′p′′, ˜x∗
+pp′, ˜x∗
+hh′ )
+
+
+
+ǫp −ǫh + ⟨p′′h|v|h′′p⟩A ⟨p′′p|v|h′′h⟩A ⟨p′′p|v|h′′p′⟩A ⟨p′′h|v|h′′h′⟩A
+−⟨h′′h|v|p′′p⟩A ǫh −ǫp − ⟨h′′p|v|p′′h⟩A −⟨h′′p|v|p′′p′⟩A −⟨h′′h|v|p′′h′⟩A
+0 0 ǫp −ǫp′ 0
+0 0 0 ǫh −ǫh′
+
+
+
+= ω
+(
+˜x∗
+ph, ˜x∗
+hp, ˜x∗
+pp′, ˜x∗
+hh′
+)
+. (10)
+The ortho-normal condition is written as
+⟨˜λ|λ′⟩ =
+∑
+αα ′
+˜x∗
+αα ′ (λ)xαα ′ (λ′) = δλλ ′, (11)
+where |λ⟩ represents an eigenvector xαα ′ with the eigenvalue ωλ , and |˜λ⟩ the left-hand eigenvector of the hamiltonian
+matrix with the eigenvalue ωλ . The completeness relation becomes
+∑
+λ
+|λ⟩⟨˜λ| =
+∑
+λ
+xαα ′ (λ)˜x∗
+ββ ′ (λ) = I, (12)
+whereI is the unit matrix. These ortho-normal and completeness relations are generalizations of the RPA ones. Due
+to the occupation factor fα −fα ′ the one-body amplitudes xpp′ and xhh′ vanish unless ω = ǫα −ǫα ′ (see eq.(7))
+whereas ˜xαα ′ always have all components as seen from eq.(9): ˜ xαα ′ corresponds to the generalized RPA amplitude
+which appears in the Landau’s expression for the damping width of ze ro sound [14, 15]. If the particle (p) - particle
+(p) and hole (h) - hole (h) components of xαα ′ are neglected, eq.(7) is reduced to the RPA equations,
+(ω −ǫp +ǫh)xph =
+∑
+p′h′
+[⟨ph′|v|hp′⟩Axp′h′ + ⟨pp′|v|hh′⟩Axh′p′], (13)
+(ω −ǫh +ǫp)xhp = −
+∑
+p′h′
+[⟨hh′|v|pp′⟩Axp′h′ + ⟨hp′|v|ph′⟩Axh′p′]. (14)
+When the coupling to the one-body amplitudes is neglected in eq.(4), t he equation for the two-body amplitudes
+become
+(ω − ǫα −ǫβ +ǫα ′ +ǫβ ′)Xαβα ′β ′ =
+∑
+λλ ′
+[(1 −fα −fβ )⟨αβ|v|λλ′⟩Xλλ ′α ′β ′ − (1 −fα ′ −fβ ′)⟨λλ′|v|α′β′⟩Xαβλλ ′ ]
++
+∑
+λλ ′
+[(fα ′ −fα )⟨αλ|v|α′λ′⟩AXλ ′βλβ ′ − (fβ ′ −fα )⟨αλ|v|λ′β′⟩AXλ ′βα ′λ
++ ( fβ ′ −fβ )⟨λβ|v|λ′β′⟩AXαλ ′α ′λ − (fα ′ −fβ )⟨λβ|v|α′λ′⟩AXαλ ′λβ ′]. (15)
+This equation is equivalent to the formula given in Ref.[16] for the two -body space. Keeping only the 2p-2h, 2h-2p
+and 1p1h-1p1h components of Xαβα ′β ′ in eq.(15) leads to the version of ERPA for low-lying two-phonon stat es [17].
+It has been pointed out [17] that the 1p1h-1p1h components of Xαβα ′β ′ are important to reproduce collectivity of
+low-lying double-phonon states. A time-dependent version of eq.(1 5) has been applied to the double-phonon states
+of giant dipole and quadrupole resonances in 40Ca using a realistic Skyrme-type interaction for both the mean-ﬁeld
+potential and the residual interaction, and it was found that the 2 p-2h, 2h-2p and 1p1h-1p1h components are the
+most important two-body amplitudes for these double-phonon sta tes [18]. In eqs.(3) and (4) the one-body amplitude
+xαα ′ and the two-body amplitude Xαβα ′β ′ have all components: For example, xαα ′ has 1p-1h, 1h-1p, 1p-1p and 1h-1h
+components. On the other hand only the 1p-1h and 1h-1p compone nts of xαα ′ and the 2p-2h and 2h-2p components
+ofXαβα ′β ′ are taken into account in SRPA [4] and the SRPA equations are obtain ed from eqs.(3) and (4) by keeping
+only these amplitudes.
+4
+Equations (3) and (4) have asymmetric couplings between the xαα ′ andXαβα ′β ′ amplitudes: In eq.(3) xαα ′ couples
+to all components of Xαβα ′β ′, while in eq.(4) only the 2p-2h, 1p-3h and 1h-3p components of Xαβα ′β ′ (and their
+complex conjugates) couple to xαα ′ due to the occupation factors ( ¯fβfα ′fβ ′ etc.). Equations (7) and (15) which
+have no coupling between one-body and two-body amplitudes are als o non-hermitian due to occupation factors such
+as fα ′ −fα . The asymmetry and non-hermiticity originate from the structure of the equations for the reduced
+density matrices (see eqs.(5) and (6)). For a non-hermitian hamilto nian matrix, the left-hand-side eigenvectors of
+the hamiltonian matrix constitute a basis which is orthogonal to ( xαα ′,X αβα ′β ′), and the ortho-normal condition is
+written as
+⟨˜λ|λ′⟩ =
+∑
+αα ′
+˜x∗
+αα ′ (λ)xαα ′ (λ′) +
+∑
+αβα ′β ′
+˜X ∗
+αβα ′β ′(λ)Xαβα ′β ′ (λ′) = δλλ ′, (16)
+where |λ⟩ represents an eigenvector ( xαα ′,X αβα ′β ′) with the eigenvalue ωλ , and |˜λ⟩ the left-hand-side eigenvector of
+the hamiltonian matrix with the same eigenvalue. The completeness re lation is written as
+∑
+λ
+(
+xαα ′ (λ)
+Xαβα ′β ′(λ)
+)
+(˜x∗
+ββ ′ (λ) ˜X ∗
+βγβ ′γ ′(λ)) = I. (17)
+The asymmetry and non-hermiticity in eqs.(3) and (4) are necessar y to prove the properties of the spurious states
+and the Kohn theorems as will be discussed below. However, due to t he non-hermiticity of the problem some of the
+eigenvalues may become complex. Our exploratory numerical calcula tions for the oxygen isotopes 22, 24O using the
+neutron 2s and 1d states and a pairing-type residual interaction which had been used in the calculations of quadrupole
+states in these nuclei [19] show that the non-hermiticity of STDDM is quite moderate: Only a small fraction (about
+10%) of the eigenstates have complex energies, whose imaginary pa rts are less than 0.1 MeV. The results of these
+numerical calculations will be discussed elsewhere. On the other han d we will show in Sect. 4 that there is a
+prescription for constructing ERPA with symmetry and hermiticity u sing a correlated ground state in TDDM.
+III. SINGLE AND DOUBLE SPURIOUS STATES
+A. One-body and two-body operators for the translational mo tion
+We consider the following one-body and two-body operators assoc iated with the translational motion:
+⃗P =
+∑
+αβ
+⟨α| −i∇|β⟩a+
+αaβ (18)
+and
+⃗P · ⃗P =
+∑
+αα ′
+⟨α| − ∇2|α′⟩a+
+αaα ′ +
+∑
+αβα ′β ′
+⟨α| −i∇|α′⟩ · ⟨β| −i∇|β′⟩a+
+αa+
+βaβ ′aα ′. (19)
+Since the hamiltonian H has translational invariance, these operators commute with H, that is, [H, ⃗P ] = [H, ⃗P ·⃗P ] = 0.
+We will evaluateω⟨Φ 0|⃗P |Φ 1⟩ andω⟨Φ 0|⃗P ·⃗P |Φ 2⟩, where |Φ 1⟩ and |Φ 2⟩ are the spurious states excited with ⃗P and ⃗P ·⃗P ,
+respectively, and show that these states have zero excitation en ergy in STDDM. In the case of the exact problem, it
+is, with eqs.(5) and (6), trivial to see that ω⟨Φ 0|⃗P |Φ 1⟩ andω⟨Φ 0|⃗P · ⃗P |Φ 2⟩ are identical to zero because the left-hand
+sides of eqs.(5) and (6) are reduced to the commutation relations b etween the hamiltonian and these translational
+operators. Since the linearization and the HF assumption are made in the derivation of STDDM, it is not trivial to
+show the above properties of the spurious states. However, the linearization should be valid in the weak coupling limit
+and therefore we can anticipate that the Goldstone theorem also h olds in this case, provided that the linearization
+procedure is correctly performed.
+B. Spurious states in RP A
+RPA gives zero excitation energy to the spurious state |Φ 1⟩ excited with ⃗P , although only the 1p-1h and 1h-1p
+components of the one-body amplitudes are taken into account. T o illustrate our approach for the problem of the
+5
+spurious states, we begin with proving ω⟨Φ 0|⃗P |Φ 1⟩ = 0 in RPA. Using the relation ⟨Φ 0|a+
+α ′aα |Φ 1⟩ =xαα ′ and eqs.(13)
+and (14) for xph and xhp, we modify ω⟨Φ 0|⃗P |Φ 1⟩ as
+ω⟨Φ 0|i⃗P |Φ 1⟩ = ω
+∑
+ph
+[⟨h|∇|p⟩xph + ⟨p|∇|h⟩xhp]
+=
+∑
+ph
+[⟨h|∇|p⟩(ǫp −ǫh)xph + ⟨p|∇|h⟩(ǫh −ǫp)xhp]
++
+∑
+php′h′
+[⟨h|∇|p⟩(⟨ph′|v|hp′⟩Axp′h′ + ⟨pp′|v|hh′⟩Axh′p′ )
+− ⟨p|∇|h⟩(⟨hp′|v|ph′⟩Axh′p′ + ⟨hh′|v|pp′⟩A)xp′h′ ]. (20)
+A further modiﬁcation is made using h0ψα =ǫαψα , where h0 is the HF single-particle hamiltonian, and the closure
+relation ∑
+pψp(⃗ r)ψ∗
+p(⃗r′) = δ3(⃗ r−⃗r′) − ∑
+hψh(⃗ r)ψ∗
+h(⃗r′):
+ω⟨Φ 0|i⃗P |Φ 1⟩ =
+∑
+ph
+[⟨h|[∇,h 0]|p⟩xph + ⟨h|[∇,h 0]|h⟩xhp]
++
+∑
+hph′
+[(⟨hh′|∇1v|hp⟩A − ⟨hh′|v∇1|hp⟩ + ⟨hh′|v∇2|ph⟩)xph′
++ ( ⟨hp|∇1v|hh′⟩A − ⟨hp|v∇1|hh′⟩ + ⟨hp|v∇2|h′h⟩)xh′p)]. (21)
+The ﬁrst term on the right-hand side of the above equation can be w ritten in terms of v using
+⟨α′|[∇,h 0]|α⟩ =
+∑
+h
+[⟨α′h|(∇1v)|αh⟩A
+− ⟨α′h|v∇1|hα⟩ + ⟨α′h|v∇2|hα⟩]. (22)
+Finally eq.(21) becomes
+ω⟨Φ 0|i⃗P |Φ 1⟩ =
+∑
+phh′
+[(⟨hh′|(∇1v)|ph′⟩A − ⟨hh′|v∇1|h′p⟩ + ⟨hh′|v∇2|h′p⟩)xph
++ ( ⟨ph′|(∇1v)|hh′⟩A − ⟨ph′|v∇1|h′h⟩ + ⟨ph′|v∇2|h′h⟩)xhp]
++
+∑
+phh′
+[(⟨h′h|(∇1v)|h′p⟩A − ⟨h′h|v∇1|ph′⟩ + ⟨h′h|v∇2|ph′⟩)xph
++ ( ⟨h′p|(∇1v)|h′h⟩A − ⟨h′p|v∇1|hh′⟩ + ⟨h′p|v∇2|hh′⟩)xhp)], (23)
+where ( ∇1v) means that ∇1 acts only on v. Since v has translational invariance, the sum of the following two terms
+on the right-hand side of eq.(23) becomes zero
+⟨hh′|(∇1v)|ph′⟩A + ⟨h′h|(∇1v)|h′p⟩A = ⟨hh′|(∇1v) + (∇2v)|ph′⟩A = 0. (24)
+Another sum of the two terms also vanishes
+− ⟨hh′|v∇1|h′p⟩ + ⟨h′h|v∇2|ph′⟩ = ⟨h′h| −v∇2 +v∇2|ph′⟩ = 0. (25)
+Similarly, all other terms on the right-hand side of eq.(23) cancel ou t. This means ω = 0. As shown above, both the
+inclusion of the backward amplitude xhp and the unrestricted sum over unoccupied single-particle states a re essential
+in RPA to give zero excitation energy to the spurious state.
+C. Spurious state in STDDM
+Along the lines illustrated above, we then show that ω⟨Φ 0|⃗P |Φ 1⟩ = 0 in STDDM. Using the equation for xαα ′
+(eq.(3)), we modify ω⟨Φ 0|⃗P |Φ 1⟩ as
+ω⟨Φ 0|i⃗P |Φ 1⟩ =
+∑
+αα ′
+⟨α′|∇|α⟩ωxαα ′
+6
+=
+∑
+αα ′
+⟨α′|∇|α⟩{(ǫα −ǫα ′)xαα ′
++ ( fα ′ −fα )
+∑
+λλ ′
+⟨αλ|v|α′λ′⟩Axλ ′λ
++
+∑
+λλ ′λ ′′
+[Xλλ ′α ′λ ′′ ⟨αλ′′|v|λλ′⟩ −Xαλ ′λλ ′′ ⟨λλ′′|v|α′λ′⟩]}, (26)
+where the sums are over both occupied and unoccupied single-part icle states. Using h0ψα = ǫαψα and the closure
+relation ∑
+α ψ(⃗ r)ψ∗
+α (⃗r′) = δ3(⃗ r−⃗r′), we further modify eq.(26) as
+ω⟨Φ 0|i⃗P |Φ 1⟩ =
+∑
+αα ′
+⟨α′|[∇,h 0]|α⟩xαα ′
++
+∑
+λλ ′h
+[⟨hλ|∇1v|hλ′⟩A − (⟨hλ|v∇1|hλ′⟩ − ⟨hλ|v∇2|λ′h⟩)]xλ ′λ
++
+∑
+αα ′λλ ′λ ′′
+[Xλλ ′α ′λ ′′ ⟨α′λ′′|∇1v|λλ′⟩ −Xαλ ′λλ ′′ ⟨λλ′′|v∇1|αλ′⟩]. (27)
+Using eq.(22) and changing summation indices, we obtain
+ω⟨Φ 0|i⃗P |Φ 1⟩ =
+∑
+αα ′h
+[⟨α′h|(∇1v)|αh⟩A − ⟨α′h|v∇1|hα⟩ + ⟨α′h|v∇2|hα⟩
++ ⟨hα′|(∇1v)|hα⟩A − ⟨hα′|v∇1|αh⟩ + ⟨hα′|v∇2|αh⟩)]xαα ′
++
+∑
+αβα ′β ′
+Xαβα ′β ′ ⟨α′β′|(∇1v)|αβ⟩. (28)
+The ﬁrst sum on the right-hand side of the above equation which inclu des terms proportional to xαα ′ is a generalization
+of eq.(23) and vanishes for an interaction v with translational invariance. The second term on the right-hand s ide of
+eq.(28) can be expressed as
+∑
+αβα ′β ′
+Xαβα ′β ′ ⟨α′β′|(∇1v)|αβ⟩
+= 1
+2
+∑
+αβα ′β ′
+Xαβα ′β ′ (⟨α′β′|(∇1v)|αβ⟩ + ⟨β′α′|(∇1v)|βα⟩)
+= 1
+2
+∑
+αβα ′β ′
+Xαβα ′β ′ ⟨α′β′|(∇1v) + (∇2v)|αβ⟩. (29)
+Since v has translational invariance, ( ∇1v) + ( ∇2v) = 0. Thus again ω⟨Φ 0|⃗P |Φ 1⟩ = 0 is proven. As shown above,
+unrestricted summation over single-particle indices α and α′ in eq.(26) is essential to derive the last term on the
+right-hand side of eq.(27). This means that any ERPA formalisms with restricted one-body amplitudes cannot give
+zero excitation energy to the spurious state associated with the t ranslational motion. However, this does not depend
+on approximations for two-body amplitudes as long as the symmetry property is respected as seen in eq.(29).
+D. Double Spurious state in STDDM
+In a way similar to the above, we show that ω⟨Φ 0|⃗P ·⃗P |Φ 2⟩ = 0, where |Φ 2⟩ is the double spurious state. The term
+ω⟨Φ 0|⃗P · ⃗P |Φ 2⟩ contains both the one-body and two-body contributions,
+−ω⟨Φ 0|⃗P · ⃗P |Φ 2⟩ = ω{
+∑
+αα ′
+(⟨α′|∇2|α⟩ −
+∑
+h
+2⟨α′|∇|h⟩ · ⟨h|∇|α⟩)xαα ′
++
+∑
+αβα ′β ′
+⟨α′|∇|α⟩ · ⟨β′|∇|β⟩Xαβα ′β ′}. (30)
+7
+Using eqs.(3) and (4) for xαα ′ and Xαβα ′β ′, h0ψα = ǫαψα and the closure relation ∑
+α ψ(⃗ r)ψ∗
+α (⃗r′) = δ3(⃗ r−⃗r′), we
+modify the right-hand side of the above equation. After some lengt hy manipulations, the terms containing xαα ′ and
+one summation index over occupied single-particle states become
+2
+∑
+αα ′h
+[⟨α′h|(∇2
+1v)|αh⟩A + ⟨α′h|(∇1v) · ∇1|αh⟩
+− ⟨α′h|(∇1v) · ∇1|hα⟩ + ⟨hα′|(∇1v) · ∇1|hα⟩ − ⟨hα′|(∇1v) · ∇1|αh⟩]xαα ′
++ 2
+∑
+αα ′h
+[⟨α′h|(∇1 · ∇2v)|αh⟩A + ⟨α′h|(∇1v) · ∇2|αh⟩
+− ⟨α′h|(∇1v) · ∇2|hα⟩ + ⟨α′h|(∇2v) · ∇1|αh⟩ − ⟨α′h|(∇2v) · ∇1|hα⟩]xαα ′, (31)
+where the ﬁrst sum comes from the terms with xαα ′ on the right-hand side of eq.(30) and the second sum from
+the term with Xαβα ′β ′. Since v has translational invariance, ( ∇2
+1v) + ( ∇1 · ∇ 2v) = 0. Therefore, the sum of the
+following two terms in eq.(31) becomes ⟨α′h|(∇2
+1v)|αh⟩A + ⟨α′h|(∇1 · ∇ 2v)|αh⟩A = 0. All other terms vanish for
+similar reasons. In addition to the terms shown in eq.(31), there app ear terms with xαα ′ and two summation
+indices over occupied single-particle states, and also terms with Xαβα ′β ′ in the modiﬁcation process of eq.(30). It is
+straightforward, though lengthy, to show that these terms also vanish for a translationally invariant interaction. Thus
+ω⟨Φ 0|⃗P · ⃗P |Φ 2⟩ = 0, that is, ω = 0. As mentioned above unrestricted summation over single-partic le states is again
+essential to obtain this conclusion. This means that only ERPA’s with a ll one-body and two-body amplitudes, that
+is,xph,x hp,x pp′,x hh′,X pp′hh′,X hh′pp′,X php′h′,X phh′h′′,X h′h′′ph,X pp′hp′′ ,Xhp′′pp′ ,Xpp′p′′p′′′ andXhh′h′′h′′′, give zero
+excitation energy to the double-phonon state corresponding to t he spurious mode associated with the translational
+motion.
+E. Single and double Kohn modes
+When a system is conﬁned to a harmonic potential U = 1
+2mω2
+0r2, the spurious mode associated with the translational
+motion has an eigenvalue of ¯hω0, independently of the translationally invariant two-body interactio n. This property
+is known as the Kohn theorem [8, 9, 10]. In this subsection we show th at our ERPA equations satisfy the Kohn
+theorem and also that the eigenvalue of the double Kohn mode becom es 2¯hω0. Due to the presence of the harmonic
+potential the single-particle states are chosen to be eigenstates of the modiﬁed hamiltonian, h′ψα = ǫαψα , where
+h′ =h0 + 1
+2mω2
+0r2. In a way similar to the spurious mode, we evaluate ω⟨Φ 0|⃗P |Φ 1⟩ using the equations of motion in
+ERPA. Since the two-body interaction has translational invariance , terms with the two-body interaction vanish and
+ω⟨Φ 0|i⃗P |Φ 1⟩ = −
+∑
+αα ′
+⟨α|mω2
+0⃗ r|α′⟩xα ′α = −mω2
+0⟨Φ 0|⃗Q|Φ 1⟩ (32)
+holds, where ⃗Q = ∑ ⟨α|⃗ r|α′⟩a+
+αaα ′ . Similary, non-vanishing contribution to ω⟨Φ 0|⃗Q|Φ 1⟩ comes only from the kinetic
+energy term, and we obtain
+ω⟨Φ 0|⃗Q|Φ 1⟩ = − ¯h2
+m ⟨Φ 0|i⃗P |Φ 1⟩. (33)
+It is essential to keep all components of the one-body amplitudes t o obtain the above expressions. From eqs.(32) and
+(33), we get ω = ±¯hω0.
+In the case of the double Kohn mode, expectation values of three o perators couple in the following way,
+ω⟨Φ 0|i⃗P ·i⃗P |Φ 2⟩ = 2 mω2
+0⟨Φ 0|⃗Q ·i⃗P |Φ 2⟩, (34)
+ω⟨Φ 0|⃗Q ·i⃗P |Φ 2⟩ = ¯h2
+m ⟨Φ 0|i⃗P ·i⃗P |Φ 2⟩ +mω2
+0⟨Φ 0|⃗Q · ⃗Q|Φ 2⟩, (35)
+ω⟨Φ 0|⃗Q · ⃗Q|Φ 2⟩ = 2 ¯h2
+m ⟨Φ 0|⃗Q ·i⃗P |Φ 2⟩. (36)
+The right-hand side of eq.(34) comes from the harmonic potential. B oth the kinetic energy term and the harmonic
+potential contribute to the right-hand side of eq.(35), and the kin etic energy term becomes non-vanishing on the right-
+hand side of eq.(36). All terms with the two-body interaction vanish due to translational invariance. It is essential
+to keep all components of the one-body and two-body amplitudes t o derive eqs.(34)-(36) as in the case of the double
+spurious mode discussed in Subsect. 3.4. From the above equations we get ω = ±2¯hω0.
+8
+F. Continuity equations
+We end this section by showing that our ERPA equations satisfy cont inuity equations. In a way similar to the
+single spurious mode we evaluate ωλ ⟨Φ 0|ˆρ(⃗ r)|Φ λ ⟩, where ˆρ is the density operator ˆρ(⃗ r) = ∑ ψ∗
+α (⃗ r)ψα ′ (⃗ r)a+
+αaα ′ , and
+obtain
+ωλ ⟨Φ 0|ˆρ(⃗ r)|Φ λ ⟩ = −∇ · ⟨Φ 0|⃗j(⃗ r)|Φ λ ⟩, (37)
+where the current operator ⃗j is given by
+⃗j(⃗ r) = ¯h2
+2m
+∑
+[ψ∗
+α (⃗ r)∇ψα ′ (⃗ r) − (∇ψ∗
+α (⃗ r))ψα ′ (⃗ r)]a+
+αaα ′ (38)
+for a momentum-independent two-body interaction. Thus the con tinuity equation for the one-body transition density
+and current is satisﬁed. Keeping all components of the one-body a mplitudes is essential to obtain the continuity
+equation.
+Similarly, the transition amplitude for the two-body density operato r ˆρ2(⃗ r,⃗ r′) deﬁned by
+ˆρ2(⃗ r,⃗ r′) =
+∑
+αβα ′β ′
+ψ∗
+α (⃗ r)ψ∗
+β (⃗ r′)ψβ ′(⃗ r′)ψα ′ (⃗ r)a+
+αa+
+βaβ ′aα ′ (39)
+satisﬁes the continuity equation
+ωλ ⟨Φ 0| ˆρ2(⃗ r,⃗ r′)|Φ λ ⟩ = −(∇r · ⟨Φ 0|⃗j2(⃗ r,⃗ r′)|Φ λ ⟩ + ∇r′ · ⟨Φ 0|⃗j2(⃗ r′,⃗ r)|Φ λ ⟩), (40)
+where the two-body current operator ⃗j2 for a momentum-independent two-body interaction is given by
+⃗j2(⃗ r,⃗ r′) = ¯h2
+2m
+∑
+[ψ∗
+α (⃗ r)(∇ψα ′ (⃗ r)) − (∇ψ∗
+α (⃗ r))ψα ′ (⃗ r))]ψ∗
+β (⃗ r′)ψβ ′ (⃗ r′)a+
+αa+
+βaβ ′aα ′. (41)
+In the derivation of eq.(40) it is again essential to keep all componen ts of the one-body and two-body amplitudes.
+IV. ERP A WITH HERMITICITY
+The equations of STDDM (eqs.(3) and (4)) show asymmetry and non -hermiticity, although this causes no problem
+in conserving various physical properties as discussed above. In t he following we show that ERPA with symmetry
+and hermiticity can be formulated using the equation-of-motion app roach [20] and the correlated ground state in
+TDDM. We have pointed out [21], in deriving the Landau’s expression fo r the spreading width of a collective state,
+that it is important to include ground-state correlations to remove the asymmetry in STDDM. It is well-known [20]
+that the asymmetry problem always appears in the equation-of-mo tion approach when the ground state is replaced
+by an approximate one. Before presenting the formulation of our E RPA, therefore, we summarize the origin of the
+asymmetry in the equation-of-motion approach. When |Φ 0⟩ is the exact ground state of the hamiltonian, there exists
+an identity involving a one-body operator A =a+
+αaα ′ and a two-body operator B =a+
+αa+
+βaβ ′aα ′:
+⟨Φ 0|[[B,H ],A ]|Φ 0⟩ − ⟨Φ 0|[[A,H ],B ]|Φ 0⟩ = ⟨Φ 0|[H, [A,B ]]|Φ 0⟩ = 0. (42)
+When |Φ 0⟩ is approximated by the HF ground state, the above identity is violate d, that is,
+⟨Φ 0|[H, [A,B ]]|Φ 0⟩ ̸= 0 (43)
+and, consequently,
+⟨Φ 0|[[B,H ],A ]|Φ 0⟩ ̸= ⟨Φ 0|[A,H ],B ]|Φ 0⟩. (44)
+Since the left-hand side of the above equation describes the couplin g of the one-body amplitudes to the two-body ones,
+and the right-hand side, that of the two-body amplitudes to the on e-body ones, the resulting ERPA has asymmetric
+couplings. In order to avoid the diﬃculty of eq.(44), Rowe introduce d a symmetrized double commutator [20].
+However, it was pointed out [15] that there is an ambiguity in the cho ice of such a double commutator.
+9
+Now we proceed to the presentation of our ERPA with ground-stat e correlations. The ground state |Φ 0⟩ in TDDM
+is constructed so that
+⟨Φ 0|[H,a +
+αaα ′]|Φ 0⟩ = 0 (45)
+and
+⟨Φ 0|[H,a +
+αa+
+βaβ ′aα ′ ]|Φ 0⟩ = 0 (46)
+are satisﬁed for any single-particle indices [7]. In other words the oc cupation matrix n0
+αα ′ and the correlation matrix
+C0
+αβα ′β ′, the expansion coeﬃcients of ρ0 andC0, respectively, are determined in TDDM so that the above two equat ions
+are satisﬁed. The explicit expression for eqs.(45) and (46) depend s on the single-particle state ψα . The equations
+for n0
+αα ′ and C0
+α ′β ′αβ shown in Appendix A are obtained when ψα is chosen to be an eigenstate of the mean ﬁeld
+hamiltonian h0(ρ0), that is,
+h0(ρ0)ψα (1) = − ¯h2∇2
+2m ψα (1) +
+∫
+d2v(1, 2)[ρ0(2, 2)ψα (1) −ρ0(1, 2)ψα (2)] = ǫαψα (1), (47)
+where
+ρ0(11′) =
+∑
+αα ′
+n0
+αα ′ψα (1)ψ∗
+α ′ (1′). (48)
+Although it is not evident to ﬁnd an analytic solution of eqs.(45) and (4 6) [22], a method for obtaining n0
+αα ′ and
+C0
+αβα ′β ′ numerically has been proposed [23] and already been tested for re alistic nuclei in the study of giant resonances
+built on the correlated ground state [24, 25]. Since the commutation relation [A,B ] = [a+
+αaα ′,a +
+βa+
+γaγ ′aβ ′] in eq.(42)
+becomes a sum of two-body operators, we ﬁnd
+⟨Φ 0|[H, [a+
+αaα ′,a +
+βa+
+γaγ ′aβ ′]]|Φ 0⟩ = 0 (49)
+which holds due to eq.(46). This means that the coupling matrices are symmetric, that is,
+⟨Φ 0|[[a+
+βa+
+γaγ ′aβ ′,H ],a +
+αaα ′]|Φ 0⟩ = ⟨Φ 0|[[a+
+αaα ′,H ],a +
+βa+
+γaγ ′aβ ′ ]|Φ 0⟩ (50)
+for the correlated ground state in TDDM. The ERPA equations base d on the TDDM ground state are formulated
+using the equation of motion approach [20] as
+⟨Ψ 0|[[a+
+αaα ′,H ],Q +]|Ψ 0⟩ =ω⟨Ψ 0|[a+
+αaα ′,Q +]|Ψ 0⟩ (51)
+⟨Ψ 0|[[:a+
+αa+
+βaβ ′aα ′ :,H ],Q +]|Ψ 0⟩ =ω⟨Ψ 0|[:a+
+αa+
+βaβ ′aα ′ :,Q +]|Ψ 0⟩, (52)
+where the operator Q+ is deﬁned by
+Q+ =
+∑
+(xλλ ′a+
+λaλ ′ +Xλ 1λ 2λ ′
+1λ ′
+2
+:a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+:) (53)
+and |Ψ 0⟩ is assumed to have the following properties
+Q+|Ψ 0⟩ = |Ψ ⟩ (54)
+Q|Ψ 0⟩ = 0 . (55)
+In eqs.(52) and (53), : : stands for : a+
+αa+
+βaβ ′aα ′ := a+
+αa+
+βaβ ′aα ′ − A(a+
+αaα ′ ⟨Ψ 0|a+
+βaβ ′|Ψ 0⟩ +a+
+βaβ ′⟨Ψ 0|a+
+αaα ′ |Ψ 0⟩),
+where A is an antisymmetrization operator. The above equation can be writt en in matrix form
+(
+A C
+B D
+) (
+x
+X
+)
+=ω
+(
+S1 T1
+T2 S2
+) (
+x
+X
+)
+, (56)
+where each matrix element is given by
+S1(α′α :λλ′) = ⟨Ψ 0|[a+
+αaα ′,a +
+λaλ ′ ]|Ψ 0⟩, (57)
+S2(α′β′αβ :λ1λ2λ′
+1λ′
+2) = ⟨Ψ 0|[:a+
+αa+
+βaβ ′aα ′ :, :a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+:]|Ψ 0⟩, (58)
+10
+T1(α′α :λ1λ2λ′
+1λ′
+2) = ⟨Ψ 0|[a+
+αaα ′, :a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+:]|Ψ 0⟩, (59)
+T2(α′β′αβ :λλ′) = ⟨Ψ 0|[:a+
+αa+
+βaβ ′aα ′ :,a +
+λaλ ′ ]|Ψ 0⟩, (60)
+A(α′α :λλ′) = ⟨Ψ 0|[[a+
+αaα ′,H ],a +
+λaλ ′ ]|Ψ 0⟩, (61)
+B(α′β′αβ :λλ′) = ⟨Ψ 0|[[:a+
+αa+
+βaβ ′aα ′ :,H ],a +
+λaλ ′]|Ψ 0⟩, (62)
+C(α′α :λ1λ2λ′
+1λ′
+2) = ⟨Ψ 0|[[a+
+αaα ′,H ], :a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+:]|Ψ 0⟩, (63)
+D(α′β′αβ :λ1λ2λ′
+1λ′
+2) = ⟨Ψ 0|[[:a+
+αa+
+βaβ ′aα ′ :,H ], :a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+:]|Ψ 0⟩. (64)
+When the above matrices are evaluated, the ground state |Ψ 0⟩ is replaced by |Φ 0⟩ in TDDM. Then all matrices in
+the above are written in terms of n0
+αα ′ and C0
+αβα ′β ′, which are shown in Appendix B. Due to eqs.(45) and (46), the
+above matrices have the following symmetries
+A(α′α :λλ′) = A(λ′λ :αα′) = A(λλ′ :α′α)∗, (65)
+B(α′β′αβ :λλ′) = C(λ′λ :αβα′β′) = C(λλ′ :α′β′αβ)∗. (66)
+This version of ERPA gives zero excitation energy to spurious modes associated with operators O which commute
+with H and consist of one-body and (or) two-body operators. This is bec ause ω⟨Ψ 0|O|Ψ ⟩ = ⟨Ψ 0|[H, O]|Ψ ⟩ = 0
+holds due to eqs.(51) and (52). Although the coupling matrix betwee n the one-body and two-body amplitudes is
+symmetric, the hamiltonian matrix on the left-hand side of eq.(56) is n ot yet hermitian because D = D+ does not
+hold. This originates in the fact that ⟨Φ 0|[H, [:a+
+αa+
+βaβ ′aα ′ :, :a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+:]]|Φ 0⟩ ̸= 0. In order to obtain a hermitian
+hamiltonian matrix without any truncation of the two-body amplitude s, we need to impose
+⟨Φ 0|[H,a +
+αa+
+βa+
+γaγ ′aβ ′aα ′ ]|Φ 0⟩ = 0 (67)
+in addition to eqs.(45) and (46). This condition guarantees ⟨Φ 0|[H, [: a+
+αa+
+βaβ ′aα ′ :, : a+
+λ 1a+
+λ 2aλ ′
+2
+aλ ′
+1
+:]]|Φ 0⟩ = 0, and
+thereby
+D(α′β′αβ :λ1λ2λ′
+1λ′
+2) = D(λ′
+1λ′
+2λ1λ2 :αβα′β′) = D(λ1λ2λ′
+1λ′
+2 :α′β′αβ)∗. (68)
+Equation (67) is explicitly shown in Appendix B. For a hermitian hamiltonia n matrix the ortho-normal condition is
+given by [26]
+(x∗
+µ ′X ∗
+µ ′ )
+(
+S1 T1
+T2 S2
+) (
+xµ
+Xµ
+)
+=δµµ ′, (69)
+where xµ and Xµ constitute an eigenstate of eq.(56) with ω =ωµ . The completeness relation becomes
+∑
+µ
+(
+xµ
+Xµ
+)
+(x∗
+µX ∗
+µ )
+(
+S1 T1
+T2 S2
+)
+=I. (70)
+The transition amplitudes for one-body and two-body operators, z = ⟨Ψ 0|a+
+αaα ′|Ψ ⟩ andZ = ⟨Ψ 0| :a+
+αa+
+βaβ ′aα ′ : |Ψ ⟩,
+respectively, are calculated as follows
+(
+z
+Z
+)
+=
+(
+S1 T1
+T2 S2
+) (
+x
+X
+)
+. (71)
+Equation (56) has a certain similarity with the so-called Self-Consiste nt RPA (SCRPA) equations [20, 27, 28], extended
+to include higer conﬁgurations. In case the Xλ 1λ 2λ ′
+1λ ′
+2
+amplitudes are dropped in eq.(53), eq.(56) reduces to something
+similar to what has become known as renormalized RPA (r-RPA) [29]. Th e main diﬀerence seems to come from the
+fact that here eq.(45) serves to determine the occupation matrix n0
+αα ′ whereas in r-RPA eq.(45) is used to establish
+the single particle basis. It should be interesting to investigate this r elation more in detail in the future.
+V. SUMMAR Y
+Necessary conditions that the spurious state associated with the translational motion and its double-phonon state
+have zero excitation energy in extended ERPA (ERPA) were investig ated using the small amplitude limit of the time-
+dependent density-matrix theory (STDDM). The reason why STDD M was used is that it has a quite general form of
+11
+the ERPA kind based on the HF ground state. In the case of the sing le spurious state it is found that ERPA which
+keeps all components of the one-body amplitudes gives the spuriou s state at zero excitation energy. This does not
+depend on approximations for the two-body amplitudes as long as th ey are properly antisymmetrized. For example,
+ERPA with only the 2p-2h and 2h-2p components of the two-body am plitudes preserves this property of the single
+spurious state. In the case of the double spurious state, all comp onents of the two-body amplitudes are found necessary
+to yield the mode at zero excitation energy. Of course, no truncat ion in single-particle space should be made in both
+cases. The Kohn theorem for the single and double Kohn modes and t he continuity equations for transition densities
+and currents were also investigated and found to hold under the sa me conditions as those necessary for the spurious
+states. It was pointed out that STDDM inherently has asymmetry a nd non-hermiticity, although it conserves various
+physical properties as mentioned above. A formulation of ERPA with hermiticity was also presented using TDDM,
+in which it was discussed that a three-body correlation matrix needs to be included in the description of ground-state
+correlations. The investigations in this work were performed for th e spurious translational motion. It seems, however,
+clear that analogous considerations can be made for any spontane ously broken symmetry. An interesting case could
+be the coupling of quark-antiquark to the four quark sector using , e.g. the Nambu-Jona-Lasinio model [30]. In this
+case one knows that chiral symmetry is spontaneously broken [30] and therefore in the chiral limit a double Goldstone
+mode (two pions) should appear. In the case of ﬁnite current quar k masses analogous equations to those yielding the
+Kohn modes considered here should exist, actually well known as the Gellmann-Oakes-Renner relation [31].
+APPENDIX A
+When ψα is chosen to be an eigenstate of the mean ﬁeld hamiltonian (eq.(47)), eqs.(45) and (46) become
+(ǫα ′ −ǫα )n0
+αα ′ =
+∑
+λ 1λ 2λ 3
+(C0
+λ 1λ 2α ′λ 3 ⟨αλ3|v|λ1λ2⟩ −C0
+αλ 3λ 1λ 2 ⟨λ1λ2|v|α′λ3⟩) (A1)
+(ǫα ′ +ǫβ ′ −ǫα −ǫβ )C0
+αβα ′β ′ = B0
+αβα ′β ′ +P 0
+αβα ′β ′ +H 0
+αβα ′β ′, (A2)
+where
+B0
+αβα ′β ′ =
+∑
+λ 1λ 2λ 3λ 4
+⟨λ1λ2|v|λ3λ4⟩A[(δαλ 1 −n0
+αλ 1 )(δβλ 2 −n0
+βλ 2)n0
+λ 3α ′n0
+λ 4β ′
+− n0
+αλ 1n0
+βλ 2 (δλ 3α ′ −n0
+λ 3α ′)(δλ 4β ′n0
+λ 4β ′)], (A3)
+P 0
+αβα ′β ′ =
+∑
+λ 1λ 2λ 3λ 4
+⟨λ1λ2|v|λ3λ4⟩[(δαλ 1δβλ 2 −δαλ 1n0
+βλ 2 −n0
+αλ 1δβλ 2 )C0
+λ 3λ 4α ′β ′
+− (δλ 3α ′δλ 4β ′ −δλ 3α ′n0
+λ 4β ′ −n0
+λ 3α ′δλ 4β ′)C0
+αβλ 1λ 2 ], (A4)
+H 0
+αβα ′β ′ =
+∑
+λ 1λ 2λ 3λ 4
+⟨λ1λ2|v|λ3λ4⟩A[δαλ 1 (n0
+λ 3α ′C0
+λ 4βλ 2β ′ −n0
+λ 3β ′C0
+λ 4βλ 2α ′ +C0
+λ 3λ 4βα ′λ 2β ′)
++ δβλ 2(n0
+λ 4β ′C0
+λ 3αλ 1α ′ −n0
+λ 4α ′C0
+λ 3αλ 2β ′ +C0
+λ 4λ 3αβ ′λ 2α ′)
+− δα ′λ 3 (n0
+αλ 1C0
+λ 4βλ 2β ′ −n0
+βλ 1C0
+λ 4αλ 2β ′ +C0
+αλ 4βλ 1λ 2β ′)
+− δβ ′λ 4(n0
+βλ 2C0
+λ 3αλ 1α ′ −n0
+αλ 2C0
+λ 3βλ 1α ′ +C0
+βλ 3αλ 2λ 1α ′)]. (A5)
+The three-body correlation matrix C0
+αβγα ′β ′γ ′ is also included in eq.(A5). The equation for C0
+αβγα ′β ′γ ′ is obtained by
+neglecting four-body amplitudes and becomes
+(ǫα ′ +ǫβ ′ +ǫγ ′ −ǫα −ǫβ −ǫγ )C0
+αβγα ′β ′γ ′ = Uαβγα ′β ′γ ′ +Uαβγβ ′γ ′α ′ −Uαβγα ′γ ′β ′
+− U ∗
+α ′β ′γ ′αβγ −U ∗
+α ′β ′γ ′βγα +U ∗
+α ′β ′γ ′αγβ
++ Vαβγα ′β ′γ ′ +Vαβγβ ′γ ′α ′ −Vαβγα ′γ ′β ′
+− V ∗
+α ′β ′γ ′αβγ −V ∗
+α ′β ′γ ′βγα +V ∗
+α ′β ′γ ′αγβ , (A6)
+where
+Uαβγα ′β ′γ ′ = −
+∑
+λ 1λ 2
+[⟨λ1λ2|v|α′β′⟩A(n0
+γλ 1C0
+αβλ 2γ ′ −n0
+βλ 1C0
+αγλ 2γ ′ +n0
+αλ 1C0
+βγλ 2γ ′)
++ ⟨λ1λ2|v|α′β′⟩C0
+αβγλ 1λ 2γ ′], (A7)
+12
+Vαβγα ′β ′γ ′ = −
+∑
+λ 1λ 2λ 3
+⟨λ1λ2|v|α′λ3⟩(−n0
+λ 3γ ′n0
+γλ 2C0
+αβλ 1β ′ +n0
+λ 3γ ′C0
+αβγλ 1λ 2β ′
++ C0
+αβλ 1λ 2C0
+γλ 3β ′γ ′ −C0
+αβλ 1β ′C0
+γλ 3λ 2γ ′ + all other exchange terms) . (A8)
+Equations for correlation matrices of higher ranks may be formulat ed according to the truncation rules given in
+ref.[32].
+APPENDIX B
+The matrix elements of eqs.(57)-(60) are explicitly shown below.
+S1(α′α :λλ′) = n0
+λ ′αδα ′λ −n0
+α ′λδαλ ′, (B1)
+T1(α′α :λ1λ2λ′
+1λ′
+2) = C0
+λ ′
+1λ ′
+2αλ 2δα ′λ 1 +C0
+α ′λ ′
+1λ 1λ 2δαλ ′
+2
+−C0
+α ′λ ′
+2λ 1λ 2δαλ ′
+1
+−C0
+λ ′
+1λ ′
+2αλ 1δα ′λ 2, (B2)
+T2(α′β′αβ :λλ′) = C0
+λ ′β ′αβ δα ′λ +C0
+α ′β ′λα δβλ ′ −C0
+α ′β ′λβδαλ ′ −C0
+λ ′α ′αβ δβ ′λ (B3)
+S2(α′β′αβ :λ1λ2λ′
+1λ′
+2) = A(δα ′λ 1δβ ′λ 2 )(A(n0
+λ ′
+1αn0
+λ ′
+2β ) +C0
+λ ′
+1λ ′
+2αβ ) − A(δαλ ′
+1
+δβλ ′
+2
+)(A(n0
+α ′λ 1n0
+β ′λ 2 ) +C0
+α ′β ′λ 1λ 2 )
++ F (α′β′αβ :λ1λ2λ′
+1λ′
+2) −F (α′β′αβ :λ1λ2λ′
+2λ′
+1)
+− F (α′β′βα :λ1λ2λ′
+1λ′
+2) +F (α′β′βα :λ1λ2λ′
+2λ′
+1)
+− F (λ′
+1λ′
+2λ1λ2 :αβα′β′) +F (λ′
+1λ′
+2λ2λ1 :αβα′β′)
++ F (λ′
+1λ′
+2λ1λ2 :αββ ′α′) −F (λ′
+1λ′
+2λ2λ1 :αββ ′α′), (B4)
+where
+F (α′β′αβ :λ1λ2λ′
+1λ′
+2) = δαλ ′
+1
+[A(n0
+α ′λ 1n0
+β ′λ 2 )n0
+λ ′
+2β +n0
+λ ′
+2βC0
+α ′β ′λ 1λ 2 +n0
+α ′λ 1C0
+β ′λ ′
+2λ 2β −n0
+β ′λ 1C0
+α ′λ ′
+2λ 2β
+− n0
+α ′λ 2C0
+β ′λ ′
+2λ 1β +n0
+β ′λ 2C0
+α ′λ ′
+2λ 1β +C0
+α ′β ′λ ′
+2λ 1λ 2β ]. (B5)
+The three-body correlation matrix is also included in eq.(B5). The mat rix elements A,B,C , and D are given in the
+following. For simplicity, terms containing C0
+αβγα ′β ′γ ′ are not shown. They appear in B,C , and D: Wherever there is
+a term containing n0
+αα ′C0
+βγβ ′γ ′, there exists a corresponding term with C0
+αβγα ′β ′γ ′. The expressions for A,B,C , and
+D are not unique and their symmetry properties are not necessarily a pparent. Equations (45), (46), and (67) allow
+us to take other expressions and guarantee symmetry propertie s.
+A(α′α :λλ′) = ( ǫα ′ −ǫα )(δλα ′n0
+λ ′α −δλ ′αn0
+α ′λ )
++
+∑
+γδ
+[⟨γδ|v|αλ⟩(A(n0
+λ ′ γn0
+α ′δ) +C0
+λ ′α ′γδ ) + ⟨λ′α′|v|δγ⟩(A(n0
+γλn0
+δα ) +C0
+δγαλ )
+− ⟨λ′δ|v|αγ⟩A(n0
+γλn0
+α ′δ +C0
+α ′γδλ ) − ⟨γα′|v|δλ⟩A(n0
+λ ′γn0
+δα +C0
+λ ′δγα )]
+−
+∑
+γδγ ′
+(⟨α′γ|v|δγ ′⟩δλ ′αC0
+δγ ′λγ + ⟨γδ|v|αγ′⟩δλα ′C0
+λ ′γ ′γδ ), (B6)
+B(α′β′αβ :λλ′) =
+∑
+γ
+{⟨λ′γ|v|αβ⟩A[A(n0
+α ′λn0
+β ′γ ) +C0
+α ′β ′λγ ] + ⟨α′β′|v|λγ⟩A[A(n0
+λ ′αn0
+γβ ) +C0
+λ ′γαβ ]}
++ H(α′β′αβ :λλ′) −H(β′α′αβ :λλ′) +H ∗(αβα′β′ :λ′λ) −H ∗(βαα′β′ :λ′λ)
++ I(α′β′αβ :λλ′) −I(α′β′βα :λλ′) +I ∗(αβα′β′ :λ′λ) −I ∗(αββ ′α′ :λ′λ), (B7)
+C(α′α :λ1λ2λ′
+1λ′
+2) = B(λ′
+1λ′
+2λ1λ2 :αα′), (B8)
+where
+H(α′β′αβ :λλ′) = −δλα ′ {(ǫα +ǫβ −ǫα ′ −ǫβ ′)C0
+λ ′β ′αβ
++
+∑
+γδ
+(⟨γδ|v|αβ⟩(A(n0
+λ ′ γn0
+β ′δ) +C0
+λ ′β ′γδ )
+−
+∑
+γδγ ′
+[⟨γδ|v|αγ′⟩A(n0
+λ ′γn0
+β ′δn0
+γ ′β +n0
+λ ′γC0
+β ′γ ′δβ −n0
+β ′γC0
+λ ′γ ′δβ )
+13
++ ⟨γδ|v|αγ′⟩n0
+γ ′βC0
+λ ′β ′γδ
+− ⟨γδ|v|βγ ′⟩A(n0
+λ ′γn0
+β ′δn0
+γ ′α +n0
+λ ′γC0
+β ′γ ′δα −n0
+β ′γC0
+λ ′γ ′δα )
+− ⟨γδ|v|βγ ′⟩n0
+γ ′αC0
+λ ′β ′γδ
++ ⟨β′γ|v|δγ ′⟩A(n0
+λ ′γn0
+δβn0
+γ ′α +n0
+γ ′αC0
+δλ ′βγ −n0
+γ ′βC0
+δλ ′αγ )
++ ⟨β′γ|v|δγ ′⟩n0
+λ ′γC0
+γ ′δαβ ]}, (B9)
+I(α′β′αβ :λλ′) =
+∑
+γδ
+{[⟨γδ|v|αλ⟩A(n0
+α ′γn0
+β ′δn0
+λ ′β +n0
+α ′γC0
+β ′λ ′δβ −n0
+β ′γC0
+α ′λ ′δβ )
++ ⟨γδ|v|αλ⟩(n0
+λ ′βC0
+α ′β ′γδ +n0
+λ ′γC0
+α ′β ′δβ )]
+− ⟨λ′γ|v|αδ⟩A[A(n0
+α ′λn0
+β ′γ )n0
+δβ +n0
+δλC0
+α ′β ′γβ +n0
+δβC0
+α ′β ′λγ
++ n0
+α ′λC0
+β ′δγβ −n0
+β ′λC0
+α ′δγβ −n0
+α ′γC0
+β ′δλβ +n0
+β ′γC0
+α ′δλβ ]}. (B10)
+The matrix D is given as
+D(α′β′αβ :λ1λ2λ′
+1λ′
+2) = ( ǫα ′ +ǫβ ′ −ǫα −ǫβ )S2(α′β′αβ :λ1λ2λ′
+1λ′
+2)
++ ⟨λ′
+1λ′
+2|v|αβ⟩A(A(n0
+α ′λ 1n0
+β ′λ 2 ) +C0
+α ′β ′λ 1λ 2 ) + ⟨α′β′|v|λ1λ2⟩A(A(n0
+λ ′
+1αn0
+λ ′
+2β ) +C0
+λ ′
+1λ ′
+2αβ )
++ J(α′β′αβ :λ1λ2λ′
+1λ′
+2) +J ∗(αβα′β′ :λ′
+1λ′
+2λ1λ2)
++ K(α′β′αβ :λ1λ2λ′
+1λ′
+2) +L(α′β′αβ :λ1λ2λ′
+1λ′
+2)
++ all other exchange terms of K and L, (B11)
+where
+J(α′β′αβ :λ1λ2λ′
+1λ′
+2) = −A(δλ 1α ′δλ 2β ′){
+∑
+γδ
+[⟨γδ|v|αβ⟩ −
+∑
+γ ′
+(⟨γδ|v|αγ′⟩n0
+γ ′β
+− ⟨γδ|v|βγ ′⟩n0
+γ ′α ))](A(n0
+λ ′
+1γn0
+λ ′
+2δ) +C0
+λ ′
+1λ ′
+2γδ )
++
+∑
+γδγ ′
+[⟨γδ|v|αγ′⟩(n0
+λ ′
+1βC0
+γ ′λ ′
+2γδ −n0
+λ ′
+2βC0
+γ ′λ ′
+1γδ −n0
+λ ′
+1γC0
+γ ′λ ′
+2βδ +n0
+λ ′
+2γC0
+γ ′λ ′
+1βδ )
+− ⟨γδ|v|βγ ′⟩(n0
+λ ′
+1αC0
+γ ′λ ′
+2γδ −n0
+λ ′
+2αC0
+γ ′λ ′
+1γδ −n0
+λ ′
+1γC0
+γ ′λ ′
+2αδ +n0
+λ ′
+2γC0
+γ ′λ ′
+1αδ )]}, (B12)
+K(α′β′αβ :λ1λ2λ′
+1λ′
+2) = δλ 1α ′ {
+∑
+γδ
+[⟨γδ|v|αβ⟩A(n0
+λ ′
+1γn0
+λ ′
+2δn0
+β ′λ 2 +n0
+λ ′
+1γC0
+λ ′
+2β ′δλ 2 )
++ ⟨γδ|v|αλ2⟩A(n0
+λ ′
+1γn0
+λ ′
+2βn0
+β ′δ +n0
+λ ′
+1γC0
+λ ′
+2β ′βδ )
++ ⟨γβ ′|v|λ2δ⟩A(n0
+δβn0
+λ ′
+1αn0
+λ ′
+2γ +n0
+δβC0
+λ ′
+1λ ′
+2αγ )
++ all other exchange terms]
+−
+∑
+γδγ ′
+[⟨γδ|v|αγ′⟩A(n0
+λ ′
+1γn0
+β ′δn0
+λ ′
+2βn0
+γ ′λ 2 +n0
+λ ′
+1γn0
+β ′δC0
+λ ′
+2γ ′βλ 2 +C0
+λ ′
+1β ′γδC0
+λ ′
+2γ ′βλ 2 )
+− ⟨γβ ′|v|γ′δ⟩A(n0
+λ ′
+1αn0
+λ ′
+2γn0
+γ ′βn0
+δλ 2 +n0
+γ ′βn0
+λ ′
+1αC0
+λ ′
+2δγλ 2 +C0
+λ ′
+2γ ′αβ C0
+λ ′
+1δγλ 2)
++ all other exchange terms] }, (B13)
+L(α′β′αβ :λ1λ2λ′
+1λ′
+2) = −
+∑
+γ
+[⟨α′γ|v|λ1λ2⟩(n0
+β ′γn0
+λ ′
+1αn0
+λ ′
+2β +n0
+β ′γC0
+λ ′
+1λ ′
+2αβ )
++ all other exchange terms]
++
+∑
+γδ
+[⟨α′γ|v|λ1δ⟩A(n0
+δβn0
+λ ′
+1αn0
+λ ′
+2γn0
+β ′λ 2 +n0
+β ′λ 2n0
+δβC0
+λ ′
+1λ ′
+2αγ +C0
+β ′δλ 2βC0
+λ ′
+1λ ′
+2αγ )
++ all other exchange terms] . (B14)
+Finally we discuss a relation between eq.(56) and a set of the STDDM eq uations (eqs.(3) and (4)). When the ground
+state is approximated by the HF one, eqs.(B1)-(B4) become
+S1(α′α :λλ′) = ( fα −fα ′)δαλ ′δα ′λ, (B15)
+S2(α′β′αβ :λ1λ2λ′
+1λ′
+2) = A(δαλ ′
+1
+δβλ ′
+2
+)A(δα ′λ 1δβ ′λ 2 )F 0
+α ′β ′αβ , (B16)
+T1(α′α :λ1λ2λ′
+1λ′
+2) = T2(α′β′αβ :λλ′) = 0, (B17)
+14
+where
+F 0
+α ′β ′αβ =fαfβ ¯fα ′ ¯fβ ′ − ¯fα ¯fβfα ′fβ ′. (B18)
+Equations (B6)-(B8) and (B11) become the following:
+A(α′α :λλ′) = [( ǫα ′ −ǫα )δαλ ′δα ′λ + ⟨λ′α′|v|αλ⟩A(fα ′ −fα )](fλ ′ −fλ ), (B19)
+B(α′β′αβ :λλ′) = −[( ¯fα ¯fβfβ ′ +fαfβ ¯fβ ′)⟨λ′β′|v|αβ⟩Aδα ′λ − ( ¯fα ¯fβfα ′ +fαfβ ¯fα ′ )⟨λ′α′|v|αβ⟩Aδβ ′λ
+− ( ¯fβfα ′fβ ′ +fβ ¯fα ′ ¯fβ ′)⟨α′β′|v|λβ⟩Aδαλ ′
++ ( ¯fαfα ′fβ ′ +fα ¯fα ′ ¯fβ ′)⟨α′β′|v|λα⟩Aδβλ ′ ](fλ ′ −fλ ), (B20)
+C(α′α :λ1λ2λ′
+1λ′
+2) = B(λ′
+1λ′
+2λ1λ2 :αα′), (B21)
+D(α′β′αβ :λ1λ2λ′
+1λ′
+2) = F 0
+λ 1λ 2λ ′
+1λ ′
+2
+{(ǫα ′ +ǫβ ′ −ǫα −ǫβ )A(δαλ ′
+1
+δβλ ′
+2
+)A(δα ′λ 1δβ ′λ 2 )
++ (1 −fα ′ −fβ ′)⟨α′β′|v|λ1λ2⟩AA(δαλ ′
+1
+δβλ ′
+2
+)
+− (1 −fα −fβ )⟨λ′
+1λ′
+2|v|αβ⟩AA(δα ′λ 1δβ ′λ 2 )
++ ( fα −fα ′)[⟨α′λ′
+1|v|αλ1⟩Aδβ ′λ 2δβλ ′
+2
++ ⟨α′λ′
+2|v|αλ2⟩Aδβ ′λ 1δβλ ′
+1
+− ⟨α′λ′
+1|v|αλ2⟩Aδβ ′λ 1δβλ ′
+2
+− ⟨α′λ′
+2|v|αλ1⟩Aδβ ′λ 2δβλ ′
+1
+]
++ ( fβ −fβ ′)[⟨β′λ′
+1|v|βλ1⟩Aδα ′λ 2δαλ ′
+2
++ ⟨β′λ′
+2|v|βλ2⟩Aδα ′λ 1δαλ ′
+1
+− ⟨β′λ′
+1|v|βλ2⟩Aδα ′λ 1δαλ ′
+2
+− ⟨β′λ′
+2|v|βλ1⟩Aδα ′λ 2δαλ ′
+1
+]
+− (fα −fβ ′)[⟨β′λ′
+1|v|αλ1⟩Aδα ′λ 2δβλ ′
+2
++ ⟨β′λ′
+2|v|αλ2⟩Aδα ′λ 1δβλ ′
+1
+− ⟨β′λ′
+1|v|αλ2⟩Aδα ′λ 1δβλ ′
+2
+− ⟨β′λ′
+2|v|αλ1⟩Aδα ′λ 2δβλ ′
+1
+]
+− (fα −fβ ′)[⟨β′λ′
+1|v|αλ1⟩Aδα ′λ 2δβλ ′
+2
++ ⟨β′λ′
+2|v|αλ2⟩Aδα ′λ 1δβλ ′
+1
+− ⟨β′λ′
+1|v|αλ2⟩Aδα ′λ 1δβλ ′
+2
+− ⟨β′λ′
+2|v|αλ1⟩Aδα ′λ 2δβλ ′
+1
+]}. (B22)
+IfS1x andS2X which appear in the equation for X, that is, Bx +DX =ωS2X, are replaced by x andX, respectively,
+the equation for X is equivalent to eq.(4). However, the replacement S1x →x and S2X →X in Ax +CX =ωS1x
+cannot give eq.(3) because of the symmetric coupling between x and X. Since the expression for C (eq.(B8) is not
+unique as mentioned above, we can always take an expression for C which leads to the same coupling matrix as in
+eq.(3) in the HF limit. Such an expression for C is the following:
+C(α′α :λ1λ2λ′
+1λ′
+2) = F 0
+λ 1λ 2λ ′
+1λ ′
+2
+(⟨α′λ′
+2|v|λ1λ2⟩Aδλ ′
+1α − ⟨α′λ′
+1|v|λ1λ2⟩Aδλ ′
+2α
+− ⟨λ′
+1λ′
+2|v|αλ2⟩Aδλ 1α ′ + ⟨λ′
+1λ′
+2|v|αλ1⟩Aδλ 2α ′). (B23)
+[1] P. Chomaz and N. Frascaria, Phys. Rep. 252, 275 (1995); T. Aumann, P. F. Bortignon, H. Emling, Ann. Rev. Nucl. Part.
+Sci. 48 (1998) and references therein.
+[2] C. A. Bertulani and V. Y. Ponomarev, Phys. Rep. 321, 139 (1999).
+[3] G. Berstch and S. Tsai, Phys. Rep. C 18, 125 (1975).
+[4] J. Sawicki, Phys. Rev. 126, 2231 (1962); J. Da Providencia, Nucl. Phys. 61, 87 (1965).
+[5] C. Yannouleas, Phys. Rev. C 35, 1159 (1987).
+[6] S. Dro˙ zd˙ z et al., Phys. Rep.197, 1 (1990).
+[7] M. Tohyama and M. Gong, Z. Phys. A 332, 269 (1989).
+[8] W. Kohn, Phys. Rev. 123, 1242 (1961).
+[9] L. Brey, N. F. Johnson, and B. I. Halperin, Phys. Rev. B 40, 647 (1989).
+[10] J. F. Dobson, Phys. Rev. Lett. 73, 2244 (1994).
+[11] S. J. Wang and W. Cassing, Ann. Phys. 159, 328 (1985); W. Cassing and S. J. Wang, Z. Phys. A 328, 423 (1987).
+[12] D. Vautherin and N. Vinh Mau, Nucl. Phys. A 422, 140 (1984).
+[13] H. M. Sommermann, Ann. Phys. 151, 163 (1983).
+[14] K. And¯ o, A. Ikeda, and G. Holzwarth, Z. Phys. A 310, 223 (1983).
+[15] S. Adachi and P. Schuck, Nucl. Phys. A 496, 485 (1989).
+[16] P. Danielewicz and P. Schuck, Nucl. Phys. A 567, 78 (1994).
+[17] N. Kanesaki, T. Marumori, F. Sakata and K. Takada, Prog. Theor. Phys. 50, 867 (1973).
+15
+[18] M. Tohyama, Phys. Rev. C 64, 067304 (2001).
+[19] M. Tohyama and A. S. Umar, Phys. Lett. B 549, 72 (2002).
+[20] D. J. Rowe, Rev. Mod. Phys. 40, 153 (1968).
+[21] M. Tohyama, Z. Phys. A 335, 413 (1990).
+[22] M. Tohyama, P. Schuck and S. J. Wang, Z. Phys. A 339, 341 (1991).
+[23] M. Tohyama, Prog. Theor. Phys. 94, 147 (1995).
+[24] M. Tohyama, Phys. Rev. C 58, 2603 (1998).
+[25] M. Tohyama and A. S. Umar, Phys. Lett. B 516, 415 (2001).
+[26] K. Takayanagi, K. Shimizu and A. Arima, Nucl. Phys. A 477, 205 (1988).
+[27] K. Hara, Prog. Theor. Phys. 32, 88 (1964).
+[28] D. J. Rowe, Phys. Rev. 175, 1283 (1968).
+[29] J. G. Hirsch, A. Mariano, J. Dukelsky and P. Schuck, Ann. Phys. 296, 187 (2002) and references therein.
+[30] Y. Nambu and G. Jona-Lasinio, Phys. Rev. 122, 345 (1961).
+[31] M. Gell-Mann, R. J. Oakes, and B. Renner Phys. Rev. 175, 2195 (1968).
+[32] W. Cassing, K. Niita and S. J. Wang, Z. Phys. A 331, 439 (1988).

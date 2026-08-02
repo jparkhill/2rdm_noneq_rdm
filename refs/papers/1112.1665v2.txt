@@ -1,0 +1,755 @@
+Exciton coherence lifetimes from electronic structure
+John A. Parkhill,1, a) Alan Aspuru-Guzik,1, b) and David Tempel2
+1)Department of Chemistry and Chemical Biology, Harvard University,
+12 Oxford St. Cambridge, MA 02138, USA
+2)Department of Physics, Harvard University, 17 Oxford St. Cambridge, MA 02138,
+USA
+We model the coherent energy transfer of an electronic excitation within covalently
+linked aromatic homodimers from ﬁrst-principles, to answer whether the usual models
+of the bath calculated via detailed electronic structure calculations can reproduce the
+key dynamics. For these systems the timescales of coherent transport are experimen-
+tally known from time-dependent polarization anisotropy measurements, and so we
+can directly assess the whether current techniques might be predictive for this phe-
+nomenon. Two choices of electronic basis states are investigated, and their relative
+merits discussed regarding the predictions of the perturbative model. The coupling
+of the electronic degrees of freedom to the nuclear degrees of freedom is calculated
+rather than assumed, and the ﬂuorescence anisotropy decay is directly reproduced.
+Surprisingly we ﬁnd that although TDDFT absolute energies are routinely in error
+by orders of magnitude more than the coupling energy, the coherent transport prop-
+erties of these dimers can be semi-quantitatively reproduced from ﬁrst-principles.
+The directions which must be pursued to yield predictive and reliable prediction of
+coherent transport are suggested.
+Keywords: TDDFT, CRET, Coherence, electron-phonon coupling
+a)Electronic mail: john.parkhill@gmail.com
+b)Electronic mail: aspuru@chemistry.harvard.edu
+1
+arXiv:1112.1665v2  [physics.chem-ph]  13 Dec 2011
+
+I.
+INTRODUCTION
+Recent experimental evidence of coherent electronic energy transport at biologically rel-
+evant physical scales has spurred studies of the basic dynamics1, and new methods for
+propagating the quantum system state2–4 as it interacts with the environment we cannot
+fully characterize. However detailed pictures of how the quantum state couples to the bath
+are usually absent from these studies, which often assume an environment characterized by
+a small number of parameters (for example a spectral density of the Drude-Lorentz form5).
+Models for the electronic coupling usually vary in detail6–11 between the dipole approxi-
+mation and the single-particle Coulomb interaction, but quantum many-particle eﬀects are
+assumed to be negligibly small. It is not clear from the literature12 at present day how well
+electronic structure theory can provide all the parameters which are required to produce the
+timescale of coherence decay. To address this we focus on excitonic dimers13 as prototypes
+of coherent transport. At the outset the task would seem ambitious since the couplings
+between chromophores are typically on the order of 300cm−1 ≈1 kcal/mol. Excited state
+methods which can be aﬀorded for molecules of this size, mainly time-dependent density
+functional theory(TDDFT), are routinely in error14,15 by 1600cm−1. This, and the large
+size of the systems of interest, are likely the underlying reason why atomistic calculations of
+decoherence dynamics are so infrequent in the literature.
+Recently an experiment16 has characterized coherent resonant energy transfer (CRET)
+in a closely related family of anthracene dimers (1). In this investigation an exciting fem-
+tosecond pulse of linearly polarized light prepares a superposition of electronic states on
+a pair of identical chromophores. Then over the course of about a picosecond, the time-
+dependent ﬂuorescence is detected by upconversion with polarization sensitivity. The oscil-
+lations of the ﬂuorescence anisotropy (r(t)) measured in these experiments are a marker of
+coherent transport (as demonstrated in the pioneering work of Hochstrasser17 and cowork-
+ers). The three dimers, [2,2’] dithia-anthracenophane (DTA), 3,5-bis(anthracen-2-yl)-tert-
+butylbenzene (MDAB) and 1,2-bis-(anthracen-9-yl)benzene (ODAB), are all derivatives of
+anthracene. Theoretically DTA has been examined18 by the groups of Cina19,20 and Jang21,
+who supported the picture of coherent transport. The latter work provided direct calcula-
+tions of the Coulomb coupling within a model-Hamiltonian picture of transport, and used
+DTA as a test-bed for an eﬃcient new theory of CRET22,23. Building on this previous work,
+2
+
+this paper elucidates how well electronic structure can provide an ab-inito master equation
+for this phenomenon without assumption of site localized states, or classical coulomb(J)
+coupling.
+A perturbative master equation approach is one tool in a set of complementary ap-
+proaches to the exciton transport problem where nuclear (phonon) motion is the dominant
+bath. The main advantage of the master equation approach is it provides a reduced system
+density matrix, and only requires perturbative information provided by derivatives of sys-
+tem matrix elements and models of bath correlation functions. It should be viewed as the
+most aﬀordable approach, and is feasible whenever the closed electronic dynamics can also
+be propagated, and the bath correlation function is known. Sophisticated and sometimes
+formally-exact master equations which incorporate non-Markovian eﬀects through auxiliary
+density matrices that propagate along with the system3,24–27 are a diﬃcult starting point for
+atomistic simulations because the cost which is already signiﬁcant with model-hamiltonians
+increases further in a non-linear way with the structure of the bath correlation function and
+number of system modes. If the bath correlation function cannot be approximated by a
+harmonic model28 and requires nuclear dynamics29–31, the situation becomes rapidly more
+diﬃcult. Moving towards increased accuracy and increased cost, there are several dynamical
+simulation techniques which can propagate electrons coupled to nuclei32,33, such as: surface
+hopping (SH)34–36, Ehrenfest dynamics37–39, and semi-classical approaches40,41. These suﬀer
+from some diﬃculties of their own; the latter two do not preserve detailed balance without
+modiﬁcation, and the former is not an acceptable model for coherence dephasing without
+some additions42 which are topics of current study. At the peak of accuracy there are for-
+mally exact path-integral based approaches43 which have provided vital insight into open
+quantum systems, but are a diﬃcult starting point for complex simulations.
+In this work we employ the Redﬁeld44,45 master equation. We will see below that within
+our simulations the couplings between states are so much larger than the reorganization en-
+ergies that Redﬁeld theory is appropriate for this application46 and can furnish good results.
+However it is a perturbative model and fails entirely when the electronic couplings are small
+relative to the bath strength. For this reason it has been reﬁned by more sophisticated,
+non-Markovian models which can replace it with little additional cost. In particular the
+polaron transformed theory47 of coherent transport22,23 is an attractive starting point for a
+master equation which hybridizes a correlated electron Liouville equation with a rigorous
+3
+
+FIG. 1: Excitonic dimers considered in this study, from left-to-right [2,2’]
+dithia-anthracenophane (DTA), 3,5-bis(anthracen-2-yl)-tert-butylbenzene (MDAB) and
+1,2-bis-(anthracen-9-yl)benzene (ODAB).
+bath model. This direction should be pursed in future research.
+II.
+THEORY
+We wish to reproduce the decaying oscillations of the ﬂuorescence anisotropy. The start-
+ing point of our analysis is the usual Liouville-Von Neumann equation48 for the full unitary
+evolution of a molecule linearly coupled to a harmonic phonon bath,
+˙σ = iLσ = i[ ˆH, σ], where:
+ˆH = ˆHelec + ˆHph + ˆHelec-ph
+(1)
+and σ is the full density matrix describing both electronic and nuclear degrees of freedom.
+We now introduce fermionic operators ai and a†
+i, which respectively destroy and create an
+electron in an arbitrary many-electron state i (the exact nature of the electronic states is
+discussed below). Diﬀerent choices yield diﬀerent dimensionless displacements diα. Similarly,
+we introduce bosonic operators bα and b†
+α, which respectively destroy and create a vibrational
+excitation in mode α. We expand the terms in the molecular Hamiltonian and density matrix
+in terms of these basis states as,
+ˆHelec = (hij + δijωαd2
+iα/2)a†
+jai,
+(2)
+ˆHph = ωα(b†
+αbα + 1
+2),
+(3)
+ˆHelec-ph = ωαdiαa†
+iai(b†
+α + bα),
+(4)
+σ = ρija†
+iaj × ραβb†
+αbβ.
+(5)
+4
+
+Here, diα is a dimensionless parameter measuring the strength of coupling of the ith elec-
+tronic state to vibrational mode α. Atomic units are used throughout this paper and it is
+assumed that repeated indices are to be summed over. In Eq. (2), we see that in addition
+to the usual matrix elements hij of the electronic Hamiltonian, ˆHelec includes an additional
+contribution from reorganization energies of the bath, ωαd2
+iα/2.
+In order to simulate CRET, 1 must be integrated for a few picoseconds. It is not yet
+feasible49,50 to perform all-electron propagations for systems of this size over periods of time
+which are so long on the electronic timescale. Instead, we will treat the nuclear dephasing
+using a master equation, and propagate only an electronic density matrix. We propagate the
+electronic density matrix using TDDFT within the Tamm-Dancoﬀapproximation (TDA)51,
+which obeys an equation of motion for an auxiliary one-particle density matrix which is the
+same as the electronic part of 1. Without the added approximation of the TDA, TDDFT
+(and TDHF) are non-linear, because of the dependence of the Fock operator on the state.
+As a result, resonant coherent Rabi oscillations don’t properly appear in the adiabatic ap-
+proximation, as was recently realized52.
+In principle, properties beyond the electron density can be provided with the addition of
+new functionals. For the purposes of this work we make the assumption that the Kohn-
+Sham density matrix is a reasonable approximation to the true density matrix. This is a
+necessary ﬁrst approximation to make headway, and can be relaxed by employing dynamical
+models which do rigorously provide the 1RDM53. We make a small-matrix approximation to
+a Kohn-Sham-Redﬁeld scheme to evaluate the usefulness of a harmonic bath model. In the
+Kohn-Sham-Redﬁeld54 scheme, the Kohn-Sham single-particle density matrix ρks is propa-
+gated according to a Redﬁeld master equation (see below). We choose the TDA from the
+outset, and assume that an approximate propagation spanned by the space of adiabatic
+stationary states (ψi) coming from TDDFT/TDA with energies below 6eV (the sum of ex-
+citation energy and pulsewidth) is suﬃcient to represent the combined dynamics. Coupling
+between the states will occur via the dipole operator during excitation and the Redﬁeld
+relaxation operator described below. Transition moments between states evaluated at this
+level of detail55, add a time-dependent oﬀ-diagonal term to ˆHelec, ˆV j
+i (t) =⃗E(t) · µij. With a
+more realistic density matrix than the Kohn-Sham density matrix these moments between
+states would change most signiﬁcantly.
+At this point it’s convenient to collect the time independent pieces of ˆH and work in a
+5
+
+basis which diagonalizes this part of ˆH. To this approximate electronic Liouville equation
+from electronic structure, we add dissipative terms56,57 of a Markovian Redﬁeld equation,
+aﬀording an eﬀective dynamics of the reduced system density matrix in the presence of the
+bath. The resulting Liouville equation is:
+˙ρIJ = i( ˆHIKρKJ −ρIK ˆHKJ) + RIJKL(t)ρKL(t)
+(6)
+RIJKL = ΓLJIK + Γ∗
+KIJL −δJLΓIMMK −δIKΓJMML
+(7)
+ΓIJKL(t) =
+X
+α,i,j
+Z ∞
+0
+dteiωKLtCα
+ij(t)⟨I|a†
+iai|J⟩⟨K|a†
+jaj|L⟩
+(8)
+Indices I, J have been capitalized to reﬂect the possibility that the basis of 8 may cho-
+sen diﬀerently than the basis of 1.
+For the purposes of electronic energy transport in
+molecules, the classic description of the bath, following Huang58, is the vibrations which
+underly the molecule itself.
+To provide an independent mode displaced harmonic oscil-
+lator model (IMDHO) for the correlation function of these bath modes (α, β..), a nu-
+clear Hessian calculation is performed. Cα
+i,j is the thermal equilibrium correlation function
+⟨(dα
+i ωαˆxα(t))(dβ
+j ωβˆxβ(0))⟩.
+In the IMDHO model this only contributes for α = β.
+The
+coupling constant between the states is then the so-called Huang-Rhys factor. Assuming
+that the potential surfaces of the lower and upper states are harmonic wells of the same
+frequency59, this coupling constant is given by the gradient of the diagonal electronic matrix
+element projected onto the mode and the mode frequency via:
+Siα = ωαd2
+iα
+2
+where diα = ω−1
+α
+δ⟨i| ˆH|i⟩
+δQα
+(9)
+diα =
+X
+rn
+δ⟨i| ˆH|i⟩
+δrn
+U α
+n (mn
+√ωα)−1/2
+(10)
+where diα is the dimensionless displacement, n is an atom with mass mn, and U α
+n is the carte-
+sian mass-weighted normal mode coordinate. The correlation function of a single nuclear
+mode is then given by the usual60 expression:
+Cα
+ij(t) = ω2
+α
+diαdjα
+2
+[(¯nα + 1)e−iωαt + (¯nα)eiωαt] where: ¯nα = (e(βℏωα) −1)−1
+(11)
+6
+
+FIG. 2: An example of the bath correlation functions produced from the approximations of
+this paper. Cmn(ω) is constructed for every pair of states below 6.5eV within the IMDHO
+model, and used to construct the Redﬁeld tensor.
+In a solution of tetrachloroethylene, the redistribution of vibrational quanta in anthracene
+has been studied at room temperature, with time-resolved Raman techniques and found to
+occur on timescales between 1-10ps61, which would correspond to a homogeneous vibrational
+linewidth of 5cm−1 for one pair of modes. In addition to all the approximations above,
+we assume a Lorentzian broadening of the harmonic thermal correlation function by Γ =
+40cm−1, due to anharmonicity and collisions with the surrounding medium. Diabatic results
+are relatively insensitive to choices of this parameter (pure-dephasing lifetimes vary by less
+than a factor of two for reasonable values). The BLYP/6-31g** pure-dephasing lifetimes of of
+the bright states in DTA and MDAB are .894 and .566 ps with Γ = 40cm−1, for Γ = 100cm−1
+the same two numbers are .900 and .564 ps. The result of this series of approximations are
+correlation functions between each state which resemble the sum of Lorentzian peaks in
+2. These functions are diﬀerent for every pair of states. In the direction of further rigor,
+correlation functions can be collected from classical or semi-classical dynamics calculations,
+or zero-frequency pure-dephasing contributions may be calculated from anharmonicities62 of
+the excited state surface.
+The experimental observable we seek to reproduce is the ﬂuorescence anisotropy r(t) =
+7
+
+(I∥(t)−I⊥(t))/(I∥(t)+2I⊥(t)). Where I∥the ﬂuorescence intensity parallel to the stimulation
+polarization. Factoring out the transition moments of the detector, and making the rotating
+wave approximations, ﬂuorescence intensity is given63 by the dipole dipole autocorrelation
+function: Iγδ(t) ∝Tr(ˆρ0ˆµγeiLtˆµδ) where ρ0 = |0⟩⟨0| is the ground state and γ, δ cartesian
+indices. To spherical average in a numerical propagation of the Redﬁeld equation, we apply
+an 80fs pulse to three orthogonal directions of the molecule with a carrier frequency that
+is the average energy of the ﬁrst four excited states, resulting in a coherent superposition
+of populated states 3. The polarization which results in all three directions over time is
+then used to create a Iγδ(t). The anisotropy is then evaluated at each time using the usual
+formulas64. r(t) = (1 −ρdp)/(1 + 2ρdp), where the depolarization ratio ρdp is determined
+from the isotropic and anisotropic tensor invariants of Iγδ. The ﬁt of Yamazaki’s data with
+the functional form of Hochstrasser:
+r(t) =
+0.1
+1 + e
+−2t
+T ′
+2 C
+
+(1 + 3C) + 3(1 −C)e
+−t
+T ′
+2 ∗Cos(ωosct + δ) + (3 + C)e
+−2t
+T ′
+2
+
+where C = Cos2θ and ωosc = 4β2 −(T
+′
+2)−2
+(12)
+is used to represent the experiment in this work.
+Since we use a many-state model we
+interpret β, and T
+′
+2 as eﬀective couplings and dephasing times respectively. θ is related to
+the angle between transition moments, and δ is a phase-shift.
+A.
+Choice of basis and solvation
+As in the perturbation theory of the electron-correlation problem65, the choice of basis
+states used in Eq. 10 has a signiﬁcant impact on the results of master equations. This is
+well-appreciated in the polaron-transform approach of Silbey and coworkers66. In most ap-
+plications of master equations to excitonic systems, a somewhat local basis is assumed67, in
+which ˆHelec is not diagonal, and the system-bath coupling is also only assumed to occur only
+on the diagonal elements of the density matrix. These diagonal bath couplings are rotated
+oﬀthe diagonal when the zeroth-order Hamiltonian is formed (which includes electronic and
+bath reorganization contributions) and thus provide relaxation between the stationary states
+when the dynamics is performed. This model which resembles the Holstein hamiltonian67
+does not emerge directly from electronic structure theory. The question becomes how to
+8
+
+FIG. 3: An example of how the [2,2’] dithia-anthracenophane(DTA) state populations
+evolve under the application of an 80fs oscillating electric ﬁeld of 0.05 au along one of three
+axes (denoted by the red arrow in the ﬁgure). On the right, the corresponding stick
+spectra are shown, with and without reorganization energy, and in blue the envelope of the
+exciting pulse.
+deﬁne an atomistic prescription for R without resorting to dynamics.
+If one naively choses the excited states of a single electronic structure calculation to pre-
+pare a master equation, ie: hij = 0 (∀i̸ = j), there are several problems. In the Markovian
+case adiabatic state-derivatives only contribute to R via C(ω) at ω = 0, where there are
+no physical vibrational peaks on which the gradient can be projected in Eq.(10). Rigorous
+pure-dephasing contributions at this frequency can be related to anharmonicities62 which
+are too expensive to calculate for systems of this size. If ﬂuctuations of non-adiabatic cou-
+plings dmn(R) = ⟨m| d
+dR′|n⟩|(R′=0) under the equilibrated bath were included this would no
+longer be the case. The reorganization energy corresponding to dmn would also result in
+mixed zeroth-order states, which would to some extent be localized. However the success of
+a gradient-based IMDHO model for the spectral density of a non-adiabatic coupling would
+not be very good, because the non-adiabatic coupling’s shape68 is very far from that of a
+harmonic oscillator, and near zero at equilibrium. One would need to resort to optimizing
+this quantity, or performing dynamics to determine a dimensionless displacement. Moreover
+there is an issue that the couplings between excited states are second order response proper-
+ties of the TDDFT Lagrangian and have not yet been reported for DFT69.
+9
+
+In an entirely detailed picture, a reorganization Hamiltonian for solvent polarization de-
+grees of freedom which are very slow on the electronic timescale, and have little impact on
+the dynamics, would localize the electronic states of the system. One eﬀective way to incor-
+porate these eﬀects into our simulation is to adopt a recently implemented diabatization70,71
+procedure invented by Subotnik and coworkers which mixes the CIS (or TDA) states with
+one-another such that their interaction with an implied dielectric is minimized. Again the
+electron-phonon coupling is taken to be diagonal in the electronic basis, although the Hamil-
+tonian now has oﬀ-diagonal Coulomb and exchange (if it is present in the density functional)
+coupling. An admitted drawback of this procedure is that the poles of the 0th order Hamil-
+tonian are not shifted by their interaction with the solvent model, however the ease of cal-
+culation and the results we will obtain strongly support the usefulness of this idea. Because
+the gradients of the diagonal elements of these states are no longer analytically available,
+we have evaluated the gradient of the diabatic Hamiltonian provided by this procedure by
+central diﬀerences.
+III.
+RESULTS
+A.
+Stationary parameters.
+The vertical (ωB97//6-31g**)72 TDDFT excitation spectrum of a single anthracene
+molecule has two poles below 5eV at 4.28, and 4.43 eV, with only the lower state possessing
+signiﬁcant oscillator strength. This is a reasonable reproduction73 bright 1B1u and dark 1B2u
+states which occur experimentally at 3.43 and 3.47 eV respectively. For some of the dimers
+studied the stick spectrum which results can be rationalized as simple mixture of these
+states: with two bright states coming from symmetric and antisymmetric combinations of
+the bright states amongst themselves. The dark states, whose realism was questioned in
+previous work21, appear to have charge-transfer character, and their relative position to
+the bright states in the spectrum changes depending on whether an asymptotically correct
+exchange functional is used or not.
+The TDDFT stick spectra are in good qualitative
+agreement with a correlated wavefunction based74,75 excited state theory (I). The low lying
+dark states are likely real, and indeed in our dynamics simulations they are involved in
+population relaxation of the bright states.
+10
+
+The semi-quantitative agreement of electronic couplings (β) with the experimental
+Method
+Species
+State 1
+State 2
+State 3
+State 4
+RI-SOS-CIS(D0)
+DTA
+3.83, f=0.077 3.84, f=0.047 3.89, f=0.104 3.89, f=0.026
+MDAB 3.89, f=0.003 3.90, f=0.004 4.00, f=0.150 4.01, f=0.175
+ODAB 3.93, f=0.023 3.95, f=0.001 3.98, f=0.158 4.05, f=0.266
+B3LYP
+DTA
+2.84 , f=0.002 2.85, f=0.002 3.22, f=0.043 3.26, f=0.069
+MDAB 3.19, f=0.001 3.20, f=0.001 3.37, f=0.153 3.38, f=0.050
+ODAB 3.00, f=0.032 3.07, f=0.021 3.37, f=0.104 3.44, f=0.128
+TABLE I: Singlet excited state energies (eV) and oscillator strengths, f, produced by
+RI-CIS(D0)//cc-pvdz follow the same trends as the B3LYP results, although the values of
+the couplings are more poorly reproduced.
+oscillation periods is the most diﬃcult aspect of the experiment to reproduce with TDDFT,
+although it was not the focus of this work. If the Hamiltonian is expressed in a basis of
+localized, degenerate states β is the oﬀdiagonal element between two states. In the basis
+of states adiabatic which diagonalize the electronic Hamiltonian, it is related to half the
+gap between the energies of the bright states. The experimental estimate of β from the
+oscillation period depends on a 2-state model, and the subtraction of a relaxation lifetime.
+Theoretical models depend on either perturbation theory of monomer densities which have
+been separated in an ad-hoc way, or a splitting between adiabatic energies. The latter,
+super-molecule approach is more realistic and can capture whatever electron interaction ef-
+fects are present in the underlying electronic structure model (although the perfect mixture
+of the two states is assumed). Because of the uncontrolled nature of the approximations
+relating the experimental β and electronic state gap, one should view direct comparison of
+the experimental and calculated β semi-quantitatively. Only the ﬁnal simulated oscillation
+should be directly comparable to the experiment. Still if the adiabatic state-splitting is
+more than an order of magnitude larger than the experimental β no reasonable simulation
+will be possible, because the reorganization energies will not shift the oscillation into the
+correct regime.
+The previous work21 calculated state couplings for DTA from energy diﬀerences, tran-
+sition densities, and the dipole approximation, with several choices of density functional
+and geometry. Solvent eﬀects on the coupling were also calculated (and found to be small
+≈7cm−1).
+A range of values between 44 and 144 cm−1 was obtained, and the authors
+identiﬁed the agreement with the experimental values as somewhat fortuitous.
+We ﬁnd
+11
+
+that for these covalently bonded dimers, going up-to exchange eﬀects is insuﬃcient (II) to
+reproduce the qualitative trend in coupling energy. In II we calculate the coupling energy
+with increasingly sophisticated electronic structure models.
+The basis is held constant,
+but even in larger bases the conclusions remain the same (see III). In the ﬁrst column the
+monomers interact mostly via a classical coulomb interaction because the electronic struc-
+ture lacks long-range exchange. The qualitative trend is correct. In the second and third,
+more exchange is added and the relative agreement becomes worse. Finally with exchange
+and a second-order treatment of correlation, good relative agreement is obtained. It seems
+possible that coulomb only methods (TDC, BLYP, dipole-dipole, etc.) beneﬁt from some
+cancellation of non-local exchange and correlation errors.
+These ﬁndings are in keeping with existing work12,76 which has found that Forster and
+Dexter coupling are insuﬃcient for nearby molecules, and indeed in error up to a factor of
+two. It seems likely that for these systems separated by less than 5 Angstrom, long-range
+correlation eﬀects are required to reproduce the correct trend of energy splittings. Solvation
+eﬀects on related chromophore pairs have been studied more thoroughly than medium-range
+correlation, and are known to be meaningful11. The roughly twenty percent reductions of
+the coupling relative to vacuum have been reported for naphthalene dimer in a continuum
+model of hexane. Ideally we would fully treat both eﬀects, unfortunately, the costs of these
+calculations are prohibitive for pursuing them as the basis for the decoherence rate.
+We do not challenge the validity of the transition dipole, or transition density cube77
+approximations when applied to distant chromophores. Rather we are suggesting that in
+cases of nearby chromophores where long-range correlation would be considered a prereq-
+uisite for ground state thermochemistry78, it’s likely also necessary to reproduce excitonic
+couplings79. Correlated wave-function based models, or double hybrids should be applied to
+these problems if possible. Simply choosing experimental couplings, would be inappropriate
+since the basis of adiabatic electronic states from which we calculate C(t), and the exper-
+imentally accessed states are diﬀerent. This approach would also have diﬃculty accessing
+the dark charge-transfer states. Phenomenological approaches which combine experimental
+energies with experimental bath parameters are consistent and successful. However combin-
+ing calculated electronic spectra with experimental bath correlation functions ignores the
+diﬀerence between the basis states of the experiment and the calculation.
+12
+
+BLYP B3LYP ωB97 RI-SOS-CIS(D)0 Exp.
+DTA
+64
+150
+220
+4
+14
+MDAB
+88
+84
+20
+18
+29
+ODAB
+266
+284
+429
+273
+51
+TABLE II: State couplings β(cm−1) as estimated from half the diﬀerence of bright excited
+state energies in the cc-pvdz basis for various methods diﬀering in their treatment of
+exchange and correlation. The agreement is best with the addition of long-range
+correlation (last column). The addition of exchange appears to worsen the results. Basis
+set dependence is addressed below.
+B3LYP BLYP
+DTA
+144
+93
+MDAB
+90
+80
+ODAB
+257
+246
+TABLE III: State couplings β(cm−1) as estimated from half the diﬀerence of bright excited
+state energies in the QZVP basis. With this basis these quantities are nearly converged
+with respect to basis-set size, but TDDFT is still unable to reproduce the qualitative trend.
+IV.
+DIFFICULTY OF AN ADIABATIC APPROACH.
+We have already outlined several diﬃculties of using adiabatic states in a Kohn-Sham
+Redﬁeld scheme. Within the Markovian approximation bath correlation only appears at
+zero-frequency. Another problem which aﬄicts both choices of basis to some degree is the
+anharmonic structure of the bath correlation function. It is always possible to write a linear
+system-bath coupling in terms of HO’s80, but the appropriateness of the IMDHO, or even an
+oscillator model with frequency changes for a dimer system depends on the strength of the
+vibronic interaction81. The adiabatic states often do not resemble displaced harmonic oscil-
+lators (4), but rather possess a double-well type structure, which means that even a proper
+Markovian master equation would require dynamics to obtain the bath correlation function.
+In the case of most modes, this is repaired within the quasi-diabatic states. Some other
+diabatization82 procedures directly mix states to eliminate electron nuclear coupling, and
+along these lines one could construct a basis which leaves the electronic surfaces optimally
+harmonic which would be useful for a rudimentary model of nuclear motion. In any case
+the coherence lifetimes produced (IV) from our simulations based on adiabatic states are in
+much poorer agreement with the experimental lifetimes than those using the procedure of
+Subotnik and co-workers, as discussed further below. Because only the zero-frequency part
+13
+
+of the correlation function is meaningful for work based on an adiabatic basis.
+FIG. 4: Energies of adiabatic, and quasidiabatic transfer states as a function of
+dimensionless displacement along [2,2’] dithia-anthracenophane’s 19th(left), and 37th(right)
+normal mode. In the ﬁgure on the left it’s immediately clear by inspection that the
+diabatic states are more harmonic than the adiabat’s. The ﬁgure on the right is an
+example where the accuracy of using Eqn. 11 is questionable.
+Adiabatic
+Diabatic
+Species Exp. B3LYP/TZVP B3LYP/6-31g*
+DTA
+1.20
+2.14
+1.40
+MDAB 0.73
+0.03
+1.80
+ODAB 1.02
+0.12
+1.39
+TABLE IV: Pure-dephasing time (ps) between the two brightest states (1/Rmnmn), as
+obtained from two diﬀerent choices of electronic basis, compared to the experimental T ’
+2.
+V.
+QUASI-DIABATIC APPROACH.
+The experiments16,83 provide noisy oscillating ﬂourescence anisotropy curves, which were
+ﬁt in that work to Hochstrasser’s17 functional form. We have directly compared the polar-
+ization anisotropy decays produced in this work from ﬁrst principles, to the experimental
+data’s ﬁt curve. When examining 5, the reader should keep in mind the absence of any
+rotational relaxation in our simulated anisotropy, and allow for an arbitrary relative phase
+shift between the coherent oscillations of experiment and theory. A low-pass ﬁlter (a step
+function non-zero below .07Eh) has been applied to the calculated signal to remove high
+frequency components which might be averaged over by the detector response time. The
+14
+
+FIG. 5: (The polarization anisotropy decay of ODAB calculated in this work
+(ωB97//6-31g**), and compared to the analytically ﬁt experimental decay of Yamazaki.
+On the right the evolution of the real part of the coherence (ρ34(t) + ρ43(t)). The decay of
+the coherence between these two states is much faster than the decay of the observable.
+same simulation has been performed (IV) for all three molecules, in the hope that the rela-
+tive trend of the coherence lifetimes could be reproduced. Although with vibronic coupling
+emerging from a diabatic basis all the decoherence lifetimes are within a factor of two of
+their experimental counterparts, the delicate relative trend of the lifetime isn’t reproduced.
+This isn’t surprising given that the relative trend of couplings is also not reproduced. The
+anisotropy decay can be compared (5) with the evolution of the coherence between bright
+states, which largely correspond to the third and fourth states (ρ34(t)). This is the picture
+of decoherence which may come from a less-detailed model of the dynamics. The much more
+rapid decay of the coherence element signals the breakdown of a two-state model picture of
+the anisotropy. The anisotropy decays of DTA and mDAB are not shown, because in these
+cases the oscillations of the anisotropy are more than a factor of 5 too fast (because the
+couplings are so severely overestimated by TDDFT).
+VI.
+DISCUSSION AND CONCLUSIONS
+Cina’s previous work20 introduced a phenomenological 2-state (J = 22.9 cm−1) model
+of DTA coupled explicitly to an intra-chromophore vibration (ω12 = 385cm−1, d = .55).
+It was found that coherent vibrational dynamics could be used to modify the dynamics of
+excitation transfer, although only weakly in the case of DTA. In the theory of Jang and
+coworkers21 the electronic coherence oscillation period is given by the bare coupling renor-
+15
+
+malized by a bath contribution which depends on the parameters of a super-ohmic spectral
+density. Reversing these parameters such that they reproduce the experimental vibrational
+progression and oscillation period, they estimate a bare (purely electronic) coupling for DTA
+between 53 and 100cm−1, about 40cm−1 less than their B3LYP calculations. In this work
+the ODAB ﬂuorescence anisotropy decay, and the coherence lifetimes of MDAB and DTA
+are satisfactorily reproduced from a TDDFT/TDA based Redﬁeld model of the electronic
+system. However the TDDFT/TDA is found to overestimate bare electronic couplings of
+these dimers, and misses the relative trend with many choices of basis and functional. Long-
+range correlation is implicated as another physical eﬀect which reduces the bare Coulomb
+coupling.
+The theory of CRET is mature22,23 within its assumed model of the system and bath,
+but deriving those models from ﬁrst-principles electronic structure calculations is not yet
+routine. It should be pursued further, because two-state, uncorrelated models of the elec-
+tronic dynamics are now much less realistic than sophisticated4,84 treatments of system-bath
+correlation. An accurate calculation of the coupling between chromophores separated by less
+than 5 Angstroms likely requires a treatment of long-range correlation, beyond the scope of
+local TDDFT. However with available technology, a single calculation of excited energies for
+these molecules which treats long-range electron correlation is a somewhat demanding com-
+putation. To provide a fully predictive picture of coherent transport the cost of correlated
+electronic structure should be further reduced, and the CRET theories should be hybridized
+with a correlated, many-state Liouville equation. This paper suggests that a picture of the
+bath as broadened nuclear motion, where solvation serves to localize70,71 the electronic states
+provides reasonable qualitative predictions of the decoherence rate. Since our model of the
+ODAB ﬂuorescence anisotropy emerges directly from calculated data
+1.
+Computational Details
+Structures of [2,2’] dithia-anthracenophane (DTA), meta- Dianthraceneophane(MDAB)
+and ortho-Dianthraceneophane(ODAB) were optimized using the B3LYP85 functional and
+def2-TZVP basis86 (and auxiliary basis87) in the ORCA88 program package, the same model
+used to evaluate their harmonic vibrational frequencies and modes. These geometries and
+modes were re-used for excited state calculations. A local exchange approximation, COSX89
+16
+
+was also invoked. Transition moments between states and excitation energies were obtained
+from the Q-Chem program package90 evaluated as expectation values of the dipole opera-
+tor with TDA density matrices using the functionals and basis sets described in the text.
+The Redﬁeld equation was integrated with a 0.05 atomic unit timestep, via a basic 4th or-
+der Runge-Kutta propagation, after an 80fs gaussian-enveloped 0.05 atomic unit oscillating
+electric ﬁeld was applied as a stimulating pulse. The harmonic correlation function was
+evaluated at 273.15K.
+VII.
+ACKNOWLEDGMENTS
+This work was supported by the Defense Advanced Research Project Agency under Con-
+tract No .FA9550-08-1- 0285 and the Defense Threat Reduction Agency under Contract No.
+HDTRA1-10-1-0046. The authors thank Prof. Alex Einsfeldt, and Dr. Dmitrij Rappoport
+for valuable conversations. A.A.G. thanks the Camille and Henry Dreyfus and Sloan foun-
+dations for their generous support.
+REFERENCES
+1J. M. Dawlaty, D. I. G. Bennett, V. M. Huxter, and G. R. Fleming, J. Chem. Phys. 135,
+044201 (2011).
+2A. Ishizaki and G. R. Fleming, The Journal of Chemical Physics 130, 234110 (2009).
+3A. Ishizaki and G. R. Fleming, The Journal of Chemical Physics 130, 234111 (2009).
+4J. Zhu, S. Kais, P. Rebentrost, and A. Aspuru-Guzik, The Journal of Physical Chemistry
+B 115, 1531 (2011).
+5J. G. Ritschel, W. Roden, T. Strunz, and A. Eisfeld, “An eﬃcient method to calculate
+excitation energy transfer in light harvesting systems. application to the fmo complex,”
+ArXiv:1106.5259v1.
+6G. D. Scholes, Annual Review of Physical Chemistry 54, 57 (2003).
+7W. J. D. Beenken and T. Pullerits, J. Chem. Phys. 120, 2490 (2004).
+8C.-P. Hsu, Accounts of Chemical Research 42, 509 (2009).
+17
+
+9J. Guthmuller, F. Zutterman, and B. Champagne, The Journal of Chemical Physics 131,
+154302 (2009).
+10T. Renger, Photosynthesis Research 102, 471 (2009).
+11A. Munoz-Losa, C. Curutchet, I. F. Galvan, and B. Mennucci, The Journal of Chemical
+Physics 129, 034104 (2008).
+12E. Sagvolden, F. Furche, and A. K¨ohn, Journal of Chemical Theory and Computation 5,
+873 (2009).
+13A. H. Zewail and C. B. Harris, Phys. Rev. B 11, 935 (Jan 1975).
+14M. J. G. Peach, P. Benﬁeld, T. Helgaker, and D. J. Tozer, J. Chem. Phys 128, 044118
+(2008).
+15M. Schreiber, M. R. Silva-Junior, S. P. A. Sauer, and W. Thiel, J. Chem. Phys. 128,
+134110 (2008).
+16I. Yamazaki, N. Aratani, S. Akimoto, T. Yamazaki, and A. Osuka, JACS 125, 7192 (Jun.
+2003).
+17F. Zhu, C. Galli, and R. Hochstrasser, The Journal of Chemical Physics 98, 1043 (1993).
+18R. Kishi, M. Nakano, T. Minami, H. Fukui, H. Nagai, K. Yoneda, and H. Takahashi, The
+Journal of Physical Chemistry A 113, 5455 (2009).
+19A. Matro and J. Cina, The Journal of Physical Chemistry 99, 2568 (1995).
+20J. D. Biggs and J. A. Cina, J. Chem. Phys. 131, 224302 (2009).
+21L. Yang, S. Caprasecca, B. Mennucci, and S. Jang, Journal of the American Chemical
+Society 132, 16911 (Dec. 2010).
+22S. Jang, Y.-C. Cheng, D. R. Reichman, and J. D. Eaves, The Journal of Chemical Physics
+129, 101104 (2008).
+23S. Jang, J. Chem. Phys. 135, 034105 (2011).
+24Y. Tanimura and R. Kubo, Journal of the Physical Society of Japan 58, 101 (1989).
+25A. Ishizaki and Y. Tanimura, J. Chem. Phys. 123, 014503 (2005).
+26Q. Shi, L. Chen, G. Nan, R.-X. Xu, and Y. Yan, J. Chem. Phys 130, 084105 (2009).
+27C. Meier and D. J. Tannor, The Journal of Chemical Physics 111, 3365 (1999).
+28T. Gerdts and U. Manthe, Chemical Physics Letters 295, 167 (1998).
+29B. F. Habenicht, H. Kamisaka, K. Yamashita, and O. V. Prezhdo, Nano Letters 7, 3260
+(2007).
+18
+
+30S. Shim, P. Rebentrost, S. Valleau, and A. Aspuru-Guzik, “Microscopic origin of the long-
+lived quantum coherences in the fenna-matthew-olson complex,” ArXiv:1104.2943v1.
+31C. Olbrich, T. L. C. Jansen, J. Liebers, M. Aghtar, J. Str¨umpfer, K. Schulten, J. Knoester,
+and U. Kleinekath¨ofer, The Journal of Physical Chemistry B 115, 8609 (2011).
+32S. S. Iyengar and J. Jakowski, J. Chem. Phys 122, 114105 (2005).
+33C. T. Chapman, W. Liang, and X. Li, J. Chem. Phys. 134, 024118 (2011).
+34J. C. Tully and R. K. Preston, J. Chem. Phys. 55, 562 (1971).
+35C. F. Craig, W. R. Duncan, and O. V. Prezhdo, Phys. Rev. Lett. 95, 163001 (Oct 2005).
+36R. Mitric, J. Petersen, and V. Bonacic-Koutecky, Phys. Rev. A 79, 053416 (May 2009).
+37X. Li, J. C. Tully, H. B. Schlegel, and M. J. Frisch, The Journal of Chemical Physics 123,
+084106 (2005).
+38H. Kamisaka, S. V. Kilina, K. Yamashita, and O. V. Prezhdo, Nano Letters 6, 2295 (2006).
+39C. J. Margulis and D. F. Coker, J. Chem. Phys. 110, 5677 (1999).
+40G. Tao and W. H. Miller, The Journal of Physical Chemistry Letters 1, 891 (2010).
+41M. Ceotto, S. Atahan, G. F. Tantardini, and A. Aspuru-Guzik, J. Chem. Phys 130, 234113
+(2009).
+42J. E. Subotnik and N. Shenvi, J. Chem. Phys 134, 244114 (2011).
+43N. Makri and D. E. Makarov, J. Chem. Phys. 102, 4600 (1995).
+44A. G. Redﬁeld, IBM J. Res. Dev. 1, 19 (1957).
+45A. G. Redﬁeld, Adv. Magn. Reson. 1, 1 (1965).
+46P. Kjellberg and T. Pullerits, The Journal of Chemical Physics 124, 024106 (2006).
+47D. P. S. McCutcheon and A. Nazir, J. Chem. Phys 135, 114501 (2011).
+48Atomic units and the summation convention are assumed in all equations of this paper.
+49W. Liang, C. T. Chapman, and X. Li, J. Chem. Phys. 134, 184102 (2011).
+50T. Akama and H. Nakai, J. Chem. Phys. 132, 054104 (2010).
+51S. Hirata and M. Head-Gordon, Chemical Physics Letters 314, 291 (1999).
+52M. Ruggenthaler and D. Bauer, Phys. Rev. Lett. 102, 233001 (Jun 2009).
+53K. J. H. Giesbertz, K. Pernal, O. V. Gritsenko, and E. J. Baerends, J. Chem. Phys. 130,
+114104 (2009).
+54D. G. Tempel, M. A. Watson, R. Olivares-Amaya, and A. Aspuru-Guzik, The Journal of
+Chemical Physics 134, 074116 (2011).
+55D. L. Yeager, M. A. C. Nascimento, and V. McKoy, Phys. Rev. A 11, 1168 (1975).
+19
+
+56A. S. Leathers and D. A. Micha, The Journal of Physical Chemistry A 110, 749 (2006).
+57D. A. Micha, The Journal of Physical Chemistry A 103, 7562 (1999).
+58M. Born and K. Huang, Dynamical Theory of Crystal Lattices (Oxford University Press,
+1998).
+59T. Petrenko and F. Neese, Journal of Chemical Physics 127, 4319 (2007).
+60S. Mukamel, Principles of Nonlinear Optical Spectroscopy (Oxford University Press, 1995).
+61N. Gottfried and W. Kaiser, Chemical Physics Letters 101, 331 (1983).
+62V. May and O. Kuhn, Charge and Energy Transfer Dynamics in Molecular Systems (Wiley-
+VCH, 2004).
+63Z. Deng and S. Mukamel, Phys. Rev. A 29, 1914 (1984).
+64R. Zare, Angular Momentum (Wiley-Interscience, 1988).
+65R. C. Lochan and M. Head-Gordon, J. Chem. Phys. 126, 164101 (2007).
+66S. Rackovsky and R. Silbey, Molecular Physics 25, 61 (Jan. 1973).
+67T. Holstein, Annals of Physics 8, 325 (1959).
+68R. Valero, D. G. Truhlar, and A. W. Jasper, The Journal of Physical Chemistry A 112,
+5756 (2008).
+69R. Send and F. Furche, The Journal of Chemical Physics 132, 044107 (2010).
+70J. E. Subotnik, R. J. Cave, R. P. Steele, and N. Shenvi, The Journal of Chemical Physics
+130, 234102 (2009).
+71J. Vura-Weis, M. D. Newton, M. R. Wasielewski, and J. E. Subotnik, The Journal of
+Physical Chemistry C 114, 20449 (Dec. 2010).
+72J.-D. Chai and M. Head-Gordon, J. Chem. Phys. 128, 084106 (2008).
+73S. Zilberg, Y. Haas, and S. Shaik, The Journal of Physical Chemistry 99, 16558 (1995).
+74M. Head-Gordon, M. Oumi, and D. Maurice, Molecular Physics 96, 593 (1999).
+75Y. M. Rhee, D. Casanova, and M. Head-Gordon, The Journal of Physical Chemistry A
+113, 10564 (2009).
+76G. D. Scholes, K. P. Ghiggino, A. M. Oliver, and M. N. Paddon-Row, Journal of the
+American Chemical Society 115, 4345 (1993).
+77M. Madjet, A. Abdurahman, and T. Renger, The Journal of Physical Chemistry B 110,
+17268 (2006).
+78S. Grimme, Journal of Computational Chemistry 27, 1787 (2006).
+20
+
+79W. Liu, V. Settels, P. H. P. Harbach, A. Dreuw, R. F. Fink, and B. Engels, Journal of
+Computational Chemistry 32, 1971 (2011).
+80R. P. Feynman and F. L. Vernon, Ann. Phys. 24, 118 (1963).
+81W. J. D. Beenken, M. Dahlbom, P. Kjellberg, and T. Pullerits, J. Chem. Phys. 117, 5810
+(2002).
+82T. Pacher, L. S. Cederbaum, and H. K¨oppel, “Adiabatic and quasidiabatic states in a
+gauge theoretical framework,” in Advances in Chemical Physics (John Wiley and Sons,
+Inc., 2007) pp. 293–391, ISBN 9780470141427.
+83I. Yamazaki, S. Akimoto, T. Yamazaki, S. Sato, and Y. Sakata, The Journal of Physical
+Chemistry A 106, 2122 (2002).
+84P. Huo and D. F. Coker, J. Chem. Phys. 133, 184108 (2010).
+85A. D. Becke, The Journal of Chemical Physics 98, 5648 (1993).
+86A. Sch¨afer, C. Huber, and R. Ahlrichs, J. Chem. Phys. 100, 5829 (1994).
+87F. Weigend, Phys. Chem. Chem. Phys. 8, 1057 (2006).
+88F. Neese, ORCA – an ab initio, Density Functional and Semiempirical program package,
+Version 2.6 (University of Bonn, 2008).
+89F. Neese, F. Wennmohs, A. Hansen, and U. Becker, Chemical Physics 356, 98 (2009).
+90Y. Shao, L. Fusti-Molnar, Y. Jung, J. Kussmann, C. Oschsenfeld, S. T. Brown, A. T. B.
+Gilbert, L. V. Slipchenko, S. V. Levchenko, D. P. O’Neill, R. A. DiStasio Jr., R. C.
+Lochan, T. Want, G. J. O. Beran, N. A. Besley, J. M. Herbert, C. Y. Lin, T. V. Voorhis,
+S. H. Chien, A. Sodt, R. P. Steele, V. A. Rassolov, P. E. Maslen, P. P. Korambath, R. D.
+Adamson, B. Austin, J. Baker, E. F. C. Byrd, H. Dachsel, R. J. Doerksen, A. Dreuw, B. D.
+Dunietz, A. D. Dutoi, T. R. Furlani, S. R. Gwaltney, A. Heyden, S. Hirata, C.-P. Hsu,
+G. Kedziora, R. Z. Khalliulin, P. Klunzinger, A. M. Lee, M. S. Lee, W. Liang, I. Lotan,
+N. Nair, B. Peters, E. I. Proynov, P. A. Pieniazek, Y. M. Rhee, J. Ritchie, E. Rosta, C. D.
+Sherrill, A. C. Simmonett, J. E. Subotnik, H. L. W. III, W. Zhang, A. T. Bell, A. K.
+Chakraborty, D. M. Chipman, F. J. Keil, A. Warshel, W. J. Hehre, H. F. Schaefer III,
+J. Kong, A. I. Krylov, P. M. W. Gill, and M. Head-Gordon, Phys. Chem. Chem. Phys. 8,
+3172 (2006).
+21
