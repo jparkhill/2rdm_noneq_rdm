@@ -1,0 +1,1975 @@
+Towards numerically robust multireference theories: The driven similarity
+renormalization group truncated to one- and two-body operators
+Chenyang Li 1 and Francesco A. Evangelista 1, a)
+Department of Chemistry and Cherry Emerson Center for Scientiﬁc Computation, Emory University, Atlanta, GA,
+30322
+(Dated: 9 October 2018)
+The ﬁrst nonperturbative version of the multireference driven similarity renormalization group (MR-DSRG)
+theory [C. Li and F. A. Evangelista, J. Chem. Theory Comput. 11, 2097 (2015)] is introduced. The renor-
+malization group structure of the MR-DSRG equations ensures numerical robustness and avoidance of the
+intruder state problem, while the connected nature of the amplitude and energy equations guarantees size
+consistency and extensivity. We approximate the MR-DSRG equations by keeping only one- and two-body
+operators and using a linearized recursive commutator approximation of the Baker–Campbell–Hausdorﬀ ex-
+pansion [T. Yanai and G. K.-L. Chan, J. Chem. Phys. 124, 194106 (2006)]. The resulting MR-LDSRG(2)
+equations contain only 39 terms and scales asO(N2N2
+PN2
+H) where NH,NP, and N correspond to the number
+of hole, particle, and total orbitals, respectively. Benchmark MR-LDSRG(2) computations on the hydrogen
+ﬂuoride and molecular nitrogen binding curves and the singlet-triplet splitting of p-benzyne yield results com-
+parable in accuracy to those from multireference conﬁguration interaction, Mukherjee multireference coupled
+cluster theory, and internally-contracted multireference coupled cluster theory.
+I. INTRODUCTION
+Striking the right balance between the theoretical
+treatment of static and dynamic electron correlation is
+a crucial requirement for predictive theories of strongly
+correlated electrons. 1 Consequently, the introduction
+of the multi-conﬁgurational self-consistent-ﬁeld (MC-
+SCF) approach 2 was followed by the development of a
+myriad of multireference (MR) theories that augment
+this scheme with high-level treatments of dynamic cor-
+relation. The majority of these genuine multirefer-
+ence approaches are based on the framework of eﬀec-
+tive Hamiltonian theory 3–8 and include widely adopted
+methods such as second-order MR perturbation the-
+ory (MRPT2) 9–14 and MR conﬁguration interaction
+(MRCI).2,15–18 Furthermore, numerous multireference
+coupled cluster (MRCC) theories 19–35 and alternative
+approaches36–41 have been developed. These approaches
+strive to reproduce the success of single-reference coupled
+cluster theory by combining a nonperturbative treat-
+ment of dynamic correlation with the requirement of size
+extensivity.30,42
+Nevertheless, it is well appreciated that the application
+of multireference theories based on eﬀective Hamiltoni-
+ans presents several problems, which prevent them from
+being as impactful as their single-reference analogues.
+The most important issue is perhaps the intruder-state
+problem,43,44 which occurs when excited conﬁgurations
+(or determinants) become near-degenerate with the ref-
+erence wave function. In MRPT2 approaches, intruder
+states lead to diverging ﬁrst-order excitation amplitudes
+and characteristic poles in potential energy surfaces.45–47
+Intruders are commonly treated by shifting the en-
+a)Electronic mail: francesco.evangelista@emory.edu
+ergy denominators,45,48 regularizing the amplitudes,49,50
+modifying the zeroth-order Hamiltonian, 51,52 and in-
+creasing the size of the active space. 46 However, none
+of these techniques have been satisfactorily generalized
+to the case of nonperturbative theories (e.g., MRCC), in
+which intruders usually result in convergence diﬃculties
+that render these approaches inapplicable. 22,53
+Eﬀective Hamiltonian theory is also aﬀected by the
+problem of redundant wave function parameters. 54,55
+For instance, in the internally-contracted MRCC (ic-
+MRCC) approach,31,32,54 the basis of excited conﬁgura-
+tions contains linear-dependent components which, when
+discarded, introduces dependencies on numerical thresh-
+olds. A small numerical threshold induces numerical in-
+stabilities, while a large threshold may lead to discon-
+tinuous potential energy surfaces. 31 Moreover, eliminat-
+ing linearly dependent excitations requires the diagonal-
+ization of higher-order reduced density matrices, which
+limits the applicability of these methods to moderate
+numbers of active orbitals. 56 Solutions to this problem
+are realized only recently by either employing strongly
+contracted excitation operators12,53,57 or imposing many-
+body conditions. 19,34,58
+To address the the intruder state and redundancy
+problems of the eﬀective Hamiltonian formalism, we have
+recently begun to explore many-body theories based on
+the similarity renormalization group (SRG). 59–62 The
+SRG provides a systematic approach to integrate out
+high-energy degrees of freedom such that divergences re-
+sulting from small energy denominators are suppressed.
+Inspired by the SRG, we have proposed a novel approach,
+the driven SRG (DSRG),63 which combines the main fea-
+tures of the SRG with a computational approach closely
+related to coupled cluster theory. Later, we introduced
+a multireference DSRG (MR-DSRG) theory that gener-
+alizes the DSRG to multiconﬁgurational references and
+investigated a second-order approximation.64
+arXiv:1602.05667v1  [physics.chem-ph]  18 Feb 2016
+2
+The most important diﬀerence between the MR-DSRG
+and other multireference theories is the use of a continu-
+ous unitary transformation of the Hamiltonian controlled
+by an energy cutoﬀ Λ. This transformation excludes exci-
+tations with energy approximatively smaller than Λ, and
+thus, it avoids divergences caused by small denomina-
+tors (intruder states). The MR-DSRG makes also exten-
+sive use of Mukherjee and Kutzelnigg’s algebra of second
+quantized operators that are normal ordered with respect
+to a multiconﬁgurational vacuum. 65–70 Building upon
+this algebra, the MR-DSRG equations are formulated in
+Fock space71,72 as a set of many-body conditions. 19,34,58
+The use of many-body conditions leads to an equal num-
+ber of equations and unknowns, and therefore, it guar-
+antees that the MR-DSRG is free from the redundancy
+problem.
+Our initial work on the MR-DSRG examined the ac-
+curacy and numerical robustness of a second-order ap-
+proximation. The goal of this work is to go beyond
+a perturbative treatment of dynamic electron correla-
+tion and explore one of simplest MR-DSRG nonpertur-
+bative schemes. The resulting model—designated as
+MR-LDSRG(2)—retains all of the one- and two-body
+components of the renormalized Hamiltonian and ex-
+pands the MR-DSRG transformation in terms of a lin-
+ear recursive commutator approximation. 36,73 The MR-
+LDSRG(2) energy may be evaluated with a computa-
+tional procedure that has a computational scaling analo-
+gous to that of the coupled cluster approach with singles
+and doubles (CCSD). In addition, the MR-LDSRG(2)
+approach requires only the knowledge of the one-particle
+density matrix and the two- and three-body density
+cumulants66,70,74 of the reference wave function.
+We start from an overview of the MR-DSRG formula-
+tion and introduce the MR-LDSRG(2) model in Sec. II.
+Section III presents our pilot implementation and dis-
+cusses the scaling of the MR-LDSRG(2) approach. Ap-
+plications of the MR-LDSRG(2) to the singlet ground-
+state potential energy curves of HF and N 2, and the
+singlet-triplet splitting of p-benzyne are reported in
+Sec. V, where computational details are given in Sec. IV.
+Finally in Secs. VI and VII, we compare the MR-DSRG
+ans¨ atz to other methods based on internally contracted
+formalism, and discuss some future developments of the
+MR-DSRG theory.
+II. THEORY
+A. Basic notation
+We deﬁne the Fermi vacuum as a multideterminan-
+tal wave function |Ψ0⟩ with respect to which all second
+quantized operators are normal ordered:
+|Ψ0⟩ =
+d∑
+µ=1
+cµ|Φµ⟩. (1)
+In Eq. (1), the set of determinants{Φµ} form a complete
+active space (CAS). The orbital space{φp,p = 1,...,N }
+is thus partitioned into three subsets: core ( C), active
+(A), and virtual ( V). For convenience, we also deﬁne
+two composite spaces: hole ( H = C∪ A) and particle
+(P = A∪ V). The orbital indices corresponding to these
+spaces are listed in Table I.
+The bare Hamiltonian normal ordered with respect to
+Ψ0 is given by:
+ˆH =E0 +
+∑
+pq
+fq
+p{ˆap
+q} + 1
+4
+∑
+pqrs
+vrs
+pq{ˆapq
+rs}, (2)
+where E0 = ⟨Ψ0| ˆH|Ψ0⟩ is the reference energy and
+{ˆaab···
+ij···} ={ˆa†
+aˆa†
+b··· ˆajˆai} stands for a string of normal-
+ordered creation (ˆa†) and annihilation (ˆa) operators. In
+Eq. (2), we have introduced the matrix element of the
+generalized Fock matrix fq
+p:
+fq
+p =hq
+p +
+∑
+rs
+vqs
+prγr
+s, (3)
+where γp
+q = ⟨Ψ0|ˆap
+q|Ψ0⟩, hq
+p = ⟨φp|ˆh|φq⟩, and vrs
+pq =
+⟨φpφq∥φrφs⟩ are respectively the one-particle density ma-
+trix element of the reference, the one-electron integrals,
+and the antisymmetrized two-electron integrals. For con-
+venience, we also assume to work with a semicanonical
+orbital basis such that the core, active, and virtual blocks
+of the generalized Fock matrix are diagonal.
+TABLE I. Deﬁnition of the orbital spaces employed in this
+work.
+Space Symbol Dimension Indices Description
+Core C NC m,n Doubly occupied
+Active A NA u,v,w,x,y,z Partially occupied
+Virtual V NV e,f Unoccupied
+Hole H NH i,j,k,l H = C∪ A
+Particle P NP a,b,c,d P = A∪ V
+General G N p,q,r,s G = H∪ V
+B. MR-DSRG Theory
+In the unitary MR-DSRG ansatz,63,64 the bare Hamil-
+tonian ( ˆH) is partially block-diagonalized by a unitary
+transformation. The unitary operator that performs this
+transformation is written in an exponential form, e ˆA(s),
+where ˆA(s) is a s-dependent anti-Hermitian operator.
+The ﬂow variables is deﬁned in the range [0,∞) and con-
+trols the extent of the DSRG transformation. The DSRG
+unitary transformation yields an eﬀective (or renormal-
+ized) Hamiltonian ¯H(s) (see Refs. 63 and 64 for details),
+which may be partitioned into a sum of diagonal ¯HD(s)
+and non-diagonal ¯HN(s) components:75,76
+¯H(s) =e− ˆA(s) ˆHe
+ˆA(s) = ¯HD(s) + ¯HN(s). (4)
+3
+The diagonal component contains only the pure ex-
+citation and de-excitation diagrams and couples the
+reference |Ψ0⟩ to excited conﬁgurations of the form
+{ˆaab···
+ij···}| Ψ0⟩.63,64
+The MR-DSRG transformation [Eq. (4)] is determined
+by the ﬂow equation:
+¯HN(s) = ˆR(s), (5)
+where ˆR(s) is the so-called source operator, a Hermitian
+operator that drives the oﬀ-diagonal components of ¯H(s)
+to zero, that is lim s→∞ ¯HN(s) = 0. The source opera-
+tor ˆR(s) is required to perform a renormalization trans-
+formation, that is, to decouple only those excited con-
+ﬁgurations that diﬀer from the reference by an energy
+larger than the cutoﬀ Λ = s−1/2.63,77 These two require-
+ments do not identify a unique form for ˆR(s). Therefore,
+in our work we use a source operator designed to re-
+produce some of the features of the SRG approach (see
+below).63 Once ˆR(s) is speciﬁed, the MR-DSRG equa-
+tion implicitly determines the anti-Hermitian operator
+ˆA(s) and the renormalized Hamiltonian [Eq. (4)]. As we
+shall discuss more in detail in Sec. II C, the DSRG equa-
+tion should be understood as a collection of many-body
+conditions,19,34,58 where the coeﬃcients associated to the
+same normal-ordered second-quantized operators on the
+left and right side of Eq. (5) are set equal to each other.
+The electronic energy for a given reference Ψ 0 is com-
+puted as the expectation value of the DSRG transformed
+Hamiltonian ¯H(s):
+E(s) =⟨Ψ0| ¯H(s)|Ψ0⟩. (6)
+The relaxed MR-DSRG energy is obtained using coeﬃ-
+cients that diagonalize ¯H(s) within the space of reference
+determinants:
+d∑
+µ
+⟨Φν| ¯H(s)|Φµ⟩cµ =E(s)cν. (7)
+Note that computing the relaxed MR-DSRG energy
+requires the simultaneous solution of the MR-DSRG
+equation [Eq. (5)] and the energy eigenvalue equation
+[Eq. (7)]. In addition, we also consider the unrelaxed
+energy, which is obtained by evaluating E(s) using ref-
+erence coeﬃcients from a CAS conﬁguration interaction
+(CASCI) or CAS self-consistent ﬁeld (CASSCF) 78 com-
+putation. Results from unrelaxed computations will be
+denoted by the preﬁx “u” (for example, uMR-DSRG).
+C. The linearized MR-DSRG scheme with one- and
+two-body operators [MR-LDSRG(2)]
+The essence of the MR-DSRG framework is to
+solve the DSRG equation [Eq. (5)] using a many-body
+formalism.19,34,58,63 As in the case of conﬁguration inter-
+action and coupled cluster theory, the MR-DSRG equa-
+tions can be systematically truncated to form a hier-
+archy of increasingly accurate methods [MR-DSRG( n),
+n = 2, 3,... ]. To this end, the anti-Hermitian operator
+ˆA(s) is written in terms of a cluster operator [ ˆT (s)] as:
+ˆA(s) = ˆT (s)− ˆT†(s), (8)
+and the cluster operator ˆT (s) is a sum of excitation op-
+erators up to rank n:
+ˆT (s) =
+n∑
+k=1
+ˆTk(s), (9)
+where each k-fold component [ ˆTk(s)] is deﬁned as:
+ˆTk(s) = 1
+(k!)2
+H∑
+ij···
+P∑
+ab···
+tij···
+ab···(s){ˆaab···
+ij···}. (10)
+As shown in Eq. (10), ˆTk(s) incorporates strings of
+k normal-ordered creation and annihilation operators
+({ˆaab···
+ij···}), and each operator associates to a tensor
+[tij···
+ab···(s)] that is antisymmetric with respect to distinct
+permutations of upper and lower indices. Internal clus-
+ter amplitudes that are labeled only by active orbital
+indices are redundant since they only change the refer-
+ence coeﬃcients. Therefore, internal amplitudes are set
+to zero, that is txy···
+uv···(s) = 0 for uv··· ,xy···∈ A.
+The left-hand-side of the DSRG equation [Eq. (5)] con-
+tains the DSRG Hamiltonian ¯H(s), which may be ex-
+pressed as a series of commutators of ˆH and ˆA(s) using
+the Baker–Campbell–Hausdorﬀ (BCH) formula:
+¯H(s) = ˆH +
+∞∑
+k=1
+1
+k! [··· [[ ˆH, ˆA(s)], ˆA(s)],··· ]  
+k nested commutators
+. (11)
+The DSRG Hamiltonian is a general Hermitian many-
+body operator and may be expressed in terms of normal-
+ordered components of diﬀerent rank: 34,35,79
+¯H(s) =E(s) +
+N∑
+k=1
+¯Hk(s). (12)
+In Eq. (12) the term ¯Hk(s) collects all the k-body com-
+ponents of ¯H(s):
+¯Hk(s) = 1
+(k!)2
+G∑
+pqrs···
+¯Hrs···
+pq···(s){ˆapq···
+rs···} (13)
+The source operator that appears on the right-hand-
+side of Eq. (5) may be expanded in a similar way,
+ˆR(s) =
+N∑
+k=1
+ˆRk(s), (14)
+ˆRk(s) = 1
+(k!)2
+H∑
+ij···
+P∑
+ab···
+rij···
+ab···(s)({ˆaab···
+ij···} +{ˆaij···
+ab···}), (15)
+4
+where the coeﬃcients rij···
+ab···(s) are given by:
+rij···
+ab···(s) = [ ¯Hij···
+ab···(s) +tij···
+ab···(s)∆ij···
+ab···]e−s(∆ij···
+ab···)2
+, (16)
+where ∆ij···
+ab··· =ϵi +ϵj +···− ϵa−ϵb−··· is a generalized
+Møller–Plesset denominator and ϵp = fp
+p is the energy
+of orbital φp. The source operator deﬁned by Eq. (16)
+reproduces the unitary transformation achieved by the
+single-reference SRG expanded to second order. 59–61,63
+It is important to note that the equation for the source
+operator given in Eq. (16) is valid only in the semicanon-
+ical basis. 64,80 As discussed in Appendix A, with some
+extra eﬀort it is possible to formulate an orbital invari-
+ant version of the MR-DSRG theory that allows to use
+natural or other types of noncanonical orbitals.
+After inserting the Eqs. (12)–(16) into the DSRG equa-
+tion [Eq. (5)], we obtain the following set of many-body
+conditions:
+¯Hij···
+ab···(s) =rij···
+ab···(s), for ij···∈ H,ab···∈ P. (17)
+In this work we consider the MR-DSRG truncated to
+one- and two-body operators, that is, we approximate the
+cluster operator as ˆT≈ ˆT1+ ˆT2. Consequently, the DSRG
+equations reduce to ¯Hi
+a(s) = ri
+a(s) and ¯Hij
+ab(s) = rij
+ab(s).
+At the same time, to produce a computationally viable
+method it is also necessary to truncate the BCH expan-
+sion of ¯H(s). Since the operator ˆA(s) contains both exci-
+tation and de-excitation operators ( ˆT and ˆT†), the BCH
+expansion of the DSRG Hamiltonian does not terminate,
+thus, making the exact evaluation of ¯H(s) impractical.
+This issue also arises in unitary versions of single- and
+multireference coupled cluster theories. 33,36,37,81,82 Fol-
+lowing the approach of Yanai and Chan,36,37 we approxi-
+mate each commutator that enters into the BCH formula
+with its one- and two-body components (indicated with
+the subscript “1,2”):
+¯H(s)1,2 = ˆH +
+∞∑
+k=1
+1
+k! [··· [[ ˆH, ˆA(s)]1,2, ˆA(s)]1,2,··· ]1,2  
+k nested commutators
+.
+(18)
+This recursive approximation is consistent with the level
+of truncation of the cluster operator and leads to a prac-
+tical and eﬃcient computational scheme. We name this
+truncated MR-DSRG approach as MR-LDSRG(2) where
+the “L” indicates the linear commutator approximation
+and “(2)” denotes that the DSRG equations are trun-
+cated to one- and two-body operators.
+D. Structure of the MR-DSRG equations
+In this section we compare the structure of the MR-
+DSRG equations to those of the single-reference cou-
+pled cluster (CC) theory. To evaluate the commuta-
+tors in the DSRG Hamiltonian [Eq. (18)], we use the
+Mukherjee–Kutzelnigg generalized Wick’s theorem (MK
+Wick’s theorem). 66,68 For two normal-ordered second-
+quantized operators (e.g.,{ ˆX} and{ ˆY}), the MK Wick’s
+theorem allows us to express the product{ ˆX}{ ˆY} as the
+normal-ordered product{ ˆX ˆY} plus a sum over contrac-
+tions of normal ordered operators:
+{ ˆX}{ ˆY} ={ ˆX ˆY} +
+∑
+single
+pairs
+{ ˆX ˆY} +
+∑
+double
+pairs
+{ ˆX ˆY}
++
+∑
+single
+4-leg
+{ ˆX ˆY} +
+∑
+single
+pairs
+∑
+single
+4-leg
+{ ˆX ˆY} +··· .
+(19)
+When compared to the traditional Wick’s theorem used
+in single-reference (SR) theories, 42 the MK Wick’s the-
+orem contains two new aspects. Firstly, contrary to the
+single-reference case in which pairwise contractions in-
+troduce a Kronecker delta (δ), in the multireference case
+pairwise contractions give either a one-particle ( γ1) or
+one-hole (η1) density matrix:
+ˆa†
+pˆaq =γp
+q, (20)
+ˆaqˆa†
+p =ηp
+q =δp
+q−γp
+q. (21)
+Secondly, new multi-legged contractions appear, each of
+which contains 2k-legs (k≥ 2) and pairs k creation op-
+erators with k annihilation operators. These new con-
+tractions correspond to elements of the k-body density
+cumulant ( λk) of the reference Ψ 0. It is important to
+note that cumulant contractions span only those orbitals
+that are partially occupied in the reference. Hence, for
+a complete active space reference, cumulant contractions
+only connect operators labeled by active indices.
+It is instructive and insightful to compare the structure
+of the MR-DSRG Hamiltonian obtained with the MK
+Wick’s theorem with the similarity transformed Hamilto-
+nian of CC theory. In the MR-DSRG, each commutator
+in the BCH expansion contain contributions of the form
+[ ˆH, ˆA] = [ ˆH, ˆT− ˆT†] = ˆH ˆT− ˆT ˆH− ˆH ˆT† + ˆT† ˆH. (22)
+One may identify two classes of terms that arise from
+the application of the MK Wick’s theorem to each prod-
+uct of operators that appear in Eq. (22). The ﬁrst class
+contains only pairwise contractions. These terms have
+the same structure of the CC contributions, except for
+the fact that their expressions contain matrix elements
+of γ1 and η1. However, by an appropriate redeﬁnition of
+the cluster amplitudes, these terms are equivalent to the
+single-reference coupled cluster equations. 83
+The second class of terms that arises from MK Wick’s
+theorem [Eq. (19)] consists of contractions that involve
+cumulants. These contractions are not contained in the
+single-reference CC equations, and they increase the alge-
+braic complexity of multireference internally-contracted
+approaches. Nevertheless, for CAS-CI and CASSCF ref-
+erences cumulants can only contract second-quantized
+5
+operators labeled by active indices, which implies that
+the computational cost of these additional terms is pro-
+portional to a polynomial in the number of active or-
+bitals.
+Another point of divergence between the MR-DSRG
+and CC equations arises from the mixed particle-hole
+character of the operators labeled by active orbital in-
+dices (ˆau and ˆa†
+v) that enter in the deﬁnition of the cluster
+operator. These operators do not fall in the traditional
+categories of vacuum creation and annihilation operators
+because, in general, they neither create nor annihilate the
+reference Ψ 0. Consequently, commutators of the form
+[{ ˆX},{ ˆT}] cannot be simply expressed as the connected
+part of { ˆX}{ ˆT}, like in the coupled cluster theory. In-
+stead, one must also consider the connected contribution
+from the product{ ˆT}{ ˆX}:
+[{ ˆX},{ ˆT}] = ({ ˆX}{ ˆT}−{ ˆT}{ ˆX})connected. (23)
+In the evaluation of commutators of the form [{ ˆX},{ ˆT}]
+several simpliﬁcations may apply. For example, single
+pairwise contractions give a Kronecker delta, while single
+multi-leg contractions give null contributions.
+III. IMPLEMENTATION
+The MR-LDSRG(2) method is implemented as a
+Psi484 plugin augmented with the open-source tensor
+library Ambit.85 The MR-LDSRG(2) energy and clus-
+Compute |Ψ 0⟩ ˚em¯can on ¯cal¯ze orb ¯tals
+ﬂn¯t¯al¯ze ti
+a ﬁsﬀ, tij
+ab ﬁsﬀ
+Compute ΨH ﬁsﬀ
+ΨH ﬁsﬀ con v ergeΣ ?Up Σate ti
+a ﬁsﬀ, tij
+ab ﬁsﬀ
+Relax re∆eren ce?E ﬁsﬀ
+˚olv e Eq. ﬁ6ﬀ
+{cµ } convergeΣ ?
+˚top
+n o
+y es
+y es
+n o
+n oy es
+E ﬁsﬀ
+FIG. 1. The algorithm used to evaluate the MR-LDSRG(2)
+energy.
+ter amplitudes are computed via an iterative procedure
+brieﬂy summarized in Fig. 1. The ﬁrst step is determin-
+ing the reference wave function |Ψ0⟩ in the semicanon-
+ical basis, and computing the one-particle density ma-
+trix, and two- and three-body density cumulants. The
+MR-LDSRG(2) equations are written as a set of itera-
+tive equations:
+ti,new
+a (s) = [ ¯Hi,old
+a (s) +ti,old
+a (s)∆i
+a]1−e−s(∆i
+a)2
+∆ia
+, (24)
+tij,new
+ab (s) = [ ¯Hij,old
+ab (s) +tij,old
+ab (s)∆ij
+ab]1−e−s(∆ij
+ab)2
+∆ij
+ab
+,
+(25)
+which are solved using as a starting guess ﬁrst-order am-
+plitudes obtained from a DSRG-MRPT2 computation. 64
+Matrix elements of the one- and two-body DSRG
+transformed Hamiltonians [Eqs. (24) and (25)] are com-
+puted by accumulating the nested commutators in
+Eq. (18):
+¯H1,2 =
+∞∑
+k=0
+ˆOk(s), (26)
+where the kth-nested term [ ˆOk(s)] is obtained from the
+recursive equation:
+ˆOk(s) = 1
+k [ ˆOk−1(s), ˆA(s)]1,2, k = 1, 2, 3,··· , (27)
+starting from ˆO0 = ˆH. In Appendix B, we
+report all equations to compute the commutator
+ˆO(s) = [ ˆH, ˆA(s)]1,2, which is suﬃcient to obtain ¯H(s)1,2
+via Eq. (26).
+The MR-LDSRG(2) equations for the energy and am-
+plitudes consist of 39 terms (in the spin orbital formal-
+ism). In comparison, SR CC theory with singles and
+doubles requires 48 diagrams in total, while the ic-MRCC
+equations have a signiﬁcantly larger number of terms. 32
+For small active spaces, the computational cost of MR-
+LDSRG(2) is dominated by the contribution:
+Oqj
+pb(s)←
+P∑
+a
+H∑
+ik
+vaq
+kptij
+ab(s)γk
+i, j ∈ H,b∈ P,p,q ∈ G,
+(28)
+which, after factorization, has a computational cost that
+scales asO(N2N2
+PN2
+H). The term with the worst scaling
+with respect to the number of active orbitals has a cost of
+O(N6
+ANV), which it is still signiﬁcantly cheaper that the
+cost required by the orthonormalization step in projective
+theories [O(N9
+A)].
+In the MR-DSRG, reference relaxation eﬀects are ac-
+counted for by solving the eigenvalue equation [Eq. (7)].
+To diagonalize the ¯H1,2(s) within the space of reference
+determinants, we ﬁrst express ¯H(s) using second quan-
+tized operators that are normal ordered with respect to
+the true vacuum. Speciﬁcally, we write the one- and two-
+6
+body terms of ¯H(s) as:
+¯H1,2(s) = ¯H0(s)−
+∑
+ij
+¯Hj
+i (s)γi
+j
++ 1
+2
+∑
+ijkl
+¯Hkl
+ij (s)γi
+kγj
+l− 1
+4
+∑
+uvxy
+¯Hxy
+uv (s)λuv
+xy
++
+∑
+pq
+[
+¯Hq
+p(s)−
+∑
+ij
+¯Hqj
+pi (s)γi
+j
+]
+ˆap
+q,
++ 1
+4
+∑
+pqrs
+¯Hrs
+pq(s)ˆapq
+rs.
+(29)
+When the ¯H1,2(s) is written in this form, the quanti-
+ties [ ¯Hq
+p(s)− ∑
+ij ¯Hqj
+pi (s)γi
+j] and [ ¯Hrs
+pq(s)] may be readily
+identiﬁed as MR-DSRG dressed one- and two-electron
+integrals, respectively. These quantities can be used to
+build and diagonalize ¯H(s) in the CASCI space and de-
+termine the density matrix and cumulants for the new
+reference. Practically, we ﬁnd that 5–10 macroiterations
+are required to converge the energy to less than 10−8 Eh.
+IV. COMPUTATIONAL DETAILS
+The ground-state singlet potential energy curves
+(PECs) of HF and N 2 were computed using the MR-
+LDSRG(2), Mukherjee MRCC theory with singles and
+doubles (Mk-MRCCSD), 26,28,54,55,86 MRCI with singles
+and doubles (MRCISD), 15,87 MRCISD with Davidson
+correction16 (MRCISD+Q), and full conﬁguration in-
+teraction (FCI). Special treatments were applied to
+the Mk-MRCCSD computations of N 2: (1) Tikhonov
+regularization50 (ω = 0.01) was used throughout the it-
+erations to aid convergence; (2) the eﬀective Hamilto-
+nian matrix elements between determinants that diﬀer
+by more than two spin orbitals were neglected. Spec-
+troscopic constants of HF and N 2 were obtained by
+ﬁtting the PECs with a ninth-order polynomial cen-
+tered around the equilibrium geometry and compared
+to results from coupled cluster theory with singles
+and doubles (CCSD), 88 CCSD with perturbative triples
+[CCSD(T)],89,90 and unitary DSRG with one- and two-
+body operators [DSRG(2)]. 63
+The singlet-triplet splitting of para-benzyne was stud-
+ied using the MR-LDSRG(2) theory in combination with
+two active spaces: CAS(2 , 2) and CAS(8 , 8). The for-
+mer consists of two carbon σ orbitals on radical centers,
+while the latter further includes six carbon π orbitals.
+Optimized geometries of singlet and triplet p-benzynes
+computed at the Mk-MRCCSD/cc-pVTZ level of theory
+using a CASSCF(2, 2) reference were taken from Ref. 91.
+All computations utilized Dunning’s correlation con-
+sistent double-ζ (cc-pVDZ) basis set 92 and semicanoni-
+cal CASSCF orbitals, obtained by diagonalizing the core,
+active, and virtual blocks of the generalized Fock matrix.
+Carbon, nitrogen, and ﬂuorine 1s core orbitals were al-
+lowed to relax in the CASSCF computations, but were
+frozen in all subsequent treatments of electron correla-
+tion. We used the Molpro 2015.1 package93,94 to obtain
+the MRCISD and FCI energies, and the Psi4 program84
+for the remaining computations. All FCI energies are
+provided in the supplementary material.
+V. RESULTS
+A. Hydrogen ﬂuoride, CAS(2,2)
+To investigate the ability of the MR-LDSRG(2) ap-
+proach to describe single-bond breaking process, we
+study the ground-state dissociation curve of HF (X 1Σ+).
+Figure 2 presents the energy diﬀerences relative to the
+FCI of several multireference theories as a function of the
+bond distance (rH-F). For the MR-LDSRG(2) method,
+we report the energy computed with both an unrelaxed
+and a fully relaxed reference (the former indicated with
+the preﬁx “u”). In all MR-LDSRG(2) calculations the
+ﬂow variable is set equal tos = 0.5E−2
+h , a value that has
+been shown to provide reliable results at the second-order
+perturbation level.64
+∆ E φmE h
+rH-F φ˚ø
+8
+−6
+6
+4
+2
+˚
+−2
+−4
+¯.˚ ¯.5 2.˚ 3.˚2.5
+MR-LDﬃR ﬂﬁ2ﬀ
+MR CΨﬃD
+MR CΨﬃDΦQ
+MΣ-MR CCﬃD
+uMR-LDﬃR ﬂﬁ2ﬀ
+FIG. 2. Energy deviations relative to FCI for the X 1Σ+
+state of HF computed using various multireference methods
+based on a CASSCF(2 , 2) reference and the cc-pVDZ basis
+set. All MR-LDSRG(2) curves are computed using s = 0.5
+E−2
+h . The dashed line indicates the range of the plot for which
+Mk-MRCCSD computations failed to converge (2.60–2.85 ˚A).
+A comparison of the MR-LDSRG(2) curves shows that
+reference relaxation eﬀects play a signiﬁcant role at equi-
+librium and in the recoupling region (rH-F∈ [1, 2] ˚A). At
+long distances (rH-F > 2.5 ˚A), relaxation eﬀects vanish
+because the reference coeﬃcients are determined by sym-
+metry, and as a result, both the relaxed and unrelaxed
+calculations converge to the same limit. Judged from the
+nonparallelity error (NPE)—deﬁned as the diﬀerence be-
+tween the maximum and minimum signed errors—the
+unrelaxed (3.36 mEh) and relaxed (4.24 m Eh) versions
+of the MR-LDSRG(2) yield curves that have slightly
+7
+larger errors than those computed with the MRCISD
+(2.24 mEh) and Mk-MRCCSD (2.85 mEh) methods.
+In Table II we compare the equilibrium bond length
+(re), harmonic vibrational frequency ( ωe), and the an-
+harmonicity constant (ωexe) of HF ( X 1Σ+) computed
+with various single-reference and multireference meth-
+ods. To gauge the s dependence of the MR-LDSRG(2)
+results we consider both the case s = 0.5 and 1.0 E−2
+h .
+For the uMR-LDSRG(2), the change of s causes a large
+shift in the value of equilibrium properties. This is
+demonstrated, for example, by the 22.3 cm −1 variation
+in the harmonic vibrational frequency. As observed in
+the PECs calculations, properties computed with the re-
+laxed MR-LDSRG(2) are less sensitive to the choice of
+s. The shift in harmonic vibrational frequency is only
+6.7 cm−1, less than three times the value obtained with
+the unrelaxed approach. In general, properties computed
+with the uMR-LDSRG(2) and MR-LDSRG(2) methods
+are less accurate than those from SR-CC methods, Mk-
+MRCCSD, and MRCISD.
+TABLE II. Spectroscopic constants for the X 1Σ+ state of
+HF computed using various single-reference and multirefer-
+ence methods. All computations use the cc-pVDZ basis set.
+Coupled cluster calculations use a restricted Hartree–Fock ref-
+erence, whereas multireference calculations are based on a
+CASSCF(2,2) reference. All values are deviations from FCI
+results.
+Method re/˚A ωe/cm−1 ωexe/cm−1
+CCSD −0.0014 25 .8 −1.4
+CCSD(T) −0.0004 7 .0 −0.2
+DSRG(2) (s = 1.0) 0 .0009 −21.9 1 .7
+CASSCF(2, 2) 0 .0008 −81.3 10 .2
+DSRG-MRPT2 (s = 0.5) −0.0026 10 .3 1 .4
+DSRG-MRPT2 (s = 1.0) −0.0065 15 .0 6 .4
+uMR-LDSRG(2) (s = 0.5) −0.0035 50 .3 6 .0
+uMR-LDSRG(2) (s = 1.0) −0.0041 72 .6 18 .0
+MR-LDSRG(2) (s = 0.5) 0 .0021 −40.0 0 .8
+MR-LDSRG(2) (s = 1.0) 0 .0022 −33.3 3 .7
+Mk-MRCCSD −0.0008 11 .0 0 .0
+MRCISD −0.0005 1 .0 0 .8
+MRCISD+Q 0 .0000 −0.8 −0.1
+FCI 0 .9203 4143 .2 92 .9
+B. Nitrogen molecule, CAS(6,6)
+Next, we focus on the PEC for the X 1Σ+
+g state of
+N2. Energy errors with respect to FCI computed at
+various atomic distances ( rN-N) are summarized in Ta-
+ble III and plotted in Fig. 3. 97 In contrast to the case
+of hydrogen ﬂuoride, for N 2 both the uMR-LDSRG(2)
+and MR-LDSRG(2) methods are consistently in better
+agreement with the reference with FCI curve than the
+MRCISD and Mk-MRCCSD approaches. The NPEs of
+∆E φmE h
+rN-N φ˚ø
+1.0 1.5 2.0 ˚.02.5
+−5
+0
+5
+15
+10
+20
+¯k-¯RCCSD
+¯RCISDﬃﬂ
+¯RCISD
+¯R-ﬁDSRﬀ(2Ψ
+Φ¯R-ﬁDSRﬀ(2Ψ
+FIG. 3. Energy deviations relative to FCI for the X 1Σ+
+g
+state of N 2 computed using various methods based on a
+CASSCF(6, 6) reference and the cc-pVDZ basis set. All MR-
+LDSRG(2) curves useds = 0.5E−2
+h . The Mk-MRCCSD curve
+results from the approximated Mk-MRCCSD computations
+described in Sec. IV.
+uMR-LDSRG(2) and MR-LDSRG(2) are 5.25 and 4.81
+mEh, respectively. These results are comparable to the
+corresponding MRCISD number (3.27 m Eh) and sub-
+stantially smaller than the Mk-MRCCSD value (14.16
+mEh).98
+Table III also reports results for linear CT (LCT) 36,37
+and quadratic CT (QCT) theory, with and without the
+inclusion of the exact three-body density matrix. 95 The
+LCTSD scheme results are directly comparable to those
+from the MR-LDSRG(2) since both methods use the
+same commutator expansion and truncate the cluster op-
+erator to one- and two-body operators. Interestingly, the
+LCTSD gives a NPE (1.85 mEh) that is smaller than the
+relaxed MR-LDSRG(2) value (3.23 mEh, s = 0.5 E−2
+h ).
+Another signiﬁcant fact, is that the QCTSD approach—
+which uses an improved commutator expansion—gives a
+NPE (3.68 m Eh) larger than the approaches based on
+a linearized commutator approximation. This observa-
+tion can be explained by an analysis of the errors intro-
+duced by truncating nested commutators up to two-body
+operators.99 We also note that the inclusion of the three-
+body density matrix improves the performance of both
+LCT and QCT, but increases the computational scaling
+toO(N7) andO(N8), respectively.
+Another interesting comparison can be made between
+MR-LDSRG(2) and the strongly contracted (SC) and
+weakly contracted (WC) versions of CT. 53 Both the SC-
+and WC-CTSD methods have a computational complex-
+ity analogous to that of the MR-LDSRG(2) approach,
+as they avoid diagonalizing the semi-internal excitation
+overlap metric [aO(N9
+A) step]. The N 2 data summarized
+in Table IV show that the MR-LDSRG(2) scheme yields
+results of quality intermediate between that of the WC-
+and SC-CTSD methods. However, note that these two
+variants of CT are aﬀected by the intruder-state prob-
+8
+TABLE III. Energy errors (in m Eh) for N 2 (X 1Σ+
+g ) at several atomic distances ( rN-N, in ˚A). All computations used a
+CASSCF(6, 6) reference and the cc-pVDZ basis set. Correlated methods included only single and double excitations and
+employed the frozen-core approximation.
+MR-LDSRG(2)
+unrelaxed relaxed
+rN-N LCTa L3CTa QCTa Q3CTa s = 0.5 s = 0.5 s = 1.0 MRCI MRCI+Q Mk-MRCC b FCIc
+0.9525 −0.421 −1.781 4 .620 3 .387 3 .702 2 .613 2 .455 8 .391 −0.564 4 .750 −109.167 573
+1.0679 −0.576 −2.575 5 .191 3 .257 4 .819 3 .287 2 .829 8 .883 −0.782 6 .576 −109.270 384
+1.1208 −0.281 −2.582 5 .426 3 .043 5 .487 3 .703 3 .207 9 .123 −0.845 7 .193 −109.278 339
+1.1737 −0.178 −2.696 5 .818 2 .913 6 .147 4 .113 3 .613 9 .348 −0.812 7 .874 −109.271 915
+1.2700 0 .342 −2.852 7 .044 3 .387 7 .188 4 .781 4 .344 9 .734 −1.029 9 .010 −109.238 397
+1.4288 0 .613 −2.993 7 .745 3 .280 8 .171 5 .466 5 .272 10 .313 −1.174 11 .341 −109.160 305
+1.5875 0 .474 −2.873 7 .672 3 .485 8 .444 5 .527 5 .675 10 .634 −1.363 13 .373 −109.086 211
+1.7463 0 .07 −2.00 6 .34 3 .47 8 .81 5 .57 6 .08 10 .66 −1.49 15 .72 −109.030 31
+1.9050 −1.24 −1.89 4 .07 3 .09 9 .12 5 .85 6 .62 10 .14 −1.75 17 .56 −108.994 81
+NPEd 1.85 1 .213 3 .68 0 .571 5 .41 3 .23 4 .17 2 .72 1 .19 12 .81
+a From Ref. 95. L3CT and Q3CT include the exact three-body reduced density matrix.
+b The Mk-MRCC eﬀective Hamiltonian elements between determinants that diﬀer by more than two spin orbitals are neglected.
+c FCI absolute energies (in Eh) taken from Ref. 96.
+d Non-parallel error (NPE) computed using these nine points.
+lem and that some of the results reported in Table IV
+were obtained by manually removing excitations linked
+to intruders.53
+TABLE IV. Errors (m Eh) relative to MRCISD+Q for the
+X 1Σ+
+g state of N2 in the range of 1.0≤rN-N≤ 3.0 ˚A. All com-
+putations used a CASSCF(6 , 6) reference and the cc-pVDZ
+basis set. Core orbitals were not correlated.
+MR-LDSRG(2) LCTSD a
+unrelaxed relaxed
+Error s = 0.5 s = 0.5 s = 1.0 SC WC
+MIN 4 .753 3 .506 3 .191 5 .280 3 .524
+MAX 11 .026 9 .563 10 .701 9 .206 11 .096
+NPE 6 .273 6 .057 7 .510 3 .927 7 .977
+a From Ref. 53.
+Table V reports the spectroscopic constants for the
+ground state of N 2. Contrary to the case of HF, all MR-
+LDSRG(2) methods yield results comparable to those
+of the approximated Mk-MRCCSD and the single ref-
+erence DSRG(2), and considerably exceed the quality of
+the CCSD results. The MR-LDSRG(2) method provides
+the most reliable predictions, which diﬀer from FCI by
+0.0016 ˚A (re), 15.4 cm−1 (ωe), and 0.2 cm−1 (ωexe). An-
+other encouraging observation is that both going from a
+perturbative to a nonperturbative treatment of dynamic
+correlation and the inclusion of relaxation eﬀects con-
+tribute to reducing the s dependence of the MR-DSRG
+methods.
+C. p-Benzyne, CAS(2,2) and CAS(8,8)
+In our ﬁnal test case we use the MR-LDSRG(2) to
+compute the adiabatic singlet-triplet splitting (∆ EST =
+TABLE V. Spectroscopic constants for the X 1Σ+
+g state of
+N2 computed using various single-reference and multirefer-
+ence methods. All computations use the cc-pVDZ basis set.
+Coupled cluster calculations use a restricted Hartree–Fock ref-
+erence, whereas multireference calculations are based on a
+CASSCF(6,6) reference. All values are deviations from FCI
+results.
+Method re/˚A ωe/cm−1 ωexe/cm−1
+CCSD −0.0073 85 .2 −1.4
+CCSD(T) −0.0012 15 .3 −0.4
+DSRG(2) (s = 1.0) −0.0013 35 .5 −2.7
+CASSCF(6, 6) −0.0058 41 .8 −0.3
+DSRG-MRPT2 (s = 0.5) −0.0011 −3.5 0 .7
+DSRG-MRPT2 (s = 1.0) −0.0019 7 .8 1 .1
+uMR-LDSRG(2) (s = 0.5) −0.0025 21 .8 0 .4
+uMR-LDSRG(2) (s = 1.0) −0.0027 29 .1 0 .4
+MR-LDSRG(2) (s = 0.5) −0.0016 13 .7 0 .2
+MR-LDSRG(2) (s = 1.0) −0.0015 15 .4 −0.0
+Mk-MRCCSDa −0.0022 22 .9 −0.2
+MRCISD −0.0009 6 .5 −0.0
+MRCISD+Q 0 .0002 −2.2 0 .0
+FCI 1 .1201 2323 .6 14 .9
+a The Mk-MRCC eﬀective Hamiltonian elements between
+determinants that diﬀer by more than two spin orbitals
+are neglected.
+ET−ES) of p-benzyne.86,91,100,102–110 Our reference value
+was taken from the photoelectron spectroscopy experi-
+ments of Wenthold, Squires, and Lineberger. 101 These
+authors obtained the value ∆EST = 3.8± 0.5 kcal mol−1,
+but also considered an alternative (but less likely) value
+of 2.1 kcal mol−1.
+Table VI reports the DSRG-MRPT2 and MR-
+9
+TABLE VI. Adiabatic singlet-triplet splittings (∆EST =ET−
+ES, in kcal mol−1) of p-benzyne computed using various mul-
+tireference methods and the cc-pVDZ basis set. All computa-
+tional results include a zero-point vibrational energy (ZPVE)
+correction equal to +0.30 kcal mol −1. Geometries and the
+ZPVE correction are taken from Ref. 91.
+Active Space Method ∆ EST
+CAS(2, 2)
+CASSCF 0 .27
+DSRG-MRPT2 (s = 0.5) 2 .55
+uMR-LDSRG(2) (s = 0.5) 2 .15
+uMR-LDSRG(2) (s = 1.0) 2 .72
+MR-LDSRG(2) (s = 0.5) 3 .51
+MR-LDSRG(2) (s = 1.0) 5 .32
+MRCISD 1 .75
+MRCISD+Q 2 .67
+Mk-MRCCSD 5 .23
+Mk-MRCCSD(T) 4 .49
+ic-MRCCSDa 4.02
+ic-MRCCSD(T)a 5.06
+CAS(8, 8)
+CASSCF 2 .37
+DSRG-MRPT2 (s = 0.5) 4 .22
+uMR-LDSRG(2) (s = 0.5) 4 .04
+uMR-LDSRG(2) (s = 1.0) 4 .46
+MR-LDSRG(2) (s = 0.5) 4 .71
+MR-LDSRG(2) (s = 1.0) 5 .50
+MRCISD 3 .54
+MRCISD+Q 4 .18
+Mk-MRCCSDb 5.23
+Mk-MRCCSD(T)b 3.86
+ic-MRCCSDa 4.95
+ic-MRCCSD(T)a 5.25
+Experimentc 3.8± 0.4
+a From Ref. 100.
+b Approximated value obtained using the same procedure
+for N2 described in Sec. IV.
+c Ultraviolet photoelectron spectroscopy from Ref. 101.
+LDSRG(2) singlet-triplet splitting computed with the
+cc-pVDZ basis set. All results are shifted by +0 .30
+kcal mol−1 to account for zero-point vibrational energy
+(ZPVE) corrections.91 The singlet-triplet splitting com-
+puted with the uMR-LDSRG(2) method shows a marked
+dependence on the size of the active space and the error
+is dominated by the CASSCF contribution. This can be
+seen from the fact that the correlation energy contribu-
+tion to the splitting (e.g. ∆ EMR-LDSRG(2)
+ST − ∆ECASSCF
+ST )
+is almost the same for the CAS(2,2) and CAS(8,8) ref-
+erences. For example, at s = 0.5 E−2
+h , the correlation
+energy contribution to the splitting is 1.88 and 1.67 kcal
+mol−1, respectively. After introducing reference relax-
+ation, the active space dependence is greatly alleviated,
+and becomes smaller as the ﬂow parameter increases. For
+the MR-LDSRG(2) at s = 1E−2
+h , the diﬀerence between
+∆EST computed with the CAS(2,2) and CAS(8,8) refer-
+ences is only 0.18 kcal mol−1.
+Our best estimates of ∆EST computed using the MR-
+LDSRG(2) based on a CASSCF(8,8) reference are 4.71
+and 5.50 kcal mol−1 fors = 0.5 and 1.0E−2
+h , respectively.
+These values are in good agreement with the ic-MRCCSD
+and ic-MRCCSD(T) results computed with the largest
+active space: 4.95 and 5.25 kcal mol−1, respectively. No-
+tice that ∆EST from MRCISD and MRCISD+Q shows
+a marked dependence on the size of the active space,
+while the ic-MRCCSD and ic-MRCCSD(T) results dis-
+play smaller variations. Interestingly, the CAS(8,8) Mk-
+MRCCSD(T) singlet-triplet splitting (3.86 m Eh) is the
+one that comes the closest to the experimental value
+(3.8 mEh). This result is likely to be fortuitous, since
+the quality of the Mk-MRCC approach is known to de-
+grade as the active space is increased. 111,112 Another is-
+sue to take into consideration is the fact that Mk-MRCC
+computations have a cost proportional to the number of
+reference determinants, which makes this approach im-
+practical for large active spaces. Indeed, our p-benzyne
+CAS(8,8) Mk-MRCCSD computations cost about 660
+times more than a single CCSD calculation.
+D. Evolution of the MR-LDSRG(2) ﬂow
+In this section we analyze the evolution of the MR-
+LDSRG(2) energy as a function of the ﬂow variable s.
+To this end, we consider the ground state of hydrogen
+ﬂuoride at three bond lengths: 1.0, 1.5, and 2.0 ˚A. Fig-
+ure 4 depicts the energy errors of both SR- and MR-
+DSRG with respect to the FCI as a function of s. Specif-
+ically, we consider the unrelaxed uMR-LDSRG(2), the
+single-reference (SR) DSRG(2), and the fourth-order en-
+ergy corrected version of the DSRG(2) [DSRG(2*)]. 63
+The top panel of Figure 4 shows that energy error of
+the single-reference DSRG(2) and DSRG(2*) methods
+are monotonically decreasing functions of s. This be-
+havior is consistent with the ﬂow of the energy in the
+similarity renormalization group (SRG). 113 In the limit
+of s that goes to inﬁnity, the DSRG(2*) energy is al-
+most indistinguishable from the CCSD value, while the
+DSRG(2) overestimates the correlation energy.
+On the contrary, the MR-LDSRG(2) energy does not
+decrease monotonically with respect to s. This behav-
+ior was already observed in results from second-order
+MR-DSRG perturbation theory 64 and applications of
+the in medium multireference SRG to nuclear structure
+problems.114 For large values of s, the MR-LDSRG(2)
+fails to converge when rH-F = 1.0, and 1.5 ˚A, while there
+are no issues at 2.0˚A. Convergence problems for large val-
+ues of s are expected, and can be understood by means
+of a perturbative analysis of the MR-LDSRG(2) equa-
+tions. The ﬁrst-order MR-DSRG amplitudes for doubles
+10
+∆E φE h
+0.20
+0.ø5
+0.ø0
+0.05
+0.00
+sφE −2
+h
+ø0−3 ø0−2 ø0−1 ø00 ø01 ø02
+FCI
+∆E φE h
+0.20
+0.ø5
+0.ø0
+0.05
+0.00 FCI
+σH-F ˚ ø.0¯A
+σH-F ˚ ø.5¯A
+σH-F ˚ 2.0¯A
+σH-F ˚ ø.0¯A
+(a)SR-ﬃSRﬂ(2)
+CCSﬃ
+ﬃSRﬂ(2)
+ﬃSRﬂ(2ﬁ)
+FCI
+∆E φﬀE h
+−2
+0
+2
+4
+Ψ
+Φ
+ø0
+sφE −2
+h
+ø0−1 ø01ø000.5
+FCI
+sφE −2
+h
+ø0−1 ø01ø000.5
+∆E φﬀE h
+−2
+0
+2
+4
+Ψ
+Φ
+ø0
+(b)ΣMR-LﬃSR ﬂ(2)
+FIG. 4. Energy deviations relative to FCI for HF ( X 1Σ+)
+plotted against the ﬂow parameter s (in logarithm scale): (a)
+SR-DSRG(2) at rH-F = 1.0 ˚A, and (b) uMR-LDSRG(2) at
+rH-F = 1.0, 1.5, and 2.0 ˚A. The insets show the corresponding
+enlarged plots for 0.1≤s≤ 10.0E−2
+h . All computations used
+the cc-pVDZ basis set.
+are given by:64
+tij,(1)
+ab (s) = vij
+ab[1−e−s(ϵi+ϵj−ϵa−ϵb)2
+]
+ϵi +ϵj−ϵa−ϵb
+. (30)
+In the limit of s→∞ , the ﬁrst-order MR-DSRG am-
+plitudes are equivalent to the ﬁrst-order Møller–Plesset
+amplitudes, and they diverge when the energy denom-
+inator ϵi +ϵj−ϵa−ϵb approaches zero. The inset of
+Fig. 4(b) shows details of the MR-LDSRG(2) energy for
+s in the range [0 .1, 10] E−2
+h . We notice that our rec-
+ommended range for s, [0.5, 1.0] E−2
+h , is located within
+an energy plateau, which is consistent with the observed
+weaks-dependence of our results.
+Our experience with the single-reference DSRG 63 sug-
+gests that numerical instabilities may also be aggra-
+vated by the use of an approximate BCH expansion. In-
+deed, when the linearized BCH approximation is modi-
+ﬁed to recover the correct prefactor for the leading third-
+order terms, the convergence of the resulting DSRG(2*)
+method is superior to that of the DSRG(2). In fact, when
+we look at a diﬀerent bond length (rH-F = 2.0 ˚A) than the
+one used in Fig. 4(a), the DSRG(2) becomes numerically
+unstable for s > 2.0 E−2
+h , while the DSRG(2*) always
+converges in the sampled region (s≤ 102 E−2
+h ).
+VI. FORMAL COMPARISON OF THE MR-DSRG WITH
+OTHER MULTIREFERENCE METHODS
+In this section we will summarize the similarities and
+diﬀerences between the MR-DSRG formalism and other
+nonperturbative multireference theories. Readers may
+immediately recognize the close connection between the
+MR-DSRG and canonical transformation (CT) theory
+of Yanai and Chan. 36,37 Both methods transform the
+Hamiltonian unitarily, and evaluate the BCH expansion
+using a recursive commutator approximation. 36,73 How-
+ever, there are several important distinctions between the
+MR-DSRG and LCTSD approaches. Firstly, reference re-
+laxation eﬀects were not considered in the formulation of
+CT theory. However, semi-internal excitations (ˆamx
+uv and
+ˆaxy
+ev ) still allow some degree of indirect reference relax-
+ation in CT theory.
+Secondly, the MR-DSRG relies on a set of many-body
+equations, while the CT scheme uses a projective for-
+malism. More precisely, the CT amplitudes are deter-
+mined from a set of generalized Brillouin conditions of
+the form:115,116
+⟨Ψ0|[e− ˆA ˆHe
+ˆA, ˆaij···
+ab···− ˆaab···
+ij··· ]|Ψ0⟩ = 0, (31)
+where ˆA is analogous to the MR-DSRG ˆA(s) operator
+but does not depend on s and it is normal-ordered with
+respect to the true vacuum. Moreover, since the basis of
+states ˆaab···
+ij···|Ψ0⟩ is nonorthogonal and linearly dependent,
+in CT it is necessary to orthogonalize this basis. The
+most demanding step of the orthogonalization procedure
+involves semi-internal excitations and scales as O(N9
+A).
+The MR-LDSRG(2) approach avoids orthogonalization
+of the excitation manifold by employing many-body con-
+ditions [Eq. (17)], 19,34,58 and as a result, it has a lower
+scaling with respect to the size of the active space.
+Other approaches closely related to the MR-DSRG
+include the internally-contracted MRCC theory, 31,32
+the state-speciﬁc partially internally contracted MRCC
+(pIC-MRCC)34 and the MR equation-of-motion CC
+(MR-EOMCC) theory of Datta and Nooijen. 35,79,117,118
+As in the case of CT theory, the ic-MRCC formalism is
+projective, but it relies on a nonunitary transformation
+of the bare Hamiltonian and does allow for relaxation of
+the reference wave function.
+The pIC-MRCC and MR-EOMCC are two transform
+and diagonalize approaches. For example, in the MR-
+EOMCC method, the Hamiltonian is similarity trans-
+formed according to:
+ˆG ={e
+ˆY}−1e− ˆT′
+ˆHe
+ˆT′
+{e
+ˆY}, (32)
+where ˆT′ contains excitations from H to V, while ˆY con-
+tains the non-commuting components of the ic-MRCC
+excitation operator. The use of normal ordered expo-
+nential operators119 [{exp( ˆY )}] instead of the traditional
+11
+exponential operator simpliﬁes the algebraic structure of
+the MR-EOMCC equations. 65–70 Both the pIC-MRCC
+and MR-EOMCC use a hybrid set of residual condi-
+tions. Single excitations ˆT are obtained from a set of
+projected equations of the form ⟨Ψ0|ˆai
+e ˆG|Ψ0⟩ = 0, while
+doubles amplitudes are derived from a set of many-body
+conditions.34 This mixed scheme has the advantage that
+one needs to orthogonalize only the space of single excited
+conﬁgurations. Once ˆG is determined, it is subsequently
+diagonalized in a space of determinants that spans a small
+multireference conﬁguration interaction wave function.
+Thus, both the pIC-MRCC and MR-EOMCC theories
+properly account for reference relaxation eﬀects.
+For reasons that vary from method to method, all ap-
+proaches considered here require the elimination of a por-
+tion of the cluster amplitudes. In CT and ic-MRCC
+theory, the orthonormalization of the basis of excitation
+operators uses a numerical threshold to identify ampli-
+tudes that are redundant. In the case of pIC-MRCC
+and MR-EOMCC, despite the use of many-body condi-
+tions for doubles, it is still necessary to discard some
+doubles amplitudes that correspond to weakly occupied
+active orbitals.34,79 In contrast, the combination of many-
+body equations and renormalization of intruders allows
+the MR-DSRG to retain all amplitudes and, in principle,
+avoid discontinuities caused by the elimination of excita-
+tions.
+VII. CONCLUSIONS
+The framework of similarity renormalization group
+provides a general approach to create many-body the-
+ories that do not suﬀer from problems with small en-
+ergy denominators. In this work we take advantage of
+this strategy to formulate the MR-LDSRG(2) approach,
+a novel multireference theory that combines numerical
+robustness with an internally-contracted treatment of dy-
+namical electron correlation eﬀects that is comparable to
+that of the single-reference CCSD approach.
+The MR-DSRG formalism addresses two major diﬃ-
+culties encountered in other nonperturbative multiref-
+erence theories: 1) convergence issues linked to the
+intruder-state problem and 2) energy discontinuities that
+arise from the need to eliminate redundant wave func-
+tion parameters. The MR-DSRG performs a contin-
+uous unitary transformation of the Hamiltonian that
+folds in dynamical correlation eﬀects. This transfor-
+mation produces a ﬂow renormalization of the many-
+body interaction, where problematic rotations between
+the reference and near-degenerate excited conﬁgura-
+tions are suppressed. 63 The redundancy problem is
+dealt with a many-body formulation of the MR-DSRG
+equations,19,34,58 an approach that has been successfully
+applied to numerous MR methods.34,35,79,114 In addition,
+the MR-DSRG equations make extensive use of Mukher-
+jee and Kutzelnigg’s normal order formalism for multi-
+conﬁgurational vacua.65–70
+The MR-LDSRG(2) model introduced in this work is
+based on a cluster operator truncated to one- and two-
+body terms, while the Baker–Campbell–Hausdorﬀ ex-
+pansion is approximated with a linearized recursive for-
+mula. This model is perhaps one of the simplest inter-
+nally contracted MR methods available: it contains only
+39 terms and has a computational cost that scales as
+O(N2N2
+PN2
+H), which is roughly the same as single refer-
+ence CCSD [O(N4
+PNH)].
+The MR-LDSRG(s) has been benchmarked against the
+FCI ground-state potential energy curves (PECs) of HF
+and N2, and the experimental singlet-triplet splitting of
+p-benzyne. The relaxed MR-LDSRG(2) PECs of HF
+and N2 show similar nonparallelity errors, 4.24 mEh and
+4.81 mEh, respectively, and maximum errors of compa-
+rable magnitude, 4.65 and 7.60 m Eh, respectively. To
+put these numbers into perspective, we also evaluate the
+CCSD and CCSD(T) dissociation energy of HF and N2 as
+De(HF) =E(H,2S) +E(F,2P )−E(HF,re) andDe(N2) =
+2 E(N,4S)−E(N2,re), respectively. At the CCSD level,
+De(HF) andDe(N2) deviate from FCI by−1.3 and−12.7
+mEh, respectively. The addition of pertubative triples
+reduces these errors to −0.3 (HF) and −1.6 mEh (N2).
+Hence, the accuracy of the MR-LDSRG(2) appears to
+fall within the range expected for CCSD. For p-benzyne,
+the singlet-triplet gap is predicted to be 4.71 kcal mol −1
+at the MR-LDSRG(2) (s = 0.5) level of theory, a value
+that is within 1.2 kcal mol −1 from the experimentally
+measured gap and previously reported ic-MRCCSD and
+ic-MRCCSD(T) results.100
+We also notice that dependency of the MR-LDSRG(2)
+energy and properties on the value of the ﬂow variable (s)
+is greatly reduced with respect to the DSRG second-order
+multireference perturbation theory (DSRG-MRPT2). 64
+For example, when the ﬂow variable s is increased from
+0.5 to 1.0E−2
+h , the MR-LDSRG(2) equilibrium distances
+of HF and N 2 change by less than 0.0002 ˚A, while at
+the DSRG-MRPT2 level they vary by 0.004 and 0.001
+˚A, respectively. Moreover, it is important to allow the
+reference wave function to relax in the presence of dy-
+namic correlation, as shown by the conspicuous 1–3 kcal
+mol−1 changes in the p-benzyne singlet-triplet splittings.
+In general, we ﬁnd that the relaxed MR-LDSRG(2) ap-
+proach with s = 0.5 E−2
+h provides a consistent compro-
+mise between numerical robustness and accuracy.
+Overall, our results suggest that future study should
+the natural next step would be to explore more accu-
+rate MR-DSRG truncation schemes. Perhaps, the largest
+source of error in the MR-LDSRG(2) is the linear commu-
+tator approximation, since it is known to yield correlation
+energies that are correct only up to third order in pertur-
+bation theory. One way to address this issue is to con-
+sider a quadratic commutator approximation.95 Another
+aspect to consider is the inclusion of triple excitations
+via a perturbative correction analogous to the CCSD(T)
+approach.89 In this respect, one of the advantages oﬀered
+by the MR-DSRG formalism is that it does not require
+the costly orthogonalization of triple excitations, which
+12
+is instead mandatory in methods that project equations
+onto a set of internally contracted conﬁgurations.
+ACKNOWLEDGMENTS
+This work was supported by start-up funds provided
+by Emory University.
+Appendix A: MR-DSRG theory in a general basis
+As commented in Ref. 63, the original formulation of
+the DSRG gives an energy that is not invariant with
+respect to separate rotations among orbitals that leave
+the reference unchanged (in the case of the MR-DSRG
+these are the core, active, and virtual orbitals), unless
+s = 0 or s→∞ . The lack of orbital invariance is due
+to the structure of the source operator [Eq. (16)]. The
+original parameterization of the source operator uses a
+Gaussian function of Møller–Plesset denominators in the
+semicanonical basis. When orbitals are rotated to a dif-
+ferent basis, the functional form of the source operator
+changes, thus, breaking orbital invariance. By analyzing
+the issue of orbital invariance in the second-order SRG
+approach, we found a simple approach to write a gen-
+eral orbital-invariant DSRG source operator. Without
+going in details of this derivation, our solution to the or-
+bital invariance issue is to relate the source operator in
+an arbitrary basis to the original expression in the semi-
+canonical basis via a series of unitary transformations.
+To begin with, we need to establish the relationship be-
+tween a set of general and semicanonical orbitals. If we
+start from a noncanonical basis {φp}, the unitary trans-
+formation ψp′
+= ∑
+pUp′
+p φp that connects it to the semi-
+canonical basis{ψp′
+} satisﬁes the eigenvalue problem for
+each block of the Fock matrix:
+FX UX = UX ϵX, X = C, A, V, (A1)
+where FX is the Fock matrix for block X and ϵX is the
+corresponding diagonal matrix of orbital energies. The
+direct sum of these block transformations ( UX) yields
+the unitary matrix ( U) that rotates a general basis to
+the semicanonical basis,
+U = UC⊕ UA⊕ UV. (A2)
+Following the notation of Kong,111 we express the matrix
+element of U and its transpose as Up′
+q and Uq
+p′, respec-
+tively.
+In a general basis obtained by rotating the semicanon-
+ical orbitals, the one- and two-body components of the
+source operator [Eq. (16)] can be rewritten as:
+rk
+c =
+∑
+i′a′
+Ua′
+c [(
+∑
+kc
+Uc
+a′ ¯Hk
+cUi′
+k + ∆i′
+a′
+∑
+kc
+Uc
+a′tk
+cUi′
+k )e−s(∆i′
+a′)2
+]Uk
+i′, (A3)
+rkl
+cd =
+∑
+i′j′a′b′
+Ua′
+c Ub′
+d [(
+∑
+klcd
+Ud
+b′Uc
+a′ ¯Hkl
+cdUi′
+kUj′
+l + ∆i′j′
+a′b′
+∑
+klcd
+Ud
+b′Uc
+a′tkl
+cdUi′
+kUj′
+l )e−s(∆i′ j′
+a′b′)2
+]Ul
+j′Uk
+i′. (A4)
+where the Møller–Plesset denominators ∆ i′
+a′ = ϵi′−ϵa′
+and ∆i′j′
+a′b′ =ϵi′ +ϵj′−ϵa′−ϵb′, are deﬁned in the semi-
+canonical basis.
+In practice, to evaluate the MR-DSRG equations, we
+ﬁrst evaluate ¯Hold andtold in a general basis, transformed
+them in the semicanonical basis, update the amplitudes
+using Eqs. (24) and (25), and transform the amplitudes
+back to the general basis. The resulting algorithm is
+more expensive than directly solving the DSRG equation
+[Eq. (5)] in the semicanonical basis since it requires ad-
+ditional steps that scale as O(N2
+HN3
+P). Nevertheless, an
+orbital invariant formulation of the MR-DSRG allows us
+to evaluate the renormalized Hamiltonian in other bases
+that might oﬀer a computational advantage (for example,
+the natural orbital basis). We have implemented and nu-
+merically veriﬁed the orbital invariance of this new source
+operator on the singlet ground state of N 2.
+Appendix B: Matrix elements of ˆO(s) = [ ˆH, ˆA(s)]1,2
+Here we present the matrix elements of the linear com-
+mutator ˆO(s) = [ ˆH, ˆA(s)]1,2 required to evaluate the
+MR-DSRG transformed Hamiltonian via Eqs. (18) and
+(27). Since [ ˆH, ˆT†(s)] = −[ ˆH, ˆT (s)]† holds, only terms
+from [ ˆH, ˆT (s)]1,2 need to be derived. As indicated by
+Eq. (2), we may write the quantity [ ˆH, ˆT (s)]1,2 as the
+sum of four contributions,
+[ ˆH, ˆT (s)]1,2 =[ ˆF, ˆT1(s)]1,2 + [ ˆF, ˆT2(s)]1,2
++ [ˆV, ˆT1(s)]1,2 + [ˆV, ˆT2(s)]1,2. (B1)
+Table A1 reports all terms resulting from ˆC(s) =
+[ ˆH, ˆT (s)]1,2, expressed in terms of the one-particle den-
+sity matrix ( γ), the one-hole density matrix ( η), and
+density cumulants (λ) of Ψ 0.66,70,74 For convenience, we
+adopt the Einstein summation convention, and drop the
+symbol “(s)” from the cluster amplitudes. Line 1 corre-
+13
+TABLE A1. Equations for the evaluation of the commutator [ ˆH, ˆT (s)]1,2 expressed using Einstein’s notation. Indices follow
+the convention introduced in Table I.
+# Contribution Expression
+1 C +f b
+jti
+aγj
+iηa
+b + 1
+2λxy
+uv[(f e
+xtuv
+ey +vev
+xytu
+e )− (f v
+mtum
+xy +vuv
+mytm
+x )] + 1
+4vcd
+kltij
+abγk
+iγl
+jηa
+cηb
+d
++λxy
+uvvvb
+jxtiu
+ayγj
+iηa
+b + 1
+8λxy
+uv(vcd
+xytuv
+abηa
+cηb
+d +vuv
+kltij
+xyγk
+iγl
+j) + 1
+4λxyz
+uvw(vuv
+mztmw
+xy +vwe
+xytuv
+ez )
+2 C i
+p +f a
+pti
+a + 1
+2vvy
+pwtiz
+uxγu
+vγx
+yηw
+z + 1
+2vcd
+pktij
+abγk
+jηa
+cηb
+d +λxy
+uv( 1
+4vuv
+pjtij
+xy +vau
+pxtiv
+ay)
+3 C p
+a −f p
+iti
+a− 1
+2vpz
+uxtvy
+awηu
+vηx
+yγw
+z − 1
+2vpc
+kltij
+abγk
+iγl
+jηb
+c−λxy
+uv( 1
+4vpb
+xytuv
+ab +vpu
+ixtiv
+ay)
+4 C i
+a +tij
+abf b
+kγk
+j−tij
+auf v
+jγu
+v + 1
+2λxy
+uv(vuv
+yjtij
+ax−vvb
+xytiu
+ab)
+5 C q
+p +ti
+avqa
+pjγj
+i−tm
+uvqv
+pmγu
+v + 1
+2λxy
+uv(vqe
+pxtuv
+ey−vqu
+pmtmv
+xy )
+6 P(p,b )C ij
+pb +tij
+abf a
+p
+7 P(q,j )C jq
+ab +tij
+abf q
+i
+8 P(p,a )C rs
+ap +ti
+avrs
+pi
+9 P(r,i )C ir
+pq +ti
+avar
+pq
+10 C ij
+rs + 1
+2(vcd
+rstij
+abηa
+cηb
+d−vvy
+rstij
+uxγu
+vγx
+y )
+11 C pq
+ab + 1
+2(vpq
+kltij
+abγk
+iγl
+j−vpq
+uxtvy
+abηu
+vηx
+y)
+12 P(p,b )P(q,j )C qj
+pb +vaq
+kptij
+abγk
+i−vyq
+iptij
+xbγx
+y
+sponds to the fully contracted contribution, while lines
+2–5 and 6–12 report the one- and two-body contribu-
+tions of ˆC(s), respectively. In lines 6–9 and 12, we intro-
+duce the index permutation operator P(p,q ) deﬁned as
+P(p,q ) = 1− (p↔ q) to indicate contributions to per-
+mutation of the tensor Crs
+pq. For example, line 6 should
+be interpreted as:
+Cij
+pb← +
+∑
+a
+tij
+abfa
+p, (B2)
+Cij
+bp←−
+∑
+a
+tij
+abfa
+p. (B3)
+1D. I. Lyakh, M. Musia l, V. F. Lotrich, and R. J. Bartlett, Chem.
+Rev. 112, 182 (2012).
+2P. G. Szalay, T. M¨ uller, G. Gidofalvi, H. Lischka, and R. Shep-
+ard, Chem. Rev. 112, 108 (2012).
+3J. Van Vleck, Phys. Rev. 33, 467 (1929).
+4E. C. Kemble, The Fundamental Principles of Quantum Me-
+chanics, With Elementary Applications (Dover Publications,
+2005).
+5C. Bloch, Nucl. Phys. 6, 329 (1958).
+6B. Brandow, Rev. Mod. Phys. 39, 771 (1967).
+7K. F. Freed, J. Chem. Phys. 60, 1765 (1974).
+8B. Kirtman, J. Chem. Phys. 75, 798 (1981).
+9K. Andersson, P.- ˚A. Malmqvist, and B. O. Roos, J. Chem.
+Phys. 96, 1218 (1992).
+10K. Hirao, Chem. Phys. Lett. 190, 374 (1992).
+11P. M. Kozlowski and E. R. Davidson, J. Chem. Phys. 100, 3672
+(1994).
+12C. Angeli, R. Cimiraglia, S. Evangelisti, T. Leininger, and J.-P.
+Malrieu, J. Chem. Phys. 114, 10252 (2001).
+13R. K. Chaudhuri, K. F. Freed, G. Hose, P. Piecuch, K. Kowalski,
+M. W loch, S. Chattopadhyay, D. Mukherjee, Z. Rolik,´A. Szaba-
+dos, G. T´ oth, and P. R. Surj´ an, J. Chem. Phys. 122, 134105
+(2005).
+14M. R. Hoﬀmann, D. Datta, S. Das, D. Mukherjee, A. Szabados,
+Z. Rolik, and P. R. Surj´ an, J. Chem. Phys.131, 204104 (2009).
+15H.-J. Werner and P. J. Knowles, J. Chem. Phys.89, 5803 (1988).
+16S. R. Langhoﬀ and E. R. Davidson, Int. J. Quantum Chem. 8,
+61 (1974).
+17R. J. Gdanitz and R. Ahlrichs, Chem. Phys. Lett. 143, 413
+(1988).
+18P. G. Szalay and R. J. Bartlett, Chem. Phys. Lett. 214, 481
+(1993).
+19I. Lindgren, Int. J. Quantum Chem. 14, 33 (1978).
+20M. A. Haque and D. Mukherjee, J. Chem. Phys.80, 5058 (1984).
+21B. Jeziorski and H. J. Monkhorst, Phys. Rev. A24, 1668 (1981).
+22K. Kowalski and P. Piecuch, Phys. Rev. A 61, 052506 (2000).
+23X. Li and J. Paldus, J. Chem. Phys. 119, 5320 (2003).
+24J. M´ aˇ sik and I. Hubaˇ c, Adv. Quantum Chem.31, 75 (1998).
+25J. Pittner, P. Nachtigall, P. ˇC´ arsky, J. M´ aˇ sik, and I. Hubaˇ c, J.
+Chem. Phys. 110, 10275 (1999).
+26U. S. Mahapatra, B. Datta, and D. Mukherjee, Mol. Phys. 94,
+157 (1998).
+27S. Das, D. Mukherjee, and M. K´ allay, J. Chem. Phys. 132,
+074103 (2010).
+28F. A. Evangelista, W. D. Allen, and H. F. Schaefer, J. Chem.
+Phys. 125, 154113 (2006).
+29M. Hanrath, J. Chem. Phys. 123, 084102 (2005).
+30R. J. Bartlett and M. Musia l, Rev. Mod. Phys. 79, 291 (2007).
+31F. A. Evangelista and J. Gauss, J. Chem. Phys. 134, 114102
+(2011).
+32M. Hanauer and A. K¨ ohn, J. Chem. Phys.134, 204111 (2011).
+33Z. Chen and M. R. Hoﬀmann, J. Chem. Phys. 137, 014108
+(2012).
+34D. Datta, L. Kong, and M. Nooijen, J. Chem. Phys.134, 214116
+(2011).
+35O. Demel, D. Datta, and M. Nooijen, J. Chem. Phys. 138,
+134108 (2013).
+36T. Yanai and G. K.-L. Chan, J. Chem. Phys. 124, 194106
+(2006).
+37T. Yanai and G. K.-L. Chan, J. Chem. Phys. 127, 104107
+(2007).
+38D. A. Mazziotti, Phys. Rev. Lett. 97, 143002 (2006).
+39D. A. Mazziotti, Phys. Rev. A 75, 022505 (2007).
+40A. E. DePrince, E. Kamarchik, and D. A. Mazziotti, J. Chem.
+Phys. 128, 234103 (2008).
+41D. A. Mazziotti, Chem. Rev. 112, 244 (2012).
+14
+42T. D. Crawford and H. F. Schaefer, “An introduction to cou-
+pled cluster theory for computational chemists,” in Reviews in
+Computational Chemistry (John Wiley & Sons, Inc., 2000) pp.
+33–136.
+43S. Evangelisti, J. P. Daudey, and J. P. Malrieu, Phys. Rev. A
+35, 4930 (1987).
+44J. Paldus, P. Piecuch, L. Pylypow, and B. Jeziorski, Phys. Rev.
+A 47, 2738 (1993).
+45B. O. Roos and K. Andersson, Chem. Phys. Lett. 245, 215
+(1995).
+46C. Camacho, H. A. Witek, and S. Yamamoto, J. Comput.
+Chem. 30, 468 (2009).
+47C. Camacho, R. Cimiraglia, and H. A. Witek, Phys. Chem.
+Chem. Phys. 12, 5058 (2010).
+48N. Forsberg and P.-˚A. Malmqvist, Chem. Phys. Lett. 274, 196
+(1997).
+49H. A. Witek, Y.-K. Choe, J. P. Finley, and K. Hirao, J. Comput.
+Chem. 23, 957 (2002).
+50A. G. Taube and R. J. Bartlett, J. Chem. Phys. 130, 144112
+(2009).
+51K. G. Dyall, J Chem. Phys. 102, 4909 (1995).
+52K. Andersson, Theor. Chim. Acta 91, 31 (1995).
+53E. Neuscamman, T. Yanai, and G. K.-L. Chan, J. Chem. Phys.
+132, 024106 (2010).
+54U. S. Mahapatra, B. Datta, B. Bandyopadhyay, and D. Mukher-
+jee, Adv. Quantum Chem. 30, 163 (1998).
+55U. S. Mahapatra, B. Datta, and D. Mukherjee, J. Chem. Phys.
+110, 6171 (1999).
+56Y. Kurashige and T. Yanai, J. Chem. Phys. 135, 094104 (2011).
+57C. Angeli, R. Cimiraglia, and J.-P. Malrieu, Chem. Phys. Lett.
+350, 297 (2001).
+58M. Nooijen and R. J. Bartlett, J. Chem. Phys.104, 2652 (1996).
+59S. D. G lazek and K. G. Wilson, Phys. Rev. D 48, 5863 (1993).
+60F. Wegner, in Advances in Solid State Physics 40 , Advances
+in Solid State Physics, Vol. 40, edited by B. Kramer (Springer
+Berlin Heidelberg, 2000) pp. 133–142.
+61K. Tsukiyama, S. K. Bogner, and A. Schwenk, Phys. Rev. Lett.
+106, 222502 (2011).
+62H. Hergert, S. K. Bogner, T. D. Morris,
+A. Schwenk, and K. Tsukiyama, Phys. Rep. (2016),
+http://doi:10.1016/j.physrep.2015.12.007.
+63F. A. Evangelista, J. Chem. Phys. 141, 054109 (2014).
+64C. Li and F. A. Evangelista, J. Chem. Theory Comput.11, 2097
+(2015).
+65D. Mukherjee, Chem. Phys. Lett. 274, 561 (1997).
+66W. Kutzelnigg and D. Mukherjee, J. Chem. Phys. 107, 432
+(1997).
+67K. R. Shamasundar, J. Chem. Phys. 131, 174109 (2009).
+68L. Kong, M. Nooijen, and D. Mukherjee, J. Chem. Phys. 132,
+234107 (2010).
+69D. Sinha, R. Maitra, and D. Mukherjee, Comput. Theor. Chem.
+1003, 62 (2013).
+70W. Kutzelnigg, K. R. Shamasundar, and D. Mukherjee, Mol.
+Phys. 108, 433 (2010).
+71W. Kutzelnigg, J. Chem. Phys. 77, 3081 (1982); W. Kutzelnigg
+and S. Koch, ibid. 79, 4315 (1983); W. Kutzelnigg, ibid. 80, 822
+(1984); 82, 4166 (1985).
+72L. Z. Stolarczyk and H. J. Monkhorst, Phys. Rev. A 32, 725
+(1985); 32, 743 (1985); 37, 1908 (1988); 37, 1926 (1988).
+73F. A. Evangelista and J. Gauss, Chem. Phys. 401, 27 (2012).
+74M. Hanauer and A. K¨ ohn, Chem. Phys.401, 50 (2012).
+75W. Kutzelnigg, in Recent Progress in Coupled Cluster Meth-
+ods, Challenges and Advances in Computational Chemistry and
+Physics, Vol. 11, edited by P. ˇC´ arsky, J. Paldus, and J. Pittner
+(Springer Netherlands, 2010) pp. 299–356.
+76W. Kutzelnigg, Int. J. Quantum Chem. 109, 3858 (2009).
+77S. Kehrein, The Flow Equation Approach to Many-Particle Sys-
+tems (Springer Berlin Heidelberg, 2006).
+78B. O. Roos, P. R. Taylor, and P. E. Siegbahn, Chem. Phys. 48,
+157 (1980).
+79D. Datta and M. Nooijen, J. Chem. Phys. 137, 204107 (2012).
+80N. C. Handy, J. A. Pople, M. Head-Gordon, K. Raghavachari,
+and G. W. Trucks, Chem. Phys. Lett. 164, 185 (1989).
+81R. J. Bartlett, S. A. Kucharski, and J. Noga, Chem. Phys. Lett.
+155, 133 (1989).
+82A. G. Taube and R. J. Bartlett, Int. J. Quantum Chem. 106,
+3393 (2006).
+83For example, in the MR-DSRG the expectation value of [ ˆF, ˆT1]
+is given by:
+⟨Ψ0| [ ˆF, ˆT1]|Ψ0⟩ =
+H∑
+ij
+P∑
+ab
+f b
+jti
+aγj
+iηa
+b,
+where ˆF is the generalized Fock operator. If we deﬁne dressed
+singles amplitudes as: ˜tj
+b = ∑H
+i
+∑P
+a ti
+aγj
+iηa
+b , then the above
+equation may be written as ⟨Ψ0| [ ˆF, ˆT1]|Ψ0⟩ = ∑H
+i
+∑P
+a f a
+i ˜ti
+a,
+which has the same form of the single-reference coupled cluster
+contribution to the energy:
+⟨Φ| [ ˆF, ˆT1]|Φ⟩ =
+O∑
+i
+V∑
+a
+f a
+iti
+a,
+where O and V are respectively the set of occupied and virtual
+orbitals for Slater determinant Φ.
+It is also possible to show that for a complete or incomplete
+active space, the MR-DSRG equations contain all the contribu-
+tions that appear in CC theory. Taking advantage of the struc-
+ture of the one-particle and one-hole density matrices, each sum
+over pairwise contractions can be split into contractions over
+contractions over core, active, and virtual orbitals. For exam-
+ple:
+∑
+single
+pairs
+{ ˆX ˆY} =
+C∑
+single
+pairs
+{ ˆX ˆY} +
+A∑
+single
+pairs
+{ ˆX ˆY} +
+V∑
+single
+pairs
+{ ˆX ˆY}.
+Since for core orbitals γm
+n = δm
+n and ηm
+n = 0, while for virtual
+orbitals γe
+f = 0 and ηe
+f =δe
+f , pairwise contractions of core and
+virtual orbitals follow the same rules of the traditional Wick’s
+theorem. Thus, contractions of commutators of ˆH with ˆT that
+involve only core and virtual orbitals will yield terms that are
+equivalent to those that appear in single-reference coupled clus-
+ter theory.
+84J. M. Turney, A. C. Simmonett, R. M. Parrish, E. G. Hohen-
+stein, F. A. Evangelista, J. T. Fermann, B. J. Mintz, L. A.
+Burns, J. J. Wilke, M. L. Abrams, N. J. Russ, M. L. Leininger,
+C. L. Janssen, E. T. Seidl, W. D. Allen, H. F. Schaefer, R. A.
+King, E. F. Valeev, C. D. Sherrill, and T. D. Crawford, WIREs
+Comput. Mol. Sci. 2, 556 (2012).
+85Ambit is a C++ library for the implementation of tensor prod-
+uct calculations through a clean, concise user interface, written
+by Turney, J. M.; Parrish, R. M.; Evangelista, F. A.; Smith, D.
+G. For the current version, see https://github.com/jturney/
+ambit (2015).
+86F. A. Evangelista, W. D. Allen, and H. F. Schaefer, J. Chem.
+Phys. 127, 024102 (2007).
+87P. J. Knowles and H.-J. Werner, Chem. Phys. Lett. 145, 514
+(1988).
+88G. D. Purvis and R. J. Bartlett, J. Chem. Phys.76, 1910 (1982).
+89K. Raghavachari, G. W. Trucks, J. A. Pople, and M. Head-
+Gordon, Chem. Phys. Lett. 157, 479 (1989).
+90J. F. Stanton, Chem. Phys. Lett. 281, 130 (1997).
+91F. A. Evangelista, M. Hanauer, A. K¨ ohn, and J. Gauss, J.
+Chem. Phys. 136, 204108 (2012).
+92T. H. Dunning, J. Chem. Phys. 90, 1007 (1989).
+93H.-J. Werner, P. J. Knowles, G. Knizia, F. R. Manby, and
+M. Sch¨ utz, WIREs Comput. Mol. Sci.2, 242 (2012).
+94H.-J. Werner, P. J. Knowles, G. Knizia, F. R. Manby, M. Sch¨ utz,
+P. Celani, W. Gy¨ orﬀy, D. Kats, T. Korona, R. Lindh,
+A. Mitrushenkov, G. Rauhut, K. R. Shamasundar, T. B. Adler,
+R. D. Amos, A. Bernhardsson, A. Berning, D. L. Cooper,
+15
+M. J. O. Deegan, A. J. Dobbyn, F. Eckert, E. Goll, C. Ham-
+pel, A. Hesselmann, G. Hetzer, T. Hrenar, G. Jansen, C. K¨ oppl,
+Y. Liu, A. W. Lloyd, R. A. Mata, A. J. May, S. J. McNicholas,
+W. Meyer, M. E. Mura, A. Nicklass, D. P. O’Neill, P. Palmieri,
+D. Peng, K. Pﬂ¨ uger, R. Pitzer, M. Reiher, T. Shiozaki, H. Stoll,
+A. J. Stone, R. Tarroni, T. Thorsteinsson, and M. Wang, “Mol-
+pro, version 2015.1, a package of ab initioprograms,” (2015),
+see http://www.molpro.net.
+95E. Neuscamman, T. Yanai, and G. K.-L. Chan, J. Chem. Phys.
+130, 124102 (2009).
+96H. Larsen, J. Olsen, P. Jørgensen, and O. Christiansen, J.
+Chem. Phys. 113, 6677 (2000).
+97Due to the high cost of FCI computations, the FCI PEC was
+generated on the grid of 0.1 ˚A, while curves for other methods
+were constructed using a much ﬁner grid (0.01 ˚A). To evaluate
+the error with respect to FCI on the ﬁner grid, we perform
+a fourth-order least squares polynomial ﬁt of the MRCISD+Q
+and FCI energy diﬀerence, f(r) =EMRCISD+Q(r)−EFCI(r) =∑4
+n=0anrn. Thus at a certain atomic distance r, the energy
+deviation for the method X relative to FCI is calculated as
+∆E(r) =EX(r)−EMRCISD+Q(r) +f(r).
+98Notice that a similar NPE (12.03 mEh) is obtained for the Mk-
+MRCCSD implementation with full oﬀ-diagonal couplings using
+delocalized orbitals (see Ref. 27).
+99F. A. Evangelista and J. Gauss, Chem. Phys. 401, 27 (2012).
+100M. Hanauer and A. K¨ ohn, J. Chem. Phys.136, 204107 (2012).
+101P. G. Wenthold, R. R. Squires, and W. C. Lineberger, J. Am.
+Chem. Soc. 120, 5279 (1998).
+102H. Wenk, M. Winkler, and W. Sander, Angew. Chem. Int. Edit.
+42, 502 (2003).
+103C. J. Cramer, J. J. Nash, and R. R. Squires, Chem. Phys. Lett.
+277, 311 (1997).
+104R. Lindh, A. Bernhardsson, and M. Sch¨ utz, J. Phys. Chem. A
+103, 9913 (1999).
+105T. D. Crawford, E. Kraka, J. F. Stanton, and D. Cremer, J.
+Chem. Phys. 114, 10638 (2001).
+106L. V. Slipchenko and A. I. Krylov, J. Chem. Phys. 117, 4694
+(2002).
+107H. Li, S.-Y. Yu, M.-B. Huang, and Z.-X. Wang, Chem. Phys.
+Lett. 450, 12 (2007).
+108E. B. Wang, C. A. Parish, and H. Lischka, J. Chem. Phys. 129,
+044306 (2008).
+109X. Li and J. Paldus, J. Chem. Phys. 129, 174101 (2008).
+110R. Schutski, C. A. Jim´ enez-Hoyos, and G. E. Scuseria, J. Chem.
+Phys. 140, 204101 (2014).
+111L. Kong, Int. J. Quantum Chem. 110, 2603 (2010).
+112A. K¨ ohn, M. Hanauer, L. A. M¨ uck, T.-C. Jagau, and J. Gauss,
+WIREs: Comput. Mol. Sci. 3, 176 (2013).
+113H. Hergert, S. K. Bogner, S. Binder, A. Calci, J. Langhammer,
+R. Roth, and A. Schwenk, Phys. Rev. C 87, 034307 (2013).
+114H. Hergert, S. Binder, A. Calci, J. Langhammer, and R. Roth,
+Phys. Rev. Lett. 110, 242501 (2013).
+115W. Kutzelnigg, Chem. Phys. Lett. 64, 383 (1979).
+116D. Mukherjee and W. Kutzelnigg, J. Chem. Phys. 114, 2047
+(2001).
+117M. Nooijen, O. Demel, D. Datta, L. Kong, K. R. Shamasundar,
+V. Lotrich, L. M. Huntington, and F. Neese, J. Chem. Phys.
+140, 081102 (2014).
+118L. M. J. Huntington, O. Demel, and M. Nooijen, J. Chem.
+Theory Comput. 12, 114 (2016).
+119I. Lindgren, Int. J. Quantum Chem. 14, 33 (1978).

@@ -1,0 +1,322 @@
+2	ok	0.00	Power	Null^6
+6	ok	0.00	Symbol	Null
+9	ok	t$1616	Symbol	res$1616
+10	ok	0.00	List	{{a, 1}, {"b"}, {"c"}}
+13	ok	0.00	List	{{{"Sign", 1}, {{a, 1}, {b}, {c}}}, {{"Sign", -1}, {{\[Gamma], 1}, {b}, {c}}}}
+16	ok	0.00	Power	Null^4
+17	ok	0.00	List	{{a, 2}, {"b", "d"}, {"c", "e"}}
+20	ERROR	0.00	Symbol	$Failed
+25	ok	0.00	Symbol	Null
+26	ok	0.00	List	{{a, 3}, {"b", "d", "f"}, {"c", "e", "g"}}
+29	ERROR	0.00	Symbol	$Failed
+34	ok	0.00	Symbol	Null
+35	ok	0.00	List	{{a, 4}, {"b", "d", "f", "h"}, {"c", "e", "g", "i"}}
+38	ok	t$1642	Symbol	res$1642
+48	ok	t$1646	Symbol	res$1646
+49	ok	t$1652	Symbol	res$1652
+55	ok	t$1653	Symbol	res$1653
+67	ok	t$1660	Symbol	res$1660
+68	ok	t$1661	Symbol	res$1661
+75	ok	t$1666	Symbol	res$1666
+79	ok	t$1667	Symbol	res$1667
+80	ok	t$1668	Symbol	res$1668
+85	ok	0.00	Symbol	Null
+86	ok	t$182656	Symbol	res$182656
+94	ok	t$182666	Symbol	res$182666
+98	ok	t$182667	Symbol	res$182667
+107	ok	t$182716	Symbol	res$182716
+108	ok	t$182717	Symbol	res$182717
+109	ok	t$182718	Symbol	res$182718
+119	ok	0.00	Integer	131
+125	ok	t$182727	Symbol	res$182727
+126	ok	t$182728	Symbol	res$182728
+133	ok	t$182759	Symbol	res$182759
+141	ok	t$183136	Symbol	res$183136
+145	ok	t$183137	Symbol	res$183137
+146	ok	t$183138	Symbol	res$183138
+147	ok	t$183139	Symbol	res$183139
+153	ok	t$185177	Symbol	res$185177
+158	ok	0.00	List	{{{"Sign", -1}, {{\[Gamma], 1}, {"r"}, {"u"}}, {{\[Delta], 1}, {"p"}, {"s"}}, {{\[Eta], 1}, {"t"}, {"q"}}}, {{"Sign", 1}, {{\[Gamma], 1}
+161	ERROR	0.00	Symbol	$Failed
+174	ok	t$185795	Symbol	res$185795
+175	ok	t$185796	Symbol	res$185796
+176	ok	0.02	Plus	-(Subsuperscript[\[Gamma], {"c"}, {"f"}]*Subsuperscript[\[Gamma], {"e"}, {"d"}]*Subsuperscript[\[Gamma], {"g"}, {"b"}]) + Subsupers
+179	ok	t$185808	Symbol	res$185808
+185	ok	5.27	Real	5.406408
+190	ERROR	0.00	Symbol	$Failed
+197	ERROR	0.00	Symbol	$Failed
+204	ERROR	0.00	Symbol	$Failed
+212	ok	t$188612	Symbol	res$188612
+215	ok	t$188613	Symbol	res$188613
+218	ok	t$188614	Symbol	res$188614
+221	ok	0.10	List	{0.101217, Null}
+224	ok	t$189386	Symbol	res$189386
+227	ok	0.00	Plus	"a_{s u}^{p t}"*"\\delta_{q}^{r}" - "a_{s u}^{p r}"*"\\delta_{q}^{t}" - "a_{q u}^{r t}"*"\\delta_{s}^{p}" + "a
+230	ok	t$189418	Symbol	res$189418
+234	ok	         -6
+8.00 x 10	Integer	0
+239	ok	t$189420	Symbol	res$189420
+240	ok	t$189421	Symbol	res$189421
+244	ok	t$190202	Symbol	res$190202
+248	ok	0.00	Power	Null^2
+250	ok	t$190223	Symbol	res$190223
+267	ok	0.04	Integer	0
+274	ok	t$232341	Symbol	res$232341
+275	ok	t$232342	Symbol	res$232342
+276	ok	0.00	Symbol	Null
+277	ok	0.02	Plus	Subsuperscript["VTs", {"r", "s"}, {"t", "u"}]*Subsuperscript["VTt", {"v", "w"}, {"x", "y"}]*Subsuperscript[\[Gamma], 
+284	ok	t$232365	Symbol	res$232365
+286	ERROR	0.00	Symbol	$Failed
+290	ok	0.06	Plus	(Subsuperscript["VTs", {"u", "w"}, {"r", "y"}]*Subsuperscript["VTt", {"s", "x"}, {"t", "v"}]*Subsuperscript[\[Gamma],
+295	ok	t$232640	Symbol	res$232640
+296	ERROR	         -6
+7.00 x 10	Symbol	$Failed
+297	ok	0.00	Plus	2*Subsuperscript["VTs", {"u", "w"}, {"r", "y"}]*Subsuperscript["VTt", {"s", "x"}, {"t", "v"}]*Subsuperscript[\[Gamma]
+300	ok	0.00	Plus	-2*Subsuperscript["VTs", {"s", "u"}, {"v", "y"}]*Subsuperscript["VTt", {"w", "x"}, {"r", "t"}]*Subsuperscript[
+303	ok	0.00	Plus	-2*Subsuperscript["VTs", {"w", "x"}, {"r", "t"}]*Subsuperscript["VTt", {"s", "u"}, {"v", "y"}]*Subsuperscript[
+306	ok	0.00	Plus	2*Subsuperscript["VTs", {"s", "y"}, {"t", "v"}]*Subsuperscript["VTt", {"u", "w"}, {"r", "x"}]*Subsuperscript[\[Gamma]
+309	ok	0.00	List	{{{"Sign", 1/2}, {{"VTs", 2}, {"r", "y"}, {"u", "w"}}, {{"VTt", 2}, {"t", "v"}, {"s", "x"}}, {{\[Gamma], 1}, {"u"}, {
+312	ok	t$232666	Symbol	res$232666
+316	ok	t$232685	Symbol	res$232685
+324	ok	t$232686	Symbol	res$232686
+328	ok	t$232687	Symbol	res$232687
+329	ok	         -6
+8.00 x 10	List	{{"Sign", -1/2}, {{"VTs", 2}, {"p", "r"}, {"u", "w"}}, {{"VTt", 2}, {"t", "v"}, {"s", "x"}}, {{\[Gamma], 1}, {"u"}, {
+332	ok	t$232689	Symbol	res$232689
+338	ok	0.13	Plus	-1/2*(Subsuperscript["VTs", {"s", "t"}, {"p", "r"}]*Subsuperscript["VTt", {"p", "r"}, {"s", "t"}]*Subsuperscri
+341	ok	2.56	Plus	-(Subsuperscript["VTs", {"p", "r"}, {"p", "r"}]*Subsuperscript["VTt", {"p", "r"}, {"p", "r"}]*Subsuperscript[\[Gamma]
+345	ok	0.01	Plus	(Subsuperscript["VTs", {"s", "t"}, {"p", "r"}]*Subsuperscript["VTt", {"p", "r"}, {"s", "t"}]*Subsuperscript[\[Gamma],
+349	ok	t$233607	Symbol	res$233607
+350	ok	t$233608	Symbol	res$233608
+354	ok	0.00	StringJoin	StringJoin["Out(p,q) += {{VTs, 2.}, {p, r}, {s, t}}*Eta(", TlS[{"VTs", 2}], ",", TlS[{"VTt", 2}], ")*Eta(", Tl
+357	ok	t$233610	Symbol	res$233610
+358	ok	t$233611	Symbol	res$233611
+362	ok	t$233612	Symbol	res$233612
+367	ok	t$233613	Symbol	res$233613
+371	ok	         -6
+7.00 x 10	List	{{{"Sign", -1/2}, {{"VTs", 2}, {"p", "r"}, {"s", "t"}}, {{"VTt", 2}, {"s", "t"}, {"p", "r"}}, {{\[Gamma], 1}, {"t"}, 
+374	ok	0.00	Times	MatrixForm[SpinLabelTerms[]]^3*MatrixForm[SpinLabelTerms[StringJoin["Outr2(", TlS[{Null, {"p"}}[[3,1]]], ",q) 
+383	ok	0.00	Power	Null^7
+384	ok	t$233617	Symbol	res$233617
+388	ok	0.02	StringJoin	StringJoin["Out(p,q) += {{VTs, 2.}, {p, s}, {p, r}}*Eta(", TlS[{"VTs", 2}], ",", TlS[{"VTt", 2}], ")*Eta(", Tl
+391	ok	t$233619	Symbol	res$233619
+392	ok	t$233620	Symbol	res$233620
+396	ok	t$233621	Symbol	res$233621
+401	ok	t$233622	Symbol	res$233622
+405	ok	         -6
+7.00 x 10	List	{{{"Sign", 1}, {{"VTs", 2}, {"p", "s"}, {"p", "r"}}, {{"VTt", 2}, {"p", "r"}, {"p", "s"}}, {{\[Gamma], 1}, {"s"}, {"q
+408	ok	0.03	Times	MatrixForm[SpinLabelTerms[]]^3*MatrixForm[SpinLabelTerms[StringJoin["Outr2(", TlS[{Null, {"p"}}[[3,1]]], ",q) 
+418	ok	0.00	Times	(Subsuperscript["VTs", {"q", "w"}, {"r", "t"}]*Subsuperscript["VTt", {"s", "u"}, {"v", "y"}]*Subsuperscript[\[Gamma],
+421	ok	t$233626	Symbol	res$233626
+422	ok	0.01	Plus	(Subsuperscript["VTs", {"q", "r"}, {"q", "r"}]*Subsuperscript["VTt", {"q", "r"}, {"q", "r"}]*Subsuperscript[\[Gamma],
+425	ok	0.00	Plus	"Error"[[1,2]] + {{{{{"VTs", {"Sign", {{"VTt", 2}, {"q", "r"}, {"q", "r"}}, {{"VTs", 2}, {"q", "r"}, {"q", "r"
+431	ok	t$233643	Symbol	res$233643
+436	ok	t$233649	Symbol	res$233649
+441	ok	t$233655	Symbol	res$233655
+447	ok	0.00	Plus	"Error"[[1,2]] + {{{{{"VTs", {"Sign", {{"VTt", 2}, {"p", "r"}, {"s", "t"}}, {{"VTs", 2}, {"s", "t"}, {"p", "r"
+454	ok	t$233670	Symbol	res$233670
+455	ok	0.77	Symbol	Null
+456	ok	0.00	Integer	24
+459	ok	t$233723	Symbol	res$233723
+465	ok	t$233724	Symbol	res$233724
+472	ok	t$233737	Symbol	res$233737
+473	ok	t$233738	Symbol	res$233738
+481	ok	t$233751	Symbol	res$233751
+487	ok	0.00	List	{{{"Sign", 1}, {{"VTs", 2}, {"P", "r"}, {"S", "t"}}, {{"VTt", 2}, {"S", "t"}, {"P", "r"}}, {{\[Gamma], 1}, {"S"}, {"S
+490	ok	0.00	Symbol	Null
+492	ok	t$233775	Symbol	res$233775
+499	ok	0.00	Symbol	Null
+500	ok	t$233777	Symbol	res$233777
+503	ok	t$233874	Symbol	res$233874
+511	ok	t$233875	Symbol	res$233875
+512	ok	t$233876	Symbol	res$233876
+516	ok	t$234657	Symbol	res$234657
+519	ok	0.00	Power	Null^2
+521	ok	t$234698	Symbol	res$234698
+537	ok	0.04	Integer	0
+540	ok	t$280320	Symbol	res$280320
+541	ok	0.00	Symbol	Null
+542	ERROR	0.00	Symbol	$Failed
+546	ok	0.04	Plus	(Subsuperscript["VTs", {"u", "w"}, {"r", "y"}]*Subsuperscript["VTt", {"s", "x"}, {"t", "v"}]*Subsuperscript[\[Gamma],
+549	ok	         -6
+9.00 x 10	Symbol	Null
+552	ok	0.00	Power	Null^5
+553	ok	t$280466	Symbol	res$280466
+554	ok	0.00	Symbol	Null
+555	ok	0.00	Power	Null^2
+556	ok	0.00	Total	Total[ByHand3]
+560	ok	0.00	StringJoin	StringJoin[ByHand3]
+565	ok	t$280471	Symbol	res$280471
+566	ok	0.00	Symbol	Null
+567	ok	0.00	Plus	(Subsuperscript["VTs", {"u", "w"}, {"r", "y"}]*Subsuperscript["VTt", {"s", "x"}, {"t", "v"}]*Subsuperscript[\[Gamma],
+570	ok	t$280474	Symbol	res$280474
+573	ok	t$280523	Symbol	res$280523
+576	ok	t$280572	Symbol	res$280572
+577	ok	0.00	List	{{{"Sign", 1/2}, {{"VTs", 2}, {"p", "r"}, {"p", "r"}}, {{"VTt", 2}, {"s", "t"}, {"s", "t"}}, {{\[Gamma], 1}, {"p"}, {
+580	ok	t$280574	Symbol	res$280574
+584	ok	0.00	Plus	(Subsuperscript["VTs", {"q", "r"}, {"s", "t"}]*Subsuperscript["VTt", {"s", "t"}, {"p", "r"}]*Subsuperscript[\[Gamma],
+587	ok	         -6
+8.00 x 10	List	{{{"Sign", 1/2}, {{"VTs", 2}, {"p", "r"}, {"s", "t"}}, {{"VTt", 2}, {"s", "t"}, {"q", "r"}}, {{\[Gamma], 1}, {"s"}, {
+590	ok	t$280577	Symbol	res$280577
+593	ok	t$280590	Symbol	res$280590
+598	ok	0.00	Plus	(Subsuperscript["VTs", {"u", "w"}, {"r", "y"}]*Subsuperscript["VTt", {"s", "x"}, {"t", "v"}]*Subsuperscript[\[Gamma],
+602	ok	t$280668	Symbol	res$280668
+604	ERROR	0.00	Symbol	$Failed
+616	ok	0.00	Symbol	Null
+617	ERROR	0.00	Symbol	$Failed
+632	ERROR	0.00	Symbol	$Failed
+647	ERROR	0.00	Symbol	$Failed
+662	ok	t$280792	Symbol	res$280792
+666	ERROR	         -6
+8.00 x 10	Symbol	$Failed
+667	ok	0.00	Plus	(Subsuperscript["VTs", {"i", "j"}, {"b", "c"}]*Subsuperscript["VTt", {"b", "c"}, {"j", "y"}]*Subsuperscript[\[Gamma],
+671	ok	0.00	String	"p"
+674	ok	0.00	Symbol	Null
+675	ok	0.02	List	{{{{"Sign", 1}, {{"VTs", 2}, {"Y", "s"}, {"U", "w"}}, {{"VTt", 2}, {"U", "w"}, {"Q", "s"}}, {{\[Gamma], 1}, {"P"}, {"
+678	ok	0.02	List	{"Vso[n3*y+n2*s+n*u+w"*"]*Vto[u+n2*w+n*q+s]", "Vso[n3*y+n2*s+n*w+u"*"]*Vto[w+n2*u+n*q+s]", "Vss[n3*s+n2*y+n*u+
+681	ok	0.02	List	{"Vso[n3*s+n2*u+n*q+w"*"]*Vto[y+n2*w+n*s+u]", "Vso[n3*u+n2*s+n*q+w"*"]*Vto[y+n2*w+n*u+s]", "Vss[n3*s+n2*u+n*q+
+684	ok	0.00	List	{{{"Sign", -1/2}, {{"VTs", 2}, {"s", "y"}, {"u", "w"}}, {{"VTt", 2}, {"u", "w"}, {"q", "s"}}, {{\[Gamma], 1}, {"p"}, 
+687	ERROR	         -6
+7.00 x 10	Symbol	$Failed
+688	ok	t$280838	Symbol	res$280838
+692	ok	t$280839	Symbol	res$280839
+698	ok	t$280840	Symbol	res$280840
+699	ok	t$280973	Symbol	res$280973
+703	ok	t$280974	Symbol	res$280974
+709	ok	1.14	Plus	(Subsuperscript["VTs", {"s", "t"}, {"p", "r"}]*Subsuperscript["VTt", {"p", "r"}, {"s", "t"}]*Subsuperscript[\[Gamma],
+713	ok	t$281653	Symbol	res$281653
+718	ok	1.61	Plus	-(Subsuperscript["VTs", {"p", "r"}, {"p", "r"}]*Subsuperscript["VTt", {"p", "r"}, {"p", "r"}]*Subsuperscript[\[Gamma]
+721	ok	0.00	Integer	136
+724	ok	         -6
+7.00 x 10	List	{{"Sign", -1}, {{"VTs", 2}, {"p", "r"}, {"p", "r"}}, {{"VTt", 2}, {"p", "r"}, {"p", "r"}}, {{\[Gamma], 1}, {"r"}, {"q
+727	ok	0.00	Symbol	Null
+728	ok	0.01	Plus	Subsuperscript["VTs", {"p", "r"}, {"p", "s"}]*Subsuperscript["VTt", {"p", "s"}, {"p", "r"}]*Subsuperscript[\[Gamma], 
+732	ok	t$282480	Symbol	res$282480
+733	ok	0.14	Integer	104
+736	ok	0.00	String	"Out(p,q) += 2.*Vi_ss[p*n3+s*n2+p*n+r]*g0(d2,ed2,p,s,p,r,params[\"CohG0\"])*Vi_ss[p*n3+r*n2+p*n+s]*Rho(s,q)*Rh
+739	ok	t$282587	Symbol	res$282587
+740	ok	t$282588	Symbol	res$282588
+744	ok	t$282589	Symbol	res$282589
+749	ok	t$282590	Symbol	res$282590
+753	ok	0.01	Times	MatrixForm[{}]^2*MatrixForm[{"Oute2(q,q) += -1.*Vi_ss[s*n3+t*n2+q*n+r]*g0(d2,ed2,s,t,q,r,params[\"CohG0\"])*Vi
+764	ERROR	         -6
+9.00 x 10	Symbol	$Failed
+765	ok	t$282593	Symbol	res$282593
+768	ok	0.09	Plus	(Subsuperscript["VTs", {"p", "r"}, {"p", "s"}]*Subsuperscript["VTt", {"p", "s"}, {"p", "r"}]*Subsuperscript[\[Gamma],
+771	ok	0.00	List	{4, 4, 5, 5, 5, 5, 5, 4, 5, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5}
+774	ok	t$282666	Symbol	res$282666
+775	ok	0.00	Symbol	Null
+776	ok	0.00	List	{5, 3, 3, 5, 3, 3, 3, 2, 2, 5, 5, 4, 5, 5, 4, 4, 4, 3, 5, 5, 4, 5, 5, 4, 4, 4, 3, 5, 5, 3, 5, 5, 3, 3, 3, 2}
+779	ok	0.06	Plus	-1/2*(Subsuperscript["VTs", {"p", "r"}, {"p", "r"}]*Subsuperscript["VTt", {"p", "r"}, {"p", "r"}]*Subsuperscri
+782	ok	0.00	Symbol	Null
+783	ERROR	0.00	Symbol	$Failed
+830	ok	t$282761	Symbol	res$282761
+831	ERROR	0.00	Symbol	$Failed
+973	ERROR	0.00	Symbol	$Failed
+978	ok	0.00	Total	Total[ByHand]
+982	ERROR	0.00	Symbol	$Failed
+1060	ok	0.00	Part	2[[2,2]]
+1063	ok	         -6
+7.00 x 10	Symbol	Null
+1064	ok	t$282812	Symbol	res$282812
+1065	ok	t$282813	Symbol	res$282813
+1070	ok	0.00	Symbol	Null
+1071	ok	t$282873	Symbol	res$282873
+1072	ok	0.00	Power	Null^3
+1073	ok	t$282875	Symbol	res$282875
+1077	ok	0.00	Total	Total[sTCLwEta]
+1081	ok	0.00	Total	Total[sTCLwEta]
+1085	ok	         -6
+9.00 x 10	Symbol	sTCLwEta
+1089	ERROR	         -6
+7.00 x 10	Symbol	$Failed
+1090	ERROR	0.00	Symbol	$Failed
+1137	ERROR	0.00	Symbol	$Failed
+1147	ok	0.00	Total	Total[Flatten[]]
+1150	ok	         -6
+7.00 x 10	Symbol	Null
+1151	ok	0.00	Symbol	Null
+1152	ok	0.00	Symbol	Null
+1153	ok	0.00	Symbol	Null
+1154	ERROR	0.00	Symbol	$Failed
+1176	ERROR	0.00	Symbol	$Failed
+1200	ERROR	0.00	Symbol	$Failed
+1206	ERROR	0.00	Symbol	$Failed
+1220	ok	t$282915	Symbol	res$282915
+1225	ok	0.01	Times	DirectedInfinity[I]/E^(I*L*t)
+1226	ok	         -6
+7.00 x 10	Symbol	Null
+1227	ok	4.49	ConditionalExpression	ConditionalExpression[E^(t*((-I)*L + \[Epsilon]))/(I*L - \[Epsilon]), \[Epsilon] < 0]
+1230	ok	3.17	ConditionalExpression	ConditionalExpression[-((-I)*L + \[Epsilon])^(-1), \[Epsilon] < 0]
+1233	ok	11.75	ConditionalExpression	ConditionalExpression[((-I)*L + \[Epsilon])^(-1), \[Epsilon] > 0]
+1236	ok	0.24	Plus	(-I)/(L + I*\[Epsilon]) + (I*E^(t*((-I)*L + \[Epsilon])))/(L + I*\[Epsilon])
+1239	ok	0.00	Plus	Conjugate[Out[0]] + Out[0]
+1242	ERROR	0.00	Symbol	$Failed
+1245	ERROR	0.00	Symbol	$Failed
+1250	ok	0.03	Plus	((-I)*Sqrt[2*Pi]*DiracDelta[\[Omega]])/L + (I*Sqrt[2*Pi]*DiracDelta[-L + \[Omega]])/L
+1253	ok	0.58	Times	-((-1 + E^((-I)*L*t - t*\[Epsilon]))/(I*L + \[Epsilon]))
+1256	ok	2.93	ConditionalExpression	ConditionalExpression[(I*L + \[Epsilon])^(-1), \[Epsilon] > 0]
+1259	ok	11.74	ConditionalExpression	ConditionalExpression[-(I*L + \[Epsilon])^(-1), \[Epsilon] < 0]
+1262	ok	41.00	ConditionalExpression	ConditionalExpression[I/(L - I*\[Epsilon]) - I/(L + I*\[Epsilon]), \[Epsilon] < 0]
+1265	ok	0.29	Graphics	Graphics[Annotation[{{{{}, {}, Annotation[{Directive[Opacity[1.], RGBColor[0.368417, 0.506779, 0.709798], Abso
+1268	ok	t$482161	Symbol	res$482161
+1275	ok	14.78	ConditionalExpression	ConditionalExpression[(2*I)/(L + I*\[Epsilon]), \[Epsilon] > 0]
+1278	ok	0.00	Plus	((2*I)*L)/(L^2 + \[Epsilon]^2) + (2*\[Epsilon])/(L^2 + \[Epsilon]^2)
+1281	ok	t$617463	Symbol	res$617463
+1286	ok	0.03	Times	-(E^(L*t - L*\[Tau])/L)
+1289	ok	t$617587	Symbol	res$617587
+1292	ok	11.04	ConditionalExpression	ConditionalExpression[I/(p - q), Im[p] > Im[q]]
+1295	ok	0.02	Times	Pi/12
+1298	ok	0.01	Times	Pi/3
+1301	ok	0.15	Times	((-I)*(1 - E^((-I)*(p - q)*t)))/(p - q)
+1304	ok	0.04	Times	((-I)*(-1 + E^(I*(p - q)*t)))/(p - q)
+1307	ok	11.10	ConditionalExpression	ConditionalExpression[I/(-p + q), Im[p] < Im[q]]
+1310	ok	0.32	Limit	Limit[((-I)*(1 - E^((-I)*(p - q)*t)))/(p - q), t -> Infinity]
+1313	ok	7.12	ConditionalExpression	ConditionalExpression[I/(-p + q), Im[p] < Im[q]]
+1316	ok	10.46	ConditionalExpression	ConditionalExpression[I/(p - q), Im[p] > Im[q]]
+1320	ok	t$664346	Symbol	res$664346
+1324	ok	0.00	List	{{\[Tau] -> ConditionalExpression[(2*I)*Pi*C[1] + Log[x^(-1)], Element[C[1], Integers]]}}
+1327	ok	0.00	Times	-x^(-1)
+1330	ok	0.11	Real	2.802495608198964
+1333	ok	0.00	List	{}
+1336	ok	t$664922	Symbol	res$664922
+1345	ok	0.61	ConditionalExpression	ConditionalExpression[E^(I*Abs[p + q - r - s])/Abs[p + q - r - s], p + q != r + s]
+1348	ok	t$716620	Symbol	res$716620
+1355	ERROR	0.00	Symbol	$Failed
+1358	ERROR	0.00	Symbol	$Failed
+1362	TIMEOUT	90.00	Symbol	$TimedOut
+1490	ok	0.00	Symbol	Null
+1491	ok	t$857408	Symbol	res$857408
+1492	ok	t$857409	Symbol	res$857409
+1493	ok	0.00	Plus	Subsuperscript[\[Delta], {r}, {u}]*Subsuperscript[\[Delta], {s}, {t}]*Subsuperscript[\[Delta], {v}, {q}]*Subsuperscript[\[Delta], {w}, {p}
+1494	ERROR	0.00	Symbol	$Failed
+1495	ERROR	0.00	Symbol	$Failed
+1496	ok	0.00	Total	Total[C4]
+1497	ERROR	         -6
+7.00 x 10	Symbol	$Failed
+1498	ERROR	0.00	Symbol	$Failed
+1499	ok	0.00	Times	Subsuperscript[C3, {1}, {2}]*Subsuperscript[C4, {1}, {2}]*Subsuperscript[C5, {1}, {2}]*Subsuperscript[C6, {1},
+1500	ok	t$861737	Symbol	res$861737
+1501	ERROR	0.00	Symbol	$Failed
+1502	ok	         -6
+7.00 x 10	Symbol	FinalByHand
+1503	ERROR	0.00	Symbol	$Failed
+1504	ERROR	0.00	Symbol	$Failed
+1505	ok	0.01	Symbol	Null
+1508	ok	0.00	Total	Total[ByHandFromCode]
+1511	ok	0.00	Plus	(Subsuperscript["VTs", {"u", "w"}, {"r", "y"}]*Subsuperscript["VTt", {"s", "x"}, {"t", "v"}]*Subsuperscript[\[Gamma],
+1514	ok	t$861883	Symbol	res$861883
+1517	ok	         -6
+8.00 x 10	List	{{{"Sign", 1/2}, {{"VTs", 2}, {"r", "s"}, {"t", "u"}}, {{"VTt", 2}, {"v", "w"}, {"x", "y"}}, {{\[Gamma], 1}, {"r"}, {
+1520	ok	t$861890	Symbol	res$861890
+1524	ok	         -6
+7.00 x 10	Symbol	Null
+1526	ok	t$861892	Symbol	res$861892
+1532	ok	t$861899	Symbol	res$861899
+1536	ERROR	0.00	Symbol	$Failed
+1537	ok	0.00	Plus	(Subsuperscript["VTs", {"s", "t"}, {"p", "r"}]*Subsuperscript["VTt", {"p", "r"}, {"s", "t"}]*Subsuperscript[\[Gamma],
+1540	ERROR	         -6
+7.00 x 10	Symbol	$Failed
+1542	ok	t$861915	Symbol	res$861915
+1543	ok	t$861916	Symbol	res$861916
+1549	ok	t$861917	Symbol	res$861917

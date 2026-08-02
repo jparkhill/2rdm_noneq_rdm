@@ -1,0 +1,2060 @@
+arXiv:2506.13693v2  [physics.chem-ph]  17 Jun 2025
+Multireference equation-of-motion driven
+similarity renormalization group: theoretical
+foundations and applications to ionized states
+Zijun Zhao,∗ Shuhang Li,∗ and Francesco A. Evangelista∗
+Department of Chemistry and Cherry Emerson Center for Scientific Computation, Emory
+University, Atlanta, Georgia, 30322, United States
+E-mail: zijun.zhao@emory.edu; shuhang.li@emory.edu; fevange@emory.edu
+Abstract
+We present a formulation and implementation of an equation-of-motion (EOM)
+extension of the multireference driven similarity renormalization group (MR-DSRG)
+formalism for ionization potentials (IP-EOM-DSRG). The IP-EOM-DSRG formalism
+results in a Hermitian generalized eigenvalue problem, delivering accurate ionization
+potentials for systems with strongly correlated ground and excited states. The EOM
+step scales as O(N 5) with the basis set size N , allowing for efficient calculation of spec-
+troscopic properties, such as transition energies and intensities. The IP-EOM-DSRG
+formalism is combined with three truncation schemes of the parent MR-DSRG theory:
+an iterative nonperturbative method with up to two-body excitations [MR-LDSRG(2)]
+and second- and third-order perturbative approximations [DSRG-MRPT2/3]. We
+benchmark these variants by computing 1) the vertical valence ionization potentials
+of a series of small molecules at both equilibrium and stretched geometries; 2) the
+spectroscopic constants of several low-lying electronic states of the OH, CN, N +
+2 , and
+CO+ radicals; and 3) the binding curves of low-lying electronic states of the CN radical.
+1
+A comparison with experimental data and theoretical results shows that all three IP-
+EOM-DSRG methods accurately reproduce the vertical ionization potentials and spec-
+troscopic constants of these systems. Notably, the DSRG-MRPT3 and MR-LDSRG(2)
+versions outperform several state-of-the-art multireference methods of comparable or
+higher cost.
+1 Introduction
+The accurate and simultaneous description of multiple electronically excited states, especially
+in the presence of strong electron correlation, is an open challenge in quantum chemistry.
+Existing strategies for calculating excited states lie between two philosophies: state-specific
+and equation-of-motion (EOM)-like methods. 1 State-specific schemes optimize each target
+state separately, whereas EOM-like methods directly compute the energy differences between
+a reference state and the states of interest by solving a (generalized) eigenvalue problem in
+a basis of excitation operators.
+State-specific methods include formalisms such as coupled-cluster (CC) theory, 2–8 and
+EOM-like methods include the well-known EOM-CC methods, 9–12 and also those based
+on the linear response (LR), 13 propagator, 14–16 and SAC-CI 17–19 formalisms, as they all
+result in similar working equations. Configuration interaction (CI)20,21 and its multireference
+generalization (MRCI) 22–24 may also be viewed as belonging to the EOM category, as they
+can target multiple states at once.
+Intermediate between these two philosophies are methods based on the effective Hamil-
+tonian theory. 25,26 Most adopt the “transform-then-diagonalize” strategy, where reduced-
+dimension effective Hamiltonians containing interactions between the states of interest are
+formed via certain transformations and diagonalized to obtain the desired states. These en-
+compass formalisms variously known as quasi-degenerate (QD), 27,28 state-averaged (SA), 29
+multi-state (MS), 30–32 or density-averaged33 methods.
+Both state-specific and EOM-like approaches can be formulated as single-reference or
+2
+multireference methods, depending on whether the reference state is a single Slater determi-
+nant or a correlated wavefunction. The latter is necessary for describing strong electron cor-
+relation. 34 Effective Hamiltonian methods, in contrast, are typically multireference schemes
+and are attractive options when a small number of states are of interest; however, they
+lack the flexibility of EOM-like methods to describe transitions involving orbitals other than
+frontier/active orbitals.
+In the scenario where a large number of states are required, state-specific methods quickly
+become cost-prohibitive. State properties, such as excitation energies, obtained from effec-
+tive Hamiltonian theories are typically dependent on the number of states considered, and
+their accuracy tends to deteriorate when a large number of states are required. EOM-like
+theories, on the other hand, do not suffer from this issue. Therefore, EOM-like formalisms
+are preferred not only for their flexiblity in simulation of a wide range of spectroscopic pro-
+cesses starting from a single state, but also for their ability to describe a large number of
+states at a relatively modest computational cost.
+The EOM formalism as applied to the coupled-cluster ansatz (EOM-CC) has enjoyed
+great popularity as it has given rise to a family of flexible, low-scaling, and systematically
+improvable methods that are essentially black-box. 35–39 In contrast, multireference (MR)
+extensions of EOM theory have progressed more slowly. A fairly mature formalism is the
+multireference EOM-CC (MR-EOM-CC) methodology of Nooijen and coworkers, 40–44 whose
+ground state is a partially internally contracted multireference coupled-cluster (pIC-MRCC)
+state, 45 and the excited states are found by diagonalizing the similarity-transformed Hamil-
+tonian in a compact uncontracted basis (of determinants). However, the MR-EOM-CC
+methodology has more in common with effective Hamiltonian theories, such as density-
+averaged multistate internally contracted MRCC theory,33 and the state-averaged SA-DSRG
+formalism, 29 than with EOM formalisms. Furthermore, this method has so far been applied
+exclusively to neutral excitations, and no IP extension has been reported. Linear-response
+variants of projective MRCC method, namely Mukherjee multireference coupled cluster (Mk-
+3
+MRCC-LR)46,47 and internally-contracted multireference coupled cluster (ic-MRCC-LR), 48
+can be more properly categorized as MR EOM-like methods.
+Another family of MR EOM-like methods belong to the multireference algebraic dia-
+grammatic construction (MR-ADC) formalism by Sokolov and coworkers. 49–56 In MR-ADC,
+the ground state is obtained from partially internally contracted second-order N -electron
+valence state perturbation theory (pc-NEVPT2), 27,57–59 also known as fully internally con-
+tracted (FIC-) NEVPT2. 60 The excited states are obtained by diagonalizing the Hermitian
+effective Liouvillian in a basis of internally contracted configurations. The effective Liouvil-
+lian formalism 61 used in MR-ADC is distinct from but related to the EOM approach.
+The authors of this work have recently reported an MR EOM method based on the ic-
+MR unitary CC approach (EOM-ic-MRUCC), 62 which provides the theoretical foundation
+for the present work. Here, we present the EOM extension of the MR driven similarity
+renormalization group (MR-DSRG) formalism. The MR-DSRG formalism can be viewed
+as a renormalized version of the ic-MRUCC theory, 63–65 which additionally avoids issues
+surrounding the orthogonalization of the internally contracted excited configurations by using
+a set of so-called many-body conditions to determine the ground state wavefunction (see
+Section 2.1 for details). We formulate a simple MR generalization of the EOM formalism
+for computing ionization potentials for three methods based on MR-DSRG theory, including
+the perturbative DSRG-MRPT2/3 methods,29,66 and the iterative MR-LDSRG(2) method.67
+In Section 2, we briefly recapitulate the MR-DSRG and EOM formalisms, and discuss the
+derivation of the IP-EOM-DSRG formalism. In Section 3, we present the implementation
+of the IP-EOM-DSRG methods, and discuss the computational details of the calculations.
+Benchmark results appear in Section 4, followed by conclusions and future directions in
+Section 5.
+4
+2 Theory
+2.1 The multireference DSRG formalism
+The MR-DSRG is a numerically robust internally contracted multireference electron correla-
+tion formalism. 68 Detailed accounts of the MR-DSRG formalism and associated methods can
+be found elsewhere, 67,68 and we will only briefly recapitulate its salient features here. The
+reference state in the MR-DSRG formalism is a complete active space (CAS) wavefunction,
+given by
+|Φ0⟩ =
+dX
+µ=1
+cµ |ϕµ⟩ . (1)
+The set of determinants M = {|ϕµ⟩}, µ= 1, . . . , ddefines the model space. We assume that
+the orbitals have been partitioned into core ( C, indexed by m, n, . . .), active ( A, indexed
+by u, v, . . .), and virtual ( V, indexed by e, f, . . .) subsets. We further introduce the hole
+(H = C ∪ A, indexed by i, j, . . .), and particle ( P = A ∪ V, indexed by a, b, . . .) composite
+orbital spaces. The MR-DSRG is formulated around a continuous unitary transformation,
+controlled by a time-like quantity, s, called the flow parameter, described by
+ˆH → ¯H(s) = e− ˆA(s) ˆHe
+ˆA(s), (2)
+where ¯H(s) is the MR-DSRG similarity-transformed Hamiltonian, and the anti-Hermitian
+operator ˆA(s) is expressed in terms of a cluster operator as ˆA(s) = ˆT (s) − ˆT (s)†. ˆT (s) is
+parameterized as in the internally contracted generalization of coupled cluster theory, 45,69–71
+with s-dependent amplitudes. The flow parameter s is henceforth omitted for brevity.
+This transformation aims at making the Hamiltonian increasingly block-diagonal with a
+judicious choice of ˆA, by gradually suppressing the couplings between the reference wavefunc-
+tion |Φ0⟩ and the internally contracted excited configurations{ˆaab...
+ij... } |Φ0⟩ ≡ {ˆa†
+aˆa†
+b . . .ˆajˆai |Φ0⟩,
+where the curly braces indicate generalized normal ordering, 72,73 used throughout this work.
+Since the hole-particle non-diagonal part of ¯H contains all operators responsible for these
+5
+couplings, we partition ¯H into the sum of the diagonal part, ¯H D, and the non-diagonal
+part, ¯H N. Instead of determining the ˆA in Eq. (2) projectively, as is done in most (MR)CC
+methods, it is determined by a set of many-body conditions as follows:
+¯H N = [e− ˆA ˆHe
+ˆA]N = ˆR, (3)
+where ˆR is a source operator that drives the limit process such that lim s→∞ ˆR(s) = 0. In
+the MR-DSRG formalism, an analytical expression of the source operator is derived by a
+second-order perturbative analysis of the single-reference SRG,74 making Eq. (3) a non-linear
+operator equation for the amplitudes of the cluster operator.
+Practical realizations of the MR-DSRG method use either iterative or perturbative ap-
+proximations. In iterative methods, the cluster operator ˆT is truncated to a given excitation
+rank, and the nonterminating Baker–Campbell–Hausdorff (BCH) expansion of the similarity-
+transformed Hamiltonian is approximated with a finite number of terms. An iterative method
+based on the MR-DSRG formalism is MR-LDSRG(2), 67 where the cluster operator is trun-
+cated to double excitations, and the similarity-transformed Hamiltonian is calculated with
+the linearized commutator approximation, 75 where each commutator entering into the BCH
+expansion is truncated after two-body components as follows:
+¯H1,2 = ˆH +
+∞X
+k=1
+1
+k! [. . .[[ ˆH, ˆA]1,2, ˆA]1,2 . . .]0,1,2| {z }
+k nested commutators
+, (4)
+where O1,2 indicates that up to two-body components are retained for O. Alternatively, a
+perturbative analysis of the transformed Hamiltonian can be used to obtain one-shot, per-
+turbative methods. 68 Second- 76 and third-order 66 perturbative MR-DSRG methods (DSRG-
+MRPT2/3) have also been developed, which produce similarity-transformed Hamiltonians
+that are correct up to second- and third-order in perturbation theory, respectively.
+6
+2.2 EOM-DSRG formalism
+The EOM formalism was first proposed by Rowe in the context of nuclear spectroscopy. 1 A
+slew of developments in the late 1970s to 1980s mainly focused on the linear response and
+symmetry-adapted cluster CI formalisms, but yielded working equations resembling those
+of the EOM working equations. 17,18,77–86 The EOM-CC theory as we know it today took
+shape from the late 1980s onwards. 35,87–90 Following the classic EOM formalism, we define
+the EOM-DSRG ansatz as follows:
+|Ψα⟩ = ¯Rα |Ψ0⟩ , (5)
+where ¯Rα is a state-transfer operator delivering the α-th excited state (Ψα) from the (in prin-
+ciple exact) ground state, i.e., formally ¯Rα ≡ |Ψα⟩ ⟨Ψ0|. To realize a variational optimization
+of N electronic states, we introduce an energy functional augmented with orthonormality
+constraints:
+L =
+NX
+α
+⟨Ψ0| ¯R†
+α ˆH ¯Rα|Ψ0⟩ −
+NX
+αβ
+λαβ(⟨Ψ0| ¯R†
+β ¯Rα|Ψ0⟩ −δαβ). (6)
+Here, we assume that all excited states are orthogonal to the ground state ( ⟨Ψ0|Ψα⟩ =
+⟨Ψ0| ¯Rα|Ψ0⟩ = 0), which we achieve by careful parameterization of ¯Rα.
+Due to its formal advantages, we adopt the self-consistent excitation operators introduced
+by Mukherjee and coworkers, 91,92 which expresses ¯Rα as a similarity-transformed operator:
+¯Rα ≡ e
+ˆA ˆRαe− ˆA. (7)
+Substituting this expression into Eq. (6), we arrive at a simpler and equivalent energy func-
+tional that involves expectation values with respect to the reference state and the similarity-
+transformed Hamiltonian ( ¯H = e− ˆA ˆHe ˆA):
+L =
+NX
+α
+⟨Φ0| ˆR†
+α ¯H ˆRα|Φ0⟩ −
+NX
+αβ
+λαβ(⟨Φ0| ˆR†
+β ˆRα|Φ0⟩ −δαβ). (8)
+7
+By convention, ˆRα is parameterized as a linear excitation operator ( i.e., a linear combi-
+nation of excitation operators, as opposed to a non-linear, e.g., exponential, parameteriza-
+tion). 86,93 Therefore we can write ˆRα as a linear combination of excitation operators {ˆρp}
+with corresponding excitation amplitudes rp
+α:
+ˆRα =
+neomX
+p=1
+rp
+α ˆρp, (9)
+where neom is the number of excitation operators.
+Imposing stationarity of the energy functional Eq. (8) with respect to variations of the
+excitation amplitudes rp
+α (taken to be real) and the Lagrange multipliers λαβ, following
+a derivation similar to that of the canonical Hartree–Fock equations, 94 one can show the
+following generalized eigenvalue problem arises:
+neomX
+q=1
+⟨Φ0|ˆρ†
+p ¯H ˆρq|Φ0⟩ rq
+α = Eα
+neomX
+q=1
+⟨Φ0|ˆρ†
+p ˆρq|Φ0⟩ rq
+α, (10)
+where Eα is the excited state energy, from which the excitation energies ωα = Eα − E0,
+E0 = ⟨Φ0| ¯H|Φ0⟩ can be obtained.
+Clearly, if ¯H is Hermitian, then Eq. (10) is a Hermitian generalized eigenvalue prob-
+lem. The orthogonality between each excited state and the ground state is enforced by the
+following conditions:
+⟨Φ0| ˆRα|Φ0⟩ = 0. (11)
+These conditions are satisfied by our choice of excitation operators, as we will show in
+Section 2.3, while the orthonormality constraint is automatically satisfied by solutions of the
+generalized eigenproblem in Eq. (10).
+The EOM-DSRG formalism is agnostic to the particular choice of underlying MR-DSRG
+method, and we investigate the performance of all three choices of MR-DSRG methods in
+this work. We will refer to the EOM-DSRG method based on the MR-LDSRG(2) sim-
+8
+ply as EOM-DSRG(2), and those based on DSRG-MRPT2/3 as EOM-DSRG-PT2/3. The
+MR-DSRG formalism also allows for state-specific and state-averaged calculations of elec-
+tronically excited states, 29 so the EOM-DSRG formalism can simulate more sophisticated
+spectroscopic processes that go through electronically excited states, such as resonance-
+enhanced multiphoton ionization (REMPI).
+Before closing this section, we would like to offer some comments on the specific choices
+made in deriving the EOM-DSRG formalism. In many conventional EOM theories, the
+excitation energy ωα is computed by taking difference between the Schr¨ odinger equation for
+the ground and excited states, leading to the condition:
+[ ¯H, ˆRα] |Φ0⟩ = ωα ˆRα |Φ0⟩ . (12)
+The corresponding equations for the excitation amplitudes are a generalized eigenvalue prob-
+lem:
+neomX
+q=1
+⟨Φ0|ˆρ†
+p[ ¯H, ˆρq]|Φ0⟩ rq
+α = ωα
+neomX
+q=1
+⟨Φ0|ˆρ†
+p ˆρq|Φ0⟩ rq
+α, (13)
+which we call the single-commutator form of the EOM equations. The equivalence of Eq. (10)
+and Eq. (13) is guaranteed only when the ground state is determined projectively (like in
+ic-MRUCC62) but not in truncated MR-DSRG approaches. To see this, we make use of a
+resolution of identity in terms of the projector, ˆP = P
+µ |Φµ⟩ ⟨Φµ|, onto the model space
+M, and the projector onto its orthogonal complement, ˆQ = 1 − ˆP . The additional term
+introduced by the commutator in the LHS of Eq. (13), ⟨Φ0|ˆρ†
+p ˆρq ¯H|Φ0⟩, can be expressed as
+⟨Φ0|ˆρ†
+p ˆρq ¯H|Φ0⟩ = ⟨Φ0|ˆρ†
+p ˆρq( ˆP ¯H ˆP + ˆQ ¯H ˆP )|Φ0⟩ . (14)
+Assuming |Φ0⟩ is an eigenfunction of ˆP ¯H ˆP , the first term reduces to E0 ⟨Φ0|ˆρ†
+p ˆρq|Φ0⟩, where
+E0 is the eigenvalue. The second term will vanish if the ground state is determined projec-
+tively, resulting in zero coupling between the model space and its orthogonal complement, 95
+9
+i.e., ˆQ ¯H ˆP |Φ0⟩ = 0. This enables us to simplify Eq. (13) to
+neomX
+q=1
+⟨Φ0|ˆρ†
+p ¯H ˆρq|Φ0⟩ rq
+α = Eα
+neomX
+q=1
+⟨Φ0|ˆρ†
+p ˆρq|Φ0⟩ rq
+α, (15)
+which is equivalent to Eq. (10). In the MR-DSRG theory, the ground state is determined
+by the many-body conditions [Eq. (3)], which results in a non-vanishing ˆQ ¯H ˆP |Φ0⟩, and in
+turn, makes the single-commutator form not equivalent to Eq. (10). For theories that do not
+satisfy the projective condition, the single-commutator form of the EOM equations will not
+be Hermitian, even when ¯H is Hermitian. One may still formulate a Hermitian eigenvalue
+problem by symmetrizing the single commutator form of the EOM equations, which can
+be justified when the residuals ˆQ ¯H ˆP |Φ0⟩ are small, i.e., in the case of variational UCC. 96
+However, we do not consider this approach in this work, as the MR-DSRG residuals are not
+guaranteed to be small.
+In many works, one may also find the double-commutator form of EOM equations given
+by
+neomX
+q=1
+⟨Φ0|[ˆρ†
+p, [ ¯H, ˆρq]]|Φ0⟩ rq
+α = ωα
+neomX
+q=1
+⟨Φ0|[ˆρ†
+p, ˆρq]|Φ0⟩ rq
+α. (16)
+This may be preferred over the single-commutator form because it is manifestly connected
+and leads to lower-rank reduced density cumulants in the multireference case. The equiva-
+lence of the single- and double-commutator formulations hinges on satisfying the so-called
+killer condition, which requires ˆ ρ†
+p |Φ0⟩ = 0, ∀p. Since the EOM-DSRG formalism does
+not make use of either the single- or double-commutator form, we do not require the killer
+condition to be satisfied. Interested readers are referred to the literature for detailed discus-
+sions. 91,92,97–99 In the closely related EOM-ic-MRUCC formalism (Ref. 62), the ground state
+is obtained projectively, and we ensured that all operators in the excitation operator satisfy
+the killer condition via a small modification to the internal excitation operators, so that
+we could adopt the double-commutator form of the EOM equations. Finally, the double-
+commutator form of the EOM equations is also not Hermitian for theories not satisfying the
+10
+projective condition, and it may be acceptable to symmetrize the theory when the projective
+residuals are small. 96
+Given the benefits of the double-commutator form, it might seem unreasonable for us
+to use Eq. (10) as our working equation for the EOM-DSRG formalism. However, we have
+several reasons for this choice. Firstly, the diagrams are already naturally connected in EOM-
+DSRG, since all many-body operators are normal ordered. Secondly, rank reduction can be
+introduced on an ad hoc basis without approximation, as will be discussed in Section 2.3.
+Lastly, as discussed above, the double-comutator Hamiltonian matrix would not be Hermitian
+in EOM-DSRG, and ad hoc Hermitization cannot be justified.
+2.3 IP-EOM-DSRG
+We now discuss the form of the excitation operator ˆRα used to compute singly ionized states
+in the IP-EOM-DSRG scheme. We partition the EOM operator into an internal ( ˆRint
+α ) and
+external ( ˆRext
+α ) part:
+ˆRα = ˆRint
+α + ˆRext
+α , (17)
+where the internal part maps the parent model space into the target model space ( ˆRint
+α M ∈
+M1h), where M1h is the model space formed by removing one active electron from the
+parent model space determinants in all possible ways. The external part generates excited
+configurations outside the target model space ( ˆRext
+α M /∈ M1h). Operators from these two
+groups span orthogonal spaces when applied to the state |Φ0⟩. No scalar term enters in
+ˆRα as it mixes in a different sector of Fock space, also guaranteeing orthogonality with the
+ground state.
+We parameterize external excitations with the set of one-hole (1h) and two-hole-one-
+particle (2h1p) operators, excluding those labeled only by active indices (denoted by ′):
+ˆRext =
+HX
+i
+′
+ri{ˆai} + 1
+2
+HX
+ij
+′
+PX
+a
+′
+rij
+a {ˆaa
+ij} (18)
+11
+where the curly braces indicate generalized normal ordering, and the state index α is omitted
+for clarity.
+We use the many-body (MB) form of internal excitations with up to 2h1p operators:
+ˆRint
+MB =
+AX
+ux
+ru{ˆau} + 1
+2
+AX
+uvx
+ruv
+x {ˆax
+uv}. (19)
+This choice ensures that the number of internal excitation operators scales polynomially
+with the number of active orbitals, and also retains invariance to unitary transformations
+within the active space. Other choices of internal excitation operators are possible, such
+as the active-space eigenoperators adopted by Sokolov and coworkers for the MR-ADC for-
+malism. 49 A drawback of the eigenoperators is that they formally scale exponentially with
+the number of active orbitals, and therefore truncation is necessary for a practical imple-
+mentation; additionally, transition RDMs between the ground and excited states need to be
+evaluated, leading to higher storage requirements. However, the eigenoperators can describe
+higher-order internal excitations than MB operators in cases where the MB operators cannot
+saturate the target model space. We return to this point in Section 4.1.
+Virtual (V)
+(e,f,...)Particle (P)
+(a,b,...)
+Hole (H)
+(i,j,...)
+Active (A)
+(u,v,...)
+Core (C)
+(m,n,...)
+1h 1h
+External
+2h1p 2h1p
+Internal
+All possible non-
+internal singles
+All possible non-
+internal doubles
+DSRG IP-EOM-DSRG
+Figure 1: Definitions of the cluster operator ( ˆT , left) and the EOM excitation operator ( ˆR,
+right) used in the multireference formulation of the DSRG and IP-EOM-DSRG schemes.
+Curved arrows indicate the excitation of an electron, while wavy arrows indicate the ioniza-
+tion of an electron.
+12
+In all, the IP-EOM-DSRG excitation operator is given by:
+ˆR =
+HX
+i
+ri{ˆai} + 1
+2
+HX
+ij
+PX
+a
+rij
+a {ˆaa
+ij}, (20)
+which is a transparent generalization of the single-reference IP-EOM-CCSD ansatz. 100,101
+The use of generalized normal ordering automatically ensures the orthogonality between
+ground and excited states (see Section 2.2). As a side note, MR-DSRG theory is formulated
+in a semicanonical orbital basis, which is not uniquely defined when there is orbital degen-
+eracy, but the MR-DSRG formalism is invariant to unitary transformations within sets of
+degenerate orbitals. 68 Our choice of the IP-EOM-DSRG excitation operator basis preserves
+this invariance.
+We can write the matrix representation of the IP-EOM-DSRG equation as:
+¯Hrα = ωαSrα, (21)
+where the transformed Hamiltonian matrix is given by:
+¯Hpq = ⟨Φ0|ˆρ†
+p ¯H ˆρq|Φ0⟩ , (22)
+and the metric matrix is:
+Spq = ⟨Φ0|ˆρ†
+p ˆρq|Φ0⟩ . (23)
+The set of internally contracted excited configurations {ˆρp |Φ0⟩} exhibits linear dependence
+and can be orthogonalized via a linear transformation induced by the matrix M,
+ˆχ = ˆρM, (24)
+where ˆχ is the row-vector of orthogonalized operators, and ˆρ is the row-vector of the original
+bare excitation operators. The matrix M depends parametrically on some threshold(s) η for
+13
+the orthogonalization procedure, and interested readers are referred to detailed discussions in
+the literature. 49,55,70,102,103 In this work, we use the two-threshold Gram–Schmidt sequential
+orthogonalization procedure proposed by K¨ ohn and coworkers.103 When expressed in the ˆχ
+operator basis, Eq. (21) becomes an ordinary eigenvalue problem:
+¯H′r′
+α = ωαr′
+α, (25)
+where the modified matrix ¯H′ and vector r′
+α are defined as ¯H′ = M† ¯HM and r′
+α = M†rα.
+A na ¨ ıve evaluation of the matrix elements ¯Hpq where p, q ∈ {ˆRint
+MB} can involve up
+to 5-body reduced density cumulants, with prohibitive computational and storage costs.
+For example, the matrix element of ¯H computed with respect to two internal 2h-1p states
+contains the leading term:
+⟨Φ0|{ˆauv
+w } ¯H pq
+rs {ˆars
+pq}{ˆax
+yz}|Φ0⟩ = ¯H pq
+rs λuvrsx
+wpqyz + . . . . (26)
+To avoid this, we can write
+⟨Φ0|ˆρ†
+p ¯H ˆρq|Φ0⟩ = ⟨Φ0|ˆρ†
+p[ ¯H, ˆρq]|Φ0⟩ + ⟨Φ0|ˆρ†
+p ˆρq ¯H|Φ0⟩ , (27)
+where the introduction of the commutator in the first term allows us to utilize the rank-
+reducing property of the commutator, such that only up to 4-body reduced density cumulants
+are needed. This trick was first proposed by Dyall, 104 and is used in most variants of
+NEVPT2, 57,60,105 and ic-MRCI methods. 106,107 If both ˆρp and ˆρq belong to the same class
+of operators (in this case, we are only interested in internal operators as they introduce
+the highest rank cumulants), then ˆ ρ†
+p ˆρq |Φ0⟩ ∈ M. If furthermore |Φ0⟩ is an eigenstate
+of ˆP ¯H ˆP , then the second term ⟨Φ0|ˆρ†
+p ˆρq ¯H|Φ0⟩ = E0Spq, which amount to a shift in the
+eigenvalues by E0. For this condition to be met, the MR-LDSRG(2) effective Hamiltonian
+must be diagonalized in the CAS space to obtain a reference state |Φ0⟩ that is an eigenstate
+14
+of ˆP ¯H ˆP . We then use the ¯H and the reduced density cumulants of |Φ0⟩ in the subsequent
+IP-EOM-DSRG calculations.
+Numerical experiments show that the rigorous evaluation of contributions containing
+four-body density cumulants is critical to avoid artificial variational collapse of the EOM
+energies, as has been reported before in cumulant-truncated ic-MRCI methods. 106 The re-
+sulting IP-EOM-DSRG equations depend on up to the 4-body reduced density cumulants.
+This procedure is used throughout this work, as it is essential for a computationally feasible
+IP-EOM-DSRG method, and involves no approximations. Note that since the killer con-
+dition is not satisfied by the many-body parameterization of internal excitations, it is not
+possible to proceed one step further and convert terms like those in Eq. (27) into a double
+commutator form.
+Finally, we note that the IP-EOM-DSRG method will not deliver size-intensive excitation
+energies. Size intensivity describes when excitation energies remain constant in the presence
+of non-interacting subsystems, and it was shown in Appendix B of Ref. 62 that a necessary
+condition for size intensivity is that the ground state is determined projectively, which is
+not the case for the MR-DSRG methods. In the case of IP-EOM-DSRG with up to 2h-1p
+excitations, only projections onto single excitations must be zero to guarantee size intensivity.
+In practice, we find that the size-intensitivity errors are small for realistic systems, as we
+report in Section 4.5.
+2.4 Calculation of transition intensities
+The intensity of a photoelectron transition at energy ω, I(ω), can be obtained by computing
+the photoionization cross section, σ(ω), which is proportional to the differential oscillator
+strength, f (ω) of a transition to a continuum state at energy ω. 108,109 This requires the
+explicit consideration of Dyson orbitals, which is beyond the scope of the current study.
+Instead, we opt to use the spectroscopic factor, Sα (sometimes also denoted as Pα), as a
+15
+proxy for I(ωα). 50 This quantity is given as follows: 110,111
+Sk =
+HX
+i
+| ⟨ΨN −1
+α |ˆai|ΨN
+0 ⟩ |2. (28)
+Sk is defined as the sum of ionization probabilities from all orbitals of the parent ground
+state that result in the α-th excited state of the ionized system, and is therefore related to
+the intensity of a photoelectron transition. In Eq. (28), |ΨN −1
+α ⟩ is the α-th excited state of
+the ionized system, and |ΨN
+0 ⟩ is the ground state of the parent system. Substituting in the
+IP-EOM-DSRG ansatz for the excited state, we have
+Sα =
+HX
+i
+| ⟨ΨN
+0 | ¯R†
+αˆai|ΨN
+0 ⟩ |2 (29)
+=
+HX
+i
+| ⟨Φ0| ˆR†
+αe− ˆAˆaie
+ˆA|Φ0⟩ |2.
+For computational feasibility, we take only the leading term of e− ˆAˆaie ˆA = ˆai + [ˆai, ˆA] + . . .,
+resulting in the working expression for the spectroscopic factor:
+Sα ≈
+HX
+i
+| ⟨Φ0| ˆR†
+αˆai|Φ0⟩ |2. (30)
+2.5 Computational scaling
+The computational scaling of the IP-EOM-DSRG method is determined by the cost of the
+underlying MR-DSRG method and the cost of the IP-EOM-DSRG calculation itself. In the
+common situation of NV > NC ≫ NA, DSRG-MRPT2 scales as O(N 2
+CN 2
+V), and DSRG-
+MRPT3 and MR-LDSRG(2) scale as O(N 2
+CN 4
+V), with the latter requiring an iterative pro-
+cedure. The IP-EOM step scales as O(N 3
+CN 2
+V), arising from the cost of contracting the
+CCVV block of ¯H with the ˆaV
+CC operators. The IP-EOM-DSRG scaling with respect to the
+active space size is of O(N 10
+A ), arising from the contractions between the AAAA block of
+¯H with the ˆaA
+AA operators.
+16
+3 Computational details
+The IP-EOM-DSRG method has been implemented in NiuPy, a library of multireference
+excited state methods written in Python. 112 The library uses a development branch of the
+Wick&d library for the automatatic derivation of spin-integrated multireference many-body
+theories. 113 All systems considered in this work are sufficiently small such that the full matrix
+¯H
+′
+can be held in memory and directly diagonalized. Alternatively, the code has the ability
+to build the matrix-vector products ¯H
+′
+r′
+α directly from the tensor elements of the (orthogo-
+nalized) effective Hamiltonian, instead of storing the full matrix ¯H
+′
+, which can be straight-
+forwardly interfaced with most Hermitian iterative eigensolvers such as the Davidson–Liu
+algorithm. 114,115 All CASSCF and MR-DSRG calculations are performed with a development
+branch of the Forte quantum chemistry package. 116 Unless otherwise stated, all electrons
+are correlated. The choices of active space for all calculations, along with CASSCF refer-
+ence energies, where applicable, can be found in Sec. I of the Supporting Information. All
+IP-EOM-DSRG calculations make use of the sequential orthogonalization scheme by K¨ ohn
+and coworkers, 103 with thresholds of η1 = 10−5 and η2 = 10−10 unless otherwise stated. All
+plots have been generated with the matplotlib and seaborn packages.117,118 The conver-
+sion factors of 1 Hartree = 27 .211 386 eV and 1 Hartree = 2 .194 746 × 105 cm−1 are used
+throughout this work. 119
+4 Results and discussion
+4.1 Vertical ionization energies
+The most common application of IP-EOM methods is predicting vertical ionization ener-
+gies. To test the accuracy of IP-EOM-DSRG, we have computed the lowest few vertical
+ionization energies of small molecules containing first-row elements (HF, H 2O, CO, N 2, F 2,
+CS, C2H4, and H2CO) at their respective equilibrium geometries, comparing to extrapolated
+17
+semistochastic heat-bath CI (SHCI). 120 To enable a direct comparison, the molecular ge-
+ometries, choice of basis, and the number of excited states computed for each system are
+identical to those of Chatterjee and Sokolov, 51 which considered MR-ADC(2)-X and also
+includes data from SHCI, SR-ADC(2/3), and EOM-CCSD. The equilibrium geometries are
+taken from Trofimov and Schirmer,121 and the stretched geometries are obtained by doubling
+the bond lengths while keeping the bond angles fixed. For C 2H4 and H 2CO, this involves
+stretching the C–C and C–O bonds, respectively. The aug-cc-pVDZ 122–124 basis set is used
+for all atoms except for the hydrogen in C 2H4 and H 2CO, where the cc-pVDZ basis set is
+used. 122 EOM-CCSDT calculations are carried out in the CCpy package.125 The EOM-
+DSRG-PT2 calculations employ a flow parameter of s = 0.5 E−2
+h , and the EOM-DSRG-PT3
+and EOM-DSRG(2) calculations employ a flow parameter of s = 1 .0 E−2
+h . The choices of
+flow parameters are in line with the recommendation from a previous benchmarking work
+on the optimal flow parameters for excited states in the MR-DSRG framework. 126 We note
+here that the flow parameters chosen are not necessarily optimal for this particular test set,
+but are selected to reflect the typical values used in the literature. In fact, there are choices
+of s for PT2 ( ≈ 0.25 E−2
+h ) and PT3 ( ≈ 0.5 E−2
+h ) that will result in more compact error dis-
+tributions for this test set. We will discuss the dependence of the vertical ionization energies
+on the flow parameter in more detail in Section 4.2. The raw data used in this section is
+provided in Figs. S1 and S2 of the Supporting Information.
+We report the error distribution for all methods considered in Fig. 2 and summary error
+statistics in Fig. 3. Considering Fig. 2, we can see that at equilibrium bond lengths, the most
+rigorous DSRG approach [IP-EOM-DSRG(2)] predicts accurate vertical ionization potentials
+all molecules, with an error profile very similar to that of IP-EOM-CCSDT—the former
+having a mean absolute error (MAE = N −1 PN
+i |∆ωi|) of 0.09 eV, close to the 0.07 eV value
+achieved by the latter (see Fig. 3). This is with the IP-EOM-DSRG formalism retaining
+up to 2h1p-type excitations, whereas IP-EOM-CCSDT includes 3h2p-type excitations at a
+significantly higher computational scaling of O(N 3
+CN 4
+V). The IP-EOM-DSRG-PT2 method
+18
+EOM-DSRG-PT3
+EOM-DSRG-PT2
+EOM-DSRG(2)
+SA-DSRG-PT2
+SA-DSRG-PT3
+SA-MR-LDSRG(2)
+SR-ADC(3)
+SR-ADC(2)
+Single-
+reference
+Multi-reference
+QD/SAEOM-like
+This
+work
+IP
+error
+w.r.t.
+SHCI
+(eV)
+-2.0
+-1.5
+-1.0
+-0.5
+0.0
+0.5
+1.0
+1.5
+2.0
+-2.0
+-1.5
+-1.0
+-0.5
+0.0
+0.5
+1.0
+1.5
+2.0
+MR-ADC(2)-X
+MR-ADC(2)
+EOM-CCSD
+EOM-CCSDT
+QD-NEVPT2
+Figure 2: Left: violin plots (kernel density estimate of the error distribution, with data points
+represented as sticks within) of the errors of 25 vertical excitation energies at equilibrium
+geometries of HF, H2O, CO, N2, F2, CS, C2H4, and H2CO, computed with selected theoretical
+methods, compared to extrapolated SHCI. Right: violin plots of the errors of 14 vertical
+excitation energies for HF, H 2O, N 2, F 2, C 2H4, and H 2CO at stretched geometries. A flow
+parameter of s = 1.0 E−2
+h is used for the EOM-DSRG(2) and EOM-DSRG-PT3 calculations,
+and s = 0.5 E−2
+h is used for EOM-DSRG-PT2 (see text for details).
+underestimates the excitation energies, with a larger MAE of 0.38 eV, whereas the IP-EOM-
+DSRG-PT3 method has a smaller systematic error, reflected in an MAE of 0.17 eV, only
+slightly higher than that of IP-EOM-DSRG(2). However, both IP-EOM-DSRG-PT2 and
+PT3 have a higher spread in the error distribution, reflected in the larger standard deviation
+(STD) of the errors of 0.27 eV and 0.25 eV, compared to 0.13 eV for IP-EOM-DSRG(2).
+From these observations already, we can see the systematic improvement brought about by
+improving the underlying description of electron correlation, roughly following the trend of
+IP-EOM-DSRG(2) ≥ IP-EOM-DSRG-PT3 ≫ IP-EOM-DSRG-PT2.
+At stretched geometries, the same trends persist, with IP-EOM-DSRG(2) achieving a
+similarly compact and centered error profile with respect to SHCI, albeit at a slightly larger
+mean absolute error. The IP-EOM-DSRG(2) method outperforms all other methods in
+MAE, STD, and maximum errors (MAX), whereas IP-EOM-DSRG-PT2/3 are comparable
+to the MR-ADC(2) method, 50 while being significantly better than all other single-reference
+methods considered, most of which have trouble with even qualitatively correct descriptions
+19
+MAE
+STD
+MAX
+MAE
+STD
+MAX
+Error
+statistic
+(eV)
+EOM-DSRG-PT3
+EOM-DSRG-PT2
+EOM-DSRG(2)
+SA-DSRG-PT2
+SA-DSRG-PT3
+SA-LDSRG(2)
+SR-ADC(3)
+SR-ADC(2)
+MR-ADC(2)-X
+MR-ADC(2)
+EOM-CCSD
+EOM-CCSDT
+QD-NEVPT2
+2.00
+1.75
+1.50
+1.25
+1.00
+0.75
+0.50
+0.25
+0.00
+Equilibrium
+Stretched
+Figure 3: Summary statistics of the errors (w.r.t. SHCI) of the vertical ionization ener-
+gies computed with various methods. The mean absolute error (MAE), standard deviation
+(STD), and maximum absolute error (MAX) are shown for each method.
+of the target states. Notably, the IP-EOM-CCSDT results become significantly worse at
+stretched geometries, even worse than the IP-EOM-CCSD.
+The poor performance of IP-EOM-CCSDT at stretched geometries deserves some atten-
+tion, as it illustrates a more subtle point when comparing the accuracies of excitation ener-
+gies. The large error spread in this case is primarily driven by two IPs of the N 2 molecule at
+2.196 ˚A bond length. Although neither CCSD nor CCSDT can accurately describe the triple
+bond-breaking process in N 2, the CCSDT ground state potential energy curve (PEC) falls
+below the variational limit more severely than the CCSD PEC. As a consequence, the ion-
+ization potential is overestimated in CCSDT. Multireference methods, such as EOM-DSRG
+and MR-ADC, do not suffer from this unbalanced description of reference and target states,
+as their respective reference states can qualitatively describe processes involving multiple
+20
+bonds breaking, thereby avoiding overestimating IPs.
+Next, we consider the carbon dimer (not contained in the previous dataset), an archety-
+pal system with strong multireference character, even at its equilibrium geometry, which
+can compromise the computation of ionized states due to significant differential correla-
+tion effects from the ground state. In Fig. 4 we report the vertical ionization energies
+and spectroscopic factors of the low-lying electronic states of C 2 at its equilibrium geom-
+etry (1.2425 ˚A), computed with EOM-DSRG-PT2/3 and EOM-DSRG(2) methods, and
+compared to results from SR-ADC(3), MR-ADC(2) and MR-ADC(2)-X methods, 51 along
+with quasi-degenerate (QD) NEVPT2 27 (reproduced from Ref. 50) and state-averaged (SA)
+DSRG-MRPT2/3 and MR-LDSRG(2) results. The differential correlation effects can be
+SR-ADC(3)
+MR-ADC(2)
+MR-ADC(2)-X
+EOM-DSRG-PT2
+EOM-DSRG-PT3
+EOM-DSRG(2)
+Vertical
+ionization
+energy
+(eV)
+Intensity
+(arb.
+unit)
+11
+12
+13
+14
+15
+16
+0
+1
+2
+0
+1
+2
+0
+1
+2
+0
+1
+2
+0
+1
+2
+0
+1
+2
+SA-DSRG-PT2
+SA-DSRG-PT3
+SA-LDSRG(2)
+QD-NEVPT2
+Figure 4: Simulated photoelectron spectrum of C 2 at its equilibrium geometry computed
+with various theoretical methods. The reference SHCI results are shown as dotted vertical
+lines. The vertical ionization energies from other theoretical methods are shown as peaks
+broadened by a Lorentzian function with a half-width at half-maximum of 0.03 eV. The
+intensities are given directly by the spectroscopic factors. Triangles indicate locations of
+transitions, even if their intensity is too low to be visible. For reference, results from select
+QD/SA methods are provided at the bottom of the figure without intensity information.
+21
+most clearly seen in the 2 2Πu state (brown in Fig. 4), whose dominant configuration can
+be obtained from the C 2 ground state by an ionization followed by a double excitation
+((2σu)2(1πu)4(3σg)0 → (2σu)2(1πu)1(3σg)2), i.e., it has significant 3h2p-character. None of
+the EOM-like methods are able to even qualitatively describe the state, as they all make
+use of up to 2h1p operators, whereas all QD/SA methods are able to describe the state
+accurately, due to the explicit consideration of the target state in the calculations. This
+may be a case where the state-transfer internal operators in MR-ADC(2)(-X) 50 could be
+used to improve the description of the state, since all of the involved orbitals are in the
+CAS. However, the MR-ADC(2)(-X) methods exhibit a similar failure to describe this state.
+This might point to the need for external 3h2p operators to capture orbital relaxation and
+correlation effects in this case, or it could be that the relevant state-transfer operators were
+not captured in the MR-ADC(2)(-X) calculations.
+4.2 Dependence on the flow parameter
+In this section, we examine how the flow parameter value affects the error statistics of the IP-
+EOM-DSRG methods. In Fig. 5, we show the dependence of all IP-EOM-DSRG(2) vertical
+ionization energies on the flow parameter s for the small molecules considered discussed in
+Section 4.1, with the exception of C 2. In the s = 0 E−2
+h case, the bare CASSCF Hamiltonian
+IP error w.r.t. SHCI (eV)
+Flow parameter (Eh
+-2)
+-3.0
+-2.5
+-2.0
+-1.5
+-1.0
+-0.5
+0.0
+0.5
+1.0
+Figure 5: The dependence of the vertical ionization energies computed with IP-EOM-
+DSRG(2) on the flow parameter s.
+22
+is used, and the IP-EOM-DSRG(2) method reduces to an EOM method based on a fully
+internally contracted MRCI method (fic-MRCI). As can be seen from the figure, the perfor-
+mance of the bare Hamiltonian is very poor, with large systematic errors (MAE = 1 .43 eV)
+and a large spread (STD = 0 .69 eV) in the error distribution. As s is increased, the errors
+quickly become smaller and the distribution more compact, achieving good accuracy in a
+large range of s values (0.25–1.25 E−2
+h ). This can be understood as the result of the DSRG
+transformation folding in dynamic correlation effects into the effective Hamiltonian, which
+makes the compact excitation operator manifold more effective as the renormalization of the
+Hamiltonian proceeds. However, MR-LDSRG(2) starts to encounter convergence issues at
+s > 1.25 E−2
+h for some systems, which could mean the MR-LDSRG(2) operator equation
+[Eq. (3)] has no solution at those values of s. Analogous figures for EOM-DSRG-PT2/3 are
+provided in Figs. S3 and S4 in the Supporting Information.
+The advantage of the iterative MR-LDSRG(2) method over the perturbative methods is
+highlighted in Fig. 6, where we show the dependence of the vertical ionization energies of F2 at
+its equilibrium geometry on the flow parameter s. Here, we can see that the EOM-DSRG(2)
+IPs stably converge to the SHCI values as s is increased, whereas the EOM-DSRG-PT2 IPs
+come close but then diverge, and the EOM-DSRG-PT3 IPs cross the SHCI values but then
+overshoot. Plots of the s-dependence for every system considered in the test set are provided
+in Figs. S5 and S6 in the Supporting Information.
+The observed flow parameter trends for the three truncated schemes is further borne out
+in Fig. 7, where we show the mean absolute error (MAE), standard deviation (STD), and
+maximum absolute error (MAX) of the vertical ionization energies computed with EOM-
+DSRG-PT2/3 and EOM-DSRG(2) as a function of the flow parameter s. Consistent with
+the findings of Ref. 126, the error profiles of PT2 as a function of s exhibit deep and unstable
+minima at small s near 0.5 E−2
+h , whereas the error profiles of PT3 and MR-LDSRG(2) has
+shallower minima or even flat profiles. The larger computational prefactor and convergence
+difficulties at large s for the MR-LDSRG(2), together with the results in this section, lead
+23
+10-2
+10-1
+100
+10-2
+10-1
+100
+10-2
+10-1
+100
+8
+10
+12
+14
+16
+18
+20
+22
+Vertical ionization energy (eV)
+Flow parameter (Eh
+-2)
+EOM-DSRG-PT2
+EOM-DSRG-PT3
+EOM-DSRG(2)
+Figure 6: The dependence of the vertical ionization energies of F2 at its equilibrium geometry
+on the flow parameter s.
+2.00
+1.75
+1.50
+1.25
+1.00
+0.75
+0.50
+0.25
+0.00
+0.0
+0.5
+1.0
+0.0
+0.5
+1.0
+0.0
+0.5
+1.0
+EOM-DSRG(2)
+EOM-DSRG-PT3
+EOM-DSRG-PT2
+ﬂow parameter (Eh
+-2)
+Error statistic (eV)
+MAE
+STD
+MAX
+Figure 7: Summary statistics of the errors (w.r.t. SHCI) of the vertical ionization energies
+as a function of the flow parameter s for EOM-DSRG methods. The mean absolute error
+(MAE), standard deviation (STD), and maximum absolute error (MAX) are shown for each
+method.
+us to tentatively recommend the IP-EOM-DSRG-PT3 method with s ∈ [0.5, 1.0] E−2
+h for the
+best balance between accuracy and computational cost.
+24
+4.3 Spectroscopic constants
+To assess the ability of the EOM-DSRG methodology to accurately determine the spectro-
+scopic properties for multiple target states simultaneously, we compute the spectroscopic
+constants of a sample of radical species, starting from their respective closed-shell electron-
+attached counterparts. In Fig. 8, we compare IP-EOM-DSRG spectroscopic constants to
+those from IP-EOM-CCSD and IP-EOM-CCSD* (with the latter including 3h2p determi-
+nants approximately) 127 and CCSD and CCSD(T) based on UHF or quasi-restricted HF
+references. 128 The MAE, STD, and MAX of the spectroscopic constants are shown in Fig. 9.
+We have used the local interpolating moving least squares method by Bender and cowork-
+ers 129 as implemented in the Psi4 package130 to obtain the spectroscopic constants. Grids
+of 31 points spaced at 0 .001 ˚A around the equilibrium bond lengths are used for the fitting.
+The cc-pVTZ basis set 122 is used for all atoms in these calculations for comparison with
+previous theoretical values computed by Saeh and Stanton. 127 The raw data for this section
+is provided in Tables S1-S4 in the Supporting Information.
+We note that state-specific approaches like CCSD and CCSD(T) in Fig. 8 require a
+separate calculation for each state. State-specific approaches forgo orthogonality among the
+states, and in return usually give more accurate properties for the target states, as they
+are individually optimized. If the target states are not the ground states of their respective
+symmetry sectors, methods such as ∆-CC 6,8 or excited-state-specific CC 7 may be required.
+We can observe that all three IP-EOM-DSRG methods perform well for the states con-
+sidered, and generally produces spectroscopic constants that are in good agreement with the
+experimental values with a moderately large basis set. All methods achieve similar perfor-
+mance for the equilibrium bond lengths ( re). This is expected as all methods considered
+here are able to capture weak correlation effects typically present around equilibrium ge-
+ometries. This property can also be thought of as depending on the first derivative of the
+energy, and is therefore less sensitive to the choice of method. However, already for the
+harmonic frequencies, we can see, in the middle panel of Fig. 9, a marked reduction in the
+25
+0.94 0.95 0.96 0.97 0.98 0.99
+0.99 1.00 1.01 1.02 1.03 1.04
+1.15 1.16 1.17 1.18 1.19 1.20
+1.21 1.22 1.23 1.24 1.25 1.26
+1.12 1.13 1.14 1.15 1.16 1.17 1.18
+1.09 1.10 1.11 1.12 1.13 1.14
+1.15 1.16 1.17 1.18 1.19 1.20
+1.05 1.06 1.07 1.08 1.09 1.10
+1.22 1.23 1.24 1.25 1.26 1.27
+3700
+3632
+3750 3800 3850 3900 3950
+2050 2100 2150 2200 2250 2300
+1800 1850 1900 1950 2000 2050
+2150 2200 2250 2300 2350 2400
+2200 2250 2300 2350 2400 2450
+1900 1950 2000 2050 2100 2150
+2400 2450 2500 2550 2600 2650
+1550 19000 20000 21000 22000 23000
+7000 8000 9000 10000 11000
+24000 25000 26000 27000
+1600 1650 1700 1750 1800
+1.09 1.10 1.11 1.12 1.13 1.14 2200 2250 2300 2350 2400 2450
+3150 3200 3250 3300 3350 3400
+Equilibrium bond length 
+(re / Å)
+Harmonic frequency 
+(ωe / cm-1)
+Adiabatic electronic 
+excitation energy 
+(Te / cm-1)
+CCSD CCSD(T) EOMIP-
+CCSD
+EOMIP-
+CCSD*
+EOM-DSRG(2) 
+This work
+EOM-DSRG-
+PT2 
+EOM-DSRG-
+PT3 
+24000 25000 26000 27000 28000
+31000 32000 33000 34000 35000
+7000 8000 9000 10000 11000
+OH
+OH
+CN
+CN
+CN
+N2
++
+N2
++
+N2
++
+CO+
+CO+
+Figure 8: Spectroscopic constants for select electronic states of OH, CN, N +
+2 , and CO+ radi-
+cals, compared to the experimental values (black vertical lines) from Huber and Herzberg.131
+The adiabatic transition energies are from the electronic ground states of the respective rad-
+icals.
+MAEs from the order of 100 cm −1 for single-reference methods to the order of 10 cm −1 for
+the IP-EOM-DSRG methods, with single-reference methods overestimating the harmonic
+frequencies ( i.e., predicting stiffer bonds), as they systematically undercorrelate the states
+away from their equilibrium geometries. This property depends on the second derivative
+of the energy, and therefore demands a more accurate description of the PES. The utility
+of a multi-reference treatment is most clearly reflected in the adiabatic electronic excitation
+energies (right panels of Figs. 8 and 9), where the IP-EOM-DSRG methods predict the much
+more accurate gaps between the ionized states than the single-reference methods, following
+26
+EOM-DSRG-PT2
+EOM-DSRG-PT3
+EOM-DSRG(2)
+CCSD
+CCSD(T)
+EOM-CCSD
+EOM-CCSD*
+MAE
+STD
+MAX
+Δre
+(pm)
+MAE
+STD
+MAX
+Δωe
+(cm-1)
+MAE
+STD
+MAX
+ΔTe
+(cm-1)
+Figure 9: Summary error statistics for select electronic states of OH, CN, N +
+2 , and CO +
+radicals relative to experimental values. The mean absolute error (MAE), standard deviation
+(STD), and maximum absolute error (MAX) are shown for each method.
+the trend observed in Section 4.1. IP-EOM-DSRG-PT2/3 results generally compare well
+with those from IP-EOM-DSRG(2), but can become less reliable for certain states. See for
+example the harmonic frequencies for the X 2Π state of OH . The perturbative schemes
+sometimes appear to perform better than IP-EOM-DSRG(2), but this is likely due to error
+cancellation as seen, for example, in the harmonic frequencies of A 2Σ+ state of OH , where
+increasing the level of theory causes a rightward shift that corresponds to larger errors.
+4.4 Potential energy surfaces
+A key advantage of the MR-DSRG formalism is its ability to generate smooth and qual-
+itatively correct potential energy surfaces due to its intruder-free property and its use of
+MCSCF reference wavefunctions. The EOM-DSRG formalism is then expected to also be
+intruder-free, and consequently avoid discontinuities due to the presence of intruders. How-
+ever, the use of truncation thresholds in the orthogonalization procedure may introduce small
+discontinuities in the potential energy surfaces when there are large changes in the number
+of orthogonalized operators. 62 The thresholds we use throughout this work are small enough
+that all PESes are practically continuous. As an example, we consider the potential energy
+curves of the X 2Σ+, A 2Π and B 2Σ+ states of the cyanide radical. The corresponding curves
+are shown in Fig. 10, where we report IP-EOM-DSRG results, and compare them to those
+27
+obtained via the state-averaged MR-LDSRG(2) 29 and fully internally contracted MRCISD
+with Davidson correction (fic-MRCISD+Q) 107 potential energy surfaces, computed with the
+Forte116 and ORCA132 packages respectively.
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+Relative energy / Eh
+1.0
+0
+1
+2
+3
+0
+1
+2
+3
+4
+5
+6
+7
+1.5
+2.0
+2.5
+3.0
+3.5
+4.0
+rC-N (Å)
+ω (eV)
+Δω (eV)
+CN- 
+ground state
+CN
+CN
+CN
+EOM-DSRG(2)
+MR-LDSRG(2)
+MR-CISD+Q
+Figure 10: Potential energy surfaces of the X 2Σ+, A 2Π and B 2Σ+ states of the cyanide
+radical. In the top figure, “Relative energy” denotes the energies of the radical states relative
+to the minimum energy of the CN – ground state computed by state-specific MR-LDSRG(2)
+for EOM-DSRG and SA-DSRG, and state-specific fic-MRCISD+Q for fic-MRCISD+Q. In
+the middle figure, ω denotes the vertical ionization energies of the radical states from the
+CN– ground state. In the bottom figure, ∆ ω denotes the spacings between the A 2Π and
+B 2Σ+ states to the X 2Σ+ states. The dotted lines indicate the FCI dissociation limits of the
+corresponding states. The position of the green dotted line is computed as the FCI/cc-pVTZ
+energy difference between the 2Du and 4Su states of the nitrogen atom.
+Looking at the top panel of Fig. 10 (energies relative to the minimum on the CN – curve),
+28
+we can see that the IP-EOM-DSRG(2) method produces smooth potential energy surfaces
+for all three states, and they are qualitatively correct compared to the fic-MRCISD+Q
+potential energy surfaces, which we consider to be the most accurate reference in this case.
+We also note that the correct asymptotic degeneracies are obtained with the EOM-DSRG
+methods. Focusing in the middle figure of Fig. 10 (vertical ionization energies), we can
+see that the IP-EOM-DSRG(2) method produces curves that are largely parallel to the fic-
+MRCISD+Q, except for a marked deviation in the B 2Σ+ state at around 2 .8 ˚A, where an
+avoided crossing occurs. 133 An avoided crossing is present in the IP-EOM-DSRG(2) PES,
+but occurs at around 2 .2 ˚A. This could be due to IP-EOM-DSRG(2) not having enough
+flexibility to capture the full differential correlation effects present in the B 2Σ+ statedue to
+significant recoupling of the electrons in this region of the curve. The bottom figure of Fig. 10
+(excitation energies of the ionized state) reveals another limitation of the IP-EOM-DSRG(2)
+method compared to state-averaged methods like MR-LDSRG(2) and fic-MRCISD+Q: the
+B 2Σ+ state at dissociation is not well described by IP-EOM-DSRG(2), although its zeroth-
+order reference state is qualitatively correct. We would expect IP-EOM-DSRG(2) to more
+accurately describe the dissociation limit, as the N( 2Du) atomic state is dominated by 1h
+excitations from the CN – ground state, and all nearby Σ + states are dominated by at most
+2h1p excitations. The comparatively better description of the potential energy curves of
+CN afforded by the MR-LDSRG(2) and fic-MRCISD+Q methods is then attributed to the
+double excitations in the ( N − 1) electron Hilbert space that these methods introduce. This
+result suggests that a route to improve the accuracy of the CN results is by inclusion of the
+3h2p excitations in the IP-EOM-DSRG, which are effectively treated in the MR-LDSRG(2)
+and fic-MRCISD+Q methods.
+We show the same potential energy surfaces for IP-EOM-DSRG-PT2/3, compared to
+IP-EOM-DSRG(2) in Fig. S7 in the Supporting Information. The IP-EOM-DSRG-PT3
+curves almost exactly overlap with the IP-EOM-DSRG(2) curves, while IP-EOM-DSRG-PT2
+slightly over-correlates, i.e., underestimates ionization energies for all states. In increasing
+29
+the level of theory from IP-EOM-DSRG-PT2, through IP-EOM-DSRG-PT3, to IP-EOM-
+DSRG(2), the FCI dissociation limit of the B 2Σ+ state is improved.
+4.5 Size intensitivity
+As mentioned in Section 2, the IP-EOM-DSRG formalism is not rigorously size intensive
+since the resulting ¯H does not satisfy projective conditions. In most applications, it is
+paramount that deviations from core intensivity are significantly smaller than the target
+excitation energies. Core intensivity describes the invariance of the ionization potential with
+respect to the addition of non-interacting core and virtual orbitals, while the active orbitals
+remain unchanged. This quantity reflects the most common situation in which the system
+of interest is studied in a variety of larger, weakly interacting environments. In Table 1 we
+quantify the core-intensivity errors of the IP-EOM-DSRG formalism by computing the errors
+in the first vertical ionization energies of HF at the equilibrium and stretched geometries, in
+the presence of a variable number of non-interacting helium atoms (spaced 10000 ˚A apart),
+compared to an isolated HF molecule. We use the aug-cc-pVDZ basis and obtain ¯H from
+the DSRG-MRPT3 with flow parameters of 0 .5, 1, and 10 E−2
+h . A consistent active space of
+6 electrons in 5 orbitals (H 1s, F 2s/2p orbitals) is used for all calculations. For the smaller s
+values we can see that the core-intensivity errors are typically minuscule (in the order of 0.1
+meV for s = 0.5 E−2
+h ) compared to the systematic errors of the IP-EOM-DSRG formalism
+(in the order of 100 meV), and are largely independent of the bond length, meaning that
+spectral gaps are even less affected by the core-intensivity errors. Going from s = 0.5 to 1.0
+E−2
+h , the error due to an additional helium atom goes from about 0.150 to 0.060 meV at the
+equilibrium geometry, and from about 0.080 meV to 0.030 meV at the stretched geometry,
+improving the core-extensivity error significantly. When s is increased to 10.0 E−2
+h , the
+core-intensivity errors essentially vanish (all values are below 3 × 10−7 eV). This can be
+understood as follows: the addition of non-interacting helium atoms only contributes more
+core-virtual operators, and the corresponding projective conditions are satisfied in the limit
+30
+Table 1: Core-intensivity errors (in meV) of the IP-EOM-DSRG-PT3 for HF at equilibrium
+and stretched geometries in the presence ofN non-interacting helium atoms. The equilibrium
+geometry is at 0 .917 ˚A and the stretched geometry is at 1 .834 ˚A. The vertical ionization
+energies (in eV) without any helium atoms are shown in the last row.
+Core-intensivity errors (meV) = IP(HF · · ·Hen) - IP(HF)
+HF + N He s = 0.5 E−2
+h s = 1 E−2
+h s = 10 E−2
+h
+Equilibrium Stretched Equilibrium Stretched Equilibrium Stretched
+1 −0.147 −0.077 −0.058 −0.031 0 .000 0 .000
+2 −0.294 −0.153 −0.115 −0.061 0 .000 0 .000
+3 −0.440 −0.230 −0.173 −0.092 0 .000 0 .000
+4 −0.587 −0.307 −0.231 −0.122 0 .000 0 .000
+5 −0.734 −0.383 −0.289 −0.153 0 .000 0 .000
+0 16 .183 12 .924 16 .348 12 .928 16 .743 12 .972
+of s → ∞; 68 hence, the IP-EOM-DSRG formalism is expected to be rigorously core-intensive
+in this limit.
+We also investigate the full intensivity of the IP-EOM-DSRG formalism by computing
+the IP of two non-interacting HF molecules at its equilibrium and stretched geometries, with
+the same basis set and active space as above. This tests the invariance of the IP with respect
+to the addition of non-interacting orbitals in all three orbital partitions (core, active, and
+virtual). Here, the corresponding projective conditions cannot be satisfied even in the limit
+of s → ∞. 68 For a flow parameter of s = 0.5 E−2
+h , the IP-EOM-DSRG-PT3 method gives a
+full intensivity error of 34.9 meV at the equilibrium geometry, and 16.2 meV at the stretched
+geometry, which is significantly larger than the core-intensivity errors, but still around an
+order of magnitude smaller than the systematic errors of the method.
+5 Conclusions
+In this work, we presented the first formulation of a multireference equation-of-motion
+method based on the DSRG formalism for computing ionization potentials. Three meth-
+ods are derived from this formalism, namely IP-EOM-DSRG(2), based on the iterative MR-
+31
+LDSRG(2) scheme, and IP-EOM-DSRG-PT2/3, based on the perturbative DSRG-MRPT2/3
+approaches. These methods were benchmarked on near-FCI quality vertical ionization en-
+ergies for a set of small molecules at both their equilibrium and stretched geometries; the
+spectroscopic constants of low-lying electronic states of several radical species; and the po-
+tential energy surfaces of the X 2Σ+, A 2Π and B 2Σ+ states of the cyanide radical. All
+three methods were found to produce accurate spectroscopic quantities, such as ionization
+potentials and various spectroscopic constants, even in systems with strongly correlated
+ground states. IP-EOM-DSRG(2) outperforms other single- and multi-reference EOM-like
+methods, and is even competitive with some state-averaged/quasi-degenerate methods that
+work directly in the ( N − 1) electron Hilbert space. IP-EOM-DSRG-PT3 was found to be
+almost as accurate as IP-EOM-DSRG(2) while being more computationally efficient, as it
+does not require the ground state amplitudes to be iteratively optimized. It can also avoid
+the convergence issues that can sometimes occur in MR-LDSRG(2) calculations. Both IP-
+EOM-DSRG(2) and IP-EOM-DSRG-PT3 yield accurate vertical ionization energies over a
+large range of flow parameters. The IP-EOM-DSRG-PT2 was instead found to be more
+sensitive to this choice and produced less accurate vertical ionization energies even at the
+optimal flow parameter. The IP-EOM-DSRG methods were also found to produce smooth
+and qualitatively correct potential energy surfaces. Issues surrounding missing orbital re-
+laxation and correlation effects in IP-EOM-DSRG were discussed and attributed to missing
+3h2p excitations in the present formulation.
+Overall, the results presented in this work are encouraging and demonstrate the potential
+of the EOM-DSRG formalism and the utility of the IP-EOM-DSRG methods for accurately
+describing ionization potentials and other spectroscopic properties in molecular systems with
+strongly correlated ground states. Work is already underway to extend the EOM-DSRG
+formalism for describing other spectroscopic processes such as core-ionization and electron
+excitation. Extensions that account for spin-orbit coupling effects in the presence of strong
+correlation using the recently developed relativistic MR-DSRG formalism 134 will also be
+32
+explored. Future work should also focus on efficient, spin-adapted implementations of the
+present formalism, as well as the exploration of techniques to bypass the 4-body cumulant.
+At a more fundamental level, one challenge to overcome is the formulation of a rigorously
+size-intensive IP-EOM-DSRG approach by enforcing the proper projective constraints. For
+this, we intend to explore alternative formulations of the MR-DSRG theory that partially
+satisfies the projective condition, in the same vein as the pIC-MRCC approach. 45
+Author Information
+Zijun Zhao (ORCID: 0000-0003-0399-2968)
+Shuhang Li (ORCID: 0000-0002-1488-9897)
+Francesco A. Evangelista (ORCID: 0000-0002-7917-6652)
+Supporting Information
+See the Supporting Information for additional details: 1) The choice of active spaces and
+reference energies for the CASSCF calculations, where applicable. 2) Tables of all vertical
+ionization energies computed with IP-EOM-DSRG(2), IP-EOM-DSRG-PT2, and IP-EOM-
+DSRG-PT3, compared with other methods. 3) Overall flow parameter dependence of the
+vertical ionization energies computed with IP-EOM-DSRG-PT2, and IP-EOM-DSRG-PT3.
+4) Flow parameter dependence analysis for each of the ionized states considered in Sec-
+tion 4.1. 5) Tables of spectroscopic constants discussed in Section 4.3. 6) A zip file contain-
+ing comma-separated value (CSV) files of the raw data for all figures in the main text and
+Supporting Information.
+33
+Acknowledgements
+This research was primarily supported by the U.S. Department of Energy under Award DE-
+SC0024532. S.L. was supported to develop the NiuPy package by the National Science
+Foundation and the Molecular Sciences Software Institute under Grant No. CHE-2136142.
+The authors thank Dr. Karthik Gururangan for help with the CCpy package, along with
+helpful discussions and comments on the manuscript.
+Data availability
+The data that support the findings of this study are available within the article, its supporting
+information, and from the corresponding author upon reasonable request.
+References
+(1) Rowe, D. J. Equations-of-Motion Method and the Extended Shell Model. Rev. Mod.
+Phys. 1968, 40, 153–166.
+(2) Kutzelnigg, W. Quantum Chemistry in Fock Space. I. The Universal Wave and Energy
+Operators. J. Chem. Phys. 1982, 77, 3081–3097.
+(3) Crawford, T. D.; Schaefer, H. F. In Reviews in Computational Chemistry ; Lip-
+kowitz, K. B., Boyd, D. B., Eds.; John Wiley & Sons, Inc.: Hoboken, NJ, USA,
+2007; pp 33–136.
+(4) Shavitt, I.; Bartlett, R. J. Many-Body Methods in Chemistry and Physics: MBPT and
+Coupled-Cluster Theory ; Cambridge Molecular Science; Cambridge University Press:
+Cambridge, 2009.
+(5) Shen, J.; Piecuch, P. Biorthogonal Moment Expansions in Coupled-Cluster Theory:
+34
+Review of Key Concepts and Merging the Renormalized and Active-Space Coupled-
+Cluster Methods. Contemp. Phys. 2012, 401, 180–202.
+(6) Lee, J.; Small, D. W.; Head-Gordon, M. Excited States via Coupled Cluster The-
+ory without Equation-of-Motion Methods: Seeking Higher Roots with Application
+to Doubly Excited States and Double Core Hole States. J. Chem. Phys. 2019, 151,
+214103.
+(7) Tuckman, H.; Neuscamman, E. Excited-State-Specific Pseudoprojected Coupled-
+Cluster Theory. J. Chem. Theory Comput. 2023, 19, 6160–6171.
+(8) Damour, Y.; Scemama, A.; Jacquemin, D.; Kossoski, F.; Loos, P.-F. State-Specific
+Coupled-Cluster Methods for Excited States. J. Chem. Theory Comput. 2024, 20,
+4129–4145.
+(9) Krylov, A. I. Equation-of-Motion Coupled-Cluster Methods for Open-Shell and Elec-
+tronically Excited Species: The Hitchhiker’s Guide to Fock Space. Annu. Rev. Phys.
+Chem. 2008, 59, 433–462.
+(10) Bartlett, R. J. Coupled-Cluster Theory and Its Equation-of-Motion Extensions. Wiley
+Interdiscip. Rev. Comput. Mol. Sci. 2012, 2, 126–138.
+(11) Lischka, H.; Nachtigallov´ a, D.; Aquino, A. J. A.; Szalay, P. G.; Plasser, F.; Machado, F.
+B. C.; Barbatti, M. Multireference Approaches for Excited States of Molecules. Chem.
+Rev. 2018, 118, 7293–7361.
+(12) Musia l, M. Quantum Chemistry and Dynamics of Excited States ; John Wiley & Sons,
+Ltd, 2020; Chapter 4, pp 77–108.
+(13) Sneskov, K.; Christiansen, O. Excited State Coupled Cluster Methods. Wiley Inter-
+discip. Rev. Comput. Mol. Sci. 2012, 2, 566–584.
+35
+(14) L¨ owdin, P.-O. In Advances in Quantum Chemistry ; L¨ owdin, P.-O., Ed.; Academic
+Press, 1985; Vol. 17; pp 285–334.
+(15) Dreuw, A.; Wormit, M. The Algebraic Diagrammatic Construction Scheme for the
+Polarization Propagator for the Calculation of Excited States. Wiley Interdiscip. Rev.
+Comput. Mol. Sci. 2015, 5, 82–95.
+(16) Lefrancois, D.; Wormit, M.; Dreuw, A. Adapting Algebraic Diagrammatic Construc-
+tion Schemes for the Polarization Propagator to Problems with Multi-Reference Elec-
+tronic Ground States Exploiting the Spin-Flip Ansatz. J. Chem. Phys. 2015, 143,
+124107.
+(17) Hirao, K.; Nakatsuji, H. Cluster Expansion of the Wavefunction. The Open-shell Or-
+bital Theory Including Electron Correlation. J. Chem. Phys. 1978, 69, 4548–4563.
+(18) Nakatsuji, H.; Ohta, K.; Hirao, K. Cluster Expansion of the Wave Function. Electron
+Correlations in the Ground State, Valence and Rydberg Excited States, Ionized States,
+and Electron Attached States of Formaldehyde by SAC and SAC–CI Theories. J.
+Chem. Phys. 1981, 75, 2952–2958.
+(19) Nakatsuji, H. Computational Chemistry: Reviews of Current Trends ; Computational
+Chemistry: Reviews of Current Trends; WORLD SCIENTIFIC, 1997; Vol. Volume 2;
+pp 62–124.
+(20) Knowles, P. J.; Handy, N. C. A New Determinant-Based Full Configuration Interaction
+Method. Chem. Phys. Lett. 1984, 111, 315–321.
+(21) Sherrill, C. D.; Schaefer, H. F. In Advances in Quantum Chemistry ; L¨ owdin, P.-O.,
+Sabin, J. R., Zerner, M. C., Br¨ andas, E., Eds.; Academic Press, 1999; Vol. 34; pp
+143–269.
+36
+(22) Siegbahn, P. E. M. Direct Configuration Interaction with a Reference State Composed
+of Many Reference Configurations. Int. J. Quantum Chem. 1980, 18, 1229–1242.
+(23) Werner, H.-J.; Knowles, P. J. An Efficient Internally Contracted Multiconfiguration–
+Reference Configuration Interaction Method. J. Chem. Phys. 1988, 89, 5803–5814.
+(24) Knowles, P. J.; Werner, H.-J. Internally Contracted Multiconfiguration-Reference Con-
+figuration Interaction Calculations for Excited States. Theor. Chim. Acta 1992, 84,
+95–103.
+(25) Bloch, C. Sur La Th´ eorie Des Perturbations Des ´Etats Li´ es.Nucl. Phys. 1958, 6,
+329–347.
+(26) Lindgren, I.; Morrison, J. Atomic Many-Body Theory , second edition ed.; Springer
+Series on Atoms+Plasmas 3; Springer: Berlin Heidelberg, 1986.
+(27) Angeli, C.; Borini, S.; Cestari, M.; Cimiraglia, R. A Quasidegenerate Formulation of
+the Second Order N-Electron Valence State Perturbation Theory Approach. J. Chem.
+Phys. 2004, 121, 4043–4049.
+(28) Sharma, S.; Jeanmairet, G.; Alavi, A. Quasi-Degenerate Perturbation Theory Using
+Matrix Product States. J. Chem. Phys. 2016, 144, 034103.
+(29) Li, C.; Evangelista, F. A. Driven Similarity Renormalization Group for Excited States:
+A State-Averaged Perturbation Theory. J. Chem. Phys. 2018, 148, 124106.
+(30) Finley, J.; Malmqvist, P.- ˚A.; Roos, B. O.; Serrano-Andr´ es, L. The Multi-State
+CASPT2 Method. Chem. Phys. Lett. 1998, 288, 299–306.
+(31) Shiozaki, T.; Gy˝ orffy, W.; Celani, P.; Werner, H.-J. Communication: Extended Multi-
+State Complete Active Space Second-Order Perturbation Theory: Energy and Nuclear
+Gradients. J. Chem. Phys. 2011, 135, 081106.
+37
+(32) Li, C.; Lindh, R.; Evangelista, F. A. Dynamically Weighted Multireference Perturba-
+tion Theory: Combining the Advantages of Multi-State and State-Averaged Methods.
+J. Chem. Phys. 2019, 150, 144107.
+(33) Aoto, Y. A.; K¨ ohn, A. Internally Contracted Multireference Coupled-Cluster Theory
+in a Multistate Framework. J. Chem. Phys. 2016, 144, 074103.
+(34) Lyakh, D. I.; Musia l, M.; Lotrich, V. F.; Bartlett, R. J. Multireference Nature of
+Chemistry: The Coupled-Cluster View. Chem. Rev. 2012, 112, 182–243.
+(35) Stanton, J. F.; Bartlett, R. J. The Equation of Motion Coupled-cluster Method. A
+Systematic Biorthogonal Approach to Molecular Excitation Energies, Transition Prob-
+abilities, and Excited State Properties. J. Chem. Phys. 1993, 98, 7029–7039.
+(36) Nooijen, M.; Bartlett, R. J. A New Method for Excited States: Similarity Transformed
+Equation-of-Motion Coupled-Cluster Theory. J. Chem. Phys. 1997, 106, 6441–6448.
+(37) Levchenko, S. V.; Krylov, A. I. Equation-of-Motion Spin-Flip Coupled-Cluster Model
+with Single and Double Substitutions: Theory and Application to Cyclobutadiene. J.
+Chem. Phys. 2004, 120, 175–185.
+(38) Gour, J. R.; Piecuch, P.; W loch, M. Active-Space Equation-of-Motion Coupled-
+Cluster Methods for Excited States of Radicals and Other Open-Shell Systems: EA-
+EOMCCSDt and IP-EOMCCSDt. J. Chem. Phys. 2005, 123, 134113.
+(39) Bauman, N. P.; Shen, J.; Piecuch, P. Combining Active-Space Coupled-Cluster Ap-
+proaches with Moment Energy Corrections via the CC(P;Q) Methodology: Connected
+Quadruple Excitations. Mol. Phys. 2017, 115, 2860–2891.
+(40) Datta, D.; Nooijen, M. Multireference Equation-of-Motion Coupled Cluster Theory.
+J. Chem. Phys. 2012, 137, 204107.
+38
+(41) Demel, O.; Datta, D.; Nooijen, M. Additional Global Internal Contraction in Varia-
+tions of Multireference Equation of Motion Coupled Cluster Theory. J. Chem. Phys.
+2013, 138, 134108.
+(42) Nooijen, M.; Demel, O.; Datta, D.; Kong, L.; Shamasundar, K. R.; Lotrich, V.; Hunt-
+ington, L. M.; Neese, F. Communication: Multireference Equation of Motion Coupled
+Cluster: A Transform and Diagonalize Approach to Electronic Structure. J. Chem.
+Phys. 2014, 140, 081102.
+(43) Huntington, L. M. J.; Nooijen, M. Application of Multireference Equation of Mo-
+tion Coupled-Cluster Theory to Transition Metal Complexes and an Orbital Selection
+Scheme for the Efficient Calculation of Excitation Energies. J. Chem. Phys. 2015,
+142, 194111.
+(44) Huntington, L. M. J.; Demel, O.; Nooijen, M. Benchmark Applications of Variations
+of Multireference Equation of Motion Coupled-Cluster Theory.J. Chem. Theory Com-
+put. 2016, 12, 114–132.
+(45) Datta, D.; Kong, L.; Nooijen, M. A State-Specific Partially Internally Contracted
+Multireference Coupled Cluster Approach. J. Chem. Phys. 2011, 134, 214116.
+(46) Jagau, T.-C.; Gauss, J. Linear-Response Theory for Mukherjee’s Multireference
+Coupled-Cluster Method: Static and Dynamic Polarizabilities. J. Chem. Phys. 2012,
+137, 044115.
+(47) Jagau, T.-C.; Gauss, J. Linear-Response Theory for Mukherjee’s Multireference
+Coupled-Cluster Method: Excitation Energies. J. Chem. Phys. 2012, 137, 044116.
+(48) Samanta, P. K.; Mukherjee, D.; Hanauer, M.; K¨ ohn, A. Excited States with Internally
+Contracted Multireference Coupled-Cluster Linear Response Theory. J. Chem. Phys.
+2014, 140, 134108.
+39
+(49) Sokolov, A. Y. Multi-Reference Algebraic Diagrammatic Construction Theory for Ex-
+cited States: General Formulation and First-Order Implementation. J. Chem. Phys.
+2018, 149, 204113.
+(50) Chatterjee, K.; Sokolov, A. Y. Second-Order Multireference Algebraic Diagrammatic
+Construction Theory for Photoelectron Spectra of Strongly Correlated Systems. J.
+Chem. Theory Comput. 2019, 15, 5908–5924.
+(51) Chatterjee, K.; Sokolov, A. Y. Extended Second-Order Multireference Algebraic Dia-
+grammatic Construction Theory for Charged Excitations. J. Chem. Theory Comput.
+2020, 16, 6343–6357.
+(52) de Moura, C. E. V.; Sokolov, A. Y. Efficient Spin-Adapted Implementation of Mul-
+tireference Algebraic Diagrammatic Construction Theory. I. Core-Ionized States and
+X-ray Photoelectron Spectra. J. Phys. Chem. A 2024, 128, 5816–5831.
+(53) Gaba, N. P.; de Moura, C. E. V.; Majumder, R.; Sokolov, A. Y. Simulating Transient
+X-ray Photoelectron Spectra of Fe(CO)5 and Its Photodissociation Products with Mul-
+tireference Algebraic Diagrammatic Construction Theory. Phys. Chem. Chem. Phys.
+2024, 26, 15927–15938.
+(54) Mazin, I. M.; Sokolov, A. Y. Core-Excited States and X-ray Absorption Spectra from
+Multireference Algebraic Diagrammatic Construction Theory. J. Chem. Theory Com-
+put. 2023, 19, 4991–5006.
+(55) de Moura, C. E. V.; Sokolov, A. Y. Simulating X-ray Photoelectron Spectra with
+Strong Electron Correlation Using Multireference Algebraic Diagrammatic Construc-
+tion Theory. Phys. Chem. Chem. Phys. 2022, 24, 4769–4784.
+(56) Mazin, I. M.; Sokolov, A. Y. Multireference Algebraic Diagrammatic Construction
+Theory for Excited States: Extended Second-Order Implementation and Benchmark.
+J. Chem. Theory Comput. 2021, 17, 6152–6165.
+40
+(57) Angeli, C.; Cimiraglia, R.; Malrieu, J.-P. N-Electron Valence State Perturbation The-
+ory: A Fast Implementation of the Strongly Contracted Variant. Chem. Phys. Lett.
+2001, 350, 297–305.
+(58) Angeli, C.; Cimiraglia, R.; Evangelisti, S.; Leininger, T.; Malrieu, J.-P. Introduction
+of N-Electron Valence States for Multireference Perturbation Theory. J. Chem. Phys.
+2001, 114, 10252–10264.
+(59) Sokolov, A. Y. Multireference Perturbation Theories Based on the Dyall Hamiltonian.
+2024.
+(60) Guo, Y.; Sivalingam, K.; Neese, F. Approximations of Density Matrices in N-
+electron Valence State Second-Order Perturbation Theory (NEVPT2). I. Revisiting
+the NEVPT2 Construction. J. Chem. Phys. 2021, 154, 214111.
+(61) Mukherjee, D.; Kutzelnigg, W. An Effective Liouvillean Formalism for Propagators in
+Fock Space: Connection with Effective Hamiltonian Approach for Energy Differences.
+Many-Body Methods in Quantum Chemistry. Berlin, Heidelberg, 1989; pp 257–274.
+(62) Li, S.; Zhao, Z.; Evangelista, F. A. Equation-of-Motion Internally Contracted Mul-
+tireference Unitary Coupled-Cluster Theory. J. Chem. Phys. 2025, 162, 154112.
+(63) Hoffmann, M. R.; Simons, J. Analytical Energy Gradients for a Unitary Coupled-
+Cluster Theory. Chem. Phys. Lett. 1987, 142, 451–454.
+(64) Hoffmann, M. R.; Simons, J. A Unitary Multiconfigurational Coupled-cluster Method:
+Theory and Applications. J. Chem. Phys. 1988, 88, 993–1002.
+(65) Chen, Z.; Hoffmann, M. R. Orbitally Invariant Internally Contracted Multireference
+Unitary Coupled Cluster Theory and Its Perturbative Approximation: Theory and
+Test Calculations of Second Order Approximation.J. Chem. Phys. 2012, 137, 014108.
+41
+(66) Li, C.; Evangelista, F. A. Driven Similarity Renormalization Group: Third-order Mul-
+tireference Perturbation Theory. J. Chem. Phys. 2017, 146, 124132.
+(67) Li, C.; Evangelista, F. A. Towards Numerically Robust Multireference Theories: The
+Driven Similarity Renormalization Group Truncated to One- and Two-Body Opera-
+tors. J. Chem. Phys. 2016, 144, 164114.
+(68) Li, C.; Evangelista, F. A. Multireference Theories of Electron Correlation Based on
+the Driven Similarity Renormalization Group. Annu. Rev. Phys. Chem. 2019, 70,
+245–273.
+(69) Evangelista, F. A.; Gauss, J. An Orbital-Invariant Internally Contracted Multirefer-
+ence Coupled Cluster Approach. J. Chem. Phys. 2011, 134, 114102.
+(70) Evangelista, F. A.; Hanauer, M.; K¨ ohn, A.; Gauss, J. A Sequential Transformation
+Approach to the Internally Contracted Multireference Coupled Cluster Method. J.
+Chem. Phys. 2012, 136, 204108.
+(71) Hanauer, M.; K¨ ohn, A. Pilot Applications of Internally Contracted Multireference
+Coupled Cluster Theory, and How to Choose the Cluster Operator Properly. J. Chem.
+Phys. 2011, 134, 204111.
+(72) Kutzelnigg, W.; Mukherjee, D. Normal Order and Extended Wick Theorem for a
+Multiconfiguration Reference Wave Function. J. Chem. Phys. 1997, 107, 432–449.
+(73) Mukherjee, D. Normal Ordering and a Wick-like Reduction Theorem for Fermions
+with Respect to a Multi-Determinantal Reference State. Chem. Phys. Lett. 1997,
+274, 561–566.
+(74) Evangelista, F. A. A Driven Similarity Renormalization Group Approach to Quantum
+Many-Body Problems. J. Chem. Phys. 2014, 141, 054109.
+42
+(75) Yanai, T.; Chan, G. K.-L. Canonical Transformation Theory for Multireference Prob-
+lems. J. Chem. Phys. 2006, 124, 194106.
+(76) Li, C.; Evangelista, F. A. Multireference Driven Similarity Renormalization Group: A
+Second-Order Perturbative Analysis. J. Chem. Theory Comput. 2015, 11, 2097–2108.
+(77) Monkhorst, H. J. Calculation of properties with the coupled-cluster method. Int. J.
+Quantum Chem. 1977, 12, 421–432.
+(78) Paldus, J.; ˇC ´ ıˇ zek, J.; Saute, M.; Laforgue, A. Correlation Problems in Atomic and
+Molecular Systems. VI. Coupled-cluster Approach to Open-Shell Systems. Phys. Rev.
+A 1978, 17, 805–815.
+(79) Nakatsuji, N. Cluster Expansion of the Wavefunction. Excited States. Chem. Phys.
+Lett. 1978, 59, 362–364.
+(80) Nakatsuji, H.; Hirao, K. Cluster Expansion of the Wavefunction. Symmetry-adapted-
+cluster Expansion, Its Variational Determination, and Extension of Open-shell Orbital
+Theory. J. Chem. Phys. 1978, 68, 2053–2065.
+(81) Ghosh, S.; Mukherjee, D.; Bhattacharyya, S. Application of Linear Response Theory
+in a Coupled Cluster Framework for the Calculation of Ionization Potentials. Mol.
+Phys. 1981,
+(82) Emrich, K. An Extension of the Coupled Cluster Formalism to Excited States (I).
+Nucl. Phys. A 1981, 351, 379–396.
+(83) Emrich, K. An Extension of the Coupled Cluster Formalism to Excited States: (II).
+Approximations and Tests. Nucl. Phys. A 1981, 351, 397–438.
+(84) Ghosh, S.; Mukherjee, D.; Bhattacharyya, S. N. A Spin-Adapted Linear Response
+Theory in a Coupled-Cluster Framework for Direct Calculation of Spin-Allowed and
+Spin-Forbidden Transition Energies. Chem. Phys. 1982, 72, 161–176.
+43
+(85) Dalgaard, E.; Monkhorst, H. J. Some Aspects of the Time-Dependent Coupled-Cluster
+Approach to Dynamic Response Functions. Phys. Rev. A 1983, 28, 1217–1222.
+(86) Sekino, H.; Bartlett, R. J. A Linear Response, Coupled-Cluster Theory for Excitation
+Energy. 1984, 26, 255–265.
+(87) Geertsen, J.; Rittby, M.; Bartlett, R. J. The Equation-of-Motion Coupled-Cluster
+Method: Excitation Energies of Be and CO. Chem. Phys. Lett. 1989, 164, 57–62.
+(88) Comeau, D. C.; Bartlett, R. J. The Equation-of-Motion Coupled-Cluster Method.
+Applications to Open- and Closed-Shell Reference States. Chem. Phys. Lett. 1993,
+207, 414–423.
+(89) Nooijen, M.; Bartlett, R. J. Description of Core-excitation Spectra by the Open-shell
+Electron-attachment Equation-of-motion Coupled Cluster Method. J. Chem. Phys.
+1995, 102, 6735–6756.
+(90) Watts, J. D.; Bartlett, R. J. Iterative and Non-Iterative Triple Excitation Corrections
+in Coupled-Cluster Methods for Excited Electronic States: The EOM-CCSDT-3 and
+EOM-CCSD( ˜T) Methods. Chem. Phys. Lett. 1996, 258, 581–588.
+(91) Prasad, M. D.; Pal, S.; Mukherjee, D. Some Aspects of Self-Consistent Propagator
+Theories. Phys. Rev. A 1985, 31, 1287–1298.
+(92) Datta, B.; Mukhopadhyay, D.; Mukherjee, D. Consistent Propagator Theory Based
+on the Extended Coupled-Cluster Parametrization of the Ground State. Phys. Rev. A
+1993, 47, 3632–3648.
+(93) Harris, F. E. Coupled-Cluster Method for Excitation Energies. Int. J. Quantum Chem.
+1977, 12, 403–411.
+(94) Szabo, A.; Ostlund, N. S. Modern Quantum Chemistry: Introduction to Advanced
+Electronic Structure Theory; Dover Publications: Mineola, New York, 1996.
+44
+(95) This is true assuming no truncation of the cluster operator. In single-reference EOM-
+CC, this can still hold true for truncated cluster and EOM operators, since deter-
+minants of different excitation ranks are orthogonal, which means for EOM-CCSD,
+⟨Φ0| ˆρ†
+p ˆρq ˆQTQ... = 0, where ˆQTQ... is the projector onto triple and higher excitations.
+In the MR case, decoupling of the model space and its orthogonal complement occurs
+if the lower excitations have been projected out of the higher excitations, which, in
+practice, is not done for excitation ranks higher than the truncation rank.
+(96) Kim, Y.; Krylov, A. I. Two Algorithms for Excited-State Quantum Solvers: Theory
+and Application to EOM-UCCSD. J. Phys. Chem. A 2023, 127, 6552–6566.
+(97) Goscinski, O.; Weiner, B. The Role of Algebraic Formulations of Approximate Green’s
+Functions for Systems With a Finite Number of Electrons. Phys. Scr. 1980, 21, 385.
+(98) Weiner, B.; Goscinski, O. Self-Consistent Approximation to the Polarization Propa-
+gator. Int. J. Quantum Chem. 1980, 18, 1109–1131.
+(99) Szekeres, Z.; Szabados, ´A.; K´ allay, M.; Surj´ an, P. R. On the “Killer Condition” in
+the Equation-of-Motion Method: Ionization Potentials from Multi-Reference Wave
+Functions. Phys. Chem. Chem. Phys. 2001, 3, 696–701.
+(100) Nooijen, M.; Snijders, J. G. Second Order Many-body Perturbation Approximations
+to the Coupled Cluster Green’s Function. J. Chem. Phys. 1995, 102, 1681–1688.
+(101) Stanton, J. F.; Gauss, J. Perturbative Treatment of the Similarity Transformed Hamil-
+tonian in Equation-of-Motion Coupled-Cluster Approximations.J. Chem. Phys. 1995,
+103, 1064–1076.
+(102) Hanauer, M.; K¨ ohn, A. Communication: Restoring Full Size Extensivity in Inter-
+nally Contracted Multireference Coupled Cluster Theory. J. Chem. Phys. 2012, 137,
+131103.
+45
+(103) K¨ ohn, A.; Black, J. A.; Aoto, Y. A.; Hanauer, M. Improved and Simplified Orthogo-
+nalisation Scheme and Connected Triples Correction within the Internally Contracted
+Multireference Coupled-Cluster Method. Mol. Phys. 2020, 118, e1743889.
+(104) Dyall, K. G. The Choice of a Zeroth-order Hamiltonian for Second-order Perturba-
+tion Theory with a Complete Active Space Self-consistent-field Reference Function. J.
+Chem. Phys. 1995, 102, 4909–4918.
+(105) Angeli, C.; Cimiraglia, R. FRODO: A MuPAD Program to Calculate Matrix Elements
+between Contracted Wavefunctions. Comput. Phys. Commun 2005, 171, 63–68.
+(106) Saitow, M.; Kurashige, Y.; Yanai, T. Multireference Configuration Interaction Theory
+Using Cumulant Reconstruction with Internal Contraction of Density Matrix Renor-
+malization Group Wave Function. J. Chem. Phys. 2013, 139, 044118.
+(107) Sivalingam, K.; Krupicka, M.; Auer, A. A.; Neese, F. Comparison of Fully Inter-
+nally and Strongly Contracted Multireference Configuration Interaction Procedures.
+J. Chem. Phys. 2016, 145, 054104.
+(108) Cukras, J.; Decleva, P.; Coriani, S. A Coupled-Cluster Study of Photodetachment
+Cross Sections of Closed-Shell Anions. J. Chem. Phys. 2014, 141, 174315.
+(109) Gozem, S.; Gunina, A. O.; Ichino, T.; Osborn, D. L.; Stanton, J. F.; Krylov, A. I.
+Photoelectron Wave Function in Photoionization: Plane Wave or Coulomb Wave? J.
+Phys. Chem. Lett. 2015, 6, 4532–4540.
+(110) Meldner, H. W. Observability of Rearrangement Energies and Relaxation Times.Phys.
+Rev. A 1971, 4, 1388–1396.
+(111) Kheifets, A. S. On the Two Different Forms of the Spectroscopic Factor for the Shake-
+up Satellites. J. Phys. B: At. Mol. Opt. Phys. 1994, 27, L463.
+(112) Li, S. NiuPy. https://github.com/shuhangli98/niupy, 2024.
+46
+(113) Evangelista, F. A. Automatic Derivation of Many-Body Theories Based on General
+Fermi Vacua. J. Chem. Phys. 2022, 157, 064111.
+(114) Davidson, E. R. The Iterative Calculation of a Few of the Lowest Eigenvalues and
+Corresponding Eigenvectors of Large Real-Symmetric Matrices. J. Comp. Phys. 1975,
+17, 87–94.
+(115) Liu, B. The simultaneous expansion method for the iterative solution of several of
+the lowest-lying eigenvalues and corresponding eigenvectors of large real-symmetric
+matrices. Numerical Algorithms in Chemistry: Algebraic Methods 1978, 49–53.
+(116) Evangelista, F. A.; Li, C.; Verma, P.; Hannon, K. P.; Schriber, J. B.; Zhang, T.;
+Cai, C.; Wang, S.; He, N.; Stair, N. H.; Huang, M.; Huang, R.; Misiewicz, J. P.; Li, S.;
+Marin, K.; Zhao, Z.; Burns, L. A. Forte: A Suite of Advanced Multireference Quantum
+Chemistry Methods. J. Chem. Phys. 2024, 161, 062502.
+(117) Hunter, J. D. Matplotlib: A 2D Graphics Environment. Comput. Sci. Eng. 2007, 9,
+90–95.
+(118) Waskom, M. L. Seaborn: Statistical Data Visualization. J. Open Source Softw. 2021,
+6, 3021.
+(119) Tiesinga, E.; Mohr, P. J.; Newell, D. B.; Taylor, B. N. CODATA Recommended Values
+of the Fundamental Physical Constants: 2018. J. Phys. Chem. Ref. Data 2021, 50,
+033105.
+(120) Holmes, A. A.; Umrigar, C. J.; Sharma, S. Excited States Using Semistochastic Heat-
+Bath Configuration Interaction. J. Chem. Phys. 2017, 147, 164111.
+(121) Trofimov, A. B.; Schirmer, J. Molecular Ionization Energies and Ground- and Ionic-
+State Properties Using a Non-Dyson Electron Propagator Approach. J. Chem. Phys.
+2005, 123, 144115.
+47
+(122) Dunning, T. H., Jr. Gaussian Basis Sets for Use in Correlated Molecular Calculations.
+I. The Atoms Boron through Neon and Hydrogen. J. Chem. Phys. 1989, 90, 1007–
+1023.
+(123) Kendall, R. A.; Dunning, T. H., Jr.; Harrison, R. J. Electron Affinities of the First-row
+Atoms Revisited. Systematic Basis Sets and Wave Functions. J. Chem. Phys. 1992,
+96, 6796–6806.
+(124) Woon, D. E.; Dunning, T. H., Jr. Gaussian Basis Sets for Use in Correlated Molecular
+Calculations. III. The Atoms Aluminum through Argon. J. Chem. Phys. 1993, 98,
+1358–1371.
+(125) piecuch-group CCpy. https://github.com/piecuch-group/ccpy, 2025.
+(126) Wang, M.; Fang, W.-H.; Li, C. Assessment of State-Averaged Driven Similarity Renor-
+malization Group on Vertical Excitation Energies: Optimal Flow Parameters and
+Applications to Nucleobases. J. Chem. Theory Comput. 2023, 19, 122–136.
+(127) Saeh, J. C.; Stanton, J. F. Application of an Equation-of-Motion Coupled Cluster
+Method Including Higher-Order Corrections to Potential Energy Surfaces of Radicals.
+J. Chem. Phys. 1999, 111, 8275–8285.
+(128) Rittby, M.; Bartlett, R. J. An Open-Shell Spin-Restricted Coupled Cluster Method:
+Application to Ionization Potentials in Nitrogen. J. Phys. Chem. 1987, 92, 3033–3036.
+(129) Bender, J. D.; Doraiswamy, S.; Truhlar, D. G.; Candler, G. V. Potential Energy Surface
+Fitting by a Statistically Localized, Permutationally Invariant, Local Interpolating
+Moving Least Squares Method for the Many-Body Potential: Method and Application
+to N4. J. Chem. Phys. 2014, 140, 054302.
+(130) Smith, D. G. A.; Burns, L. A.; Simmonett, A. C.; Parrish, R. M.; Schieber, M. C.;
+Galvelis, R.; Kraus, P.; Kruse, H.; Di Remigio, R.; Alenaizan, A.; James, A. M.;
+48
+Lehtola, S.; Misiewicz, J. P.; Scheurer, M.; Shaw, R. A.; Schriber, J. B.; Xie, Y.;
+Glick, Z. L.; Sirianni, D. A.; O’Brien, J. S.; Waldrop, J. M.; Kumar, A.; Ho-
+henstein, E. G.; Pritchard, B. P.; Brooks, B. R.; Schaefer, H. F.; Sokolov, A. Y.;
+Patkowski, K.; DePrince, A. E.; Bozkaya, U.; King, R. A.; Evangelista, F. A.; Tur-
+ney, J. M.; Crawford, T. D.; Sherrill, C. D. PSI4 1.4: Open-source Software for High-
+Throughput Quantum Chemistry. J. Chem. Phys. 2020, 152, 184108.
+(131) Huber, K. P.; Herzberg, G. Molecular Spectra and Molecular Structure ; Springer US:
+Boston, MA, 1979.
+(132) Neese, F.; Wennmohs, F.; Becker, U.; Riplinger, C. The ORCA Quantum Chemistry
+Program Package. J. Chem. Phys. 2020, 152, 224108.
+(133) Terashkevich, V. A.; Pazyuk, E. A.; Stolyarov, A. V. A Computational Study of
+the Non-Adiabatic Coupling among Low-Lying Doublet States of the CN Radical. J.
+Quant. Spectrosc. Radiat. Transf. 2021, 276, 107916.
+(134) Zhao, Z.; Evangelista, F. A. Toward Accurate Spin–Orbit Splittings from Relativistic
+Multireference Electronic Structure Theory. J. Phys. Chem. Lett. 2024, 15, 7103–
+7110.
+49
+Supporting information: Multireference equation-of-motion driven similarity
+renormalization group: theoretical foundations and applications to ionized states
+Zijun Zhao, 1, a) Shuhang Li, 1, b) and Francesco A. Evangelista 1, c)
+Department of Chemistry and Cherry Emerson Center for Scientific Computation,
+Emory University, Atlanta, Georgia 30322, USA
+a)Electronic mail: zijun.zhao@emory.edu
+b)Electronic mail: shuhang.li@emory.edu
+c)Electronic mail: francesco.evangelista@emory.edu
+1
+I. CHOICE OF ACTIVE SPACE AND REFERENCE ENERGIES
+Here we document the active space choices for the molecules studied in Section IV.A. The
+CASSCF reference energies are also reported. The active space is specified by the number
+of core and active orbitals per irrep, ordered in the ‘Cotton ordering’, i.e., [ag, b1g, b2g, b3g,
+au, b1u, b2u, b3u] for the D2h point group, and [ a1, a2, b1, b2] for the C2v point group. The
+atomic valence active space (AVAS) method1 is used to select the initial active space orbitals
+as needed, and the AVAS subspace is specified for those cases.
+Molecule Core Active AVAS ECAS / Eh
+C2 [1,0,0,0,0,1,0,0] [2,0,2,2,0,2,2,2] -75.652069959610
+C2H4 (eqm)
+[1,0,0,0,0,1,0,0] [3,0,1,2,0,3,2,1] [“C(2s)”,“C(2p)”,“H(1s)”]
+-78.994626688870
+C2H4 (str) -77.945136269290
+CO [2,0,0,0] [4,0,2,2] -112.885952774734
+CS [4,0,1,1] [4,0,2,2] -435.438613682326
+F2 (eqm)
+[1,0,0,0,0,1,0,0] [2,0,1,1,0,2,1,1]
+-198.777678643099
+F2 (str) -198.753977458044
+H2CO (eqm)
+[2,0,0,0] [5,0,2,3] [“C(2s)”, “C(2p)”, “O(2s)”, “O(2p)”, “H(1s)”]
+-114.014228155162
+H2CO (str) -113.767278864429
+H2O (eqm)
+[1,0,0,0] [4,0,2,3]
+-76.176803247525
+H2O (str) -75.884613320071
+HF (eqm)
+[1,0,0,0] [5,0,2,2]
+-100.173027089660
+HF (str) -100.006723519719
+N2 (eqm)
+[1,0,0,0,0,1,0,0] [2,0,1,1,0,2,1,1]
+-109.108676505452
+N2 (str) -108.785572038754
+For the spectroscopic constants of radicals, the active space is specified as follows:
+• CN–: core: [2,0,0,0], active: [4,0,2,2], AVAS subspace: [“C(2s)”, “C(2p)”, “N(2s)”,
+“N(2p)”]
+• CO: same as above
+• N2: same as above
+2
+• OH–: core: [1,0,0,0], active: [3,0,2,2]
+For the CN binding curve, the same active space as CN – above is used.
+All state-averaged calculations are performed using the same active space as above, using
+an ensemble of only the targeted states, with equal weights. Additional states of zero weight
+may be added to remedy the occasional root-flipping problem.
+3
+II. VERTIAL IONIZATION ENERGIES OF MOLECULES AT
+EQUILIBRIUM GEOMETRIES
+HF
+F2
+CO
+N2
+H2O
+CS
+H2CO
+C2H4
+EOM-DSRG(2)
+FIG. S1. Vertical ionization energies (IPs) of molecules at equilibrium geometries. The colors
+indicate the signed error (eV) of the IPs with respect to the SHCI values.
+4
+III. VERTIAL IONIZATION ENERGIES OF MOLECULES AT
+STRETCHED GEOMETRIES
+HF
+F2
+N2
+H2O
+H2CO
+C2H4
+EOM-DSRG(2)
+FIG. S2. Vertical ionization energies (IPs) of molecules at stretched geometries. The colors indicate
+the signed error (eV) of the IPs with respect to the SHCI values.
+5
+IV. OVERALL FLOW PARAMETER DEPENDENCE OF THE
+EOM-DSRG IPS
+0.00
+0.01
+0.05
+0.10
+0.25
+0.35
+0.50
+0.75
+1.00
+3.0
+ 2.5
+ 2.0
+ 1.5
+ 1.0
+ 0.5
+ 0.0 0.5 1.0
+error
+1.25
+FIG. S3. Overall flow parameter dependence of the EOM-DSRG-PT2 IPs at both equilibrium and
+stretched geometries.
+0.00
+0.01
+0.05
+0.10
+0.25
+0.35
+0.50
+0.75
+1.00
+3.0
+ 2.5
+ 2.0
+ 1.5
+ 1.0
+ 0.5
+ 0.0 0.5 1.0
+error
+1.25
+FIG. S4. Overall flow parameter dependence of the EOM-DSRG-PT3 IPs at both equilibrium and
+stretched geometries.
+6
+V. FLOW PARAMETER DEPENDENCE OF THE EOM-DSRG IPS AT
+EQUILIBRIUM GEOMETRIES
+8
+10
+12
+14
+16
+18
+20
+22
+8
+10
+12
+14
+16
+18
+20
+22
+8
+10
+12
+14
+16
+18
+20
+22
+10-2
+10-1
+100
+10-2
+10-1
+100
+10-2
+10-1
+100
+10-2
+10-1
+100
+10-2
+10-1
+100
+10-2
+10-1
+100
+10-2
+10-1
+100
+10-2
+10-1
+100
+H2CO
+H2O
+HF
+C2H4
+N2
+CO
+F2
+CS
+Flow parameter (Eh
+-2)
+Vertical ionization energy (eV)
+EOM-DSRG-PT2
+EOM-DSRG-PT3
+EOM-DSRG(2)
+FIG. S5. Dependence of the ionization potentials (IPs) on the flow parameter.
+7
+VI. FLOW PARAMETER DEPENDENCE OF THE EOM-DSRG IPS AT
+STRETCHED GEOMETRIES
+8
+10
+12
+14
+16
+18
+20
+22
+8
+10
+12
+14
+16
+18
+20
+22
+8
+10
+12
+14
+16
+18
+20
+22
+10-2
+10-1
+100
+N2
+10-2
+10-1
+100
+F2
+10-2
+10-1
+100
+H2O
+10-2
+10-1
+100
+C2H4
+10-2
+10-1
+100
+HF
+10-2
+10-1
+100
+H2CO
+Vertical ionization energy (eV)
+Flow parameter (Eh
+-2)
+EOM-DSRG-PT2
+EOM-DSRG-PT3
+EOM-DSRG(2)
+FIG. S6. Dependence of the ionization potentials (IPs) on the flow parameter.
+8
+VII. SPECTROSCOPIC CONSTANTS OF SELECT RADICALS
+A. Equilibrium bond lengths
+Molecule State UHF-CCSD UHF-CCSD(T) EOMIP-CCSD EOMIP-CCSD* EOM-DSRG Expt
+OH X 2Π 0.9673 0.9694 0.9647 0.9688 0.9698 0.9697
+OH A 2Σ+ 1.0047 1.0061 0.9966 1.0045 1.0063 1.0121
+CN X 2Σ+ 1.1640 1.1707 1.1650 1.1710 1.1759 1.1718
+CN A 2Π 1.2284 1.2350 1.2221 1.2294 1.2383 1.2333
+CN B 2Σ+
+b 1.1368 1.1499 1.1415 1.1464 1.1547 1.150
+N+
+2 X 2Σ+
+g 1.1110 1.1192 1.1073 1.1132 1.1208 1.1164
+N+
+2 A 2Πu 1.1674 1.1765 1.1570 1.1743 1.1806 1.1750
+N+
+2 B 2Σ+
+u 1.0623 1.0744 1.0647 1.0687 1.0778 1.0742
+CO+ X 2Σ+ 1.1104 1.1162 1.1086 1.1170 1.1193 1.1151
+CO+ A 2Π 1.2395 1.2471 1.2362 1.2336 1.2506 1.2437
+TABLE S1. Comparison of of equilibrium bond lengths (re, ˚A) for select low-lying electronic states
+of various radicals. All theoretical values other than those from EOM-DSRG are from Saeh and
+Stanton,2 experimental values are from Huber and Herzberg. 3
+9
+B. Harmonic vibrational frequencies
+Molecule State UHF-CCSD UHF-CCSD(T) EOMIP-CCSD EOMIP-CCSD* EOM-DSRG Expt
+OH X 2Π 3796 3763 3861 3763 3752 3738
+OH A 2Σ+ 3295 3282 3425 3300 3257 3179
+CN X 2Σ+ 2178 2134 2165 2115 2070 2069
+CN A 2Π 1877 1841 1927 1874 1809 1813
+CN B 2Σ+
+b 2375 2212 2339 2276 2188 2164
+N+
+2 X 2Σ+
+g 2292 2215 2352 2277 2200 2207
+N+
+2 A 2Πu 2006 1922 2095 1924 1891 1904
+N+
+2 B 2Σ+
+u 2633 2486 2633 2582 2444 2420
+CO+ X 2Σ+ 2313 2293 2315 2242 2220 2214
+CO+ A 2Π 1626 1573 1651 1672 1551 1562
+TABLE S2. Comparison of harmonic vibrational frequencies ( ωe, cm −1) for select low-lying elec-
+tronic states of various radicals. All theoretical values other than those from EOM-DSRG are from
+Saeh and Stanton, 2 experimental values are from Huber and Herzberg. 3
+10
+C. Adiabatic electronic excitation energies
+TABLE S3. Transition Energies for Various Electronic States
+Molecule Transition UHF-CCSD UHF-CCSD(T) EOMIP-CCSD EOMIP-CCSD* EOM-DSRG Expt
+OH X 2Π → A 2Σ+ 33561 33472 33709 33499 32602 32684
+CN X 2Σ+ → A 2Π 7704 8695 9708 8831 9129 9245
+CN X 2Σ+ → B 2Σ+ 26840 26865 28115 26262 25570 25752
+N2 X 2Σ+
+g → A 2Πu 7198 8969 11228 8144 8782 9167
+N2 X 2Σ+
+g → B 2Σ+
+u 27082 26322 25490 26025 25383 25461
+CO X 2Σ+ → A 2Π 19281 20034 19454 21367 20529 20733
+TABLE S4. Comparison of adiabatic electronic excitation energies ( Te, cm−1) for select low-lying
+electronic states of various radicals. All theoretical values other than those from EOM-DSRG are
+from Saeh and Stanton, 2 experimental values are from Huber and Herzberg. 3
+11
+VIII. CN BINDING CUR VE FOR PT2 AND PT3
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+Relative energy / Eh
+0
+1
+2
+3
+4
+0
+1
+2
+3
+4
+5
+6
+7
+ω (eV)
+Δω (eV)
+1.0
+1.5
+2.0
+2.5
+3.0
+3.5
+4.0
+rC-N (Å)
+EOM-DSRG(2)
+EOM-DSRG-PT2
+EOM-DSRG-PT3
+CN- 
+ground state
+CN
+CN
+CN
+FIG. S7. Similar to Fig. 10 in the main text, but comparing IP-EOM-DSRG-PT2/3 to IP-EOM-
+DSRG(2).
+REFERENCES
+1E. R. Sayfutyarova, Q. Sun, G. K.-L. Chan, and G. Knizia, J. Chem. Theory Comput. 13,
+4063 (2017).
+2J. C. Saeh and J. F. Stanton, J. Chem. Phys. 111, 8275 (1999).
+3K. P. Huber and G. Herzberg, Molecular Spectra and Molecular Structure (Springer US,
+Boston, MA, 1979).
+12
+TOC Graphic
+IP errors
+E
+O
+M
+-
+C
+C
+S
+D
+E
+O
+M
+-
+C
+C
+S
+D
+T
+M
+R
+-
+A
+D
+C
+(
+2
+)
+M
+R
+-
+A
+D
+C
+(
+2
+)
+-
+X
+EOM-DSRG-PT2
+EOM-DSRG-PT3
+EOM-DSRG(2)
+This work
+New!
+62

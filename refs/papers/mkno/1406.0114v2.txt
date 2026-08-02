@@ -1,0 +1,1541 @@
+arXiv:1406.0114v2  [physics.chem-ph]  13 Jun 2014
+A driven similarity renormalization group approach to quan tum many-body
+problems
+Francesco A. Evangelista 1, a)
+Department of Chemistry and Cherry L. Emerson Center for Sci entiﬁc Computation,
+Emory University, Atlanta, Georgia 30322, USA
+(Dated: 18 July 2018)
+Applications of the similarity renormalization group (SRG ) approach [F. Wegner,
+Ann. Phys. 506, 77 (1994), S. D. Głazek and K. G. Wilson, Phys. Rev. D 49, 4214
+(1994)] to the formulation of useful many-body theories of e lectron correlation are
+considered. In addition to presenting a production-level i mplementation of the SRG
+based on a single-reference formalism, a novel integral ver sion of the SRG is reported,
+in which the ﬂow of the Hamiltonian is driven by a source opera tor. It is shown that
+this driven SRG (DSRG) produces a Hamiltonian ﬂow that is ana logous to that of the
+SRG. Compared to the SRG, which requires propagating a set of ordinary diﬀerential
+equations, the DSRG is computationally advantageous since it consists of a set of
+polynomial equations. The equilibrium distances, harmoni c vibrational frequencies,
+and vibrational anharmonicities of a series of diatomic mol ecules computed with the
+SRG and DSRG approximated with one- and two-body normal orde red operators are
+in good agreement with benchmark values from coupled cluste r with singles, doubles,
+and perturbative triples [CCSD(T)]. Particularly surpris ing results are found when
+the SRG and DSRG methods are applied to C 2 and F 2. In the former case both
+methods fail to converge, while in the latter case an unbound potential energy curve is
+obtained. A modiﬁed commutator approximation is shown to co rrect these problems
+in the case of the DSRG method.
+a)Electronic mail: francesco.evangelista@emory.edu
+1
+I. INTRODUCTION
+A large number of theoretical approaches used to solve the el ectronic Schrödinger equation
+fall under the broad category of eﬀective Hamiltonian theor ies.1–3 These include Löwdin’s
+partitioning method, 4 perturbation theory, coupled cluster (CC) theory 5–7 and its Fock-
+space8–12 and equation-of-motion extensions, 13–20 as well as a variety of multireference per-
+turbation theories,21–24 and multireference coupled cluster methods. 25–34 The common theme
+to these approaches is the similarity transformation of the Hamiltonian via a wave operator
+Ω , which yields the eﬀective Hamiltonian H eﬀ :
+Ω : H → H eﬀ = Ω −1HΩ . (1)
+The similarity transformation is useful to fold in the physi cal eﬀects of a large number
+of degrees of freedom into H eﬀ , which is deﬁned in a space much smaller than the one
+spanned by the eigenstates of the original Hamiltonian. Thi s is achieved by decoupling a
+set of primary determinants (with associated projector P ) from the complementary space
+(with projector Q = 1 − P ). For example, coupled cluster theory seeks an exponential
+parameterization of the wave operator such that QH eﬀ P = 0, while approaches based on a
+unitary transformation ( Ω −1 = Ω †) simultaneously enforce QH eﬀ P = 0 and P Heﬀ Q = 0 .
+This point is illustrated in Fig. 1(A)-(B).
+While the importance of the eﬀective Hamiltonian approach c annot be overly empha-
+sized, it is well known that several diﬃculties are encounte red when this formalism is gen-
+eralized to the case of multireference electronic states. M ultireference eﬀective Hamiltonian
+0
+0
+0
+(A) (B) (C)
+Energy
+P
+Q
+FIG. 1. Matrix representation of the similarity-transform ed Hamiltonian. (A) and (B) illustrate the
+decoupling of the P and Q spaces in coupled cluster theory and its unitary variant, re spectively.
+(C) Decoupling of states with large energy diﬀerence achiev ed by the similarity renormalization
+group approach.
+2
+theories are aﬄicted by two major problems. The ﬁrst is the ap pearance of small energy
+denominators when a determinant in Q becomes near-degenerate with a determinant in
+P . This is the well-known intruder-state problem, 35–37 which is ultimately responsible for
+convergence problems. The appearance of small denominator s is an intrinsic property of
+eﬀective Hamiltonian theories, and has been addressed with a variety of techniques. 38–47
+Certain multireference eﬀective Hamiltonian theories als o suﬀer from an imbalance between
+the number of parameters contained in Ω and the number of equations that can be derived
+from the condition QH eﬀ P = 0. For example, in state-speciﬁc multireference coupled clu ster
+(MRCC) methods bases on the Jeziorski–Monkhorst ansatz, 25–31,48 Ω is overparameterized,
+and additional suﬃciency conditions are imposed to obtain a unique solution. In canonical
+transformation theory, 49 the internally-contracted MRCC (ic-MRCC) method, 48,50–54 and
+unitary ic-MRCC approach, 55 Ω instead generates linearly-dependent excitations. While it
+always possible to formally eliminate the redundant parame ters contained in Ω , in practice
+it is found that convergence problems are unavoidable (see f or example Ref. 32). We no-
+tice that the redundancy problem can be addressed by replaci ng the projective conditions
+with many-body conditions, that is by requiring that certain operator components of H eﬀ
+are zero. 9,12,16,32,56,57 To some extent, the many-body conditions maintain a state-s peciﬁc
+character, but a perturbative analysis can easily show that the resulting equations are prone
+to the intruder-state problem.
+The similarity renormalization group (SRG) or ﬂow equation method, introduced inde-
+pendently by Głazek and Wilson 58,59 and Wegner,60 is an alternative approach to transform
+the Hamiltonian. The SRG shares the same philosophy of the nu merical61 and density-
+matrix renormalization group, 62 but it is based on a continuous unitary version of Eq. (1).
+Particularly relevant to this work is the SRG formulated wit h respect to a Fermi vacuum,63–66
+also called the in-medium SRG. 67–70 The distinctive feature of the SRG ﬂow is the decou-
+pling of the Hamiltonian starting from states that have the l argest energy separation and
+progressing to states with smaller energy separation. Thus , if the many-body basis is sorted
+according to the energy, a matrix representation of the SRG H amiltonian is band-diagonal,
+as shown in Fig. 1(C).
+The SRG formalism is particularly attractive because it doe s not enforce conditions like
+QH eﬀ P = 0 , which are at the origin of the intruder state problem. Inste ad, states that
+are degenerate of near-degenerate are not decoupled by the S RG transformation. Moreover,
+3
+the SRG is based on a many-body formalism, which addresses th e redundancy problem of
+eﬀective Hamiltonian theories based on projective conditi ons.
+The SRG has been used with great success in the ﬁeld of nuclear physics to produce
+soft nucleon-nucleon eﬀective potentials or to obtain the g round-state energy of nuclei. 71–74
+However, applications of the SRG to chemical problems remai n largely unexplored, one
+noticeable exception being an insightful study by White. 75 In this work we explore some
+potential applications of the SRG to electronic structure t heory, both from the formal and
+computational points of view. All results presenter in this work are based on a single-
+reference formalism. This work has the following goals: 1) t o provide an exposition of the
+SRG approach highlighting its connection to other many-bod y approaches, 2) to introduce
+a novel integral formulation of the SRG, which we term the driven SRG (DSRG), a nd 3) to
+report a numerical comparison of the SRG, the unitary versio n of DSRG, and the coupled
+cluster method.
+II. SYNOPSIS OF THE SIMILARITY RENORMALIZATION GROUP
+APPROACH
+A. The single-reference SRG formalism
+In this section we will provide a brief introduction to SRG th eory and illustrate some of its
+formal properties. The focus of this work will be the SRG form ulated with respect to a Slater
+determinant reference Φ , built from a one-particle spin orbital basis {φp}. The occupied
+and virtual spin orbitals of Φ will be indicated respectively with the indices i, j, k, . . . and
+a, b, c, . . ., while generic spin orbitals will be indicated with the indi ces p, q, r, s, . . .. We
+note that a multireference version of the SRG was recently fo rmulated70 using the extended
+normal ordering of Mukherjee and Kutzelnigg. 76,77 The bare Hamiltonian written in second
+quantized form and normal ordered with respect to Φ is:
+H = E0 +
+∑
+pq
+f q
+p {ˆap
+q} + 1
+4
+∑
+pqrs
+vrs
+pq{ˆapq
+rs}, (2)
+where E0 = ⟨Φ | H |Φ ⟩, f q
+p = ⟨p| f |q⟩, and vrs
+pq = ⟨pq||rs⟩ are respectively the energy of
+the reference, the Fock operator integrals, and the antisym metrized two-electron integrals
+in physicist notation. Products of creation ( ˆa†) and annihilation ( ˆa) operators are written
+4
+compactly as ˆapq···
+rs··· = ˆa†
+pˆa†
+q · · · ˆasˆar,78 and normal ordering with respect to Φ is indicated with
+curly braces.
+In the SRG formalism the Hamiltonian is brought to a diagonal form by a continuous
+unitary transformation [ U(s)] parameterized by the ﬂow parameter s deﬁned in the range
+[0,∞). This deﬁnes the SRG transformed Hamiltonian [ H(s)]:
+H(s) = U(s)HU †(s). (3)
+In addition, we require that U(0) = 1 so that at the beginning of the ﬂow the SRG trans-
+formed Hamiltonian is equal to the bare Hamiltonian, H(0) = H. H(s) is assumed to be
+expressed in normal-ordered form with respect to Φ , and in general it contains three- and
+higher-body operators:
+H(s) = E0(s) + F (s) + V (s) + W (s) + . . . , (4)
+where E0(s) is a scalar, F (s) and V (s) are one- and two-body operators,
+F (s) =
+∑
+pq
+f q
+p (s){ˆap
+q}, (5)
+V (s) = 1
+4
+∑
+pqrs
+vrs
+pq(s){ˆapq
+rs}, (6)
+(7)
+and W (s) +. . . stand for three- and higher-body operators. Notice that the matrix elements
+of these operators are functions of the ﬂow parameter s.
+As shown by Głazek and Wilson59 and Wegner,60 the SRG transformation [Eq. (3)] implies
+that the Hamiltonian evolves according to the ordinary diﬀe rential equation (ODE):
+dH(s)
+ds = [η(s), H(s)], (8)
+where the ﬂow generator , η(s), is an anti-Hermitian operator related to U(s) via the condi-
+tion:
+η(s) = dU (s)
+ds U(s)† = −η†(s). (9)
+The ﬂow variable s has dimensions (energy) −2 and may be related to an energy cutoﬀ
+Λ = s− 1
+2 , which tends to zero as the SRG equations are propagated. 66
+In the SRG approach, η(s) is parameterized in terms of components of H(s), and various
+choices are possible.79 For example, the canonical generator introduced by Wegner,60 consists
+5
+in partitioning the Hamiltonian into a diagonal ( H d) and oﬀ-diagonal ( H od) part, and taking
+the commutator of H d(s) with H(s):
+η(s) = [ H d(s), H(s)] = [ H d(s), Hod(s)]. (10)
+What guarantees the SRG ﬂow will bring H(s) to a diagonal form? It can be shown 66 that
+as long as η(s) ̸= 0, the canonical generator reduces the trace of the oﬀ-diagon al part of the
+Hamiltonian, that is:
+d
+ds Tr
+[
+H od(s)†H od(s)
+]
+≤ 0. (11)
+Accordingly, as s → ∞, E0(s) evolves towards one of the eigenvalues of the original Hamil -
+tonian, while the state U †(s) |Φ ⟩ approaches one of its eigenvectors.
+The numerical solution of the SRG equations requires integr ating Eq. (8) while updating
+η(s). In practical implementations of the SRG approach it is nece ssary to truncate H(s) and
+η(s), otherwise these operators will contain many-body terms of maximum rank equal to the
+total number of electrons. Therefore, it is customary to int roduce a family of approximate
+SRG schemes, SRG (n), in which all operators are truncated to rank less than or equ al to n.
+For example, the SRG(2) consists in approximating the SRG eq uations as:
+dH(s)
+ds = [η(s), H(s)]1,2, (12)
+η(s) = [ H d(s), H(s)]1,2, (13)
+where the commutator subscript (1,2) indicates that only on e- and two-body operators
+normal ordered with respect to the reference Φ are retained. The SRG(2) approximation
+is analogous to the singles and doubles truncation scheme us ed in coupled cluster theory
+(CCSD), and as will be shown later, these methods have simila r accuracy. We notice that
+the in-medium SRG(2) approach of Tsukiyama et al. 67 solves Eqs. (12) and (13) but neglects
+some terms to achieve partial cancellation of three-body co ntributions to the energy for hard
+potentials.
+B. Perturbative analysis of the SRG equations
+In this section we present a perturbative analysis of the ﬂow equations to illustrate the
+most important features of the SRG approach. To this end we pa rtition the initial Hamil-
+6
+tonian ( s = 0) into a zeroth-order [ H (0)(s = 0)] plus ﬁrst-order [ H (1)(s = 0)] operator:
+H(0) = E0(0) + F (0)  
+H (0)(0)
++λ V (0)
+H (1)(0)
+, (14)
+where λ is a parameter that controls the magnitude of the perturbati on, and expand the
+SRG Hamiltonian into a power series in λ:
+H(s) = H (0)(s) + λH (1)(s) + λ2H (2)(s) + . . . . (15)
+Following Tsukiyama, Bogner, and Schwenk 67 we use the canonical generator and take the
+oﬀ-diagonal part of the Hamiltonian to be:
+H od(s) =
+∑
+ia
+f a
+i (s){ˆai
+a} + H.c.
++ 1
+4
+∑
+ijab
+vab
+ij (s){ˆaij
+ab} + H.c.,
+(16)
+where H.c. stands for Hermitian conjugate. This deﬁnition o f H od leads to a decoupling
+of the reference determinant from all singly and doubly exci ted determinants. Further, we
+assume to work in a basis of canonical or semicanonical orbit als,80 that is, the occupied
+and virtual orbitals blocks of the Fock matrix are diagonal. Together with the variation
+condition, this implies that f q
+p (0) = δq
+pǫp, where ǫp = ⟨p| f |p⟩.
+Perturbative expressions for the SRG using the canonical ge nerator may be easily derived.
+Introducing the generalized Møller–Plessett denominator s ( ∆ ij···
+ab···):
+∆ ij···
+ab··· = ǫi + ǫj + . . . − ǫa − ǫb − . . . , (17)
+the elements of the ﬁrst-order generator η(1)(s) are given by
+ηi,(1)
+a (s) = −∆ i
+a f i,(1)
+a (s), (18)
+ηij,(1)
+ab (s) = −∆ ij
+ab vij,(1)
+ab (s), (19)
+and the Hamiltonian ﬂow equations can be written as the set of ODEs for the ﬁrst-order
+matrix elements of the Hamiltonian:
+d
+ds E(1)
+0 (s) = 0 , (20)
+d
+ds f i,(1)
+a (s) = −
+(
+∆ i
+a
+) 2
+f i,(1)
+a (s), (21)
+d
+ds vij,(1)
+ab (s) = −
+(
+∆ ij
+ab
+) 2
+vij,(1)
+ab (s), (22)
+7
+together with a similar set of equations for the matrix eleme nts of f a,(1)
+i (s) and vab,(1)
+ij (s).
+Eq. (22) may be integrated to yield E(1)
+0 (s) = 0 , f i,(1)
+a (s) = 0 , and
+vij,(1)
+ab (s) = ⟨ij||ab⟩e−s(∆ ij
+ab)
+2
+. (23)
+This result illustrates the most important feature of the SR G ﬂow. In the spirit of a true
+renormalization theory, the SRG gradually decouples vario us energy scales in the Hamil-
+tonian. As s → ∞ , if the energy separation ǫi + ǫj − ǫa − ǫb is not null, vij,(1)
+ab (s) → 0.
+For intermediate values of s, terms with energy diﬀerence |∆ ij
+ab| larger than the energy scale
+Λ = s− 1
+2 , are decoupled, while those with smaller energy remain most ly unchanged.
+At the second order of perturbation theory, the ﬂow equation for the energy is:
+d
+ds E(2)
+0 (s) = 1
+2
+∑
+ij
+∑
+ab
+∆ ij
+ab
+⏐
+⏐
+⏐vij,(1)
+ab (s)
+⏐
+⏐
+⏐
+2
+, (24)
+which upon integration over s yields:
+E(2)
+0 (s) = 1
+4
+∑
+ij
+∑
+ab
+|⟨ij||ab⟩|2
+∆ ij
+ab
+[
+1 − e−2s(∆ ij
+ab)
+2]
+. (25)
+A Taylor series expansion of Eq. (25) with respect to ∆ ij
+ab shows that for any ﬁnite value of
+s, E(2)
+0 (s) does not diverge if one of the denominators ∆ ij
+ab goes to zero. This is a beautiful
+result that highlights another important feature of the SRG : even at the perturbative level
+the SRG yields a robust second-order energy expression. Eq. (25) may also be viewed as a
+clever way to regularize second-order perturbation theory , which is physically motived and
+aﬀects mostly only those amplitudes with small denominator s. Thus, the SRG approach is
+distinct from regularization techniques that increase the gap between occupied and virtual
+orbitals40–46 or try to minimize the norm of the amplitudes. 47
+As a side note, it is important to point out that in numerical a pplications, the canonical
+generator usually leads to a stiﬀ set of ODEs, and as suggeste d by White, 75 it is preferable
+to use an alternative generator parameterized in the follow ing way:
+ηi
+a(s) = f i
+a(s)
+f a
+a (s) − f i
+i (s) − vai
+ai(s) , (26)
+ηij
+ab(s) = vij
+ab(s)
+f aa (s) + f b
+b (s) − f i
+i (s) − f j
+j (s) + Aij
+ab(s)
+, (27)
+where Aij
+ab(s) = vab
+ab(s) + vij
+ij (s) − P (ij)
+[
+vai
+ai(s) + vbj
+bj (s)
+]
+.81 While it is convenient to use the
+White generator to speedup SRG computations, this generato r yields a ﬂow that does not
+8
+satisfy the traditional deﬁnition of renormalization. Thi s point can be shown by means
+of a perturbative analysis. The only contribution to the ﬁrs t-order ﬂow using the White
+generator yields the ODE d
+ds vij,(1)
+ab (s) = −vij,(1)
+ab (s), which has solution:
+vij,(1)
+ab (s) = ⟨ij||ab⟩e−s. (28)
+Eqs. (28) shows that the White generator leads to a ﬂows in whi ch all oﬀ-diagonal elements
+of the Hamiltonian decay at the same rate. Moreover, the seco nd-order energy is given by:
+E(2)
+0 (s) = 1
+4
+∑
+ij
+∑
+ab
+|⟨ij||ab⟩|2
+∆ ij
+ab
+[
+1 − e−2s]
+. (29)
+This is not a robust expression, since it diverges as Møller– Plessett perturbation theory
+when there is an excited determinant for which ∆ ij
+ab → 0.
+III. THEORY
+A. Motivations for developing an integral version of the SRG
+As discussed in Section II, the SRG formalism is an interesti ng alternative approach to
+similarity-transform the Hamiltonian: it yields a numeric al method that in principle is free
+from the intruder problem, operates in a many-body formalis m, and can be used to selec-
+tively eliminate the coupling of the reference with excited conﬁgurations down to an energy
+threshold Λ . However, there are some aspects of the SRG that we believe ca n be improved.
+First, it is desirable to have an integral formulation of the SRG that does not require to
+solve a set of diﬀerential equations. In principle the SRG ha s the same complexity of other
+many-body approaches like, for example, coupled cluster th eory. However, in practice it is
+generally more challenging and less numerically robust to s olve a set of ODEs than to solve
+a set of polynomial equations.
+Second, it is advantageous to generalize the SRG approach to a formalism similar to
+coupled cluster theory, in which although it is necessary to truncate the rank of the cluster
+operator, the ensuing equations do not need to be truncated. However, it is problematic to
+setup a SRG based on the coupled cluster-like transformatio n:
+H(s) = e−T (s)He T (s), (30)
+9
+in which U(s) is replaced by the exponential of the s-dependent excitation operator T (s).
+Since exp[T (s)] is not a unitary operator, it appears that a SRG method based o n Eq. (30)
+might not satisfy the trace condition Eq. (11), which guaran tees that the ﬂow of the Hamil-
+tonian decouples the reference from the excited determinan ts. Pigg and co-workers 82 have
+described an imaginary-time CC formalism bases on the follo wing set of ODEs:
+d
+dτ tij···
+ab···(τ ) = − ⟨Φ | ˆaij···
+ab···e−T (τ )He T (τ ) |Φ ⟩, (31)
+where Φ is a reference Slater determinant and T (τ ) is an excitation operator function of
+the imaginary-time variable τ . However, even this imaginary-time CC formalism is for-
+mally problematic. Indeed, it is possible to show that the ﬁr st-order imaginary-time CC
+amplitudes, tij,(1)
+ab (τ ), obey the following equation:
+tij,(1)
+ab (τ ) =
+vij
+ab
+[
+1 − eτ ∆ ij
+ab
+]∆ ij
+ab
+. (32)
+Contrary to Eq. (23), the expression for tij,(1)
+ab (τ ) can diverge for τ → ∞ if there is a double
+excitation with a positive denominator ( ∆ ij
+ab > 0).
+B. The driven similarity renormalization group formalism
+Here we propose to address these two points with a novel SRG me thod. The starting
+point of our driven similarity renormalization group (DSRG) approach is the continuous
+transformation:
+¯H(s) = e−S(s)He S(s), (33)
+parameterized by the operator S(s), function of the time-like parameter s. To avoid con-
+fusion with the original SRG transformation [Eq. (3)], we wr ite the DSRG transformed
+Hamiltonian with a bar above it. We assume that S(s) can be written as the sum of k-body
+operators [ Sk(s)], truncated to particle rank n:
+S(s) =
+n∑
+k=1
+Sk(s). (34)
+The DSRG ansatz permits us to consider two parameterization s of S(s):
+1. A coupled cluster or intermediate normalization DSRG (CC-DSRG), in which S(s) is
+an excitation operator, T (s). In this case the k-body component of T (s) is a deﬁned
+10
+as:
+Tk(s) = 1
+(k!)2
+∑
+ij···
+∑
+ab···
+tij···
+ab···(s) ˆaab···
+ij··· , (35)
+where ˆaab···
+ij··· is k-fold excitation operator.
+2. A unitary DSRG (for convenience abbreviate simply as DSRG), in which S(s) is an
+anti-Hermitian operator A(s). The k-body component of A(s), Ak(s), is expressed in
+terms of the excitation operators as:
+Ak(s) = Tk(s) − T †
+k (s). (36)
+In the DSRG, we postulate that the ﬂow of the similarity Hamil tonian is driven by the
+source operator R(s), according to the following equation:
+[ ¯H(s)]N = [e−S(s)He S(s)]N = R(s) s ∈ [0, ∞), (37)
+where the subscript N indicates the non-diagonal 83 diagrams of ¯H(s). A distinction must
+be made depending on the parameterization of S(s):
+1. In the coupled cluster parameterization of the DSRG, the n on-diagonal part of ¯H(s) is
+deﬁned as its excitation component. In this case R is a pure excitation operator, R =
+Rex, and Rex has the same structure as T , but it is parameterized by the amplitudes
+rij···
+ab···(s).
+2. In the unitary DSRG, the non-diagonal part of an operator i s the sum of its pure
+excitation and deexcitation components. In this case R is Hermitian, and it may be
+expressed as the sum of excitation and deexcitation operato rs, R = Rex + R†
+ex.
+The DSRG ﬂow equation [Eq. (33)] must be augmented with appro priate boundary con-
+ditions for the operator R(s). For s = 0 we demand that the non-diagonal component of
+the Hamiltonian is identical to the bare Hamiltonian:
+[ ¯H(0)]N = HN, (38)
+a condition that can be trivially satisﬁed if S(0) = 0 . Furthermore, Eq. (38) implies that
+R(0) = R1(0) + R2(0) = HN. (39)
+11
+For s → ∞ , we require that the DSRG ﬂows decouples excited conﬁgurati ons from the
+reference, driving the non-diagonal part of ¯H to zero, [ ¯H(∞)]N = 0. Thus, the appropriate
+boundary condition for the matrix elements of R(s) is:
+lim
+s→∞
+rij···
+ab···(s) = 0 . (40)
+Notice that other boundary conditions for the limit s → ∞ may be more advantageous. For
+example, one may require the DSRG transformation to avoid de coupling excited conﬁgu-
+rations for which ∆ ij···
+ab··· = 0 . This boundary condition will not guarantee that the DSRG
+transformation will diagonalize the Hamiltonian, but it wi ll make the DSRG equations nu-
+merically stable in the presence of degenerate excited dete rminants.
+A hierarchy of truncated DSRG methods that converges to the F CI method can be
+formulated by limiting the particle rank of the S operator. These will be abbreviated
+with DSRG( n), where n indicates the highest particle rank of S. In this work we will
+consider the unitary DSRG singles and doubles [DSRG(2)], de ﬁned by S(s) = T1(s)+ T2(s)−
+T †
+1 (s) − T †
+2 (s). In addition, the unitary DSRG also requires approximating the transformed
+Hamiltonian ¯H.84 In this work we use the approximate Baker–Campbell–Hausdor ﬀ (BCH)
+formula suggested by Yanai and Chan 85 to compute ¯H truncated to one- and two-body
+operators ( ¯H1,2):
+¯H1,2 = H +
+∞∑
+k=1
+1
+k! [· · · [[H, A]1,2, A]1,2, · · · ]1,2  
+k-fold commutator
+. (41)
+In the unitary DSRG(2), the ﬂow equation [Eq. (37)] reads as a set of four equations:
+
+
+
+
+
+[ ¯H(s)]
+i
+a = ri
+a(s) [ ¯H(s)]
+a
+i = ra
+i (s)
+[ ¯H(s)]
+ij
+ab = rij
+ab(s) [ ¯H(s)]
+ab
+ij = rab
+ij (s),
+(42)
+where some of the r amplitudes are related via Hermitian conjugation: ra
+i (s) = [ ri
+a(s)]∗ and
+rab
+ij (s) = [ rij
+ab(s)]∗. When it comes to specify a form for the source operator, the b oundary
+conditions Eqs. (38) and (40) leave a considerable amount of freedom. In this work we
+use the results of the perturbative analysis of the SRG equat ions [Eq. (23)] to suggests the
+following parameterization of R(s):86
+ri
+a(s) =
+[ ¯H i
+a(s) + ti
+a∆ i
+a
+]
+e−s(∆ i
+a)2
+, (43)
+rij
+ab(s) =
+[ ¯H ij
+ab(s) + tij
+ab∆ ij
+ab
+]
+e−s(∆ ij
+ab)2
+. (44)
+12
+To highlight the connection between our choice of the source operator R(s) and the
+similarity-renormalization group we expand the source ope rator up to ﬁrst order in λ, and
+observe that the matrix elements of ¯H, in the case of a Hartree–Fock reference, evolve like
+those of the SRG:
+¯H i,(1)
+a (s) = 0 , (45)
+¯H ij,(1)
+ab (s) = ⟨ij||ab⟩e−s(∆ ij
+ab)2
+. (46)
+Similarly, the ﬁrst-order DSRG single- and double-excitat ion amplitudes are given by:
+ti,(1)
+a = 0, (47)
+tij,(1)
+ab =
+vij
+ab
+[
+1 − e−s(∆ ij
+ab)2
+]
+∆ ij
+ab
+. (48)
+The doubles amplitudes tij,(1)
+ab have a renormalized denominator that for any ﬁnite and
+non zero s guarantees that |tij,(1)
+ab | < ∞ even in the limit ∆ ij
+ab → 0. It is important to
+emphasize that alternative choices of the R operator are possible. For example, in our
+initial study we considered another form of R(s) compatible with the perturbative analysis:
+ri
+a(s) = f i
+a exp[−s(∆ i
+a)2] and rij
+ab(s) = ⟨ab||ij⟩exp[−s(∆ ij
+ab)2]. This is a more obvious choice,
+but Eqs. (43) and (44) lead to equations that are numerically more robust.
+C. Formal comparison of the SRG, DSRG, and other approaches
+In this section we will explore formal connections between t he unitary version of SRG, the
+DSRG, and other unitary formalisms like canonical transformation theory49,75,85 and the anti-
+Hermitian contracted Schrödinger equation (ACSE). 87–89 Let us begin with a comparison of
+the DSRG and the SRG methods. As illustrated in Fig. 2 both app roaches generate a
+ﬂow of the original Hamiltonian as a function of the paramete r s. In the SRG, the ﬂow
+of the Hamiltonian follows the path induced by the generator η. Generally speaking, in
+absence of truncation and degeneracies, the SRG method is ex act, and in the limit s → ∞
+the transformed Hamiltonian is independent of the particul ar generator used. However, as
+pointed out in Fig. 2, when the SRG equations are approximate d, diﬀerent generators η
+and η′ will induce diﬀerent paths that are not guaranteed to conver ge to the same ﬁnal
+Hamiltonian.
+13
+L-CTSD 
++
+DSRG(2) 
+SRG(2) 
+FIG. 2. Illustration of the relationship between truncated versions of the similarity renormalization
+group approach, the driven SRG, and linearized canonical tr ansformation theory. Starting from the
+bare Hamiltonian, all methods bring the non-diagonal compo nent of the transformed Hamiltonian
+(H od(s) or [ ¯H(s)]N) to zero. The SRG(2) ﬂow follows the derivative induced by th e generator η, and
+in the limit s → ∞ diﬀerent generators lead to diﬀerent transformed Hamilton ians. The DSRG(2)
+ﬂow is also dependent on the source operator R, but as long as two source operators satisfy the
+same boundary conditions the ﬁnal transformed Hamiltonian is identical to the L-CTSD one.
+The distinctive feature of the DSRG, is that the ﬂow of the Ham iltonian is driven by
+the operator R, which is parameterized and memoryless, that is, R(s) does not depend on
+R(s′) at earlier times ( s′ < s ). Thus, for a ﬁxed value of s, the DSRG method consists of
+a set of polynomial equations, for which eﬃcient solvers and convergence accelerators have
+been developed. 90,91 As in the case of the SRG based on the canonical generator, the DSRG
+is designed to progressively renormalize the coupling betw een the reference and the excited
+conﬁgurations that can interact with it. Consequently, the DSRG limits the decoupling of
+excited determinants with small energy denominators and na turally restraints the magnitude
+of the amplitudes entering the S operator. Fig. 2 also illustrates the path-independence of the
+DSRG transformed Hamiltonian. In the limit s → ∞, two source operators R(s) and R′(s)
+that satisfy the boundary conditions Eqs. (38) and (40) yiel d the same DSRG Hamiltonian.
+The s → ∞ limit of the intermediate normalization and unitary versio ns of the DSRG is
+of special interests because these formalisms then become r espectively equivalent to coupled
+cluster theory and unitary coupled cluster theory/canonic al transformation theory.10,49,75,85,92
+14
+When s → ∞ the unitary DSRG(2) equation reads
+[ ¯H1,2]N = 0, (49)
+which in the single-reference case is equivalent to the line arized canonical transformation
+(L-CT) condition: 85
+⟨Φ | [ ¯H L-CT
+1,2 , ˆaab···
+ij··· − ˆaij···
+ab···] |Φ ⟩ = 0, (50)
+where ¯H L-CT
+1,2 is the CT Hamiltonian, ¯H CT = e−ACT
+He ACT
+, approximated via Eq. (41) and
+the anti-Hermitian operator ACT is deﬁned analogously to Eq. (36).
+The comparison of the SRG and canonical transformation theo ry is also instructive.
+Formally, the exact SRG unitary transformation U †(s) can be expressed as the exponential
+of an anti-Hermitian operator A(s), U †(s) = exp[ A(s)], which is reminiscent of the DSRG
+and CT transformed Hamiltonian. This observation does not p rovide much insight into the
+relationship of the approximate SRG(2) and L-CTSD methods, which are based on diﬀerent
+commutator approximations. We numerically conﬁrmed that t he SRG(2) with the canonical
+or White generator and the unitary DSRG(2) are not equivalen t. However, it is possible to
+go one more step further and show that the commutator approxi mation in the SRG(2) may
+be viewed as a continuous analogous of the one used in the DSRG and L-CT methods. First
+we notice that the diﬀerential equation for the SRG(2) ﬂow [E q. (12)] is equivalent to the
+following integral equation with an approximate commutato r:
+H(s) = H(0) +
+∫ s
+0
+ds1[H(s1), δASRG(s1)]1,2, (51)
+where we have introduced the operator δASRG(s) = −η(s). The iterative solution of Eq. (51)
+yields a Dyson series in which commutators are truncated to o ne- and two-body terms. This
+series may be written in s-ordered form as:
+H(s) = H(0) +
+∞∑
+k=1
+1
+k!
+∫ s
+0
+dsk · · ·
+∫ s
+0
+ds1 Ts
+{
+[· · · [[H(0), δASRG(s1)]1,2, δASRG(s2)]1,2, · · · ]1,2
+  
+k-fold commutator
+}
+,
+(52)
+where Ts is the s-ordering operator, which rearranges the δASRG terms in the integral by
+a permutation ( π) of the indices of s, such that sπ1 ≤ sπ2 ≤ · · · ≤ sπn. Thus, the SRG(2)
+commutator approximation [Eq. (52)] is essentially a conti nuous version of the truncated
+15
+BCH series [Eq. (41)] used in CT theory. In the former approac h, δASRG(s) = −η(s) plays
+the continuous counterpart of ACT in the discrete CT transformation.
+Some computational aspects of the SRG and the DSRG are also si milar to the idea
+of parameterizing the exact wave function in terms of unitar y rotation of a reference N-
+representable wave function93,94 as done in the anti-Hermitian contracted Schrödinger equa-
+tion (ACSE) approach of Mazziotti. 87–89 The ACSE method considers a sequence of inﬁnites-
+imal two-body unitary transformations of an initial wave fu nction |Ψ( λ)⟩:
+|Ψ( λ + δλ⟩ = eδλS(λ) |Ψ( λ)⟩, (53)
+where S(λ) is a general two-body anti-Hermitian operator: S(λ) = ∑
+pqrs Srs
+pq (λ)ˆapq
+rs. The
+feature that distinguishes the ACSE method from the SRG and D SRG approaches is the
+propagation of the two-particle reduced density matrix, in addition to to the propagation
+of the energy and S(λ). A stronger connection between the ACSE and the SRG may be
+established if one considers a more general SRG approach in w hich the reference state used to
+deﬁne normal ordering and the deﬁnition of normal ordering a re also considered dependent
+on s.64
+It is also worth pointing out that the methods considered her e are not related to the
+family of renormalized coupled cluster methods proposed by Kowalski and Piecuch. 95–98
+These renormalized coupled cluster methods are based on an e xact correction of the coupled
+cluster energy, expressed in terms of the generalized moments of the coupled cluster equations
+and amplitudes for the excitation operators or left eigenst ates.
+IV. IMPLEMENTATION AND COMPUTATIONAL DETAILS
+The SRG(2) and the unitary version of DSRG(2) are implemente d as a plugin to the
+quantum chemistry package Psi4.99 The SRG(2) equations [Eqs. (12) and (13)] are evaluated
+using the commutator keeping all the one- and two-body terms . The appendix reports the
+matrix elements of the commutator C = [ A, B]1,2, where A, B, and C are three generic
+operators truncated to one- and two-body terms and expresse d in a normal-ordered form
+with respect to the reference. The SRG ﬂow equation is integr ated using the eighth-order
+Runge–Kutta–Fehlberg method with seventh-order error estimation100 as implemented in the
+boost C++ library. 101 Our implementation can perform SRG computations using the W hite
+16
+generator or the block-diagonal form 67 of the canonical generator as deﬁned in Eq. (16).
+The computational cost required to evaluate the commutator [H(s), η(s)]1,2, is dominated
+by a contribution proportional to O2V 2N 2, where O and V are respectively the number of
+occupied and virtual spin orbitals, and N = O + V . Thus the computational scaling of the
+SRG(2) equations is marginally higher than that of the CCSD m ethod ( O2V 4).
+In the case of the DSRG(2) method, the matrix elements of the s imilarity-transformed
+Hamiltonian are computed using the approximate BCH expansi on given in Eq. (41) by
+means of the recursive expression
+
+
+
+
+
+C (k+1) = 1
+k + 1 [C (k), A]1,2,
+¯H (k+1) = ¯H (k) + C (k+1),
+(54)
+starting with C (0) = ¯H (0) = H. The computational scaling of the DSRG(2) approach is
+identical to that of the SRG(2) since they are based on the sam e commutator approximation.
+All results are obtained using the correlation-consistent valence triple zeta basis set (cc-
+pVTZ)102 and restricted-Hartree–Fock (RHF) orbitals. Moreover, al l computations of the
+correlation energy are performed by dropping the 1s-like or bital of the atoms Li trough F.
+Equilibrium geometries, harmonic vibrational frequencie s, and anharmonic force constants
+of the diatomic molecules are computed from an equally-spac ed ﬁve-point polynomial ﬁt
+of the potential energy curve centered around the CCSD(T) eq uilibrium bond length with
+points separated by 0.01 Å. The harmonic vibrational freque ncies and anharmonic force
+constants are computed using the equations reported in Ref. 103.
+V. RESULTS
+A. Evolution of the SRG(2) and DSRG(2) energy
+In this section we compare the evolution of the SRG(2) and DSR G(2) energy as a function
+of s. For the SRG(2) we employ both the canonical and White genera tors. Fig. 3(A)
+shows the evolution of E0(s) computed for hydrogen ﬂuoride at the experimental equilibr ium
+distance (re = 0.9168 Å, from Ref. 104). The SRG(2) ﬂow obtained using the c anonical and
+White generators is signiﬁcantly diﬀerent. The most clear d isparity is the rate of convergence
+of E0(s) for these two variants of the SRG(2). This result can be under stood using the
+perturbative analysis presented in the previous section. T he White generator yields a ﬂow of
+17
+the form E0(s) ≈ E0(0)+[E0(∞)−E0(0)](1−e−2s), while the canonical generator yields a ﬂow
+in which each contribution decays with a rate proportional t o the square of the corresponding
+denominator, that is 1 − e−2s(∆ ij
+ab)2
+[see Eq. (25)]. Since most denominators will be larger
+than 1 Eh, one expects the canonical generator to converge faster to t he asymptotic energy
+value. Interestingly, for s → ∞, the SRG energy for both variants converges to a value that
+is close to the CCSD(T) energy. This phenomenon was also obse rved in nuclear structure
+computations,69 but it is unclear if it is an indication that the SRG(2) trunca tion scheme
+is superior to CCSD. The DSRG(2) ﬂow is almost indistinguish able from the one obtained
+from the canonical generator/SRG(2), but on a ﬁner scale it i s possible to notice a diﬀerence
+between the two approaches. Also, in Fig. 3(B) the DSRG(2) an d White generator/SRG(2)
+curves appear to tend to the same limit, but the two methods yi eld energies that diﬀer by
+about 7 × 10−4 Eh.
+An important diﬀerence between these methods is the computa tional time required to
+evaluate E(s). For the example considered here, computing E(s = 10 E−2
+h ) requires seven
+iterations of the DSRG(2) equations using the direct invers ion of the iterative subspace
+(DIIS) to speed up convergence. 90,91 The SRG(2) with the White generator has a compu-
+tational cost that is comparable to the DSRG(2), requiring 4 1 steps in the integration of
+the corresponding set of ODEs. At the same time we conﬁrm that the SRG(2) with canon-
+ical generator leads to an ineﬃcient numerical scheme that r equires several thousands steps
+to achieve convergence of the ODEs. For this reason, all SRG( 2) results presented in the
+following sections will only use the White generator.
+Last, we consider the ﬂow of the oﬀ-diagonal elements of the H amiltonian in the DSRG
+method. Fig. 3(C) shows the Frobenius norm of the k-body non-diagonal components of ¯H,
+∥[ ¯Hk]N∥F , deﬁned as:
+∥[ ¯Hk]N∥F =
+√
+1
+(k!)2
+∑
+ij···
+∑
+ab···
+(
+| ¯H ij···
+ab···(s)|2 + | ¯H ab···
+ij··· (s)|2)
+. (55)
+This plots shows that the DSRG behaves like a proper renormal ization theory. As s is
+increased, the operator S(s) gradually decouples the reference from the singly and doubl y
+excited determinants. This suggests that one might perform a DSRG transformation with a
+ﬁnite value of s that is suﬃciently large to recover dynamical correlation e ﬀects and produce
+a renormalized Hamiltonian ( ¯H). By changing s, it is possible to tune the norm of the
+renormalized Hamiltonian, that is, the strength of the resi dual interactions not accounted
+18
+by the DSRG transformation.
+RHF 
+CCSD 
+CCSD(T) 
+CCSD 
+CCSD(T) 
+− 100.40 
+− 100.35 
+− 100.30 
+− 100.25 
+− 100.20 
+− 100.15 
+− 100.10 
+− 100.05 
+10 − 3 10 − 2 10 − 1 1 10 
+Energy [ Eh]
+s
+[
+E− 2
+h
+]
+s
+[
+E− 2
+h
+]
+s
+[
+E− 2
+h
+]
+− 100.350
+− 100.345
+10 − 1 1 10 
+Energy [ Eh]
+DSRG(2) 
+DSRG(2) 
+SRG(2)-canonical 
+SRG(2)-White 
+SRG(2)-White 
+SRG(2)-canonical 
+(A)
+(C)
+(B)
+10 − 10 
+10 − 8
+10 − 6
+10 − 4
+10 − 2
+1
+10 − 3 10 − 2 10 − 1 1 10 
+FIG. 3. Evolution of the SRG(2) and DSRG(2) energy as a functi on of s (plotted on a logarithmic
+scale) for the ground electronic state of hydrogen ﬂuoride. The ﬁgure also reports the energy
+computed at the restricted-Hartree–Fock, CCSD, and CCSD(T ) levels of theory. Energy evolution
+in the range s ∈ [10−3, 10] (A) and s ∈ [0.1, 10] (B). (C) Evolution of the Frobenius norm of the
+k-body non-diagonal components of the DSRG transformed Hami ltonian ( ∥[ ¯Hk]N∥F ). All results
+were computed using the cc-pVTZ basis set and RHF orbitals, f reezing the ﬂuorine 1s-like molecular
+orbital in the computations of the correlation energy.
+19
+B. Diatomic molecules
+In this section we evaluate the accuracy of the SRG(2) (White generator) and DSRG(2)
+methods by computing the equilibrium properties of a series of diatomic molecules for ﬁxed
+values of the parameter s. Table I reports the equilibrium bond length ( re), the harmonic
+vibrational frequency ( ωe), and the correlation energy computed at the CCSD(T) geomet ry
+(ǫ), expressed as diﬀerences with respect to the CCSD(T) value s, for the ground electronic
+state of H 2, LiH, BeO, BH, HF, LiF, BF, C 2, N 2, O 2, F 2, and CN −. Table II reports error
+metrics for the results in Table I, including results for the anharmonic force constant ( ωexe).
+A few interesting results are worth pointing out. In several cases, the ﬂow of the SRG(2)
+equations stalls and cannot be propagated after certain val ues. Therefore, we present SRG(2)
+results for s = 5 E−2
+h , which permits to converge most of the diatomic molecules (s ee below).
+In the case of the DSRG(2), we report properties computed at s = 1, 10, and ∞, observing
+that results from computations at s = 10 E−2
+h agree well with the results obtained in the
+limit s → ∞. As found in the previous section, we notice that all propert ies computed with
+the SRG(2) and DSRG(2) are much closer to the CCSD(T) results than to the CCSD ones.
+For example, the mean of the absolute deviations for re is ca. 0.0015 Å both for the SRG(2)
+and DSRG(2) methods, while for CCSD the corresponding value is higher, 0.0053 Å.
+In addition, we encountered two problematic cases in which t he SRG(2) and DSRG(2)
+methods fail. The ﬁrst one is C 2, for which neither the SRG(2) nor the DSRG(2) can be
+converged for s → ∞. We found that for smaller values of s (0.1, 1, 2.5 E−2
+h ) it is possible to
+converge the DSRG(2) energy of C 2, but integration of the SRG(2) is not possible beyond
+s = 0.0046 E−2
+h , most likely because of the stiﬀness of the SRG equations. Th e second
+problematic molecule is F 2. In this case it is possible to ﬁnd a bound minimum for both the
+SRG(2) and the DSRG(2) when s is less than 1 E−2
+h , but the resulting properties display
+unusually large errors. For example, with s =1, the SRG(2) yields a value of ωexe that is oﬀ
+by about 111 cm −1. Interestingly, for higher values of s both the SRG(2) and the DSRG(2)
+appear to predict that F 2 is unbound. 105 These two problems are reminiscent of some other
+notorious failures of approximated electron correlation m ethods.106
+Surprisingly, the (apparent) good agreement of the SRG(2), DSRG(2), and CCSD(T)
+results, as well as the failure of the SRG methods to describe C2 and N 2 are not coincidental,
+but a consequence of the (2) truncation scheme. As pointed ou t by us in a previous work, 107
+20
+TABLE I. Equilibrium properties for the ground electronic state of v arious diatomic molecules. Equilibrium bond length
+(re) in Å, and equilibrium harmonic frequency ( ωe) in cm − 1, and energy error with respect to CCSD(T) at the CCSD(T)
+equilibrium geometry ( ǫ) in m Eh. All results were computed using the cc-pVTZ basis set and re stricted Hartree–Fock orbitals,
+freezing the Li–F 1s-like molecular orbitals in the computa tion of the correlation energy.
+Molecule Property SRG(2) SRG(2*) DSRG(2) DSRG(2) DSRG(2) D SRG(2*) DSRG(2*) DSRG(2*) CCSD CCSD(T)
+s = 5 s = 5 s = 1 s = 10 s = ∞ s = 1 s = 10 s = ∞
+H2 re 0.0018 -0.0001 0.0013 0.0019 0.0019 -0.0004 0.0000 0.0000 0 .0000 0.7426
+ωe -40.9 2.4 -24.1 -43.7 -43.7 15.2 -0.3 -0.3 0.0 4409.4
+ǫ -1.0 0.0 -0.9 -1.0 -1.0 -0.1 -0.0 -0.0 0.0 -1.172337
+LiH re 0.0030 -0.0004 -0.0084 0.0032 0.0035 -0.0091 -0.0002 -0.00 01 0.0000 1.6081
+ωe -13.9 2.8 36.5 -15.5 -17.5 40.0 1.3 0.6 0.0 1394.9
+ǫ -1.3 -0.1 0.9 -1.4 -1.5 1.9 0.0 0.0 -0.0 -8.022320
+BeO re -0.0065 -0.0163 -0.0192 -0.0068 -0.0059 -0.0239 -0.0164 -0 .0161 -0.0158 1.3443
+ωe 41.5 96.4 123.3 45.3 39.6 145.8 98.7 96.8 101.0 1458.8
+ǫ 4.7 16.9 10.7 4.5 4.2 17.7 16.7 16.6 16.0 -89.748155
+BH re 0.0012 -0.0009 0.0044 0.0002 0.0002 0.0004 -0.0011 -0.0011 -0.0011 1.2354
+ωe -14.8 11.7 -17.7 -12.4 -12.4 15.4 10.2 10.2 9.7 2350.8
+ǫ -5.4 2.4 4.8 -6.1 -6.2 8.8 2.0 1.2 2.0 -25.230615
+HF re 0.0005 -0.0022 0.0006 0.0007 0.0007 -0.0022 -0.0021 -0.002 1 -0.0021 0.9172
+ωe -17.3 39.9 -17.6 -21.7 -21.7 38.8 35.9 35.9 34.7 4177.4
+ǫ -9.7 2.4 5.4 -17.9 -18.4 14.9 12.0 12.0 11.6 -100.196873
+LiF re -0.0006 -0.0028 -0.0019 -0.0006 -0.0006 -0.0037 -0.0028 -0 .0027 -0.0026 1.5836
+ωe 1.5 5.9 4.6 1.5 1.5 8.0 5.8 5.7 5.4 908.8
+ǫ 2.0 7.9 2.7 2.0 2.0 8.4 7.8 7.8 7.7 -107.263654
+BF re 0.0013 -0.0035 -0.0043 0.0014 0.0014 -0.0069 -0.0035 -0.00 35 -0.0034 1.2715
+ωe -6.7 15.4 16.8 -6.2 -6.1 29.6 16.0 16.0 15.3 1402.7
+ǫ 0.6 4.9 7.1 0.4 0.4 15.8 11.2 7.7 11.0 -124.501909
+C2 re 0.0031 -0.0006 -0.0041 -0.0041 -0.0038 1.2507
+ωe 54.9 61.8 43.7 42.6 35.7 1845.6
+ǫ 35.2 60.8 36.9 20.9 33.6 -75.783164
+N2 re 0.0015 -0.0071 -0.0010 0.0020 0.0020 -0.0087 -0.0073 -0.00 73 -0.0070 1.1038
+ωe -28.6 80.0 24.5 -41.8 -41.8 109.4 80.9 80.9 77.9 2346.0
+ǫ 2.0 18.8 2.9 1.8 1.8 19.8 19.0 19.0 18.7 -109.373937
+O2 (X 3Σ −
+g ) re 0.0023 -0.0116 -0.0021 0.0015 0.0015 -0.0140 -0.0125 -0.01 25 -0.0124 1.2121
+ωe -34.7 81.9 17.3 -26.8 -26.8 108.2 90.6 90.6 89.5 1585.4
+ǫ 2.9 19.3 4.4 3.3 3.3 22.9 20.0 20.0 19.9 -150.128774
+F2 re ∞(?) ∞(?) 0.0398 ∞(?) ∞(?) -0.0268 -0.0230 -0.0230 -0.0211 1.4158
+ωe -156.3 139.7 102.1 102.1 92.5 919.9
+ǫ -2.9 18.5 -2.6 -3.8 -3.8 19.3 18.8 18.8 18.1 -199.296112
+CN− re 0.0001 -0.0072 -0.0050 0.0003 0.0003 -0.0102 -0.0074 -0.00 74 -0.0071 1.1833
+ωe -5.4 63.9 62.2 -9.8 -9.8 102.3 65.6 65.6 63.6 2068.5
+ǫ 3.5 18.7 6.1 3.3 3.3 20.6 18.7 18.7 18.4 -92.69407621
+TABLE II. Error analysis of the equilibrium properties for th e ground electronic state of various
+diatomic molecules computed using the cc-pVTZ basis set. Eq uilibrium bond length ( re) in Å,
+harmonic frequency ( ωe) and anharmonic force constant ( ωexe) in cm −1, energy error with respect
+to CCSD(T) at the CCSD(T) equilibrium geometry ( ǫ) in m Eh. Results for C 2 and F 2 were
+included in the statistics only when available. All results were computed using restricted Hartree–
+Fock orbitals and freezing the Li–F 1s-like molecular orbit als.
+Property SRG(2) SRG(2*) DSRG(2) DSRG(2) DSRG(2) DSRG(2*) D SRG(2*) DSRG(2*) CCSD
+s = 5 s = 5 s = 1 s = 10 s = ∞ s = 1 s = 10 s = ∞
+re
+Mean 0.0005 -0.0052 0.0006 0.0004 0.0005 -0.0088 -0.0067 -0 .0067 -0.0064
+Abs. Mean 0.0016 0.0043 0.0063 0.0016 0.0015 0.0074 0.0056 0 .0055 0.0053
+Std. Dev. 0.0027 0.0053 0.0138 0.0027 0.0025 0.0089 0.0072 0 .0072 0.0067
+Maximum 0.0065 0.0163 0.0398 0.0068 0.0059 0.0268 0.0230 0. 0230 0.0211
+ωe
+Mean -11.9 40.0 10.4 -13.1 -13.9 67.9 45.9 45.6 43.8
+Abs. Mean 17.1 33.4 38.6 18.7 18.4 56.5 38.3 38.0 36.5
+Std. Dev. 23.0 37.2 66.7 25.2 23.8 50.5 40.0 39.8 39.0
+Maximum 41.5 96.4 156.3 45.3 43.7 145.8 102.1 102.1 101.0
+ωexe
+Mean 1.1 -0.4 -2.5 1.7 1.7 -2.2 -0.3 -0.4 -0.3
+Abs. Mean 1.0 0.4 2.3 1.4 1.5 1.9 0.4 0.4 0.4
+Std. Dev. 1.3 0.5 3.9 1.6 1.6 2.5 1.0 1.0 0.8
+Maximum 4.5 1.3 13.3 4.9 4.9 6.8 3.2 3.2 2.4
+ǫ
+Mean -0.4 10.0 6.4 -1.4 -1.4 17.6 13.6 11.9 13.1
+Abs. Mean 3.0 9.2 6.4 3.8 3.8 16.1 12.5 10.9 12.0
+Std. Dev. 4.3 8.4 9.8 6.4 6.5 15.5 10.5 8.2 9.8
+Maximum 9.7 19.3 35.2 17.9 18.4 60.8 36.9 20.9 33.6
+when the commutator approximation C = [ A, B]1,2 is applied to the CCSD method, some
+third-order amplitude diagrams arising from the term 1
+2[[V, T2], T2] have a weight that is
+half the correct value. From this analysis it was suggested t o correct the balance between
+third-order terms by doubling the one-body contributions t o the commutator [V, T2] arising
+from the hole-hole and particle-particle diagrams. This mo diﬁed commutator approximation
+permits to regain the correct balance between third-order t erms in CCSD, and at the same
+it shifts the error to the fourth-order term [[V, T1], T2].
+Here we show that a similar approximation that corrects the b alance between third-order
+diagrams, here indicated with (2*), is beneﬁcial to both the SRG and DSRG, and that in
+22
+the case of the DSRG approach it also eliminates the problems encountered with C 2 and
+F2. The (2*) truncation is deﬁned analogously to the (2) approx imation, except that the
+following matrix elements are multiplied by a factor two:
+[A1, B2]j
+i =2
+∑
+k
+∑
+c
+(Ac
+kBjk
+ic − Ak
+c Bjc
+ik ), (56)
+[A1, B2]b
+a =2
+∑
+k
+∑
+c
+(Ac
+kBbk
+ac − Ak
+c Bbc
+ak). (57)
+Error metrics for the diatomics computed using the commutat or expansion deﬁned by the
+(2*) approximation are also reported in Tables I and II.
+Two points deserve attention. First, errors for the SRG(2*) and DSRG(2*) methods
+computed with respect to CCSD(T) deteriorate, but become al most identical to those of the
+CCSD method. This result indicates that as the commutator ap proximation is improved,
+the RG methods truncated to one- and two-body operators mimi c the CCSD wave function.
+This is in line with formal analyses 83,108,109 and the empirical observation 107,110 of a no free
+lunch result for single-reference electron correlation theorie s. That is, in the case of a single-
+reference wave function, all electron correlation methods truncated to a certain particle rank
+(like for example, singles and doubles) represent a wave fun ction with more or less the same
+degree of accuracy of coupled cluster theory. Second, the mo diﬁed commutator expansion
+improves the robustness of the DSRG(2) method. This can be se en from the fact that
+DSRG(2*) computations on C 2 converge for all values of s tested, and that this scheme
+predict the existence of a minimum for F 2. On the contrary, C 2 and F 2 cannot be converged
+even with the improved SRG(2*) approximation. In conclusio n, although the SRG(2) and
+DSRG(2) methods show good agreement with the CCSD(T) result s, this appears to be a
+consequence of error cancellation in the (2) approximation . In view of these facts, (2*) is
+superior to the (2) approximation.
+C. Bond breaking with the DSRG approach
+In this section we consider the dissociation of an O–H bond in water as a test for the
+robustness of the SRG and DSRG methods. It is important to rei terate that the main
+goal of the single-reference DSRG presented here is to exclu sively describe dynamic electron
+correlation. Since the DSRG does not try to diagonalize dege nerate- or near-degnerate blocks
+of the Hamiltonian, in order to capture static correlation i t is mandatory to formulate
+23
+− 76 .30 
+− 76 .20 
+− 76 .10 
+− 76 .00 
+− 75 .90 
+− 75 .80 
+− 75 .70 
+− 75 .60 
+1 2 3 4 5 6 7
+Energy [ Eh]
+r(O-H)[ ˚
+A] 
+CCSD 
+CCSD(T) 
+SRG(2*)  (s  = 1) 
+DSRG(2*) ( s  = 0.1) 
+HF 
+DSRG(2*) ( s  = 1) 
+DSRG(2*) ( s = ∞ )
+CCSD (OH + H) 
+O
+H
+H
+104.5˚
+r
+˚
+A
+1
+FIG. 4. Ground electronic state potential energy curve of wa ter as a function of one of the O-H
+bond lengths. The other O-H bond and the H-O-H angle were ﬁxed to 1 Å and 104.5 degrees,
+respectively. Results for the SRG(2*) using the White gener ator and the DSRG(2*) were based on
+the modiﬁed recursive approximation for the similarity-tr ansformed Hamiltonian. The ﬁgure also
+reports the energy computed at the Hartree–Fock, CCSD, and C CSD(T) levels of theory. The sum
+of the CCSD energy for the OH and H fragments computed separat ely is indicated with a thick
+black line. All results were computed using restricted Hart ree–Fock orbitals and the cc-pVTZ basis
+set, freezing the oxygen 1s-like molecular orbital.
+a multireference version of the DSRG in which the transforma tion of the Hamiltonian is
+coupled with the diagonalization of ¯H.
+Fig. 4 shows the potential energy curve of H 2O computed with various many-body meth-
+ods. At short bond distances, the CCSD and CCSD(T) curves app ear to be well behaved,
+however, these methods cannot be converged past 6.2 Å. Both t he CCSD and CCSD(T)
+methods do not converge to the proper dissociation limit (H + OH), which was computed as
+the sum of individual fragment energies at the CCSD level. Th e CCSD(T) dissociation limit,
+which is not plotted in Fig. 4, is almost indistinguishable f rom the reported CCSD value.
+The SRG(2) (White generator, s = 1 E−2
+h ) energy curve parallels the CCSD curve, recov-
+ering a smaller percentage of the correlation energy becaus e the ﬂow is not fully converged.
+Like CCSD, the SRG(2*) curve is numerically stable up to abou t 6 Å.
+The DSRG(2*) curves computed for s = 0.1 and 1 E−2
+h are well behaved converging in
+the entire range r ∈ [1, 7] Å. As s is increased, the DSRG(2*) method recovers a larger
+amount of correlation energy, and in the limit s → ∞ the DSRG(2*) follows the CCSD
+24
+energy curve (although it is no longer numerically stable pa st ca. 3.4 Å). It is interesting
+to note that as the OH bonds is elongated, the DSRG(2*) curves with s = 0.1 and 1 E−2
+h
+are found to parallel the Hartree–Fock energy curve. To prop erly describe the dissociation
+of H 2O into H + OH, a zeroth-order wave function is required that co ntains three elec-
+tronic conﬁgurations, generated by distributing two elect rons in the O–H bonding (σOH)
+and antibonding orbitals (σ∗
+OH). In this example, as the (σOH) and (σ∗
+OH) orbitals become
+degenerate, the DSRG suppresses the amplitude correspondi ng to the excitations among
+these orbitals and cannot recover the proper dissociation l imit. Hence, the DSRG energy
+can be approximately divided into a dominant contribution f rom the Hartree–Fock reference
+determinant, which is responsible for the incorrect dissoc iation limit, plus a correction due
+to the dynamic component of electron correlation, which shi fts the reference energy curve
+down.
+VI. SUMMARY AND DISCUSSION
+In this work we considered potential applications of simila rity renormalization group
+(SRG) approaches to quantum chemistry. Contrary to eﬀectiv e Hamiltonian theories that
+treat all excitations out of the reference on equal footing, in the SRG the ﬂow equations
+are organized in such a way as to progressively zero certain e lements of the Hamiltonian,
+starting with those that coupled the reference to the high-e nergy degrees of freedom. The
+original formulation of SRG theory is based on a diﬀerential formalism: the ﬂow equations,
+a set of ordinary diﬀerential equations expressed in terms o f a timelike variable s, must be
+propagated to compute the energy and other properties. In th e limit s → ∞, the SRG ﬂow
+performs a block diagonalization of the non-degenerate com ponents of the Hamiltonian.
+In this regard, the SRG is similar to other non-perturbative many-body approaches like
+the coupled cluster method, canonical diagonalization, an d the anti-Hermitian Schrödinger
+equation. However, if the SRG ﬂow is terminated at ﬁnite s, then this method permits to
+integrate out weak (dynamic) electron correlation from str ong (static) correlation eﬀects,
+yielding an eﬀective renormalized Hamiltonian. Because of this property, RG theories are
+attractive candidates for creating multireference many-b ody approaches that are numerically
+robust. This was our motivation to begin the present study of the similarity renormalization
+group approach.
+25
+In order to address some shortcomings of the SRG, we introduc e a novel integral formu-
+lation of the SRG, which we refer to as the driven SRG (DSRG). T he DSRG transformed
+Hamiltonian, ¯H(s), is parameterized by an exponential similarity transforma tion, which is
+generated by an excitation or anti-Hermitian operator S(s). In the DSRG, certain compo-
+nents of the similarity-transformed Hamiltonian are drive n to zero by a source operator. The
+source operator is required to satisfy boundary conditions compatible with the demand that
+¯H(s = 0) coincides with the bare Hamiltonian, while ¯H(s = ∞) is a block diagonal operator
+in which the reference Slater determinant is decoupled from all the excited determinants.
+The DSRG is a full ﬂedged many-body renormalization approac h and it is computationally
+more advantageous than the SRG since it consists of a set of co upled polynomial equations.
+Furthermore, in the single-reference case, the DSRG equati ons may be viewed as modiﬁed
+coupled cluster or unitary coupled cluster equations.
+We present the ﬁrst comprehensive study of the ground state e quilibrium properties of a
+number of diatomic molecules using the SRG method and the uni tary variant of the DSRG
+approach. In particular, we consider the case of a single-re ference vacuum, and use the (2)
+truncation scheme, which is deﬁned by writing all operators in normal ordered form and
+neglecting three- and higher-body operators. It is found th at for ﬁnite and suﬃciently large
+values of the timelike parameter s, these two methods yield results that are closer to the
+CCSD(T) method. However, we discovered a serious failure of the (2) approximation: the
+SRG(2) and DSRG(2) equations cannot be converged in the case of C 2, and both methods
+appear to predict that F 2 is unbound in the limit s → ∞ . A modiﬁed approximation,
+(2*), correct up to fourth-order, ﬁxes the deﬁciencies of th e (2) approximation in the case
+of the DSRG(2*) approach and yields results that are in close agreement with the CCSD
+ones. While there is certainly room for improving the trunca ted BCH series, 111 the (2*)
+approximation appears to be a viable approach that deserves further scrutiny.
+The theoretical developments and numerical results presen ted here form the basis for
+exploring a number of applications of similarity renormali zation group ideas to electronic
+structure theory. The most interesting aspect to study is th e generalization of the DSRG
+to a multiconﬁgurational reference wave function. In this r egard, the DSRG is expected to
+provide a simple solution to the problem of intruders that ar ises in multireference coupled
+cluster theories. However, there are a number of other intri guing problems that can be
+addressed with the DSRG approach. Recent work on spin-compo nent scaled and attenuated
+26
+perturbation theories 112–114 suggests that the variable s might be considered as a parame-
+ter to ﬁne tune the accuracy of the DSRG second-order perturb ation theory and DSRG(2)
+methods. The DSRG might also be used to address the electroni c structure of extended
+metallic systems for which zero- and ﬁnite-temperature sec ond-order perturbation theories
+are known to diverge. 115,116 Last, because the DSRG induces a renormalization of all inte r-
+actions above the energy cutoﬀ Λ , it also provides an interesting framework for inventing
+new adaptive quantum chemistry methods. 117–128
+ACKNOWLEDGMENTS
+The author is grateful to Philip Shushkov for insightful dis cussions on renormalization
+theory. John F. Stanton is acknowledged for suggesting the w ater potential energy curve
+as an example of system for which CCSD fails to converge. This work was supported by
+start-up funds provided by Emory University.
+Appendix: Matrix elements of C = [A, B]1,2
+An operator A containing at most two-body terms may be written in normal or dered
+form with respect to the reference Φ as:
+A = A0 + A1 + A2, (A.1)
+where A0 is a scalar, and
+A1 =
+∑
+pq
+Aq
+p{ˆap
+q}, (A.2)
+A2 =
+∑
+pqrs
+Ars
+pq{ˆapq
+rs}, (A.3)
+with the second quantization operator written compactly as ˆap
+q = ˆa†
+pˆaq and ˆapq
+rs = ˆa†
+pˆa†
+qˆasˆar.
+The commutator C = [A, B]1,2 contains contributions from the following terms:
+C0 = ⟨Φ | [A1, B1] |Φ ⟩ + ⟨Φ | [A2, B2] |Φ ⟩, (A.4)
+C q
+p = [A1, B1]q
+p + [A1, B − side]q
+p − [B1, A2]q
+p + [A2, B2]q
+p, (A.5)
+C rs
+pq = [A1, B2]rs
+pq − [B1, A2]rs
+pq + [A2, B2]rs
+pq, (A.6)
+27
+where the unique contributions to the matrix elements are:
+⟨Φ | [A1, B1] |Φ ⟩ =
+∑
+p
+∑
+i
+(Ap
+i Bi
+p − Bp
+i Ai
+p), (A.7)
+⟨Φ | [A2, B2] |Φ ⟩ = 1
+4
+∑
+ij
+∑
+ab
+(Aab
+ij Bij
+ab − Bab
+ij Aij
+ab), (A.8)
+[A1, B1]q
+p =
+∑
+r
+(Ar
+pBq
+r − Br
+pAq
+r), (A.9)
+[A1, B2]q
+p =
+∑
+i
+∑
+a
+Aa
+i Bqi
+pa − Ai
+aBqa
+pi , (A.10)
+[A2, B2]q
+p = 1
+2
+∑
+ij
+∑
+a
+(
+Aij
+apBaq
+ij − Aaq
+ij Bij
+ap
+)
+(A.11)
++ 1
+2
+∑
+i
+∑
+ab
+(
+Aab
+ip Biq
+ab − Aiq
+abBab
+ip
+)
+,
+[A1, B2]rs
+pq =
+∑
+t
+[
+P (pq)At
+pBrs
+tq − P (rs)Ar
+t Bts
+pq
+]
+, (A.12)
+[A2, B2]rs
+pq = 1
+2
+∑
+ab
+(Aab
+pqBrs
+ab − Ars
+abBab
+pq ) (A.13)
+− 1
+2
+∑
+ij
+(Aij
+pqBrs
+ij − Ars
+ij Bij
+pq)
++
+∑
+i
+∑
+a
+P (pq)P (rs)
+[
+Ara
+pi Bsi
+qa − Ari
+paBsa
+qi
+]
+.
+REFERENCES
+1C. Bloch, Nucl. Phys. 6, 329 (1958).
+2K. F. Freed, J. Chem. Phys. 60, 1765 (1974).
+3B. H. Brandow, in Advances in Quantum Chemistry (Elsevier, 1977) pp. 187–249.
+4P.-O. Löwdin, J. Mol. Spectrosc. 10, 12 (1963).
+5T. D. Crawford and H. F. Schaefer, Rev. Comp. Chem. 14, 33 (2000).
+6R. J. Bartlett and M. Musiał, Rev. Mod. Phys. 79, 291 (2007).
+7I. Shavitt and R. J. Bartlett, Many-Body Methods in Chemistry and Physics: MBPT and
+Coupled-Cluster Theory (Cambridge University Press, 2009).
+8D. Mukherjee, R. K. Moitra, and A. Mukhopadhyay, Mol. Phys. 30, 1861 (1975).
+9I. Lindgren, Int. J. Quantum Chem., Quantum Chem. Symp. 12, 33 (1978).
+28
+10W. Kutzelnigg, J. Chem. Phys. 77, 3081 (1982).
+11M. A. Haque and D. Mukherjee, J. Chem. Phys. 80, 5058 (1984).
+12L. Z. Stolarczyk and H. J. Monkhorst, Phys. Rev. A 32, 725 (1985).
+13R. Oﬀermann, W. Ey, and H. Kümmel, Nucl Phys A 273, 349 (1976).
+14J. F. Stanton and R. J. Bartlett, J. Chem. Phys. 98, 7029 (1993).
+15M. Nooijen and R. J. Bartlett, J. Chem. Phys. 102, 3629 (1995).
+16M. Nooijen and R. J. Bartlett, J. Chem. Phys. 106, 6441 (1997).
+17A. I. Krylov, Chem. Phys. Lett. 338, 375 (2001).
+18S. Levchenko and A. I. Krylov, J. Chem. Phys. 120, 175 (2004).
+19S. V. Levchenko, T. Wang, and A. I. Krylov, J. Chem. Phys. 122, 224106 (2005).
+20A. I. Krylov, Annu. Rev. Phys. Chem. 59, 433 (2008).
+21L. E. Nitzsche and E. R. Davidson, J. Chem. Phys. 68, 3103 (1978).
+22K. Andersson, P.-Å. Malmqvist, B. O. Roos, A. Sadlej, and K. W olinski, J. Phys. Chem.
+94, 5483 (1990).
+23P. M. Kozlowski and E. R. Davidson, J. Chem. Phys. 100, 3672 (1994).
+24R. K. Chaudhuri, K. F. Freed, G. Hose, P. Piecuch, K. Kowalski , M. Włoch, S. Chat-
+topadhyay, D. Mukherjee, Z. Rolik, Á. Szabados, G. Tóth, and P. R. Surján, J. Chem.
+Phys. 122, 134105 (2005).
+25B. Jeziorski and H. J. Monkhorst, Phys. Rev. A 24, 1668 (1981).
+26U. S. Mahapatra, B. Datta, and D. Mukherjee, Mol. Phys. 94, 157 (1998).
+27U. S. Mahapatra, B. Datta, and D. Mukherjee, J. Chem. Phys. 110, 6171 (1999).
+28J. Mášik, I. Hubač, and P. Mach, J. Chem. Phys. 108, 6571 (1998).
+29J. Pittner, P. Nachtigall, P. Cársky, J. Mášik, and I. Hubač, J. Chem. Phys. 110, 10275
+(1999).
+30M. Hanrath, J. Chem. Phys. 123, 084102 (2005).
+31L. Kong, Int. J. Quantum Chem. 109, 441 (2009).
+32D. Datta, L. Kong, and M. Nooijen, J. Chem. Phys. 134, 214116 (2011).
+33D. Datta and M. Nooijen, J. Chem. Phys. 137, 204107 (2012).
+34M. Nooijen, O. Demel, D. Datta, L. Kong, K. R. Shamasundar, V. Lotrich, L. M. Hunt-
+ington, and F. Neese, J. Chem. Phys. 140, 081102 (2014).
+35S. Evangelisti, J. P. Daudey, and J. P. Malrieu, Phys. Rev. A 35, 4930 (1987).
+36K. Kowalski and P. Piecuch, Phys. Rev. A 61, 052506 (2000).
+29
+37K. Kowalski and P. Piecuch, Int. J. Quantum Chem. 80, 757 (2000).
+38J. P. Malrieu, P. Durand, and J. P. Daudey, J. Phys. A 18, 809 (1985).
+39M. B. Lepetit and J. P. Malrieu, Chem. Phys. Lett. 208, 503 (1993).
+40B. O. Roos and K. Andersson, Chem. Phys. Lett. 245, 215 (1995).
+41X. Assfeld, J. E. Almlöf, and D. G. Truhlar, Chem. Phys. Lett. 241, 438 (1995).
+42P. R. Surján and Á. Szabados, J. Chem. Phys. 104, 3320 (1996).
+43J. P. Finley, J. Chem. Phys. 112, 6997 (2000).
+44H. A. Witek, Y.-K. Choe, J. P. Finley, and K. Hirao, J. Comput. Chem. 23, 957 (2002).
+45T. Yanai, Y. Kurashige, E. Neuscamman, and G. K.-L. Chan, Phy s. Chem. Chem. Phys.
+14, 7809 (2012).
+46D. Stück and M. Head-Gordon, J. Chem. Phys. 139, 244109 (2013).
+47A. G. Taube and R. J. Bartlett, J. Chem. Phys. 130, 144112 (2009).
+48U. S. Mahapatra, B. Datta, B. Bandyopadhyay, and D. Mukherje e, Adv. Quantum Chem.
+30, 163 (1998).
+49T. Yanai and G. K.-L. Chan, J. Chem. Phys. 127, 104107 (2007).
+50F. A. Evangelista and J. Gauss, J. Chem. Phys. 134, 114102 (2011).
+51M. Hanauer and A. Köhn, J. Chem. Phys. 134, 204111 (2011).
+52F. A. Evangelista, M. Hanauer, A. Köhn, and J. Gauss, J. Chem. Phys. 136, 204108
+(2012).
+53M. Hanauer and A. Köhn, J. Chem. Phys. 137, 131103 (2012).
+54D. Sinha, R. Maitra, and D. Mukherjee, Comp. Theor. Chem. 1003, 62 (2013).
+55Z. Chen and M. R. Hoﬀmann, J. Chem. Phys. 137, 014108 (2012).
+56M. Nooijen and R. J. Bartlett, J. Chem. Phys. 104, 2652 (1996).
+57M. Nooijen and R. J. Bartlett, J. Chem. Phys. 107, 6812 (1997).
+58S. Głazek and K. G. Wilson, Phys. Rev. D 48, 5863 (1993).
+59S. D. Glazek and K. G. Wilson, Phys. Rev. D 49, 4214 (1994).
+60F. Wegner, Ann. Phys. 506, 77 (1994).
+61K. G. Wilson, Rev. Mod. Phys. 47, 773 (1975).
+62S. R. White, Phys. Rev. Lett. 69, 2863 (1992).
+63F. Wegner, Phys Rep 348, 77 (2001).
+64E. Körding and F. Wegner, J. Phys. A 39, 1231 (2006).
+65F. Wegner, J. Phys. A 39, 8221 (2006).
+30
+66S. Kehrein, The Flow Equation Approach to Many-Particle Systems (Springer, Berlin,
+2006).
+67K. Tsukiyama, S. K. Bogner, and A. Schwenk, Phys. Rev. Lett. 106, 222502 (2011).
+68K. Tsukiyama, S. K. Bogner, and A. Schwenk, Phys. Rev. C 85, 061304 (2012).
+69H. Hergert, S. K. Bogner, S. Binder, A. Calci, J. Langhammer, R. Roth, and A. Schwenk,
+Phys. Rev. C 87, 034307 (2013).
+70H. Hergert, S. Binder, A. Calci, J. Langhammer, and R. Roth, P hys. Rev. Lett. 110,
+242501 (2013).
+71S. K. Bogner, R. J. Furnstahl, and R. J. Perry, Phys. Rev. C 75, 061001 (2007).
+72R. Roth, S. Reinhardt, and H. Hergert, Phys. Rev. C 77, 064003 (2008).
+73E. D. Jurgenson, S. K. Bogner, R. J. Furnstahl, and R. J. Perry , Phys. Rev. C 78, 014003
+(2008).
+74R. J. Furnstahl and K. Hebeler, Rep. Prog. Phys. 76, 126301 (2013).
+75S. R. White, J. Chem. Phys. 117, 7472 (2002).
+76D. Mukherjee, Chem. Phys. Lett. 274, 561 (1997).
+77W. Kutzelnigg and D. Mukherjee, J. Chem. Phys. 107, 432 (1997).
+78Notice that in the notation used here the top and bottom indic es of the matrix elements
+of the many-body operators are switched with respect to the t raditional notation. For
+example, the coupled cluster amplitudes are written as tij
+ab instead of tab
+ij . However, this
+way of writing indices reﬂects the proper tensor character o f the many-body operators.
+79E. Anderson, S. K. Bogner, R. J. Furnstahl, E. D. Jurgenson, R . J. Perry, and A. Schwenk,
+Phys. Rev. C 77, 037001 (2008).
+80N. C. Handy, J. A. Pople, M. Head-Gordon, K. Raghavachari, an d G. W. Trucks, Chem.
+Phys. Lett. 164, 185 (1989).
+81The matrix elements ηa
+i (s) and ηab
+ij (s) are computed from Eqs. (26) and (27) as ηa
+i (s) =
+−ηi
+a(s) and ηab
+ij (s) = −ηij
+ab(s).
+82D. A. Pigg, G. Hagen, H. Nam, and T. Papenbrock, Phys. Rev. C 86, 014308 (2012).
+83W. Kutzelnigg, in Recent Progress in Coupled Cluster Methods , edited by P. Cársky,
+J. Paldus, and J. Pittner (Springer, Dordrecht, 2010) pp. 29 9–356.
+84This problem is analogous to the one encountered in unitary c oupled cluster theory, where
+it is necessary to truncate the Baker–Campbell–Hausdorﬀ ex pansion for ¯H. However, in
+the coupled cluster version of DSRG, the similarity-transf ormed Hamiltonian truncates
+31
+after four commutators, and thus, it is not necessary to appr oximate the corresponding
+amplitude equations.
+85T. Yanai and G. K.-L. Chan, J. Chem. Phys. 124, 194106 (2006).
+86First-order perturbation theory does not provide insight i nto the form of the triples and
+higher amplitude equations, and several options are possib le. One possibility is a gener-
+alization of the singles and doubles equations for R(s):
+rij···
+ab···(s) =
+[ ¯H ij···
+ab···(s) + tij···
+ab···∆ ij···
+ab···
+]
+e−s(∆ ij···
+ab···)2
+, (A.14)
+but the simpler condition:
+rij···
+ab···(s) = 0 , (A.15)
+also appears to be viable.
+87D. A. Mazziotti, Phys. Rev. Lett. 97, 143002 (2006).
+88D. A. Mazziotti, Phys. Rev. A 75, 022505 (2007).
+89D. A. Mazziotti, Chem. Rev. 112, 244 (2012).
+90P. Pulay, Chem. Phys. Lett. 73, 393 (1980).
+91G. E. Scuseria, T. Lee, and H. F. Schaefer, Chem. Phys. Lett. 130, 236 (1986).
+92R. J. Bartlett, S. A. Kucharski, and J. Noga, Chem. Phys. Lett . 155, 133 (1989).
+93W. Kutzelnigg, Int. J. Quantum Chem. 95, 404 (2003).
+94W. Kutzelnigg and D. Mukherjee, J. Chem. Phys. 120, 7340 (2004).
+95K. Kowalski and P. Piecuch, J. Chem. Phys. 113, 18 (2000).
+96K. Kowalski and P. Piecuch, J. Chem. Phys. 113, 5644 (2000).
+97P. Piecuch, K. Kowalski, I. S. O. Pimienta, and M. J. McGuire, Int. Rev. Phys. Chem.
+21, 527 (2002).
+98P. Piecuch and M. Włoch, J. Chem. Phys. 123, 224105 (2005).
+99J. M. Turney, A. C. Simmonett, R. M. Parrish, E. G. Hohenstein , F. A. Evangelista,
+J. T. Fermann, B. J. Mintz, L. A. Burns, J. J. Wilke, M. L. Abram s, N. J. Russ, M. L.
+Leininger, C. L. Janssen, E. T. Seidl, W. D. Allen, H. F. Schae fer, R. A. King, E. F.
+Valeev, C. D. Sherrill, and T. D. Crawford, WIREs Comput. Mol . Sci. 2, 556 (2011).
+100E. Fehlberg, “Classical Fifth-, Sixth-, Seventh-, and Eigh th-Order Runge-Kutta Formulas
+with Stepsize Control,” Tech. Rep. NASA Technical Report 28 7 (1968).
+101Boost C++ Libraries, version 1.55.0 (www.boost.org).
+102T. H. Dunning, Jr., J. Chem. Phys. 90, 1007 (1989).
+32
+103T. D. Crawford and H. F. Schaefer, J. Chem. Phys. 104, 6259 (1996).
+104G. Herzberg, Molecular Spectra and Molecular Structure I. Spectra of Dia tomic Molecules,
+2nd ed., Vol. I (Van Nostrand, New York, 1950).
+105This result is inferred from the the observation that the SRG (2) and the DSRG(2) energy
+decreases as the F–F bond is stretched beyond the CCSD(T) equ ilibrium value, and that
+past a certain bond length, the energy cannot be converged.
+106M. Pabst, A. Köhn, J. Gauss, and J. F. Stanton, Chem. Phys. Let t. 495, 135 (2010).
+107F. A. Evangelista and J. Gauss, Chem. Phys. 401, 27 (2012).
+108W. Kutzelnigg, Theor. Chim. Acta 80, 349 (1991).
+109W. Kutzelnigg, Mol. Phys. 94, 65 (1998).
+110B. Cooper and P. J. Knowles, J. Chem. Phys. 133, 234102 (2010).
+111E. Neuscamman, T. Yanai, and G. K.-L. Chan, J. Chem. Phys. 130, 124102 (2009).
+112S. Grimme, J. Chem. Phys. 118, 9095 (2003).
+113Y. Jung, R. C. Lochan, A. D. Dutoi, and M. Head-Gordon, J. Chem . Phys. 121, 9793
+(2004).
+114M. Goldey, A. Dutoi, and M. Head-Gordon, Phys. Chem. Chem. Ph ys. 15, 15869 (2013).
+115S. Hirata and X. He, J. Chem. Phys. 138, 204112 (2013).
+116X. He, S. Ryu, and S. Hirata, J. Chem. Phys. 140, 024702 (2014).
+117C. F. Bender and E. R. Davidson, Phys. Rev. 183, 23 (1969).
+118R. J. Buenker and S. D. Peyerimhoﬀ, Theor. Chim. Acta 35, 33 (1974).
+119B. Huron, J. P. Malrieu, and P. Rancurel, J. Chem. Phys. 58, 5745 (1973).
+120H. Nakatsuji, J. Chem. Phys. 94, 6716 (1991).
+121M. L. Abrams and C. D. Sherrill, Chem. Phys. Lett. 412, 121 (2005).
+122L. Bytautas and K. Ruedenberg, Chem. Phys. 356, 64 (2009).
+123D. I. Lyakh and R. J. Bartlett, J. Chem. Phys. 133, 244112 (2010).
+124A. J. W. Thom, Phys. Rev. Lett. 105, 263004 (2010).
+125A. Landau, K. Khistyaev, S. Dolgikh, and A. I. Krylov, J. Chem . Phys. 132, 014109
+(2010).
+126A. Melnichuk and R. J. Bartlett, J. Chem. Phys. 137, 214103 (2012).
+127S. Ten-no, J. Chem. Phys. 138, 164126 (2013).
+128F. A. Evangelista, J. Chem. Phys. 140, 124114 (2014).
+33

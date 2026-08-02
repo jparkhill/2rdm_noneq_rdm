@@ -1,0 +1,1858 @@
+Automatic derivation of fermionic many-body theories based on general
+Fermi vacua
+Francesco A. Evangelista 1, a)
+Department of Chemistry and Cherry Emerson Center for Scientiﬁc Computation, Emory University, Atlanta, GA,
+30322
+(Dated: 4 May 2022)
+This paper describes Wick&d, an implementation of the algebra of second-quantized operators normal
+ordered with respect to general correlated references and the corresponding Wick theorem [W. Kutzelnigg
+and D. Mukherjee, J. Chem. Phys. 107, 432 (1997)]. Wick&d employs a compact representation of
+operators and a backtracking algorithm to eﬃciently evaluate Wick contractions. Since Wick&d can handle
+both fully and partially contracted terms, it can be applied to both projective and Fock-space many-body
+formalisms. To demonstrate the usefulness of Wick&d, we use it to evaluate the single-reference coupled
+cluster equations up to octuple excitations and report an automated derivation and implementation of the
+second-order driven similarity renormalization group multireference perturbation theory (DSRG-MRPT2).
+I. INTRODUCTION
+The formalism of second quantization, ﬁrst developed
+in the context of the quantum ﬁeld theory,1 plays a funda-
+mental role in many-body perturbation theory, 2 coupled
+cluster methods,3–5 and Green’s functions approaches6–12
+for molecules and solids. Two important tools for the
+manipulation and simpliﬁcation of expressions involving
+second-quantized operators are Wick’s theorem13 and di-
+agrammatic methods. 14 These are traditionally formu-
+lated using particle/hole quasiparticle operators deﬁned
+with respect to a single determinant Fermi vacuum (ref-
+erence state). However, even though these tools can sim-
+plify the derivation of equations for many-body theories,
+this process is prone to human error and may be quite
+lengthy or even impossible to complete in a reasonable
+amount of time.
+In the past three decades, computer-aided deriva-
+tion of many-body equations has played an ever-
+increasing role in quantum chemistry. 15 Starting with
+the pioneering works of Janssen and Schaefer 16 and
+Li and Paldus, 17,18 the early 2000s saw the rapid de-
+velopment of automatic derivation and implementa-
+tion tools based on algebraic, 19–26 diagrammatic27–30
+and string or determinant-based methods. 31–35 Re-
+cently, automatic derivation has been extended into
+many new directions, including arbitrary order response
+and derivatives, 36,37 systems with coupled fermionic
+and bosonic degrees of freedom, 38 more general vacua
+(Hartree–Fock–Bogoliubov, Bardeen-Cooper-Schrieﬀer,
+or antisymmetrized geminal power states) 39,40 nuclear
+structure theory,41–43 and the manipulation of quantum
+circuits.44 Several works have also investigated the prob-
+lem of optimizing tensor operations (factorization, global
+optimization of the contraction order, the identiﬁcation
+of reusable intermediates, the identiﬁcation of common
+factors).45–48
+a)Electronic mail: francesco.evangelista@emory.edu
+In the case of multireference (MR) many-body
+methods,49–51 automatic derivation may be crucial to
+achieving a numerical implementation, as in many cases
+the underlying equations are too complicated for man-
+ual derivation and implementation. Examples of au-
+tomated implementations of multireference theories in-
+clude equation-of-motion multireference coupled clus-
+ter (MRCC),25 arbitrary-order Mukherjee’s state-speciﬁc
+MRCC,52 internally-contracted MRCC, 53–57 and ana-
+lytic energy gradients and derivative couplings of mul-
+tireference perturbation theories. 58,59
+An important tool for the derivation of equations
+of internally-contracted multireference theories 60–66 is
+the generalized normal ordering approach by Mukher-
+jee and Kutzelnigg (MK). 67,68 Mukherjee and Kutzel-
+nigg proposed an extension of the deﬁnition of normal-
+ordered operators and Wick’s theorem that applies to
+general correlated Fermi vacua. The MK formalism
+provides the theoretical framework for extending Fock
+space or “many-body equations” methods 69–72 to the
+multireference case. Later works have formalized proofs
+of the MK formalism 73,74 and examined the issues
+of spin adaptation. 75,76 The MK approach is founda-
+tional to several methods, including canonical trans-
+formation theory, 65 explicitly correlated basis set in-
+completeness corrections,77,78 various equation-of-motion
+multireference coupled cluster methods, 25,79–82 and sim-
+ilarity renormalization group approaches. 83–85
+This paper describes an eﬃcient approach to imple-
+ment the MK version of Wick’s theorem that com-
+bines a compact representation of operator contrac-
+tions with a backtracking algorithm. Our representa-
+tion of operators is related and generalizes diagram-
+matic approaches used by others. 27,54,56 The algorithm
+described in this work is implemented in the Wick’s
+theorem and diagrammatic code Wick&d (which we
+pronounce “wicked”), an open-source package developed
+by us and available from GitHub.86 Wick&d oﬀers
+similar functionality to other software designed for the
+derivation of multireference theories, including Neuscam-
+man’s SQA package,87,88 Valeev’s SeQuant2,89 Kong
+arXiv:2205.01178v1  [physics.chem-ph]  2 May 2022
+2
+and Nooijen’s automatic program generator APG,90
+K¨ ohn’sGeCCo program,56,91 Shiozaki’s Smith,30,92 and
+the ADG program.41–43 However, some of the features
+unique to Wick&d include the ability to generate both
+projective and Fock-space (many-body) equations and
+the support for an arbitrary number of orbital subspaces.
+The article is organized as follows. In Sec. II we sum-
+marize the MK general normal ordering formalism and
+the corresponding Wick’s theorem. Section III describes
+a general strategy to implement the MK general normal
+ordering and Wick’s theorem. Example applications of
+Wick&d to single-reference and multireference methods
+are reported in Sec. IV. In Sec. V we conclude with a
+discussion of the main features, limitations, and future
+extension of Wick&d.
+II. THEORY
+A. Synopsis of the generalized normal ordering formalism
+In this section, we summarize the main results
+of the Mukherjee–Kutzelnigg normal ordering formal-
+ism for general vacua and the corresponding Wick’s
+theorem.67,68,73 We follow the convention of writing prod-
+ucts of second-quantized operators using the compact no-
+tation
+ˆapq···
+rs··· = ˆa†
+pˆa†
+q··· ˆasˆar, (1)
+where upper (lower) indices correspond to creation (anni-
+hilation) operators and are read from left to right (right
+to left).
+Consider an arbitrary N-electron reference state Ψ 0.
+Mukherjee and Kutzelnigg deﬁne a normal-ordered oper-
+ator product{ˆapq···
+rs···} to satisfy the condition
+⟨Ψ0|{ˆapq···
+rs···}|Ψ0⟩ = 0. (2)
+This deﬁnition can be applied recursively—starting from
+single substitution operators {ˆap
+s}—to express normal-
+ordered operators in terms of bare operators and re-
+duced density matrices of the reference state γpq···
+rs··· =
+⟨Ψ0|ˆapq···
+rs···|Ψ0⟩.74 A product of second-quantized opera-
+tors ˆq1ˆq2··· , with ˆqi∈{ ˆa†
+p}∪{ ˆap}, can be expressed as
+a sum of normal-ordered terms using a generalization of
+Wick’s theorem:
+ˆq1ˆq2··· ={ˆq1ˆq2···} +
+∑
+single
+pairs
+{ˆq1ˆq2···}
++
+∑
+double
+pairs
+{ˆq1ˆq2···} +
+∑
+single
+4-leg
+{ˆq1ˆq2···}
++
+∑
+triple
+pairs
+{ˆq1ˆq2···} +
+∑
+single
+pairs
+∑
+single
+4-leg
+{ˆq1ˆq2···} +....
+(3)
+When compared to Wick’s theorem for a Slater determi-
+nant reference (e.g., see Refs. 93 and 14) the generalized
+form contains two new aspects. Firstly, pairwise contrac-
+tions yield elements of the one-particle ( γ1) or one-hole
+(η1) density matrices:
+ˆa†
+pˆaq =γp
+q≡⟨ Ψ0|ˆap
+q|Ψ0⟩, (4)
+ˆaqˆa†
+p =ηp
+q =δp
+q−γp
+q. (5)
+Secondly, in addition to pairwise contractions, new multi-
+legged contractions appear. A 2k-leg contraction (k≥ 2)
+involvesk creation andk annihilation operators and cor-
+responds to elements of the k-body density cumulant
+(λk) of the reference Ψ 0.67,94,95 For example, the fol-
+lowing 4-leg contraction evaluates to an element of the
+2-body density cumulant λpq
+rs:
+ˆa†
+pˆa†
+qˆasˆar =λpq
+rs =γpq
+rs−γp
+rγq
+s +γp
+sγq
+r. (6)
+Multi-leg contractions are antisymmetric with respect to
+permutations of the operators involved, for example:
+ˆa†
+pˆa†
+qˆasˆar =−ˆa†
+pˆasˆa†
+qˆar =.... (7)
+Two important simpliﬁcations apply to complete ac-
+tive space (CAS) references. Firstly, since cumulants are
+zero when one or more indices correspond to empty or
+fully occupied spinorbitals, multi-leg contractions only
+connect operators labeled by active indices. Secondly,
+the one-particle density matrix is block diagonal, with
+the occupied (unoccupied) block equal to the identity
+(zero) matrix.
+A second Wick theorem helps express a product of
+normal-ordered operators { ˆA}{ ˆB}···{ ˆZ} as a single
+normal-ordered product { ˆA ˆB··· ˆZ} plus a sum of con-
+tractions:
+{ ˆA}{ ˆB}···{ ˆZ} ={ ˆA ˆB··· ˆZ} +
+∑
+single
+pairs
+{ ˆA ˆB··· ˆZ}
++
+∑
+double
+pairs
+{ ˆA ˆB··· ˆZ} +
+∑
+single
+4-leg
+{ ˆA ˆB··· ˆZ}
++
+∑
+triple
+pairs
+{ ˆA ˆB··· ˆZ} +....
+(8)
+Since the starting operators are normal ordered, Eq. (8)
+excludes contractions that exclusively involve second-
+quantized operators within a normal-ordered group. This
+second form of Wick’s theorem plays a central role in the
+derivation of expressions of internally-contracted mul-
+tireference theories.
+3
+III. IMPLEMENTATION OF WICK’S THEOREM
+In this section, we describe a general procedure to eval-
+uate Eq. (8) when the orbital space is partitioned into an
+arbitrary number of subspaces. We begin by deﬁning
+three types of orbital subspaces and then proceed to de-
+scribe a canonical representation of operators, a directed
+hypergraph (diagrammatic) representation of Wick con-
+tractions, and a backtracking approach for generating all
+unique Wick contractions.
+A. Orbital subspaces and reference types
+To describe the structure of the general reference state
+Ψ0, we partition the set of orthonormal spinorbitals S =
+{ψ1,ψ 2,... } into s disjoint sets Sk (orbital subspaces),
+such that
+S =∪s
+k=1Sk. (9)
+The structure of the reference Ψ0 is deﬁned by constraints
+on the occupation of the orbitals in each subspace. We
+consider three types of orbital subspaces:
+1. Occupied. All spinorbitals in this subspace are
+occupied by one electron.
+2. General. These spinorbitals are partially occupied
+in the reference, and consequently, the correspond-
+ing density matrices and cumulants are nontrivial.
+3. Unoccupied. All spinorbitals in this subspace are
+empty.
+The restrictions on the one-body density matrix, hole
+density matrix, and cumulants for each of these subspaces
+are reported in Tab. I. In Wick&d, the reference state
+is speciﬁed by the number of orbital subspaces and their
+type. This information is provided by the user and it is
+fully customizable. For example, a mean-ﬁeld reference
+wave function (a single Slater determinant), is speciﬁed
+by partitioning S into occupied (O, occupied) and virtual
+(V, unoccupied) orbitals. A CAS reference is instead
+speciﬁed by splitting S into core ( C, occupied), active
+(A, general), and virtual ( V, unoccupied) sets.
+TABLE I. Deﬁnition of the orbital subspaces handled by
+Wick&d.
+Subspace γp
+q ηp
+q λpq···
+rs···
+Occupied δp
+q 0 0
+General γp
+q ηp
+q λpq···
+rs···
+Unoccupied 0 δp
+q 0
+B. Canonical form of operators and their representation
+The automatic enumeration of Wick contractions ben-
+eﬁts from expressing all normal-ordered operators in a
+canonical form. Then, an operator can be identiﬁed
+uniquely by the number of second-quantized operators
+that create and annihilate particles in each orbital sub-
+space. To express this canonical form in a compact way,
+we ﬁrst introduce a convenient notation for products of
+second-quantized operators. We write a product of n+
+k
+second-quantized creation operators that act on subspace
+Sk as
+ˆa†
+p1ˆa†
+p2···
+  
+n+
+k
+= ˆaPk, (10)
+wherePk = (p1,...,p n+
+k
+) is a multi-index. Similarly, we
+deﬁne a product ofn−
+k annihilation operators in subspace
+Sk as
+··· ˆaq2ˆaq1
+  
+n−
+k
+= ˆaQk, (11)
+whereQk is the multi-indexQk = (q1,...,q n−
+k
+). This no-
+tation allows us to deﬁne a product of second-quantized
+operators in canonical order as
+P1
+n+
+1
+P2
+n+
+2
+···Q 2
+n−
+2
+Q1
+n−
+1
+≡ ˆaP1P2···
+Q1Q2···, (12)
+where groups of creation (annihilation) operators are or-
+dered according to increasing (decreasing) subspace in-
+dex.
+Using the notation of Eq. (12), we write a normal-
+ordered operator ˆΩ in canonical form as
+ˆΩ = 1
+n+
+1 !n+
+2 !··· n−
+1 !n−
+2 !···
+∑
+P1P2···
+∑
+Q1Q2···
+ωQ1Q2···
+P1P2···{ˆaP1P2···
+Q1Q2···},
+(13)
+whereωQ1Q2···
+P1P2··· is a tensor antisymmetric with respect to
+separate permutations of upper and lower indices, while
+the numerical prefactor accounts for equivalent terms.
+The term in Eq. (13) corresponds to a vertex labeled by a
+label (“ω”) and an operator matrix N = [n+ n−], where
+n+ = [n+
+1,...,n +
+s ] and n− = [n−
+1,...,n −
+s ] are column
+vectors that deﬁne the number of creation and annihila-
+tion operators in each orbital subspace, respectively. In
+this article, we represent such an object with a matrix
+and a label:
+ˆΩ↔ N
+ω =
+
+
+n+
+1 n−
+1
+... ...
+n+
+s n−
+s
+
+
+ω
+← S1
+...
+← Ss
+(14)
+Next, we provide some examples to illustrate how this
+canonical representation of operators works. For a CAS
+reference, S is partitioned into core, active, and virtual
+sets, S = C∪ A∪ V. Then, a single excitation operator
+4
+that promotes an electron from a core to an active orbital
+is represented by a 3× 2 matrix:
+ˆTAC =
+C∑
+m
+A∑
+u
+tm
+u{ˆa†
+uˆam}↔
+
+
+0 1
+1 0
+0 0
+
+
+t
+← C
+← A
+← V , (15)
+where the corresponding second-quantized operators and
+entries in the matrix representation are indicated with
+the same color. Note that we labeled this operator with
+the orbital subspace labels ( AC) corresponding to the
+sequence of second-quantized operators (ˆ a†
+uˆam). The
+two-electron operator corresponding to the replacement
+ψvψu→ ψmψe (with ψu,ψv∈ A, ψm∈ C, and ψe∈ V)
+is represented by the matrix:
+ˆVCVAA = 1
+2
+C∑
+m
+A∑
+uv
+V∑
+e
+vuv
+me{ˆa†
+mˆa†
+eˆavˆau}↔
+
+
+1 0
+0 2
+1 0
+
+
+v
+,
+(16)
+wherevuv
+me =⟨me||uv⟩ is an antisymmetrized two-electron
+integral in physicist notation. The prefactor 1/2 accounts
+for the equivalent contributions of terms in which the
+indices u and v are exchanged.
+The same notation may be extended to deﬁne a prod-
+uct of operators. In this case we just arrange the matrices
+according to the order of the operators and assign a nu-
+merical prefactor to the entire expression. For example,
+the product ˆVCVAA 1
+2
+ˆT 2
+AC is represented as an ordered list
+of operator matrices and labels multiplied by the scalar
+factor 1/2:
+ˆVCVAA
+1
+2
+ˆT 2
+AC↔ 1
+2
+
+
+1 0
+0 2
+1 0
+
+
+
+
+0 1
+1 0
+0 0
+
+
+
+
+0 1
+1 0
+0 0
+
+
+v t t
+. (17)
+C. Representation of contractions
+Having deﬁned a canonical representation for normal-
+ordered operators, we proceed to deﬁne a canonical rep-
+resentation of Wick contractions [Eq. (8)]. As shown in
+Fig. 1A, a Wick contraction expressed in algebraic form
+may be represented as a diagram, that is, a graph in
+which vertices correspond to normal-ordered operators
+and edges represent contractions. In this interpretation,
+contractions (edges) can connect an arbitrary number of
+operators and they encode the type of second-quantized
+operator connected (creation or annihilation); therefore,
+one can establish a correspondence between diagrams and
+directed hypergraphs (Fig. 1B). One way to represent a
+directed hypergraph is via an incidence matrix (Fig. 1C)
+that encodes how the edges (contractions) connect to the
+vertices.
+When discussing Wick contractions, we distinguish be-
+tween elementary (connected) and composite (discon-
+A
+B
+C
+vertices
+Directed hypergraph incidence matrix
+Wick contraction
+Diagram
+edges
+FIG. 1. Illustration of how Wick contractions are represented
+in Wick&d. Here we consider one term contributing to
+ˆVCVAA ˆT 2
+AC. (A) Algebraic representation of a Wick contrac-
+tion. (B) Diagrammatic representation of the Wick contrac-
+tion (a directed hypergraph). (C) Wick contraction encoded
+as an incidence matrix where the vertices and edges represent
+operators and elementary contractions, respectively. Arrows
+pointing in (out of) a vertex correspond to annihilation (cre-
+ation) operators.
+nected) contractions. Elementary contractions are indi-
+vidual 2k-leg contractions involving two or more second-
+quantized operators and will be denoted as Ci. To rep-
+resent contractions we use a notation similar to the one
+used for normal-ordered operators. For each operator, we
+represent an elementary contraction with a matrix C =
+[c+ c−], where c+ = [c+
+1,...,c +
+s ] and c− = [c−
+1,...,c −
+s ]
+are column vectors that deﬁne the number of creation
+and annihilation operators contracted in each orbital sub-
+space, respectively. Then, an elementary contraction can
+be represented as a list of contraction matrices:
+C = C1C2··· (18)
+For example, consider the single-reference partitioning
+S = O∪ V and the product
+1
+4
+O∑
+ijk
+V∑
+abc
+fc
+ktij
+ab{ˆa†
+kˆac}{ˆa†
+aˆa†
+bˆajˆai}. (19)
+5
+The single contraction between the leftmost creation op-
+erator ˆa†
+k (red) and the rightmost annihilation operator
+ˆai (blue) is represented in the following way:
+1
+4
+O∑
+ijk
+V∑
+abc
+fc
+ktij
+ab{ˆa†
+kˆacˆa†
+aˆa†
+bˆajˆai}↔
+[
+1 0
+0 0
+] [
+0 1
+0 0
+]
+[
+1 0
+0 1
+] [
+0 2
+2 0
+]
+f t
+(20)
+This representation does not specify the operators con-
+tracted within each group and may be used to desig-
+nate all contractions that yield the same algebraic term.
+For example, in addition to the contraction shown in
+Eq. (20), one should also consider the following contrac-
+tion obtained by connecting ˆa†
+j instead of ˆa†
+i:
+1
+4
+O∑
+ijk
+V∑
+abc
+fc
+ktij
+ab{ˆa†
+kˆacˆa†
+aˆa†
+bˆajˆai}
+=1
+4
+O∑
+ijk
+V∑
+abc
+fc
+ktji
+ab{ˆa†
+kˆacˆa†
+aˆa†
+bˆai ˆaj}
+=1
+4
+O∑
+ijk
+V∑
+abc
+fc
+ktij
+ab{ˆa†
+kˆacˆa†
+aˆa†
+bˆajˆai}
+(21)
+However, as shown above, since the tensor tij
+ab is anti-
+symmetric, after permuting the indices i and j and re-
+arranging, this second contraction is identical to the one
+in Eq. (20). To account for these two equivalent contrac-
+tions, when translating the incidence matrix in Eq. (20)
+to its algebraic form we multiply it by a combinatorial
+factor of 2. This is an example of a Wick contraction that
+connects equivalent second-quantized operators, deﬁned
+as operators of the same type (creation/annihilation) act-
+ing on the same orbital subspace. The representation
+of composite contractions used in Wick&d exploits this
+equivalence to minimize the number of terms generated
+and to facilitate the identiﬁcation of identical terms.
+A term resulting from Wick’s theorem corresponds to
+a combination of elementary contractions, which we refer
+to as a composite contraction. A composite contraction
+is represented by stacking rows of contraction matrices
+in the hypergraph incidence matrix. Since an elemen-
+tary contraction may appear more than once in a com-
+posite contraction, and the order of these is immaterial,
+the latter may be also represented with a multiset (e.g.,
+{C1,C1,C2}). The following example illustrates the rep-
+resentation of a pair of 2-leg contractions:
+1
+4
+O∑
+ijk
+V∑
+abc
+fc
+ktij
+ab{ˆa†
+kˆacˆa†
+aˆa†
+bˆajˆai}↔
+[
+0 0
+0 1
+] [
+0 0
+1 0
+]
+[
+1 0
+0 0
+] [
+0 1
+0 0
+]
+[
+1 0
+0 1
+] [
+0 2
+2 0
+]
+f t
+. (22)
+The top matrix row is a contraction that connects a pair
+of virtual annihilation/creation operators (orange/blue),
+while the middle matrix row is a contraction involving oc-
+cupied creation/annihilation operator pair (red/green).
+A more complex example is reported in Fig. 1, where in
+a CAS setting an elementary contraction of four opera-
+tors yields a two-body cumulant (indicated in red).
+Notice that the representation adopted here may be
+redundant if the only valid elementary contractions are
+those between operators acting on the same subspace.
+However, there are cases when such an assumption is too
+restrictive. For example, one way to generate spin in-
+tegrated equations is to split the orbital subspaces into
+alpha and beta spin sets. Then a term involving a mixed
+spin case cumulant would require expressing contractions
+of both alpha ( Aα) and beta ( Aβ) active orbitals, as
+shown in the following example:
+Aα∑
+uαvα
+Aβ∑
+uβvβ
+fvα
+uαtvβ
+uβ{ˆa†
+uαˆavαˆa†
+uβ ˆavβ
+  
+λ
+uαuβ
+vαvβ
+}↔
+[
+1 1
+0 0
+] [
+0 0
+1 1
+]
+[
+1 1
+0 0
+] [
+0 0
+1 1
+]
+← Aα
+← Aβ
+f t
+.
+(23)
+D. Generation of Wick contractions
+To identify all valid operator contractions eﬃciently,
+Wick&d uses a backtracking algorithm. The following
+subsections describes the steps of this algorithm.
+1. Generation of elementary contractions
+In the ﬁrst step, the code identiﬁes all the elementary
+contractions between the groups of second-quantized op-
+erators. We deﬁne these as all contractions of pairs of op-
+erators for occupied/unoccupied orbital subspaces (ˆa†
+pˆaq,
+ˆaqˆa†
+p) and the 2k-leg contractions for general orbital sub-
+spaces [see Eq. (6)]. In deﬁning elementary contractions,
+we consider only one out of the potentially many equiva-
+lent contractions that can be obtained by permuting op-
+erators of the same type (creation/annihilation) that act
+on the same orbital subspace. For example, consider a
+6
+1
+2
+3
+4
+5 7
+6 8
+9
+10
+11
+FIG. 2. Illustration of how the backtracking algorithm gener-
+ates all Wick’s theorem contractions for the term ˆVCCAA ˆTAACC
+[see Eq. (24)]. Black dashed lines indicate steps in which el-
+ementary contractions are added to a composite contraction.
+Red dashed lines indicate backtracking steps.
+CAS reference with orbitals partitioned as S = C∪ A∪ V,
+and the product ˆVCCAA ˆTAACC:
+1
+16
+C∑
+c1c2c3c4
+A∑
+a1a2a3a4
+va3a4
+c3c4tc1c2
+a1a2{ˆa†
+c3ˆa†
+c4ˆaa4ˆaa3}{ˆa†
+a1ˆa†
+a2ˆac2ˆac1}
+(24)
+If we ignore the orbital labels, this term may be written
+as{ˆa†
+Cˆa†
+CˆaAˆaA}{ˆa†
+Aˆa†
+AˆaCˆaC}. There are three elementary
+contractions for this case. A contraction of a pair of
+core creation-annihilation operators, represented by the
+following edge in the incidence matrix
+{ˆa†
+Cˆa†
+CˆaAˆaA}{ˆa†
+Aˆa†
+AˆaCˆaC}↔
+
+
+1 0
+0 0
+0 0
+
+
+
+
+0 1
+0 0
+0 0
+
+ =C1, (25)
+a contraction between a pair of active annihilation-
+creation operators
+{ˆa†
+Cˆa†
+CˆaAˆaA}{ˆa†
+Aˆa†
+AˆaCˆaC}↔
+
+
+0 0
+0 1
+0 0
+
+
+
+
+0 0
+1 0
+0 0
+
+ =C2, (26)
+and a 4-leg contraction among all the operators that act
+on the active orbitals
+{ˆa†
+Cˆa†
+CˆaAˆaA}{ˆa†
+Aˆa†
+AˆaCˆaC}↔
+
+
+0 0
+0 2
+0 0
+
+
+
+
+0 0
+2 0
+0 0
+
+ =C3. (27)
+2. Generation of composite contractions by backtracking
+We employ a backtracking algorithm to identify all
+multisets that correspond to allowed combinations of el-
+ementary contractions. This algorithm essentially visits
+all the relevant branches of a tree whose leaves represent
+all possible multisets of elementary contractions. The
+backtracking algorithm used in Wick&d is both eﬃcient
+and ﬂexible, since it applies to an arbitrary number of or-
+bital subspaces. As an example, Fig. 2 shows the steps
+taken by the backtracking algorithm to ﬁnd all compos-
+ite contractions that arise from the term in Eq. (24).
+We start from the fully uncontracted term, represented
+by the empty multiset {}. Then in step (1), we test
+the solution obtained by adding the ﬁrst elementary con-
+traction (C1), and because this is a valid contraction, we
+add it to the current solution, obtaining the composite
+contraction{C1}. In step (2), the current contraction is
+combined with the elementary contractionC1 again, lead-
+ing to{C1,C1}, which is validated and added to the list
+of composite contractions. At this point, it is no longer
+possible to add moreC1 contractions, and we proceed by
+adding the next contraction in the list,C2. This contrac-
+tion can be added up to two times, yielding the compos-
+ite contractions{C1,C1,C2} and{C1,C1,C2,C2} [steps (3)
+and (4)]. At the end of step (4), all second-quantized
+operators are contracted, and the algorithm backtracks
+to{C1,C1}. In step (5) we test and add the contraction
+C3, and then backtrack up to the contraction {C1}. The
+algorithm proceeds for six more steps, at which point all
+valid contractions have been enumerated.
+Up to this stage we have selected only one of the pos-
+sible permutations of contractions of equivalent set of
+operators (same type and orbitals space). Therefore, the
+backtracking algorithm produces a list of valid contrac-
+tions that are equivalent to diagrams with distinct con-
+nectivity. Nevertheless, it is still possible to generate iso-
+morphic diagrams that yield equivalent algebraic terms,
+and these are dealt with in the next step.
+7
+3. Contraction canonicalization
+An important task in automatic derivation of many-
+body equations is expressing equivalent terms into a
+canonical form so that they can be collected. In
+Wick&d, we employ early canonicalization, whereby
+contractions are canonicalized before converting them to
+algebraic expressions. Currently, Wick&d implements
+an exhaustive (combinatorial) canonicalization procedure
+of composite contractions. Consider, for example, the
+commutator [ ˆVAAAA, ˆTAAAA], where
+ˆVAAAA = 1
+4
+A∑
+stuv
+vuv
+st{ˆast
+uv}, ˆTAAAA = 1
+4
+A∑
+wxyz
+tyz
+wx{ˆawx
+yz}.
+(28)
+If we consider the product ˆVAAAA ˆTAAAA, one of the con-
+tributions to the fully contracted terms is (omitting the
+rows corresponding to the C and V spaces)
+1
+16vuv
+sttyz
+wx{ˆa†
+sˆa†
+tˆavˆauˆa†
+wˆa†
+xˆazˆay}↔
+[2 0] [0 2]
+[0 2] [2 0]
+[2 2] [2 2]
+v t
+.
+The equivalent contraction for the product ˆTAAAA ˆVAAAA
+is given by
+1
+16vuv
+sttyz
+wx{ˆa†
+wˆa†
+xˆazˆayˆa†
+sˆa†
+tˆavˆau}↔
+[2 0] [0 2]
+[0 2] [2 0]
+[2 2] [2 2]
+t v
+.
+These two terms yield identical algebraic expressions and
+this can be shown by expressing both of them in canon-
+ical form. In manipulating the incidence matrix we are
+allowed to reorder the contractions (rows) and operators
+(columns) as long as the resulting expression is equivalent
+to the original contraction. In the present example, start-
+ing from the contraction of ˆTAAAA ˆVAAAA, we may permute
+the two groups of operators (by swapping columns):
+1
+16vuv
+sttyz
+wx{ˆa†
+sˆa†
+tˆavˆauˆa†
+wˆa†
+xˆazˆay}↔
+[0 2] [2 0]
+[2 0] [0 2]
+[2 2] [2 2]
+v t
+.
+and then interchange the order of contractions (by swap-
+ping the top two rows) to obtain the same incidence ma-
+trix for the corresponding term arising from ˆVAAAA ˆTAAAA.
+Once expressed in a canonical form, these two contri-
+butions cancel, giving a zero contribution for the term
+⟨Ψ0|[ ˆVAAAA, ˆTAAAA]|Ψ0⟩.
+To automate the identiﬁcation of equivalent terms, we
+deﬁne an ordering of the directed hypergraph incidence
+matrices, and we deﬁne the canonical form as the min-
+imal element out of all possible incidence matrices that
+represent the same term. The details of this procedure
+are discussed in Appendix A.
+4. Conversion of contractions to algebraic expressions
+After all composite contractions are generated and
+equivalent contributions are combined, each term is con-
+verted to an algebraic expression. Consider, for example,
+the following contraction
+{C1,C1}→ {ˆa†
+Cˆa†
+CˆaAˆaAˆa†
+Aˆa†
+AˆaCˆaC}. (29)
+To convert it to an algebraic expression, we ﬁrst assign
+distinct indices to the operators in the order in which
+they appear in the second-quantized operators
+1
+16va2a1
+c1c2tc4c3
+a3a4{ˆa†
+c1ˆa†
+c2ˆaa1ˆaa2ˆa†
+a3ˆa†
+a4ˆac3ˆac4}. (30)
+Next, we reorder this term so that second-quantized op-
+erators that appear in the same contraction are adjacent,
+keeping track of sign factors that arise from permutations
+1
+16va2a1
+c1c2tc4c3
+a3a4 ˆa†
+c1ˆac4
+  
+δc1c4
+ˆa†
+c2ˆac3
+  
+δc2c3
+{ˆaa1ˆaa2ˆa†
+a3ˆa†
+a4}. (31)
+After elimination of the Kronecker delta factors we arrive
+at the expression
+1
+16va2a1
+c1c2tc1c2
+a3a4{ˆaa1ˆaa2ˆa†
+a3ˆa†
+a4}, (32)
+which is brought into a canonical form by rearranging the
+second-quantized operators and relabeling the indices. In
+the last step, this contribution is multiplied by a combi-
+natorial factor (2) that keeps into account the following
+identical contribution that diﬀers by a permutations of
+two equivalent operators
+{C1,C1}→ {ˆa†
+Cˆa†
+CˆaAˆaAˆa†
+Aˆa†
+AˆaCˆaC}. (33)
+The resulting canonical expression for the contraction
+{C1,C1} is:
+1
+8
+C∑
+c1c2
+A∑
+a1a2a3a4
+va3a4
+c1c2tc1c2
+a1a2{ˆa†
+a1ˆa†
+a2ˆaa4ˆaa3}. (34)
+The equation for the combinatorial factor of a general
+contraction is reported in Appendix B. The results of
+Wick’s theorem lead to a sum of normal-ordered opera-
+tors that may be subsequently processed or implemented
+as tensor contractions.
+E. Implementation
+The algebra of second-quantized operators and the
+backtracking algorithm to generate Wick contractions
+are implemented in Wick&d, an open-source C++ li-
+brary exposed as a Python module via the pybind11
+8
+library.96 Wick&d’s C++ library deﬁnes various classes
+used to represent diagrams (using the hypergraph inci-
+dence matrix) and algebraic terms that represent equa-
+tions in terms of explicit orbital indices. The Wick&d
+repository includes several Jupyter-notebook tutorials on
+the use of the API and various examples applications
+(including the ones described in this paper). Currently,
+Wick&d supports the derivation of spinorbital or spin-
+integrated expressions. Spin adaptation of these equa-
+tions is an extension planned for future releases of the
+code.
+IV. EXAMPLE APPLICATIONS
+In this section we showcase two applications of
+Wick&d to the derivation of single-reference and mul-
+tireference many-body theories.
+A. High-order coupled cluster theory
+In our ﬁrst example we derive expressions for the cou-
+pled cluster (CC) theory residuals (rij···
+ab···):
+rij···
+ab··· =⟨Φ|{ˆaij···
+ab···} ¯H|Φ⟩ (35)
+where ¯H = exp( − ˆT ) ˆH exp( ˆT ) is the similarity-
+transformed Hamiltonian. Here the operator ˆT = ˆT1 +
+ˆT2+... + ˆTn is a sum of particle-hole excitation operators
+up to order n, with a generic operator ˆTk deﬁned as
+ˆTk = 1
+(k!)2
+O∑
+ij···
+V∑
+ab···
+tij···
+ab···{ˆaab···
+ij···}. (36)
+Notice that our index notation for the cluster amplitudes
+tij···
+ab··· corresponds to the traditional notation14,93 with up-
+per/lower indices swapped. We obtain the CC amplitude
+expressions by ﬁrst evaluating the many-body operator
+¯H
+¯H =E0 +
+∑
+pq
+¯Hq
+p{ˆap
+q} + 1
+4
+∑
+pqrs
+¯Hrs
+pq{ˆapq
+rs} +..., (37)
+and then by extracting the tensor components ¯Hij···
+ab···
+corresponding to the particle-hole excitation operators
+{ˆaab···
+ij···}. From Wick’s theorem it follows that the k-th
+order CC residuals⟨Φ|{ˆaij···
+ab···} ¯H|Φ⟩ are related to the ten-
+sor elements ¯Hij···
+ab··· by separate antisymmetrization of the
+upper and lower indices:
+rij···
+ab··· = (k!)2Aij···Aab··· ¯Hij···
+ab···, (38)
+whereApq··· is the antisymmetrizer, deﬁned as the sum
+over the k! permutations of the indices p,q,... divided
+by 1/k!. Note that Eq. (38) applies only in the case of
+single-reference theories, and in the multireference case
+the residual is a more complicated expression of the ten-
+sor ¯Hij···
+ab···, density matrices, and cumulants.
+The number of unique terms (diagrams) in CC with
+excitation level n ranging from 2 (CCSD) to 8 (CCS-
+DTQPH78) computed with Wick&d are reported in
+Tab. II. At each truncation level, we conﬁrmed that
+Wick&d yields the same number of diagrams reported
+by K´ allay and Surj´ an in their study of arbitrary order
+CC methods. 27 Together with the number of diagrams,
+we also report the runtime of Wick&d, showing that
+derivation of even CC equations with up to octuple exci-
+tations can be performed in less than a minute.
+As a ﬁnal test, we numerically validated the CCSD
+and CCSDT residual equations derived by Wick&d by
+implementing them in a pilot Python code. We used inte-
+grals computed with Psi497 and generated code that calls
+the tensor contraction function einsum implemented in
+the numpy library98 and veriﬁed that this implementa-
+tion matches reference energies.
+TABLE II. Evaluation of the coupled cluster residual equa-
+tions with Wick&d. For each level of theory, the table re-
+ports the execution time (on an Apple M1 Max laptop) and
+the number of unique terms contributing to the residual equa-
+tions at a given particle-hole excitation level.
+Theory Time Diagrams per excitation level
+(s) 0 1 2 3 4 5 6 7 8
+CCSD 0.1 3 14 31
+CCSDT 0.7 3 15 37 47
+CCSDTQ 2.4 3 15 38 53 74
+CCSDTQP 6.3 3 15 38 54 80 99
+CCSDTQPH 13.8 3 15 38 54 81 105 135
+CCSDTQPH7 26.0 3 15 38 54 81 106 141 169
+CCSDTQPH78 45.4 3 15 38 54 81 106 142 175 215
+B. Second-order driven similarity renormalization group
+multireference perturbation theory
+The second example uses Wick&d to implement the
+second-order driven similarity renormalization multiref-
+erence perturbation theory (DSRG-MRPT2). 99 For the
+sake of brevity, here we focus on the essential aspects of
+DSRG-MRPT2 relevant to the derivation of the corre-
+sponding equations and direct the interested reader to
+consult a recent review for further details. 85 In the uni-
+tary DSRG formalism, the bare Hamiltonian ( ˆH) is di-
+agonalized by a continuous unitary transformation:
+ˆH↦→ ¯H(s) =e− ˆA(s) ˆHe
+ˆA(s), (39)
+where ¯H(s) is the transformed Hamiltonian and ˆA(s) =
+ˆT (s)− ˆT†(s) is an anti-Hermitian operator that depends
+on a time-like parameter s deﬁned in the range [0 ,∞).
+The DSRG energy is given by the expectation value
+of ¯H(s) with respect to a CASSCF reference state Ψ 0,
+E(s) =⟨Ψ0| ¯H(s)|Ψ0⟩. The operator ˆA(s) is obtained by
+9
+1 import wicked as w
+2
+3 # define orbital s u b s p a c e s
+4 w . a d d _ s p a c e ( " c " , " fermion " , " o ccu pi ed " , [ " i " , " j " ," k " ])
+5 w . a d d _ s p a c e ( " a " , " fermion " , " general " , [ " u " ," v " ," w " ," x " ," y " ," z " ])
+6 w . a d d _ s p a c e ( " v " , " fermion " , " u n o c c u p i e d " , [ " a " , " b " ," c " ])
+7
+8 # define the zeroth - and first - order H a m i l t o n i a n
+9 H0 = w . op ( " F " ,[ " c + c " ," a + a " , " v + v " ])
+10 F1 = w . utils . gen_op ( " F " ,1 , " cav " ," cav " , d ia gon al = False )
+11 V1 = w . utils . gen_op ( " V " ,2 , " cav " ," cav " )
+12 H1 = F1 + V1
+13
+14 # define the cluster op er at or
+15 T1 = w . utils . gen_op ( " T1 " ,1 , " av " ," ca " , d iag on al = False )
+16 T2 = w . utils . gen_op ( " T2 " ,2 , " av " ," ca " , d iag on al = False )
+17 A = T1 - T1 . adjoint () + T2 - T2 . adjoint ()
+18
+19 # define the e f f e c t i v e first - order op er ato r
+20 Hbar1 = H1 + w . c o m m u t a t o r ( H0 , A )
+21
+22 # define the second - order energy
+23 E2 = w . c o m m u t a t o r ( H1 , A ) + w . ra tio na l (1 ,2) * w . c o m m u t a t o r ( H0 ,A , A )
+24
+25 # g ene ra te e x p r e s s i o n s
+26 wt = w . W i c k T h e o r e m ()
+27 H b a r 1 e x p r = wt . con tr ac t ( Hbar1 , 1 , 1) + wt . c ont ra ct ( Hbar1 , 2 , 2)
+28 E2expr = wt . con tr act ( E2 , 0 , 0)
+29
+30 print ( E2expr )
+Listing 1. Wick&d code to derive the DSRG-MRPT2 energy expression reported in Eq. (47).
+solving a set of Fock-space many-body equations of the
+form [ ¯H(s)]N = ˆR(s), where the subscript “N” indicates
+the non-diagonal part of ¯H(s). The tensor component of
+the source operator ˆR(s) takes the form
+rij···
+ab···(s) = [ ¯Hij···
+ab···(s) +tij···
+ab···(s)∆ij···
+ab···]e−s(∆ij···
+ab···)2
+, (40)
+andrab···
+ij··· (s) = [rij···
+ab···(s)]∗. In Eq. (40) ∆ ij···
+ab··· is a general-
+ized Møller–Plesset denominator deﬁned in terms of the
+diagonal components of the Fock matrix (ϵp =fp
+p ),
+∆ij···
+ab··· =ϵi +ϵj +···− ϵa−ϵb−··· . (41)
+The DSRG-MRPT2 uses a diagonal Fock partitioning,
+whereby the Hamiltonian normal-ordered with respect to
+Ψ0 is split according to ˆH = ˆH(0) +ξ ˆH(1). The zeroth-
+order Hamiltonian ˆH(0) is the sum of the reference energy
+(E0) and a diagonal one-body operator [ ˆF (0)]:
+ˆH(0) =E0 + ˆF (0) =E0 +
+G∑
+p
+ϵp{ˆap
+p}. (42)
+The ﬁrst-order amplitudes that enter the operator ˆA(1)(s)
+are obtained by solving the following linear equation
+(omitting the variable “s”)
+[ ¯H(1)]N≡
+(
+ˆH(1) + [ ˆH(0), ˆA(1)]
+)
+N
+= ˆR(1), (43)
+while the second-order energy is given by
+E(2) =⟨Ψ0|[ ˆH(1), ˆA(1)] + 1
+2[[ ˆH(0), ˆA(1)], ˆA(1)]|Ψ0⟩.
+(44)
+Listing 1 shows how to use Wick&d to evaluate
+Eqs. (43) and (44) in terms of molecular integrals and the
+ﬁrst-order amplitude equations. In this listing we deﬁne
+the C, A, and V orbital subspaces (lines 4–6), specify the
+form of the operators ˆH(0), ˆH(1) (lines 9–12) and the anti-
+Hermitian operator ˆA(1) (lines 15–17), form the operator
+¯H(1) (line 20), deﬁne the second-order energy (line 23),
+and ﬁnally apply Wick’s theorem to evaluate ¯H(1) and
+the second-order energy (lines 27 and 28). The result-
+ing second-order energy expression contains 226 contrac-
+tions. This number may be reduced to 24 contractions by
+introducing the following intermediate ˜H(1) = ˆH(1) + ˆR,
+which allows us to rewrite E(2) as99
+E(2) =⟨Ψ0|[ ˜H(1), ˆT (1)]|Ψ0⟩, (45)
+where ˜H(1) is a general two-body operator
+˜H(1) =E0 +
+∑
+pq
+˜fq
+p{ˆap
+q} + 1
+4
+∑
+pqrs
+˜vrs
+pq{ˆapq
+rs} (46)
+The energy expression derived by Wick&d using
+10
+Eq. (45) is reproduced below
+E(2) =ηv
+u ˜fu
+i ti
+v + ˜fa
+iti
+a + ˜fa
+uγu
+vtv
+a
+− 1
+2
+˜fu
+i λwx
+uvtiv
+wx− 1
+2
+˜fa
+uλux
+vwtvw
+xa
++ 1
+2λwx
+uvti
+x˜vuv
+iw− 1
+2λwx
+uvtu
+a˜vva
+wx
++ 1
+2ηv
+uηx
+wγz
+ytiy
+vx˜vuw
+iz + 1
+4ηv
+uηx
+wtij
+vx˜vuw
+ij + 1
+2ηv
+uγx
+wγz
+ytwy
+va ˜vua
+xz
++ηv
+uγx
+wtiw
+va˜vua
+ix−ηv
+uλyz
+wxtiw
+vz ˜vux
+iy + 1
+4ηv
+uλyz
+wxtwx
+va ˜vua
+yz
++ 1
+2ηv
+utij
+va˜vua
+ij + 1
+4γv
+uγx
+wtuw
+ab ˜vab
+vx + 1
+4γv
+uλyz
+wxtiu
+yz ˜vwx
+iv
+−γv
+uλyz
+wxtuw
+za ˜vxa
+vy + 1
+2γv
+utiu
+ab˜vab
+iv + 1
+8λwx
+uvtij
+wx˜vuv
+ij
+−λwx
+uvtiu
+xa˜vva
+iw + 1
+8λwx
+uvtuv
+ab ˜vab
+wx + 1
+4λxyz
+uvwtiu
+yz ˜vvw
+ix
+− 1
+4λxyz
+uvwtuv
+za ˜vwa
+xy + 1
+4tij
+ab˜vab
+ij
+(47)
+In this expression we use Einstein notation and assign
+the labels to the orbital subspaces in the following way:
+i,j ∈ C,u,v,w,x,y,z ∈ A, anda,b∈ C. We numerically
+validated both versions of the DSRG-MRPT2 equations
+[Eqs. (44) and (45)] by implementing them in a pilot
+Python code using an interface to Forte.100 This imple-
+mentation also used Wick&d to derive and test equa-
+tions for the ﬁrst-order amplitude equations.
+V. DISCUSSION AND CURRENT LIMITATIONS
+We have presented a computational strategy to eval-
+uate Mukherjee and Kutzelnigg’s generalized version of
+Wick’s theorem in the case of an arbitrary number of or-
+bital subspaces. Our approach represents Wick contrac-
+tions using directed hypergraphs represented as incidence
+matrices. To rapidly evaluate all Wick terms, it enu-
+merates all elementary contractions among the operators
+to be contracted and uses a backtracking algorithm to
+generate combinations of elementary contractions (com-
+posite contractions). This algorithm forms the basis for
+the automated derivation of many-body equations im-
+plemented in the open-source software library Wick&d.
+We have illustrated the utility of this code by deriving
+the single-reference coupled cluster equations through
+octuple excitations and the energy expressions for the
+second-order multireference driven similarity renormal-
+ization group perturbation theory (DSRG-MRPT2). The
+correctness of these equations was veriﬁed via pilot nu-
+merical implementations of CCSD, CCSDT, and DSRG-
+MRPT2.
+In its current form, Wick&d is capable of deriving
+many-body equations that can be used for the purpose
+of exploring new theories and developing pilot implemen-
+tations. In the case of multireference theories, Wick&d
+is particularly useful for the derivation of equations of
+internally-contracted methods. Although in our exam-
+ples we have emphasized the formalism for a general
+reference state, our framework is equally applicable to
+derive equations for state-averaged theories of multiple
+electronic states 101,102 and, more generally, ensembles
+of states. Given its ability to describe an arbitrary
+number of fermionic spaces, another unexplored applica-
+tion of Wick&d would be the derivation of many-body
+equations for systems involving electrons and fermionic
+nuclei.103,104
+In the future, we plan to expand the capabilities of
+Wick&d in several directions. To generate eﬃcient im-
+plementations, it would be desirable to develop post-
+processing modules to spin adapt the equations generated
+by Wick&d, and to identify reusable tensor intermedi-
+ates. It would also be interesting to extend the Wick’s
+theorem kernel to more general references. Examples in-
+clude the ability to consider number-symmetry-broken
+vacua that require the inclusion of anomalous contrac-
+tions (e.g., among operators of the same type like ˆa†
+i ˆa†
+j).
+Similarly, it would be desirable to expand Wick&d to
+mixed fermionic/bosonic ﬁelds to enable the derivation
+of many-body equations for strongly interacting electron-
+phonon105 and electron-photon systems. 106,107
+ACKNOWLEDGMENTS
+The author would like to thank Jonathon Misiewicz
+and Ilias Magoulas for providing feedback on a draft of
+this work. Thanks also go to Matthias Hanauer, Andreas
+K¨ ohn, Liguo Kong, Chenyang Li, and Luther Blissett
+for insightful discussions in the early stages of concep-
+tualizing the design of Wick&d. This work was sup-
+ported by a grant from the U.S. Department of Energy
+under Award No. DE-SC0016004 and a Camille Dreyfus
+Teacher-Scholar Award (TC-18-045).
+Appendix A: Ordering of incidence matrices and directed
+hypergraph canonical form
+In this appendix, we deﬁne an ordering on the set of
+all possible equivalent incidence matrices representing a
+Wick contraction of K operators and L elementary con-
+tractions. We then discuss how this ordering is used to
+deﬁne a canonical form of the directed hypergraph rep-
+resentation. An incidence matrix W may be represented
+by a table of matrices and labels:
+W =
+C1L C2L ··· CKL
+... ... ...
+C12 C22 ··· CK2
+C11 C21 ··· CK1
+N1 N2 ··· NK
+ω1 ω2 ··· ωK
+, (A1)
+11
+where Ni and ωi are the operator matrix and label cor-
+responding to the i-th operator, respectively, while Cij
+is the contraction matrix for the i-th operator and j-th
+elementary contraction.
+Now consider an equivalent incidence matrix W′ ob-
+tained by permuting the rows and columns of the inci-
+dence matrix shown in Eq. (A1), which we write as
+W′ =
+C′
+1L C′
+2L ··· C′
+KL
+... ... ...
+C′
+12 C′
+22 ··· C′
+K2
+C′
+11 C′
+21 ··· C′
+K1
+N′
+1 N′
+2 ··· N′
+K
+ω′
+1 ω′
+2 ··· ω′
+K
+(A2)
+For two given incidence matrices W andW′, we test
+for the condition W <W′ using lexicographic ordering.
+Speciﬁcally, we ﬁrst compare the operator labels and ma-
+trices and identify the ﬁrst place i where the elements
+(Ni,ωi) and ( N′
+i,ω′
+i) diﬀer. If ωi < ω′
+i, then W <W′.
+If ωi =ω′
+i, then we test for Ni < N′
+i, by comparing the
+entries of the two columns of Ni and N′
+i lexicographi-
+cally. If ωi >ω′
+i thenW′ <W. If the operator matrices
+and labels are identical, we then proceed to compare the
+contraction matrices Cij and C′
+ij, one row at a time.
+The ﬁrst place where two contraction matrices diﬀer, we
+compare Cij and C′
+ij lexicographically. If Cij < C′
+ij
+thenW <W′, otherwiseW′ <W.
+Once an ordering of the incidence matrices is deﬁned,
+we consider the subset of valid incidence matrices out
+of the K!L! possible ones obtained by permuting the
+position of the K operators and L elementary contrac-
+tions. The element of this subsetW that is minimal (i.e.,
+W <W′ for eachW′) is the Wick contraction canonical
+form.
+Appendix B: Combinatorial factor
+In this appendix, we report the equations for the com-
+binatorial factor associated with the incidence matrix
+representation of a Wick contraction. To illustrate how
+the combinatorial factor is derived, we use a simple ex-
+ample. Consider the following three-leg (red) and two-leg
+(blue) contractions of a group of n second-quantized op-
+erators:
+{··· ˆq1··· ˆqn···}→{··· ˆq1··· ˆqn···} . (B1)
+We assume that the operators ˆq1··· ˆqn are of the same
+type (creation or annihilation) and act on the same or-
+bital subspace. The number of permutations of the con-
+tractions legs is given by number of ways one can assign
+the three legs of the red contraction ( n choose 3) times
+the number of ways one can assign the two legs of the
+blue contraction (n− 3 choose 2) to the remaining n− 3
+uncontracted operators. It is easy to see that this quan-
+tity corresponds to a multinomial factor
+(n
+3
+)(n− 3
+2
+)
+= n!
+3!2!(n− 3− 2)! =
+( n
+2, 3,n− 2− 3
+)
+,
+(B2)
+where the multinomial factor is deﬁned as
+( n
+c1,...,c m
+)
+= n!
+c1!··· cm!. (B3)
+The total combinatorial factor for a Wick contraction
+is the product of combinatorial factors for each type of
+operator (creation/annihilation) and orbital subspace. In
+the case of a Wick contraction involving two or more
+equivalent contractions, an additional numerical factor
+must be included to avoid double counting contractions
+that are indistinguishable. The following example shows
+the case of a composite contraction with three equivalent
+elementary contractions,
+{ˆq1ˆq2···}{ ˆq′
+1ˆq′
+2···} , (B4)
+which reduces the total combinatorial factor by 1 /3!.
+In the most general case, we consider a contraction
+involving K operators characterized by operator ma-
+trices Ni = [ n+
+i n−
+i ] with n+
+i = ( n+
+1i,...,n +
+si) and
+n−
+i = (n−
+1i,...,n −
+si), where i = 1,...,K labels oper-
+ators and s is the number of orbital subspaces. The
+composite contraction connecting these operators is de-
+ﬁned by the contraction matrices Cij = [c+
+ij c−
+ij], where
+c+
+ij = (c+
+1,ij,...,c +
+s,ij) and c−
+ij = (c−
+1,ij,...,c −
+s,ij) are the
+number of contractions of operator i with the elemen-
+tary contractionj = 1,...,L in each subspace. Then the
+combinatorial factor for a contraction takes the form
+∏L
+i=1D(n+
+i ,{c+
+ij}L
+j=1)D(n−
+i ,{c−
+ij}L
+j=1)
+mC1!mC2!··· , (B5)
+where the function D is deﬁned in terms of the multino-
+mial factor
+D(n,{cj}L
+j=1) =
+s∏
+k=1
+( nk
+ck1,...,c kL,nk−∑L
+j ckj
+)
+,
+(B6)
+while mCj is the number of times an elementary con-
+tractionCj appears in the composite contraction being
+evaluated.
+1P. A. M. Dirac, Proc. R. Soc. Lond. A 114, 243 (1927).
+2C. Møller and M. S. Plesset, Phys. Rev. 46, 618 (1934).
+3F. Coester, Nucl. Phys. 7, 421 (1958).
+4F. Coester and H. K¨ ummel, Nucl. Phys.17, 477 (1960).
+5J. ˇC´ ıˇ zek, J. Chem. Phys.45, 4256 (1966).
+6D. Bohm and D. Pines, Phys. Rev. 82, 625 (1951).
+7D. Pines and D. Bohm, Phys. Rev. 85, 338 (1952).
+8L. Hedin, Phys. Rev. 139, A796 (1965).
+9P. W. Langhoﬀ and A. J. Hernandez, Chem. Phys. Lett. (1977).
+10J. Schirmer, Phys. Rev. A 26, 2395 (1982).
+11J. Schirmer and G. Angonoa, J. Chem. Phys. 91, 1754 (1989).
+12
+12L. J. Holleboom and J. Snijders, J. Chem. Phys.93, 5826 (1990).
+13G. Wick, Phys. Rev. 80, 268 (1950).
+14I. Shavitt and R. J. Bartlett, Many-Body Methods in Chemistry
+and Physics: MBPT and Coupled-Cluster Theory , Cambridge
+University Press (Cambridge University Press, 2009).
+15S. Hirata, Theor. Chem. Acc. 116, 2 (2006).
+16C. L. Janssen and H. F. Schaefer, Theor. Chim. Acta 79, 1
+(1991).
+17J. Paldus and H. Wong, Comput. Phys. Commun. 6, 1 (1973).
+18X. Li and J. Paldus, J. Chem. Phys. 101, 8812 (1994).
+19F. E. Harris, Int. J. Quantum Chem. 75, 593 (1999).
+20M. Nooijen and V. Lotrich, J. Mol. Struct. 547, 253 (2001).
+21M. Nooijen, Int. J. Mol. Sci. 3, 656 (2002).
+22S. Hirata, J. Phys. Chem. A 107, 9887 (2003).
+23P. Piecuch, S. Hirata, K. Kowalski, P.-D. Fan, and T. L. Win-
+dus, Int. J. Quantum Chem. 106, 79 (2006).
+24A. A. Auer, G. Baumgartner, D. E. Bernholdt, A. Bibireata,
+V. Choppella, D. Cociorva, X. Gao, R. Harrison, S. Kr-
+ishnamoorthy, S. Krishnan, C.-C. Lam, Q. Lu, M. Nooijen,
+R. Pitzer, J. Ramanujam, P. Sadayappan, and A. Sibiryakov,
+Mol. Phys. 104, 211 (2006).
+25L. Kong, K. R. Shamasundar, O. Demel, and M. Nooijen, J.
+Chem. Phys. 130, 114101 (2009).
+26R. ˇZitko, Comput. Phys. Commun. 182, 2259 (2011).
+27M. K´ allay and P. R. Surj´ an, J. Chem. Phys.115, 2945 (2001).
+28M. K´ allay, P. G. Szalay, and P. R. Surj´ an, J. Chem. Phys.117,
+980 (2002).
+29A. D. Bochevarov and C. D. Sherrill, J. Chem. Phys. 121, 3374
+(2004).
+30T. Shiozaki, M. Kamiya, S. Hirata, and E. F. Valeev, Phys.
+Chem. Chem. Phys. 10, 3358 (2008).
+31J. Olsen, J. Chem. Phys. 113, 7140 (2000).
+32S. Hirata and R. J. Bartlett, Chem. Phys. Lett.321, 216 (2000).
+33M. K´ allay and P. R. Surj´ an, J. Chem. Phys.113, 1359 (2000).
+34F. A. Evangelista, W. D. Allen, and H. F. Schaefer, J. Chem.
+Phys. 125, 154113 (2006).
+35L. K. Sørensen and J. Olsen, Mol. Phys. 115, 90 (2016).
+36M. Ringholm, D. Jonsson, and K. Ruud, J. Comput. Chem.
+35, 622 (2014).
+37A. S. Abbott, B. Z. Abbott, J. M. Turney, and H. F. Schaefer,
+J. Phys. Chem. Lett. 12, 3232 (2021).
+38N. C. Rubin and A. E. DePrince, Mol. Phys. 119, e1954709
+(2021).
+39J. Zhao, Symbolic solution for computational quantum many-
+body theory development , Ph.D. thesis, Rice University (2018).
+40Drudge (URL: https://tschijnmo.github.io/drudge) (2022).
+41P. Arthuis, T. Duguet, A. Tichai, R.-D. Lasseri, and J.-P.
+Ebran, Comput. Phys. Commun. 240, 202 (2019).
+42P. Arthuis, A. Tichai, J. Ripoche, and T. Duguet, Comput.
+Phys. Commun. 261, 107677 (2021).
+43A. Tichai, P. Arthuis, H. Hergert, and T. Duguet, Eur. Phys.
+J. A 58, 2 (2022).
+44J. R. McClean, N. C. Rubin, K. J. Sung, I. D. Kivlichan,
+X. Bonet-Monroig, Y. Cao, C. Dai, E. S. Fried, C. Gidney,
+B. Gimby, P. Gokhale, T. H¨ aner, T. Hardikar, V. Havl´ ıˇ cek,
+O. Higgott, C. Huang, J. Izaac, Z. Jiang, X. Liu, S. McArdle,
+M. Neeley, T. O’Brien, B. O’Gorman, I. Ozﬁdan, M. D. Radin,
+J. Romero, N. P. D. Sawaya, B. Senjean, K. Setia, S. Sim, D. S.
+Steiger, M. Steudtner, Q. Sun, W. Sun, D. Wang, F. Zhang,
+and R. Babbush, Quantum Sci. Technol. 5, 034014 (2020).
+45A. Engels-Putzka and M. Hanrath, J. Chem. Phys. 134, 124106
+(2011).
+46R. N. C. Pfeifer, J. Haegeman, and F. Verstraete, Phys. Rev.
+E 90, 033315 (2013).
+47D. Kats and F. R. Manby, J. Chem. Phys. 138, 144101 (2013).
+48E. Epifanovsky, M. Wormit, T. Ku´ s, A. Landau, D. Zuev,
+K. Khistyaev, P. Manohar, I. Kaliman, A. Dreuw, and A. I.
+Krylov, J. Comput. Chem. 34, 2293 (2013).
+49D. I. Lyakh, M. Musia l, V. F. Lotrich, and R. J. Bartlett, Chem.
+Rev. 112, 182 (2012).
+50A. K¨ ohn, M. Hanauer, L. A. M¨ uck, T.-C. Jagau, and J. Gauss,
+Wiley Interdiscip. Rev.: Comput. Mol. Sci. 3, 176 (2013).
+51F. A. Evangelista, J. Chem. Phys. 149, 030901 (2018).
+52S. Das, M. K´ allay, and D. Mukherjee, J. Chem. Phys. 133,
+234110 (2010).
+53F. A. Evangelista and J. Gauss, J. Chem. Phys. 134, 114102
+(2011).
+54M. Hanauer and A. K¨ ohn, J. Chem. Phys.134, 204111 (2011).
+55M. Hanauer and A. K¨ ohn, J. Chem. Phys.137, 131103 (2012).
+56A. K¨ ohn, J. A. Black, Y. A. Aoto, and M. Hanauer, Mol. Phys.
+118, e1743889 (2020).
+57M. Krupiˇ cka, K. Sivalingam, L. Huntington, A. A. Auer, and
+F. Neese, J. Comput. Chem. 38, 1853 (2017).
+58M. K. MacLeod and T. Shiozaki, J. Chem. Phys. 142, 051103
+(2015).
+59J. W. Park and T. Shiozaki, J. Chem. Theory Comput.13, 2561
+(2017).
+60D. Mukherjee, R. K. Moitra, and A. Mukhopadhyay, Mol. Phys.
+33, 955 (1977).
+61I. Lindgren, Int. J. Quantum Chem. 14, 33 (1978).
+62I. Lindgren, Phys. Scripta 32, 291 (1985).
+63A. Banerjee and J. Simons, Int. J. Quantum Chem. 19, 207
+(1981).
+64T. Yanai and G. K.-L. Chan, J. Chem. Phys. 124, 194106
+(2006).
+65T. Yanai and G. K.-L. Chan, J. Chem. Phys. 127, 104107
+(2007).
+66E. Neuscamman, T. Yanai, and G. K.-L. Chan, J. Chem. Phys.
+130, 124102 (2009).
+67D. Mukherjee, Chem. Phys. Lett. 274, 561 (1997).
+68W. Kutzelnigg and D. Mukherjee, J. Chem. Phys. 107, 432
+(1997).
+69W. Kutzelnigg, J. Chem. Phys. 77, 3081 (1982).
+70W. Kutzelnigg and S. Koch, J. Chem. Phys. 79, 4315 (1983).
+71W. Kutzelnigg, J. Chem. Phys. 80, 822 (1984).
+72M. Nooijen, J. Chem. Phys. 104, 2638 (1996).
+73L. Kong, M. Nooijen, and D. Mukherjee, J. Chem. Phys. 132,
+234107 (2010).
+74J. P. Misiewicz, J. M. Turney, and H. F. Schaefer, J. Chem.
+Theory Comput. 16, 6150 (2020).
+75K. R. Shamasundar, J. Chem. Phys. 65, 174109 (2009-11).
+76W. Kutzelnigg, K. R. Shamasundar, and D. Mukherjee, Mol.
+Phys. 108, 433 (2010).
+77M. Torheyden and E. F. Valeev, J. Chem. Phys. 131, 171103
+(2009).
+78L. Kong and E. F. Valeev, J. Chem. Phys. 135, 214105 (2011).
+79D. Datta, L. Kong, and M. Nooijen, J. Chem. Phys.134, 214116
+(2011).
+80D. Datta and M. Nooijen, J. Chem. Phys. 137, 204107 (2012).
+81M. Nooijen, O. Demel, D. Datta, L. Kong, K. R. Shamasundar,
+V. Lotrich, L. M. Huntington, and F. Neese, J. Chem. Phys.
+140, 081102 (2014).
+82 ´A. Marg´ ocsy and´A. Szabados, J. Chem. Theory Comput. 17,
+6947 (2021).
+83H. Hergert, S. Binder, A. Calci, J. Langhammer, and R. Roth,
+Phys. Rev. Lett. 110, 242501 (2013).
+84C. Li and F. A. Evangelista, J. Chem. Phys.144, 164114 (2016).
+85C. Li and F. A. Evangelista, Annu. Rev. Phys. Chem. 70, 245
+(2019).
+86Wick&d: Wick’s theorem and diagrammatic code (URL:
+https://github.com/fevangelista/wicked) (2022).
+87E. Neuscamman, T. Yanai, and G. K.-L. Chan, J. Chem. Phys.
+130, 169901 (2009).
+88M. Saitow, Y. Kurashige, and T. Yanai, J. Chem. Phys. 139,
+044118 (2013).
+89SeQuant: second quantization toolkit in C++
+(https://github.com/ValeevGroup/SeQuant2) (2022).
+90L. Kong, Internally Contracted Multireference Coupled Cluster
+Method and Normal-Order-Based Automatic Code Generator ,
+Ph.D. thesis, University of Waterloo (2013).
+13
+91GeCCo (https://github.com/ak-ustutt/GeCCo-public) (2022).
+92Smith3 (https://github.com/qsimulate-open/smith3) (2022).
+93T. D. Crawford and H. F. Schaefer, Rev. Comput. Chem. 14,
+33 (2000).
+94D. A. Mazziotti, Chem. Phys. Lett. 289, 419 (1998-06).
+95D. Mukherjee and W. Kutzelnigg, J. Chem. Phys. 114, 2047
+(2001).
+96W. Jakob, J. Rhinelander, and D. Moldovan, “pybind11–
+seamless operability between c++ 11 and python
+(https://github. com/pybind/pybind11),” (2017).
+97D. G. A. Smith, L. A. Burns, A. C. Simmonett, R. M. Parrish,
+M. C. Schieber, R. Galvelis, P. Kraus, H. Kruse, R. D. Remi-
+gio, A. Alenaizan, A. M. James, S. Lehtola, J. P. Misiewicz,
+M. Scheurer, R. A. Shaw, J. B. Schriber, Y. Xie, Z. L. Glick,
+D. A. Sirianni, J. S. O’Brien, J. M. Waldrop, A. Kumar, E. G.
+Hohenstein, B. P. Pritchard, B. R. Brooks, H. F. S. III, A. Y.
+Sokolov, K. Patkowski, A. E. D. III, U. Bozkaya, R. A. King,
+F. A. Evangelista, J. M. Turney, T. D. Crawford, and C. D.
+Sherrill, J. Chem. Phys. 152, 184108 (2020).
+98C. R. Harris, K. J. Millman, S. J. v. d. Walt, R. Gommers,
+P. Virtanen, D. Cournapeau, E. Wieser, J. Taylor, S. Berg,
+N. J. Smith, R. Kern, M. Picus, S. Hoyer, M. H. v. Kerkwijk,
+M. Brett, A. Haldane, J. F. D. R´ ıo, M. Wiebe, P. Peterson,
+P. G´ erard-Marchant, K. Sheppard, T. Reddy, W. Weckesser,
+H. Abbasi, C. Gohlke, and T. E. Oliphant, Nature 585, 357
+(2020).
+99C. Li and F. A. Evangelista, J. Chem. Theory Comput.11, 2097
+(2015).
+100Forte, a suite of quantum chemistry methods for strongly
+correlated electrons (https://github.com/evangelistalab/forte)
+(2022).
+101Y. A. Aoto and A. K¨ ohn, J. Chem. Phys.144, 074103 (2016).
+102C. Li and F. A. Evangelista, J. Chem. Phys.148, 124106 (2018).
+103F. Pavoˇ sevi´ c, T. Culpitt, and S. Hammes-Schiﬀer, J. Chem.
+Theory Comput. 15, 338 (2018).
+104S. Hammes-Schiﬀer, J. Chem. Phys. 155, 030901 (2021).
+105A. F. White, Y. Gao, A. J. Minnich, and G. K.-L. Chan, J.
+Chem. Phys. 153, 224112 (2020).
+106T. S. Haugland, E. Ronca, E. F. Kjønstad, A. Rubio, and
+H. Koch, Phys. Rev. X 10, 041043 (2020).
+107A. E. DePrince, J. Chem. Phys. 154, 094112 (2021).

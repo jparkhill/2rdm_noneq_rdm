@@ -1,0 +1,974 @@
+arXiv:1408.6555v2  [nucl-th]  28 Oct 2014
+Ab Initio Multi-Reference In-Medium Similarity Renormali zation Group Calculations
+of Even Calcium and Nickel Isotopes
+H. Hergert, 1, ∗ S. K. Bogner, 2 T. D. Morris, 2 S. Binder, 3 A. Calci, 3 J. Langhammer, 3 and R. Roth 3
+1The Ohio State University, Columbus, OH 43210, USA
+2National Superconducting Cyclotron Laboratory and Depart ment of Physics and Astronomy,
+Michigan State University, East Lansing, MI 48844, USA
+3Institut f ¨ur Kernphysik, Technische Universit ¨at Darmstadt, D-64289 Darmstadt, Germany
+(Dated: July 7, 2018)
+We use the newly developed Multi-Reference In-Medium Simil arity Renormalization Group to
+study all even isotopes of the calcium and nickel isotopic ch ains, based on two- plus three-nucleon
+interactions derived from chiral eﬀective ﬁeld theory. We p resent results for ground-state and two-
+neutron separation energies and quantify their theoretica l uncertainties. At shell closures, we ﬁnd
+excellent agreement with Coupled Cluster results obtained with the same Hamiltonians. Our results
+conﬁrm the importance of chiral 3N interactions to obtain a c orrect reproduction of experimental
+energy trends, and their subtle impact in neutron-rich Ca an d Ni isotopes. At the same time, we
+uncover and discuss deﬁciencies of the input Hamiltonians w hich need to be addressed by the next
+generation of chiral interactions.
+PACS numbers: 13.75.Cs,21.30.-x,21.45.Ff,21.60.De
+Introduction. As experimental capabilities for the
+production of rare isotopes grow, so does the need for
+a reliable description and prediction of their properties
+from nuclear many-body theory, including quantiﬁed un-
+certainties. Systematically improvable ab initio methods
+like Coupled Cluster (CC) [1–3], Self-Consistent Green’s
+Functions [4–8], and the In-Medium Similarity Renormal-
+ization Group (IM-SRG) [9–11] routinely access medium-
+mass closed-shell nuclei and even heavy systems beyond
+A = 100 due to their modest computational scaling.
+At the same time, great eﬀort has been invested to
+quantify the theoretical uncertainties of these methods
+[2, 10, 12, 13].
+Nuclear interactions from chiral eﬀective ﬁeld theory
+are the input of choice for ab initio many-body theory, be-
+cause they provide formally consistent two-, three-, and
+up to A-nucleon forces and operators (see, e.g., [14, 15]).
+Current chiral Hamiltonians have been employed with
+great success, but there are open issues regarding the
+power counting, the determination of the low-energy con-
+stants (LECs) etc., motivating a concerted eﬀort to con-
+struct next-generation chiral interactions for the nuclear
+structure and reactions community [16].
+Ab initio studies of medium-mass and heavy nuclei,
+particularly away from closed shells, allow us to con-
+front chiral Hamiltonians with a wealth of experimental
+data from existing and forthcoming rare-isotope facilities.
+Such nuclei are sensitive to features of the Hamiltonian
+which are not probed in few-body systems, and exotic
+nuclei, in particular, are an excellent laboratory to study
+the interplay of the two-nucleon (NN) and three-nucleon
+(3N) interactions, as well as continuum eﬀects. For in-
+stance, chiral 3N forces have been crucial for a proper
+description of the neutron drip lines in the region around
+oxygen [5, 8, 11, 17–22].
+In this work, we study the even calcium and nickel iso-
+topes with the Multi-Reference IM-SRG (MR-IM-SRG)
+for open-shell nuclei, using chiral NN+3N interactions as
+input. Such a study is timely, because neutron-rich cal-
+cium isotopes have been the focus of ongoing experimen-
+tal campaigns [23–28], and investigations of proton-rich
+Ca isotopes are planned for the near future. Likewise,
+there is continued interest in neutron-rich Ni isotopes
+[29–36].
+Multi-Reference In-Medium SRG. The basic formal-
+ism of the (MR)-IM-SRG is presented in Refs. [9–11].
+The Hamiltonian is normal-ordered with respect to an
+arbitrary reference state |Φ ⟩ via the generalized normal-
+ordering developed by Kutzelnigg and Mukherjee [37, 38],
+and plugged into the operator ﬂow equation
+d
+ds H(s) = [ η(s), H (s)] . (1)
+With a suitable choice of generator η(s), Eq. (1) imple-
+ments a continuous unitary transformation that decou-
+ples the ground state of the Hamiltonian H(s) from ex-
+citations as we evolve s → ∞ , solving the many-body
+problem [9–11]. We close the system of ﬂow equations by
+truncating η(s) and H(s) at the two-body level for all s,
+obtaining the scheme we refer to as MR-IM-SRG(2).
+For an arbitrary reference state |Φ ⟩, the ﬂow equa-
+tions do not only depend on the one-body density matrix
+λ 1
+2 ≡ ⟨Φ | a†
+1a2 |Φ ⟩ [39], but also on irreducible two-,. . . , A-
+body density matrices, which encode information on the
+correlations in the state [37, 38, 40]. They are deﬁned
+recursively by subtracting reducible contributions from
+the full n-body density matrices, e.g.,
+λ 12
+34 ≡ ⟨Φ |A12
+34 |Φ ⟩ − λ 1
+2λ 3
+4 + λ 1
+3λ 2
+4 , (2)
+where A1...k
+l...N ≡ a†
+1 . . . a †
+kaN . . . a l is a compact notation
+for strings of creation and annihilation operators.
+2
+The MR-IM-SRG reference state is a Hartree-Fock-
+Bogoliubov (HFB) quasiparticle vacuum which has been
+projected on the proton and neutron number of the tar-
+get nucleus, |Φ ⟩ = PN PZ |HFB⟩ [11]. For such states, it
+is suﬃcient to truncate terms in the ﬂow equations that
+are non-linear in λ 12
+34 or contain irreducible three-body
+density matrices: Energy changes due to this truncation
+are negligible compared to other sources of uncertainty
+discussed in the following.
+In the present work, we use the notation of Ref. [11]
+but a diﬀerent ansatz for the generator η(s). Its matrix
+elements are deﬁned as ( λ i
+k = niδi
+k, ¯ni = 1 − ni)
+η1
+2 ≡ sgn(∆ 1
+2)¯n1n2f 1
+2 − [1 ↔ 2] , (3)
+η12
+34 ≡ sgn(∆ 12
+34)¯n1 ¯n2n3n4Γ 12
+34 − [(12) ↔ (34)] , (4)
+where f and Γ are the one- and two-body parts of the
+normal-ordered Hamiltonian H. Indicating normal or-
+dering by colons, the expressions
+∆ 1
+2 ≡ ⟨Φ | : A2
+1 : H : A1
+2 : |Φ ⟩ − ⟨Φ | H |Φ ⟩, (5)
+∆ 12
+34 ≡ ⟨Φ | : A34
+12 : H : A12
+34 : |Φ ⟩ − ⟨Φ | H |Φ ⟩ (6)
+are evaluated using the generalized Wick theorem [37,
+38], truncating irreducible densities as in the ﬂow equa-
+tions. This generator suppresses the oﬀ-diagonal one-
+and two-body matrix elements that couple to the refer-
+ence state |Φ ⟩ to excitations like e−| ∆ |s as s → ∞, where
+∆ is the corresponding energy diﬀerence (5) or (6). We
+refer to η as the imaginary-time generator due to its rela-
+tion to imaginary-time projection operators as used, e.g.,
+in Green’s Function Monte Carlo [41, 42]. It is of similar
+eﬃciency as the White-type generator used in Ref. [11]
+due to its low construction cost and the moderate stiﬀ-
+ness of the ﬂow equations it generates, but does not suﬀer
+from instabilities due to small energy denominators.
+Hamiltonians and Implementation. In this work, we
+use the chiral N 3LO NN interaction by Entem and Mach-
+leidt, with non-local cutoﬀ Λ NN = 500 MeV /c [43, 44].
+Where indicated, it will be accompanied by a local
+N2LO 3N interaction with initial cutoﬀs Λ 3N = 350 and
+400 MeV /c [11–13, 45]. The reduced values of Λ 3N avoid
+strong induced 4N interactions if this Hamiltonian is soft-
+ened via free-space SRG evolution [13, 45]. While Λ NN
+and Λ 3N are nominally inconsistent, we note that the NN
+and 3N interactions are regularized in diﬀerent schemes,
+so their values should not necessarily be the same [46].
+This issue will be revisited with a new generation of con-
+sistently regularized chiral Hamiltonians in the future
+[16].
+The Hamiltonians are softened by a free-space
+SRG evolution at the three-body level to λ SRG =
+1. 88, . . . , 2. 24 fm − 1 [13, 47, 48]. Hamiltonians that
+only contain SRG-induced 3N forces are referred to as
+NN+3N-induced, those also containing an initial 3N in-
+teraction as NN+3N-full.
+Working with harmonic oscillator (HO) single-particle
+states, we truncate the 3N matrix elements in the to-
+tal energy quantum number according to e1 + e2 + e3 ≤
+E3max, due to memory requirements [2, 10–12, 45]. Un-
+certainties caused by this truncation are investigated be-
+low. As discussed in Refs. [2, 13], the free-space SRG
+evolution of the input Hamiltonian must be performed in
+a suﬃciently large model space for pf -shell and heavier
+nuclei. Therefore, we rely on the model space B from
+Ref. [2] for the evolution of the 3N force. The oscilla-
+tor parameter of the Jacobi HO basis is chosen to be
+ℏω = 36 MeV. Matrix elements for smaller ℏω are ob-
+tained by frequency conversion [13].
+Our results are converged with respect to the size of
+the single-particle basis: At the ℏω value of the energy
+minimum, the change in the ground-state energy is 0.1%
+when we increase the basis from 13 to 15 major shells.
+To obtain reference states for the MR-IM-SRG(2), we
+solve HFB equations in 15 major HO shells, and project
+the resulting state on proton and neutron numbers
+[10, 11, 49]. The intrinsic NN+3N Hamiltonian is normal-
+ordered with respect to the reference state, and the
+residual 3N interaction term is discarded. This normal-
+ordered two-body approximation (NO2B) is found to
+overestimate binding energies by less than 1% in the cal-
+cium and nickel isotopes [2, 10, 12, 45].
+Calcium isotopes. In Fig. 1, we show MR-IM-SRG(2)
+ground-state energies for 34− 62Ca, along with CC results
+including doubles (CCSD) [51] and triples excitations
+(CR-CC(2,3)) [52, 53] for closed-shell isotopes. Survey-
+ing the results, we note that MR-IM-SRG(2) and CR-
+CC(2,3) results are in very good agreement. It is a recur-
+ring theme that (MR-)IM-SRG(2) provides results com-
+parable to CC approaches that include triples (3-particle,
+3-hole) excitations at the computational cost of a doubles
+(2p2h) method [9–11].
+For the NN+3N-induced Hamiltonian shown in
+Fig. 1(a), we overbind the Ca isotopes for the consid-
+ered values of λ SRG. However, the ground-state energies
+vary signiﬁcantly with the resolution scale λ SRG due to
+omitted induced beyond-3N forces. Other sources, such
+as the E3max truncation and NO2B approximation, can
+be ruled out because they are only weakly sensitive to
+λ SRG variations [2, 10–12]. Furthermore, the λ SRG de-
+pendence of MR-IM-SRG(2) and CR-CC(2,3) is compa-
+rable despite their diﬀerent many-body content, which
+implies that missing many-body eﬀects cannot be its pri-
+mary source, either.
+In Fig. 1(b), we show that the inclusion of an initial
+3N force reduces the λ SRG dependence drastically. As
+discussed in Ref. [2], this is a result of cancellations be-
+tween induced forces from the initial NN and 3N interac-
+tions. With this reduced dependence on λ SRG we ﬁnd an
+overbinding that is robust under variations of λ SRG and
+slowly increasing from 8% for 36Ca to 12% for 54Ca.
+We now consider the two-neutron separation energies
+3
+/SolidUpTriangle
+/SolidUpTriangle
+/SolidUpTriangle
+/SolidUpTriangle
+/SolidUpTriangle
+/SolidUpTriangle
+/SolidUpTriangle
+/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle
+/SolidSquare
+/SolidSquare
+/SolidSquare
+/SolidSquare/SolidSquare
+/Square
+/Square
+/Square
+/Square/Square
+/SolidDownTriangle
+/SolidDownTriangle
+/SolidDownTriangle
+/SolidDownTriangle/SolidDownTriangle
+/DownTriangle
+/DownTriangle
+/DownTriangle
+/DownTriangle/DownTriangle
+-500
+-450
+-400
+-350
+-300
+-250
+. E [ MeV]
+ACa
+(a) NN+3N-induced
+△/▲ MR-IM-SRG(2)
+□ /■ CCSD
+△/▲ CR-CC(2,3)
+λ SRG = 1. 88/ 2. 24 fm− 1
+E3max = 14
+/SolidCircle
+/SolidCircle
+/SolidCircle
+/SolidCircle
+/SolidCircle
+/SolidCircle
+/SolidCircle
+/SolidCircle
+/SolidCircle
+/SolidCircle/SolidCircle/SolidCircle/SolidCircle/SolidCircle/SolidCircle
+/SolidSquare
+/SolidSquare
+/SolidSquare
+/SolidSquare/SolidSquare
+/Square
+/Square
+/Square
+/Square/Square
+/SolidDownTriangle
+/SolidDownTriangle
+/SolidDownTriangle
+/SolidDownTriangle/SolidDownTriangle
+/DownTriangle
+/DownTriangle
+/DownTriangle
+/DownTriangle/DownTriangle
+34 36 38 40 42 44 46 48 50 52 54 56 58 60 62
+A
+-500
+-450
+-400
+-350
+-300
+-250
+. E [ MeV]
+(b) NN+3N-full
+❍ /● MR-IM-SRG(2)
+□ /■ CCSD
+△/▲ CR-CC(2,3)
+λ SRG = 1. 88/ 2. 24 fm− 1
+E3max = 14
+FIG. 1. (Color online) Ground-state energies of the Ca iso-
+topes for the NN+3N-induced (a) and NN+3N full (b) Hamil-
+tonians, with λ SRG = 1. 88 fm− 1 (open symbols) to 2 . 24 fm− 1
+(solid symbols). The bands for the MR-IM-SRG(2) results
+indicate the variation of the results with the resolution sc ale
+λ SRG. Experimental data (black bars) are taken from [26, 50].
+S2n shown in Fig. 2. Such diﬀerential quantities ﬁlter out
+global energy shifts due to missing induced many-body
+forces, as well as many-body and basis truncations. For
+instance, the absolute variation of the S2n with λ SRG
+in the NN+3N-induced case is much weaker than the
+variation of the ground-state energies in Fig. 1(a).
+The S2n for the NN+3N-induced Hamiltonian in
+Fig. 2(a) show a pronounced shell closure at 40Ca, with
+S2n dropping by more than 20 MeV. The 48Ca shell clo-
+sure is weak in comparison, albeit close to experimental
+data, and there are even weaker hints of shell closures
+in 52,54Ca (the reference states exhibit pairing in both
+cases). The S2n increase notably from 42Ca to 48Ca, and
+weakly from 50Ca to 52Ca. This is an indication that
+interaction components which are being accessed as neu-
+trons are added to the pf -shell are too attractive, which
+is consistent with the observed overbinding. However,
+shell structure eﬀects clearly also play a role, because
+the overbinding becomes less severe around 48Ca before
+increasing again with the neutron number N , while the
+S2n are always decreasing between shell closures beyond
+52Ca.
+The NN+3N-induced Hamiltonian produces a distinct
+drip-line signal in Figs. 1(a) and 2(a): 62Ca is consis-
+tently unbound by 5 − 6 MeV with respect to 60Ca for
+/SolidUpTriangle/SolidUpTriangle
+/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle
+/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle
+/SolidUpTriangle
+-10
+0
+10
+20
+30
+40
+. S2n [ MeV]
+ACa
+λ = 1. 88 (△)/ 2. 24 fm− 1(▲ )
+E3max = 14
+(a) NN+3N-induced
+/SolidCircle/SolidCircle
+/SolidCircle/SolidCircle/SolidCircle/SolidCircle
+/SolidCircle/SolidCircle
+/SolidCircle
+/SolidCircle/SolidCircle/SolidCircle
+/SolidCircle
+/SolidSquare/SolidSquare
+/SolidSquare/SolidSquare/SolidSquare/SolidSquare
+/SolidSquare/SolidSquare
+/SolidSquare
+/SolidSquare/SolidSquare/SolidSquare
+/SolidSquare
+-10
+0
+10
+20
+30
+. S2n [ MeV]
+Λ 3N [ MeV/c ]
+□ /■ 350
+❍ /● 400
+λ SRG = 1. 88/ 2. 24 fm− 1
+E3max = 14
+(b) NN+3N-full
+/SolidCircle/SolidCircle
+/SolidCircle/SolidCircle/SolidCircle/SolidCircle
+/SolidCircle/SolidCircle
+/SolidCircle
+/SolidCircle/SolidCircle/SolidCircle
+/SolidCircle
+/MedSolidDiamond/MedSolidDiamond
+/MedSolidDiamond/MedSolidDiamond/MedSolidDiamond/MedSolidDiamond
+/MedSolidDiamond/MedSolidDiamond
+/MedSolidDiamond
+/MedSolidDiamond/MedSolidDiamond/MedSolidDiamond
+38 40 42 44 46 48 50 52 54 56 58 60 62
+A
+-10
+0
+10
+20
+30
+. S2n [ MeV]
+❍ /● MR-IM-SRG(2)
+λ SRG = 1. 88/ 2. 24 fm− 1
+♦ Gor’kov GF
+λ SRG = 2. 0 fm− 1
+(c) NN+3N-full
+FIG. 2. (Color online) Two-neutron separation energies of
+the Ca isotopes for the NN+3N-induced (a) and NN+3N-
+full Hamiltonian with Λ 3N = 350, 400 MeV/c (b), for a range
+λ SRG = 1 . 88 fm− 1 (open symbols) to 2 . 24 fm− 1 (solid sym-
+bols). Panel (c) compares MR-IM-SRG(2) and second-order
+GGF [6–8] results with the same input Hamiltonian, but
+slightly diﬀerent SRG evolution [54]. Experimental values
+(black bars) are taken from [26, 50].
+our range of λ SRG. The change in S2n is much larger
+than the uncertainties due to many-body and basis trun-
+cations, or missing induced forces (see below). The inclu-
+sion of continuum eﬀects in Ref. [19] reduced the energy
+of low-lying unbound states only by about 2 MeV, which
+is insuﬃcient to bind isotopes with N > 40 with respect
+to 60Ca. Without the inclusion of initial 3N forces, the
+drip line is therefore expected at N = 40.
+In Fig. 2(b), we show S2n for NN+3N-full Hamilto-
+nians with Λ 3N = 350 , 400 MeV /c . The N = 20 shell
+closure is weakened by the 3N forces, although the cal-
+culated S2n are still larger than experimental data. As
+before, we observe an increase of the separation energies
+for 42− 48Ca and 50− 52Ca, but we note that the overbind-
+ing consistently increases with N in this case (Fig. 1(b)).
+Interestingly, the S2n trends in these nuclei are ﬂatter for
+Λ 3N = 350 MeV/c than for 400 MeV /c , which suggests a
+change in the shell structure of these nuclei. Overall, the
+S2n are consistent under this variation of the 3N cutoﬀ.
+4
+/SolidCircle/SolidCircle/SolidCircle/SolidCircle/SolidCircle/SolidCircle
+/SolidCircle/SolidCircle/SolidCircle
+/SolidCircle/SolidCircle/SolidCircle
+/SolidCircle
+/SolidSquare/SolidSquare/SolidSquare
+/SolidSquare/SolidSquare/SolidSquare
+/SolidSquare/SolidSquare/SolidSquare
+/SolidSquare/SolidSquare/SolidSquare
+/SolidSquare
+0
+0.5
+1
+(a)Λ 3N [ MeV/c ]
+□ /■ 350
+❍ /● 400
+λ SRG = 1. 88/ 2. 24 fm− 1
+/MedSolidDiamond/MedSolidDiamond/MedSolidDiamond/MedSolidDiamond/MedSolidDiamond/MedSolidDiamond/MedSolidDiamond/MedSolidDiamond
+/MedSolidDiamond/MedSolidDiamond/MedSolidDiamond/MedSolidDiamond
+/MedSolidDiamond
+38 40 42 44 46 48 50 52 54 56 58 60 62
+A
+0
+0.5
+1
+(b)E3max
+❍ 12 → 14
+♦ 14 → 16
+.|∆S2n|[ MeV]
+FIG. 3. (Color online) Uncertainty of Ca two-neutron separa-
+tion energies: (a) variation as E3max = 12 → 14 for diﬀerent
+Λ3N and λ SRG = 1 . 88 to 2 . 24 fm− 1. (b) Variation E3max =
+12 → 14 → 16 for Λ 3N = 400 MeV/c , λ SRG = 1. 88 fm− 1.
+In contrast to the NN+3N-induced case, both 52Ca and
+54Ca exhibit magicity, in agreement with experimental
+and Shell Model results [24–26, 55, 56].
+For large neutron numbers, the trends shown in
+Figs. 1(b) and 2(b) are diﬀerent from the NN+3N-
+induced case. 56− 60Ca are unbound with respect to 54Ca
+by a mere 1 − 2 MeV (also see [19]). Consequently, these
+isotopes are sensitive to continuum eﬀects and details of
+the interaction, which could lead to phenomena like neu-
+tron halos as proposed in [57]. Figure 2(b) also shows
+that the ﬂat plateau of the S2n for 56− 60Ca in the vicin-
+ity of zero is remarkably robust under the variation of
+the cutoﬀ of the initial 3N interaction from 400 MeV /c
+to 350 MeV /c .
+The Ca isotopes were also studied recently with the
+second-order Gor’kov Green’s Function (GGF) method.
+The S2n published in Ref. [8] were obtained with the same
+NN+3N-full Hamiltonian with Λ 3N = 400 MeV/c , but a
+smaller 3N Jacobi HO model space was used for the SRG
+evolution than in our calculations. While the S2n sys-
+tematics remain the same, we show updated GGF results
+[54] in Fig. 2(c) to allow a more quantitative comparison
+with our MR-IM-SRG(2) separation energies. The two
+methods agree well for mid-shell Ca isotopes, implying
+that the diﬀerence between second-order GGF and MR-
+IM-SRG(2) ground-state energies is primarily a global
+shift for these nuclei. Around shell closures, the broken
+particle-number symmetry in the GGF approach causes
+smoother trends due to pairing ﬂuctuations (compare,
+e.g., HFB and number-projected HFB S2n in Ref. [58]).
+Overall, our results are consistent with the ﬁndings and
+conclusions of Ref. [8].
+Let us now discuss the uncertainties of the calcium two-
+neutron separation energies in more detail. From the CC
+ground-state energies included in Fig. 1 we can determine
+S2n in 54Ca. We ﬁnd a diﬀerence of only 150 keV between
+the CCSD and CR-CC(2,3) results, almost independent
+/SolidUpTriangle
+/SolidUpTriangle
+/SolidUpTriangle
+/SolidUpTriangle
+/SolidUpTriangle
+/SolidUpTriangle
+/SolidUpTriangle
+/SolidUpTriangle
+/SolidUpTriangle
+/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle
+/SolidSquare
+/SolidSquare
+/SolidSquare
+/SolidSquare
+/SolidSquare
+/SolidSquare
+/SolidSquare
+/Square
+/Square
+/Square
+/Square
+/Square/Square
+/Square
+/SolidDownTriangle
+/SolidDownTriangle
+/SolidDownTriangle
+/SolidDownTriangle
+/SolidDownTriangle
+/SolidDownTriangle
+/SolidDownTriangle
+/DownTriangle
+/DownTriangle
+/DownTriangle/DownTriangle
+/DownTriangle/DownTriangle
+/DownTriangle
+-700
+-600
+-500
+-400
+. E [ MeV]
+ANi
+(a) NN+3N-induced
+△/▲ MR-IM-SRG(2)
+□ /■ CCSD
+△/▲ CR-CC(2,3)
+λ SRG = 1. 88/ 2. 24 fm− 1
+E3max = 14
+/SolidCircle
+/SolidCircle
+/SolidCircle
+/SolidCircle
+/SolidCircle
+/SolidCircle
+/SolidCircle
+/SolidCircle
+/SolidCircle/SolidCircle/SolidCircle/SolidCircle/SolidCircle/SolidCircle/SolidCircle/SolidCircle/SolidCircle/SolidCircle/SolidCircle/SolidCircle
+/SolidSquare
+/SolidSquare
+/SolidSquare
+/SolidSquare
+/SolidSquare
+/SolidSquare
+/Square
+/Square
+/Square
+/Square
+/Square
+/Square
+/SolidDownTriangle
+/SolidDownTriangle
+/SolidDownTriangle
+/SolidDownTriangle
+/SolidDownTriangle
+/SolidDownTriangle
+/DownTriangle
+/DownTriangle
+/DownTriangle/DownTriangle
+/DownTriangle
+/DownTriangle
+48 52 56 60 64 68 72 76 80 84 88
+A
+-700
+-600
+-500
+-400
+. E [ MeV]
+(b) NN+3N-full
+❍ /● MR-IM-SRG(2)
+□ /■ CCSD
+△/▲ CR-CC(2,3)
+λ SRG = 1. 88/ 2. 24 fm− 1
+E3max = 14
+FIG. 4. (Color online) Ground-state energies of the Ni iso-
+topes for the NN+3N-induced (a) and NN+3N full (b) Hamil-
+tonians, for resolution scales λ SRG = 1 . 88 fm− 1 (open sym-
+bols) to 2 . 24 fm− 1 (solid symbols). Experimental data (black
+bars) are taken from [50].
+of Λ 3N and λ SRG. Due to the rapid convergence of the
+many-body expansion for soft Hamiltonians, we can in-
+terpret this as a measure for many-body eﬀects that are
+not included in the MR-IM-SRG(2), by analogy with CC.
+The uncertainties of the S2n due to the E3max trun-
+cation are explored further in Fig. 3. The contributions
+of the many-body and E3max truncations are of compa-
+rable size: Increasing E3max from our default 14 to 16,
+the S2n change by less than 100 keV for 38− 50Ca, and
+200 − 500 keV for 52− 60Ca (Fig. 3(b)). Comparing to the
+increase E3max = 12 → 14, which causes variations as
+large as 1 − 1. 5 MeV in the S2n of the mid- and upper
+pf -shell calcium isotopes, we see clear signs of conver-
+gence. Given the ﬂat ground-state energy trend beyond
+54Ca for the NN+3N-full Hamiltonians (cf. Figs. 1 and 2),
+we conclude that our uncertainties are still too large to
+clearly identify the neutron dripline. A ﬁrst step towards
+a more accurate calculation would be the exploration of
+E3max ≥ 16 [2].
+Nickel isotopes. We now focus on the nickel iso-
+topes. Figure 4 shows the ground-state energies for the
+NN+3N-induced and NN+3N-full Hamiltonians (Λ 3N =
+400 MeV /c ). The basic features are very similar to
+the Ca case. MR-IM-SRG(2) and CC results are in
+very good agreement. The NN+3N-induced Hamiltonian
+5
+/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle
+/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle
+/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle/SolidUpTriangle
+-10
+0
+10
+20
+30
+40
+. S2n [ MeV]
+ANi
+(a) NN+3N-induced
+λ SRG = 1. 88 (△)/ 2. 24 fm− 1(▲ )
+E3max = 14
+/SolidCircle/SolidCircle/SolidCircle/SolidCircle
+/SolidCircle/SolidCircle
+/SolidCircle
+/SolidCircle/SolidCircle/SolidCircle/SolidCircle/SolidCircle
+/SolidCircle/SolidCircle/SolidCircle/SolidCircle
+/SolidCircle/SolidCircle
+/SolidSquare/SolidSquare/SolidSquare/SolidSquare
+/SolidSquare/SolidSquare
+/SolidSquare
+/SolidSquare/SolidSquare/SolidSquare/SolidSquare/SolidSquare
+/SolidSquare/SolidSquare/SolidSquare/SolidSquare
+/SolidSquare/SolidSquare
+52 56 60 64 68 72 76 80 84 88
+A
+-10
+0
+10
+20
+30
+40
+. S2n [ MeV]
+(b) NN+3N-full
+Λ 3N [ MeV/c ]
+□ /■ 350
+❍ /● 400
+λ SRG = 1. 88/ 2. 24 fm− 1
+E3max = 14
+FIG. 5. (Color online) Two-neutron separation energies of
+the Ni isotopes for the NN+3N-induced (a) and NN+3N-full
+Hamiltonian with Λ 3N = 350 , 400 MeV/c (b), for a range
+λ SRG = 1 . 88 fm− 1 (open symbols) to 2 . 24 fm− 1 (solid sym-
+bols). Experimental values (black bars) are taken from [50] .
+(Fig. 4(a)) yields energies that are close to experimen-
+tal binding energies for lighter Ni isotopes, but produces
+overbinding with growing neutron excess. The λ SRG de-
+pendence serves as an indicator for the size of missing 4N
+forces. With the inclusion of the initial 3N interaction
+(Fig. 4(b)), the overbinding is increased, while the λ SRG
+dependence is reduced due to cancellations between in-
+duced beyond-3N terms. Beyond 74Ni, the ground-state
+energy curve becomes ﬂat. In contrast to the Ca case,
+the NN+3N-induced also produces a very ﬂat trend for
+these isotopes.
+An apparent deformation instability emerges for 64Ni
+in the NN+3N-induced and 64,66Ni in the NN+3N-full
+cases. Because spherical symmetry is enforced in our
+calculations, we observe strong oscillations in the MR-
+IM-SRG(2) ground-state energy and the norm of the gen-
+erator. Usually, the latter decreases monotonically until
+convergence. Experimental spectra of these Ni isotopes
+show spherical and intrinsically deformed states in close
+proximity [32–35, 59, 60]. Traditionally, the onset of de-
+formation is explained by strong quadrupole interactions
+between nucleons in states with single-particle ∆ j = 2
+and small energy diﬀerence. In the reference states for
+64,66Ni, the diﬀerence between the eﬀective 0 f5/2 and
+1p1/2 single-particle energies [61] is merely 200 keV, and
+therefore sensitive to the balance of NN and 3N tensor
+and spin-orbit interactions.
+The importance of the initial 3N interaction is evident
+from the S2n shown in Fig. 5. Without it (Fig. 5(a)), the
+N = 50 and especially the N = 28 shell closures are weak,
+while the N = 40 closure is strongly enhanced compared
+to experiment. Inclusion of the 3N forces (Fig. 5(b)) im-
+proves the shell closure at 56Ni signiﬁcantly, and shifts
+the S2n of 70− 78Ni closer to experiment. Variation of
+Λ 3N moves the theoretical neuton drip line from 86Ni to
+78Ni, but the S2n are suﬃciently small for the situation
+to change as we improve on the present truncations and
+include continuum eﬀects. Note also that the experimen-
+tally unobserved sub-shell closure in 60Ni vanishes for
+Λ 3N = 350 MeV /c . This is a more concrete example of
+how the internal structure of medium-mass nuclei is af-
+fected by variations of Λ 3N than the shift in S2n trends
+for the Ca isotopes (cf. Fig. 2(b)).
+We conclude by discussing the uncertainties of the S2n.
+Using the energies for 60,62Ni, we ﬁnd a diﬀerence of
+300 − 350 keV between the CCSD and CR-CC(2,3) re-
+sults, which serves as a measure for the uncertainty due
+to the many-body truncation. The change of |∆ S2n| as
+E3max = 12 → 14 → 16 is similar to Fig. 3 for the Ca
+isotopes. As E3max = 12 → 14, the change for 48− 86Ni
+is of the order of 500 keV, beyond that 1 − 1. 5 MeV
+for the range λ SRG = 1 . 88, . . . , 2. 24 fm− 1. Increasing
+E3max = 14 → 16, the change in S2n drops below 250 keV
+for 48− 86Ni, and to 400 − 500 keV for heavier isotopes.
+Conclusions. We have studied the even Ca and Ni
+isotopes with the recently developed MR-IM-SRG, using
+chiral NN+3N interactions as input. The application of
+the MR-IM-SRG to the chain of even Ni isotopes marks
+an important milestone for ab initio nuclear structure
+theory, and shows the viability of such calculations for
+medium-mass and heavy nuclei. The modest polynomial
+scaling of the method makes it feasible to reach the tin
+isotopic chain (and beyond), if sophisticated techniques
+are implemented to handle or avoid the expensive matrix
+element storage for 3N interactions [2].
+The current generation of chiral NN+3N Hamiltonians
+generally overbind the Ca and Ni isotopes. The fair re-
+production of two-neutron separation energies indicates
+that a good portion of this over-binding amounts to a
+global shift. We ﬁnd that an initial 3N interaction is re-
+quired to reproduce the experimentally conﬁrmed shell
+closures of 48,52,54Ca. In the Ni isotopes, the creation
+of an artiﬁcal sub-shell closure in 60Ni and the strong
+enhancement of the 68Ni closure indicate that the spin-
+orbit and tensor components of the chiral 3N interaction
+might be too strong. Our ﬁndings are consistent with
+earlier studies of medium-mass nuclei based on the same
+chiral NN+3N Hamiltonians [2, 8, 10, 12, 45], and by
+extending the range of studied isotopes, we provide fur-
+ther evidence for deﬁciencies in these Hamiltonians which
+need to be addressed by the next generation of interac-
+tions from chiral EFT.
+For neutron-rich Ca isotopes, we predict a very ﬂat
+trend for the ground-state and two-neutron separation
+energies, which inhibits a clear identiﬁcation of the drip
+line. The interplay of diﬀerent interaction terms and con-
+6
+tinuum eﬀects may give rise to interesting physics in this
+region. Fortunately, these speciﬁc Ca isotopes will be in-
+vestigated in experimental campaigns in the near future.
+Acknowledgments. We thank V. Som` a, T. Duguet,
+R. Furnstahl for useful comments and discussions, and
+V. Som` a for providing updated GGF results for the Ca
+isotopes. Work supported by the National Science Foun-
+dation under Grants No. PHY-1306250, PHY-1068648,
+and PHY-1404159, and the NUCLEI SciDAC-3 Collab-
+oration under the U.S. Department of Energy Grants
+No. DE-SC0008533 and DE-SC0008511. Supported by
+the Deutsche Forschungsgemeinschaft through contract
+SFB 634, by the Helmholtz International Center for F AIR
+(HIC for F AIR) within the LOEWE program of the State
+of Hesse, and the BMBF through contract 06DA7047I.
+S. Binder gratefully acknowledges the ﬁnancial support of
+the Alexander-von-Humboldt Foundation (Feodor-Lynen
+scholarship). Computing resources were provided by the
+Ohio Supercomputer Center (OSC), the J ¨ulich Super-
+computing Center, the LOEWE-CSC Frankfurt, and the
+National Energy Research Scientiﬁc Computing Center
+supported by the Oﬃce of Science of the U.S. Department
+of Energy under Contract No. DE-AC02-05CHH11231.
+∗ Corresponding author. E-mail: hergert.3@osu.edu
+[1] G. Hagen, T. Papenbrock, M. Hjorth-Jensen, and D. J.
+Dean, Reports on Progress in Physics 77, 096302 (2014).
+[2] S. Binder, J. Langhammer, A. Calci, and R. Roth,
+Physics Letters B 736, 119 (2014).
+[3] T. M. Henderson, G. E. Scuseria, J. Dukelsky, A. Signo-
+racci, and T. Duguet, Phys. Rev. C 89, 054305 (2014).
+[4] W. Dickhoﬀ and C. Barbieri, Progress in Particle and
+Nuclear Physics 52, 377 (2004).
+[5] A. Cipollone, C. Barbieri, and P. Navr´ atil, Phys. Rev.
+Lett. 111, 062501 (2013).
+[6] V. Som` a, T. Duguet, and C. Barbieri, Phys. Rev. C 84,
+064317 (2011).
+[7] V. Som` a, C. Barbieri, and T. Duguet, Phys. Rev. C 87,
+011303 (2013).
+[8] V. Som` a, A. Cipollone, C. Barbieri, P. Navr´ atil, and
+T. Duguet, Phys. Rev. C 89, 061301 (2014).
+[9] K. Tsukiyama, S. K. Bogner, and A. Schwenk, Phys.
+Rev. Lett. 106, 222502 (2011).
+[10] H. Hergert, S. K. Bogner, S. Binder, A. Calci, J. Lang-
+hammer, R. Roth, and A. Schwenk, Phys. Rev. C 87,
+034307 (2013).
+[11] H. Hergert, S. Binder, A. Calci, J. Langhammer, and
+R. Roth, Phys. Rev. Lett. 110, 242501 (2013).
+[12] S. Binder, J. Langhammer, A. Calci, P. Navr´ atil, and
+R. Roth, Phys. Rev. C 87, 021303 (2013).
+[13] R. Roth, A. Calci, J. Langhammer, and S. Binder, Phys.
+Rev. C 90, 024325 (2014).
+[14] E. Epelbaum, H.-W. Hammer, and U.-G. Meißner, Rev.
+Mod. Phys. 81, 1773 (2009).
+[15] H.-W. Hammer, A. Nogga, and A. Schwenk, Rev. Mod.
+Phys. 85, 197 (2013).
+[16] Low-Energy Nuclear Physics International Collaboration
+(LENPIC), see http://www.lenpic.org.
+[17] T. Otsuka, T. Suzuki, J. D. Holt, A. Schwenk, and
+Y. Akaishi, Phys. Rev. Lett. 105, 032501 (2010).
+[18] G. Hagen, M. Hjorth-Jensen, G. R. Jansen, R. Machleidt,
+and T. Papenbrock, Phys. Rev. Lett.108, 242501 (2012).
+[19] G. Hagen, M. Hjorth-Jensen, G. R. Jansen, R. Machleidt,
+and T. Papenbrock, Phys. Rev. Lett.109, 032502 (2012).
+[20] J. D. Holt, J. Men´ endez, and A. Schwenk, Phys. Rev.
+Lett. 110, 022502 (2013).
+[21] S. K. Bogner, H. Hergert, J. D. Holt, A. Schwenk,
+S. Binder, A. Calci, J. Langhammer, and R. Roth, Phys.
+Rev. Lett. 113, 142501 (2014).
+[22] G. R. Jansen, J. Engel, G. Hagen, P. Navratil, and
+A. Signoracci, Phys. Rev. Lett. 113, 142502 (2014).
+[23] A. Lapierre, M. Brodeur, T. Brunner, S. Ettenauer,
+P. Finlay, A. T. Gallant, V. V. Simon, P. Delheij, D. Lun-
+ney, R. Ringle, H. Savajols, and J. Dilling, Phys. Rev. C
+85, 024317 (2012).
+[24] A. T. Gallant, J. C. Bale, T. Brunner, U. Chowdhury,
+S. Ettenauer, A. Lennarz, D. Robertson, V. V. Simon,
+A. Chaudhuri, J. D. Holt, A. A. Kwiatkowski, E. Man´ e,
+J. Men´ endez, B. E. Schultz, M. C. Simon, C. Andreoiu,
+P. Delheij, M. R. Pearson, H. Savajols, A. Schwenk, and
+J. Dilling, Phys. Rev. Lett. 109, 032506 (2012).
+[25] D. Steppenbeck, S. Takeuchi, N. Aoi, P. Doornenbal,
+M. Matsushita, H. Wang, H. Baba, N. Fukuda, S. Go,
+M. Honma, J. Lee, K. Matsui, S. Michimasa, T. Moto-
+bayashi, D. Nishimura, T. Otsuka, H. Sakurai, Y. Shiga,
+P. A. Soderstrom, T. Sumikama, H. Suzuki, R. Taniuchi,
+Y. Utsuno, J. J. Valiente-Dobon, and K. Yoneda, Nature
+502, 207 (2013).
+[26] F. Wienholtz, D. Beck, K. Blaum, C. Borgmann,
+M. Breitenfeldt, R. B. Cakirli, S. George, F. Her-
+furth, J. D. Holt, M. Kowalska, S. Kreim, D. Lunney,
+V. Manea, J. Menendez, D. Neidherr, M. Rosenbusch,
+L. Schweikhard, A. Schwenk, J. Simonis, J. Stanja, R. N.
+Wolf, and K. Zuber, Nature 498, 346 (2013).
+[27] A. Gade, R. V. F. Janssens, D. Weisshaar, B. A. Brown,
+E. Lunderberg, M. Albers, V. M. Bader, T. Baugher,
+D. Bazin, J. S. Berryman, C. M. Campbell, M. P. Carpen-
+ter, C. J. Chiara, H. L. Crawford, M. Cromaz, U. Garg,
+C. R. Hoﬀman, F. G. Kondev, C. Langer, T. Laurit-
+sen, I. Y. Lee, S. M. Lenzi, J. T. Matta, F. Nowacki,
+F. Recchia, K. Sieja, S. R. Stroberg, J. A. Tostevin, S. J.
+Williams, K. Wimmer, and S. Zhu, Phys. Rev. Lett. 112,
+112503 (2014).
+[28] L. A. Riley, M. L. Agiorgousis, T. R. Baugher, D. Bazin,
+M. Bowry, P. D. Cottle, F. G. DeVone, A. Gade, M. T.
+Glowacki, K. W. Kemper, E. Lunderberg, D. M. McPher-
+son, S. Noji, F. Recchia, B. V. Sadler, M. Scott, D. Weis-
+shaar, and R. G. T. Zegers, Phys. Rev. C 90, 011305
+(2014).
+[29] C. Mazzocchi, R. Grzywacz, J. Batchelder, C. Bingham,
+D. Fong, J. Hamilton, J. Hwang, M. Karny, W. Kro-
+las, S. Liddick, A. Lisetskiy, A. Morton, P. Mantica,
+W. Mueller, K. Rykaczewski, M. Steiner, A. Stolz, and
+J. Winger, Physics Letters B 622, 45 (2005).
+[30] J. Hakala, S. Rahaman, V.-V. Elomaa, T. Eronen,
+U. Hager, A. Jokinen, A. Kankainen, I. D. Moore,
+H. Penttil ¨a, S. Rinta-Antila, J. Rissanen, A. Saasta-
+moinen, T. Sonoda, C. Weber, and J. ¨Ayst¨o, Phys. Rev.
+Lett. 101, 052502 (2008).
+7
+[31] N. Aoi, S. Kanno, S. Takeuchi, H. Suzuki, D. Bazin,
+M. Bowen, C. Campbell, J. Cook, D.-C. Dinca, A. Gade,
+T. Glasmacher, H. Iwasaki, T. Kubo, K. Kurita, T. Mo-
+tobayashi, W. Mueller, T. Nakamura, H. Sakurai,
+M. Takashina, J. Terry, K. Yoneda, and H. Zwahlen,
+Physics Letters B 692, 302 (2010).
+[32] R. Broda, T. Paw/suppress lat, W. Kr´ olas, R. V. F. Janssens,
+S. Zhu, W. B. Walters, B. Fornal, C. J. Chiara, M. P.
+Carpenter, N. Hoteling, L. W. Iskra, F. G. Kondev,
+T. Lauritsen, D. Seweryniak, I. Stefanescu, X. Wang,
+and J. Wrzesi´ nski, Phys. Rev. C86, 064312 (2012).
+[33] C. J. Chiara, R. Broda, W. B. Walters, R. V. F. Janssens,
+M. Albers, M. Alcorta, P. F. Bertone, M. P. Carpenter,
+C. R. Hoﬀman, T. Lauritsen, A. M. Rogers, D. Sew-
+eryniak, S. Zhu, F. G. Kondev, B. Fornal, W. Kr´ olas,
+J. Wrzesi´ nski, N. Larson, S. N. Liddick, C. Prokop,
+S. Suchyta, H. M. David, and D. T. Doherty, Phys. Rev.
+C 86, 041304 (2012).
+[34] S. Zhu, R. V. F. Janssens, M. P. Carpenter, C. J. Chiara,
+R. Broda, B. Fornal, N. Hoteling, W. Kr´ olas, T. Laurit-
+sen, T. Paw/suppress lat, D. Seweryniak, I. Stefanescu, J. R. Stone,
+W. B. Walters, X. Wang, and J. Wrzesi´ nski, Phys. Rev.
+C 85, 034336 (2012).
+[35] F. Recchia, C. J. Chiara, R. V. F. Janssens, D. Weis-
+shaar, A. Gade, W. B. Walters, M. Albers, M. Alcorta,
+V. M. Bader, T. Baugher, D. Bazin, J. S. Berryman, P. F.
+Bertone, B. A. Brown, C. M. Campbell, M. P. Carpenter,
+J. Chen, H. L. Crawford, H. M. David, D. T. Doherty,
+C. R. Hoﬀman, F. G. Kondev, A. Korichi, C. Langer,
+N. Larson, T. Lauritsen, S. N. Liddick, E. Lunderberg,
+A. O. Macchiavelli, S. Noji, C. Prokop, A. M. Rogers,
+D. Seweryniak, S. R. Stroberg, S. Suchyta, S. Williams,
+K. Wimmer, and S. Zhu, Phys. Rev. C88, 041302 (2013).
+[36] Y. Tsunoda, T. Otsuka, N. Shimizu, M. Honma, and
+Y. Utsuno, Phys. Rev. C 89, 031301 (2014).
+[37] W. Kutzelnigg and D. Mukherjee, J. Chem. Phys. 107,
+432 (1997).
+[38] L. Kong, M. Nooijen, and D. Mukherjee, J. Chem. Phys.
+132, 234107 (2010).
+[39] P. Ring and P. Schuck,The Nuclear Many-Body Problem,
+1st ed. (Springer, 1980).
+[40] D. Mukherjee and W. Kutzelnigg, J. Chem. Phys. 114,
+2047 (2001).
+[41] M. H. Kalos, Phys. Rev. 128, 1791 (1962).
+[42] J. Carlson, Phys. Rev. C 36, 2026 (1987).
+[43] D. R. Entem and R. Machleidt, Phys. Lett. B 524, 93
+(2002).
+[44] R. Machleidt and D. Entem, Phys. Rept. 503, 1 (2011).
+[45] R. Roth, S. Binder, K. Vobig, A. Calci, J. Langhammer,
+and P. Navr´ atil, Phys. Rev. Lett.109, 052501 (2012).
+[46] G. Hagen, T. Papenbrock, A. Ekstr ¨om, K. A. Wendt,
+G. Baardsen, S. Gandolﬁ, M. Hjorth-Jensen, and C. J.
+Horowitz, Phys. Rev. C 89, 014319 (2014).
+[47] E. D. Jurgenson, P. Navr´ atil, and R. J. Furnstahl, Phys.
+Rev. Lett. 103, 082501 (2009).
+[48] R. Roth, J. Langhammer, A. Calci, S. Binder, and
+P. Navr´ atil, Phys. Rev. Lett.107, 072501 (2011).
+[49] H. Hergert and R. Roth, Phys. Rev. C 80, 024312 (2009).
+[50] M. Wang, G. Audi, A. Wapstra, F. Kondev, M. Mac-
+Cormick, X. Xu, and B. Pfeiﬀer, Chinese Physics C 36,
+1603 (2012).
+[51] I. Shavitt and R. J. Bartlett, Many-Body Methods in
+Chemistry and Physics: MBPT and Coupled-Cluster
+Theory (Cambridge University Press, 2009).
+[52] P. Piecuch and M. W/suppress loch, The Journal of Chemical
+Physics 123, 224105 (2005).
+[53] S. Binder, P. Piecuch, A. Calci, J. Langhammer,
+P. Navr´ atil, and R. Roth, Phys. Rev. C 88, 054319
+(2013).
+[54] V. Som` a, A. Cipollone, C. Barbieri, P. Navr´ atil, and
+T. Duguet, unpublished (2014). For the GGF calcu-
+lations, the NN+3N-full input Hamiltonian is SRG-
+evolved in a Jacobi HO model space with ESRG =
+44, 42, 42, 40, 38 for J = 1
+2 , 3
+2 , 5
+2 , 7
+2 , 9
+2, respectively. From
+J = 11
+2 to 25
+2 , ESRG is decreased in two-step plateaus
+from 36 to 30, and ESRG = 16 for J > 25
+2 . Frequency
+conversion is not applied, i.e., the ℏω values of the Jacobi
+and single-particle HO bases are directly related through
+the coordinate transformation.
+[55] J. D. Holt, T. Otsuka, A. Schwenk, and T. Suzuki, Jour-
+nal of Physics G: Nuclear and Particle Physics39, 085111
+(2012).
+[56] J. D. Holt, J. Men´ endez, J. Simonis, and A. Schwenk,
+Phys. Rev. C 90, 024312 (2014).
+[57] G. Hagen, P. Hagen, H.-W. Hammer, and L. Platter,
+Phys. Rev. Lett. 111, 132501 (2013).
+[58] H. Hergert, An Ab-Initio Approach to Pairing Phenom-
+ena Using Modern Eﬀective Interactions , Ph.D. thesis,
+TU Darmstadt (2008).
+[59] National Nuclear Data Center, informa-
+tion extracted from the NuDat 2 database,
+http://www.nndc.bnl.gov/nudat2/.
+[60] M. Girod, P. Dessagne, M. Bernas, M. Langevin,
+F. Pougheon, and P. Roussel, Phys. Rev. C 37, 2600
+(1988).
+[61] T. Duguet and G. Hagen, Phys. Rev. C 85, 034330
+(2012).

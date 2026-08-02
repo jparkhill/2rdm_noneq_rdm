@@ -1,0 +1,3988 @@
+Multireference electron correlation methods: Journeys along potential energy surfaces
+Jae Woo Park,1,∗ Rachael Al-Saadon,2 Matthew K. MacLeod,3 Toru Shiozaki,2, 4 and Bess Vlaisavljevich5,†
+1Department of Chemistry, Chungbuk National University, Chungdae-ro 1, Cheongju 28644, Korea.
+2Department of Chemistry, Northwestern University, 2145 Sheridan Rd., Evanston, IL 60208, USA.
+3Workday, 4900 Pearl Circle East, Suite 100, Boulder, CO 80301, USA.
+4Quantum Simulation Technologies, Inc., 625 Massachusetts Ave., Cambridge, MA 02139, USA.
+5Department of Chemistry, University of South Dakota, 414 E. Clark Street, Vermillion, SD 57069, USA.
+(Dated: November 19, 2019)
+Multireference electron correlation methods describe static and dynamical electron correlation in a balanced
+way, and therefore, can yield accurate and predictive results even when single-reference methods or multicon-
+ﬁgurational self-consistent ﬁeld (MCSCF) theory fails. One of their most prominent applications in quantum
+chemistry is the exploration of potential energy surfaces (PES). This includes the optimization of molecular ge-
+ometries, such as equilibrium geometries and conical intersections, and on-the-ﬂy photodynamics simulations;
+both depend heavily on the ability of the method to properly explore the PES. Since such applications require
+the nuclear gradients and derivative couplings, the availability of analytical nuclear gradients greatly improves
+the utility of quantum chemical methods. This review focuses on the developments and advances made in the
+past two decades. To motivate the readers, we ﬁrst summarize the notable applications of multireference elec-
+tron correlation methods to mainstream chemistry, including geometry optimizations and on-the-ﬂy dynamics.
+Subsequently, we review the analytical nuclear gradient and derivative coupling theories for these methods, and
+the software infrastructure that allows one to make use of these quantities in applications. The future prospects
+are discussed at the end of this review.
+CONTENTS
+I. Introduction 1
+II. Applications on Geometry Optimizations 2
+A. MRCI Applications 2
+B. Perturbation Theory Applications: Numerical
+Gradients 5
+C. Perturbation Theory Applications: Analytical
+Nuclear Gradients 6
+III. Applications on Dynamics 7
+A. Uncontracted MRCI Applications 7
+B. CASPT2 Applications 9
+IV . Background on Electronic Structure Methods 10
+A. Complete Active Space Self-Consistent Field
+(CASSCF) 11
+B. Multireference Electron Correlation Methods 11
+1. Conﬁguration Interaction (CI) and Coupled
+Cluster (CC) 12
+2. Perturbation Theories (PT) 12
+V . Nuclear gradients and derivative coupling theory 14
+A. Fundamentals of nuclear gradient theory 14
+1. Hartree–Fock gradient 14
+2. Coupled-Perturbed Hartree–Fock and the
+Z-vector Equation 15
+3. Relaxed (E ﬀective) Density 15
+B. Early Developments for Multireference
+Methods 15
+1. CASSCF Gradient 16
+2. Coupled-perturbed CASSCF and Z-vector
+equation 16
+3. SA-CASSCF derivative coupling 16
+VI. Multireference Electron Correlation Gradients 17
+A. Direct di ﬀerentiation 17
+B. The Lagrangian approach: The Single-Reference
+Case 17
+C. The Lagrangian Approach: The Multireference
+Case 18
+D. CASPT2 Analytical Gradient and the Automatic
+Implementation Technique 19
+E. Multistate CASPT2 Gradient and Derivative
+Coupling 20
+F. Shifts and selection of Fock operators 20
+G. Uses of the Lagrangian in Other Multireference
+Models 21
+VII. Interface to Photodynamics / Photochemistry 21
+A. Derivative Coupling and Conical Intersection
+Optimization 21
+B. Semiclassical Dynamics Simulations 22
+VIII. Summary and Future Prospects 22
+IX. Biographies 23
+X. Acknowledgments 23
+References 23
+I. INTRODUCTION
+The need for multiconﬁgurational methods is motivated by
+interest in systems where the electronic structure cannot be de-
+scribed by a single determinant. Situations where the single-
+determinant picture fail are abundant in chemistry. Any chem-
+ical reaction involves mixing the electronic wave function of
+arXiv:1911.06836v1  [physics.chem-ph]  8 Aug 2019
+2
+the reactant and product, and thus a large part of the reac-
+tion pathway should be better described by using more than
+one electronic conﬁguration. 1 Open shell molecules, even at
+their optimized ground state equilibrium structures, beneﬁt
+from multireference approximations to the electronic wave
+function.2–5 One example from inorganic chemistry is the
+chromium–chromium metal–metal bond where in a simple
+molecular orbital description the antibonding π andδ orbitals
+are su ﬃciently populated in the ground state, reducing the
+bond order. However, unlike for most other bonds, the metal–
+metal bond distance is often not a good indicator of bond
+strength. The bond distance of the incorrect electronic state
+may serendipitously be in good agreement with experiment.
+By optimizing the geometry for the correct electronic state,
+we can be predictive.
+While the chromium–chromium metal–metal bond is a
+common example of a ground state where the electronic struc-
+ture is multiconﬁgurational, excited states require the use of
+these methods more frequently. Even in the case that a sin-
+gle determinant is su ﬃcient to describe the electronic struc-
+ture of the ground state, it is challenging to describe ex-
+cited states with multiple electronic excitations with single-
+reference methods. In addition, when the ground state inter-
+sects with an excited state surface (at a conical intersection),
+the isoenergetic states both exhibit multiconﬁgurational char-
+acter. The wave functions in this case are properly described
+by multistate multireference methods, since the ground and
+excited states are treated on an equal footing. For this rea-
+son, photochemical reactions that involve conical intersec-
+tions should be studied with multireference methods.6
+Computing nuclear gradients and derivative couplings is es-
+sential for such applications. Though the nuclear gradients
+may be obtained by evaluating ﬁnite di ﬀerences between the
+electronic energies (often referred to as numerical gradients),
+it is not practical as it requires many energy evaluations at
+distorted geometries. The numerical gradient approach also
+suﬀers from rounding errors due to the use of ﬁnite precision.
+Therefore, the code to calculate analytical nuclear gradients
+is an important computational tool that not only greatly re-
+duces the computational burden but also improves the accu-
+racy. Historically, nuclear gradient theory for the Hartree–
+Fock method was ﬁrst formulated as early as the 1960s; 7–9
+subsequently, nuclear gradient theory for multiconﬁgurational
+self-consistent ﬁeld (MCSCF) theory, a multiconﬁgurational
+extension of Hartree–Fock, appeared in the late 1970s.10,11
+For predictive chemical simulations, one often has to con-
+sider dynamical electron correlation. If the correction for elec-
+tron correlation is added to the MCSCF reference, these meth-
+ods are called multireference (MR) electron correlation the-
+ories, which include multireference conﬁguration interaction
+(MRCI), coupled cluster (MRCC), and perturbation theory
+(MRPT). In fact, analytical nuclear gradient theory for uncon-
+tracted MRCI already appeared by the 1980s, 12,13 and since
+that time, has proven to be very useful (see Secs. II and III of
+this review). For analytical nuclear gradients for MRCC and
+MRPT, there have been two earlier works in the 1990s: one is
+the two-determinant MRCC gradient in 1994 14 and formula-
+tion of the multi-conﬁguration quasi-degenerate second-order
+perturbation theory (MCQDPT2) gradient in 1998 (though
+implementation has never been reported). 15 The rest of the
+signiﬁcant progress has been made in the last two decades:
+for example, the development of an analytical nuclear gra-
+dient program for partially internally contracted perturbation
+theory, PIC-CASPT2,16 quickly became a workhorse for the
+application of multireference methods in geometry optimiza-
+tions and dynamics for small molecules. In 2015, an an-
+alytical nuclear gradient program for fully internally con-
+tracted perturbation theory, FIC-CASPT2, 17 was developed
+with the aid of the automatic code generation technique. Since
+FIC-CASPT2 is computationally less demanding than PIC-
+CASPT2, it has extended the domain of applicability of such
+simulations; most notably, several CASPT2 on-the-ﬂy dynam-
+ics studies have been reported in recent literature.18–23 We will
+review in the following the recent methodological advances
+and their applications.
+The structure of this review is as follows: First, we review
+applications for molecular systems for which nuclear gradi-
+ents for multireference calculations have played an important
+role. In particular, we focus on the geometry optimization and
+dynamics simulations using MR methods in Secs. II and III,
+respectively. Next, in Sec. IV, we review multireference elec-
+tron correlation methods on the basis of which the nuclear gra-
+dient programs have been developed. In Secs. V and VI, we
+review the nuclear gradient and derivative coupling theories:
+Sec. V recapitulates the nuclear gradient theory for single-
+reference theories and multireference self-consistent ﬁeld the-
+ory; and Sec. VI reviews those for multireference electron cor-
+relation methods. We include a thorough review of the La-
+grangian (or response function) formalism that makes math-
+ematical derivations straightforward, which is now the com-
+mon apparatus of modern gradient theory. Techniques for
+making use of nuclear gradients in geometry optimizations
+and dynamics are presented in Sec. VII. Finally, we end with
+concluding remarks and future prospects in Sec. VIII.
+II. APPLICA TIONS ON GEOMETRY OPTIMIZA TIONS
+A. MRCI Applications
+Uncontracted MRCI with singles and doubles (MRCISD)
+was among the ﬁrst multireference electron correlation meth-
+ods to have analytical nuclear gradients implemented. This
+led to the ﬁrst application of the MRCISD analytical nuclear
+gradient in work by Page et al. in 1984,24 which was based
+on the theory by Osamura et al. in 1982.75 In this work, the
+equilibrium and transition state geometries for the Be + H2
+→ BeH2 reaction were optimized using complete active space
+SCF (CASSCF), MRCISD, and CI with a selected reference.
+The barrier for this reaction di ﬀers by 4 kcal /mol with and
+without the CI corrections.
+Eﬃcient uncontracted MRCISD analytical nuclear
+gradients13,25,29,76 were implemented in columbus.25–27 Using
+columbus, in 2001 Lischka et al. 25 performed geometry
+optimizations of the S 1 equilibrium structure and predisso-
+ciative state of NH 3 and the ground state of ethylene with
+3
+TABLE I. List of optimization studies using multireference electron correlation methods highlighted here. The work that includes dynamics
+simulations using multireference electron correlation methods are excluded and are given in Table II.
+Year System ES method a Basis set Active space b Nstatec ES softwared Opt. Geom.e Ref.
+1984 BeH 2 MRCISD f (4e,4o) 1 E-T- 24
+2001 NH 3 MRCISD,MRAQCC DZPP, TZPP (8 e,7o),(8e,8o) 2 columbus25–27 E-T- 25
+2001 Ethylene MRCISD cc-pVDZ, cc-pVTZ (2 e,2o) 1 columbus25–27 E— 25
+2001 Formaldehyde MRCISD,MRAQCC aug’-cc-pVXZ e (6e,5o) 5,4 columbus25–27 E— 28
+2002 Formaldehyde MRCISD aug-cc-pVDZ CAS(6 e,4o)+RAS 6 columbus25–27 E— 29
+2003 g MS-CASPT2 6-31G* h i molcas30 EC– 31
+2003 Pyrrole MS-CASPT2 aug-cc-pVTZ h i molpro32 E— 16
+2004 Formaldehyde MRCISD cc-pVDZ,cc-pVTZ (6 e,5o) 3 columbus25–27 -C– 33,34
+2004 Ethylene MRCISD cc-pVDZ,cc-pVTZ (4 e,4o) 3 columbus25–27 -C– 34
+2004 Ethylene MRCISD aug-cc-pVXZ e (2e,2o) 3 columbus25–27 EC– 35
+2005 j MS-CASPT2 cc-pVDZ,cc-pVTZ,6-31G* h i molcas30 EC– 36
+2005 Ura, Ade MRCIS cc-pVDZ (12 e,9o) 3,5 columbus25–27 EC-R 37
+2006 Butadiene MS-CASPT2 6-31G** (4 e,4o) 4 molpro32 EC– 38
+2007 Dioxetane MS-CASPT2 ANO-RCC (12 e,10o) 4 molcas30 ECTR 39
+2008 k MS-CASPT2 6-31G**, 6-31G* h i molpro32 -C– 40
+2008 F 2+CH3SCH3 CASPT2 f h 1 molpro32 E-TR 41,42
+2009 Cyclohexadiene MS-CASPT2 6-31G* (6 e,6o) 3 molpro32 EC– 43
+2009 Hydromethoxy radical SS-CASPT2 A VTZ, A VQZ (11 e,8o) 1 molpro32 E— 44
+2010 PSB3 MS-CASPT2 6-31G* (6 e,6o) 3 molpro32 EC– 45
+2011 Benzene MS-CASPT2 6-31G* (6 e,6o) 3 l EC– 46
+2011 Pyrrole XMS-CASPT2 aug-cc-pVTZ (8 e,7o) 5 molpro32 E— 47
+2012 PSB3 m 6-31G* (6 e,6o) 2 n ECT- 48
+2012 Ura, Thy, 5F-Ura MS-CASPT2 Sapporo-DZP (10 e,8o) 5 molpro32 ECTR 49
+2013 Stilbene XMCQDPT2 cc-pVTZ (2 e,2o) to (14e,14o) 2,3 firefly50 ECTR 51
+2013 Acetophenone XMCQDPT2 6-31 +G* (10 e,9o) 10 /6 firefly50 EC– 52
+2013 Ethylene MS-CASPT2 6-31G* (2 e,2o) 3 molpro32 -C–o 53
+2013 Pyrazine XMS-CASPT2 aug-cc-pVTZ (10 e,8o) 2 molpro32 EC– 54
+2013 RPSB models MS-CASPT2 ANO-L-VDZP (10 e,10o) 1,2 molpro32 E— 55
+2014 p MRCISD 6-31 +G**, 6-31G** h 2 columbus25–27 -C– 56
+2014 Ethylene cation XMS-CASPT2 6-311G** (11 e,7o) 4 molpro32 ECT- 57
+2015 QOT2 XMS-CASPT2 6-31G* (10 e,8o) 5 molpro32 E— 58
+2015 KFP Chromophore XMCQDPT2 cc-pVDZ (12 e,11o) 2 firefly50 E— 59
+2016 Thymine MS-CASPT2 6-31G* (10 e,8o) 2 molcas30 ECTR 60
+2016 Azaborine CASPT2 6-31G* (6 e,7o) 1 molpro32 E— 61
+2016 q XMS-CASPT2 TZVPP /cc-pVDZ h 2 bagel62 E— 63
+2017 Ketoisocytosine MRCISD 6-31G* (6 e,5o) 4 columbus25–27 EC– 64
+2017 RPSB models MS-CASPT2 cc-pVDZ h 3 molcas30 E— 65
+2017 r XMS-CASPT2 cc-pVDZ h i bagel62 EC– 66
+2017 s MS-CASPT2 aug-cc-pVTZ h i molcas30 E— 67
+2018 RPSB models t XMS-CASPT2 cc-pVXZ e h i bagel62 EC– 68
+2018 PSB3 XMS-CASPT2 6-31G* (6 e,6o) 2 bagel62 -C– 69
+2019 Ura, Thy cations XMS-CASPT2 ANO-L (13 e,10o) 4 bagel62 EC– 70
+2019 Cyt, 5M-Cyt XMS-CASPT2 ANO-L (13 e,10o) 4 bagel62 EC– 71
+2019 2-SeUra MS-CASPT2 ANO-RCC-VDZP (12 e,9o) 4 /3 molcas30 EC– 72
+2019 u XMS-CASPT2 cc-pVDZ h i bagel62 EC– 73
+2019 v MS-CASPT2 cc-pVDZ h 3 bagel62 EC– 74
+a Electronic structure method.
+b For MRCI studies, the active space for generating reference conﬁgurations.
+c Number of states in the SA-CASSCF and the MR correlation method. a/b denotes a singlet states and b triplet states.
+d Electronic structure software, if mentioned.
+e Type of optimized geometries. E, C, T, and R indicate equilibrium geometries, conical intersection geometries, transition state geometries, and reaction
+pathways, respectively.
+f Combined basis functions or various basis functions are used. See original reference.
+g Butadiene, acrolein, acetone, propenoic acid, diazomethane, pyrrole, PSB3, PSB5.
+h Active space is chosen for each system. See original reference.
+i Diﬀerent number of states used for each system. See original reference.
+j Formaldehyde, ethylene dimer, PSB3.
+k Ethylene, formaldehyde, butadiene, stilbene, model GFP chromophore anion (pHBI).
+l Equilibrium geometry using molpro32 (numerical gradient), and conical intersections using molcas30 interfaced with CIOPT.
+m MS-CASPT2 and XMCQDPT2.
+n molcas30 for MS-CASPT2 and firefly50 for XMCQDPT2.
+o Automated search for conical intersections.
+p Methyliminium, ethylene, butadiene, PSB3, styrene, ketene, pHBI.
+q Copper corrole, benzophenone.
+r Ethylene, PSB3, stilbene, model GFP chromophore anion (pHBDI).
+s Set of small organic compounds. See original reference.
+t Truncated RPSB chromophores with 3, 4, 5, 6 double bonds.
+u Iron porphyrin, adenine, pHBI.
+v PSB3, pHBI.
+4
+the MRCISD and multireference averaged quadratic cou-
+pled cluster (MRAQCC) methods. The MRAQCC method
+corrects for size-consistency and can be considered as an
+intermediate between CI and CC methods. 77 The authors
+were speciﬁcally interested in the S 1 minimum structure of
+the 1A′′
+1 state and the 1B1 dissociative saddle point. However,
+since the calculations were performed with C2V symmetry,
+the S 1 minimum was computed for the 1B1 state instead.
+The NH bond distances are in very good agreement with
+experiment, while the vibrational frequencies di ﬀer by 10
+to 40 cm −1 between the two methods (MRCISD versus
+MRAQCC), although the modes are in reasonable agreement
+with experiment. The MRAQCC approach was also used
+to explore the electronic transition in the Phillips band for
+the C 2 molecule and the geometry of ethylene was studied
+with MRCISD. The MRCISD and MRAQCC methods were
+later applied for the excited states of formaldehyde, 28 where
+the equilibrium geometries and harmonic frequencies were
+computed. Compared to the geometry optimizations based
+on the numerical gradient with symmetry imposed using
+MRCID78 and CASPT2, 79 the optimized structure of the 2
+1A1 state was determined to be a saddle point. This result also
+implied the importance of adding dynamical correlation and
+optimizing in all dimensions.
+The applicability of analytical nuclear gradients and deriva-
+tive couplings with MRCI 29,33 using a state averaged (SA)-
+CASSCF reference was demonstrated for ethylene and
+formaldehyde.34 An extensive study by Barbatti et al. ex-
+plored the photochemistry of ethylene by characterizing the
+excited-state energy surface with MRCISD. 35 The stationary
+points and conical intersections were computed using analyt-
+ical nuclear gradients and non-adiabatic coupling terms along
+the crossing seam between the S 0 and S1 states, which con-
+tains all of the conical intersections known for ethylene. 35
+The active space for ethylene was the minimal 2 electrons in
+2 orbitals (2 e,2o) space consisting of the π and π∗ orbitals,
+although larger reference spaces were tested to ensure that a
+minimal active space was a reasonable choice. Four additional
+orbitals, the 3s and 3p, were included in other calculations as
+an auxiliary space to calculate the Rydberg states; however,
+only single excitations were allowed from the CAS(2 e,2o).
+The optimizations were performed using the analytical MRCI
+non-adiabatic coupling vectors. 33 The standard approach of
+optimizing minima and conical intersections with CASSCF
+and performing single points with MRCI or CASPT2 calcu-
+lations, previously reported by Ben-Nun and Mart ´ınez, was
+in general shown to be quite good; 80 however, the CASSCF
+geometries diﬀer most when the dynamical correlation diﬀers
+signiﬁcantly between two intersecting states. For ethylene,
+this occurs in the crossing of Rydberg and valence states that
+is observed during torsion. In this case, the CASSCF cross-
+ings are approximately 40◦ larger than those computed with
+MRCISD/MRCISD+Q.
+Around the same time, Boggio-Pasquaet al. published their
+strategy for geometry optimizations of the ionic and cova-
+lent ππ∗ excited state of butadiene and hexatriene. 81 Unlike
+the other studies in this section, the focus of the work was
+to identify best practices for describing the ππ∗ excited states
+FIG. 1. Representation of (a) three and (b) four state calculations at
+diﬀerent geometries for two di ﬀerent nucleobases. The relationship
+between the surfaces at di ﬀerent points, including conical intersec-
+tions, is shown and was evaluated with MRCI σπ. Reprinted with
+permission from Ref. 37. Copyright 2005 American Chemical Soci-
+ety.
+in a balanced, accurate way with a lower cost than MRCI or
+multireference second-order perturbation theory. MRCI and
+CASPT2 geometries were included for comparision. They
+used the restricted active space SCF method (RASSCF) to
+recover dynamical correlation by including single excitation
+from the core σ orbital to all of the valence π orbitals. This
+approach was combined with a one-electron basis set for de-
+scribing valence ionic states. The computed geometries were
+found to be sensitive to the diﬀerent ways of including dynam-
+ical correlation and the authors argued that by using RASSCF,
+and including all the valence orbitals, the dynamical correla-
+tion was recovered in a more consistent way. RASSCF also
+had an analytical nuclear gradient which was in its favor.
+A noteworthy series of studies using MRCI methods for
+chemical systems were conducted for nucleobases by Bar-
+batti and coworkers 82–85 and Matsika and coworkers. 37,86–89
+Dynamics simulations were performed in most of the stud-
+ies by Barbatti and coworkers; therefore, we introduce them
+in Sec. III. An example of optimizations of conical intersec-
+tions in nucleobases was performed by Matsika et al. Not
+only were two-state crossing points, but also three-state cross-
+ing points located using MRCIS for the nucleobases uracil and
+adenine.37 In terms of energy, the three-state conical intersec-
+tion points in adenine were found thermally accessible from
+the vertical excitation point (Fig. 1), and therefore, the role
+of these conical intersections in radiationless decay was sug-
+gested. Three-state conical intersections were also predicted
+for cytosine and pyrimidinone bases 88, the dynamics of the
+former were later studied at the CASSCF level of theory.90
+A benchmark study for locating the conical intersec-
+tions of various molecules was performed by Nikiforov et
+al. in 2014, using MRCISD geometries as the reference. 56
+They optimized the conical intersections of the molecules
+shown in Fig. 2. Semiempirical methods along with density
+functional theory (DFT) [orthogonalization-corrected model
+Hamiltonian(OM2/MRCI),91 spin-ﬂip time-dependent den-
+sity functional theory (SF-TDDFT), 92 and state-interaction
+state-averaged restricted ensemble-referenced Kohn–Sham
+(SI-SA-REKS)93] were tested against the MRCISD geome-
+5
+FIG. 2. Geometries of organic molecules computed with various methods, including MRCISD, superimposed to demonstrate the accuracy of
+the optimization. The MRCISD results are shown with carbon atoms in grey, hydrogen atoms in white, nitrogen atoms in blue, and oxygen
+atoms in red. Reprinted from Ref. 56, with the permission of AIP Publishing.
+tries, and the optimized geometries tended to agree reason-
+ably with the MRCISD references. Most recently in 2017, the
+conical intersections of ketoisocytosine were optimized using
+MRCISD,64 while the direct dynamics simulations were per-
+formed with the cheaper method [ADC(2)].
+B. Perturbation Theory Applications: Numerical Gradients
+The majority of the early geometry optimizations using
+perturbation theories were performed on small molecules us-
+ing numerical gradients. One example is the aforemen-
+tioned CASPT2 optimization of formaldehyde with a sym-
+metry constraint. 79 In 2003, Page and Olivucci performed
+CASSCF and CASPT2 geometry optimizations of small or-
+ganic molecules in the ground and excited states usingmolcas
+4.1.30,31 These calculations used numerical gradients to opti-
+mize organic chromophores including 1,3-butadiene, acrolein,
+and two protonated Schiﬀ bases. In some cases, the CASPT2
+computed bond distances had large di ﬀerences from the
+CASSCF results, approximately 0.01 to 0.02 Å, but the overall
+trends were generally maintained. The changes in geometric
+parameters between double- or triple-ζ basis sets was signif-
+icant for both methods. If a system was not well-described
+by CASSCF or strong ionic character was present (where
+presumably the highly localized electron density is also not
+treated suﬃciently well at the CASSCF level), the diﬀerences
+tended to be greater. Page and Olivucci also optimized the
+geometry of low-lying conical intersections. CASSCF and
+CASPT2 yielded fairly large di ﬀerences in geometry for the
+cis butadiene S0/ S1 geometry yet this conical intersection is
+only lower in energy by 4.50 kcal/mol when dynamical corre-
+lation is included.
+The ﬁrst formulation of analytical nuclear gradient the-
+ory for uncontracted second-order perturbation theory, the so-
+called multi-conﬁguration quasi-degenerate second-order PT
+(MCQDPT2), was presented in 1998,15 though its implemen-
+tation and application have not been reported to our knowl-
+edge. Five years later, the analytical nuclear gradient method
+for partially internally contracted (PIC)-CASPT2 was made
+publicly available, 16 while the fully internally contracted
+(FIC)-CASPT2 analytical nuclear gradients were not avail-
+able until they were reported by us in 2015. 17 Prior to these
+developments, many of the studies using FIC-CASPT2 94 and
+(X)MCQDPT295,96 were performed using numerical gradi-
+ents.
+In 2005, Serrano-Andr ´es et al. used CASPT2 and multi-
+state (MS)-CASPT2 to explore the potential energy surface
+of LiF, formaldehyde, the ethene dimer, and the penta-2,4-
+dieniminium cation.36 They searched not only for minima, but
+also for conical intersections along the crossing seams of dif-
+ferent exited states. The structures were compared with those
+from CASSCF and MRCI. This work discussed practical pro-
+cedures for using the MS-CASPT2 approach for polyatomic
+systems.
+In 2007, De Vico et al.39 used MS-CASPT2 numerical gra-
+dients in molcas30 to identify the the minimum energy path-
+way for dioxetane dissociation in the ground state. Since
+CASSCF and MS-CASPT2 agreed well for the S 0 dissoci-
+ation pathway, dissociation along the S 1 and T 1 states was
+calculated using an MS-CASPT2 //CASSCF protocol where
+the geometries were optimized with CASSCF, but the energy
+was calculated with MS-CASPT2. This was also the case for
+the smallest model retinal protonated Schiﬀ base (RPSB), the
+penta-2,4-dieniminium cation (PSB3). PSB3 was also thor-
+oughly studied in work by Gozemet al.,48 where the structure
+6
+of PSB3 was optimized with MS-CASPT2 and XMCQDPT2
+using numerical gradients. They also observed that using a
+MRPT2//CASSCF protocol yielded similar quality results to
+optimizing with MRPT2.
+The photoisomerization of stilbene has been extensively
+studied with XMCQDPT2. 51,97 The equilibrium geometries
+were optimized and their vibrational frequencies were com-
+puted. Additionally, the reaction pathways between these
+structures were carefully studied. The CASSCF and XMC-
+QDPT2 vibrational frequencies and the location of the sta-
+tionary points in the excited states di ﬀered signiﬁcantly. For
+example, the CASSCF surface was found to have an energy
+minimum on the S 1 surface near the cis-stilbene geometry,
+while the XMCQDPT2 calculation could not locate this point.
+A critical diﬀerence between CASSCF and XMCQDPT2 re-
+sults was also found for 2-acetyl-4-(p-hydroxybenzyledene)-
+1-methyl-5-imidazolone (AHBMI), the kindling ﬂuorescent
+protein (KFP) chromophore. 59 The diﬀerence in the equilib-
+rium structures obtained by CASSCF and XMCQDPT2 was
+about 0.05 Å, and the emission energies di ﬀered by 0.12
+eV (diﬀerence between XMCQDPT2//XMCQDPT2 and XM-
+CQDPT2//CASSCF) or 0.85 eV (di ﬀerence between XMC-
+QDPT2//XMCQDPT2 and CASSCF//CASSCF).
+Unlike most of the works that report CASPT2 geometry
+optimization that were focused on organic molecules, a series
+of papers by Andrews and coworkers98–104 explored the elec-
+tronic structure of small actinide and transition metal com-
+plexes in noble gas matrices. These studies demonstrated
+the importance and applicability of CASPT2 for geometry
+optimization and harmonic vibrational frequencies calcula-
+tions, using numerical gradients and numerical Hessian cal-
+culations available in molcas.30 The species that were studied
+include N≡UF3 and P≡UF3;98 FB=ThF2;101 N≡U=N–H;102
+SUO and US2;103 halomethanes with laser-ablated nickel, pal-
+ladium, and platinum; 99,100 and 3d transition metal oxyﬂuo-
+ride molecules.104
+The numerical gradient implementations of CASPT2 and
+XMCQDPT2 remain in widespread use for optimizing molec-
+ular structures. Notable examples include locating equilib-
+rium geometries and conical intersections with MS-CASPT2
+in 2011,46 locating equilibrium geometries and conical inter-
+section in acetophenone with XMCQDPT2 in 2013, 52 locat-
+ing equilibrium geometries, conical intersections, transition
+state geometries, and reaction pathways of thymine with MS-
+CASPT2 in 2016, 60 locating equilibrium geometries of var-
+ious RPSB models in 2017, 65 generating a benchmark set
+of excited-state geometries of organic molecules with MS-
+CASPT2 in 2017,67 and optimizing equilibrium structures and
+crossing points in 2-selenouracil in 2019.72
+C. Perturbation Theory Applications: Analytical Nuclear
+Gradients
+In this section, we will highlight some the studies that
+reported geometry optimization utilizing the PIC-CASPT2
+analytical nuclear gradient program in molpro16,32,43,47,105
+and the FIC-CASPT2 counterpart recently developed in
+FIG. 3. Geometry and active orbitals of copper corrole complex op-
+timized with FIC-CASPT2 analytical gradient. Reprinted with per-
+mission from Ref. 63. Copyright 2016 American Chemical Society.
+FIG. 4. Optimized structures for the S 1/S0 MECI of (a) stilbene and
+(b) GFP. Structures from CAS (gray) and MS-CASPT2 (blue) are
+superimposed. Reprinted with permission from Ref. 40. Copyright
+2008 American Chemical Society.
+bagel.17,19,63,66,106 In the original work by Celani and Werner
+that reported the PIC-CASPT2 nuclear gradient algorithm,
+they studied the excited state geometries of pyrrole. 16 In
+this study, the equilibrium geometries of the excited valence
+states were found to be non-planar, in stark contrast to the
+earlier MS-CASPT2 optimization which imposed a planar
+constraint.107 Pyrrole was also used as an example to demon-
+strate geometry optimization with XMS-CASPT2. 47 Single-
+state CASPT2 optimizations (including ground and excited
+states) have been shown to perform well for bond formation /
+breaking or energy transfer problems for a variety of chemical
+systems.41,42,58 Furthermore, CASPT2 geometries are often
+used to benchmark other computational methods, including
+those generated under extreme conditions or not observed in
+experiment.44,61 These studies include optimizations along the
+reaction pathway for the F2 + CH3SCH3 reaction;41,42 ground-
+state optimization of the hydromethoxy radical; 44 geometries
+and excitation energies for RPSB models for benchmarking
+the performance of CASSCF, CC2, MP2, and DFT;55 the po-
+tential energy landscape search of singlet ﬁssion material can-
+didate tetracyanoquinodimethane bithiophene (QOT2);58 and
+the equilibrium geometry, frequency calculation, and reaction
+pathway for the ring-opening reaction of azaborine.61 The an-
+alytical nuclear gradient for FIC-CASPT2 has been used for
+the copper corrole complex (Fig. 3),63 where a saddled geom-
+etry was obtained for the S0 state while the S1 state is planar.
+In addition to optimizing equilibrium geometries, CASPT2
+7
+analytical nuclear gradient theory can be used to locate con-
+ical intersections. In the search for conical intersections us-
+ing CASPT2, work by Levine et al. in 2006 and 2008 is
+notable,38,40 because these authors introduced a methodol-
+ogy to locate the conical intersection [minimal energy coni-
+cal intersection (MECI) and minimal distance conical inter-
+section (MDCI)] without a derivative coupling vector since
+the analytical interstate coupling vector was not implemented
+for CASPT2 until 2009 43 (note, however, that a scheme for
+estimating CASPT2 nonadiabatic coupling from CASSCF
+wave functions was presented by Tao et al. in the con-
+text of dynamics 108). The conical intersections of ethylene,
+formaldehyde, butadiene, stilbene, and model GFP chro-
+mophore anion ( pHBI) were optimized. The CASSCF and
+CASPT2 optimized MECI geometries exhibited considerable
+diﬀerences for stilbene, particularly in the degree of pyrami-
+dalization (Fig. 4).
+After the implementation of the interstate coupling vector
+for CASPT2, 43 standard methods for locating conical inter-
+sections (which are described in Sec. VII), such as the gra-
+dient projection method,109 were applied in conjunction with
+CASPT2. The MECI was located for the ring-opening re-
+action of cyclohexadiene, 43 in which the largest deviation in
+bond lengths between SA-CASSCF and MS-CASPT2 coni-
+cal intersections was about 0.07 Å. Not only were the ge-
+ometries diﬀerent, but the overlap ( g· h/|g||h|) between the
+gradient di ﬀerence vector g and interstate coupling vector
+h, which are two vectors that characterize the conical inter-
+sections, were also inconsistent, with values of 0.335 (SA-
+CASSCF) and 0.941 (MS-CASPT2). This implies that the
+PES topology around the conical intersection changed consid-
+erably with the inclusion of dynamical correlation. Further-
+more, conical intersections were optimized on the free energy
+surface of PSB3 45 by combining the free energy within the
+linear response free energy (LRFE) framework110–112 with the
+CASPT2 gradient and interstate coupling. When compared
+to the CASSCF result, the conical intersections associated
+with the twisting of the C=N bond became energetically disfa-
+vored, and the C=N bond length in the CASSCF and CASPT2
+equilibrium geometries diﬀered by 0.06 Å. Conical intersec-
+tion searches were also performed using PIC-CASPT2, and
+the ﬁrst applications of automated conical intersection search
+for ethylene53 should also be highlighted, as this work demon-
+strates the use of multireference electron correlation methods
+for exploring conical intersection seams.
+The correct topology of the PES near the conical intersec-
+tion can be obtained using XMCQDPT2 and XMS-CASPT2,
+which are invariant with respect to rotations among the states
+as proposed by Granovsky. 47,96 After the development of
+XMS-CASPT2 nuclear gradients with partial 47 and full63 in-
+ternal contraction, several conical intersection optimizations
+have been performed using this method. One of the earli-
+est examples is the photodynamics simulations of the ethy-
+lene cation by Joalland et al.,57 in which three-state MECIs
+are optimized as well as two-state MECIs. The RPSB model
+chromophores have been extensively tested to understand the
+eﬀect of chromophore truncation,68 and it turns out that XMS-
+CASPT2 favors one of two available isomerization channels.
+Additionally, the conical intersections of nucleic acids, the
+uracil and thymine cations 70 as well as cytosine, 71 have also
+been optimized using XMS-CASPT2. The three-state conical
+intersections in the uracil cation are separated by including the
+PT2 correction, with signiﬁcant changes in the D 2/D1 conical
+intersection (up to 0.10 Å of change in the bond lengths).70
+III. APPLICA TIONS ON DYNAMICS
+Complex photochemical processes can be simulated by
+coupling multireference gradient theory to nonadiabatic dy-
+namics methods. Recent reviews on mixed quantum-
+classical139,140 nonadiabatic dynamics include details about
+dynamics simulations with analytical gradients. Signiﬁcant
+eﬀort in software development has made it possible to inter-
+face the electronic structure and dynamics software packages
+required to perform these simulations. We highlight the re-
+sults obtained by dynamics simulations with multireference
+nuclear gradient theory and emphasize the dynamics software
+employed. A list of applications involving dynamics reviewed
+is given in Table II along with other relevant details such as the
+software package, active space, dynamics method, and so on.
+A. Uncontracted MRCI Applications
+As was the case for geometry optimizations, the ﬁrst exam-
+ples of nonadiabatic dynamics using a multireference correla-
+tion method employed uncontracted MRCI, due to the avail-
+ability of the analytical gradient in thecolumbus25–27 program.
+In 2006, Zechmann et al. 113 used MRCISD and the fewest-
+switch surface-hopping (FSSH) algorithm to study the dynam-
+ics of silaethylene, which was chosen as a model polarπ bond,
+and unconvered the multiple relaxation pathways from the S1
+excited state.
+Beginning in 2007, the N ewton-X115,116 program has pro-
+vided a modular approach by separating the electronic struc-
+ture and dynamics programs. 117 While columbus,25–27 has
+been primarily used in conjunction with N ewton-X, turbo-
+mole and mopac have been interfaced from the ﬁrst version
+of the program. This program was used to study the metha-
+niminium cation with MRCISD and the retinal model PSB3
+cation with MRCIS in columbus.25–27
+In the previous section (Ref. II), we presented MRCI stud-
+ies of nucleobases, and many of these studies also include
+dynamics simulations using FSSH. 82–85,123 The ﬁrst excited-
+state dynamics study of adenine was reported in 2008 by
+Barbatti and Lischka.82 They investigated nonradiative decay
+within the singlet manifold using MRCIS with columbus25–27
+coupled to the N ewton-X115,116 surface-hopping dynamics
+code. These simulations included the decoherence e ﬀect
+using the formalism developed by Granucci and Persico. 141
+The study showed two distinct steps including a short relax-
+ation time from S 3 to S 2 to S 1 and a longer relaxation time
+from S 1 to S 0. In another comprehensive study of the nu-
+cleobases (adenine, guanine, cytosine, thymine, and uracil),83
+the simulations of adenine and guanine were performed with
+8
+TABLE II. List of the dynamics studies using the multireference electron correlation methods highlighted here.
+Year System ES method Basis set Active space a Nstateb ES softwarec Ntrajd NAD methode NAD softwaref Ref.
+2006 Silaethylene MRCISD 6-31G* (2 e,2o) 3 columbus25–27 100 FSSH 113
+2007 Methyl salicylate SS-CASPT2 6-31G* (2 e,2o) 2 molpro32 5 AIMS molpro32 114
+2007 l m 6-31G* n o columbus25–27 p FSSH N ewton-X115,116 117
+2008 Adenine MRCIS 6-31G* /3-21G (6 e,4o) 4 columbus25–27 60 DC-FSSH g Newton-X115,116 82
+2009 Pyrrole MRCISD aug’-cc-pVDZ (4 e,5o) 5 columbus25–27 90 DC-FSSH N ewton-X115,116 118
+2009 Ethylene MS-CASPT2 6-31G* (2 e,2o) 3 molpro32 13 AIMS molpro32 108
+2010 Ade, Gua MRCIS 6-31G* n o columbus25–27 60 DC-FSSH N ewton-X115,116 83
+2011 Ethylene MS-CASPT2 6-31G* (2 e,2o) 3 molpro32 44 AIMS molpro32 119,120
+2011 Guanine MRCIS 6-31G* (10 e,7o) 3 columbus25–27 60 DC-FSSH N ewton-X115,116 84
+2012 Ethylene MS-CASPT2 6-31G* (2 e,3o) 5 molpro32 37 AIMS molpro32 121
+2012 CPD, Me 4-CPD MS-CASPT2 6-31G** (4 e,4o) 3 molpro32 40 each AIMS molpro32 122
+2012 Adenine MRCIS 6-31G* (6 e,4o) 5 columbus25–27 60 DC-FSSH N ewton-X115,116 85
+2012 Gua in DNA MRCIS 6-31G* (10 e,7o) 4 columbus25–27 53 DC-FSSH N ewton-X115,116 123
+2013 PSB3, MePSB3 MRCIS 6-31G (4 e,5o) 3 columbus25–27 200 DC-FSSH N ewton-X115,116 124
+2014 SO 2 MRCIS ANO-RCC-VDZP (6 e,6o) 4 /3 columbus25–27 44/111j SHARC-FSSH sharc125,126 127
+2014 Me 6-CPD MS-CASPT2 6-31G** (4 e,4o) 3 molpro32 38 AIMS molpro32 128
+2015 Cyclohexadiene MS-CASPT2 cc-pVDZ (8 e,8o) 3 molpro32 87 ZNSH 129
+2016 Sulﬁne MS-CASPT2 6-31G* (4 e,3o) 2 molpro32 102 AIMS molpro32 130
+2016 PSB3 MS-CASPT2 6-31G (6 e,6o) 3 molpro32 46 AIMS molpro32 131
+2016 2-thiocytosine MRCIS cc-pVDZ (6 e,5o) 4 /2 columbus25–27 137 SHARC-FSSH sharc125,126 132
+2016 2-thiouracil MS-CASPT2 cc-pVDZ (12 e,9o) 4 /3 molcas30 92(44)h SHARC-FSSH sharc125,126 18
+2017 i XMS-CASPT2 cc-pVDZ n 3 bagel62 p DC-FSSH N ewton-X115,116 19
+2017 1,2,3-thiadiazole MS-CASPT2 6-31G* (10 e,8o) 3 molpro32 150(144) ZNSH gtsh 133
+2017 [2 +2] ethylene SS-CASPT2 6-31G* (4 e,4o) 1 molpro32 200 BOMD abin 134
+2017 5-azacytosine MRCIS def2-SVP (6 e,5o) 3 /2 columbus25–27 146 SHARC-FSSH sharc125,126 135
+2017 5-bromouracil MRCIS cc-pVDZ-DK (10 e,8o) 4 /3 columbus25–27 93 SHARC-FSSH sharc125,126 136
+2018 trans-1,3-butadiene MS-CASPT2 6-31G** (4 e,4o) 3 molpro32 25 AIMS molpro32 137
+2019 Pyrrole XMS-CASPT2 ANO-L (8 e,8o) 7 bagel62 23 DC-FSSH sharc125,126 20
+2019 CH 3OH2+ XMS-CASPT2 aug-cc-pVDZ (8 e,8o) 7 bagel62 700 DC-FSSH N ewton-X115,116 21
+2019 Thioformaldehyde MS-CASPT2 ANO-RCC-VDZP (10 e,6o) 2 /2 molcas30 200 SHARC-FSSH sharc125,126 138
+2019 Cyclohexadiene XMS-CASPT2 cc-pVDZ (6 e,6o) 3 bagel62 136 DC-FSSH N ewton-X115,116 22
+2019 1,1-diﬂuoroethylene MS-CASPT2 aug-cc-pVDZ (2 e,2o)/(2e,6o)n 3/11n molcas30 152/121k SHARC-FSSH sharc125,126 23
+a For MRCI studies, the active space for generating reference conﬁgurations.
+b Number of states in SA-CASSCF and MR correlation method. a/b denotes a singlet states and b triplet states, except for ref. 23.
+c Electronic structure software.
+d Number of dynamics trajectories. For AIMS trajectories, the number of initial conditions.
+e Nonadiabatic dynamics method.
+f Nonadiabatic dynamics software, if mentioned.
+g decoherence-corrected fewest-switches surface hopping.
+h The number in parentheses indicates the number of trajectories that did not fail.
+i pHBI, the GFP model chromophore, 4-(p-hydroxybenzylidene)-5-imidazolinone anion and adenine in water.
+j 44 in singlet manifold and 111 in singlet-triplet manifold.
+k Two simulation conditions were used in this work.
+l Methaniminium and PSB3.
+m MRCISD and MRCIS.
+n Active space is chosen for each system. See original reference.
+o Diﬀerent number of states used for each system. See original reference.
+p Diﬀerent number of trajectories used for each system. See original reference.
+the MRCIS method, while the others were simulated with
+CASSCF. The deactivation pathway that they found for ade-
+nine and guanine is a barrierless path to the conical intersec-
+tion seam. Subsequent simulations with MRCIS for adenine85
+and guanine84 have shown that the C2-puckering of these nu-
+cleobases (Fig. 5) is the main decay pathway. In 2012, Zelen´y
+et al. simulated guanine deactivation in the DNA environ-
+ment using mixed quantum mechanics–molecular mechanics
+(QM/MM),123 and found that the enviroment slowed the nona-
+diabatic decay from 0.22 ps to 0.5 ps. This was mainly as-
+cribed to the presence of hydrogen bonds between guanine
+and cytosine.
+The sharc dynamics code, 125,126,142,143 developed by
+Gonz´alez and coworkers, has been interfaced with many quan-
+tum chemistry programs. The sharc code is named after
+the surface hopping including arbitrary couplings (SHARC)
+model142,143 and is capable of simulating intersystem crossing
+dynamics. FSSH dynamics simulations without intersystem
+crossing can also be performed with sharc.
+One of the earilest applications of sharc is the excited-
+state dynamics simulation of the SO 2 molecule.127 The MR-
+CIS method was employed to describe the correct dissoci-
+9
+FIG. 5. Optimized structures for S 1/S0 conical intersections of gua-
+nine with the percentages of the relative populations from MRCIS
+dynamics in Ref. 84. Reprinted from Ref. 84, with the permission of
+AIP Publishing.
+ation limit. In this study, the simulations were performed
+with and without inclusion of triplet states. With only sin-
+glet states, very few trajectories decayed to the ground state;
+however, when triplet states are also considered, almost 50%
+of the total excited-state singlet population was transferred to
+triplet states, in agreement with experimental results. 144 This
+work was followed by simulations of modiﬁed nucleobases,
+speciﬁcally those with heavy atoms: 2-thiocytosine, 132 5-
+azacytosine,135 and 5-bromouracil, 132 all of which were re-
+ported using MRCIS.
+Another example is the study on pyrrole in 2009 118 with
+MRCISD and the FSSH algorithm, in which ﬁve singlet states
+were included in the dynamics, describing the deformation of
+the molecule and the timescale of the dynamics. Additionally,
+an MRCIS-QM/MM approach was used to study the PSB3
+cation,124 showing that solvent polarity a ﬀects the crossing
+seam which in turn aﬀects the decay of the excited state.
+B. CASPT2 Applications
+In 2007, Coe et al.114 used MS-CASPT2 analytical nuclear
+gradients with partial internal contraction16 to perform ab ini-
+tio multiple spawning (AIMS)80 dynamics for the intramolec-
+ular proton transfer in methyl salicylate, and demonstrated the
+importance of dynamical electron correlation for the accurate
+description of the barrier heights and timescales. In this work,
+Coe et al. used the single-state PIC-CASPT2 nuclear gradient
+code while noting that MS-CASPT2 analytical gradients and
+derivative couplings would be an important step forward.114
+After development of the PIC-MS-CASPT2 nuclear gra-
+dient by Celani and Werner in the mid 2000s (which has
+never been published), the ﬁrst MS-CASPT2 dynamics with
+AIMS was demonstrated for ethylene in 2009.108 In this study,
+the authors approximated the derivative coupling vectors with
+those obtained by the relaxed CASSCF wave functions. Fur-
+ther studies on ethylene using MS-CASPT2 uncovered the
+discrepancies between the excited-state life time obtained in
+the previous computational and experimental studies 119 and
+explored the mechanism of non-radiative decay pathways. 120
+A simulation including a low-lying Rydberg state using an-
+alytical derivative couplings was later reported with ﬁndings
+that this state was not signiﬁcantly populated.121
+The same approach has been applied to several polyenes.
+In 2012, cyclopentadiene (CPD) and its tetramethylated ana-
+log (Me4-CPD) were studied,122 in which the methyl groups in
+Me4-CPD were replaced by an atom with a mass of 15 a.m.u.
+to reduce the cost of simulation. The AIMS simulation repro-
+duced the slower decay in Me 4-CPD in comparison to CPD,
+which was reported eariler experimentally. 145 It also showed
+that the methyl substituents are responsible for slowing the
+out-of-plane motion of the ring, a necessary motion to reach
+the conical intersections. The simulated induction time, which
+is the time before the population decay starts, was 25 fs for
+CPD and 71 fs for Me 4-CPD. A similar conclusion was later
+reached for Me 6-CPD using the same approximation, which
+yielded the simulated induction time of 108 fs.128 AIMS sim-
+ulations of butadiene using MS-CASPT2 were also presented
+in 2018.137
+In addition, AIMS simulations with MS-CASPT2 were per-
+formed for PSB3 131 and sulﬁne. 130 In PSB3, the dynamical
+correlation was found to make the conical intersection associ-
+ated with the C =N transition less accessible, which was pre-
+dicted eariler by the calculations that located the MECIs. 45
+Furthermore, to investigate the diverse product formation in
+sulﬁne degradation, 130 the long-time dynamics were simu-
+lated: AIMS simulations were performed until sulﬁne de-
+cayed to the ground state, from which point the dynam-
+ics was switched to Born–Oppenheimer molecular dynam-
+ics (BOMD) with density functional theory (DFT /PBE0). It
+was found that, although sulﬁne undergoes nonadiabatic de-
+cay along only one relevant conical intersection, the excess
+energy in the ground state causes the system to reach nine dif-
+ferent products.
+Apart from these AIMS simulations, PIC-CASPT2 was
+also used in the Zhu–Nakamura surface hopping (ZNSH) sim-
+ulation of the ring-opening reaction for cyclohexadiene, 129
+QM/MM ZNSH dynamics of Wolﬀ rearrangements of 1,2,3-
+thiadazole in acetonitrile, 133 and single-state simulations of
+ethylene [2+2] photocycloaddition in the triplet state.134
+With the recent increase in available computer hardware,
+FIC-CASPT2 numerical gradients have begun to be used in
+surface hopping dynamics simulations, even though the com-
+putation of numerical gradients are inherently less e ﬃcient
+and accurate than the analytical variant. The mechanisms of
+deactivation (mainly involving intersystem crossing) in the 2-
+thiouracil nucleobase 18 and thioformaldehyde. 138 have been
+studied using the molcas–sharc interface together with nu-
+merical FIC-MS-CASPT2 nuclear gradients. In these studies,
+spin–orbit coupling was included using the restricted active
+space state interaction (RASSI) approach in molcas.30 The
+authors tested MS-CASPT2, SA-CASSCF, DFT, and ADC(2)
+for thioformaldehyde and found that MS-CASPT2 reliably re-
+produced the experimental observation 146–148 that there is no
+intersystem crossing within a sub-picosecond time scale. Note
+10
+FIG. 6. Dynamics population of the T 1 (red) and T2 (orange) states
+in thioformaldehyde. In MS-CASPT2, the population transfer to the
+triplet state is not obtained, which is consistent with experimental
+results.146–148 Reprinted with permission from Ref. 138. Copyright
+2019 American Chemical Society.
+that the ADC(2) method predicted the intersystem crossing
+step as accurately as MS-CASPT2, but it overestimated the
+energy gap between T2 and S1 states, leading to the oscillatory
+amplitudes of the T 2 population being too small (Fig. 6). 138
+Gomez et al. also performed MS-CASPT2 dynamics for 1,1-
+diﬂuoroethylene,23 using a minimal (2 e,2o) space and an ex-
+tended (2e,6o) active space that takes into account 3s and 3p
+Rydberg states (three and eleven MS-CASPT2 states were in-
+cluded in the calculation, respectively), observing that the sin-
+glet Rydberg states play an important role in the population
+decay.
+One of the recent breakthroughs in this area has been the
+development of the analytical FIC-CASPT2 nuclear gradi-
+ent program in bagel. FIC-CASPT2 on-the-ﬂy surface hop-
+ping simulations have been performed using bagel17,62,63,66
+together with both N ewton-X115,116 and sharc.125,126 We
+demonstrated the computational tool for QM /MM nonadia-
+batic decay simulations of pHBI and adenine in water; 19 For
+pHBI (Fig. 7), the inclusion of dynamical correlation resulted
+in twisting channels, while previous CASSCF studies 149,150
+predicted otherwise.
+The bagel–Newton-X interface has since been used by
+various users. For example, FIC-XMS-CASPT2 FSSH dy-
+namics simulations were used by Luzon et al. to interpret
+the Coulomb explosion experiment for methanol after laser-
+induced multiple electron ionization.21 To model the process,
+two electrons were removed from the molecule at the neu-
+tral geometry, and the seven lowest dication states were used
+to initiate nonadiabatic dynamics simulations. Overall, the
+FSSH simulation exhibited excellent agreement with experi-
+ment. In particular, the correlation of three-body momentum
+with the ejection of a neutral H or proton (Fig. 8) suggests that
+these calculations are reliable for interpreting the underlying
+mechanisms.
+Another example is the FSSH simulations of the ring-
+opening reaction of 1,3-cyclohexadiene performed using
+XMS-CASPT2.22 This system is an infamous target for SA-
+CASSCF studies. With the full-valence (6 e,6o) active space,
+the ordering of the 1 1B and 2 1A states near the Franck–
+Condon (FC) point is swapped with respect to the experimen-
+tal observation. Using a di ﬀerent active space, (6 e,4o)151 or
+(14e,8o),152 the state ordering near the FC point is correct,
+but accuracy at points far from the FC point, which are also
+sampled during the MD simulation, cannot be ensured with
+unbalanced selection of active space. With the full-valence
+active space and XMS-CASPT2, the correct state ordering
+is obtained. Polyak et al. observed the ultrafast decay to
+the ground state (89 ± 9 fs) with large quantum yield (47 ±
+8 %) of hexatriene, which was comparable to experimental
+results (80 to 170 fs lifetime153–155 and 30% to 40% quantum
+yield).156 By mapping the distribution of the hopping geome-
+tries in the simulations, these lifetime and quantum yields are
+ascribed to the extended conical intersection seam along the
+reaction coordinate.157
+The bagel–sharc interface has more recently been devel-
+oped and used to simulate pyrrole dynamics with XMS-
+CASPT2.20 A time constant of 64 ± 13 fs for deactivation
+was obtained, primarily attributed to N–H bond dissociation,
+which is in agreement with the experimental value (52 ±
+12 fs) for hydrogen abstraction.158 This is in contrast to those
+obtained by PBE0 (166 /184 fs) 159 and by ADC(2) (longer
+than 150 fs),160 supporting once more the reliability of XMS-
+CASPT2 dynamics simulations.
+IV . BACKGROUND ON ELECTRONIC STRUCTURE
+METHODS
+Now, we are at a position to review multireference electron
+correlation methods and their respective nuclear gradient and
+derivative coupling theories that have made the above appli-
+cations possible. We do so in two sections: ﬁrst, an emphasis
+is placed on the electronic-structure methods in this section,
+followed by the nuclear gradient theories in the subsequent
+section.
+Generally speaking, electronic wave functions are repre-
+sented as a linear combination of Slater determinants (labeled
+by I),
+|Ψ⟩ =
+∑
+I
+cI|I⟩ (1)
+If the CI-expansion of the wave function includes all possible
+electronic conﬁgurations, the resulting energies are exact for a
+given basis set. This is the so-called full CI (FCI) approach.161
+11
+FIG. 7. Dynamics trajectories with (solid) and without (dashed) solvent for the (a) I-channel (b) P-channel of pHBDI. The decay through the
+I-channel was dominant in contrast with CASSCF results.149,150 Reprinted with permission from Ref. 19. Copyright 2017 American Chemical
+Society.
+As a result of the high computational cost of evaluating the
+complete determinant expansion, FCI calculations can only
+be performed on small molecules, even when direct diagonal-
+ization of the FCI matrix is avoided and instead an iterative
+procedure is used.162,163 Therefore, approximations to the FCI
+expansion are essential.
+A. Complete Active Space Self-Consistent Field (CASSCF)
+The need to overcome the limitation of the cost of FCI led
+to the development of a variety of approximate theoretical
+models, in particular those that can treat systems with multi-
+ple electron conﬁgurations. Of the multiconﬁgurational meth-
+ods that have been developed, the complete active space self-
+consistent ﬁeld (CASSCF) approach 164–166 has been widely
+used in chemical computation. The CASSCF wave function
+is a generalization of the Hartree–Fock wave function and may
+be viewed as an embedding scheme, in which a subset of the
+total electrons (the active electrons) are treated exactly using
+FCI in a subset of chosen orbitals (the active orbitals) embed-
+ded in the mean-ﬁeld of other electrons. The active electrons
+and orbitals deﬁne the so-called active space. The orbitals are
+optimized to minimize the variational energy, resulting in the
+CASSCF wave function.
+|ΨP⟩ =
+∑
+I
+cI,P|I⟩ (2)
+where P labels physical states. The excited states are of-
+ten simulated by means of the state-averaged CASSCF (SA-
+CASSCF) method, 167,168 because separate optimizations of
+the CASSCF orbitals for each state usually results in root ﬂip-
+ping. SA-CASSCF optimizes the state-averaged energy,
+E =
+∑
+P
+wPEP, (3)
+where wP is the weighted coe ﬃcient for individual state P,
+which can be either static or dynamically determined. 169–171
+Extensions of the CAS wave functions include restricted ac-
+tive space172,173 and generalized active space.174 The CASSCF
+wave functions are often used as a reference for multireference
+methods that account for dynamical correlation, which are to
+be discussed below.
+B. Multireference Electron Correlation Methods
+In the post-CASSCF framework, dynamical correlation is
+incorporated by conﬁguration interaction (CI), perturbation
+(PT), and coupled cluster (CC) theories, which we review in
+this section. Several reviews are available in previous issues
+of Chemical Reviews on the CI and CC theories.6,77,140,175
+12
+FIG. 8. Experimental (top) and computed (bottom) Dalitz plots of
+three-body correlations for the simulations of the Coulomb explosion
+in methanol. The diamonds show the ﬁnal momentum correlations of
+the calculated trajectories, while the theory gray scale shows a sim-
+ulated realistic experimental response. Reprinted with permission
+from Ref. 21. Copyright 2019 American Chemical Society.
+1. Conﬁguration Interaction (CI) and Coupled Cluster (CC)
+The multireference CI approach (MRCI) is one of the vi-
+able approaches to describe dynamical correlation on the basis
+of CASSCF reference wave functions. 6,175 The uncontracted
+MRCI method was developed as a way to restrict the expan-
+sion space when FCI is not feasible. 176 In this approach, the
+wave functions are expanded in the conﬁgurations generated
+by applying the excitation operator to a number of chosen
+reference Slater determinants. The uncontracted MRCI wave
+function is written as a linear combination of the excited de-
+terminants (or conﬁguration state functions), as
+|ΨMRCI⟩ =
+∑
+I
+cI|I⟩ +
+∑
+I
+∑
+i
+∑
+a
+cI
+ai ˆEai|I⟩
++
+∑
+I
+∑
+i j
+∑
+ab
+cI
+ai,b j ˆEai,b j|I⟩ +... (4)
+where ˆE are the standard excitation operators. As in
+the single-reference CI case, truncated MRCI is not size-
+consistent. This size inconsistency is partly corrected for by
+the Davidson correction scheme, 175,177 or by other approxi-
+mate models such as size-consistent multireference CI [SC-
+MRCI, MR(SC)2CI],178–182 MR averaged coupled pair func-
+tional (MR-ACPF),183,184 and MR averaged quadratic coupled
+cluster (MR-AQCC).185,186
+The concept of internal contraction was ﬁrst reported by
+Meyer in the context of pair theory, 187 and was later intro-
+duced in the internally contracted (IC-)MRCI method. 188–191
+The internal contraction greatly reduces the number of ba-
+sis functions for correlated wave functions, from factorial to
+polynomial scaling with respect to the size of active spaces.
+Since it maintains the property of exactly spanning the ﬁrst-
+order interaction space, the errors due to internal contraction
+is often marginal (typically only 2–4 % of the correlation
+energy).191–194 When internal contraction is used, the excited
+conﬁgurations are generated by applying the excitation oper-
+ators to the reference wave function as a whole,
+|Ψic−MRCI⟩ =
+∑
+I
+cI|I⟩ +
+∑
+i
+∑
+a
+cai ˆEai|Ψ(0)⟩
++
+∑
+i j
+∑
+ab
+cai,b j ˆEai,b j|Ψ(0)⟩ +... (5)
+Note that the internally contracted basis, deﬁned above, is not
+orthonormal and requires special care.
+There are a myriad of multireference coupled clus-
+ter (MRCC) methods, such as the state-universal MRCC
+(SU-MRCC),195 Brillouin–Wigner MRCC, 196,197 Mukherjee
+MRCC,198 and H2E2-MRCC. 199 In particular, the works by
+the groups in Mainz 200,201 have introduced the internal con-
+traction concept to MRCC. Each MRCC model has strength
+and weakness; MRCC is still under active development.
+2. Perturbation Theories (PT)
+Perturbation theory is another avenue to account for dynam-
+ical correlation in the multireference framework. There have
+been many attempts to generalize the single-reference case
+of Møller–Plesset second-order perturbation theory (MP2) to
+multireference theories; for historical accounts, see an ex-
+cellent perspective by Pulay. 202 Uncontracted multireference
+perturbation theories (MRPT) include the implementation by
+Murphy and Messmer, 203,204 the method by Kozlowski and
+Davidson,205 MRMP2 by Hirao, 206–208 and uncontracted n-
+electron valence state perturbation theory (NEVPT2). 209,210
+Interestingly, internally contracted multireferene perturbation
+theory predates these uncontracted theories; the ﬁrst such ap-
+proach was proposed by Roos et al. in 1982.211 Subsequently,
+Pulay and coworkers proposed the generalized MP2 (GMP2)
+method, which was demonstrated with a two-conﬁguration
+reference function.212,213
+Among others, complete active space second-order pertur-
+bation theory (CASPT2) by Roos and coworkers 94,214 is the
+most widely used approach to date. The CASPT2 method is a
+generalization of GMP2 for CAS reference functions. In the
+original formulation,94,214 internal contraction is used for all
+of the basis (hereafter referred to as FIC-CASPT2),
+|Ψ(1)⟩ =
+∑
+Ω
+TΩ ˆEΩ|Φ0⟩ =
+∑
+Ω
+TΩ|Ω⟩≡ ˆT|Φ0⟩, (6)
+where the operator ˆEΩ is the standard two-electron excitation
+operator (including the so-called semi-internal excitations),
+and TΩ are the corresponding amplitudes. These amplitudes
+are to be determined by the stationary condition of the Hyller-
+13
+aas functional, which is
+∑
+Ω′
+⟨Ω| ˆH(0)− E(0)|Ω′⟩TΩ′ +⟨Ω| ˆH|Φ0⟩ = 0. (7)
+The deﬁnition of the zeroth-order Hamiltonian in CASPT2 is
+ˆH(0) = ˆP ˆf ˆP + ˆQ ˆf ˆQ, (8)
+where ˆP and ˆQ are the projectors onto the reference and ﬁrst-
+order interacting space, respectively, and ˆf is the one-electron
+Fock operator. The NEVPT2 method was developed by using
+the two-electron Dyall’s Hamiltonian in the active space215 in-
+stead of the Fock operator. The method using internally con-
+tracted functions is referred to as partially contracted (PC)-
+NEVPT2 theory.209,210 In strongly contracted (SC)-NEVPT2
+theory,209,210 the conﬁgurations are further contracted with
+the excitation operators so that the expansion basis has only
+one function within the excitation subspace. The strong con-
+traction has also been used in conjunction with the MRCI
+method.216
+Full internal contraction in the CASPT2 theory requires
+four-particle reduced density matrices (RDMs) in the active
+space (and diagonalization of three-particle RDMs), which
+used to be a computational bottleneck. Werner and coworkers
+developed a method with partial internal contraction, called
+RS2, to avoid this bottleneck, a scheme that is similar to
+Werner’s MRCI internal contraction scheme.217 We hereafter
+call it PIC-CASPT2. In this scheme, only doubly external
+conﬁgurations are internally contracted; the ﬁrst-order wave
+function is written as
+|Ψ(1)⟩ =
+∑
+I
+tI|I⟩ +
+∑
+S
+∑
+a
+tS
+a|S a⟩ +
+∑
+i j
+∑
+ab
+Tai,b j ˆEai,b j|Φ0⟩,
+(9)
+where |S a⟩ denotes the singly external conﬁguration state
+functions. This contraction scheme requires up to three-
+particle RDMs in the active space, although the number of
+parameters now scales combinatorially (in contrast to full in-
+ternal contraction).
+Calculating electronically excited states is one of the
+most important applications of multireference theory. 6 Mul-
+tistate (MS) perturbation theories were developed to cal-
+culate avoided crossings and conical intersections within
+the framework of MRPT. Examples include multiconﬁgu-
+rational quasidegenerate perturbation theory [(X)MCQDPT]
+theory,95,96 which is the multistate version of MRMP2, multi-
+state CASPT2 [(X)MS-CASPT2] theory,47,96,218 and quaside-
+generate NEVPT2 (QD-NEVPT2) theory, which is the mul-
+tistate version of NEVPT2. 219 The original MS-CASPT2
+theory218 is based on the Zaitsevskii and Malrieu’s multiparti-
+tioning technique.220 The perturbation expansion is performed
+using the state-speciﬁc ﬁrst-order interacting space, in which
+the ﬁrst-order correction to the wave function is
+|Ψ(1)
+L⟩ = ˆTL|L⟩. (10)
+The zeroth-order Hamiltonian is
+ˆH(0)
+M =|M⟩⟨M| ˆf M|M⟩⟨M| + ˆQM ˆf M ˆQM, (11)
+where ˆQM is the ﬁrst-order interacting space generated by ap-
+plying the excitation operators to the state M, and ˆf M is ei-
+ther the state-speciﬁc Fock operator for state M or the state-
+averaged Fock operator, depending on the implementation.
+The amplitude equation for each state is solved to obtained
+the ﬁrst-order amplitudes, using which the e ﬀective Hamilto-
+nian is constructed as
+Heﬀ
+LL′ =⟨L| ˆH|L′⟩ +⟨L| ˆT†
+L ˆH|L′⟩. (12)
+This eﬀective Hamiltonian is diagonalized to arrive at the MS-
+CASPT2 state,
+∑
+MN
+Heﬀ
+MN RNP = RMPEMS−CASPT2
+P . (13)
+The wave function of a MS-CASPT2 state is
+|ΨP⟩ =
+∑
+M
+RMP
+(
+|M⟩ +|Ψ(1)
+M⟩
+)
+. (14)
+Werner and coworkers also implemented a variant that uses
+the union of reference states to generate the internally con-
+tracted basis in molpro.32 In the MS-MR contraction scheme,
+the ﬁrst-order interacting space is formed from all the refer-
+ence states, as
+|Ψ(1)
+L⟩ =
+∑
+M
+ˆTLM|M⟩ =
+∑
+M
+∑
+Ω
+TLM,Ω ˆEΩ|M⟩. (15)
+and the state-averaged Fock operator is used in the zeroth-
+order Hamiltonian, as
+ˆH(0) =
+∑
+M
+|M⟩⟨M| ˆf SA|M⟩⟨M| + ˆQ ˆf SA ˆQ, (16)
+where ˆf SA is the Fock operator evaluated with the state-
+averaged electronic density. Note that the projection onto the
+reference space in the ﬁrst term only includes the diagonal
+term to ensure that the CASSCF wave function is the eigen-
+function of ˆH(0). As pointed out in the ingenious work by
+Granovsky,96 the diagonal projection in the ﬁrst term leads
+to irregularity in the potential energy surfaces; he further sug-
+gested the invariant form of the zeroth-order Hamiltonian with
+respect to rotation of reference functions. In this scheme, the
+oﬀ-diagonal elements are included by deﬁning rotated refer-
+ence states,
+ˆH(0) = ˆP ˆf SA ˆP + ˆQ ˆf SA ˆQ, (17)
+in which the ˆP is the complementary orthogonal projector of
+ˆQ. The ﬁrst term is rewritten in the same form as Eq.(16) by
+diagonalizing the Fock operator in the reference space,
+∑
+M
+⟨L| ˆf SA|M⟩UMN = ULN ˜E(0)
+N . (18)
+Granovsky named the uncontracted variant XMCQDPT2, and
+following the same naming convention, we call the internally
+contracted variant XMS-CASPT2.47
+In MRMP2, (X)MCQDPT, and [(X)MS-]CASPT2, one of-
+ten encounters the so-called intruder-state problem that causes
+14
+spurious divergences in computed energies. The problem is
+easily recognized: if the basis functions in Eq. (7) diagonalize
+the zeroth-order Hamiltonian and are orthonormal, the ampli-
+tude is formally
+TΩ =− ⟨Ω| ˆH|Φ0⟩
+⟨Ω| ˆH(0)|Ω⟩− E(0). (19)
+When the eigenvalue of the zeroth-order Hamiltonian for the
+basis function Ω is close to that of the reference function, the
+denominator becomes close to zero, and the amplitude be-
+comes inﬁnity, hence a divergent CASPT2 energy. Note the
+(QD-)NEVPT2 method is known to be usually immune to this
+problem, because it uses Dyall’s Hamiltonian, 215 which is a
+two-electron Hamiltonian in the active space. To circumvent
+this problem within the CASPT2 framework, schemes have
+been proposed in which one adds a real 221 or imaginary 222
+level shift to the denominator in Eq. (19). This is equivalent
+to adding the level shift to the zeroth-order Hamiltonian as
+∑
+Ω′
+⟨Ω| ˆH(0)− E(0) +ϵ|Ω′⟩TΩ′ +⟨Ω| ˆH|Φ0⟩ = 0. (20)
+For the imaginary shift, a trick is introduced to avoid the com-
+plex algebra throughout the energy evaluation. The errors
+due to the level shift are corrected using the ﬁrst-order per-
+turbation theory, often referred to as shift corrections. For
+(X)MCQDPT, the intruder state avoidance (ISA) technique is
+used to remove the intruder state, 223 though shift corrections
+are usually not included.
+To improve the accuracy of CASPT2, other deﬁnitions
+of zeroth-order Hamiltonian have been introduced for the
+CASPT2 method.224,225 A widely known empirical modiﬁca-
+tion to the zeroth-order Hamiltonian is the so-called ionization
+potential electron aﬃnity (IPEA) shift.224 In this scheme, one
+assumes that the diagonal elements of the generalized Fock
+operator for the active orbitals is an interpolation between the
+diagonal elements of the closed and virtual orbitals, as
+fpp =−1
+2
+[
+γpp(IP)p + (2−γpp)(EA)p
+]
+. (21)
+The IPEA shift modiﬁes these diagonal elements, so that the
+diagonal elements of the Fock matrix are
+f out
+pp =−(IP)p, (22)
+when an electron is excited out of the orbital p, and
+f in
+pp =−(EA)p, (23)
+when an electron is excited into the orbital p. This modiﬁca-
+tion is formally written as
+ˆH(0)′
+= ˆH(0) + 1
+2ϵκΩ, (24)
+where κΩ is di ﬀerent for each excitation subspace (see
+Ref. 226 for its explicit form) and ϵ is referred to as the
+IPEA shift parameter. In the reference software for CASPT2,
+molcas,30 the IPEA shift parameter of 0.25 is default. There
+have been many suggestions for IPEA shift parameter values:
+0.25 Eh,224,227,228 0.50 Eh,229,230 or even higher values. 226,231
+Recently, Zobel et al. suggested using the zero IPEA shift
+value for organic molecules.232
+V . NUCLEAR GRADIENTS AND DERIV A TIVE
+COUPLING THEORY
+In Secs. II and III, we have reviewed the applications of
+multireference electron correlation theories for the study of
+chemical systems. In principle, it is always possible to use ﬁ-
+nite diﬀerence gradients and derivative couplings in such cal-
+culations. The two-point ﬁnite di ﬀerence gradient toward the
+direction of an arbitrary vector x is computed as
+dE
+dx = E(R + x∆)− E(R− x∆)
+2∆ , (25)
+where R is the current molecular geometry and∆ is the length
+of the displacement. For molecular dynamics (MD) simula-
+tions and geometry optimizations, x corresponds to the Carte-
+sian coordinates of all atoms. In other words, the energy
+should be repeatedly calculated for 6 Natom geometric vari-
+ables. Although the ﬁnite di ﬀerence gradient can be embar-
+rassingly parallelized and has been used in some of the afore-
+mentioned studies, quantum chemical methods become more
+useful when the analytical gradient algorithms are available
+owing to the computational savings. In this section, we re-
+view analytical nuclear gradients and derivative coupling the-
+ories in detail.
+A. Fundamentals of nuclear gradient theory
+For historical accounts of the early developments of nu-
+clear gradient theory, readers are referred to Ref. 233 by Pulay.
+For exact wave functions at the complete basis set limit, the
+Hellmann–Feynman theorem holds,234,235
+dE
+dR =⟨Ψ|∂ ˆH
+∂R|Ψ⟩. (26)
+This is because the derivative of wave functions, d Ψ/dR, is
+zero due to the variational principle. The Hellmann–Feynman
+theorem, however, is not applicable to virtually any quantum
+chemical method, because (1) wave functions are represented
+using ﬁnite basis functions and (2) wave functions are often
+not optimized variationally. The only exceptions are mean-
+ﬁeld models in a plane-wave or ﬁnite-element basis.
+1. Hartree–Fock gradient
+Bratoˇz,7 Gerratt and Mills, 8 and Pulay9 independently de-
+rived, by explicit diﬀerentiation, the expression for the nuclear
+gradient of the Hartree–Fock method:
+dE
+dR =
+∑
+µν
+dµνhR
+µν + 1
+2
+∑
+µνρλ
+Dµν,ρλ(µν|ρλ)R−
+∑
+µν
+XµνS R
+µν (27)
+15
+where molecular integrals with superscripts R are the deriva-
+tive integrals:
+hR
+µν = ∂hµν
+∂R , (28)
+S R
+µν = ∂Sµν
+∂R , (29)
+(µν|ρλ)R = ∂(µν|ρλ)
+∂R . (30)
+We often refer to the last term as the Pulay force to recognize
+his seminal contributions. The matrix that is multiplied by S R
+is an energy-weighted density matrix,
+X = 2CoccϵC†
+occ (31)
+and Cocc is a slice of the MO coe ﬃcient matrix that corre-
+sponds to occupied orbitals. The same formulas were in-
+dependently derived by McIver and Komornicki for semi-
+empirical methods a few years later.236 Since the density ma-
+trices and energy-weighted density matrix are readily avail-
+able from Hartree–Fock calculations, the evaluation of nuclear
+gradients is typically less computationally demanding than the
+energy evaluation in this case.
+2. Coupled-Perturbed Hartree–Fock and the Z-vector Equation
+The ﬁrst derivatives of C with respect to nuclear displace-
+ments are required to compute the nuclear gradients for cor-
+related methods, because the energy is not stationary with re-
+spect to orbital rotations any longer. Since the MO basis is
+orthonormal, any change in the MO coe ﬃcients can be writ-
+ten in term of the unitary transformation matrix U,
+C = C0U, (32)
+and it is convenient to use the generator of U as fundamental
+variables instead of the elements of C. The nuclear gradients
+for correlated methods are generally written as237,238
+dE
+dR =
+∑
+µν
+dµνhR
+µν + 1
+2
+∑
+µνρλ
+Dµν,ρλ(µν|ρλ)R
++ 1
+2
+∑
+xy
+(
+Yxy− Yyx
+)
+UR
+xy− 1
+2
+∑
+xy
+YxyS R
+xy, (33)
+where Yxy corresponds to the gradient of the energy with re-
+spect to the variation of Uxy, and
+S R
+xy =
+∑
+µν
+CµxS R
+µνCνy. (34)
+The MO orthonormality relation
+UR† + SR + UR = 0 (35)
+is explicitly considered. The coupled–perturbed Hartree–Fock
+(CPHF) equation is solved to calculate UR. This equation has
+the form of
+AUR = BR, (36)
+which is a coupled Hartree–Fock equation with respect to
+an external perturbation. Historically, the CPHF equation
+was ﬁrst derived in 1960s to calculate several molecular
+properties.239–241 It was realized that that the changes in R
+can also be treated as a perturbation by adding the deriva-
+tive integrals.8,242 Pople and coworkers developed an eﬃcient
+method for solving CPHF to calculate the Hessian of the
+Hartree–Fock energy, and extended analytical gradient theory
+to second-order Møller–Plesset perturbation theory (MP2).237
+The nuclear gradient of the SCF-based conﬁguration inter-
+action (CI) appeared almost immediately by Schaefer and
+coworkers238 and Pople and coworkers.243
+The CPHF equation should be solved for 3Natom degrees of
+freedom in order to calculate (Y−Y†)†UR in Eq. (33). In 1984,
+Handy and Schaefer reported244 that this term is rearranged as
+(Y− Y†)†UR = (Y− Y†)†A−1BR≡ Z†BR. (37)
+This means that the same contribution is computed by only
+solving one linear equation,
+A†Z = Y− Y†. (38)
+This equation is the Z-vector equation. It was originally ap-
+plied to the CI nuclear gradient, 244 and shortly thereafter to
+MP2245,246 and coupled-cluster (CC) nuclear gradients.247–249
+3. Relaxed (E ﬀective) Density
+In the course of early developments, transformation of the
+integral derivative from the AO to MO basis was a bottleneck
+for calculating the gradients, 250 since it requires 3 Natom inte-
+gral transformations. After the development of the Z-vector
+equation, it turned out that the MO derivative integral is not
+needed at all (i.e., only one transformation of an MO quantity
+to the AO basis is needed). By forming the density-matrix-
+like quantities in the AO basis, 250,251 the gradient is written
+as
+dE
+dR =
+∑
+µν
+˜dµνhR
+µν + 1
+2
+∑
+µν,ρλ
+˜Dµν,ρλ(µν|ρλ)R +
+∑
+µν
+˜XµνS R
+µν (39)
+These quantities, ˜d and ˜D are now widely referred to as the
+relaxed or e ﬀective densities. Several important properties
+of molecules, including dipole moments, are conventionally
+computed using these densities. The formulation of the re-
+laxed density matrix led to the direct algorithm, which does
+not store any integral derivatives and computes them on the
+ﬂy.252
+B. Early Developments for Multireference Methods
+Up to this point, we have discussed single reference meth-
+ods that use one Slater determinant as the reference wave
+function. For further reviews on single-reference methods,
+readers should see these excellent reviews. 233,253,254 Now, we
+focus on early developments of nuclear gradient theory for
+multireference methods, the main subject of this review.
+16
+1. CASSCF Gradient
+The CASSCF gradient has a form similar that of Hartree–
+Fock,10,11,24,75,255,256 as
+dE
+dR =
+∑
+µν
+dµνhR
+µν + 1
+2
+∑
+µνρλ
+Dµν,ρλ(µν|ρλ)R−
+∑
+µν
+XµνS R
+µν. (40)
+The generalized energy-weighted density matrix is
+XMO
+i j = hi jdi j +
+∑
+kl
+Di j,kl(i j|kl),
+XAO = CoccXMOC†
+occ. (41)
+This reduces to the Hartree–Fock gradient when there are no
+active orbitals.11
+2. Coupled-perturbed CASSCF and Z-vector equation
+The energy is no longer optimized with respect to the or-
+bital coeﬃcients in SA-CASSCF. The nuclear gradient of the
+SA-CASSCF state P is
+dEP
+dR =
+∑
+µν
+dPP
+µν hR
+µν + 1
+2
+∑
+µνρλ
+DPP
+µν,ρλ(µν|ρλ)R
++ 1
+2
+∑
+xy
+(
+Yxy− Yyx
+)
+UR
+xy− 1
+2
+∑
+xy
+YxyS R
+xy, (42)
+where
+Yxy = 4
+
+∑
+z
+dPP
+yz hxz +
+∑
+zwu
+DPP
+yz,wu(xz|wu)
+, (43)
+and
+dPP
+rs =⟨ΨP| ˆErs|ΨP⟩, (44)
+DPP
+rs,tu =⟨ΨQ| ˆErs,tu|ΨP⟩. (45)
+The orthogonality relation [Eq. (35)] is explicitly taken into
+account. The orbital derivatives UR can be obtained by the
+coupled-perturbed multiconﬁgurational self-consistent ﬁeld
+(CPMCSCF) equation, which is the multireference extension
+to the CPHF equation. 75 The CPMCSCF equation has the
+form of
+
+AUU A†
+cU
+AcU Acc
+
+
+UR
+cR
+ =
+
+BR
+U
+BR
+c
+. (46)
+If there is only one conﬁguration in the reference function,
+this reduces to the CPHF equation. This equation was ﬁrst
+used for the MRCI nuclear gradient,75 before it was applied to
+SA-CASSCF.
+The CPMCSCF equation is rewritten in the Z-vector form
+as in the case of the CPHF equation. A simple derivation was
+suggested by Handy and Schaefer.244 Following the derivation
+of the Z-vector equation in the CPHF equation yields
+
+YU− Y†
+U
+yc
+
+† 
+UR
+cR
+ =
+
+YU− Y†
+U
+yc
+
+† 
+AUU A†
+cU
+AcU Acc
+
+−1 
+BR
+U
+BR
+c
+
+=
+
+ZU
+zc
+
+† 
+BR
+U
+BR
+c
+ (47)
+and therefore,
+
+AUU A†
+cU
+AcU Acc
+
+† 
+ZU
+zc
+ =
+
+YU− Y†
+U
+yc
+. (48)
+This is the Z-vector equation for the multireference wave
+function. Although yc = 0 in the SA-CASSCF case, zc , 0,
+and BR
+c should be taken account in the gradient evaluation.
+Note, however, that SA-CASSCF nuclear graidents can be
+more eﬃciently computed by a semi-numerical algorithm
+dEP
+dR =
+∑
+µν
+ddSA
+µν
+dWP
+hR
+µν + 1
+2
+∑
+µνρλ
+dDSA
+µν,ρλ
+dWP
+(µν|ρλ)R
+−
+∑
+µν
+dXSA
+µν
+dWP
+S X
+µν. (49)
+in which a ﬁnite di ﬀerence formula with respect to the state
+weights is used to obtain the SA-CASSCF nuclear gradient.257
+3. SA-CASSCF derivative coupling
+Derivative coupling is a quantity that describes the coupling
+between the nuclear and electronic motions, and is a central
+quantity for describing nonadiabatic phenomena within the
+Born–Oppenheimer approximation. For the adiabatic states
+(which are obtained within the Born–Oppenheimer approxi-
+mation) P and Q, the derivative coupling is
+hQP =⟨ΨQ| d
+dR|ΨP⟩. (50)
+By inserting Eq. (2), we get
+hQP = hQP
+CI + hQP
+det, (51)
+hQP
+CI =
+∑
+I
+cI,Q
+dcI,P
+dR , (52)
+hQP
+det =
+∑
+JI
+cJ,QcI,P
+⟨
+J
+⏐⏐⏐⏐⏐
+dI
+dR
+⟩
+. (53)
+The terms hCI and hdet are conventionally called the CI and de-
+terminant terms, respectively. 12,33,66,258–260 The CI term here
+is also referred to as the interstate coupling. It is one of the
+vectors that deﬁnes the branching plane, which plays an im-
+portant role in dynamics at conical intersections (the other is
+the gradient diﬀerence vector).43,89,109,261
+17
+The CI term is calculated by
+hQP
+CI = 1
+EP− EQ
+∑
+IJ
+cI,Q
+dHIJ
+dR cJ,P, (54)
+from the CI eigenvalue relationship, HcI = EcI. Since this
+expression is similar to that for the SA-CASSCF energy,
+dEP
+dR =
+∑
+IJ
+cI,P
+dHIJ
+dR cJ,P, (55)
+the CI term is evaluated using a similar expression to that for
+the analytical gradient,
+(EP− EQ
+) hQP
+CI =
+∑
+µν
+¯dQP
+µν hR
+µν + 1
+2
+∑
+µνρλ
+¯DQP
+µν,ρλ(µν|ρλ)R
++ 1
+2
+∑
+xy
+(
+Yxy− Yyx
+)
+UR
+xy− 1
+2
+∑
+xy
+YxyS R
+xy. (56)
+Here, we used the symmetrized transition density matrix ele-
+ments,
+¯dQP
+rs = 1
+2⟨ΨQ| ˆErs + ˆEsr|ΨP⟩, (57)
+¯DQP
+rs,tu = 1
+2⟨ΨQ| ˆErs,tu + ˆEtu,sr|ΨP⟩. (58)
+The orbital derivative is
+Yrs = 4
+
+∑
+t
+¯dQP
+st hrt +
+∑
+tuv
+¯DQP
+st,uv(rt|uv)
+. (59)
+The indices in the orbital derivative is restricted to the active
+indices, because the elements of ¯d and ¯D are zero outside the
+active space.
+The determinant term is calculated by rewriting the opera-
+tor d/dR as a one-electron operator,12
+d
+dR =
+∑
+rs
+(
+UR + σR)
+rs
+ˆErs, (60)
+where we introduce the asymmetric overlap derivative integral
+σR
+rs =
+∑
+µν
+CµrCνs
+⟨
+µ
+⏐⏐⏐⏐⏐
+dν
+dR
+⟩
+, (61)
+and the determinant term is
+hQP
+det =
+∑
+rs
+dQP
+rs
+(
+UR + σR)
+rs. (62)
+Note that we are not using the symmetrized transition density
+matrix here.
+The formalism for the CI term of the SA-CASSCF deriva-
+tive coupling is similar to that of the SA-CASSCF nuclear
+gradient. In other words, the extension of the nuclear gra-
+dient algorithm to derivative coupling is straightforward in
+the SA-CASSCF case. The MRCI derivative coupling 12,258
+and semiempirical derivative coupling262–264 can be evaluated
+without signiﬁcant modiﬁcations in the formalism as well.
+The use of the density-ﬁtting scheme 259 and the GPU al-
+gorithms for SA-CASSCF derivative coupling have recently
+been reported.265,266
+VI. MULTIREFERENCE ELECTRON CORRELA TION
+GRADIENTS
+Now, we review analytical gradient theory for internally
+contracted multireference electron correlation methods. Di-
+rect di ﬀerentiation is often not straightforward, since there
+are many terms and the contractions vary with respect to
+the nuclear positions. As an alternative, the Lagrangian ap-
+proach is used.16,254,267–270 First, we introduce the Lagrangian
+in the single-reference case.254,267–270 We shall see that the La-
+grangian approach yields the same gradient as in direct diﬀer-
+entiation. The multireference extension of the Lagrangian ap-
+proach is introduced next. Finally, the formulation of the nu-
+clear gradients and properties for the multireference electron
+correlation models are reviewed with various internal contrac-
+tion schemes and selection of the zeroth-order Hamiltonians.
+A. Direct di ﬀerentiation
+It is possible to use direct di ﬀerentiation to derive the ana-
+lytical gradient formalism particularly for uncontracted MRCI
+methods. In fact, the MRCI energy is computed by minimiz-
+ing the CI energy without optimizing the orbitals, and it is
+very natural that the gradient can be evaluated in a way that
+is similar to the SA-CASSCF nuclear gradients. 24,250 A pro-
+gram for computing the MRCI nuclear gradients, based on
+these formulae, was developed by Shepard and coworkers,13,76
+and was later extended to the size-consistency corrected MR-
+AQCC method 25 and those with state-averaged reference
+functions by Lischka et al. 29 The derivative coupling be-
+tween the MRCI states has been evaluated employing a similar
+approach.12,33,271 There is a work that reports evaluation the
+MRCI analytical gradient using the response function, or the
+Lagrangian approach.272 Very recently, the analytical gradient
+of one of the variants of NEVPT2 using direct di ﬀerentiation
+has been reported, 273 although the same working equations
+have been derived using the Lagrangian approach as well.274
+B. The Lagrangian approach: The Single-Reference Case
+In the Lagrangian approach, the optimization criteria are
+used as constraints. 254,267–270 As the simplest example, the
+Hartree–Fock Lagrangian is
+L =
+∑
+µν
+dµνhµν + 1
+2
+∑
+µνρλ
+Dµν,ρλ(µν|ρλ)− 1
+2 tr
+[
+X
+(
+C†SC− 1
+)]
+,
+(63)
+where the expression C†SC = 1 is associated with the or-
+thonormality of the molecular orbitals; we have the unknown
+multiplier X for this condition. The multiplier X is to be ob-
+tained by satisfying the stationary condition ofL with respect
+to the variation of U:
+∂L
+∂Uxy
+= 2
+
+∑
+j
+dy jhx j +
+∑
+jkl
+Dy j,kl(x j|kl)
+− Xxy = 0, (64)
+18
+which yields X to be
+Xxy =
+
+4ϵxδxy x, y∈ occupied
+0 otherwise
+(65)
+in the closed-shell case. The nuclear gradient is evaluated us-
+ing the Lagrangian with the molecular integrals replaced by
+their derivative integrals, as
+dE
+dR = ∂L
+∂R
+=
+∑
+µν
+dµνhR
+µν + 1
+2
+∑
+µνρλ
+Dµν,ρλ(µν|ρλ)R− 1
+2 tr
+[
+XC†SRC
+]
+.
+(66)
+Inserting the explicit expression for X gives an expression
+equivalent to Eq. (27).
+The Lagrangian approach naturally leads to the Z-vector
+algorithms. For example, the Lagrangian for MP2 is270
+L = EMP2− 1
+2
+occ∑
+i
+vir∑
+a
+Zai fai− 1
+2 tr
+[
+X
+(
+C†SC− 1
+)]
+, (67)
+where fai = 0 deﬁnes the Brillouin condition. Z is the La-
+grangian multiplier for this constraint. Diﬀerentiating the La-
+grangian with respect to Urs yields
+∂L
+∂Urs
+− ∂L
+∂Usr
+= Yrs− Ysr− 1
+2
+occ∑
+i
+vir∑
+a
+Zai
+(∂ fai
+∂Urs
+− ∂ fai
+∂Usr
+)
+= Yrs− Ysr− ZaiAairs = 0, (68)
+where Yrs = ∂EMP2/∂Urs. Note that the explicit antisym-
+metrization removes the contributions from the last term. This
+is equivalent to the Z-vector equation, Eq. (38). X is obtained
+from the symmetric part as
+Xrs = Yrs− 1
+2
+occ∑
+i
+vir∑
+a
+ZaiAairs. (69)
+The second term in the right-hand side accounts for the
+overlap-related terms in BR in Eq. (37), and the resulting nu-
+clear gradient formulae remain identical to Eq. (33).
+C. The Lagrangian Approach: The Multireference Case
+One of the most elegant demonstrations of the Lagrangian
+for multireference nuclear gradients was the work by Celani
+and Werner for partially internally contracted CASPT2 nu-
+clear gradients.16 The Celani–Werner Lagrangian approach is
+applicable for all multireference methods and is mathemati-
+cally equivalent to the other forms of the Lagrangian for other
+(uncontracted) multireference theories such as MRCI, MRCC,
+MCQDPT2, GVVPT2, or NEVPT2, which will be introduced
+in Sec. VI G. Here, we will ﬁrst introduce the Lagrangian for-
+malism for CASSCF theory, which yields essentially the same
+results as the direct diﬀerentiation in the previous section.
+The Lagrangian for the single-state CASSCF gradient has
+a form similar to the Hartree–Fock one, as
+L =
+∑
+µν
+dµνhµν + 1
+2
+∑
+µνρλ
+Dµν,ρλ(µν|ρλ)
+− 1
+2 tr
+[
+X
+(
+C†SC− 1
+)]
+− 1
+2 x (⟨Ψ0|Ψ0⟩− 1). (70)
+The only additional constraint is the orthonormality of the ref-
+erence function. The multipliers are determined to be
+Xi j = 2
+hi jdi j +
+∑
+kl
+Di j,kl(i j|kl)
+, (71)
+x = 0. (72)
+The multipliers (and therefore, nuclear gradients) reduce to
+the Hartree–Fock gradient when there are no active orbitals.
+Because individual state energies in SA-CASSCF are not
+stationary with respect to the orbital and CI coe ﬃcients,
+the Lagrangian for SA-CASSCF now has the conditions for
+CASSCF convergence,
+A− A† = 0, (73)
+ˆH|N⟩ = EN|N⟩, (74)
+where
+Ars =
+
+2
+∑
+j
+hr jdSA
+s j + 2
+∑
+jkl
+Jkl
+r jDSA
+s j,kl s∈ occupied
+0 otherwise
+(75)
+and the superscript SA means that the density matrices are
+state-averaged, i.e.,
+dSA
+rs =
+∑
+N
+WN⟨N| ˆErs|N⟩, (76)
+DSA
+rs,tu =
+∑
+N
+WN⟨N| ˆErs,tu|N⟩. (77)
+Incorporating these conditions into the Lagrangian leads to the
+expression
+L = ESA−CASSCF
++ 1
+2 tr
+[
+Z†(A− A†)
+]
+− 1
+2 tr
+[
+X
+(
+C†SC− 1
+)]
++
+∑
+N
+WN
+
+∑
+I
+zI,N⟨I| ˆH− EN|N⟩− 1
+2 xN (⟨N|N⟩− 1)
+.
+(78)
+The corresponding multipliers are obtained by solving the Z-
+vector equations, which are
+∂L
+∂Urs
+− ∂L
+∂Urs
+= (1−τrs)
+[
+Y + ¯¯A + ˜A
+]
+rs = 0, (79)
+1
+WN
+∂L
+∂cI,N
+= yI,N
+WN
++ (H− EN) zN− xNcN + 2 ˜HcN = 0, (80)
+19
+whereτrs permutes the indices r and s, and ¯¯A and ˜A are A ma-
+trix evaluated with thez-weighted symmetrized density matrix
+and the Z-weighted molecular integrals, respectively,
+¯¯Ars = 2
+∑
+j
+hr j ¯¯dSA
+s j + 2
+∑
+jkl
+Jkl
+r j
+¯¯DSA
+s j,kl s∈ occupied (81)
+˜Ars = 2
+∑
+j
+˜hr jdSA
+s j + 2
+∑
+jkl
+˜Jkl
+r jDSA
+s j,kl s∈ occupied (82)
+and
+¯¯dSA
+rs = 1
+2
+∑
+N
+WN
+∑
+I
+zI,N⟨I| ˆErs + ˆEsr|N⟩, (83)
+¯¯DSA
+rs,tu = 1
+2
+∑
+N
+WN
+∑
+I
+zI,N⟨I| ˆErs,tu + ˆEtu,sr|N⟩, (84)
+˜hr j =
+∑
+s
+[
+Zrshs j + hrsZs j
+]
+(85)
+˜Jkl
+r j =
+∑
+s
+[
+Zsr(s j|kl) + Zs j(rs|kl) + Zsk(r j|sl) + Zsl(r j|ks)
+]
+.
+(86)
+This equation is equivalent to the Z-vector equation obtained
+by direct diﬀerentiation, Eq. (48). The source terms for the Z-
+vector equations, which are the derivative of the energy with
+respect to the orbital rotation coe ﬃcients and the CI coe ﬃ-
+cient, should be calculated. The orbital derivative Y is in
+Eq. (43), while the derivative with respect to the CI coeﬃcient
+(CI derivative) yI,N is zero. The coupled equations Eq. (79)
+and (80) are iteratively solved to ﬁnd Z, z and X. Using these
+multipliers, the eﬀective densities are computed, and the gra-
+dient is evaluated by Eq. (39).
+D. CASPT2 Analytical Gradient and the Automatic
+Implementation Technique
+The Celani–Werner Lagrangian was originally suggested
+for the CASPT2 gradient.16 It reads
+L = ECASPT2
++ 1
+2 tr
+[
+Z†(A− A†)
+]
+− 1
+2 tr
+[
+X
+(
+C†SC− 1
+)]
++
+∑
+N
+WN
+
+∑
+I
+zI,N⟨I| ˆH− EN|N⟩− 1
+2 xN (⟨N|N⟩− 1)
+
++
+inactive∑
+i
+core∑
+j
+zi j fi j, (87)
+where the last term accounts for the frozen core
+approximation.16 The Lagrangian was written for the
+partially contracted variant of CASPT2 (WK-CASPT2,
+see Sec. IV B 2), but is equally applicable to the internally
+contracted CASPT2 as well. The same Z-vector equation
+should be solved with the di ﬀerent source terms. As men-
+tioned in Sec. IV B 2, the CASPT2 energy results from the
+minimization of the Hylleraas functional,
+ECASPT2 = ECASSCF
++⟨Φ(1)| ˆH(0)− E(0)|Φ(1)⟩ +⟨Φ(1)| ˆH|Φ0⟩. (88)
+The energy derivative with respect to the orbital rotation coef-
+ﬁcients is computed in a straightforward manner by recasting
+the energy as
+ECASPT2 = tr (hd) + tr
+[
+g(d(0))d(2)]
++ tr
+∑
+kl
+(
+KklDlk)
+, (89)
+where the shorthand notations for the integrals,
+[g(d)]
+xy =
+∑
+kl
+[
+(xy|zw)dzw− 1
+4(xw|zy)(dzw + dwz)
+]
+, (90)
+Kzw
+xy = (xz|yw), (91)
+were employed. The one-electron and two-electron density
+matrices are summations of the zeroth, ﬁrst, and second-order
+density matrices,
+d = d(0) + d(1) + d(2), (92)
+D = D(0) + D(1), (93)
+where the perturbation orders of the density matrices are the
+number of amplitude terms in the density matrices. The
+derivative of the energy with respect to the energy coeﬃcient
+is
+1
+2Yri =
+hd + g(d(0))d(2) + g(d(2))d(0) +
+∑
+kl
+KklDlk
+
++
+∑
+jst
+Di j
+st(rs|t j), (94)
+1
+2Yra =
+hd + g(d(0))d(2) +
+∑
+kl
+KklDlk
+
+ra
+, (95)
+The explicit form of the density matrices and the derivatives
+with respect to the CI coeﬃcient depends on the internal con-
+traction scheme.
+The ﬁrst application of the Celani–Werner Lagrangian to-
+ward gradient theory16 was for partially internally contracted
+CASPT2 (PIC-CASPT2). Although the explicit expressions
+of the density matrices and CI derivatives are quite involved,
+they are derived by hand and the explicit expressions are
+shown in the literature.16,47 The density-ﬁtting scheme is used
+for evaluating the source terms.105
+On the other hand, in fully internally contracted CASPT2,
+all the two-electron excitations from the reference functions
+are contracted. This allows for a smaller number of the am-
+plitudes, and a simpliﬁed mathematical formula by using the
+operator ˆT. However, the internal contraction of singly ex-
+ternal conﬁgurations requires 8-index quantities in the active
+space. For FIC-CASPT2, the CI derivative is
+1
+2yI =⟨I| ˆH|Φ0⟩ +⟨I| ˆT†( ˆH(0)− E(0)) ˆT|Φ0⟩
++⟨I| ˆT† ˆH|Φ0⟩ +
+∑
+rs
+⟨I| ˆErs|Φ0⟩
+[
+g(d(2))− Nf
+]
+rs, (96)
+20
+where the density matrices are
+d(1)
+xy =⟨Φ0| ˆT† ˆExy|Φ0⟩, (97)
+d(2)
+xy =
+
+⟨Φ0| ˆT† ˆExy ˆT|Φ0⟩− N⟨ ˜L| ˆExy| ˜L⟩ x, y∈ r, s
+⟨Φ0| ˆT† ˆExy ˆT|Φ0⟩ otherwise
+(98)
+D(1)
+xy,zw =⟨Φ0| ˆT† ˆExy,zw|Φ0⟩, (99)
+and the correlated norm is deﬁned as
+N =⟨Ψ0| ˆT† ˆT|Ψ0⟩. (100)
+The tensor operations in the FIC-CASPT2 nuclear gradi-
+ent are quite involved, and manual implementations of the
+second-order density matrix and the CI derivatives had been
+an obstacle.
+This technical challenge was addressed by MacLeod and
+Shiozaki in 2015 by using the automatic implementation
+technique.17 This technique is dominantly used to implement
+higher-order CC, MRCI, and complicated nuclear gradient al-
+gorithms for eﬀective core potentials (ECP).201,275–295 The au-
+tomatic code generator program smith3 exploits Wick’s theo-
+rem to rearrange the operators to arrive at the expressions with
+simple tensor contractions and RDMs in the active space. The
+code generator treats the determinant index I in an analogous
+way to the orbitals, 17 and makes it easy to evaluate the CI
+derivatives.
+The original algorithm written bysmith3 was later modiﬁed
+to accelerate the computations of the CI derivative. 19 The CI
+derivative was recast into
+yI = A(0)Γ(0)I +
+∑
+rs
+A(1)
+rs Γ(1)I
+rs +
+∑
+rstu
+A(2)
+rs,tuΓ(2)I
+rs,tu
++
+∑
+rstuvw
+A(3)
+rs,tu,vwΓ(3)I
+rs,tu,vw +
+∑
+rstuvw
+A(4) f
+rs,tu,vwΓ(4) f I
+rs,tu,vw, (101)
+where Γ(n)I denotes the derivative of the n-th order RDM with
+respect to the CI coeﬃcient (which are RDM derivatives), e.g.,
+Γ(3)I
+rs,tu,vw =⟨I| ˆErs,tu,vw|Φ0⟩,
+Γ(4) f I
+rs,tu,vw =
+∑
+xy
+⟨I| ˆErs,tu,vw,xy|Φ0⟩ fxy, (102)
+where fxy is an element of the Fock matrix. The RDM deriva-
+tives require the evaluation of the last line of Eq. (101) and
+are evaluated using the direct algorithm, which is similar to
+the Knowles–Handy algorithm for determinant-based FCI.162
+This results in a reduced memory requirement and improved
+computational eﬃciency.
+E. Multistate CASPT2 Gradient and Derivative Coupling
+Next, let us discuss the multistate extension of CASPT2
+gradient theory. The (X)MS-CASPT2 energies are not sta-
+tionary with respect to the amplitudes. 47,63 The Lagrangian,
+which is stationary with respect to the changes of the ampli-
+tude, is written as
+LPT2
+Q = EMS−CASPT2
+Q
++
+∑
+N
+∑
+Ω
+λΩ,N
+[
+⟨Ω| ˆH(0)− E(0)
+N|N⟩ +⟨Ω| ˆH|N⟩
+]
+. (103)
+The suitable values of λΩ,N are to be determined by the so-
+calledλ-equation, making this Lagrangian stationary with re-
+spect to the variation of bothTΩ,N andλΩ,N. Theλ-equation is
+obtained by diﬀerentiating the Lagrangian with respect to the
+amplitudes. The full Celani–Werner Lagrangian is essentially
+the same as that for the single-state case [Eq. (87)], except for
+the fact that the energy is substituted by the PT2 Lagrangian
+LPT2. The density matrices and CI derivatives, which are the
+source terms for the Z-vector equation, are also accordingly
+modiﬁed to reﬂect these changes. They are derived by hand
+for PIC-CASPT247 or by automatic implementation technique
+for FIC-CASPT2.63
+It is also possible to evaluate the derivative coupling with
+(X)MS-CASPT2 using the same program infrastructure, be-
+cause the ﬁnal (X)MS-CASPT2 energy is obtained by the di-
+agonalization of the eﬀective Hamiltonian. The interstate cou-
+pling, which is part of the derivative coupling, is
+hQP
+interstate = RMQ
+dHeﬀ
+MN
+dX RNP, (104)
+and was implemented for PIC-MS-CASPT2 to ﬁnd the con-
+ical intersection of cyclohexadiene and PSB3 at the MS-
+CASPT2 level,43,45 using the PIC-MS-CASPT2 nuclear gradi-
+ent program developed inmolpro. The Lagrangian [Eq. (103)]
+is modiﬁed as
+LPT2
+QP = RMQHeﬀ
+MN RNP
++
+∑
+N
+∑
+Ω
+λΩ,N
+[
+⟨Ω| ˆH(0)− E(0)
+N|N⟩ +⟨Ω| ˆH|N⟩
+]
+. (105)
+From the perspective of the time-independent Schr ¨odinger
+equation, however, the derivative coupling between the multi-
+state CASPT2 states P and Q is deﬁned as
+hPT2,QP = 1
+2
+[⟨
+Q
+⏐⏐⏐⏐⏐
+dΨP
+dX
+⟩
++
+⟨
+ΨQ
+⏐⏐⏐⏐⏐
+dP
+dX
+⟩]
+, (106)
+and requires two more terms that account for the derivatives
+of the XMS rotation term and the ﬁrst-order correction to the
+wave function. These terms are evaluated by simple modiﬁ-
+cations of the Z-vector equation.66
+F . Shifts and selection of Fock operators
+As we have mentioned in Sec. IV B 2, there are various
+deﬁnitions for the zeroth-order Hamiltonian in the CASPT2
+method. The real and imaginary level shift were both intro-
+duced to alleviate the intruder state problem. The imaginary
+shift uses the real part of the complex amplitudes to avoid the
+use of complex algebra in energy evaluation.222 Its analytical
+21
+FIG. 9. PES contour plots near the MECIs of PSB3 computed with
+diﬀerent methods. The MECIs obtained with state-speciﬁc Fock
+operator and state-averaged Fock operator have peaked and sloped
+topologies, respectively.
+nuclear gradients have been recently reported. 73 It was found
+that, compared to the real shift, the imaginary shift improves
+the accuracy at the cost of additional computational burden of
+evaluating eﬀective density matrix elements.
+There are two types of Fock operators from which zeroth-
+order Hamiltonians for MS-CASPT2 in Eqs. (11) and (16) are
+constructed: state-speﬁcic and state-averaged Fock operators.
+The analytical nuclear gradient program for CASPT2 with the
+state-speciﬁc Fock operator was recently developed to test its
+accuracy.74 Notably the geometries and the topologies of the
+MECIs qualitatively change with the choice of the Fock oper-
+ator in the deﬁnition of zeroth-order Hamiltonian, even if both
+use SS-SR internal contraction (Fig. 9). The di ﬀerence be-
+tween these zeroth-order Hamiltonians was also demonstrated
+by Mart´ınez and coworkers.296
+G. Uses of the Lagrangian in Other Multireference Models
+Similar Lagrangians have since been used for other mul-
+tireference theories, even though notations and conventions
+are often di ﬀerent from the original work by Celani and
+Werner. For example, the use of the Lagrangian approach
+by Helgaker297 for molecular properties with single-state MR-
+CISD predates the work by Celani and Werner. The mul-
+tistate MRCISD nuclear gradient and derivative coupling
+were formulated using a similar Lagrangian. 272 In the con-
+text of perturbation theories, the MCQDPT2 gradient, 15 the
+GVVPT2 gradient, 298 and derivative coupling, 299 and the
+single-state NEVPT2 gradient 274 were formulated using the
+same Lagrangian. We note that neither MCQDPT2 nor
+GVVPT2 uses internal contraction, making the equations
+amenable to manual derivation. For the MRCC methods,
+the analytical gradient methods for two-determinant CCSD,14
+the Brillouin–Wigner MRCC method, 300 and the Mukherjee
+MRCC methods301,302 have been reported.
+VII. INTERFACE TO PHOTODYNAMICS /
+PHOTOCHEMISTRY
+Using the methodologies discussed in the previous section,
+it is possible to evaluate the analytical gradient and deriva-
+tive coupling within the framework of multireference elec-
+tronic structure theories. However, without applications in
+real chemical systems discussed in Secs. II and III, the im-
+portance of nuclear gradient theory will be not so signiﬁcant.
+In this section, we will review how the analytical gradient and
+derivative couplings are used in such applications for optimiz-
+ing conical intersections and performing nonadiabatic dynam-
+ics simulations. Detailed reviews on this topic can be found
+in Refs.140, 303, and 304.
+A. Derivative Coupling and Conical Intersection Optimization
+Conical intersections are points where two di ﬀerent elec-
+tronic states are degenerate in energy, or where potential
+energy surfaces meet. They are involved in photochem-
+istry/ photodynamics, where diﬀerent electronic states are in-
+volved, where phenomena beyond the Born–Oppenheimer ap-
+proximation usually occur.303,304 Multireference methods can
+be used to optimize the geometries of conical intersections.
+When using the term optimization for conical intersections,
+we should be careful, because conical intersections are multi-
+dimensional on the PES unlike zero-dimensional equilibrium
+geometries (the point where the potential energy is at a min-
+imum) or transition state geometries (the saddle point on the
+PES). This fact implies that, apart from the condition that two
+(or more) 37,305 electronic states should be isoenergetic, one
+should deﬁne an additional constraint, so that the optimiza-
+tion procedure will look for only one geometry.
+The most widely used condition is the minimal energy con-
+dition. The resulting geometrical point is the minimal energy
+conical intersection (MECI), which is the minimum energy
+point along the conical intersection seam. When there are two
+states crossing, the MECI optimization is a minimization of
+the energy of the upper state until the energy di ﬀerence be-
+tween the two states is zero. 306 Naturally, there are two vec-
+tors that lift degeneracy between the two electronic states P
+and Q: The gradient diﬀerence vector,
+gPQ = d
+dR
+(
+⟨ΨP| ˆH|ΨP⟩−⟨ ΨQ| ˆH|ΨQ⟩
+)
+, (107)
+and the interstate coupling vector,
+hPQ =
+⟨
+ΨP
+⏐⏐⏐⏐⏐⏐
+d ˆH
+dR
+⏐⏐⏐⏐⏐⏐ ΨQ
+⟩
+. (108)
+For multireference electron correlation methods, these vec-
+tors can be obtained by the methods described in the pre-
+vious section. We note that the interstate coupling vector
+gives a major contribution to the derivative coupling vec-
+tor near the conical intersection, but they are not necessarily
+the same. These two vectors play a crucial role in optimiz-
+ing MECIs. 306 Since many quantum chemical methods only
+22
+have the algorithm for state-speciﬁc nuclear gradients (which
+means, only knowledge of gPQ is available), there are algo-
+rithms that do not require hPQ, which optimizes the functions
+deﬁned only with the averaged energy, energy diﬀerences, and
+some empirical parameters.38,40,307 When hPQ is available, the
+eﬃciency of the optimization is substantially improved. 40,306
+These algorithms include the Lagrange–Newton type con-
+strained optimization methods,261,308–311 and the gradient pro-
+jection method by Bearpark et al.109 These algorithms are be-
+ing continuously improved over time.262,312–315
+In 2008, Mart´ınez and coworkers suggested the concept of
+the minimal distance conical intersection (MDCI). 40 In the
+MDCI search, one optimizes the conical intersection point
+that is the closest to the reference geometry, such as the
+excited-state minimum or the Franck–Condon point. The
+MDCI optimization is done with and without hPQ as in the
+case of the MECI optimization.40
+The conical intersection is a seam rather than a zero-
+dimensional point, and the structures of the seam can be very
+complicated. Naturally, it beneﬁts greatly from an automated
+search procedure. Recently, such automated search algo-
+rithms were implemented for ﬁnding minimal energy points
+in the seam,53,316–324 which may be regarded as extensions of
+automated transition state structure search algorithms53,316–322
+or metadynamics.323,324 This is one of the areas of active de-
+velopment.
+B. Semiclassical Dynamics Simulations
+When possible, nonadiabatic (semiclassical or mixed
+quantum-classical) dynamics simulations yield a great deal
+of information and intuition for photochemical / photody-
+namic processes. There have been a myriad of nonadia-
+batic dynamics simulation methods developed over the last 40
+years.139,140,325–341 In all molecular dynamics (trajectory) sim-
+ulations, no matter whether there are nonadiabatic transitions
+or not, the nuclei are treated in a classical-mechanical way.
+This means that Newton’s equation of motion,
+F = ma =−∇V = d
+dX⟨Ψ| ˆH|Ψ⟩, (109)
+are numerically integrated for each nucleus at each time step,
+and the nuclear gradient is again needed in propagation of
+the trajectories. To include a nonadiabatic transition, the
+coupling between the nuclear motion and electronic motion,
+which breaks the Born–Oppenheimer approximation, should
+be taken into account with the derivative coupling. For exam-
+ple, in the FSSH algorithm,325,326,338–340 the quantum mechan-
+ical amplitude of the electronic state P, cP, is given by
+iℏdcP(t)
+dt = cP(t)EP− iℏ
+∑
+Q
+cQ(t)dX
+dt
+⟨
+ΨP
+⏐⏐⏐⏐⏐
+d
+dX
+⏐⏐⏐⏐⏐ ΨQ
+⟩
+. (110)
+It is easy to see that the second term includes the nuclear mo-
+tion (d X/dt) and that the electronic motion (the other elec-
+tronic states given by cQ) is coupled by the derivative cou-
+pling. In all semiclassical methods, though the mathematical
+way of treating the nonadiabatic transitions is di ﬀerent, com-
+putations of the potential energy, energy gradient, and deriva-
+tive coupling are needed at each time step, as long as the nu-
+clear motion is classically treated. 139,140,340 Therefore, semi-
+classical dynamics simulations are usually conducted in a fol-
+lowing way:
+1. The initial geometry and velocity for the trajectory is
+given.
+2. Evaluate the energy, nuclear gradient, and derivative
+coupling and pass them to the trajectory propagator.
+3. The trajectory, including the nuclear position and quan-
+tum mechanical density for the electronic states, is
+propagated.
+4. 2 and 3 are repeated until the trajectory is ﬁnalized (e.g.
+reached the end time).
+Software for conducting dynamics simulations is interfaced
+to quantum chemistry software. This interface passes the ge-
+ometric information to the quantum chemistry software, runs
+the gradient and derivative coupling calculations, and gathers
+the energy, gradient, and derivative coupling. These commu-
+nications are usually done using ASCII text ﬁles. There are
+many software that are dedicated to nonadiabatic dynamics
+simulations. In particular, the program packages N ewton-
+X115,338 and sharc125,126 provide an interface to electronic
+structure software that includes multireference electron cor-
+relation methods. Some of the quantum chemistry softwares
+have their own semiclassical dynamics codes. In particu-
+lar, ab initio multiple spawning (AIMS) is implemented in
+the program package molpro,32 which is used in conjunction
+with PIC-CASPT2. Comprehensive reviews on nonadiabatic
+(semiclassical) dynamics simulation protocols were recently
+published in Chemical Reviews.139,140
+VIII. SUMMARY AND FUTURE PROSPECTS
+In this review, we have discussed the theory and application
+of analytical nuclear gradients for multireference electron cor-
+relation methods, such as MRCI, MRPT, and MRCC. Since
+the 1980s, the developments in algorithms and the emergence
+of highly e ﬃcient computer programs have made it possible
+to perform many chemical applications using these method-
+ologies. One of such applications of these gradient algorithms
+is structure determination of chemical systems, which serves
+as useful tools in studies of photochemistry and strongly cor-
+related systems. Moreover, direct nonadiabatic dynamics sim-
+ulations with multireference electron correlation models have
+become a practical tool in recent years, which had previously
+been deemed unpractical. Since the mechanism of many pho-
+tochemical and photophysical processes remains diﬃcult to be
+investigated experimentally, the theoretical methods reviewed
+here are powerful tools for studying such processes.
+In spite of the active developments in the past, there is
+ample room for improving the computational algorithms,
+in particular, for further reducing the computational burden
+23
+for correlated electronic structure calculations. Recent pro-
+gresses in explicitly correlated algorithms and their analytical
+gradients,342,343 the approximate full CI solvers and their ana-
+lytical gradients with large active spaces, 344–346 and the local
+correlation algorithms347–351 have the potential to further ex-
+pand the role of multireference methods in chemical applica-
+tion.
+IX. BIOGRAPHIES
+Jae Woo Park was born in Gwangju, Korea, in 1989. He
+graduated early from Gyeonggi Science High School in Su-
+won, Korea in 2007. He then received his B.Sc. degree
+in 2010, and Ph.D. degree in 2015, at the Department of
+Chemistry of Pohang University of Science and Technology
+(POSTECH), Pohang, Korea, with Prof. Young Min Rhee
+[now at Korea Advanced Institute of Science and Technol-
+ogy (KAIST)]. After working as a postdoctoral researcher in
+the Institute for Basic Science (IBS) Center for Self-assembly
+and Complexity (CSC) (2015–2016), he worked as a postdoc-
+toral researcher in Northwestern University, in the laboratory
+of Prof. Toru Shiozaki (2016–2018). While at Northwestern,
+he was involved in developing the CASPT2 derivative cou-
+pling code in the program package bagel. Since 2018, he has
+been an assistant professor at Chungbuk National University
+(CBNU) in Cheongju, Korea. His research focuses on devel-
+oping and applying multireference quantum chemistry theo-
+ries for complex systems.
+Rachael Al-Saadon was born in Terre Haute, IN, in 1990.
+She received her B.S. in chemistry at Indiana University
+Bloomington (2012) and Ph.D. in chemistry at Duke Univer-
+sity (2018). Presently, she is a postdoctoral fellow in the group
+of Prof. Toru Shiozaki at Northwestern University. She is de-
+veloping CASPT2 spin–orbit coupling methodology.
+Matthew K. MacLeod is from Longmont, CO. He received
+his B.A. in chemistry from Claremont McKenna College in
+2003. His doctorate work under the supervision of Josef
+Michl involved exploring singlet excited state potential en-
+ergy surfaces with stochastic search and gradient based meth-
+ods in order to understand exciton localization in oligosilanes.
+His post-doctoral research (2012–2014) with Prof. Toru Sh-
+iozaki at Northwestern on code generation of CASPT2 ana-
+lytical gradients provided the theory and tools which aided in
+the discovery of equilibrium geometries of open shell organic
+molecules such as the porphyrin radical cation. Matthew cur-
+rently builds machine learning models to understand natural
+language, another multireference problem in life.
+Toru Shiozaki is from Fukuoka, Japan. Toru earned his
+PhD in 2010 from the University of Tokyo under the super-
+vision by Prof. So Hirata at University of Florida. He then
+worked with Prof. Hans-Joachim Werner as a JSPS fellow at
+University of Stuttgart (2010–2012), followed by an assistant
+professorship at Northwestern University (2012–2019). To-
+gether with Garnet Chan, Toru has recently created a venture-
+backed deep-tech startup, Quantum Simulation Technologies,
+Inc. (dba. QSimulate), aiming to provide advanced quantum
+mechanical simulation platforms to chemical and pharmaceu-
+tical industries. Toru is QSimulate’s cofounder and full-time
+CEO starting September 2019.
+Bess Vlaisavljevich was born in St. Paul, MN in 1984. She
+received her B.A. in chemistry from the University of Min-
+nesota Morris in 2007. She then received her M.Sc. and Ph.D.
+degrees working with Prof. Laura Gagliardi from the Depart-
+ment of Chemistry at the University of Minnesota Twin Cities
+in 2010 and 2013, respectively. Following this, she worked
+as a postdoctoral researcher at the University of California
+Berkeley with Prof. Berend Smit and later at Northwestern
+University with Prof. Toru Shiozaki. While at Northwestern,
+she was involved in developing the MS-CASPT2 analytical
+gradient code in the program package bagel. In 2017, she be-
+gan her independent career at the University of South Dakota.
+Her research focuses on using multireference quantum chem-
+istry theories for a variety of problems in transition metal and
+actinide chemistry.
+X. ACKNOWLEDGMENTS
+The portion of work done at Northwestern University by
+all of the contributors was supported by National Science
+Foundation (ACI-1550481 and CHE-1351598), Department
+of Energy, Basic Energy Sciences (DE-FG02-13ER16398),
+and Air Force O ﬃce of Scientiﬁc Research (FA9550-18-1-
+0252). JWP was supported by the National Research Founda-
+tion (NRF) grant funded by the Korean government (MSIT)
+(Grant 2019R1C1C1003657). BV was supported by the De-
+partment of Energy, Basic Energy Sciences (de-sc0019463).
+∗ jaewoopark@cbnu.ac.kr
+† Bess.Vlaisavljevich@usd.edu
+1 Shaik, S. S., Hiberty, P. C., Eds. A Chemist’s Guide to Valence
+Bond Theory; Wiley-Interscience: Hoboken, NJ, 2007.
+2 Bally, T.; Borden, W. T. InReviews in Reviews in Computational
+Chemistry, Vol. 13; Lipkowitz, K. B., Boyd, D. B., Eds.; John
+Wiley & Sons, 1999.
+3 Borden, W. T. In The Foundations of Physical Organic Chem-
+istry: Fifty Years of the James Flack Norris Award; Mainz, E. T.
+S. V . V ., Ed.; American Chemical Society, 2015; Chapter 11.
+4 Suaud, N.; Ruamps, R.; Malrieu, J.-P.; Guih ´ery, N. Singly Oc-
+cupied MOs in Mono- and Diradical Conjugated Hydrocarbons:
+Comparison between Variational Single-Reference,π-Fully Cor-
+related and H ¨uckel Descriptions. J. Phys. Chem. A 2014, 118,
+5876–5884.
+5 Trinquier, G.; Malrieu, J.-P. Kekul ´e versus Lewis: When Aro-
+maticity Prevents Electron Pairing and Imposes Polyradical
+Character. Chem. Eur. J. 2015, 21, 814–828.
+6 Lischka, H.; Nachtigallov ´a, D.; Aquino, A. J. A.; Szalay, P. G.;
+Plasser, F.; Machado, F. B. C.; Barbatti, M. Multireference Ap-
+proaches for Excited States of Molecules. Chem. Rev. 2018, 118,
+24
+7293–7361.
+7 Bratoˇz, S. Le calcul non empirique des constantes de force et des
+d´eriv´ees du moment dipolaire. Colloq. Int. C.N.R.S. 1958, 82,
+287–301.
+8 Gerratt, J.; Mills, I. M. Force Constants and Dipole-Moment
+Derivatives of Molecules from Perturbed Hartree–Fock Calcu-
+lations. I. J. Chem. Phys. 1968, 49, 1719–1730.
+9 Pulay, P. Ab initio Calculation of Force Constants and Equilib-
+rium Geometries in Polyatomic Molecules. Mol. Phys. 1969, 17,
+197–204.
+10 Kato, S.; Morokuma, K. Energy Gradient in a Multi-
+Conﬁgurational SCF Formalism and its Application to Geometry
+Optimization of Trimethylene Diradicals.Chem. Phys. Lett 1979,
+65, 19–25.
+11 Pulay, P. In Applications of Electronic Structure Theory; Schae-
+fer, III, H. F., Ed.; Plenum Press: New York, 1977; V ol. 4; pp
+153–185.
+12 Lengsﬁeld, B. H., III; Saxe, P.; Yarkony, D. R. On the Eval-
+uation of Nonadiabatic Coupling Matrix Elements Using SA-
+MCSCF/CI Wave Functions and Analytic Gradient Methods. I.
+J. Chem. Phys. 1984, 81, 4549–4553.
+13 Shepard, R. Geometrical Energy Derivative Evaluation with
+MRCI Wave Functions. Int. J. Quantum Chem. 1987, 31, 33–44.
+14 Szalay, P. G.; Bartlett, R. J. Analytical Energy Gradients for the
+Two-Determinant Coupled Cluster Method with Application to
+Singlet Excited States of Butadiene and Ozone. J. Chem. Phys.
+1994, 101, 4936–4944.
+15 Nakano, H.; Hirao, K.; Gordon, M. S. Analytic Energy Gra-
+dients for Multiconﬁgurational Self-Consistent Field Second-
+Order Quasidegenerate Perturbation Theory (MC-QDPT). J.
+Chem. Phys. 1998, 108, 5660–5669.
+16 Celani, P.; Werner, H.-J. Analytical Energy Gradients for Inter-
+nally Contracted Second-Order Multireference Perturbation The-
+ory. J. Chem. Phys. 2003, 119, 5044–5057.
+17 MacLeod, M. K.; Shiozaki, T. Automatic Code Generation
+Enables Nuclear Gradient Computations for Fully Internally
+Contracted Multireference Theory. J. Chem. Phys. 2015, 142,
+051103.
+18 Mai, S.; Marquetand, P.; Gonz´alez, L. Intersystem Crossing Path-
+ways in the Noncanonical Nucleobase 2-Thiouracil: A Time-
+Dependent Picture. J. Phys. Chem. Lett. 2016, 7, 1978–1983.
+19 Park, J. W.; Shiozaki, T. On-the-ﬂy CASPT2 Surface Hopping
+Dynamics. J. Chem. Theory Comput. 2017, 13, 3676–3683.
+20 Heindl, M.; Gonz ´alez, L. A XMS-CASPT2 Non-Adiabatic Dy-
+namics Study on Pyrrole. Comput. Theor. Chem. 2019, 1155, 38
+– 46.
+21 Luzon, I.; Livshits, E.; Gope, K.; Baer, R.; Strasser, D. Making
+Sense of Coulomb Explosion Imaging.J. Phys. Chem. Lett.2019,
+10, 1361–1367.
+22 Polyak, I.; Hutton, L.; Crespo-Otero, R.; Barbatti, M.;
+Knowles, P. J. Ultrafast Photo-Induced Dynamics of 1,3-
+Cyclohexadiene using XMS-CASPT2 Surface Hopping. J.
+Chem. Theory Comput. 2019, 15, 3929–3940.
+23 G´omez, S.; Ibele, L. M.; Gonz´alez, L. The 3s Rydberg State as a
+Doorway State in the Ultrafast Dynamics of 1,1-diﬂuoroethylene.
+Phys. Chem. Chem. Phys. 2019, 21, 4871–4878.
+24 Page, M.; Saxe, P.; Adams, G. F.; Lengsﬁeld, III, B. H. Multiref-
+erence CI Gradients and MCSCF Second Derivatives. J. Chem.
+Phys. 1984, 81, 434–450.
+25 Lischka, H.; Shepard, R.; Pitzer, R. M.; Shavitt, I.; Dal-
+los, M.; M ¨uller, T.; Szalay, P. G.; Seth, M.; Kedziora, G. S.;
+Yabushita, S.; Zhang, Z. High-Level Multireference Methods in
+the Quantum-Chemistry Program System COLUMBUS: Ana-
+lytic MR-CISD and MR-AQCC Gradients and MR-AQCC-LRT
+for Excited States, GUGA Spin-Orbit CI and Parallel CI Density.
+Phys. Chem. Chem. Phys. 2001, 3, 664–673.
+26 Lischka, H.; M ¨uller, T.; Szalay, P. G.; Shavitt, I.; Pitzer, R. M.;
+Shepard, R. Columbus—A Program System for Advanced Mul-
+tireference Theory Calculations. WIREs Comput. Mol. Sci. 2011,
+1, 191–199.
+27 Lischka, H.; Shepard, R.; Shavitt, I.; Pitzer, R. M.; Dal-
+los, M.; M ¨uller, T.; Szalay, P. G.; Brown, F. B.; Ahlrichs, R.;
+B¨ohm, H. J.; Chang, A.; Comeau, D. C.; Gdanitz, R.;
+Dachsel, H.; Ehrhardt, C.; Ernzerhof, M.; H ¨ochtl, P.; Irle, S.;
+Kedziora, G.; Kovar, T.; Parasuk, V .; Pepper, M. J. M.;
+Scharf, P.; Schi ﬀer, H.; Schindler, M.; Sch ¨uler, M.; Seth, M.;
+Stahlberg, E. A.; Zhao, J.-G.; Yabushita, S.; Zhang, Z.; Bar-
+batti, M.; Matsika, S.; Schuurmann, M.; Yarkony, D. R.;
+Brozell, S. R.; Beck, E. V .; ; Blaudeau, J.-P.; Ruckenbauer, M.;
+Sellner, B.; Plasser, F.; Szymczak, J. J.; Spada, R. F. K.; Das, A.
+2017; columbus, An Ab Initio Electronic Structure Program, re-
+lease 7.0.
+28 Dallos, M.; M ¨uller, T.; Lischka, H.; Shepard, R. Geometry
+Optimization of Excited Valence States of Formaldehyde Us-
+ing Analytical Multireference Conﬁguration Interaction Singles
+and Doubles and Multireference Averaged Quadratic Coupled-
+Cluster Gradients, and the Conical Intersection Formed by the
+11B1(σ−π∗) and 21A1(π−π∗) States. J. Chem. Phys. 2001, 114,
+746–757.
+29 Lischka, H.; Dallos, M.; Shepard, R. Analytic MRCI Gradient for
+Excited States: Formalism and Application to the n-π∗ Valence-
+and n-(3s,3p Rydberg States of Formaldehyde. Mol. Phys. 2002,
+100, 1647–1658.
+30 Aquilante, F.; Autschbach, J.; Carlson, R. K.; Chibo-
+taru, L. F.; Delcey, M. G.; De Vico, L.; Fdez. Galv ´an, I.;
+Ferr´e, N.; Frutos, L. M.; Gagliardi, L.; Garavelli, M.; Gius-
+sani, A.; Hoyer, C. E.; Li Manni, G.; Lischka, H.; Ma, D.;
+Malmqvist, P. Å.; M ¨uller, T.; Nenov, A.; Olivucci, M.; Ped-
+ersen, T. B.; Peng, D.; Plasser, F.; Pritchard, B.; Reiher, M.;
+Rivalta, I.; Schapiro, I.; Segarra-Mart ´ı, J.; Stenrup, M.; Truh-
+lar, D. G.; Ungur, L.; Valentini, A.; Vancoillie, S.; Veryazov, V .;
+Vysotskiy, V . P.; Weingart, O.; Zapata, F.; Lindh, R. Molcas 8:
+New Capabilities for Multiconﬁgurational Quantum Chemical
+Calculations Across the Periodic Table. J. Comput. Chem. 2016,
+37, 506–541.
+31 Page, C. S.; Olivucci, M. Ground and Excited State CASPT2 Ge-
+ometry Optimizations of Small Organic Molecules. J. Comput.
+Chem. 2003, 24, 298–309.
+32 Werner, H.-J.; Knowles, P. J.; Knizia, G.; Manby, F. R.;
+Sch¨utz, M.; Celani, P.; Gy ¨orﬀy, W.; Kats, D.; Korona, T.;
+Lindh, R.; Mitrushenkov, A.; Rauhut, G.; Shamasundar, K. R.;
+Adler, T. B.; Amos, R. D.; Bennie, S. J.; Bernhardsson, A.; Bern-
+ing, A.; Cooper, D. L.; Deegan, M. J. O.; Dobbyn, A. J.; Eck-
+ert, F.; Goll, E.; Hampel, C.; Hesselmann, A.; Hetzer, G.; Hre-
+nar, T.; Jansen, G.; K¨oppl, C.; Lee, S. J. R.; Liu, Y .; Lloyd, A. W.;
+Ma, Q.; Mata, R. A.; May, A. J.; McNicholas, S. J.; Meyer, W.;
+Miller III, T. F.; Mura, M. E.; Nicklass, A.; O’Neill, D. P.;
+Palmieri, P.; Peng, D.; Pﬂ ¨uger, K.; Pitzer, R.; Reiher, M.; Sh-
+iozaki, T.; Stoll, H.; Stone, A. J.; Tarroni, R.; Thorsteinsson, T.;
+Wang, M.; Welborn, M. MOLPRO, Version 2019.2, A Package
+of Ab Initio Programs. 2019; see https://www.molpro.net.
+33 Lischka, H.; Dallos, M.; Szalay, P. G.; Yarkony, D. R.; Shep-
+ard, R. Analytical Evaluation of Nonadiabatic Coupling Terms at
+the MR-CI Level. I. Formalism.J. Chem. Phys. 2004, 120, 7322–
+7329.
+34 Dallos, M.; Lischka, H.; Shepard, R.; Yarkony, D. R.; Sza-
+lay, P. G. Analytic Evaluation of Nonadiabatic Coupling Terms at
+the MR-CI Level. II. Minima on the Crossing Seam: Formalde-
+25
+hyde and the Photodimerization of Ethylene. J. Chem. Phys.
+2004, 120, 7330–7339.
+35 Barbatti, M.; Paier, J.; Lischka, H. Photochemistry of Ethy-
+lene: A Multireference Conﬁguration Interaction Investigation
+of the Excited-State Energy Surfaces. J. Chem. Phys. 2004, 121,
+11614–11624.
+36 Serrano-Andr´es, L.; Merch ´an, M.; Lindh, R. Computation
+of Conical Intersections by Using Perturbation Techniques. J.
+Chem. Phys. 2005, 122, 104107.
+37 Matsika, S. Three-State Conical Intersections in Nucleic Acid
+Bases. J. Phys. Chem. A 2005, 109, 7538–7545.
+38 Levine, B. G.; Ko, C.; Quenneville, J.; Mart ´ınez, T. J. Conical
+Intersections and Double Excitations in Time-Dependent Density
+Functional Theory. Mol. Phys. 2006, 104, 1039–1051.
+39 De Vico, L.; Liu, Y .-J.; Krogh, J. W.; Lindh, R. Chemilumi-
+nescence of 1,2-Dioxetane. Reaction Mechanism Uncovered. J.
+Phys. Chem. A 2007, 111, 8013–8019.
+40 Levine, B. G.; Coe, J. D.; Mart ´ınez, T. J. Optimizing Conical
+Intersections without Derivative Coupling Vectors: Application
+to Multistate Multireference Second-Order Perturbation Theory
+(MS-CASPT2). J. Phys. Chem. B 2008, 112, 405–413.
+41 Lu, Y .-J.; Lee, L.; Pan, J.-W.; Xie, T.; Witek, H. A.; Lin, J. J.
+Barrierless Reactions Between Two Closed-Shell Molecules. I.
+Dynamics of F2 +CH3SCH3 Reaction. J. Chem. Phys. 2008, 128,
+104317.
+42 Shao, H.-C.; Xie, T.; Lu, Y .-J.; Chang, C.-H.; Pan, J.-W.; Lin, J. J.
+Barrierless Reactions Between Two Closed-Shell Molecules. II.
+Dynamics of F 2 + CH3SSCH3 Reaction. J. Chem. Phys. 2009,
+130, 014301.
+43 Mori, T.; Kato, S. Dynamic Electron Correlation E ﬀect on Con-
+ical Intersections in Photochemical Ring-Opening Reaction of
+Cyclohexadiene: MS-CASPT2 Study. Chem. Phys. Lett. 2009,
+476, 97–100.
+44 Eisfeld, W.; Francisco, J. S. Structure, Spectroscopic Properties,
+and Photochemistry of the Hydroxymethoxy Radical. J. Chem.
+Phys. 2009, 131, 134313.
+45 Mori, T.; Nakano, K.; Kato, S. Conical Intersections of Free
+Energy Surfaces in Solution: E ﬀect of Electron Correlation on
+a Protonated Schi ﬀ Base in Methanol Solution. J. Chem. Phys.
+2010, 133, 064107.
+46 Thompson, A. L.; Mart ´ınez, T. J. Time-Resolved Photoelectron
+Spectroscopy from First Principles: Excited State Dynamics of
+Benzene. Faraday Discuss. 2011, 150, 293–311.
+47 Shiozaki, T.; Gy ˝orﬀy, W.; Celani, P.; Werner, H.-J. Extended
+Multi-State Complete Active Space Second-Order Perturbation
+Theory: Energy and Nuclear Gradients. J. Chem. Phys. 2011,
+135, 081106.
+48 Gozem, S.; Huntress, M.; Schapiro, I.; Lindh, R.; Gra-
+novsky, A. A.; Angeli, C.; Olivucci, M. Dynamic Electron Cor-
+relation Eﬀects on the Ground State Potential Energy Surface of
+a Retinal Chromophore Model. J. Chem. Theory Comput. 2012,
+8, 4069–4080.
+49 Yamazaki, S.; Taketsugu, T. Nonradiative Deactivation Mecha-
+nisms of Uracil, Thymine, and 5-Fluorouracil: A Comparative
+Ab Initio Study. J. Phys. Chem. A 2012, 116, 491–503.
+50 Granovsky, A. A. Firefly, http://classic.chem.msu.su/gran/ﬁreﬂy/index.html
+(accessed November 19, 2019).
+51 Ioﬀe, I. N.; Granovsky, A. A. Photoisomerization of Stilbene:
+The Detailed XMCQDPT2 Treatment. J. Chem. Theory Comput.
+2013, 9, 4973–4990.
+52 Huix-Rollant, M.; Siri, D.; Ferr ´e, N. Theoretical Study of
+the Photochemical Generation of Triplet Acetophenone. Phys.
+Chem. Chem. Phys. 2013, 15, 19293–19300.
+53 Mori, T.; Mart ´ınez, T. J. Exploring the Conical Intersection
+Seam: The Seam Space Nudged Elastic Band Method. J. Chem.
+Theory Comput. 2013, 9, 1155–1163.
+54 Shiozaki, T.; Woywod, C.; Werner, H.-J. Pyrazine Excited States
+Revisited Using the Extended Multi-State Complete Active
+Space Second-Order Perturbation Method. Phys. Chem. Chem.
+Phys. 2013, 15, 262–269.
+55 Walczak, E.; Szefczyk, B.; Andruni ´ow, T. Geometries and Ver-
+tical Excitation Energies in Retinal Analogues Resolved at the
+CASPT2 Level of Theory: Critical Assessment of the Perfor-
+mance of CASSCF, CC2, and DFT Methods. J. Chem. Theory
+Comput. 2013, 9, 4915–4927.
+56 Nikiforov, A.; Gomez, J. A.; Thiel, W.; Hoix-Rollant, M.; Fi-
+latov, M. Assessment of Approximate Computational Methods
+for Conical Intersections and Branching Plane Vectors in Organic
+Molecules. J. Chem. Phys. 2014, 141, 124122.
+57 Joalland, B.; Mori, T.; Mart´ınez, T. J.; Suits, A. G. Photochemical
+Dynamics of Ethylene Cation C 2H+
+4 . J. Phys. Chem. Lett. 2014,
+5, 1467–1471.
+58 Chien, A. D.; Molina, A. R.; Abeyasinghe, N.; Varnavski, O. P.;
+Goodson, III, T.; Zimmerman, P. M. Structure and Dynamics
+of the 1(TT) State in a Quinoidal Bithiophene: Characterizing
+a Promising Intramolecular Singlet Fission Candidate. J. Phys.
+Chem. C 2015, 119, 28258–28268.
+59 Mironov, V . A.; Bravaya, K. B.; Nemukhin, A. V . Role of Zwit-
+terions in Kindling Fluorescent Protein Photochemistry. J. Phys.
+Chem. B 2015, 119, 2467–2474.
+60 Segarra-Mart´ı, J.; Franc´es-Monerris, A.; Roca-Sanju´an, D.; Mer-
+chan, M. Assessment of the Potential Energy Hypersurfaces
+in Thymine within Multiconﬁgurational Theory: CASSCF vs.
+CASPT2. Molecules 2016, 21, 1666.
+61 Edel, K.; Fink, R. F.; Bettinger, H. F. Isomerization and Frag-
+mentation Pathways of 1,2-azaborine. J. Comput. Chem. 2016,
+37, 110–116.
+62 Shiozaki, T. BAGEL: Brilliantly Advanced General Electronic-
+structure Library. WIREs Comput. Mol. Sci. 2018, 8, e1331.
+63 Vlaisavljevich, B.; Shiozaki, T. Nuclear Energy Gradients for In-
+ternally Contracted Complete Active Space Second-Order Per-
+turbation Theory: Multistate Extensions. J. Chem. Theory Com-
+put. 2016, 12, 3781–3787.
+64 Hu, D.; Liu, Y . F.; Sobolewski, A. L.; Lan, Z. Nonadiabatic Dy-
+namics Simulation of Keto-Isocytosine: A Comparison of Dy-
+namical Performance of Diﬀerent Electronic-Structure Methods.
+Phys. Chem. Chem. Phys. 2017, 19, 19168–19177.
+65 Dokukina, I.; Marian, C. M.; Weingart, O. New Perspectives
+on an Old Issue: A Comparative MS-CASPT2 and OM2-MRCI
+Study of Polyenes and Protonated Schiﬀ Bases. Photochem. Pho-
+tobiol. 2017, 93, 1345–1355.
+66 Park, J. W.; Shiozaki, T. Analytical Derivative Coupling for Mul-
+tistate CASPT2 Theory. J. Chem. Theory Comput. 2017, 13,
+2561–2570.
+67 Budz´ak, ˇS.; Scalmani, G.; Jacquemin, D. Accurate Excited-
+State Geometries: A CASPT2 and Coupled-Cluster Reference
+Database for Small Molecules. J. Chem. Theory Comput. 2017,
+13, 6237–6252.
+68 Park, J. W.; Shiozaki, T. On the Accuracy of Retinal Protonated
+Schiﬀ Base Models. Mol. Phys. 2018, 116, 2583–2590.
+69 Sen, S.; Schapiro, I. A Comprehensive Benchmark of the XMS-
+CASPT2 Method for the Photochemistry of a Retinal Chro-
+mophore Model. Mol. Phys. 2018, 116, 2571–2582.
+70 Segarra-Mart´ı, J.; Tran, T.; Bearpark, M. J. Ultrafast and Radi-
+ationless Electronic Excited State Decay of Uracil and Thymine
+Cations: Computing the E ﬀects of Dynamic Electron Correla-
+tion. Phys. Chem. Chem. Phys 2019, 21, 14322–14330.
+26
+71 Segarra-Mart´ı, J.; Tran, T.; Bearpark, M. J. Computing the Ul-
+trafast and Radiationless Electronic Excited State Decay of Cy-
+tosine and 5methylcytosine Cations: Uncovering the Role of Dy-
+namic Electron Correlation. ChemPhotoChem 2019, in press.
+72 Mai, S.; Wolf, A.-P.; Gonz ´alez, L. Curious Case of 2-
+Selenouracil: Eﬃcient Population of Triplet States and Yet Pho-
+tostable. J. Chem. Theory Comput. 2019, 15, 3730–3742.
+73 Park, J. W.; Al-Saadon, R.; Strand, N. E.; Shiozaki, T. Imagi-
+nary Shift in CASPT2 Nuclear Gradient and Derivative Coupling
+Tfheory. J. Chem. Theory Comput. 2019, 15, 4088–4098.
+74 Park, J. W. Single-State Single-Reference and Multistate Mul-
+tireference Zeroth-Order Hamiltonians in MS-CASPT2 and Con-
+ical Intersections. J. Chem. Theory Comput. 2019, 15, 3960–
+3973.
+75 Osamura, Y .; Yamaguchi, Y .; Schaefer III, H. F. Generalization
+of Analytic Conﬁguration Interaction (CI) Gradient Techniques
+for Potential Energy Hypersurfaces, Including a Solution to the
+Coupled Perturbed Hartree–Fock Equations for Multiconﬁgura-
+tion SCF Molecular Wave Functions. J. Chem. Phys. 1982, 77,
+383–390.
+76 Shepard, R.; Lischka, H.; Szalay, P. G.; Kovar, T.; Ernzer-
+hof, M. A General Multireference Conﬁguration Interaction Gra-
+dient Program. J. Chem. Phys. 1992, 96, 2085–2098.
+77 Lyakh, D. I.; Musiał, M.; Lotrich, V . F.; Bartlett, R. J. Multiref-
+erence Nature of Chemistry: The Coupled-Cluster View. Chem.
+Rev. 2012, 112, 182–243.
+78 Hachey, M. R. J.; Bruna, P. J.; Grein, F. The Spectroscopy of
+Formaldehyde: III. Out-of-Plane Potentials and Geometry Op-
+timizations for Singlet States. J. Mol. Spectroscopy 1996, 176,
+375–384.
+79 Merch´an, M.; Roos, B. O. A Theoretical Determination of the
+Electronic Spectrum of Formaldehyde. Theor. Chim. Acta 1995,
+92, 227–239.
+80 Ben-Nun, M.; Mart ´ınez, T. J. Photodynamics of Ethylene: Ab
+Initio Studies of Conical Intersections. Chem. Phys. 2000, 259,
+237–248.
+81 Boggio-Pasqua, M.; Bearpark, M. J.; Klene, M.; Robb, M. A. A
+Computational Strategy for Geometry Optimization of Ionic and
+Covalent Excited States, Applied to Butadiene and Hexatriene.J.
+Chem. Phys. 2004, 120, 7849.
+82 Barbatti, M.; Lischka, H. Nonadiabatic Deactivation of 9H-
+Adenine: A Comprehensive Picture Based on Mixed Quantum-
+Classical Dynamics. J. Am. Chem. Soc. 2008, 130, 6831–6839.
+83 Barbatti, M.; Aquino, A. J. A.; Szymczak, J. J.; Nachti-
+gallov´a, D.; Hobza, P.; Lischka, H. Relaxation Mechanisms of
+UV-Photoexcited DNA and RNA Nucleobases.Proc. Natl. Acad.
+Sci. U.S.A. 2010, 107, 21453–21458.
+84 Barbatti, M.; Szymczak, J. J.; Aquino, A. J. A.; Nachti-
+gallov´a, D.; Lischka, H. The Decay Mechanism of Photoex-
+cited Guanine – A Nonadiabatic Dynamics Study.J. Chem. Phys.
+2011, 134, 014304.
+85 Barbatti, M.; Lan, Z.; Crespo-Otero, R.; Szymczak, J. J.; Lis-
+chka, H.; Thiel, W. Critical Appraisal of Excited State Nona-
+diabatic Dynamics Simulations of 9 H-Adenine. J. Chem. Phys.
+2012, 137, 22A503.
+86 Matsika, S. Radiationless Decay of Excited States of Uracil
+through Conical Intersections. J. Phys. Chem. A 2004, 109,
+7584–7590.
+87 Kistler, K. A.; Matsika, S. Radiationless Decay Mechanism of
+Cytosine: An Ab Initio Study with Comparisons to the Fluores-
+cent Analogue 5-Methyl-2-pyrimidinone.J. Phys. Chem. A2007,
+111, 2650–2661.
+88 Kistler, K. A.; Matsika, S. Three-State Conical Intersections in
+Cytosine and Pyrimidinone Bases. J. Chem. Phys. 2008, 128,
+215102.
+89 Matsika, S.; Krause, P. Nonadiabatic Events and Conical Inter-
+sections. Annu. Rev. Phys. Chem. 2011, 62, 621–643.
+90 Marquetand, M. R. P.; Gonz ´alez-V´azquez, J.; Sola, I.;
+Gonz´alez, L. Femtosecond Intersystem Crossing in the DNA Nu-
+cleobase Cytosine. J. Phys. Chem. Lett. 2012, 3, 3090–3094.
+91 Thiel, W. Semiempirical Quantumchemical Methods. WIREs
+Comput. Mol. Sci. 2014, 4, 145–157.
+92 Shao, Y .; Head-Gordon, M.; Krylov, A. I. The Spin-Flip Ap-
+proach within Time-Dependent Density Functional Theory: The-
+ory and Applications to Diradicals. J. Chem. Phys. 2003, 118,
+4807–4818.
+93 Filatov, M. Assessment of Density Functional Methods for
+Obtaining Geometries at Conical Intersections in Organic
+Molecules. J. Chem. Theory Comput. 2013, 9, 4526–4541.
+94 Andersson, K.; Malmqvist, P.-Å.; Roos, B. O. Second-Order Per-
+turbation Theory with a Complete Active Space Self-Consistent
+Field Reference Function. J. Chem. Phys. 1992, 96, 1218–1226.
+95 Nakano, H. Quasidegenerate Perturbation Theory with Multicon-
+ﬁgurational Self-Consistent Field Reference Functions. J. Chem.
+Phys. 1993, 99, 7983–7992.
+96 Granovsky, A. A. Extended Multi-Conﬁguration Quasi-
+Degenerate Perturbation Theory: The New Approach to
+Multi-State Multi-Reference Perturbation Theory. J. Chem.
+Phys. 2011, 134, 214113.
+97 Doryakov, A. L.; Io ﬀe, I.; Granovsky, A. A.; Ernsting, N. P.;
+Kovalenko, S. A. Femtosecond Raman Spectra of cis-Stilbene
+and trans-Stilbene with Isotopomers in Solution. J. Chem. Phys.
+2012, 137, 244505.
+98 Andrews, L.; Wang, X.; Lindh, R.; Roos, B.; Marsden, C. J. Sim-
+ple N≡UF3 and P≡UF3 Molecules with Triple Bonds to Uranium.
+Angew. Chem. Int. Ed. 2008, 47, 5366–5370.
+99 Cho, H.-G.; Andrews, L.; Vlaisavljevich, B.; Gagliardi, L. In-
+frared Spectra of Small Insertion and Methylidene Complexes in
+Reactions of Laser-Ablated Nickel Atoms with Halomethanes.
+Organometallics 2009, 28, 5623–5632.
+100 Cho, H.-G.; Andrews, L.; Vlaisavljevich, B.; Gagliardi, L.
+Infrared Spectra of Small Insertion and Methylidene Com-
+plexes in Reactions of Laser-Ablated Palladium Atoms with
+Halomethanes. Organometallics 2009, 28, 6871–6879.
+101 Wang, X.; Roos, B. O.; Andrews, L. Matrix Infrared Spectra and
+Electronic Structure Calculations of the First Actinide Borylene:
+FB=ThF2. Chem. Commun. 2010, 46, 1946–1948.
+102 Wang, X.; Andrews, L.; Vlaisavljevich, B.; Gagliardi, L. Com-
+bined Triple and Double Bonds to Uranium: The N ≡U=N–H
+Uranimine Nitride Molecule Prepared in Solid Argon. Inorg.
+Chem. 2011, 50, 3826–3831.
+103 Andrews, L.; Wang, X.; Liang, B.; Ruip ´erez, F.; Infante, I.;
+Raw, A. D.; Ibers, J. A. Matrix Infrared Spectroscopy and a Theo-
+retical Investigation of SUO and US2. Eur. J. Inorg. Chem.2011,
+2011, 4457–4463.
+104 Wei, R.; Fang, Z.; Vasiliu, M.; Dixon, D. A.; Andrews, L.;
+Gong, Y . Infrared Spectroscopic and Theoretical Studies of the
+3d Transition Metal Oxyﬂuoride Molecules. Inorg. Chem. 2019,
+in press.
+105 Gy˝orﬀy, W.; Shiozaki, T.; Knizia, G.; Werner, H.-J. Analytical
+Energy Gradients for Second-Order Multireference Perturbation
+Theory Using Density Fitting.J. Chem. Phys.2013, 138, 104104.
+106 bagel, Brilliantly Advanced General Electronic-structure Li-
+brary. http://www.nubakery.org under the GNU General Public
+License.
+107 Roos, B. O.; Malmqvist, P.-Å.; Molina, V .; Serrano-Andr´es, L.;
+Merch´an, M. Theoretical Characterization of the Lowest Energy
+Absorption Band of Pyrrole. J. Chem. Phys. 2002, 116, 7526–
+27
+7536.
+108 Tao, H.; Levine, B. G.; Mart ´ınez, T. J. Ab Initio Multiple
+Spawning Dynamics Using Multi-State Second-Order Perturba-
+tion Theory. J. Phys. Chem. A 2009, 113, 13656–13662.
+109 Bearpark, M. J.; Robb, M. A.; Schlegel, H. B. A Direct Method
+for the Location of the Lowest Energy Point on a Potential Sur-
+face Crossing. Chem. Phys. Lett. 1994, 223, 269–274.
+110 Sato, H.; Hirata, F.; Kato, S. Analytical Energy Gradient for
+the Reference Interaction Site Model Multiconﬁgurational Self-
+Consistent-Field Method: Application to 1,2-diﬂuoroethylene in
+Aqueous Solution. J. Chem. Phys. 1996, 105, 1546–1551.
+111 Ten-no, S.; Hirata, F.; Kato, S. Reference Interaction Site Model
+Self-Consistent-Field Study for Solvation E ﬀect on Carbonyl
+Compounds in Aqueous Solution. J. Chem. Phys. 1994, 100,
+7443–7453.
+112 Yamazaki, S.; Kato, S. Locating the Lowest Free-Energy Point on
+Conical Intersection in Polar Solvent: Reference Interaction Site
+Model Self-Consistent Field Study of Ethylene and CH 2NH+
+2 . J.
+Chem. Phys. 2005, 123, 114510.
+113 Zechmann, G.; Barbatti, M.; Lischka, H.; Pittner, J.; Bona ˇci´c-
+Kouteck´y, V . Multiple Pathways in the Photodynamics of a Polar
+π-Bond: A Case Study of Silaethylene. Chem. Phys. Lett. 2006,
+418, 377–382.
+114 Coe, J.; Levine, B. G.; Mart ´ınez, T. J. Ab Initio Molecular Dy-
+namics of Excited-State Intramolecular Proton Transfer Using
+Multireference Perturbation Theory.J. Phys. Chem. A 2007, 111,
+11302.
+115 Barbatti, M.; Ruckenbauer, M.; Plasser, F.; Pittner, J.;
+Granucci, G.; Persico, M.; Lischka, H. Newton-X: A Surface-
+Hopping Program for Nonadiabatic Molecular Dynamics.WIREs
+Comput. Mol. Sci. 2014, 4, 26–33.
+116 Barbatti, M.; Granucci, G.; Ruckenbauer, M.; Plasser, F.; Crespo-
+Otero, R.; Pittner, J.; Persico, M.; Lischka, H. 2016; N ewton-X:
+A Package for Newtonian Dynamics Close to the Crossing Seam,
+Version 2.
+117 Barbatti, M.; Granucci, G.; Persico, M.; Ruckenbauer, M.; Vaz-
+dar, M.; Eckert-Maksi´c, M.; Lischka, H. The On-the-Fly Surface-
+Hopping Program System Newton-X: Application to Ab Initio
+Simulation of the Nonadiabatic Photodynamics of Benchmark
+Systems. J. Photochem. Photobiol. A 2007, 190, 228–240.
+118 Vazdar, M.; Eckert-Maksi ´c, M.; Barbatti, M.; Lischka, H.
+Excited-State Non-Adiabatic Dynamics Simulations of Pyrrole.
+Mol. Phys. 2009, 107, 845–854.
+119 Tao, H.; Allison, T. K.; Wright, T. W.; Stooke, A. M.;
+Khurmi, C.; van Tilborg, J.; Liu, Y .; Falcone, R. W.; Belka-
+cem, A.; Mart ´ınez, T. J. Ultrafast Internal Conversion in Ethy-
+lene. I. The Excited State Lifetime. J. Chem. Phys. 2011, 134,
+244306.
+120 Allison, T. K.; Tao, H.; Glover, W. J.; Wright, T. W.;
+Stooke, A. M.; Khurmi, C.; van Tilborg, J.; Liu, Y .; Fal-
+cone, R. W.; Mart´ınez, T. J.; Belkacem, A. Ultrafast Internal Con-
+version in Ethylene. II. Mechanisms and Pathways for Quenching
+and Hydrogen Elimination. J. Chem. Phys. 2012, 136, 124317.
+121 Mori, T.; Glover, W. J.; Schuurman, M. S.; Mart ´ınez, T. J. Role
+of Rydberg States in the Photochemical Dynamics of Ethylene.
+J. Phys. Chem. A 2012, 116, 2808–2818.
+122 Kuhlman, T. S.; Glover, W. J.; Mori, T.; Møller, K. B.;
+Mart´ınez, T. J. Between Ethylene and Polyenes — The Non-
+Adiabatic Dynamics of cis-Dienes. Faraday Discuss. 2012, 157,
+193–212.
+123 Zelen´y, T.; Ruckenbauer, M.; Aquino, A. J. A.; M ¨uller, T.;
+Lankaˇs, F.; Dr ˇsata, T.; Hase, W. L.; Nachtigallova, D.; Lis-
+chka, H. Strikingly Diﬀerent Eﬀects of Hydrogen Bonding on the
+Photodynamics of Individual Nucleobases in DNA: Comparison
+of Guanine and Cytosine. J. Am. Chem. Soc. 2012, 134, 13662–
+13669.
+124 Ruckenbauer, M.; Barbatti, M.; M ¨uller, T.; Lischka, H. Nonadi-
+abatic Photodynamics of a Retinal Model in Polar and Nonpolar
+Environment. J. Phys. Chem. A 2013, 117, 2790–2799.
+125 Mai, S.; Marquetand, P.; Gonz ´alez, L. Nonadiabatic Dynam-
+ics: The SHARC Approach. WIREs Comput. Mol. Sci. 2018, 8,
+e1370.
+126 Mai, S.; Richter, M.; Heindl, M.; Menger, M. F. S. J.; Atkins, A.;
+Ruckenbauer, M.; Plasser, F.; Oppel, M.; Marquetand, P.;
+Gonz´alez, L. SHARC2.0: Surface Hopping Including Arbi-
+trary Couplings Program Package for Non-Adiabatic Dynamics.
+2018.
+127 Mai, S.; Marquetand, P.; Gonz ´alez, L. Non-Adiabatic and Inter-
+system Crossing Dynamics in SO2. II. The Role of Triplet States
+in the Bound State Dynamics Studied by Surface-Hopping Sim-
+ulations. J. Chem. Phys. 2014, 140, 204302.
+128 Wolf, T. J. A.; Kuhlman, T. S.; Schalk, O.; Mart ´ınez, T. J.;
+Møller, K. B.; Stolow, A.; Unterreiner, A.-N. Hexamethylcy-
+clopentadiene: Time-Resolved Photoelectron Spectroscopy and
+Ab Initio Multiple Spawning Simulations. Phys. Chem. Chem.
+Phys. 2014, 16, 11770–11779.
+129 Ohta, A.; Kobayashi, O.; Danielache, S. O.; Nanbu, S. Nona-
+diabatic Ab Initio Molecular Dynamics of Photoisomerization
+Reaction Between 1,3-cyclohexadiene and 1,3,5-cis-hexatriene.
+Chem. Phys. 2015, 459, 45–53.
+130 Mignolet, B.; Curchod, B. F. E.; Mart ´ınez, T. J. Rich Athermal
+GroundState Chemistry Triggered by Dynamics through a Coni-
+cal Intersection. Angew. Chem. Int. Ed. 2016, 55, 14993–14996.
+131 Liu, L.; Liu, J.; Mart ´ınez, T. J. Dynamical Correlation E ﬀects
+on Photoisomerization: Ab Initio Multiple Spawning Dynamics
+with MS-CASPT2 for a Model trans-Protonated Schiﬀ Base. J.
+Phys. Chem. B 2016, 120, 1940–1949.
+132 Mai, S.; ; Pollum, M.; Mart ´ınez-Fern´andez, L.; Dunn, N.; Mar-
+quetand, P.; Corral, I.; Crespo-Hern ´andez, C. E.; Gonz ´alez, L.
+The Origin of E ﬃcient Triplet State Population in Sulfur-
+Substituted Nucleobases. Nat. Commun. 2016, 7, 13077.
+133 Liu, X.-Y .; Fang, Y .-G.; Xie, B.-B.; Fang, W.-H.; Cui, G.
+QM/MM Nonadiabatic Dynamics Simulations on Photoinduced
+Wolﬀ Rearrangements of 1,2,3-Thiadiazole. J. Chem. Phys.
+2017, 146, 224302.
+134 Muchov´a, E.; Bezek, M.; Suchan, J.; Cibulka, R.; Slav ´ıˇcek, P.
+Molecular Dynamics and Metadynamics Simulations of [2 + 2]
+Photocycloaddition. Int. J. Quantum Chem. 2017, 118, e25534.
+135 Borin, A. C.; Mai, S.; Marquetand, P.; Gonz ´alez, L. Ab Ini-
+tio Molecular Dynamics Relaxation and Intersystem Crossing
+Mechanisms of 5-azacytosine. Phys. Chem. Chem. Phys. 2017,
+19, 5888–5894.
+136 Peccati, F.; Mai, S.; Gonz ´alez, L. Insights into the Deactivation
+of 5-bromouracil after Ultraviolet Excitation.Phil. Trans. R. Soc.
+A 2017, 375, 20160202.
+137 Glover, W. J.; Mori, T.; Schuurman, M. S.; Boguslavskiy, A. E.;
+Schalk, O.; Stolow, A.; Mart ´ınez, T. J. Excited State Non-
+Adiabatic Dynamics of the Smallest Polyene, trans-1,3-
+butadiene. II. Ab Initio Multiple Spawning Simulations. J. Chem.
+Phys. 2018, 148, 164303.
+138 Mai, S.; Atkins, A. J.; Plasser, F.; Gonz ´alez, L. The Inﬂuence
+of the Electronic Structure Method on Intersystem Crossing Dy-
+namics. The Case of Thioformaldehyde. J. Chem. Theory Com-
+put. 2019, 15, 3470–3480.
+139 Curchod, B. F. E.; Mart´ınez, T. J. Ab Initio Nonadiabatic Quan-
+tum Molecular Dynamics. Chem. Rev. 2018, 118, 3305–3336.
+140 Crespo-Otero, R.; Barbatti, M. Recent Advances and Perspec-
+tives on Nonadiabatic Mixed Quantum-Classical Dynamics.
+28
+Chem. Rev. 2018, 118, 7026–7068.
+141 Granucci, G.; Persico, M. Critical Appraisal of the Fewest
+Switches Algorithm for Surface Hopping. J. Chem. Phys. 2007,
+126, 134114.
+142 Mai, S.; Marquetand, P.; Gonz ´alez, L. A General Method to
+Describe Intersystem Crossing Dynamics in Trajectory Surface
+Hopping. Int. J. Quantum Chem. 2015, 115, 1215–1231.
+143 Richter, M.; Marquetand, P.; Gonz ´alez-V´azquez, J.; Sola, I.;
+Gonz´alez, L. SHARC: Ab Initio Molecular Dynamics with Sur-
+face Hopping in the Adiabatic Representation Including Arbi-
+trary Couplings. J. Chem. Theory Comput. 2011, 7, 1253–1258.
+144 Wilkinson, I.; Boguslavskiy, A. E.; Mikosch, J.; Bertrand, J. B.;
+W¨orner, H. J.; Villeneuve, D. M.; Spanner, M.; Patchkovskii, S.;
+Stolow, A. Excited State Dynamics in SO 2. I. Bound State Re-
+laxation Studied by Time-Resolved Photoelectron-Photoion Co-
+incidence Spectroscopy. J. Chem. Phys. 2014, 140, 204301.
+145 Schalk, O.; Boguslavskiy, A. E.; Stolow, A. Substituent Ef-
+fects on Dynamics at Conical Intersections: Cyclopentadienes.
+J. Phys. Chem. A 2010, 114, 4058–4064.
+146 Clouthier, D. J.; Ramsay, D. A. The Spectroscopy of Formalde-
+hyde and Thioformaldehyde. Annu. Rev. Phys. Chem. 1983, 34,
+31–58.
+147 Kawasaki, M.; Kasatani, K.; Ogawa, Y .; Sato, H. Spectra and
+Emission Lifetimes of H 2CS( ˜A1A2). Chem. Phys. 1983, 74, 83–
+88.
+148 Moule, D. C.; Lim, E. C. Highly Varying Photophysical Prop-
+erties of Thiocarbonyls: Validation of Fundamental Theoretical
+Concepts of Electronic Radiationless Transitions.J. Phys. Chem.
+A 2002, 106, 3072–3076.
+149 Olsen, S.; Lamothe, K.; Mart ´ınez, T. J. Protonic Gating of
+Excited-State Twisting and Charge Localization in GFP Chro-
+mophores: A Mechanistic Hypothesis for Reversible Photo-
+switching. J. Am. Chem. Soc. 2010, 132, 1192 – 1193.
+150 Zhao, L.; Zhou, P.-W.; Li, B.; Gao, A.-H.; Han, K.-L. Non-
+Adiabatic Dynamics of Isolated Green Fluorescent Protein Chro-
+mophore Anion. J. Chem. Phys. 2014, 141, 235101.
+151 Kim, J.; Tao, H.; White, J. L.; Petrovi ´c, V . S.; Mart´ınez, T. J.;
+Bucksbaum, P. H. Control of 1,3-Cyclohexadiene Photoiso-
+merization Using Light-Induced Conical Intersections. J. Phys.
+Chem. B 2012, 116, 2758–2763.
+152 Lei, Y .; Wu, H.; Zhang, X.; Zhai, G.; Zhu, C. Photo-Induced 1,3-
+cyclohexadiene Ring Opening Reaction: Ab Initio On-the-Fly
+Nonadiabatic Molecular Dynamics Simulation. J. Photochem.
+Photobiol. A 2016, 317, 39–49.
+153 Minitti, M. P.; Budarz, J. M.; Kirrander, A.; Robinson, J. S.;
+Ratner, D.; Lane, T. J.; Zhu, D.; Glownia, J. M.; Kozina, M.;
+Lemke, H. T.; Sikorski, M.; Feng, Y .; Nelson, S.; Saita, K.;
+Stankus, B.; Northey, T.; Hastings, J. B.; Weber, P. M. Imaging
+Molecular Motion: Femtosecond X-Ray Scattering of an Elec-
+trocyclic Chemical Reaction. Phys. Rev. Lett.2015, 114, 255501.
+154 Attar, A. R.; Bhattacherjee, A.; Pemmaraju, C. D.; Schnorr, K.;
+Closser, K. D.; Prendergast, D.; Leone, S. R. Femtosecond X-
+Ray Spectroscopy of an Electrocyclic Ring-Opening Reaction.
+Science 2017, 356, 54–59.
+155 Wolf, T. J. A.; Sanchez, D. M.; Yang, J.; Parrish, R. M.;
+Nunes, J. P. F.; Centurion, M.; Coﬀee, R.; Cryan, J. P.; G¨uhr, M.;
+Hegazy, K.; Kirrander, A.; Li, R. K.; Ruddock, J.; Shen, X.; Vec-
+chione, T.; Weathersby, S. P.; Weber, P. M.; Wilkin, K.; Yong, H.;
+Zheng, Q.; Wang, X. J.; Minitti, M. P.; Mart´ınez, T. J. The Pho-
+tochemical Ring-Opening of 1,3-cyclohexadiene Imaged by Ul-
+trafast Electron Diﬀraction. Nat. Chem. 2019, 11, 504–509.
+156 Adachi, S.; Sato, M.; Suzuki, T. Direct Observation of Ground-
+State Product Formation in a 1,3-Cyclohexadiene Ring-Opening
+Reaction. J. Phys. Chem. Lett 2015, 6, 343–346.
+157 Nenov, A.; K ¨olle, P.; Robb, M. A.; de Vivie-Riedle, R. Beyond
+the van der Lugt/Oosterhoﬀ Model: When the Conical Intersec-
+tion Seam and the S 1 Minimum Energy Path Do Not Cross. J.
+Org. Chem. 2010, 75, 123–129.
+158 Roberts, G. M.; Williams, C. A.; Yu, H.; Chatterley, A. S.;
+Young, J. D.; Ullrich, S.; Stavros, V . G. Probing Ultrafast Dy-
+namics in Photoexcited Pyrrole: Timescales for 1πσ∗ Mediated
+H-atom Elimination. Faraday Discuss. 2013, 163, 95–116.
+159 Barbatti, M.; Pittner, J.; Pederzoli, M.; Werner, U.; Mitri ´c, R.;
+Bonaˇci´c-Kouteck´y, V .; Lischka, H. Non-Adiabatic Dynamics of
+Pyrrole: Dependence of Deactivation Mechanisms on the Exci-
+tation Energy. Chem. Phys. 2010, 375, 26–34.
+160 Sapunar, M.; Ponzin, A.; Chaiwongwattana, S.; Mali ˇs, M.;
+Prlj, A.; Decleva, P.; Doˇsli´c, N. Timescales of N–H Bond Disso-
+ciation in Pyrrole: A Nonadiabatic Dynamics Study.Phys. Chem.
+Chem. Phys. 2015, 17, 19012–19020.
+161 Szabo, A.; Ostlund, N. S. Modern Quantum Chemistry: Intro-
+duction to Advanced Electronic Structure Theory; McGraw-Hill:
+New York, 1989.
+162 Knowles, P. J.; Handy, N. C. A New Determinant-Based Full
+Conﬁguration Interaction Method. Chem. Phys. Lett. 1984, 111,
+315–321.
+163 Harrison, R. J.; Zarrabian, S. An Eﬃcient Implementation of the
+Full-CI Method Using an (n-2)-electron Projection Space.Chem.
+Phys. Lett. 1989, 158, 393 – 398.
+164 Siegbahn, P. E. M.; Heiberg, A.; Roos, B. O.; Levy, B. A Com-
+parison of the Super-CI and the Newton-Raphson Scheme in the
+Complete Active Space SCF Method. Physica Scripta 1980, 21,
+323–327.
+165 Roos, B. O.; Taylor, P. R.; Siegbahn, P. E. M. A Complete Active
+Space SCF Method (CASSCF) Using a Density Matrix Formu-
+lated Super-CI Approach. Chem. Phys. 1980, 48, 157–173.
+166 Siegbahn, P. E. M.; Alml ¨of, J.; Heiberg, A.; Roos, B. O. The
+Complete Active Space SCF (CASSCF) Method in a Newton–
+Raphson Formulation with Application to the HNO Molecule. J.
+Chem. Phys. 1981, 74, 2384–2396.
+167 Werner, H.-J.; Meyer, W. A Quadratically Convergent MCSCF
+Method for the Simultaneous Optimizations of Several States. J.
+Chem. Phys. 1981, 74, 5794–5801.
+168 Docken, K. K.; Hinze, J. LiH Potential Curves and Wavefunc-
+tions for X 1Σ+, A 1Σ+, B 1Π, 3Σ+, and 3Π∗. J. Chem. Phys. 1972,
+57, 4928–4936.
+169 Deskevich, M. P.; Nesbitt, D. J.; Werner, H.-J. Dynamically
+Weighted Multiconﬁguration Self-Consistent Field: Multistate
+Calculations for F + H2O→ HF + OH Reaction Paths. J. Chem.
+Phys. 2004, 120, 7281–7289.
+170 Glover, W. J. Communication: Smoothing out Excited-State Dy-
+namics: Analytical Gradients for Dynamically Weighted Com-
+plete Active Space Self-Consistent Field. J. Chem. Phys. 2014,
+141, 171102.
+171 Olsen, S. Canonical-Ensemble State-Averaged Complete Active
+Space Self-Consistent Field (SA-CASSCF) Strategy for Prob-
+lems with More Diabatic than Adiabatic States: Charge-Bond
+Resonance in Monomethine Cyanines.J. Chem. Phys. 2015, 142,
+044116.
+172 Olsen, J.; Roos, B. O.; Jørgensen, P.; Aa. Jensen, H. J. Determi-
+nant Based Conﬁguration Interaction Algorithms for Complete
+and Restricted Conﬁguration Interaction Spaces. J. Chem. Phys.
+1988, 89, 2185–2192.
+173 Malmqvist, P.-Å.; Rendell, A.; Roos, B. O. The Restricted Active
+Space Self-Consistent-Field Method, Implemented with a Split
+Graph Unitary Group Approach. J. Phys. Chem. 1990, 94, 5477–
+5482.
+29
+174 Ma, D.; Li Manni, G.; Gagliardi, L. The Generalized Ac-
+tive Space Concept in Multiconﬁgurational Self-Consistent Field
+Methods. J. Chem. Phys. 2011, 135, 044128.
+175 Szalay, P. G.; M ¨uller, T.; Gidofalvi, G.; Lischka, H.; Shep-
+ard, R. Multiconﬁguration Self-Consistent Field and Multirefer-
+ence Conﬁguration Interaction Methods and Applications.Chem.
+Rev 2012, 112, 108–181.
+176 Buenker, R. J.; Peyerimhoﬀ, S. D. Individualized Conﬁguration
+Selection in CI Calculations with Subsequent Energy Extrapola-
+tion. Theor. Chim. Act. 1974, 35, 33–58.
+177 Langhoﬀ, S. R.; Davidson, E. R. Conﬁguration Interaction Cal-
+culations on the Nitrogen Molecule.Int. J. Quantum Chem.1974,
+8, 61–72.
+178 Malrieu, J.-P.; Daudey, J.-P.; Caballol, R. Multireference Self-
+Consistent Size-Consistent Singles and Doubles Conﬁguration
+Interaction for Ground and Excited States. J. Chem. Phys. 1994,
+101, 8908–8921.
+179 Daudey, J.-P.; Heully, J.-L.; Malrieu, J.-P. Size-Consistent Self-
+Consistent Truncated or Selected Conﬁguration Interaction. J.
+Chem. Phys 1993, 99, 1240–1254.
+180 Meller, J.; Malrieu, J.-P.; Caballol, R. State-Speciﬁc Coupled
+Cluster-Type Dressing of Multireference Singles and Doubles
+Conﬁguration Interaction Matrix. J. Chem. Phys. 1996, 104,
+4068–4076.
+181 Adamowicz, L.; Malrieu, J.-P. Multireference Self-Consistent
+Size-Extensive State-Selective Conﬁguration Interaction. J.
+Chem. Phys. 1996, 105, 9240–9247.
+182 Meller, J.; Malrieu, J.-P.; Heully, J.-L. Size-Consistent Multiref-
+erence Conﬁguration Interaction Method Through the Dressing
+of the Norm of Determinants. Mol. Phys. 2003, 101, 2029–2041.
+183 Gdanitz, R. J.; Ahlrichs, R. The Averaged Coupled-Pair Func-
+tional (ACPF): A Size-Extensive Modiﬁcation of MR-CI(SD).
+Chem. Phys. Lett. 1988, 143, 413–420.
+184 Gdanitz, R. J. A New Version of the Multireference Averaged
+Coupled-Pair Functional (MR-ACPF-2). Int. J. Quantum Chem.
+2001, 85, 281–300.
+185 Szalay, P. G.; Bartlett, R. J. Multi-reference Averaged Quadratic
+Coupled-Cluster Method: A Size-Extensive Modiﬁcation of
+Multi-reference CI. Chem. Phys. Lett. 1993, 214, 481–488.
+186 Szalay, P. G.; Bartlett, R. J. Approximately Extensive Modiﬁca-
+tions of the Multireference Conﬁguration Interaction Method: A
+Theoretical and Practical Analysis. J. Chem. Phys. 1995, 103,
+3600–3612.
+187 Meyer, W. In Methods of Electronic Structure Theory; Schaefer,
+III, H. F., Ed.; Springer: Boston, MA, 1977; V ol. 3; pp 413–446.
+188 Werner, H.-J.; Reinsch, E.-A. The Self-Consistent Electron Pairs
+Method for Multiconﬁgurational Reference State Functions. J.
+Chem. Phys. 1982, 76, 3144–3156.
+189 Werner, H.-J.; Knowles, P. J. An Eﬃcient Internally Contracted
+Multiconﬁguration-Reference Conﬁguration Interaction Method.
+J. Chem. Phys. 1988, 89, 5803–5814.
+190 Shavitt, I. Multi-state Multireference RayleighSchr ¨odinger Per-
+turbation Theory for Mixed Electronic States: Second and Third
+Order. Int. J. Mol. Sci. 2002, 3, 639–655.
+191 Werner, H.-J. Matrix-Formulated Direct Multiconﬁgura-
+tion Self-Consistent Field and Multiconﬁguration Reference
+Conﬁguration-Interaction Methods. Adv. Chem. Phys. 1987, 49,
+1–62.
+192 Peterson, K. A.; Kendall, R. A.; Dunning, Jr., T. H. Benchmark
+Calculations with Correlated Molecular Wave Functions. II. Con-
+ﬁguration Interaction Calculations on First Row Diatomic Hy-
+drides. J. Chem. Phys. 1993, 99, 1930–1944.
+193 Peterson, K. A.; Kendall, R. A.; Dunning, Jr., T. H. Benchmark
+Calculations with Correlated Molecular Wave Functions. III.
+Conﬁguration Interaction Calculations on First Row Homonu-
+clear Diatomics. J. Chem. Phys. 1993, 99, 9790–9805.
+194 Angeli, C.; Cimiraglia, R.; Pastore, M. A Comparison of Various
+Approaches in Internally Contracted Multireference Conﬁgura-
+tion Interaction: the Carbon Dimer as a Test Case. Mol. Phys.
+2012, 110, 2963–2968.
+195 Jeziorski, B.; Monkhorst, H. J.; Szalewicz, K.; Zabolitzky, J. G.
+J. Chem. Phys. 1984, 81, 368.
+196 M´aˇsik, J.; Huba ˇc, I. Multireference Brillouin–Wigner Coupled-
+Cluster Theory. Single-Root Approach. Adv. Quantum Chem.
+1998, 31, 75–104.
+197 M´aˇsik, J.; Huba ˇc, I.; Mach, P. Single-Root Multireference
+Brillouin–Wigner Coupled-Cluster Theory: Applicability to the
+F2 Molecule. J. Chem. Phys. 1998, 108, 6571–6579.
+198 Mahapatra, U. S.; Datta, B.; Mukherjee, D. A Size-Consistent
+State-Speciﬁc Multireference Coupled Cluster Theory: Formal
+Developments and Molecular Applications.J. Chem. Phys. 1999,
+110, 6171–6188.
+199 Kong, L. Connection Between a Few Jeziorski–Monkhorst
+Ansatz-Based Methods. Int. J. Quantum Chem. 2009, 109, 441–
+447.
+200 Evangelista, F. A.; Gauss, J. An Orbital-Invariant Internally
+Contracted Multireference Coupled Cluster Approach. J. Chem.
+Phys. 2011, 134, 114102.
+201 Hanauer, M.; K ¨ohn, A. Pilot Applications of Internally Con-
+tracted Multireference Coupled Cluster Theory, and How to
+Choose the Cluster Operator Properly.J. Chem. Phys. 2011, 134,
+204111.
+202 Pulay, P. A Perspective on the CASPT2 Method.Int. J. Quantum
+Chem. 2011, 111, 3273–3279.
+203 Murphy, R. B.; Messmer, R. P. Generalized Møller–Plesset Per-
+turbation Theory Applied to General MCSCF Reference Wave
+Functions. Chem. Phys. Lett. 1991, 183, 443–448.
+204 Murphy, R. B.; Messmer, R. P. Generalized Møller–Plesset Per-
+turbation Theory Applied to Multiply Bonded Molecules. J.
+Chem. Phys. 1992, 97, 4170–4185.
+205 Kozlowski, P. M.; Davidson, E. R. Considerations in Con-
+structing a Multireference Second-Order Perturbation Theory. J.
+Chem. Phys. 1994, 100, 3672–3682.
+206 Hirao, K. Multireference Møller–Plesset Method. Chem. Phys.
+Lett. 1992, 190, 374–380.
+207 Hirao, K. Multireference Møller–Plesset Perturbation Theory for
+High-Spin Open-Shell Systems. Chem. Phys. Lett. 1992, 196,
+397–403.
+208 Hirao, K. State-Speciﬁc Multireference Møller–Plesset Perturba-
+tion Treatment for Singlet and Triplet Excited States, Ionized
+States and Electron Attached States of H 2O. Chem. Phys. Lett.
+1993, 201, 59–66.
+209 Angeli, C.; Cimiraglia, R.; Evangelisti, S.; Leininger, T.; Mal-
+rieu, J.-P. Introduction of n-electron Valence States for Multiref-
+erence Perturbation Theory. J. Chem. Phys. 2001, 114, 10252–
+10264.
+210 Angeli, C.; Cimiraglia, R.; Malrieu, J.-P.n-electron Valence State
+Perturbation Theory: A Spinless Formulation and an E ﬃcient
+Implementation of the Strongly Contracted and of the Partially
+Contracted Variants. J. Chem. Phys. 2002, 117, 9138–9153.
+211 Roos, B. O.; Linse, P.; Siegbahn, P. E. M.; Blomberg, M.
+R. A. A Simple Method for the Evaluation of the Second-Order-
+Perturbation Energy from External Double-Excitations with a
+CASSCF Reference Wavefunction. Chem. Phys. 1982, 66, 197–
+207.
+212 Wolinski, K.; Sellers, H. L.; Pulay, P. Consistent Generalization
+of the Møller–Plesset Partitioning to Open-Shell and Multicon-
+ﬁgurational SCF Reference States in Many-Body Perturbation
+30
+Theory. Chem. Phys. Lett. 1987, 140, 225–231.
+213 Wolinski, K.; Pulay, P. Generalized Møller–Plesset Perturbation
+Theory: Second Order Results for Two-Conﬁguration, Open-
+Shell Excited Singlet, and Doublet Wave Functions. J. Chem.
+Phys. 1989, 90, 3647–3659.
+214 Andersson, K.; Malmqvist, P.-Å.; Roos, B. O.; Sadlej, A. J.;
+Wolinski, K. Second-Order Perturbation Theory with a CASSCF
+Reference Function. J. Phys. Chem. 1990, 94, 5483–5488.
+215 Dyall, K. G. The Choice of a Zeroth-Order Hamiltonian for
+Second-Order Perturbation Theory with a Complete Active
+Space Self-Consistent-Field Reference Function. J. Chem. Phys.
+1995, 102, 4909–4918.
+216 Sivalingam, K.; Krupicka, M.; Auer, A. A.; Neese, F. Compar-
+ison of Fully Internally and Strongly Contracted Multireference
+Conﬁguration Interaction Procedures. J. Chem. Phys. 2016, 145,
+054104.
+217 Werner, H.-J. Third-Order Multireference Perturbation Theory
+— The CASPT3 Method. Mol. Phys. 1996, 89, 645.
+218 Finley, J.; Malmqvist, P.-Å.; Roos, B. O.; Serrano-Andr ´es, L.
+The Multi-State CASPT2 Method. Chem. Phys. Lett. 1998, 288,
+299–306.
+219 Angeli, C.; Borini, S.; Cestari, M.; Cimiraglia, R. A Quasidegen-
+erate Formulation of the Second Order n-electron Valence State
+Perturbation Theory Approach. J. Chem. Phys. 2004, 121, 4043–
+4050.
+220 Zaitsevskii, A.; Malrieu, J.-P. Multi-Partitioning Quasidegenerate
+Perturbation Theory. A New Approach to Multireference Møller–
+Plesset Perturbation Theory. Chem. Phys. Lett 1995, 233, 597–
+604.
+221 Roos, B. O.; Andersson, K. Multiconﬁgurational Perturbation
+Theory with Level Shift — The Cr 2 Potential Revisited. Chem.
+Phys. Lett. 1995, 245, 215–223.
+222 Forsberg, N.; Malmqvist, P.-Å. Multiconﬁguration Perturbation
+Theory with Imaginary Level Shift. Chem. Phys. Lett 1997, 274,
+196–204.
+223 Witek, H. A.; Choe, Y .-K.; Finley, J. P.; Hirao, K. Intruder State
+Avoidance Multireference Møller–Plesset Perturbation Theory.J.
+Comput. Chem. 2002, 23, 957–965.
+224 Ghigo, G.; Roos, B. O.; Malmqvist, P.-Å. A Modiﬁed Deﬁnition
+of the Zeroth-Order Hamiltonian in Multiconﬁgurational Pertur-
+bation Theory (CASPT2). Chem. Phys. Lett. 2004, 396, 142.
+225 Andersson, K. Diﬀerent Forms of the Zeroth-Order Hamiltonian
+in Second-Order Perturbation Theory with a Complete Active
+Space Self-Consistent Field Reference Function. Theor. Chim.
+Acta. 1995, 91, 31–46.
+226 Kepenekian, M.; Robert, V .; Le Guennic, B. What Zeroth-Order
+Hamiltonian for CASPT2 Adiabatic Energetics of Fe(II)N 6 Ar-
+chitectures? J. Chem. Phys. 2009, 131, 114702.
+227 Rudavskyi, A.; Sousa, C.; de Graaf, C.; Havenith, R. W. A.;
+Broer, R. Computational Approach to the Study of Thermal Spin
+Crossover Phenomena. J. Chem. Phys. 2014, 140, 184318.
+228 Kepenekian, M.; Robert, V .; Le Guennic, B.; De Graaf, C. En-
+ergetics of [Fe(NCH) 6]2+ via CASPT2 calculations: A Spin-
+Crossover Perspective. J. Comput. Chem. 2009, 30, 2327–2333.
+229 Suaud, N.; Bonnet, M.-L.; Boilleau, C.; Lab `eguerie, P.;
+Guih´ery, N. Light-Induced Excited Spin State Trapping: Ab Ini-
+tio Study of the Physics at the Molecular Level. J. Am. Chem.
+Soc. 2009, 131, 715–722.
+230 Vela, S.; Fumanal, M.; Ribas-Ari˜no, J.; Robert, V . On the Zeroth-
+Order Hamiltonian for CASPT2 Calculations of Spin Crossover
+Compounds. J. Comput. Chem. 2016, 37, 947–953.
+231 Lawson Daku, L. M.; Aquilante, F.; Robinson, T. W.; Hauser, A.
+Accurate Spin-State Energetics of Transition Metal Complexes.
+1. CCSD(T), CASPT2, and DFT Study of [M(NCH) 6]2+ (M =
+Fe, Co). J. Chem. Theory Comput. 2012, 8, 4216–4231.
+232 Zobel, J. P.; Nogueira, J. J.; Gonz ´alez, L. The IPEA dilemma in
+CASPT2. Chem. Sci. 2017, 8, 1482–1499.
+233 Pulay, P. Analytical Derivatives, Forces, Force Constants, Molec-
+ular Geometries, and Related Response Properties in Electronic
+Structure Theory. WIREs Comput. Mol. Sci. 2014, 4, 169–181.
+234 Hellmann, H. Einf¨ urung in die Quantanchemie ; Deuticke:
+Leipzig and Vienna, 1937; pp 285–286.
+235 Feynman, R. P. Forces in Molecules. Chem. Rev. 1939, 56, 340–
+343.
+236 McIver Jr., J. W.; Komornicki, A. Rapid Geometry Optimization
+for Semi-Empirical Molecular Orbital Methods. Chem. Phys.
+Lett. 1971, 10, 303–306.
+237 Pople, J. A.; Krishnan, R.; Schlegel, H. B.; Binkley, J. S. Deriva-
+tive Studies in Hartree–Fock and Møller–Plesset Theories. Int. J.
+Quantum Chem. Symp. 1979, 13, 225–241.
+238 Brooks, B. R.; Laidig, W. D.; Saxe, P.; Goddard, J. D.; Yam-
+aguchi, Y .; Schaefer III, H. F. Analytic Gradients from Corre-
+lated Wave Functions Via the Two?Particle Density Matrix and
+the Unitary Group Approach. J. Chem. Phys. 1980, 72, 4652–
+4653.
+239 McWeeny, R. Some Recent Advances in Density Matrix Theory.
+Rev. Mod. Phys. 1960, 32, 335–369.
+240 McWeeny, R. Perturbation Theory for the Fock–Dirac Density
+Matrix. Phys. Rev. 1962, 126, 1028–1034.
+241 Stevens, R. M.; Pitzer, R. M.; Lipscomb, W. N. Per-
+turbed Hartree–Fock Calculations. I. Magnetic Susceptibility and
+Shielding in the LiH Molecule. J. Chem. Phys. 1963, 38, 550–
+560.
+242 Caves, T. C.; Karplus, M. Perturbed Hartree–Fock Theory. I. Di-
+agrammatic Double-Perturbation Analysis. J. Chem. Phys. 1969,
+50, 3649–3661.
+243 Krishnan, R.; Schlegel, H. B.; Pople, J. A. Derivative Studies
+in Conﬁguration-Interaction Theory. J. Chem. Phys. 1980, 72,
+4654–4656.
+244 Handy, N. C.; Schaefer, H. F. On the Evaluation of Analytic En-
+ergy Derivatives for Correlated Wave Functions. J. Chem. Phys.
+1984, 81, 5031–5033.
+245 Pulay, P.; Saebø, S. Orbital-Invariant Formulation and Second-
+Order Gradient Evaluation in Møller–Plesset Perturbation The-
+ory. Theor. Chim. Acta. 1986, 69, 357–368.
+246 Handy, N. C.; Amos, R. D.; Gaw, J. F.; Rice, J. E.; Simandi-
+ras, E. D. The Elimination of Singularities in Derivative Calcula-
+tions. Chem. Phys. Lett. 1985, 120, 151–158.
+247 Adamowicz, L.; Laidig, W. D.; Bartlett, R. J. Analytical Gradient
+for the Coupled-Cluster Method. Int. J. Quantum Chem. Symp.
+1984, 18, 245–254.
+248 Hoﬀmann, M. R.; Simons, J. Analytical Energy Gradients for a
+Unitary Coupled-Cluster Theory. Chem. Phys. Lett. 1987, 142,
+451–454.
+249 Scuseria, G. E.; Scheiner, A. C.; Rice, J. E.; Lee, T. J.; Schae-
+fer, III, H. F. Analytical Evaluation of Energy Gradients for the
+Single and Double Excitation Coupled Cluster (CCSD) Wave
+Function: A Comparison with Conﬁguration Interaction (CISD,
+CISDT, CISDTQ) Results for the Harmonic Vibrational Frequen-
+cies, Infrared Intensities, Dipole Moment, and Inversion Barrier
+of Ammonia. Int. J. Quantum Chem. Symp. 1987, 21, 495–501.
+250 Rice, J. E.; Amos, R. D. On the E ﬃcient Evaluation of Analytic
+Energy Gradients. Chem. Phys. Lett. 1985, 122, 585–590.
+251 Salter, E. A.; Trucks, G. W.; Fitzgerald, G.; Bartlett, R. J. Theory
+and Application of MBPT(3) Gradients: The Density Approach.
+Chem. Phys. Lett. 1987, 141, 61–70.
+252 Frisch, M. J.; Head-Gordon, M.; Pople, J. A. A Direct MP2 Gra-
+dient Method. Chem. Phys. Lett. 1990, 166, 275–280.
+31
+253 Stanton, J. F.; Gauss, J. Analytic Second Derivatives in High-
+Order Many-Body Perturbation and Coupled-Cluster Theories:
+Computational Considerations and Applications. Int. Rev. Phys.
+Chem. 2000, 19, 61–95.
+254 Pulay, P. InModern Electronic Structure Theory; Yarkony, D. R.,
+Ed.; World Scientiﬁc: Singapore, 1995; V ol. 2; pp 1191–1240.
+255 Dupuis, M. Energy Derivatives for Conﬁguration Interaction
+Wave Functions. J. Chem. Phys. 1981, 74, 5758–5765.
+256 Kumanova, M. D. First and Second Derivatives of the Eigenval-
+ues of the Hamiltonian. Mol. Phys. 1972, 23, 407–412.
+257 Granovsky, A. A. An E ﬃcient Approach to Compute State-
+Speciﬁc Nuclear Gradient for a Generic State-Averaged Multi-
+Conﬁguration Self Consistent Field Wavefunction,. J. Chem.
+Phys. 2015, 143, 231101.
+258 Lengsﬁeld, B. H., III; Yarkony, D. R. Nonadiabatic Interactions
+Between Potential Energy Surfaces: Theory and Applications.
+Adv. Chem. Phys. 1992, 82, 1–71.
+259 Galvan, I. F.; Delcey, M. G.; Pedersen, T. B.; Aquilante, F.;
+Lindh, R. Analytical State-Average Complete-Active-Space Self-
+Consistent Field Nonadiabatic Coupling Vectors: Implementa-
+tion with Density-Fitted Two-Electron Integrals and Application
+to Conical Intersections. J. Chem. Theory Comput. 2016, 12,
+3636–3653.
+260 Chernyak, V .; Mukamel, S. Density-Matrix Representation of
+Nonadiabatic Couplings in Time-Dependent Density Functional
+(TDDFT) Theories. J. Chem. Phys. 2000, 112, 3572–3579.
+261 Manaa, M. R.; Yarkony, D. R. On the Intersection of Two Poten-
+tial Energy Surfaces of the Same Symmetry. Systematic Charac-
+terization Using a Lagrange Multiplier Constrained Procedure.J.
+Chem. Phys. 1993, 99, 5251–5256.
+262 Toniolo, A.; Ben-Nun, M.; Mart´ınez, T. J. Optimization of Con-
+ical Intersections with Floating Occupation Semiempirical Con-
+ﬁguration Interaction Wave Functions. J. Phys. Chem. A 2002,
+106, 4679–4689.
+263 Toniolo, A.; Granucci, G.; Mart´ınez, T. J. Conical Intersections in
+Solution: A QM/MM Study Using Floating Occupation Semiem-
+pirical Conﬁguration Interaction Wave Functions.J. Phys. Chem.
+A 2003, 107, 3822–3830.
+264 Fabiano, E.; Keal, T. W.; Thiel, W. Implementation of Surface
+Hopping Molecular Dynamics Using Semiempirical Methods.
+Chem. Phys. 2008, 349, 334–347.
+265 Snyder, Jr., J. W.; Hohenstein, E. G.; Luehr, N.; Mart ´ınez, T. J.
+An Atomic-Orbital Based Formulation of Analytical Gradi-
+ents and Nonadiabatic Coupling Vector Elements for the State-
+Averaged Complete Active Space Self-Consistent Field Method
+on Graphical Processing Units. J. Chem. Phys. 2015, 143,
+154107.
+266 Snyder, Jr., J. W.; Fales, B. S.; Hohenstein, E. G.; Levine, B. G.;
+Mart´ınez, T. J. A Direct-Compatible Formulation of the Coupled
+Perturbed Complete Active Space Self-Consistent Field Equa-
+tions on Graphical Processing Units. J. Chem. Phys. 2017, 146,
+174113.
+267 Pulay, P. Second and Third Derivatives of Variational Energy Ex-
+pressions: Application to Multiconﬁgurational Self-Consistent
+Field Wave Functions. J. Chem. Phys. 1983, 78, 5043–5051.
+268 King, H. F.; Komornicki, A. Analytic Computation of Energy
+Derivatives. Relationships Among Partial Derivatives of a Vari-
+ationally Determined Function. J. Chem. Phys. 1986, 84, 5645–
+5650.
+269 Koch, H.; Aa. Jensen, H. J.; Jørgensen, P.; Helgaker, T.; Scuse-
+ria, G. E.; Schaefer III, H. F. Coupled Cluster Energy Derivatives.
+Analytic Hessian for the Closed-Shell Coupled Cluster Singles
+and Doubles Wave Function: Theory and Applications. J. Chem.
+Phys. 1990, 92, 4924–4940.
+270 Jørgensen, P.; Helgaker, T. Møller–Plesset Energy Derivatives.J.
+Chem. Phys. 1988, 89, 1560–1570.
+271 Saxe, P.; Lengﬁeld III, B. H.; Yarkony, D. R. On the Evaluation
+of Non-Adiabatic Coupling Matrix Elements for Large Scale CI
+Wavefunctions. Chem. Phys. Lett. 1985, 113, 159–164.
+272 Khait, Y . G.; Theis, D.; Hoﬀmann, M. R. Lagrangian Approach
+for Geometrical Derivatives and Nonadiabatic Coupling Terms in
+MRCISD. Mol. Phys. 2010, 108, 2703–2716.
+273 Nishimoto, Y . Analytic First-Order Derivatives of Partially Con-
+tracted n-electron Valence State Second-Order Perturbation The-
+ory (PC-NEVPT2). 2019,
+274 Park, J. W. Analytical Gradient Theory for Strongly Contracted
+(SC-) and Partially Contracted (PC-) N-Electron Valence State
+Perturbation Theory (NEVPT2). 2019,
+275 Hirata, S. Symbolic Algebra in Quantum Chemistry. Theor.
+Chem. Acc. 2006, 116, 2.
+276 K´allay, M.; Surj ´an, P. R. Higher Excitations in Coupled-Cluster
+Theory. J. Chem. Phys. 2001, 115, 2945.
+277 Hirata, S. Tensor Contraction Engine: Abstraction and Au-
+tomated Parallel Implementation of Conﬁguration-Interaction,
+Coupled-Cluster, and Many-Body Perturbation Theories.J. Phys.
+Chem. A 2003, 107, 9887.
+278 Hirata, S. Higher-Order Equation-of-Motion Coupled-Cluster
+Methods. J. Chem. Phys. 2004, 121, 51–59.
+279 Hanrath, M.; Engels-Putzka, A. An Eﬃcient Matrix-Matrix Mul-
+tiplication Based Antisymmetric Tensor Contraction Engine for
+General Order Coupled Cluster. J. Chem. Phys. 2010, 133,
+064108.
+280 Engels-Putzka, A.; Hanrath, M. A Fully Simultaneously Opti-
+mizing Genetic Approach to the Highly Excited Coupled-Cluster
+Factorization Problem. J. Chem. Phys. 2011, 134, 124106.
+281 Shiozaki, T.; Kamiya, M.; Hirata, S.; Valeev, E. F. Phys. Chem.
+Chem. Phys. 2008, 10, 3358.
+282 Shiozaki, T.; Kamiya, M.; Hirata, S.; Valeev, E. F. Explicitly Cor-
+related Coupled-Cluster Singles and Doubles Method Based on
+Complete Diagrammatic Equations. J. Chem. Phys. 2008, 129,
+071101.
+283 K¨ohn, A.; Richings, G. W.; Tew, D. P. Implementation of the
+Full Explicitly Correlated Coupled-Cluster Singles and Doubles
+Model CCSD-F12 with Optimally Reduced Auxiliary Basis De-
+pendence. J. Chem. Phys. 2008, 129, 201103.
+284 Shiozaki, T.; Kamiya, M.; Hirata, S.; Valeev, E. F. Higher-Order
+Explicitly Correlated Coupled-Cluster Methods. J. Chem. Phys.
+2009, 130, 054101.
+285 Nataraj, H. S.; K ´allay, M.; Visscher, L. General Implementation
+of the Relativistic Coupled-Cluster Method.J. Chem. Phys.2010,
+133, 234109.
+286 Rolik, Z.; K ´allay, M. A General-Order Local Coupled-Cluster
+Method Based on the Cluster-in-Molecule Approach. J. Chem.
+Phys. 2011, 135, 104111.
+287 Kats, D.; Manby, F. R. Sparse Tensor Framework for Imple-
+mentation of General Local Correlation Methods.J. Chem. Phys.
+2013, 138, 144101.
+288 Datta, D.; Gauss, J. A Non-antisymmetric Tensor Contraction
+Engine for the Automated Implementation of Spin-Adapted Cou-
+pled Cluster Approaches. J. Chem. Theory Comput. 2013, 9,
+2639–2653.
+289 Datta, D.; Gauss, J. Analytic First Derivatives for a Spin-Adapted
+Open-Shell Coupled Cluster Theory: Evaluation of First-Order
+Electrical Properties. J. Chem. Phys. 2014, 141, 104102.
+290 Wladyslawski, M.; Nooijen, M. Analytical Energy Gradi-
+ents for Excited-State Coupled-Cluster Methods: Automated
+Algebraic Derivation of First Derivatives for Equation-of-
+Motion Coupled-Cluster and Similarity Transformed Equation-
+32
+of-Motion Coupled-Cluster Theories. Adv. Quantum Chem.
+2005, 49, 1.
+291 Neuscamman, E.; Yanai, T.; Chan, G. K.-L. Quadratic Canonical
+Transformation Theory and Higher Order Density Matrices. J.
+Chem. Phys. 2009, 130, 124102.
+292 Parkhill, J. A.; Lawler, K.; Head-Gordon, M. The Perfect
+Quadruples Model for Electron Correlation in a Valence Active
+Space. J. Chem. Phys. 2009, 130, 084101.
+293 Parkhill, J. A.; Head-Gordon, M. A Sparse Framework for the
+Derivation and Implementation of Fermion Algebra. Mol. Phys.
+2010, 108, 513–522.
+294 Saitow, M.; Kurashige, Y .; Yanai, T. Multireference Conﬁgu-
+ration Interaction Theory Using Cumulant Reconstruction with
+Internal Contraction of Density Matrix Renormalization Group
+Wave Function. J. Chem. Phys. 2013, 139, 044118.
+295 Song, C.; Wang, L.-P.; Mart ´ınez, T. J. Automated Code En-
+gine for Graphical Processing Units: Application to the Eﬀective
+Core Potential Integrals and Gradients.J. Chem. Theory Comput.
+2016, 12, 92–106.
+296 Liu, F.; Filatov, M.; Mart´ınez, T. J. Analytical Derivatives of the
+Individual State Energies in Ensemble Density Functional The-
+ory Method: II. Implementation on Graphical Processing Units
+(GPUs). 2019,
+297 Helgaker, T.; Jørgensen, P. Conﬁguration-Interaction Energy
+Derivatives in a Fully Variational Formulation.Theor. Chim. Acta
+1989, 75, 111–127.
+298 Theis, D.; Khait, Y . G.; Hoﬀmann, M. R. GVVPT2 Energy Gra-
+dient Using a Lagrangian Formulation.J. Chem. Phys.2011, 135,
+044117.
+299 Khait, Y . G.; Theis, D.; Hoﬀmann, M. R. Nonadiabatic Coupling
+Terms for the GVVPT2 Variant of Multireference Perturbation
+Theory. Chem. Phys. 2012, 401, 88–94.
+300 Pittner, J.; ˇSmydke, J. Analytical Gradient for the Multireference
+Brillouin–Wigner Coupled Cluster Method and for the State-
+Universal Multireference Coupled Cluster Method. J. Chem.
+Phys. 2007, 127, 114103.
+301 Prochnow, E.; Evangelista, F. A.; Schaefer III, H. F.;
+Allen, W. D.; Gauss, J. Analytical Gradients for the State-
+Speciﬁc Multireference Coupled Cluster Singles and Doubles
+Model. J. Chem. Phys. 2009, 131, 064109.
+302 Jagau, T.-C.; Prochnow, E.; Evangelista, F. A.; Gauss, J. Analyt-
+ical Gradients for Mukherjee’s Multireference Coupled-Cluster
+Method Using Two-Conﬁgurational Self-Consistent-Field Or-
+bitals. J. Chem. Phys. 2010, 132, 144110.
+303 Baer, M. Beyond Born–Oppenheimer: Conical Intersections and
+Electronic Nonadiabatic Coupling Terms ; John Wiley & Sons,
+Inc.: Hoboken, NJ, 2006.
+304 Domcke, W., Yarkony, D. R., K¨oppel, H., Eds. Conical Intersec-
+tions: Theory, Computation and Experiment ; World Scientiﬁc:
+Singapore, 2004; pp 3–174.
+305 Katriel, J.; Davidson, E. R. The Non-Crossing Rule: Triply De-
+generate Ground-State Geometries of CH +
+4 . Chem. Phys. Lett.
+1980, 76, 259–262.
+306 Keal, T. W.; Koslowski, A.; Thiel, W. Comparison of Algorithms
+for Conical Intersection Optimisation using Semiempirical Meth-
+ods. Theor. Chem. Acc. 2007, 118, 837–844.
+307 Ciminelli, C.; Granucci, G.; Persico, M. The Photoisomeriza-
+tion Mechanism of Azobenzene: A Semiclassical Simulation of
+Nonadiabatic Dynamics. Chem. Eur. J. 2004, 10, 2327–2341.
+308 Koga, N.; Morokuma, K. Determination of the Lowest Energy
+Point on the Crossing Seam Between Two Potential Surfaces Us-
+ing the Energy Gradient. Chem. Phys. Lett. 1985, 119, 371–374.
+309 Farazdel, A.; Dupuis, M. On the Determination of the Minimum
+on the Crossing Seam of Two Potential Energy Surfaces.J. Com-
+put. Chem. 1991, 12, 276–282.
+310 Yarkony, D. R. Systematic Determination of Intersections of Po-
+tential Energy Surfaces Using a Lagrange Multiplier Constrained
+Procedure. J. Phys. Chem. 1993, 97, 4407–4412.
+311 Anglada, J. M.; Boﬁll, J. M. A Reduced-Restricted-Quasi-
+Newton–Raphson Method for Locating and Optimizing Energy
+Crossing Points Between Two Potential Energy Surfaces.J. Com-
+put. Chem. 1997, 18, 992–1003.
+312 Yarkony, D. R. Marching along Ridges. E ﬃcient Location of
+Energy-Minimized Conical Intersections of Two States Using
+Extrapolatable Functions. J. Phys. Chem. A 2004, 108, 3200–
+3205.
+313 Sicilia, F.; Blancafort, L.; Bearpark, M. J.; Robb, M. A. New
+Algorithms for Optimizing and Linking Conical Intersections. J.
+Chem. Theory Comput. 2008, 4, 257–266.
+314 Ruiz-Barragan, S.; Robb, M. A.; Blancafort, L. Conical Inter-
+section Optimization Based on a Double Newton–Raphson Al-
+gorithm Using Composed Steps. J. Chem. Theory Comput. 2013,
+9, 1433–1442.
+315 De Vico, L.; Olivucci, M.; Lindh, R. New General Tools for
+Constrained Geometry Optimizations. J. Chem. Theory Comput.
+2005, 1, 1029–1037.
+316 Maeda, S.; Ohno, K.; Morokuma, K. Automated Global Mapping
+of Minimal Energy Points on Seams of Crossing by the Anhar-
+monic Downward Distortion Following Method: A Case Study
+of H2CO. J. Phys. Chem. A 2009, 113, 1704–1710.
+317 Maeda, S.; Saito, R.; Morokuma, K. Finding Minimum Struc-
+tures on the Seam of Crossing in Reactions of Type A + B→ X:
+Exploration of Nonadiabatic Ignition Pathways of Unsaturated
+Hydrocarbons. J. Phys. Chem. Lett. 2011, 2, 852–857.
+318 Maeda, S.; Ohno, K.; Morokuma, K. Exploring Multiple Poten-
+tial Energy Surfaces: Photochemistry of Small Carbonyl Com-
+pounds. Adv. Phys. Chem. 2012, 2012, 268124.
+319 Harabuchi, Y .; Maeda, S.; Taketsugu, T.; Minezawa, N.; Mo-
+rokuma, K. Automated Search for Minimum Energy Conical In-
+tersection Geometries between the Lowest Two Singlet States
+S0/S1-MECIs by the Spin-Flip TDDFT Method. J. Chem. The-
+ory Comput. 2013, 9, 4116–4123.
+320 Maeda, S.; Harabuchi, Y .; Taketsugu, T.; Morokuma, K. System-
+atic Exploration of Minimum Energy Conical Intersection Struc-
+tures near the Franck–Condon Region. J. Phys. Chem. A 2014,
+118, 12050–12058.
+321 Maeda, S.; Taketsugu, T.; Ohno, K.; Morokuma, K. From Roam-
+ing Atoms to Hopping Surfaces: Mapping Out Global Reaction
+Routes in Photochemistry. J. Am. Chem. Soc. 2015, 137, 3433–
+3445.
+322 Aldaz, C.; Kammeraad, J. A.; Zimmerman, P. M. Discovery
+of Conical Intersection Mediated Photochemistry with Growing
+String Methods. Phys. Chem. Chem. Phys. 2018, 20, 27394–
+27405.
+323 Lindner, J. O.; R¨ohr, M. I. S.; Mitri´c, R. Multistate Metadynamics
+for Automatic Exploration of Conical Intersections. Phys. Rev. A
+2018, 97, 052502.
+324 Lindner, J. O.; Sultangaleeva, K.; R ¨ohr, M. I. S.; Mitri ´c, R.
+metaFALCON: A Program Package for Automatic Sampling of
+Conical Intersection Seams Using Multistate Metadynamics. J.
+Chem. Theory Comput. 2019, 15, 3450–3460.
+325 Tully, J. C. Molecular Dynamics with Electronic Transitions. J.
+Chem. Phys. 1990, 93, 1061–1071.
+326 Hammes-Schiﬀer, S.; Tully, J. C. Proton Transfer in Solution:
+Molecular Dynamics with Quantum Transitions. J. Chem. Phys.
+1994, 101, 4657–4667.
+327 Martens, C. C.; Fang, J.-Y . Semiclassical-Limit Molecular Dy-
+namics on Multiple Electronic Surfaces. J. Chem. Phys. 1997,
+33
+106, 4918–4930.
+328 Kapral, R.; Ciccoti, G. Mixed Quantum-Classical Dynamics. J.
+Chem. Phys. 1999, 110, 8919–8929.
+329 Mac Kernan, D.; Ciccotti, G.; Kapral, R. Trotter-Based Simu-
+lation of Quantum-Classical Dynamics. J. Phys. Chem. B 2008,
+112, 424–432.
+330 Stock, G.; Thoss, M. Semiclassical Description of Nonadiabatic
+Quantum Dynamics. Phys. Rev. Lett. 1997, 78, 578–581.
+331 Thoss, M.; Stock, G. Mapping Approach to the Semiclassical
+Description of Nonadiabatic Quantum Dynamics. Phys. Rev. A
+1999, 59, 64–79.
+332 Ben-Nun, M.; Quenneville, J.; Mart ´ınez, T. J. Ab Initio Multi-
+ple Spawning: Photochemistry from First Principles Quantum
+Molecular Dynamics. J. Phys. Chem. A 2000, 104, 5161–5175.
+333 Kelly, A.; van Zon, R.; Schoﬁeld, J.; Kapral, R. Mapping
+quantum-classical Liouville equation: Projectors and trajecto-
+ries. J. Chem. Phys. 2012, 136, 084101.
+334 Tavernelli, I. Nonadiabatic Molecular Dynamics Simulations:
+Synergies between Theory and Experiments. Acc. Chem. Res.
+2015, 48, 792–800.
+335 Tavernelli, I. Ab Initio—Driven Trajectory-Based Nuclear Quan-
+tum Dynamics in Phase Space. Phys. Rev. A 2013, 87, 042501.
+336 Curchod, B. F. E.; Tavernelli, I.; Rothlisberger, U. Trajectory-
+Based Solution of the Nonadiabatic Quantum Dynamics Equa-
+tions: An On-the-Fly Approach for Molecular Dynamics Simu-
+lations. Phys. Chem. Chem. Phys. 2011, 13, 3231–3236.
+337 Agostini, F.; Min, S. K.; Abedi, A.; Gross, E. K. U. Quantum-
+Classical Nonadiabatic Dynamics: Coupled- vs Independent-
+Trajectory Methods. J. Chem. Theory Comput. 2016, 12, 2127–
+2143.
+338 Barbatti, M. Nonadiabatic Dynamics with Trajectory Surface
+Hopping Method. WIREs Comput. Mol. Sci. 2011, 1, 620–633.
+339 Subotnik, J. E.; Jain, A.; Landry, B.; Petit, A.; Ouyang, W.; Bel-
+lonzi, N. Understanding the Surface Hopping View of Electronic
+Transitions and Decoherence. Annu. Rev. Phys. Chem. 2016, 67,
+387–417.
+340 Yonehara, T.; Hanasaki, K.; Takatsuka, K. Fundamental Ap-
+proaches to Nonadiabaticity: Toward a Chemical Theory beyond
+the Born–Oppenheimer Paradigm. Chem. Rev. 2012, 112, 499–
+542.
+341 Virshup, A. M.; Punwong, C.; Pogorelov, T. V .; Lindquist, B. A.;
+Ko, C.; Mart ´ınez, T. J. Photodynamics in Complex Envi-
+ronments: Ab Initio Multiple Spawning Quantum Mechani-
+cal/Molecular Mechanical Dynamics. J. Phys. Chem. B 2009,
+113, 3280–3291.
+342 Gy˝orﬀy, W.; Knizia, G.; Werner, H.-J. Analytical Energy Gra-
+dients for Explicitly Correlated Wave Functions. I. Explicitly
+Correlated Second-Order Møller–Plesset Perturbation Theory. J.
+Chem. Phys. 2017, 147, 214101.
+343 Gy˝orﬀy, W.; Werner, H.-J. Analytical Energy Gradients for
+Explicitly Correlated Wave Functions. II. Explicitly Correlated
+Coupled Cluster Singles and Doubles with Perturbative Triples
+Corrections: CCSD(T)-F12. J. Chem. Phys. 2018, 148, 114104.
+344 Liu, F.; Kurashige, Y .; Yanai, T.; Morokuma, K. Multirefer-
+ence Ab Initio Density Matrix Renormalization Group (DMRG)-
+CASSCF and DMRG-CASPT2 Study on the Photochromic Ring
+Opening of Spiropyran.J. Chem. Theory Comput.2013, 9, 4462–
+4469.
+345 Hu, W.; Chan, G. K.-L. Excited-State Geometry Optimization
+with the Density Matrix Renormalization Group, as Applied to
+Polyenes. J. Chem. Theory Comput. 2015, 11, 3000–3009.
+346 Nakatani, N.; Guo, S. Density Matrix Renormalization Group
+(DMRG) Method as a Common Tool for Large Active-Space
+CASSCF/CASPT2 Calculations. J. Chem. Phys. 2017, 146,
+094102.
+347 Menezes, F.; Kats, D.; Werner, H.-J. Local Complete Active
+Space Second-Order Perturbation Theory Using Pair Natural Or-
+bitals (PNO-CASPT2). J. Chem. Phys. 2016, 145, 124115.
+348 Guo, Y .; Sivalingam, K.; Valeev, E. F.; Neese, F. SparseMaps–A
+Systematic Infrastructure for Reduced-Scaling Electronic Struc-
+ture Methods. III. Linear-Scaling Multireference Domain-Based
+Pair Natural Orbital N-Electron Valence Perturbation Theory. J.
+Chem. Phys. 2016, 144, 094111.
+349 Kats, D.; Werner, H.-J. Multi-State Local Complete Active Space
+Second-Order Perturbation Theory Using Pair Natural Orbitals
+(PNO-MS-CASPT2). J. Chem. Phys. 2019, 150, 214107.
+350 Frank, M. S.; Schmitz, G.; H ¨attig, C. The PNO-MP2 Gradient
+and its Application to Molecular Geometry Optimisations. Mol.
+Phys. 2017, 115, 343–356.
+351 Pinski, P.; Neese, F. Analytical Gradient for the Domain-Based
+Local Pair Natural Orbital Second Order Møller–Plesset Pertur-
+bation Theory Method (DLPNO-MP2). J. Chem. Phys. 2019,
+150, 164102.

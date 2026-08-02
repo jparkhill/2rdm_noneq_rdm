@@ -1,0 +1,38 @@
+== 1-RDM basics ==
+  [OK ] trace gamma = N
+  [OK ] eta = 1 - gamma (index-transposed)
+  [OK ] gamma non-idempotent (correlated)
+        natural occupations: [0.9678 0.7433 0.7196 0.2804 0.2567 0.0322]
+== (c) cumulant decomposition, MK convention ==
+  [OK ] gamma2 = g^p_r g^q_s - g^p_s g^q_r + lambda2 (defines l2)
+        |lambda2| = 1.588941   |lambda3| = 1.471297
+  [OK ] lambda2 nonzero for a correlated reference
+  [OK ] lambda3 nonzero for a correlated reference
+  [OK ] cumulant partial trace  sum_r l^{pr}_{qr} = d^p_q (n^2-n)
+== (e) particle-hole conjugation of the cumulants ==
+  [OK ] hole 2-cumulant == particle 2-cumulant  (eta2 = eta^eta + lambda2)
+  [OK ] hole 3-cumulant == MINUS particle 3-cumulant (eta3 = -l3 + l2^eta + eta^3/6)
+== (a) GNO defining property, (b) GWT contraction rules ==
+  [OK ] <{a^p_q}> = 0        (max |.| = 2.50e-16)
+  [OK ] <{a^pq_rs}> = 0      (max |.| = 1.60e-16)
+  [OK ] GWT  {a^p_q}{a^r_s} = {a^pr_qs} + eta^r_q{a^p_s} - g^p_s{a^r_q} + g^p_s eta^r_q + lambda^pr_qs   (max err 4.44e-16)
+  [OK ] SAME rule with the lambda2 term DROPPED is WRONG (max err 1.36e-01)
+== (d) positivity: is lambda2 the obstruction? ==
+  [OK ] exact D = 2-RDM is PSD (min eig -1.550e-16)
+  [OK ] exact Q = 2-hole RDM is PSD (min eig -9.811e-17)
+  [OK ] lambda2=0 surrogate  D_qf = g^g  is PSD (min eig +8.266e-03)
+  [OK ] lambda2=0 surrogate  Q_qf = e^e  is PSD (min eig +8.266e-03)
+  [OK ] adding an arbitrary antisym/hermitian lambda2 CAN break D>=0 (worst min eig -1.847e+00)
+  [OK ] for every 0<=gamma<=1 tested, gamma^gamma is PSD (300 random draws)
+== gamma/eta-only engine == quasi-normal ordering: does <{..}> still vanish? ==
+  [OK ] quasi-normal-ordered <{a^pq_rs}> = lambda2 exactly (max dev 1.65e-16)
+        i.e. the GNO defining property <{...}>=0 FAILS by exactly lambda2;
+        max |residual| here = 0.1356
+== exactness boundary: is gamma/eta-only Wick exact for a NON-IDEMPOTENT gamma? ==
+  [OK ] mean-field thermal state: gamma is NON-idempotent
+  [OK ] mean-field thermal state: lambda2 = 0  (|l2| = 3.66e-16)
+  [OK ] mean-field thermal state: lambda3 = 0  (|l3| = 7.75e-16)
+        => gamma/eta-only Wick is EXACT for quasi-free states, idempotent or not;
+           it is the lambda_k = 0 approximation for any correlated reference.
+
+Done.
