@@ -1,0 +1,112 @@
+"""DQG N-representability in the spectral (natural-geminal) basis.
+
+Conventions
+-----------
+gamma[i,j] = <a_i^+ a_j>
+D2[i,j,k,l] = <a_i^+ a_j^+ a_l a_k>        (antisymmetric in (ij) and (kl))
+Q2[i,j,k,l] = <a_i a_j a_l^+ a_k^+>
+G2[i,j,k,l] = <a_i^+ a_j a_l^+ a_k>
+
+All three are Hermitian under the pairing (ij) <-> (kl), so each defines a
+matrix on the two-index space and N-representability (the DQG subset) is
+D, Q, G >= 0.
+"""
+import numpy as np
+
+
+def spinorb_2rdm(dm2aa, dm2ab, dm2bb):
+    """PySCF chemist-order spin-block 2-RDMs -> spin-orbital D2.
+
+    PySCF: dm2aa[p,q,r,s] = <a_pa^+ a_ra^+ a_sa a_qa>.
+    Ordering here: alpha 0..n-1, beta n..2n-1.
+    """
+    n = dm2aa.shape[0]
+    N = 2 * n
+    D = np.zeros((N, N, N, N))
+    a, b = slice(0, n), slice(n, N)
+    D[a, a, a, a] = dm2aa.transpose(0, 2, 1, 3)
+    D[b, b, b, b] = dm2bb.transpose(0, 2, 1, 3)
+    X = dm2ab.transpose(0, 2, 1, 3)              # [p_a, r_b, q_a, s_b]
+    D[a, b, a, b] = X
+    D[b, a, b, a] = X.transpose(1, 0, 3, 2)
+    D[a, b, b, a] = -X.transpose(0, 1, 3, 2)
+    D[b, a, a, b] = -X.transpose(1, 0, 2, 3)
+    return D
+
+
+def contract_to_1rdm(D2, nelec):
+    """gamma[i,j] = 1/(N-1) sum_k D2[i,k,j,k]."""
+    return np.einsum('ikjk->ij', D2) / (nelec - 1.0)
+
+
+def build_Q(D2, gamma):
+    N = gamma.shape[0]
+    I = np.eye(N)
+    Q = (np.einsum('jl,ik->ijkl', I, I)
+         - np.einsum('il,jk->ijkl', I, I)
+         - np.einsum('jl,ki->ijkl', I, gamma)
+         + np.einsum('il,kj->ijkl', I, gamma)
+         + np.einsum('jk,li->ijkl', I, gamma)
+         - np.einsum('ik,lj->ijkl', I, gamma))
+    return Q + D2
+
+
+def build_G(D2, gamma):
+    I = np.eye(gamma.shape[0])
+    return np.einsum('jl,ik->ijkl', I, gamma) - D2.transpose(0, 3, 2, 1)
+
+
+def as_matrix(T):
+    N = T.shape[0]
+    return T.reshape(N * N, N * N)
+
+
+def antisym_matrix(T2):
+    """Restrict an (ij)-antisymmetric tensor to the i<j basis (orthonormal)."""
+    N = T2.shape[0]
+    pairs = [(i, j) for i in range(N) for j in range(i + 1, N)]
+    M = np.zeros((len(pairs), len(pairs)))
+    for A, (i, j) in enumerate(pairs):
+        for B, (k, l) in enumerate(pairs):
+            M[A, B] = 2.0 * T2[i, j, k, l]
+    return M, pairs
+
+
+def dqg_report(D2, nelec, label=""):
+    gamma = contract_to_1rdm(D2, nelec)
+    Q2 = build_Q(D2, gamma)
+    G2 = build_G(D2, gamma)
+    out = {}
+    for name, T, anti in (("D", D2, True), ("Q", Q2, True), ("G", G2, False)):
+        M = antisym_matrix(T)[0] if anti else as_matrix(T)
+        M = 0.5 * (M + M.T)
+        w = np.linalg.eigvalsh(M)
+        out[name] = w
+    out["gamma_occ"] = np.linalg.eigvalsh(0.5 * (gamma + gamma.T))
+    if label:
+        print(f"  {label}")
+        print(f"    natural-orbital occ   min {out['gamma_occ'].min():+.6f}"
+              f"   max {out['gamma_occ'].max():+.6f}")
+        for name in ("D", "Q", "G"):
+            w = out[name]
+            print(f"    {name}: min eig {w.min():+.6e}   "
+                  f"# below -1e-8: {(w < -1e-8).sum():3d} / {len(w)}   "
+                  f"neg mass {abs(w[w < 0].sum()):.4e}")
+    return out
+
+
+def boundary_flux(D2, D2dot, tol=1e-8):
+    """Nagumo/subtangentiality test for D >= 0.
+
+    The PSD cone is forward invariant under Ddot = F(D) iff for every null
+    vector v of D, <v|F(D)|v> >= 0.  Equivalently P_ker F P_ker >= 0.
+    Returns the eigenvalues of the kernel block of Ddot.
+    """
+    M, _ = antisym_matrix(D2)
+    Md, _ = antisym_matrix(D2dot)
+    M = 0.5 * (M + M.T); Md = 0.5 * (Md + Md.T)
+    w, U = np.linalg.eigh(M)
+    ker = U[:, w < tol]
+    if ker.shape[1] == 0:
+        return np.array([])
+    return np.linalg.eigvalsh(ker.T @ Md @ ker)
