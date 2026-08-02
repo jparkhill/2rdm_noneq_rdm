@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Run the local Wolfram Engine as a derivation oracle.
+#
+#   tools/wl -code '1+1'
+#   tools/wl -file script.wl
+#
+# The Engine is licensed by an ON-DEMAND entitlement (Wolfram cloud credits,
+# ~10 credits/kernel-hour, billed in 15-minute intervals).  Keep runs short.
+#
+# The entitlement ID lives OUTSIDE the repo, in ~/.wolfram_entitlement, or in
+# $WOLFRAM_ENTITLEMENT.  To mint a fresh one (they expire; ours: 7 days):
+#
+#   wolframscript -activate -username <wolfram-id> -password <pw>   # cloud auth
+#   wolframscript -cloud -code 'CreateLicenseEntitlement[<|
+#       "PollingInterval"->Quantity[15,"Minutes"],
+#       "LicenseExpiration"->Quantity[7,"Days"]|>]'
+#   echo O-XXXX-... > ~/.wolfram_entitlement
+set -euo pipefail
+ENT="${WOLFRAM_ENTITLEMENT:-$(cat "$HOME/.wolfram_entitlement" 2>/dev/null || true)}"
+if [ -z "$ENT" ]; then
+  echo "tools/wl: no entitlement. See the header of this script." >&2; exit 2
+fi
+exec env WOLFRAMSCRIPT_ENTITLEMENTID="$ENT" wolframscript "$@"
