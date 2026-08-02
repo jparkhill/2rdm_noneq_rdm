@@ -62,6 +62,16 @@ Switch[want,
  "r1v1",  build["r1v1",  AllStepsOfProductRule[fac1, fac2]],
  "v1r1",  build["v1r1",  AllStepsOfProductRule[fac2, fac1]],
  "rv1v2", build["rv1v2", AllStepsOfProductRule[load["r1v1"], fac3]],
+ (* --- reduced variants: combine like monomials in the 30-term intermediate
+        BEFORE multiplying.  AssociativeSimplify is exact term-combining, not
+        truncation, so the product is the same object with fewer duplicate
+        summands to carry through the expansion. --- *)
+ "r1v1s", build["r1v1s", AssociativeSimplify[load["r1v1"]]],
+ "v1r1s", build["v1r1s", AssociativeSimplify[load["v1r1"]]],
+ "rv1v2s", build["rv1v2s", AllStepsOfProductRule[load["r1v1s"], fac3]],
+ "v1rv2s", build["v1rv2s", AllStepsOfProductRule[load["v1r1s"], fac3]],
+ "v2v1rs", build["v2v1rs", AllStepsOfProductRule[fac3, load["v1r1s"]]],
+ "v2rv1s", build["v2rv1s", AllStepsOfProductRule[fac3, load["r1v1s"]]],
  "v1rv2", build["v1rv2", AllStepsOfProductRule[load["v1r1"], fac3]],
  "v2v1r", build["v2v1r", AllStepsOfProductRule[fac3, load["v1r1"]]],
  "v2rv1", build["v2rv1", AllStepsOfProductRule[fac3, load["r1v1"]]],
