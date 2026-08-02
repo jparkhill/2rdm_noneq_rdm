@@ -29,7 +29,8 @@ def load(path):
     return {k: v for k, v in d.items() if v != 0}
 
 FAC = {'A': (['p'], ['q']), 'B': (['r', 't'], ['s', 'u']),
-       'C': (['v', 'x'], ['w', 'y'])}
+       'C': (['v', 'x'], ['w', 'y']),
+       'T': (['p', 'r', 't'], ['q', 's', 'u'])}
 
 def main():
     path, spec = sys.argv[1], sys.argv[2]
