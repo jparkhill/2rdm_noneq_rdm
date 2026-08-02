@@ -15,6 +15,10 @@
 #       "PollingInterval"->Quantity[15,"Minutes"],
 #       "LicenseExpiration"->Quantity[7,"Days"]|>]'
 #   echo O-XXXX-... > ~/.wolfram_entitlement
+# NOTE: never SIGKILL a running kernel. The entitlement leases a fixed number
+# of kernel slots and a killed kernel does not release its lease until the
+# polling interval lapses, which locks you out ("No valid password found").
+# Stop work with a time/memory constraint inside the script instead.
 set -euo pipefail
 ENT="${WOLFRAM_ENTITLEMENT:-$(cat "$HOME/.wolfram_entitlement" 2>/dev/null || true)}"
 if [ -z "$ENT" ]; then
