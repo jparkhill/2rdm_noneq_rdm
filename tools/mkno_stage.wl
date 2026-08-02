@@ -85,6 +85,15 @@ Switch[want,
    Module[{a = load["rv1v2"], b = load["v2v1r"], c = load["v1rv2"], d = load["v2rv1"], all},
     all = Join[a, b, MultiplyScalar[c, -1], MultiplyScalar[d, -1]];
     Print["AllTerms (raw): ", Length[all], " terms, ", lam[all], " with lambda"];
+    (* Checkpoint the raw joined commutator BEFORE the expensive step.  Unlike a
+       single product -- where the audit measured zero like-terms -- the joined
+       commutator is where real cross-product cancellation happens, so
+       AssociativeSimplify does genuine work here and may be slow on ~33k terms.
+       With the raw list on disk, tools/term_audit.py can do the same signed
+       cancellation in pure Python as an independent check, or as the answer if
+       the kernel stalls. *)
+    Put[all, res <> "stage_joined_raw.m"];
+    Print["checkpointed raw joined list -> results/stage_joined_raw.m"];
     sAll = build["simplified_full",  AssociativeSimplify[all]];
     sNo  = build["simplified_nocum", AssociativeSimplify[all //. NoCumulants]];
     Print["DELTA (terms the old derivations deleted): ", Length[sAll] - Length[sNo]];
