@@ -137,8 +137,28 @@ def audit(path, swaps):
     return base, reps
 
 
+def emit_orbits(base, reps, out_path):
+    """Write one signed representative per symmetry orbit, human-readable.
+
+    This is EXACT: the full list is recovered by antisymmetrizing each
+    representative over the 16-element group (r<->t, s<->u, v<->x, w<->y).
+    Nothing is discarded.
+    """
+    def show(k):
+        return " * ".join(
+            f"{n}{r}^({','.join(u)})_({','.join(l)})" for n, r, u, l in k)
+    with open(out_path, 'w') as f:
+        f.write(f"# {len(reps)} independent orbits; antisymmetrize each over\n"
+                f"# r<->t, s<->u, v<->x, w<->y to recover the full list.\n")
+        for k in reps:
+            f.write(f"{base[k]:+d}  {show(k)}\n")
+    print(f"wrote {out_path}: {len(reps)} representatives")
+
+
 if __name__ == "__main__":
     path = sys.argv[1]
     sw = {'r<->t': {'r':'t','t':'r'}, 's<->u': {'s':'u','u':'s'},
           'v<->x': {'v':'x','x':'v'}, 'w<->y': {'w':'y','y':'w'}}
-    audit(path, sw)
+    base, reps = audit(path, sw)
+    if '--emit-orbits' in sys.argv:
+        emit_orbits(base, reps, path.replace('.m', '_orbits.txt'))
