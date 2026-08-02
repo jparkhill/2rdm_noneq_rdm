@@ -57,3 +57,24 @@ Consequence: `MKNO_MEMCAP` default raised 6 -> 12 GB in `tools/mkno_stage.wl`.
 A stage larger than that must be reduced algebraically (combine like monomials
 in the intermediates before multiplying -- exact bookkeeping, not truncation),
 not given more memory.
+
+## Stage results (full-cumulant 1-2-2, cumulants RETAINED)
+
+| stage | terms | carrying lambda |
+|---|---|---|
+| `r1v1`  (r x v1)      | 30 | 15 |
+| `v1r1`  (v1 x r)      | 30 | 15 |
+| `rv1v2` (r v1 v2)     | **8241** | **6026** |
+| `v1rv2` | running |  |
+| `v2v1r` | running |  |
+| `v2rv1` | pending |  |
+| `combine` | pending | |
+
+## Guard bug found and fixed 2026-08-02
+
+`build[n_, expr_]` in tools/mkno_stage.wl had no hold attribute, so Wolfram
+evaluated `expr` while assembling the argument list -- BEFORE build was entered.
+Consequences: the MemoryConstrained/TimeConstrained guards never wrapped the
+work, and a cached stage was recomputed before the cache was consulted. The
+tell was rv1v2 reporting "(0s, peak 725 MB)" after ~20 minutes of CPU.
+Fixed with `SetAttributes[build, HoldRest]`; a cached rv1v2 now returns in 3 s.

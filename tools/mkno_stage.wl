@@ -37,6 +37,12 @@ lam[l_] := Count[l, x_ /; ! FreeQ[x, \[Lambda]]];
 load[n_] := Module[{f = res <> "stage_" <> n <> ".m"},
    If[! FileExistsQ[f], Print["MISSING PREREQ: ", n]; Abort[]]; Get[f]];
 
+(* HoldRest matters: without it Wolfram evaluates `expr` while building the
+   argument list, i.e. BEFORE build is entered -- so the MemoryConstrained /
+   TimeConstrained guards never wrap the work and a cached stage is recomputed
+   before the cache is even consulted.  Found the hard way: the rv1v2 stage
+   reported "(0s)" because it had already finished before the timer started. *)
+SetAttributes[build, HoldRest];
 build[n_, expr_] := Module[{f = res <> "stage_" <> n <> ".m", t0, v},
   If[FileExistsQ[f],
     v = Get[f];
