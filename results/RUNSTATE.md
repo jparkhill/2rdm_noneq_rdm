@@ -65,10 +65,14 @@ not given more memory.
 | `r1v1`  (r x v1)      | 30 | 15 |
 | `v1r1`  (v1 x r)      | 30 | 15 |
 | `rv1v2` (r v1 v2)     | **8241** | **6026** |
-| `v1rv2` | running |  |
-| `v2v1r` | running |  |
-| `v2rv1` | pending |  |
-| `combine` | pending | |
+| `v1rv2` | 8241 | 6026 |
+| `v2v1r` | 8241 | 6026 |
+| `v2rv1` | 8241 | 6026 |
+| `combine` (raw joined) | 32964 | 24104 |
+| **combine (cancelled)** | **1312** | **560** |
+| **orbit-reduced** | **130** | **60** |
+
+DELTA vs NoCumulants: 560 terms (60 orbits). See docs/11.
 
 ## Guard bug found and fixed 2026-08-02
 
