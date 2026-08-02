@@ -1,5 +1,18 @@
+# platform / harness dirs — not part of the project
+skills/
+.agent-turn/
+shared/
+global/
+
+# transient
 __pycache__/
 *.pyc
-refs/
-results/*.npz
 .venv/
+.pytest_cache/
+
+# upstream source repos: rebuilt by scripts/bootstrap.sh, never committed
+refs/
+
+# large numeric outputs
+results/*.npz
+results/*.h5
