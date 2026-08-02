@@ -1,0 +1,9643 @@
+{
+ "143": [],
+ "417": [
+  {
+   "sign": 1,
+   "tensors": []
+  },
+  {
+   "sign": 1,
+   "tensors": []
+  },
+  {
+   "sign": 1,
+   "tensors": []
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": []
+  },
+  {
+   "sign": 1,
+   "tensors": []
+  }
+ ],
+ "426": [
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "q",
+      "r"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": []
+  },
+  {
+   "sign": 1,
+   "tensors": []
+  }
+ ],
+ "430": [
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "r"
+     ],
+     "lo": [
+      "u",
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "u"
+     ],
+     "lo": [
+      "t"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "w"
+     ],
+     "lo": [
+      "v"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "s"
+     ],
+     "lo": [
+      "r"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "w"
+     ],
+     "lo": [
+      "v"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "s"
+     ],
+     "lo": [
+      "r"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "u"
+     ],
+     "lo": [
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "v"
+     ],
+     "lo": [
+      "s",
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "w"
+     ],
+     "lo": [
+      "v"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "s"
+     ],
+     "lo": [
+      "r"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "u"
+     ],
+     "lo": [
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "t",
+      "v"
+     ],
+     "lo": [
+      "q",
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "u"
+     ],
+     "lo": [
+      "t"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "w"
+     ],
+     "lo": [
+      "v"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "x"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "s"
+     ],
+     "lo": [
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "r"
+     ],
+     "lo": [
+      "s",
+      "t"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "s"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "t"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "r"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "u"
+     ],
+     "lo": [
+      "q"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "t"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "u"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "r"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "s"
+     ],
+     "lo": [
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "t"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "r"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "s"
+     ],
+     "lo": [
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "s"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "t"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "q",
+      "r"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "s"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "t"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "r"
+     ],
+     "lo": [
+      "s",
+      "t"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "s"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "t"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "q",
+      "t"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "t"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "r"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "s"
+     ],
+     "lo": [
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "t"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "r"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "s"
+     ],
+     "lo": [
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "r"
+     ],
+     "lo": [
+      "s",
+      "t"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "s"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "t"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "p"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "s"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "t"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "p"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "p"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "t"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "r"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "s"
+     ],
+     "lo": [
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "p"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "t"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "r"
+     ]
+    },
+    {
+     "name": "eta",
+     "up": [
+      "s"
+     ],
+     "lo": [
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  }
+ ],
+ "448": [
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "s",
+      "t"
+     ],
+     "lo": [
+      "p",
+      "r"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "r",
+      "s"
+     ],
+     "lo": [
+      "p",
+      "t"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "VTs",
+     "up": [
+      "p",
+      "t"
+     ],
+     "lo": [
+      "r",
+      "s"
+     ]
+    }
+   ]
+  }
+ ],
+ "1488": [],
+ "1578": [],
+ "1624": [
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": 1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  },
+  {
+   "sign": -1,
+   "tensors": [
+    {
+     "name": "gamma",
+     "up": [
+      "v"
+     ],
+     "lo": [
+      "q"
+     ]
+    },
+    {
+     "name": "gamma",
+     "up": [
+      "x"
+     ],
+     "lo": [
+      "s"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "p"
+     ],
+     "lo": [
+      "u"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "r"
+     ],
+     "lo": [
+      "w"
+     ]
+    },
+    {
+     "name": "delta",
+     "up": [
+      "t"
+     ],
+     "lo": [
+      "y"
+     ]
+    }
+   ]
+  }
+ ]
+}

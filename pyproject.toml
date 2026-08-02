@@ -1,0 +1,9 @@
+[project]
+name = "qdiss"
+version = "0.1.0"
+description = "Dissipative reduced-density-matrix dynamics with Mukherjee-Kutzelnigg generalized normal ordering; search for an N-representable perturbative 2-RDM EOM."
+requires-python = ">=3.10"
+dependencies = ["numpy", "scipy", "sympy"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
