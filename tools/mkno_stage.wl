@@ -14,8 +14,14 @@ Off[ReplaceRepeated::rrlim]; Off[General::stop]; Off[Join::heads];
 
 res  = "/root/workspace/results/";
 want = Environment["MKNO_STAGE"];
+(* Default 12 GB.  The container's cgroup hard-caps RAM at 8 GB (memory.max,
+   read-only, remount denied) but allows up to 8 GB of swap, and the host has
+   ~7 GB free, so the effective ceiling before an OOM kill is ~15 GB.  12 GB
+   leaves headroom and lets a big stage spill to swap -- slow, but it finishes
+   instead of dying.  /proc/meminfo reports the HOST's 32 GB and 32 CPUs; it is
+   not namespaced, so ignore it and trust /sys/fs/cgroup/memory.max. *)
 cap  = With[{e = ToExpression@Environment["MKNO_MEMCAP"]},
-            If[IntegerQ[e], e, 6]] * 1024^3;          (* bytes *)
+            If[IntegerQ[e], e, 12]] * 1024^3;          (* bytes *)
 tcap = With[{e = ToExpression@Environment["MKNO_TIMECAP"]},
             If[IntegerQ[e], e, 1500]];                (* seconds *)
 
