@@ -16,7 +16,7 @@ import numpy as np
 OUT = "pvqw"
 
 
-def einsum_for(term, ham_indices):
+def einsum_for(term, ham_indices, out=OUT):
     """(sign, factors) -> (sign, subscript string, list of operand keys).
 
     Operand keys are ('H',), ('G', rank) or ('I',) for a delta, in the order the
@@ -35,18 +35,19 @@ def einsum_for(term, ham_indices):
             ops.append(("G", rank))
         else:
             raise ValueError("unexpected factor %r" % (name,))
-    return sign, ",".join(subs) + "->" + OUT, ops
+    return sign, ",".join(subs) + "->" + out, ops, len(out)
 
 
-def compile_terms(terms, ham_indices):
-    return [einsum_for(t, ham_indices) for t in terms]
+def compile_terms(terms, ham_indices, out=OUT):
+    return [einsum_for(t, ham_indices, out) for t in terms]
 
 
-def evaluate(compiled, H, gammas, M, dtype=complex):
+def evaluate(compiled, H, gammas, M, dtype=complex, out_rank=None):
     """Sum the compiled einsums. gammas maps rank -> tensor."""
     eye = np.eye(M, dtype=dtype)
-    out = np.zeros((M,) * 4, dtype=dtype)
-    for sign, sub, ops in compiled:
+    rank = out_rank if out_rank is not None else compiled[0][3]
+    out = np.zeros((M,) * rank, dtype=dtype)
+    for sign, sub, ops, _nout in compiled:
         arrays = []
         for key in ops:
             if key[0] == "H":
