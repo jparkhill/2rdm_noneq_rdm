@@ -41,8 +41,25 @@ three independent criteria, two of which are positive statements:
    because it is sensitive to coefficients and not merely to signs: a term list
    can preserve positivity and still be the wrong physics.
 
-A refutation is cheap and one negative eigenvalue is enough. Confirmation
-requires all three.
+A refutation is cheap and one negative eigenvalue is enough to kill *one
+candidate*. Confirmation requires all three.
+
+But note the scope: refuting a single closure is a data point, not a result about
+the programme. docs/02 lists at least five independent knobs -- the reconstruction
+functional for `lambda_3`, where the secular approximation is applied, whether the
+dissipator is put in manifestly completely-positive form on the two-particle space
+*before* contraction, whether rates are symmetrised so KMS holds term by term, and
+contraction-consistency constraints tying `^2D` to `gamma`. **Any** EOM that
+manipulates at most 4-index quantities and can be related to a perturbative
+correlated correction is of interest. So showing that `lambda_3 = 0` is
+non-positive establishes very little; a real no-go has to quantify over the class.
+
+And the strong prior from rank 1 points the other way: manifest CP form plus
+term-by-term KMS is *why* rank 1 worked. If the closed rank-2 equation can be
+arranged to remain the contraction of a genuine Lindblad flow on the two-particle
+space, positivity is structural -- a consequence of complete positivity -- rather
+than something to be checked case by case. That is the direction with a mechanism
+behind it, not a search.
 
 ## 2. Start here, in this order
 
@@ -95,6 +112,31 @@ And at non-smooth boundary points where several constraints are simultaneously
 active the normal cone has several generators, and the condition must hold for
 all of them, including across `D`/`Q`/`G`; a check that tests one at a time can
 pass while the dynamics still escapes.
+
+## 3b. How the EOMs are derived (do not reinvent this)
+
+The physical route, and the only one to use:
+
+1. Write the **Heisenberg-picture EOM for an operator of the rank you want to
+   propagate** -- for the 1-RDM that operator is `a^p_q`, for the 2-RDM it is
+   `a^{pr}_{qs}`. Not a generic product of operators: the operator whose
+   expectation value *is* the quantity being propagated.
+2. **Take the expectation value.** That converts an operator equation into an
+   equation for the RDM element. It also kills every residual `{a_k}`, since
+   `<{a_k}> = 0` for `k >= 1` by construction of GNO.
+3. **Return to the Schrodinger picture** for the quantity being propagated.
+
+The closure enters at step 2 and nowhere else: taking the expectation of the
+TCL2 dissipator raises RDMs of higher rank than the one being propagated, and
+whatever removes them is the closure. At rank 1 the dissipator is quartic in
+fermion operators, because it is a product of two one-body couplings `A_alpha`,
+so the `gamma` equation picks up `<a+ a+ a a> = gamma_2`; `lambda_2 = 0` closes
+it. See docs/01 sections 2 and 3.
+
+The corollary, learned the hard way: do **not** start by building a generic
+rank-1 x rank-2 x rank-2 operator product and then look for its scalar part.
+That object is not any EOM. Start from the rank of the propagated quantity and
+let the Heisenberg equation tell you which commutators appear.
 
 ## 4. Notation conventions John uses (match these)
 
