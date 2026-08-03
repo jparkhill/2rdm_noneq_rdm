@@ -30,7 +30,8 @@ Do[Module[{i = row[[1]], s = row[[2]]},
    If[i <= 1600 && StringContainsQ[s, ":="],
      Quiet@Check[TimeConstrained[ReleaseHold[ToExpression[s]], 60], Null]]],
   {row, inputs}];
-Print["definitions loaded; stage = ", want, "; memcap = ",
+Get["/root/workspace/tools/rank5_patch.wl"];
+Print["definitions loaded (+rank5 patch); stage = ", want, "; memcap = ",
       Round[cap/1024^3], " GB; timecap = ", tcap, " s"];
 
 lam[l_] := Count[l, x_ /; ! FreeQ[x, \[Lambda]]];
