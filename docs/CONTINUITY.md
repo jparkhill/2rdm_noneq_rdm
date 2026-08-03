@@ -269,3 +269,12 @@ Private, renamed, or local-only.
 - Prefer refutable claims. If a candidate EOM cannot be falsified numerically in
   minutes, the falsifier is not good enough yet.
 - Verification is the deliverable as much as the derivation is.
+
+## 9. Conjecture to come back to (John, 2026-08-02)
+
+Dissipation should *reduce* many-body correlation, in line with the eigenstate
+thermalization hypothesis. If true, a dissipative EOM should drive the cumulants
+down rather than up, and the representability problem may be easier with the
+dissipator present than without it. Untested. Deliberately deferred: the coherent
+EOM comes first, since a Hamiltonian-only equation that cannot stay on the cone
+would make the dissipative question moot.
