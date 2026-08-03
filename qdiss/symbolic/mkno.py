@@ -18,6 +18,7 @@ consumes our output unchanged:
     factor = (name, rank, upper_tuple, lower_tuple)
     name   = 'G' gamma | 'L' lambda | 'D' delta | 'A' the GNO operator
 """
+import functools
 import itertools
 from collections import defaultdict
 
@@ -187,3 +188,63 @@ def to_wolfram(terms, path):
     with open(path, "w") as fh:
         fh.write("{" + body + "}")
     return path
+
+@functools.lru_cache(maxsize=None)
+def set_partitions(k):
+    """All set partitions of range(k), each a tuple of increasing-index blocks."""
+    if k == 0:
+        return [()]
+    if k == 1:
+        return [((0,),)]
+    out = []
+    for p in set_partitions(k - 1):
+        for i in range(len(p)):
+            out.append(p[:i] + (p[i] + (k - 1,),) + p[i + 1:])
+        out.append(p + (((k - 1),),))
+    return [tuple(sorted(pp, key=lambda b: b[0])) for pp in out]
+
+
+def gamma_to_cumulants(up, lo):
+    """gamma_k^up_lo as a list of (sign, factors) over gamma_1 and lambda_k."""
+    up, lo = tuple(up), tuple(lo)
+    k = len(up)
+    if k == 1:
+        return [(1, (("G", 1, up, lo),))]
+    out = []
+    for part in set_partitions(k):
+        sizes = [len(b) for b in part]
+        up_sgn = perm_sign(tuple(i for b in part for i in b))[0]
+        for perm in itertools.permutations(range(k)):
+            chunks, i = [], 0
+            for s in sizes:
+                chunks.append(perm[i:i + s])
+                i += s
+            if any(list(c) != sorted(c) for c in chunks):
+                continue
+            sgn = up_sgn * perm_sign(perm)[0]
+            facs = []
+            for blk, ch in zip(part, chunks):
+                bu = tuple(up[i] for i in blk)
+                bl = tuple(lo[j] for j in ch)
+                facs.append(("G" if len(blk) == 1 else "L", len(blk), bu, bl))
+            out.append((sgn, tuple(facs)))
+    return out
+
+
+def to_cumulant_form(terms):
+    """Rewrite every gamma_k factor with k>1 in terms of gamma_1 and lambdas."""
+    out = []
+    for sign, facs in terms:
+        pieces = [(sign, ())]
+        for f in facs:
+            name, rank, up, lo = f
+            if name != "G" or rank == 1:
+                pieces = [(s, fs + (f,)) for s, fs in pieces]
+                continue
+            expanded = []
+            for s, fs in pieces:
+                for s2, f2 in gamma_to_cumulants(up, lo):
+                    expanded.append((s * s2, fs + f2))
+            pieces = expanded
+        out.extend(pieces)
+    return collect(out)

@@ -24,8 +24,25 @@ abandoned it — the 2-RDM kept leaving the N-representable set. This project
 retries that, with the explicit intent that every step be machine-verifiable.
 
 **Why this problem:** it is chosen to be *verifiable in nature*, so an agent can
-check its own work. Any candidate EOM is refuted in minutes by propagating and
-watching a DQG eigenvalue go negative. Verifiability is the point.
+check its own work. Verifiability is the point.
+
+What is wanted is a **verifier, not a falsifier** — earlier drafts of this file
+said the latter and it undersold the target. A candidate EOM has to be judged on
+three independent criteria, two of which are positive statements:
+
+1. **Positivity.** DQG eigenvalues stay `≥ 0` under propagation; on the boundary
+   `boundary_flux() ≥ 0` (`qdiss/representability/dqg.py`).
+2. **Stability, with the right fixed point.** Bounded trajectories, no runaway
+   occupations, a monotone Lyapunov function, and thermalization to the correct
+   distribution — Fermi–Dirac in the rank-1 case.
+3. **Correct perturbative limit.** In the appropriate limit the EOM must reduce
+   to a perturbatively corrected excited-state theory and reproduce known
+   excitation energies. This is the sharpest constraint on the derivation,
+   because it is sensitive to coefficients and not merely to signs: a term list
+   can preserve positivity and still be the wrong physics.
+
+A refutation is cheap and one negative eigenvalue is enough. Confirmation
+requires all three.
 
 ## 2. Start here, in this order
 
@@ -53,9 +70,31 @@ spin-orbital to **2.81 electrons**. Same mechanism, both results.
 
 **The rank-2 question is whether an analogous structural argument exists** for
 the DQG cone: for `²D` on the boundary with null vector `|v⟩`, does
-`⟨v| Ṁ[²D] |v⟩ ≥ 0` hold for `M ∈ {D, Q, G}`? That is a polynomial positivity
-statement — tractable by SOS/Positivstellensatz numerically, and a Lean target
-once a candidate survives.
+`⟨v| Ṁ[²D] |v⟩ ≥ 0` hold for `M ∈ {D, Q, G}`?
+
+That criterion is **Nagumo's theorem** specialized to the PSD cone, and naming it
+matters because it says what we do and do not need. Nagumo: a closed convex `K`
+is forward-invariant under `ẋ = f(x)` iff at every boundary point `f(x)` lies in
+the tangent cone — equivalently `⟨ν, f(x)⟩ ≤ 0` for every outward normal `ν`.
+The outward normal to the PSD cone at a matrix with null vector `v` is `−vv†`,
+which gives the criterion above. **It is a pointwise algebraic condition on the
+right-hand side.** We therefore need only the EOM, never a propagator, and the
+rank-1 argument above is the same theorem in the scalar case.
+
+Two things follow. The primary attack is **structural**: ask whether every term
+of `Ṁ` carries a factor that vanishes when `M(²D)v = 0`, which is an identity in
+abstract indices and so independent of `n`. Refutation is **small-`n` numerics**:
+build a boundary `²D` at `n = 4, 6` and look for a negative. SOS/Positivstellensatz
+is a *late, optional* tool — the SDP is `O(n⁴)` in the RDM elements and does not
+scale, so it is worth reaching for only after a structural reduction to a few
+scalar invariants, or for a machine-checked certificate at fixed small `n`.
+
+Two caveats. DQG is a **relaxation** — necessary but not sufficient for
+N-representability, so invariance of DQG does not prove the 2-RDM is physical.
+And at non-smooth boundary points where several constraints are simultaneously
+active the normal cone has several generators, and the condition must hold for
+all of them, including across `D`/`Q`/`G`; a check that tests one at a time can
+pass while the dynamics still escapes.
 
 ## 4. Notation conventions John uses (match these)
 
@@ -104,6 +143,36 @@ Private, renamed, or local-only.
 
 ## 7. Findings worth not rediscovering
 
+- **`docs/12`'s stated cause is wrong.** It blamed cell 62's rank-4 cutoff:
+  `TildeSubstitution` calls `Print` past rank 4, `Print` returns `Null`, and the
+  `Null` multiplies silently into the product. Tested directly:
+  `tools/rank5_patch.wl` extends all three cell-62 dispatchers to rank 5 using
+  the `ta5`/`Na5`/`NRta5` cell 125 already defines, and rank 5 does go from
+  `Null` to a 1670-term list. Re-deriving `rv1v2` with it produces a file
+  **byte-identical** to the old one, containing **zero `Null`s**, failing by the
+  same amount. So that path is never reached in this product.
+- **The live lead is `Signature`.** The build emits
+  `Signature::normal: Nonatomic expression expected at position 1 in
+  Signature[upper$…]`. The code computes
+  `OuterSign = Signature[upper]*Signature[lower]` with `upper = Join[u1,u2]`, so
+  `Join` came back unevaluated, meaning it received a non-list. Both stage
+  runners open with `Off[Join::heads]`, which suppresses precisely the warning
+  that would have named the malformed operand. Re-run with that `Off` removed
+  before theorizing further.
+- **The failure is specific to three factors.** Both two-factor products verify
+  exact (8.6e-16, 1.3e-15); all four three-factor orderings fail (1.09–1.26 on
+  typical magnitudes 0.67–0.94). Same code, same oracle, so it is not a
+  convention or version artifact. Published work is not implicated: it ran the
+  `NoCumulants` branch, and cell 1624's 96 terms match.
+- **A sandbox's durable computer is durable only at `/root`.** Wolfram Engine
+  installed to `/usr/local` was lost when the container was recreated; the
+  entitlement in `~/.wolfram_entitlement` survived. Install into the volume:
+  Wolfram now lives at `/root/.local/wolfram/14.1` and the Python venv at
+  `/root/.venv`. Same trap applies to pip installs and apt packages.
+- **The sandbox cannot push.** `origin` is HTTPS and the credential died with
+  the old container. Move commits out with `git bundle` and push over SSH from
+  the host, or re-point the remote at SSH with a key mounted.
+
 - **EE2 enforced representability three ways, all crude or disabled.**
   (a) diagonal clamping `if(Rho(i,i)<0) Rho(i,i)=0` at every RK4 substep;
   (b) `Posify()` eigenvalue projection in `TCL_prop.h`, gated on `Stabilize`,
@@ -136,7 +205,18 @@ Private, renamed, or local-only.
       `HoleRho = I - Rho`)
 - [x] All upstream source collected and inventoried
 - [x] MKNO.nb parsed; terms machine-extractable
-- [ ] Symbolic MK engine in Python (`qdiss/symbolic/`)
+- [x] Symbolic MK engine in Python (`qdiss/symbolic/mkno.py`) — products of GNO
+      operators, gamma form and cumulant form, ~200 lines, no GWT rules
+      transcribed: it reads the one definition `tools/gno.py` validates, forwards
+      to expand a bare string into GNO operators and solved for its `m=0` term to
+      go back, with ordinary anticommutation between
+- [x] Python `A.B` agrees with the notebook's `r1v1` **term for term, all 30
+      terms and signs**, in the cumulant basis. Two independent derivations in
+      the same basis, so the convention is pinned and neither carries a private
+      blind spot
+- [x] Python `A.B.C` verifies as an exact operator identity (1e-15 at M=8 and
+      M=10) where **every** Wolfram three-factor stage fails by the size of the
+      answer
 - [ ] 2-RDM falsifier with DQG monitor (`qdiss/representability/`)
 - [ ] Closure search
 - [ ] Lean formalization — rank-1 boundary-flux theorem first as warm-up

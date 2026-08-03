@@ -1,5 +1,18 @@
 # 12 — The full-cumulant derivation is invalid at rank 5 (engine defect)
 
+> **CORRECTION (2026-08-02, later the same day).** The *result* below stands:
+> the full-cumulant 1-2-2 output is wrong, and the numbers in `docs/11` are
+> retracted. The **cause** identified below is wrong. Extending cell 62's
+> dispatchers to rank 5 (`tools/rank5_patch.wl`) and re-deriving produces a
+> byte-identical file with zero `Null`s and the identical error, so the rank-4
+> cutoff is never reached in this product and no `Null` ever entered the result.
+> The live lead is `Signature[Join[u1,u2]]` returning unevaluated — `Join` given
+> a non-list — masked by `Off[Join::heads]` in both stage runners.
+>
+> Superseded in practice: `qdiss/symbolic/mkno.py` derives the same products in
+> Python and both verify exact, with `A.B` matching this pipeline's `r1v1`
+> term-for-term in the cumulant basis. See `docs/CONTINUITY.md` §7.
+
 Found 2026-08-02 while trying to certify the 1-2-2 result numerically before
 using it. Recorded here because it invalidates part of docs/11.
 
