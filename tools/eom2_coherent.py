@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """The coherent 2-RDM EOM: i d<a^pv_qw>/dt = <[H, a^pv_qw]>, no dissipator.
 
-H = sum h^r_s a^r_s  +  (1/2) sum V^rt_su a^rt_su
+H = sum h^r_s a^r_s  +  (1/4) sum V^rt_su a^rt_su, V antisymmetrized
 
 Both commutators are derived with the machinery verified in tools/eom1.py and
 each is checked against explicit Fock-space matrices before use.
