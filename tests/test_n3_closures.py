@@ -179,10 +179,12 @@ states = {a: g2_0.copy() for a in alphas}
 psi = psi0.copy()
 
 print("N=%d M=%d  dt=%g  T=%g" % (N, M, dt, T))
-print("%6s | %-22s | %-22s | %-22s" % ("t", "alpha=0 (gamma_3=0)",
+print("%6s | %-30s | %-30s | %-30s" % ("t", "alpha=0 (gamma_3=0)",
                                        "alpha=0.5", "alpha=1 (lambda_3=0)"))
-print("%6s | %7s %7s %6s | %7s %7s %6s | %7s %7s %6s"
-      % ("", "err", "minD", "minQ", "err", "minD", "minQ", "err", "minD", "minQ"))
+print("%6s |%8s%8s%8s%7s|%8s%8s%8s%7s|%8s%8s%8s%7s"
+      % ("", "err", "minD", "minQ", "minG",
+         "err", "minD", "minQ", "minG",
+         "err", "minD", "minQ", "minG"))
 
 first_neg = {a: None for a in alphas}
 for step in range(nstep + 1):
@@ -192,7 +194,7 @@ for step in range(nstep + 1):
         for a in alphas:
             e = np.abs(states[a] - gx).max()
             m = mineigs(states[a])
-            row.append(" %7.1e %+7.4f %+6.3f |" % (e, m["D"], m["Q"]))
+            row.append("%8.1e%+8.4f%+8.4f%+7.3f|" % (e, m["D"], m["Q"], m["G"]))
         print("".join(row))
     for a in alphas:
         m = mineigs(states[a])

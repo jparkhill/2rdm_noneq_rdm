@@ -16,7 +16,7 @@ sys.path.insert(0, ".")
 sys.path.insert(0, "tools")
 from qdiss.symbolic import mkno
 from qdiss.dynamics.coherent2 import compile_terms, evaluate, rk4
-from qdiss.representability.dqg import contract_to_1rdm, build_Q
+from qdiss.representability.dqg import contract_to_1rdm, build_Q, build_G
 from tools.eom2_coherent import ONE, TWO
 
 M, N = 8, 3
@@ -122,8 +122,9 @@ dt, T = 0.004, 0.8
 nstep = int(T / dt)
 states = {0.0: g2_0.copy(), 1.0: g2_0.copy()}
 pk = psi.copy()
-print("%6s | %-24s | %-24s" % ("t", "alpha=0 (gamma_3=0)", "alpha=1 (lambda_3=0)"))
-print("%6s | %10s %12s | %10s %12s" % ("", "min D", "min Q", "min D", "min Q"))
+print("%6s | %-33s | %-33s" % ("t", "alpha=0 (gamma_3=0)", "alpha=1 (lambda_3=0)"))
+print("%6s |%11s%11s%11s|%11s%11s%11s"
+      % ("", "min D", "min Q", "min G", "min D", "min Q", "min G"))
 for step in range(nstep + 1):
     if step % 50 == 0:
         row = ["%6.2f |" % (step * dt)]
@@ -132,7 +133,8 @@ for step in range(nstep + 1):
             g1 = contract_to_1rdm(g, N)
             mD = float(np.linalg.eigvalsh(mat(g)).min())
             mQ = float(np.linalg.eigvalsh(mat(build_Q(g, g1))).min())
-            row.append(" %10.3e %12.3e |" % (mD, mQ))
+            mG = float(np.linalg.eigvalsh(mat(build_G(g, g1))).min())
+            row.append("%11.3e%11.3e%11.3e|" % (mD, mQ, mG))
         print("".join(row))
     for a in (0.0, 1.0):
         states[a] = rk4(make(a), states[a], dt)
