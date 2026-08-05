@@ -21,10 +21,46 @@ against FullCI at 1e-15 by `qdiss.eom.validate`.
 | phase relative to `V` | in-phase component cannot move occupations | presumably, untested above rank 2 |
 | smoothness at the reference | `blocked` is 0/0 at Hartree-Fock | yes, but see the caveat below |
 
-Rank 4 was computed (`tools/rank4_contraction.py`) to test whether the trace rule continues.
-It does not: the naive analogue `E lam3 + lam3 E` fits with best scalar multiple c = 0.00,
-leaving a residual larger than the target. Rank 4 is the first order carrying `lam2*lam2`
-partitions with no rank-3 counterpart, so the general rule must include them.
+## The single-trace rule is order-general
+
+An earlier version of this file claimed the trace rule "does not continue" at rank 4, on the
+grounds that the naive analogue `E lam3 + lam3 E` fitted with best scalar multiple c = 0.00.
+That was a bad test, not a broken pattern: fitting a bare scalar multiple of one term while
+omitting the large `lam2*lam2` terms drives its coefficient to zero. With the full structure
+list the rule appears, with exact rational coefficients.
+
+`tools/trace_rule_pattern.py` fits `sum_z lambda_4` against every structure that can build a
+6-index antisymmetric object from `g`, `lam2` and `lam3`, requiring COMMON coefficients across
+four systems (6,3), (6,4), (8,3), (8,4) by stacking 1.2M equations. Result, relative residual
+8.6e-15:
+
+    lam3 -3.000000 | anti(g,lam3) +1.000000 | chainA +4.500000 | chainB -4.500000
+    orbB(g), orbB(g^2), orbA(g), orbA(g^2) all exactly 0
+
+Since `anti(I, lam3) = 6 lam3` over the six slots, `-3 lam3 + anti(g, lam3) = anti(E, lam3)`
+with `E = g - 1/2`. So with `anti` denoting `E` contracted into every slot, and verified at
+machine precision by `tools/trace_rule_lowrank.py`:
+
+| k | single-trace identity | residual |
+|---|---|---|
+| 2 | `sum_x lam2 = anti(E, lam1) - lam1*lam1` | 1.9e-16 |
+| 3 | `sum_y lam3 = anti(E, lam2)` | 2.5e-16 |
+| 4 | `sum_z lam4 = anti(E, lam3) + (9/2)(chainA - chainB)` | 8.6e-15 |
+
+The `anti(E, lam_{k-1})` term is present at every rank with coefficient exactly 1. The extra
+terms are chains `lam_{k/2} * lam_{k/2}`, which exist for k=2 (coefficient -1) and k=4
+(coefficient 9/2) and cannot exist for k=3 because there is no `lam_{3/2}` -- which is precisely
+where the fit returned no chain.
+
+Caveats: three data points. The even-only chain rule is inferred, not proved, and is testable at
+rank 5, which should have no chain, and rank 6, which should carry `lam3*lam3`. The chain
+coefficients -1 and 9/2 follow no evident pattern yet. And `lam1*lam3` chains were not included
+in the rank-4 basis; the fit succeeded without them, so they are zero or dependent, but that was
+not separately verified.
+
+Multiple traces are redundant and must not be imposed. Contracting the single-trace identity
+again gives a weaker condition at lower rank -- `tools/multi_trace.py` derives and verifies the
+double trace of `lam3` -- but it is implied by the single trace and so adds nothing.
 
 Three of these conditions are weaker than they look, and should not be treated as requirements:
 
