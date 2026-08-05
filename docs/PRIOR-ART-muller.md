@@ -80,6 +80,53 @@ Also: this reading came from a summarising fetch of the arXiv HTML, not the LaTe
 prose and the equations quoted above are reliable; anything depending on the precise form of
 Eq. 43 is not, and should be checked against the source before being built upon.
 
+## Measured comparison
+
+`tools/muller_vs_ours.py`. Propagated state `gamma_2` ALONE with `gamma_1` by contraction, which
+is Mueller's scheme. EOM from `qdiss.eom.wick` / `qdiss.eom.gwt`, identical term lists, validated
+against `qdiss.eom.fullci` at 1e-15. PySCF integrals checked against FCI. Truth: exact
+wavefunction propagation from a kicked FCI ground state, `dt = 0.004` to `t = 1`. `muller_raw` is
+Eq. 14 without the Eq. 44/45 correction, included to isolate what the correction buys.
+
+**N = 2, H2/6-31g.** Mueller and `gamma_3 = 0` are exact, error 0.0000 throughout, as the `(N-2)`
+prefactor requires. `lambda_3 = 0` is wrong by 0.0105 and drives `min eig D` to -0.0384. The
+predicted N=2 advantage of their form is confirmed.
+
+**Static reconstruction quality**, with `|gamma_3 exact|` = 0.671 at H3 and 0.872 at H4:
+
+    H3   muller       |g3-g3exact| 0.08156   contraction residual 3.331e-16
+         muller_raw                0.23675                        1.660e-01
+         lam3_0                    0.05338                        8.928e-02
+         gam3_0                    0.67108                        7.224e-01
+    H4   muller                    0.04749                        2.220e-16
+         muller_raw                0.10465                        7.575e-02
+         lam3_0                    0.04386                        2.814e-02
+         gam3_0                    0.87232                        9.031e-01
+
+The Eq. 45 correction buys real accuracy and not merely consistency: 0.237 to 0.082 at H3, a
+threefold improvement. And `lambda_3 = 0` is slightly MORE accurate in `gamma_3` than Mueller,
+0.053 against 0.082 at H3 and 0.044 against 0.047 at H4, while being contraction-inconsistent. So
+accuracy in `gamma_3` and contraction consistency are not the same axis.
+
+**Propagation at t = 1**, reporting `|gamma_2 - exact|` and `min eig D`:
+
+    H3   muller 0.0252 / -0.0310   raw 0.0310 / -0.0184   lam3_0 0.0310 / -0.0369   gam3_0 0.0630 / -0.0000
+    H4   muller 0.0250 / -0.0161   raw 0.0271 / -0.0194   lam3_0 0.0236 / -0.0206   gam3_0 0.1349 / +0.0001
+
+Mueller and `lambda_3 = 0` agree to within six percent in accuracy. `gamma_3 = 0` is two to five
+times worse and is the only one preserving positivity exactly, which follows from its flow being
+the two-particle commutator. `tr gamma_2` held at 2.00, 6.00 and 12.00 for every method,
+consistent with trace conservation being automatic. Nothing diverged over `t = 1`.
+
+One nuance against their central claim: at H3 the contraction correction WORSENS positivity,
+`min eig D` of -0.0310 for `muller` against -0.0184 for `muller_raw`, while improving accuracy.
+So the correction buys accuracy here, and the stability gain they report is more likely the
+purification patch operating alongside it than the correction itself. That is separable by
+switching the two independently, which their paper does not do and this tool now can.
+
+Scope: `t = 1` only, three small systems, no strongly correlated regime. Their stated `U/J <~ 1`
+bound is exactly where this comparison has not been pushed.
+
 ## Open problems after reading it
 
 1. **A stationary state.** Neither has one. Their accuracy "only begins to deviate slightly at
