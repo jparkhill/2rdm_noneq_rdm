@@ -67,6 +67,69 @@ particle-number conservation at both ranks and energy conservation are automatic
 | open systems | HEOM, non-Markovian baths, detailed balance | none yet |
 | spectra | not addressed | pole comparisons against TDHF and FCI |
 
+## Attribution correction: the contraction-consistency scheme is Lackner's
+
+Pulled the LaTeX source (`arxiv.org/e-print/2405.05093`, file `PRB_v2.tex`). Mueller et al. are
+explicit that the closure machinery is not theirs: "it was shown in Refs [Lackner, Lackner2015Feb,
+PhysRevResearch.5.033022] that these instabilities can be cured to a large extent by (1) enforcing
+contraction consistency of the 3-RDM and (2) using a so called dynamical purification scheme", and
+"Below we describe our implementation ... following [Lackner, Lackner2015Feb]".
+
+The primary sources are therefore:
+
+- **Lackner, Brezinova, Sato, Ishikawa, Burgdoerfer**, "Propagating two-particle reduced density
+  matrices without wave functions", Phys. Rev. A **91**, 023412 (2015).
+- **Lackner**, PhD thesis, TU Wien (2017), doi 10.34726/hss.2017.39160.
+- **Donsa, Lackner, Burgdoerfer, Bonitz, Kloss, Rubio, Brezinova**, "Nonequilibrium correlation
+  dynamics in the one-dimensional Fermi-Hubbard model: A testbed for the two-particle reduced
+  density matrix theory", Phys. Rev. Research **5**, 033022 (2023).
+
+The last of these is squarely our subject and should be read next. The accurate split of credit:
+the **Mueller reconstruction** is Eq. 14, their non-Gaussian cluster expansion; the **Lackner
+contraction correction** and the purification scheme are Eq. 43/44/45 and the appendix procedure.
+
+## Equation 43, exactly, and why it validates our derivation
+
+With `d_1` the single-particle dimension (our `M`), `Lambda^-_12 = 1 - P_12`,
+`Lambda^-_123 = Lambda^-_12 (1 - P_13 - P_23)`, the unitary decomposition `M = _0M + _perpM` has
+every index contraction of `_0M` vanishing, and
+
+    _perp M_12  = Lambda^-_12 (M_1 (x) 1) Lambda^-_12 / (d_1 - 2)
+                  - Lambda^-_12 tr(M_1) / ((d_1-2)(d_1-1))
+
+    _perp M_123 = Lambda^-_123 (M_12 (x) 1) Lambda^-_123 / (4(d_1-4))
+                  - Lambda^-_123 (M_1 (x) 1 (x) 1) Lambda^-_123 / (2(d_1-4)(d_1-3))
+                  + tr(M_1) Lambda^-_123 / ((d_1-4)(d_1-3)(d_1-2))
+
+Note the `(d_1 - 4)` denominator. That is exactly the `(M-4)` in our own closed-form partial-trace
+inverse, derived independently in `tools/lambda3_build.py` from
+`sum_y B[I,X] = (M-4) X + (I^S_X) + (S_X^I)`. Our `trace_inverse` and their `_perp M_123` are the
+same object up to normalisation, arrived at by different routes. So the substitution flagged below
+is not a deviation in substance.
+
+They also credit the unitary decomposition itself to separate references (`unitaryDecpmosition1/2`).
+
+## The purification scheme, fully specified
+
+1. Two-hole RDM `Q_12 = Lambda^-_12/2 - Lambda^-_12 (1 (x) F_1) Lambda^-_12/4 + F_12`.
+2. Eigendecompose `F_12` and `Q_12`; form the negative-eigenvalue projectors `F^<_12`, `Q^<_12`.
+3. Subtract the kernel components: `^p F_12 = F_12 - _0 F^<_12 - _0 Q^<_12`.
+4. Accept if `min eig ^p F_12 > -1e-5`, else repeat. Triggered whenever `min eig F_12 < -eps_p`
+   with `eps_p = 1e-3`.
+
+They note a limitation of their own: since the full HEOM hierarchy is not guaranteed positive,
+purification can only be applied to `F_12^(0,0)` rather than the whole hierarchy, so it "becomes
+less effective" for strongly coupled environments.
+
+## Their benchmark, which is the 4-electron system we want
+
+A **four-site Hubbard chain with four electrons**, `U/J` from 0.1 to 1.0, initial state with sites
+1 and 3 doubly occupied and 2 and 4 empty -- deliberately far from the correlated ground state, so
+the dynamics is violent density sloshing. That is `M = 8` spin orbitals and `N = 4`, the size we
+already propagate, and it is published with an exact reference, so it is directly comparable. They
+report accuracy "up to U/J = 1.0" for a weaker quadratic quench
+(`V_i(t<0) = (i-1.5)^2/8`, `V_i(t>0) = 0`).
+
 ## Deviations in our implementation of Mueller
 
 Recorded in `qdiss/muller.py` rather than hidden. Their antisymmetriser is `Lambda-` on both
