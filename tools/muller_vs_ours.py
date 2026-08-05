@@ -11,8 +11,7 @@ Reconstructions compared, all producing gamma_3 from gamma_1 and gamma_2:
     muller      qdiss.muller.gamma3, closed-system limit of their Eq. 14 plus the Eq. 44/45
                 contraction correction
     muller_raw  the same without the contraction correction, to isolate what the correction buys
-    lam3_0      ours: gamma_3 = the separable part, i.e. lambda_3 = 0
-    gam3_0      ours: gamma_3 = 0
+    lam3_0      ours: gamma_3 = the separable part of the MKNO cumulant expansion, i.e. lambda_3 = 0
 
 Static checks first: exactness at N = 2, error against the exact gamma_3, and the contraction
 residual |Tr_3(gamma_3)/(N-2) - gamma_2|. Then propagation, tracking the error in gamma_2, the
@@ -54,12 +53,13 @@ def recon(name, g1, g2, N, M):
         return muller.gamma3(g1, g2, N, contraction_correct=False)
     if name == "lam3_0":
         return separable(g1, g2, M)
-    return np.zeros((M,) * 6, dtype=complex)
+    raise ValueError("unknown reconstruction %r; moment negation is excluded" % name)
 
 
-NAMES = ("muller", "muller_raw", "lam3_0", "gam3_0")
-SYS = (("H 0 0 0; H 0 0 0.74", "6-31g", 2, 0, 0, "H2 / 6-31g  (N=2)"),
-       ("H 0 0 0; H 0 0 1.6; H 0 0 3.2", "sto-3g", 3, 0, 1, "H3 lin / sto-3g  (N=3)"),
+# N >= 3 only: at N = 2 the 2-RDM is the whole state, the rank-2 EOM is exact, and the test is
+# vacuous. Moment negation (gamma_3 = 0) is excluded by the project ground rules.
+NAMES = ("muller", "muller_raw", "lam3_0")
+SYS = (("H 0 0 0; H 0 0 1.6; H 0 0 3.2", "sto-3g", 3, 0, 1, "H3 lin / sto-3g  (N=3)"),
        ("H 0 0 0; H 0 0 1.0; H 0 0 2.0; H 0 0 3.0", "sto-3g", 4, 0, 0, "H4 lin / sto-3g  (N=4)"))
 
 for atom, basis, N, chg, spin, label in SYS:
