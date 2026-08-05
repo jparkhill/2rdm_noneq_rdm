@@ -70,7 +70,7 @@ def antisym_matrix(T2):
     """Restrict an (ij)-antisymmetric tensor to the i<j basis (orthonormal)."""
     N = T2.shape[0]
     pairs = [(i, j) for i in range(N) for j in range(i + 1, N)]
-    M = np.zeros((len(pairs), len(pairs)))
+    M = np.zeros((len(pairs), len(pairs)), dtype=complex)
     for A, (i, j) in enumerate(pairs):
         for B, (k, l) in enumerate(pairs):
             M[A, B] = 2.0 * T2[i, j, k, l]
