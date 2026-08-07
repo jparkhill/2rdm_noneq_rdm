@@ -176,6 +176,49 @@ def ecorr(l2):
     return float(0.25 * np.real(np.einsum("pvqw,pvqw->", V, l2)))
 
 
+# ---- trace_plus_pt: the pt amplitude plus a ker(L0) component carrying the trace identity ----
+# Both halves are verified orthogonal: the amplitude lives in range(L0) and contributes exactly
+# nothing to the contraction (index disjointness), while the correction lives in ker(L0) and so
+# cannot disturb the stationarity condition L0[lambda_2] = -D. Adding them is therefore not a
+# compromise -- each metric is fixed by the piece that can see it.
+HBn_np = [b / np.sqrt(np.real((b.conj() * b).sum())) for b in S.HB]
+
+
+def herm_coeff(X):
+    return np.array([np.real(np.tensordot(b.conj(), X, axes=([0, 1], [0, 1]))) for b in HBn_np])
+
+
+def kernel_basis(g1, tol=1e-8):
+    """Orthonormal basis of ker(L0) in the antisymmetric Hermitian pair basis."""
+    Lm = np.zeros((NB, NB))
+    for k, bk in enumerate(BASIS):
+        Lm[:, k] = coeff(apply_L0(g1, bk))
+    u, s, vt = np.linalg.svd(Lm)
+    keep = s <= tol * s.max()
+    return vt[keep], s
+
+
+def trace_plus_pt(g1, l2_pt, verbose=True):
+    """Add W in ker(L0) so that sum_x lambda_2[px,qx] = -(gamma_1 - gamma_1^2) exactly."""
+    K, s = kernel_basis(g1)
+    nk = K.shape[0]
+    Kt = [sum(K[a, k] * BASIS[k] for k in range(NB)) for a in range(nk)]
+    Amat = g1 - g1 @ g1
+    target = herm_coeff(-Amat - np.einsum("pxqx->pq", l2_pt))
+    Pm = np.array([herm_coeff(np.einsum("pxqx->pq", w)) for w in Kt]).T
+    c, _, rk, _ = np.linalg.lstsq(Pm, target, rcond=None)
+    W = sum(ci * w for ci, w in zip(c, Kt))
+    if verbose:
+        gap = s[s > 1e-8 * s.max()].min() / s.max()
+        print("   ker(L0) dim %d of %d (relative gap %.1e); partial-trace map rank %d of %d"
+              % (nk, NB, gap, rk, Pm.shape[0]))
+        print("   |residual of the trace target within ker(L0)| = %.2e"
+              % np.abs(Pm @ c - target).max())
+        print("   |W| = %.5f   |L0[W]| = %.2e  (must be zero: W is in the kernel)"
+              % (np.abs(W).max(), np.abs(apply_L0(g1, W)).max()))
+    return l2_pt + W
+
+
 if __name__ == "__main__":
     e_mp2 = mp.MP2(S.mf).kernel()[0]
     print("ACCEPTANCE GATE: at the idempotent (HF) density this must reproduce MP2")
@@ -194,14 +237,29 @@ if __name__ == "__main__":
           % np.abs(l2ex).max())
     l2_c = solve_lambda2(g_fci, "at g_FCI, L0 only", apply_L0)
     A = g_fci - g_fci @ g_fci
-    for tag, l2 in (("hylleraas", l2_c),
+    print()
+    print("building trace_plus_pt at the FCI density:")
+    l2_tpt = trace_plus_pt(g_fci, l2_c)
+    print("   |L0[l2] + D| after adding W = %.2e  (stationarity preserved)"
+          % np.abs(apply_L0(g_fci, l2_tpt) + driving(g_fci)).max())
+    print()
+    PAIRS_ = PAIRS
+
+    def mineig2(T):
+        Aq = np.array([[2.0 * T[p, v, q, w] for (q, w) in PAIRS_] for (p, v) in PAIRS_])
+        return np.linalg.eigvalsh(0.5 * (Aq + Aq.conj().T)).min()
+
+    print("   %-14s %10s %11s %11s %10s %10s"
+          % ("closure", "|l2-l2ex|", "trace-id", "E-E_FCI", "tr g2 err", "min eig D"))
+    for tag, l2 in (("trace_plus_pt", l2_tpt), ("pt", l2_c),
                     ("blocked", closures.lambda2(g_fci, "blocked")),
+                    ("blocked+pt", closures.lambda2(g_fci, "blocked") + l2_c),
                     ("mp2", closures.lambda2(g_fci, "mp2", h, V)),
                     ("zero", np.zeros((M,) * 4, dtype=complex))):
         g2 = closures.wedge(g_fci, g_fci) + l2
-        print("   %-11s |l2-l2_ex| %8.5f | trace-id res %8.5f | E-E_FCI %+.6f | tr g2 err %8.2e"
+        print("   %-14s %10.5f %11.5f %+11.6f %10.2e %10.6f"
               % (tag, np.abs(l2 - l2ex).max(),
                  np.abs(np.einsum("pxqx->pq", l2) + A).max(),
                  float(np.real(np.einsum("pq,pq->", h, g_fci)
                                + 0.25 * np.einsum("pvqw,pvqw->", V, g2))) + enuc - E_FCI,
-                 abs(np.einsum("pvpv->", g2).real - N * (N - 1))))
+                 abs(np.einsum("pvpv->", g2).real - N * (N - 1)), mineig2(g2)))
