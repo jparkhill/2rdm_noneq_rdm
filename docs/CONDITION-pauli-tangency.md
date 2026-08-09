@@ -157,3 +157,24 @@ binding), numerical rank 28, smallest eigenvalues `2.4e-07, 9.1e-06, 1.2e-04, ..
 is strictly interior, not on the boundary -- an earlier report of `min eig D = 0.00000` for the
 exact cumulant was print precision, not a zero. But the clearance is microscopic, and our closures
 miss positivity by `-1.5e-02`, five orders of magnitude larger than the true margin.
+
+## Addendum: why the exact flow is tangent -- reversibility, not rank conservation
+
+The reasoning in commit 25197c1 attributed exact tangency to conservation of `rank Mat_k`. That
+attribution is wrong; the correct argument is simpler and more general.
+
+Let `X(t) = Mat_k(gamma_k(t))` be positive semidefinite along the trajectory with `X(t0) v = 0`.
+Then `t -> v^dag X(t) v` is smooth, non-negative and vanishes at `t0`. If the flow exists on BOTH
+sides of `t0` this is an interior minimum, so `v^dag Xdot v = 0`; polarising over `v, w` in the
+kernel gives `P_K Xdot P_K = 0`. The hypothesis doing the work is two-sided existence, i.e.
+REVERSIBILITY.
+
+Hence: unitary dynamics forces exact tangency, and strictly inward flow is impossible rather than
+merely absent. An irreversible semigroup has no backward flow, so the compression may be strictly
+positive; a Lindblad dissipator compresses to `sum_i (P_K L_i) X (P_K L_i)^dag >= 0`.
+
+Two consequences. Searching for a closure that points inward is searching for something that would
+be WRONG in the closed case -- the correct closed-system target is exact tangency. And tangent flow
+has no restoring force, so integration error accumulates off the boundary monotonically; without a
+bath the protection must come from a factorised representation, propagating `R` with
+`X = R^dag R`, rather than from the vector field.
