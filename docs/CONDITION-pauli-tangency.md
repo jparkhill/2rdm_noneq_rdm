@@ -104,3 +104,56 @@ there, and both blocks come out exactly zero rather than correctly signed. A mea
 a boundary orbital that is coupled, and exact emptiness fights coupling -- so the right experiment
 is the *approach* to the boundary, `n_p -> 0`, measuring the sign of `Im <phi|X|phi>` and the rate
 at which it vanishes. Not yet run.
+
+## Addendum: the level-shifted closure passes the Lipschitz screen almost for free
+
+`tools/level_shift.py`. Replace the pseudo-inverse by a Tikhonov solve in the Hermitian
+antisymmetric pair basis, where `L0` is a real matrix `Lm` and the driving `D` has coefficient
+vector `d`:
+
+    lambda_2(sigma) = - (Lm^T Lm + sigma^2 I)^{-1} Lm^T d
+
+For every FIXED `sigma > 0` this is Lipschitz in `gamma_1`: `Lm` depends polynomially on
+`gamma_1`, the inverted matrix has condition number bounded by
+`(sigma_max^2 + sigma^2)/sigma^2`, and there is no rank jump. `sigma` is part of the closure's
+definition, not a numerical tolerance.
+
+Measured on jittered asymmetric-trapezoid H4/sto-3g, `M = 8`, `N = 4`:
+
+    sigma    Lipschitz est   |l2-l2ex|   trace-id    E-E_FCI    min eig D
+    0        1.622e+03         0.08790    0.03061   +0.077460    -0.015131
+    1e-04    1.104e+01         0.08790    0.03061   +0.077460    -0.015131
+    1e-03    9.361e-01         0.08790    0.03061   +0.077459    -0.015127
+    1e-02    8.456e-01         0.08790    0.03061   +0.077422    -0.014842
+    1e-01    8.021e-01         0.08817    0.03061   +0.077304    -0.013353
+    1e+00    6.314e-01         0.10590    0.03076   +0.088061    -0.007858
+
+At `sigma = 1e-2` the empirical Lipschitz constant falls by a factor of ~1900 while the cumulant
+error is unchanged to five decimals and 2-RDM positivity slightly improves. Accuracy is flat out
+to `sigma ~ 1e-2` and only degrades past `sigma ~ 0.1`, so `sigma ~ 1e-2` is the operating point.
+The Pauli Tangency Condition passes at every `sigma`, with `Im X[p,p]` exactly `0` at the
+Hartree-Fock density.
+
+## Addendum: what "on the boundary" does and does not mean
+
+`gamma_2`'s PAIR MATRIX is the `C(M,2) x C(M,2)` matrix `D[I,J] = 2 gamma_2[p,v,q,w]` with
+`I = (p<v)`, `J = (q<w)` unordered pairs. With `A_J = a_w a_q` the pair-annihilation operator,
+`D[I,J] = 2 tr(rho A_I^dag A_J)` is a Gram matrix, which is why `D >= 0` is meaningful. This holds
+for MIXED states: for any `c`, with `B = sum_J c_J A_J`, `c^dag D c = 2 tr(rho B^dag B) >= 0`.
+
+The RANK BOUND, however, is a pure-state statement. For pure `|Psi>`, `D` is the Gram matrix of
+`{A_J|Psi>}` in the `(N-2)`-electron sector, so `rank D <= min(C(M,2), C(M,N-2))`. For mixed
+`rho`, `D` is the Gram matrix of the OPERATORS `{A_J sqrt(rho)}` in the Hilbert-Schmidt inner
+product, giving only
+
+    rank D <= min( C(M,2),  C(M,N-2) * rank(rho) )
+
+which is vacuous for a high-rank thermal state. So "the exact flow lies on a fixed-rank stratum of
+the PSD boundary" holds for pure states and degrades with mixing. What survives mixing is only
+symmetry-induced block structure, which needs no purity assumption.
+
+Measured for the pure FCI ground state of this system: `C(M,2) = 28`, bound `C(M,N-2) = 28` (not
+binding), numerical rank 28, smallest eigenvalues `2.4e-07, 9.1e-06, 1.2e-04, ...`. So this state
+is strictly interior, not on the boundary -- an earlier report of `min eig D = 0.00000` for the
+exact cumulant was print precision, not a zero. But the clearance is microscopic, and our closures
+miss positivity by `-1.5e-02`, five orders of magnitude larger than the true margin.
