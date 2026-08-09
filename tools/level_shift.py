@@ -75,70 +75,71 @@ def Xmat(l2):
     return np.einsum("rtpu,rtqu->pq", V, l2)
 
 
-print("system: jittered asymmetric-trapezoid H4/sto-3g, M=%d N=%d" % (M, N))
-print("        E_HF = %.9f   E_FCI = %.9f" % (E_HF, E_FCI))
-g2ex = fullci.rdm(H.S.psi0, M, 2)
-l2ex = g2ex - closures.wedge(g_fci, g_fci)
-print("        |lambda_2_exact| = %.5f" % np.abs(l2ex).max())
-print()
+if __name__ == "__main__":
+    print("system: jittered asymmetric-trapezoid H4/sto-3g, M=%d N=%d" % (M, N))
+    print("        E_HF = %.9f   E_FCI = %.9f" % (E_HF, E_FCI))
+    g2ex = fullci.rdm(H.S.psi0, M, 2)
+    l2ex = g2ex - closures.wedge(g_fci, g_fci)
+    print("        |lambda_2_exact| = %.5f" % np.abs(l2ex).max())
+    print()
 
-# --- 1. empirical Lipschitz constant, measured at the FCI density -------------------------------
-rng = np.random.default_rng(4)
-K = rng.normal(size=(M, M)) + 1j * rng.normal(size=(M, M))
-K = 0.5 * (K + K.conj().T)
-K -= np.eye(M) * np.trace(K).real / M           # traceless: preserves tr gamma_1 = N
-K /= np.abs(K).max()
-EPS = 1e-5
+    # --- 1. empirical Lipschitz constant, measured at the FCI density -------------------------------
+    rng = np.random.default_rng(4)
+    K = rng.normal(size=(M, M)) + 1j * rng.normal(size=(M, M))
+    K = 0.5 * (K + K.conj().T)
+    K -= np.eye(M) * np.trace(K).real / M           # traceless: preserves tr gamma_1 = N
+    K /= np.abs(K).max()
+    EPS = 1e-5
 
-Lm_f, d_f = L0_matrix(g_fci), coeff(H.driving(g_fci))
-Lm_h, d_h = L0_matrix(g_hf), coeff(H.driving(g_hf))
-print("TABLE 1  empirical Lipschitz constant |d lambda_2| / |d gamma_1| at the FCI density")
-print("         (finite difference, step |d gamma_1| = %.0e traceless Hermitian)" % (EPS,))
-print("   %10s | %14s %14s" % ("sigma", "Lipschitz est", "|lambda_2|"))
-lip = {}
-for s in SIGMAS:
-    a = lam2_sigma(g_fci, s, Lm_f, d_f)
-    b = lam2_sigma(g_fci + EPS * K, s)
-    lip[s] = np.abs(b - a).max() / (EPS * np.abs(K).max())
-    print("   %10.0e | %14.3e %14.5f" % (s, lip[s], np.abs(a).max()))
-print()
+    Lm_f, d_f = L0_matrix(g_fci), coeff(H.driving(g_fci))
+    Lm_h, d_h = L0_matrix(g_hf), coeff(H.driving(g_hf))
+    print("TABLE 1  empirical Lipschitz constant |d lambda_2| / |d gamma_1| at the FCI density")
+    print("         (finite difference, step |d gamma_1| = %.0e traceless Hermitian)" % (EPS,))
+    print("   %10s | %14s %14s" % ("sigma", "Lipschitz est", "|lambda_2|"))
+    lip = {}
+    for s in SIGMAS:
+        a = lam2_sigma(g_fci, s, Lm_f, d_f)
+        b = lam2_sigma(g_fci + EPS * K, s)
+        lip[s] = np.abs(b - a).max() / (EPS * np.abs(K).max())
+        print("   %10.0e | %14.3e %14.5f" % (s, lip[s], np.abs(a).max()))
+    print()
 
-# --- 2. Pauli Tangency Condition, at the HF density where occupations are exactly 0 and 1 --------
-n_hf = np.real(np.diag(g_hf))
-occ_idx = [p for p in range(M) if n_hf[p] > 0.5]
-vir_idx = [p for p in range(M) if n_hf[p] < 0.5]
-print("TABLE 2  Pauli Tangency Condition at gamma_HF (occupations exactly 1 on %s, 0 on %s)"
-      % (occ_idx, vir_idx))
-print("         dn_p/dt = -Im X[p,p];  PTC needs Im X <= 0 on empty, >= 0 on full; exact = 0")
-print("   %10s | %14s %14s | %s" % ("sigma", "max Im X (empty)", "min Im X (full)", "verdict"))
-for s in SIGMAS:
-    l2 = lam2_sigma(g_hf, s, Lm_h, d_h)
-    X = Xmat(l2)
-    im = np.imag(np.diag(X))
-    hi, lo = im[vir_idx].max(), im[occ_idx].min()
-    ok = (hi <= 1e-10) and (lo >= -1e-10)
-    print("   %10.0e | %+14.3e %+14.3e | %s"
-          % (s, hi, lo, "PASS" if ok else "VIOLATED"))
-print()
+    # --- 2. Pauli Tangency Condition, at the HF density where occupations are exactly 0 and 1 --------
+    n_hf = np.real(np.diag(g_hf))
+    occ_idx = [p for p in range(M) if n_hf[p] > 0.5]
+    vir_idx = [p for p in range(M) if n_hf[p] < 0.5]
+    print("TABLE 2  Pauli Tangency Condition at gamma_HF (occupations exactly 1 on %s, 0 on %s)"
+          % (occ_idx, vir_idx))
+    print("         dn_p/dt = -Im X[p,p];  PTC needs Im X <= 0 on empty, >= 0 on full; exact = 0")
+    print("   %10s | %14s %14s | %s" % ("sigma", "max Im X (empty)", "min Im X (full)", "verdict"))
+    for s in SIGMAS:
+        l2 = lam2_sigma(g_hf, s, Lm_h, d_h)
+        X = Xmat(l2)
+        im = np.imag(np.diag(X))
+        hi, lo = im[vir_idx].max(), im[occ_idx].min()
+        ok = (hi <= 1e-10) and (lo >= -1e-10)
+        print("   %10.0e | %+14.3e %+14.3e | %s"
+              % (s, hi, lo, "PASS" if ok else "VIOLATED"))
+    print()
 
-# --- 3. accuracy cost, at the FCI density -------------------------------------------------------
-A = g_fci - g_fci @ g_fci
-PAIRS = H.PAIRS
-
-
-def mineig2(T):
-    Aq = np.array([[2.0 * T[p, v, q, w] for (q, w) in PAIRS] for (p, v) in PAIRS])
-    return np.linalg.eigvalsh(0.5 * (Aq + Aq.conj().T)).min()
+    # --- 3. accuracy cost, at the FCI density -------------------------------------------------------
+    A = g_fci - g_fci @ g_fci
+    PAIRS = H.PAIRS
 
 
-print("TABLE 3  accuracy cost of the level shift, at the exact FCI density")
-print("   %10s | %11s %11s %12s %11s" % ("sigma", "|l2-l2ex|", "trace-id", "E-E_FCI", "min eig D"))
-for s in SIGMAS:
-    l2 = lam2_sigma(g_fci, s, Lm_f, d_f)
-    g2 = closures.wedge(g_fci, g_fci) + l2
-    print("   %10.0e | %11.5f %11.5f %+12.6f %11.6f"
-          % (s, np.abs(l2 - l2ex).max(),
-             np.abs(np.einsum("pxqx->pq", l2) + A).max(),
-             float(np.real(np.einsum("pq,pq->", h, g_fci)
-                           + 0.25 * np.einsum("pvqw,pvqw->", V, g2))) + enuc - E_FCI,
-             mineig2(g2)))
+    def mineig2(T):
+        Aq = np.array([[2.0 * T[p, v, q, w] for (q, w) in PAIRS] for (p, v) in PAIRS])
+        return np.linalg.eigvalsh(0.5 * (Aq + Aq.conj().T)).min()
+
+
+    print("TABLE 3  accuracy cost of the level shift, at the exact FCI density")
+    print("   %10s | %11s %11s %12s %11s" % ("sigma", "|l2-l2ex|", "trace-id", "E-E_FCI", "min eig D"))
+    for s in SIGMAS:
+        l2 = lam2_sigma(g_fci, s, Lm_f, d_f)
+        g2 = closures.wedge(g_fci, g_fci) + l2
+        print("   %10.0e | %11.5f %11.5f %+12.6f %11.6f"
+              % (s, np.abs(l2 - l2ex).max(),
+                 np.abs(np.einsum("pxqx->pq", l2) + A).max(),
+                 float(np.real(np.einsum("pq,pq->", h, g_fci)
+                               + 0.25 * np.einsum("pvqw,pvqw->", V, g2))) + enuc - E_FCI,
+                 mineig2(g2)))
