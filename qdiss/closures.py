@@ -18,7 +18,9 @@ weight that replaces the Hartree-Fock n_p n_v, every such c is c = n_p n_v - X.
     hf        X = n_p n_v, so lambda_2 = 0. Substituted into the rank-1 EOM this gives exactly
               TDHF, i[(h+W)^T, gamma_1] with W[p,q] = V[p,r,q,s] gamma_1[r,s], verified at
               3.9e-16.
-    muller    X = sqrt(n_p n_v). Mueller / Buijse-Baerends shape.
+    muller_rdmft  X = sqrt(n_p n_v), the RDMFT Mueller / Buijse-Baerends exchange shape. NOT to
+              be confused with qdiss.muller2405, the 3-RDM reconstruction of Mueller et al.
+              arXiv:2405.05093 -- different authors, different object, different rank.
     power     X = (n_p n_v)^alpha, alpha ~ 0.55-0.65. Sharma et al. shape.
     bbc       Mueller patched by occupation block: c = 0 on the diagonal p = v, so the cumulant
               carries no self-pair term (Goedecker-Umrigar); and the sign of the square root is
@@ -65,7 +67,7 @@ a spurious near-zero mode from mp2 while destroying Mueller's 0.86 pole.
 """
 import numpy as np
 
-NAMES = ("hf", "blocked", "muller", "power", "bbc", "mp2")
+NAMES = ("hf", "blocked", "muller_rdmft", "power", "bbc", "mp2")
 
 
 def wedge(a, b):
@@ -91,7 +93,7 @@ def coefficient(name, n, alpha=0.6):
     root = np.sqrt(np.clip(prod, 0.0, None))
     if name == "hf":
         return np.zeros((M, M))
-    if name == "muller":
+    if name == "muller_rdmft":
         return prod - root
     if name == "power":
         return prod - np.clip(prod, 0.0, None) ** alpha

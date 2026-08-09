@@ -256,10 +256,10 @@ g2_0 = fullci.rdm(psi0, M, 2)
 
 
 def recon(nm, g1, g2):
-    if nm == "muller":
-        return gpu.muller_gamma3(g1, g2, N, M, True, ORB_B)
-    if nm == "muller_raw":
-        return gpu.muller_gamma3(g1, g2, N, M, False, ORB_B)
+    if nm == "muller2405":
+        return gpu.muller2405_gamma3(g1, g2, N, M, True, ORB_B)
+    if nm == "muller2405_raw":
+        return gpu.muller2405_gamma3(g1, g2, N, M, False, ORB_B)
     return separable_gpu(g1, g2, M)
 
 
@@ -270,7 +270,7 @@ def rhs(x, nm):
                          ("G", 3): recon(nm, g1, x)}, "pvqw")
 
 
-for nm in ("lam3_0", "muller", "muller_raw"):
+for nm in ("lam3_0", "muller2405", "muller2405_raw"):
     f0b = rhs(gpu.up(g2_0, dev), nm)
     J = np.zeros((n2, n2))
     for k in range(n2):

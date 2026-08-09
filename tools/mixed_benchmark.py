@@ -22,7 +22,9 @@ propagation and no optimisation: this isolates reconstruction error alone. Closu
     blocked        lambda_2 = A^f + f^A with A = gamma_1 - gamma_1^2, f fixed by demanding the
                    rank-2 partial-trace identity exactly. Retired for other reasons (pole surface,
                    non-extensivity, no V-dependence) but kept as the trace-exact reference point.
-    muller         Mueller/Buijse-Baerends shape, exchange weight sqrt(n_p n_v).
+    muller_rdmft   the RDMFT Mueller/Buijse-Baerends exchange shape, weight sqrt(n_p n_v).
+                   Distinct from qdiss.muller2405 (Mueller et al. arXiv:2405.05093, a 3-RDM
+                   reconstruction) -- different authors, object and rank.
     pt(sigma)      the reference-free adiabatic amplitude, lambda_2 = -(Lm^T Lm + sigma^2 I)^{-1}
                    Lm^T d, with Lm the matrix of the generalised-Fock superoperator L0 and d the
                    coefficient vector of the driving D, both from the MKNO rank-2 EOM. sigma =
@@ -78,7 +80,7 @@ def thermal(beta):
 def reconstruct(name, g1):
     if name == "zero":
         return np.zeros((M,) * 4, dtype=complex)
-    if name in ("blocked", "muller"):
+    if name in ("blocked", "muller_rdmft"):
         return closures.lambda2(g1, name)
     Lm = LS.L0_matrix(g1)
     d = H.coeff(H.driving(g1))
@@ -90,7 +92,7 @@ def reconstruct(name, g1):
     raise ValueError(name)
 
 
-NAMES = ("zero", "blocked", "muller", "pt", "trace_plus_pt")
+NAMES = ("zero", "blocked", "muller_rdmft", "pt", "trace_plus_pt")
 print("mixed-state reconstruction benchmark, jittered asymmetric-trapezoid H4/sto-3g, M=%d N=%d"
       % (M, N))
 print("closures reconstruct lambda_2 from the exact gamma_1 of rho(beta); pt uses sigma = %.0e"

@@ -81,11 +81,11 @@ def wedge(a, b):
     return torch.einsum("pq,vw->pvqw", a, b) - torch.einsum("pw,vq->pvqw", a, b)
 
 
-def muller_gamma3(g1, g2, N, M, contraction_correct=True, orbB=None):
+def muller2405_gamma3(g1, g2, N, M, contraction_correct=True, orbB=None):
     """Mueller Eq. 14 in the closed-system limit, optionally Lackner-corrected.
 
     orbB must be the precompiled rank-3 gamma-wedge-lambda_2 orbit term list, used for the
-    partial-trace inverse; see qdiss.muller.
+    partial-trace inverse; see qdiss.muller2405.
     """
     if N <= 2:
         return torch.zeros((M,) * 6, dtype=torch.complex128, device=g1.device)

@@ -190,10 +190,10 @@ nrm = [float(np.real(np.tensordot(b.conj(), b, axes=4))) for b in B2]
 
 
 def recon(nm, g1, g2):
-    if nm == "muller":
-        return gpu.muller_gamma3(g1, g2, N, M, True, ORB_B)
-    if nm == "muller_raw":
-        return gpu.muller_gamma3(g1, g2, N, M, False, ORB_B)
+    if nm == "muller2405":
+        return gpu.muller2405_gamma3(g1, g2, N, M, True, ORB_B)
+    if nm == "muller2405_raw":
+        return gpu.muller2405_gamma3(g1, g2, N, M, False, ORB_B)
     return separable_gpu(g1, g2, M)
 
 
@@ -204,7 +204,7 @@ def rhs(x, nm):
                          ("G", 3): recon(nm, g1, x)}, "pvqw")
 
 
-for nm in ("lam3_0", "muller", "muller_raw"):
+for nm in ("lam3_0", "muller2405", "muller2405_raw"):
     f0 = rhs(gpu.up(g2_0, dev), nm)
     Jm = np.zeros((n2, n2))
     for k in range(n2):
@@ -215,7 +215,7 @@ for nm in ("lam3_0", "muller", "muller_raw"):
     res[nm] = np.sort(np.abs(ww.imag[ww.imag > 1e-6]))[:10]
 
 print()
-order = ["FCI", "TDHF", "ADC(2)", "lam3_0", "muller", "muller_raw"]
+order = ["FCI", "TDHF", "ADC(2)", "lam3_0", "muller2405", "muller2405_raw"]
 print("Excitation energies, Hartree, sorted ascending, UHF spin-broken reference")
 print("%-11s | %s" % ("method", "  ".join("%7d" % (i + 1) for i in range(10))))
 for k in order:

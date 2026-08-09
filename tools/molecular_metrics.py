@@ -73,10 +73,10 @@ for atom, basis, N, chg, spin, label in SYS:
     NP = len(PAIRS)
 
     def recon(nm, g1, g2):
-        if nm == "muller":
-            return gpu.muller_gamma3(g1, g2, N, M, True, ORB_B)
-        if nm == "muller_raw":
-            return gpu.muller_gamma3(g1, g2, N, M, False, ORB_B)
+        if nm == "muller2405":
+            return gpu.muller2405_gamma3(g1, g2, N, M, True, ORB_B)
+        if nm == "muller2405_raw":
+            return gpu.muller2405_gamma3(g1, g2, N, M, False, ORB_B)
         if nm == "lam3_0":
             return separable_gpu(g1, g2, M)
         raise ValueError("unknown reconstruction %r; moment negation is excluded" % nm)

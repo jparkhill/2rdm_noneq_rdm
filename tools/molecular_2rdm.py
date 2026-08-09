@@ -107,7 +107,7 @@ def separable_gpu(g1, g2, M):
     return out
 
 
-NAMES = ("muller", "muller_raw", "lam3_0")
+NAMES = ("muller2405", "muller2405_raw", "lam3_0")
 _DRIVER_SYS = (("H 0 0 0; H 0 0 1.0; H 0 0 2.0; H 0 0 3.0", "sto-3g", 4, 0, 0, "H4 chain / sto-3g"),
        ("Li 0 0 0; H 0 0 1.6", "sto-3g", 4, 0, 0, "LiH / sto-3g"))
 
@@ -131,10 +131,10 @@ for atom, basis, N, chg, spin, label in (_DRIVER_SYS if __name__ == "__main__" e
     hg, Vg, Ig = gpu.up(h, dev), gpu.up(V, dev), gpu.up(np.eye(M), dev)
 
     def recon(nm, g1, g2):
-        if nm == "muller":
-            return gpu.muller_gamma3(g1, g2, N, M, True, ORB_B)
-        if nm == "muller_raw":
-            return gpu.muller_gamma3(g1, g2, N, M, False, ORB_B)
+        if nm == "muller2405":
+            return gpu.muller2405_gamma3(g1, g2, N, M, True, ORB_B)
+        if nm == "muller2405_raw":
+            return gpu.muller2405_gamma3(g1, g2, N, M, False, ORB_B)
         if nm == "lam3_0":
             return separable_gpu(g1, g2, M)
         raise ValueError("unknown reconstruction %r; moment negation is excluded" % nm)

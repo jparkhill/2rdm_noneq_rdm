@@ -67,11 +67,11 @@ print("=== agreement, 4-site Hubbard U/J=1, M=%d N=%d ===" % (M, N))
 hg, Vg, g1g, g2g = (gpu.up(x, dev) for x in (h, V, g1, g2))
 Ig = gpu.up(EYE, dev)
 for cc in (False, True):
-    a = muller.gamma3(g1, g2, N, contraction_correct=cc)
-    b = gpu.down(gpu.muller_gamma3(g1g, g2g, N, M, contraction_correct=cc, orbB=ORB_B))
+    a = muller2405.gamma3(g1, g2, N, contraction_correct=cc)
+    b = gpu.down(gpu.muller2405_gamma3(g1g, g2g, N, M, contraction_correct=cc, orbB=ORB_B))
     print("   muller gamma3 cc=%-5s |cpu-gpu| = %.3e   |value| = %.5f"
           % (cc, np.abs(a - b).max(), np.abs(a).max()))
-g3 = muller.gamma3(g1, g2, N)
+g3 = muller2405.gamma3(g1, g2, N)
 g3g = gpu.up(g3, dev)
 tn = {("D", 1): EYE, ("G", 1): g1, ("G", 2): g2, ("G", 3): g3}
 tg = {("D", 1): Ig, ("G", 1): g1g, ("G", 2): g2g, ("G", 3): g3g}
@@ -87,7 +87,7 @@ print("=== timing: 25 RK4 steps of gamma_2 with the Mueller closure ===")
 
 def rhs_np(x):
     gg1 = np.einsum("pxqx->pq", x) / (N - 1)
-    gg3 = muller.gamma3(gg1, x, N)
+    gg3 = muller2405.gamma3(gg1, x, N)
     return np_assemble(ONE2, TWO2, h, V,
                        {("D", 1): EYE, ("G", 1): gg1, ("G", 2): x, ("G", 3): gg3},
                        "pvqw", M)
@@ -95,7 +95,7 @@ def rhs_np(x):
 
 def rhs_gpu(x):
     gg1 = torch.einsum("pxqx->pq", x) / (N - 1)
-    gg3 = gpu.muller_gamma3(gg1, x, N, M, orbB=ORB_B)
+    gg3 = gpu.muller2405_gamma3(gg1, x, N, M, orbB=ORB_B)
     return gpu.assemble(ONE2, TWO2, hg, Vg,
                         {("D", 1): Ig, ("G", 1): gg1, ("G", 2): x, ("G", 3): gg3}, "pvqw")
 

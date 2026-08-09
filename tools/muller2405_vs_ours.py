@@ -8,7 +8,7 @@ PySCF, checked against FCI. Truth: exact wavefunction propagation.
 
 Reconstructions compared, all producing gamma_3 from gamma_1 and gamma_2:
 
-    muller      qdiss.muller.gamma3, closed-system limit of their Eq. 14 plus the Eq. 44/45
+    muller      qdiss.muller2405.gamma3, closed-system limit of their Eq. 14 plus the Eq. 44/45
                 contraction correction
     muller_raw  the same without the contraction correction, to isolate what the correction buys
     lam3_0      ours: gamma_3 = the separable part of the MKNO cumulant expansion, i.e. lambda_3 = 0
@@ -22,7 +22,7 @@ import numpy as np
 sys.path.insert(0, ".")
 sys.path.insert(0, "tools")
 from poles_real import build as build_so
-from qdiss import muller
+from qdiss import muller2405
 from qdiss.eom import fullci, wick
 from qdiss.symbolic import mkno
 
@@ -47,10 +47,10 @@ def separable(g1, g2, M):
 
 
 def recon(name, g1, g2, N, M):
-    if name == "muller":
-        return muller.gamma3(g1, g2, N, contraction_correct=True)
-    if name == "muller_raw":
-        return muller.gamma3(g1, g2, N, contraction_correct=False)
+    if name == "muller2405":
+        return muller2405.gamma3(g1, g2, N, contraction_correct=True)
+    if name == "muller2405_raw":
+        return muller2405.gamma3(g1, g2, N, contraction_correct=False)
     if name == "lam3_0":
         return separable(g1, g2, M)
     raise ValueError("unknown reconstruction %r; moment negation is excluded" % name)
@@ -58,7 +58,7 @@ def recon(name, g1, g2, N, M):
 
 # N >= 3 only: at N = 2 the 2-RDM is the whole state, the rank-2 EOM is exact, and the test is
 # vacuous. Moment negation (gamma_3 = 0) is excluded by the project ground rules.
-NAMES = ("muller", "muller_raw", "lam3_0")
+NAMES = ("muller2405", "muller2405_raw", "lam3_0")
 SYS = (("H 0 0 0; H 0 0 1.6; H 0 0 3.2", "sto-3g", 3, 0, 1, "H3 lin / sto-3g  (N=3)"),
        ("H 0 0 0; H 0 0 1.0; H 0 0 2.0; H 0 0 3.0", "sto-3g", 4, 0, 0, "H4 lin / sto-3g  (N=4)"))
 
