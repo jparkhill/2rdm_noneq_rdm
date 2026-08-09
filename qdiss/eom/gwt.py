@@ -22,8 +22,9 @@ from .evaluate import assemble
 
 METHOD = "MKNO generalized normal ordering / generalized Wick theorem"
 
-OPERATOR = {1: (("p",), ("q",)), 2: (("p", "v"), ("q", "w"))}
-OUT_SUBSCRIPT = {1: "pq", 2: "pvqw"}
+OPERATOR = {1: (("p",), ("q",)), 2: (("p", "v"), ("q", "w")),
+            3: (("p", "v", "x"), ("q", "w", "y"))}
+OUT_SUBSCRIPT = {1: "pq", 2: "pvqw", 3: "pvxqwy"}
 
 
 def _expect_product(a, b):

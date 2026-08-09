@@ -15,8 +15,9 @@ from .evaluate import assemble
 
 METHOD = "plain vacuum Wick, bare moments"
 
-OPERATOR = {1: (("p",), ("q",)), 2: (("p", "v"), ("q", "w"))}
-OUT_SUBSCRIPT = {1: "pq", 2: "pvqw"}
+OPERATOR = {1: (("p",), ("q",)), 2: (("p", "v"), ("q", "w")),
+            3: (("p", "v", "x"), ("q", "w", "y"))}
+OUT_SUBSCRIPT = {1: "pq", 2: "pvqw", 3: "pvxqwy"}
 
 
 def _bare_product(u1, l1, u2, l2):
