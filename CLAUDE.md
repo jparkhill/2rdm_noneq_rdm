@@ -1,5 +1,10 @@
 # Standing requirements for the 2-RDM / cumulant-hierarchy work
 
+**Read `docs/STATE-<latest date>.md` first** -- currently `docs/STATE-2026-08-09.md`. It records
+what is established, what has been superseded, and the next experiment with its known defects.
+Several committed results are special cases later shown to be non-general; the state document says
+which, and reading commit messages alone will mislead.
+
 These are program invariants, not preferences. Check work against them before reporting.
 John edits this file to steer; if something here conflicts with an instinct, this file wins.
 
