@@ -36,6 +36,11 @@ than reasoning narrowly about `lambda_2` and generalising by assertion.
   like `Tr_1`. No bare letter standing for a group of terms without the next line expanding it.
 - **Never infer the objective.** The metrics that matter: pole positions vs FCI and their errors;
   trace errors in the 1- and 2-RDM; positivity errors in the 1- and 2-RDM. Ask if unclear.
+- **Perturb the wavefunction, never the RDM.** To probe a spectrum, apply a dipole operator to
+  the state and compute the reduced density matrices from the result. Adding a kick directly to
+  `gamma_2` produces a starting point that is not N-representable, and since the exact `gamma_2`
+  of a pure state can sit exactly on the PSD boundary, the kick alone then dominates every
+  positivity and trace metric.
 - **Always include a mixed-state row.** Ground-state-only benchmarks are the hardest case for
   positivity and the least representative. Read positivity against the exact clearance
   (smallest eigenvalue of the exact matrix) at that state, not against zero.
