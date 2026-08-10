@@ -1,0 +1,68 @@
+=== H3 bent   M=6 N=3   sector 20   E_FCI -1.421382951 ===
+
+  --- state: pure ground   occupations [0.0108 .. 0.9892] ---
+    rank 2   |lambda_2| = 0.53412   trace-identity captures 0.6% of its norm^2
+    ansatz                 trace res   rel err   gam err  |lambda_k|
+    null                    3.31e-02    1.0000    0.1578     0.00000
+    scaled                  3.00e-02    1.0175    0.1605     0.07235
+    trace                   1.39e-17    0.9970    0.1573     0.04137
+    muller_rdmft            2.80e-01    1.3174    0.2078     0.38158
+    scaled+trace            3.47e-18    1.0122    0.1597     0.05601
+    muller_rdmft+trace      6.94e-17    1.1259    0.1776     0.20004
+    rank 3   |lambda_3| = 0.34139   trace-identity captures 37.5% of its norm^2
+    ansatz                 trace res   rel err   gam err  |lambda_k|
+    null                    3.53e-02    1.0000    0.0569     0.00000
+    scaled                  7.69e-02    3.2414    0.1844     1.11290
+    trace                   1.39e-17    0.7904    0.0450     0.20914
+    scaled+trace            2.16e-15    2.2542    0.1283     0.81415
+
+  --- state: thermal kT=0.5 (S=2.67)   occupations [0.3643 .. 0.7169] ---
+    rank 2   |lambda_2| = 0.42373   trace-identity captures 69.2% of its norm^2
+    ansatz                 trace res   rel err   gam err  |lambda_k|
+    null                    2.43e-01    1.0000    0.2423     0.00000
+    scaled                  9.72e-02    0.6892    0.1670     0.37578
+    trace                   1.11e-16    0.5547    0.1344     0.35256
+    muller_rdmft            8.50e-01    3.0863    0.7478     0.93590
+    scaled+trace            5.55e-17    0.5581    0.1352     0.35391
+    muller_rdmft+trace      5.55e-16    0.5627    0.1363     0.35539
+    rank 3   |lambda_3| = 0.20892   trace-identity captures 93.4% of its norm^2
+    ansatz                 trace res   rel err   gam err  |lambda_k|
+    null                    3.41e-02    1.0000    0.1194     0.00000
+    scaled                  9.23e-02    2.4770    0.2958     0.61000
+    trace                   1.39e-17    0.2561    0.0306     0.20195
+    scaled+trace            8.40e-16    0.6632    0.0792     0.21917
+
+=== H4 trapezoid   M=8 N=4   sector 70   E_FCI -1.943432669 ===
+
+  --- state: pure ground   occupations [0.0104 .. 0.9881] ---
+    rank 2   |lambda_2| = 0.61488   trace-identity captures 0.5% of its norm^2
+    ansatz                 trace res   rel err   gam err  |lambda_k|
+    null                    3.39e-02    1.0000    0.1293     0.00000
+    scaled                  3.19e-02    1.0116    0.1308     0.06803
+    trace                   8.67e-18    0.9977    0.1290     0.04213
+    muller_rdmft            3.71e-01    1.3785    0.1783     0.50385
+    scaled+trace            2.26e-17    1.0078    0.1304     0.05456
+    muller_rdmft+trace      1.42e-16    1.1527    0.1491     0.27077
+    rank 3   |lambda_3| = 0.40262   trace-identity captures 32.8% of its norm^2
+    ansatz                 trace res   rel err   gam err  |lambda_k|
+    null                    5.02e-02    1.0000    0.0343     0.00000
+    scaled                  1.74e-01    3.9372    0.1351     1.59032
+    trace                   3.47e-17    0.8196    0.0281     0.23066
+    scaled+trace            4.69e-15    2.7321    0.0938     1.13817
+
+  --- state: thermal kT=0.5 (S=3.28)   occupations [0.1491 .. 0.8086] ---
+    rank 2   |lambda_2| = 0.38462   trace-identity captures 67.2% of its norm^2
+    ansatz                 trace res   rel err   gam err  |lambda_k|
+    null                    2.47e-01    1.0000    0.1336     0.00000
+    scaled                  1.39e-01    0.7888    0.1054     0.35476
+    trace                   8.33e-17    0.5727    0.0765     0.31529
+    muller_rdmft            1.05e+00    3.8501    0.5145     1.16036
+    scaled+trace            1.11e-16    0.6114    0.0817     0.32147
+    muller_rdmft+trace      6.38e-16    0.6741    0.0901     0.33486
+    rank 3   |lambda_3| = 0.19299   trace-identity captures 84.7% of its norm^2
+    ansatz                 trace res   rel err   gam err  |lambda_k|
+    null                    2.32e-02    1.0000    0.0394     0.00000
+    scaled                  1.86e-01    4.2660    0.1680     0.87490
+    trace                   2.08e-17    0.3911    0.0154     0.17762
+    scaled+trace            3.61e-16    1.5846    0.0624     0.31192
+

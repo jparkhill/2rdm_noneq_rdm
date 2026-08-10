@@ -1,0 +1,25 @@
+SCREEN 2  extensivity of the minimum-norm partial-trace reconstruction ('trace' level)
+          fragment H3 bent / sto-3g, MA = 6, embedded in M spin orbitals by zero padding
+          the exact lambda_k is the padded lambda_k, so leak and drift must both be 0
+
+    rank      M |     |within|  leak/within | drift/within  |exact blk|
+    2         6 |     0.009845    0.000e+00 |    0.000e+00     0.127481
+    2         8 |     0.007840    4.072e-01 |    2.036e-01     0.127481
+    2        10 |     0.006412    3.555e-01 |    3.487e-01     0.127481
+    2        12 |     0.005401    3.879e-01 |    4.514e-01     0.127481
+
+    3         6 |     0.011864    0.000e+00 |    0.000e+00     0.017635
+    3         8 |     0.009153    4.373e-01 |    4.019e-01     0.017635
+    3        10 |     0.007262    4.943e-01 |    5.732e-01     0.017635
+    3        12 |     0.005929    5.187e-01 |    6.682e-01     0.017635
+
+SCREEN 1  Lipschitz constant of each reconstruction, max over 120 directions at step 1e-4
+
+  --- pure ground (near boundary)   occupations [0.0108 .. 0.9892] ---
+    rank 2  null 0   scaled 2.55   trace 0.848   muller_rdmft 3.26   scaled+trace 1.49   muller_rdmft+trace 1.48
+    rank 3  null 0   scaled 5.77   trace 1.07   scaled+trace 3.62
+
+  --- thermal kT=0.5 (interior)   occupations [0.3643 .. 0.7169] ---
+    rank 2  null 0   scaled 1.33   trace 0.309   muller_rdmft 0.205   scaled+trace 0.331   muller_rdmft+trace 0.334
+    rank 3  null 0   scaled 1.79   trace 0.436   scaled+trace 1.16
+

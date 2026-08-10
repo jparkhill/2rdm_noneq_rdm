@@ -1,0 +1,22 @@
+=== H3 bent   M=6 N=3   E -1.421382951 ===
+    k    object           roundtrip   trace res     |lam_k|   |minnorm|      orthog
+    2    lambda_2 exact    0.00e+00    1.75e-15     0.53412     0.04137    2.14e-15
+         min_norm_trace                1.39e-17
+                        antisym 0.00e+00   herm 0.00e+00
+         closures Corr(S)                3.47e-18                 0.04137  gap +0.000%
+    3    lambda_3 exact    1.11e-16    1.65e-15     0.34139     0.20914    1.08e-14
+         min_norm_trace                1.39e-17
+                        antisym 0.00e+00   herm 4.34e-19
+         gpu.trace_inverse                7.81e-18                 0.20914  gap +0.000%
+
+=== H4 trapezoid   M=8 N=4   E -1.943432669 ===
+    k    object           roundtrip   trace res     |lam_k|   |minnorm|      orthog
+    2    lambda_2 exact    0.00e+00    3.29e-15     0.61488     0.04213    3.40e-15
+         min_norm_trace                6.94e-18
+                        antisym 0.00e+00   herm 0.00e+00
+         closures Corr(S)                6.94e-18                 0.04213  gap +0.000%
+    3    lambda_3 exact    2.22e-16    3.35e-15     0.40262     0.23066    1.21e-14
+         min_norm_trace                4.16e-17
+                        antisym 0.00e+00   herm 8.67e-19
+         gpu.trace_inverse                1.39e-17                 0.23066  gap +0.000%
+

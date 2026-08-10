@@ -1,0 +1,24 @@
+=== H3 bent / sto-3g   M=6 N=3   E_FCI -1.421382951 ===
+    MKNO group sizes: S3 6 terms, S12 9 terms, L3 1 terms
+    identity check |L3group(lam3) - lam3| = 0.00e+00
+    |gamma_3|_max 0.9404   |S3|_max 0.9057   |S12|_max 0.1256   |lambda_3|_max 0.0176
+
+    least squares  gamma_3[recon] ~ a*S3 + b*S12 + c*lambda_3[exact]
+    reconstruction           a         b         c | resid/|g3| |g3rec-g3|
+    exact              1.00000   1.00000   1.00000 |   1.18e-16   0.00e+00
+    muller2405         0.98214   0.68062   0.49353 |   4.13e-02   3.93e-02
+    muller2405_raw     0.92883   0.39807   0.00000 |   1.18e-16   8.56e-02
+    lam3_0             1.00000   1.00000   0.00000 |   2.36e-16   1.76e-02
+
+=== H4 asymmetric trapezoid / sto-3g   M=8 N=4   E_FCI -1.943432669 ===
+    MKNO group sizes: S3 6 terms, S12 9 terms, L3 1 terms
+    identity check |L3group(lam3) - lam3| = 0.00e+00
+    |gamma_3|_max 0.9546   |S3|_max 0.9434   |S12|_max 0.1501   |lambda_3|_max 0.0216
+
+    least squares  gamma_3[recon] ~ a*S3 + b*S12 + c*lambda_3[exact]
+    reconstruction           a         b         c | resid/|g3| |g3rec-g3|
+    exact              1.00000   1.00000   1.00000 |   1.16e-16   0.00e+00
+    muller2405         0.99172   0.71219   0.48040 |   4.56e-02   4.37e-02
+    muller2405_raw     0.96445   0.42864   0.00000 |   3.49e-16   8.71e-02
+    lam3_0             1.00000   1.00000   0.00000 |   1.16e-16   2.16e-02
+
