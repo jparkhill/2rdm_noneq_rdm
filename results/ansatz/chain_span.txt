@@ -1,0 +1,16 @@
+connected-span lambda_3 closure vs baselines.  err = |lambda_3^rec - lambda_3|_F / |lambda_3|_F
+the connected span is EXTENSIVE (leak exactly 0) and Lipschitz; null is too; the other
+two baselines are neither.
+
+system         state    | oracle closur     cond |    null   trace  Mue+La
+H3 bent        pure     | 0.0288 0.1251  9.2e+01 |  1.0000  0.7904  2.2542
+H3 bent        kT=0.5   | 0.0755 0.0762  5.4e+01 |  1.0000  0.2561  0.6632
+H3 bent        kT=0.1   | 0.5489 0.5870  1.8e+01 |  1.0000  0.2067  1.4373
+H4 trapezoid   pure     | 0.0803 0.0805  4.7e+01 |  1.0000  0.8196  2.7321
+H4 trapezoid   kT=0.5   | 0.2472 0.2541  4.3e+01 |  1.0000  0.3911  1.5846
+H4 trapezoid   kT=0.1   | 0.5113 0.5364  9.2e+00 |  1.0000  0.7956  4.7644
+H4 linear      pure     | 0.1196 0.1222  5.0e+01 |  1.0000  0.8350  2.4307
+H4 linear      kT=0.5   | 0.1982 0.2094  3.6e+01 |  1.0000  0.4164  1.4162
+H4 linear      kT=0.1   | 0.6133 0.7489  1.9e+01 |  1.0000  0.8327  4.1855
+LiH            pure     | 0.0693 0.0695  2.0e+02 |  1.0000  0.8730  3.7304
+note: LiH thermal rows not computed -- rank-3 RDMs over ~500 sector states at M=12 is too slow

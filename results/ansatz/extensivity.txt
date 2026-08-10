@@ -1,0 +1,24 @@
+composite = H3 bent (M=6,N=3) x H2/0.9A (M=4,N=2)  ->  M=10 N=5
+  E_A -1.421382951   E_B -1.120560281   norm of product state 1.000000000000
+
+CONTROL: the exact composite cumulants must be block additive
+  rank 2  |A block| 0.127481   cross-fragment 4.44e-16   |A block - fragment alone| 2.22e-16
+  rank 3  |A block| 0.017635   cross-fragment 5.55e-16   |A block - fragment alone| 1.11e-16
+  gamma_1 block additive: |A block - fragment alone| 2.22e-16   cross 0.00e+00
+
+SCREEN 2 for every ansatz.  leak and drift must both be exactly 0.
+  rank ansatz                  |A block|         leak        drift
+  2    null                     0.000000    0.000e+00    0.000e+00
+  2    scaled                   0.010327    1.013e+00    5.011e-01
+  2    trace                    0.005212    7.253e-01    4.706e-01
+  2    muller_rdmft             0.074670    9.862e-01    3.043e-15
+  2    scaled+trace             0.006120    1.049e+00    4.939e-01
+  2    muller_rdmft+trace       0.033847    1.112e+00    1.974e-01
+  2    exact (control)          0.127481    3.484e-15    1.742e-15
+
+  3    null                     0.000000    0.000e+00    0.000e+00
+  3    scaled                   0.069907    1.147e+00    5.269e-01
+  3    trace                    0.007262    8.836e-01    5.732e-01
+  3    scaled+trace             0.034429    1.144e+00    4.039e-01
+  3    exact (control)          0.017635    3.148e-14    6.295e-15
+

@@ -1,0 +1,37 @@
+1. EXTENSIVITY of every connected structure, on H3 + H2 non-interacting, M=10 N=5
+   the exact lambda_3 has leak 0.00e+00; every connected structure must match that
+   structure                   |inside|   leak/inside
+   chain_bare                 2.505e-03     0.000e+00
+   anti(E).chain_bare         2.394e-03     0.000e+00
+   chainT_bare                2.505e-03     0.000e+00
+   anti(E).chainT_bare        2.394e-03     0.000e+00
+   chain_g1                   2.251e-03     0.000e+00
+   anti(E).chain_g1           2.151e-03     0.000e+00
+   chainT_g1                  2.251e-03     0.000e+00
+   anti(E).chainT_g1          2.151e-03     0.000e+00
+   chain_eta                  2.251e-03     0.000e+00
+   anti(E).chain_eta          2.151e-03     0.000e+00
+   chainT_eta                 2.251e-03     0.000e+00
+   anti(E).chainT_eta         2.151e-03     0.000e+00
+   (min-norm trace inv)       7.262e-03     8.836e-01
+
+2/3. REACH of the connected span, coefficient universality, and the parameter-free closure
+
+   Two fits are reported and they are NOT the same thing:
+     ORACLE   coefficients least-squares fitted to lambda_3^exact. This is an UPPER BOUND
+              on what the span can reach, not a closure -- it has seen the answer.
+     CLOSURE  coefficients determined ONLY by requiring Tr_3 lambda_3 = anti(E, lambda_2),
+              which never looks at lambda_3. This IS a closure, with no free parameters.
+   If the ORACLE coefficients agree across systems and states, the span is universal; if
+   they do not, the small oracle error is a fitting artifact and means nothing.
+
+   independent structure subset (chosen once, by QR pivoting on H4): chain_bare, anti(E).chain_bare, chain_eta, anti(E).chainT_eta
+
+   system                 | chain_bar  anti(E).c  chain_eta  anti(E).c |    oracle       err |   closure       err
+   H3 bent (pure)         |  +10.5542    +0.0234   -21.1083    +0.0000 |              0.0288 |              0.1251
+     closure coeffs       |   +4.5293    -5.0623    -9.0586    -0.0000 | trace res oracle 1.10e-03  closure 7.12e-05   target |S| 3.53e-02
+   H4 trapezoid (pure)    |  +10.3388    -0.2737   -20.6606    -0.0519 |              0.0803 |              0.0805
+     closure coeffs       |  +10.3317    -0.3162   -20.6281    -0.0889 | trace res oracle 1.13e-03  closure 8.40e-04   target |S| 5.02e-02
+
+   reference errors on the same states, from tools/ansatz_hierarchy.py:
+     null (lambda_3 = 0) 1.0000    min-norm trace 0.79-0.82    Mueller+Lackner 2.25-2.73

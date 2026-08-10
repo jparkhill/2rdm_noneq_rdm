@@ -1,0 +1,12 @@
+CHAIN_E = A3[ lambda_2 . E . lambda_2 ], Hermitised.  Connected, so leak is exactly zero.
+oracle  c fitted to lambda_3^exact (upper bound, not a closure)
+closure c fitted to Tr_3 = anti(E, lambda_2) only (no free parameters)
+
+system             state         M |   c orac      err |   c clos      err | trace res    |lam3|
+H3 bent            pure          6 |   21.054   0.0288 |   21.144   0.0292 |  1.10e-03   0.34139
+H3 bent            kT=0.5        6 |  -60.796   0.2002 |  -56.595   0.2113 |  6.78e-03   0.20892
+H4 trapezoid       pure          8 |   21.386   0.0806 |   21.535   0.0809 |  9.48e-04   0.40262
+H4 trapezoid       kT=0.5        8 |  -73.563   0.3567 |  -69.763   0.3599 |  9.38e-03   0.19299
+H4 linear chain    pure          8 |   23.013   0.1204 |   23.297   0.1211 |  2.33e-03   0.54570
+H4 linear chain    kT=0.5        8 |  -62.876   0.2520 |  -59.764   0.2565 |  6.26e-03   0.19901
+LiH                pure         12 |   20.562   0.0696 |   20.547   0.0696 |  2.38e-04   0.24948

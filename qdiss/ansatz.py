@@ -129,11 +129,28 @@ _GRAM_CACHE = {}
 
 
 def _trace_gram(M, k):
+    """(T, pseudo-inverse of T T^dag).
+
+    T T^dag is SINGULAR when the k-tuple space is too small to reach every (k-1)-tuple target:
+    at k = 3, M = 4 the map runs from C(4,3)^2 = 16 coordinates onto a C(4,2)^2 = 36 dimensional
+    space, so most targets are unreachable and no exact partial-trace inverse exists. This is the
+    same degeneracy as the (M-4) denominator in Lackner Eq. 43, which is exactly zero at M = 4.
+    A pseudo-inverse is used, so min_norm_trace returns the least-squares solution; the caller
+    must check trace_residual rather than assume the constraint was met.
+    """
     if (M, k) not in _GRAM_CACHE:
         T = _TM_CACHE.setdefault((M, k), trace_map(M, k))
         G = (T @ T.T).toarray()
-        _GRAM_CACHE[(M, k)] = (T, np.linalg.inv(G))
+        _GRAM_CACHE[(M, k)] = (T, np.linalg.pinv(G, rcond=1e-10, hermitian=True))
     return _GRAM_CACHE[(M, k)]
+
+
+def trace_rank_deficiency(M, k):
+    """(dim of the (k-1)-tuple target space, rank of Tr_k). Equal means every target reachable."""
+    T = _TM_CACHE.setdefault((M, k), trace_map(M, k))
+    G = (T @ T.T).toarray()
+    ev = np.linalg.eigvalsh(G)
+    return G.shape[0], int((ev > 1e-10 * max(ev.max(), 1.0)).sum())
 
 
 def min_norm_trace(S, M, k):
@@ -196,6 +213,54 @@ def anti(E, X, k):
         s = list(u + l)
         s[k - 1 + i] = "Z"
         out += np.einsum("%s,Z%s->%s" % ("".join(s), l[i], tgt), X, E)
+    return out
+
+
+_P3 = [(p, (-1) ** sum(1 for i in range(3) for j in range(i + 1, 3) if p[i] > p[j]))
+       for p in itertools.permutations(range(3))]
+
+
+def antisym3(T):
+    """Full antisymmetriser over three upper and three lower indices: 36 signed terms over 36."""
+    out = np.zeros_like(T)
+    for pu, su in _P3:
+        for pl, sl in _P3:
+            out += (su * sl) * T.transpose(tuple(pu) + tuple(3 + i for i in pl))
+    return out / 36.0
+
+
+def anti3(E, X):
+    """E contracted into each of the six slots of a rank-3 tensor, summed."""
+    out = np.einsum("pr,rvxqwy->pvxqwy", E, X)
+    out += np.einsum("vr,prxqwy->pvxqwy", E, X)
+    out += np.einsum("xr,pvrqwy->pvxqwy", E, X)
+    out += np.einsum("pvxrwy,rq->pvxqwy", X, E)
+    out += np.einsum("pvxqry,rw->pvxqwy", X, E)
+    out += np.einsum("pvxqwr,ry->pvxqwy", X, E)
+    return out
+
+
+def connected_basis(g1, l2, M):
+    """Connected rank-3 structures: single contractions of two 2-cumulants.
+
+    Each term joins the two lambda_2 factors through ONE summed index, optionally passing through
+    gamma_1 or eta_1 = I - gamma_1, and is then antisymmetrised and pair-Hermitised; the anti(E)
+    dressings contract E = gamma_1 - I/2 into the free slots. Because the two factors share an
+    index, block-diagonality of lambda_2 forces all six external indices into one fragment, so
+    every member has EXACTLY zero cross-fragment leak -- the extensivity that no wedge-based
+    construction can have. Generated redundantly; the true span is 4-dimensional.
+    """
+    I = np.eye(M, dtype=complex)
+    E = g1 - 0.5 * I
+    out = []
+    for nm, D in (("bare", I), ("g1", g1), ("eta", I - g1)):
+        for tag, sub in (("chain", "pvqr,rs,sxwy->pvxqwy"), ("chainT", "prqw,rs,vxsy->pvxqwy")):
+            X = antisym3(np.einsum(sub, l2, D, l2, optimize=True))
+            X = 0.5 * (X + np.conj(X.transpose(3, 4, 5, 0, 1, 2)))
+            out.append(("%s_%s" % (tag, nm), X))
+            Y = anti3(E, X)
+            out.append(("anti(E).%s_%s" % (tag, nm),
+                        0.5 * (Y + np.conj(Y.transpose(3, 4, 5, 0, 1, 2)))))
     return out
 
 

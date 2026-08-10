@@ -1,0 +1,44 @@
+composite H3 bent (M=6,N=3) + H2/0.9A (M=4,N=2)  ->  M=10 N=5, non-interacting
+
+Q0  is the partial trace map Tr_k even surjective?  if not, no exact trace inverse exists
+    rank     M     target dim     rank surjective
+    2        4             16       16        yes
+    2        6             36       36        yes
+    2        8             64       64        yes
+    2       10            100      100        yes
+    2       12            144      144        yes
+    3        4             36       16         NO
+    3        6            225      225        yes
+    3        8            784      784        yes
+    3       10           2025     2025        yes
+    3       12           4356     4356        yes
+
+Q1  is the trace projector P extensive?  P lambda = min_norm_trace(Tr_k lambda)
+    rank object                    |inside|        leak    captured
+    2    lambda_k exact            0.146996   0.000e+00          --
+    2    P lambda_k  (global)      0.005212   7.253e-01        0.3%
+    2    P lambda_k  (blockwise)    0.009845   0.000e+00        0.6%
+    3    lambda_k exact            0.020653   0.000e+00          --
+    3    P lambda_k  (global)      0.007262   8.836e-01       22.0%
+    3    P lambda_k  (blockwise)    0.020653   0.000e+00       59.1%
+
+Q2  two solutions of the SAME constraint Tr_k lambda_k = S, one extensive one not
+    rank solution                   rel err        leak   trace res
+    2    global min-norm             0.9986   7.253e-01    2.78e-17
+    2    blockwise min-norm          0.9968   0.000e+00    2.08e-17
+    2    null (lambda_k = 0)         1.0000   0.000e+00    3.31e-02
+    3    global min-norm             0.8829   8.836e-01    1.39e-16
+    3    blockwise min-norm          0.6396   0.000e+00    1.11e-16
+    3    null (lambda_k = 0)         1.0000   0.000e+00    4.13e-02
+
+Q3  n non-interacting copies of H3 bent: within-block magnitude vs n
+    exact is independent of n by clause 2; global min-norm spreads over n times the slots
+    rank   n     M |   exact |blk|  global |blk| ratio glob/ex
+    2      1     6 |      0.127481      0.009845        0.0772
+    2      2    12 |      0.127481      0.004182        0.0328
+    2      3    18 |      0.127481      0.002658        0.0209
+    2      4    24 |      0.127481      0.001949        0.0153
+
+    3      1     6 |      0.017635      0.011864        0.6727
+    3      2    12 |      0.017635      0.005929        0.3362
+
