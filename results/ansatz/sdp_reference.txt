@@ -1,0 +1,2 @@
+=== H4 trapezoid  M=8 N=4 | E_HF -1.889507  E_FCI -1.943433  E_corr -0.053926 ===
+    feasibility of the EXACT gamma_2: |A x_ex - b| = 8.88e-16,  E = -1.943432669 (dev 3.11e-15)

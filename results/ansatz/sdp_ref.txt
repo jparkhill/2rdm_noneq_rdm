@@ -1,0 +1,6 @@
+=== H4 trapezoid  M=8 N=4 | E_HF -1.889507  E_FCI -1.943433  E_corr -0.053926 ===
+    feasibility of the EXACT gamma_2: |A x_ex - b| = 4.44e-16,  E = -1.943432669 (dev 2.66e-15)
+    ADMM: 4078 iters, primal res 7.62e-11, dual res 9.98e-10, min eig Mat_2 -4.18e-16, |contraction res| 3.52e-11
+    E(D + contraction SDP) = -2.540306273    E_SDP - E_FCI = -0.596874    = 1207% of E_corr
+    -> any ladder, at any chi', is bounded below by this number.
+
