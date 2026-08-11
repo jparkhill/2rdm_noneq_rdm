@@ -1,0 +1,21 @@
+=== H3 bent   k=2   M=6 N=3   (N-k)-sector dim 6, (N-k-1) dim 1 ===
+    1. |X - R_c^dag R_c|                  = 2.220e-15   (|X| = 0.85399)
+    2. |Mat_3 - G-transfer expression|    = 2.286e-15   (|Mat_3| = 1.36168)
+    3. min eig G (as 36 x 36 Gram)         = -1.620e-15
+    4. |sum_x G_xx - (N-k) I_r|           = 6.661e-16   (N-k = 1)
+    5. sizes: r = rank(Mat_2) = 6 of 15,  G is 36 x 36,  C(M,k) = 15
+
+=== H4 trap   k=2   M=8 N=4   (N-k)-sector dim 28, (N-k-1) dim 8 ===
+    1. |X - R_c^dag R_c|                  = 9.998e-16   (|X| = 0.64531)
+    2. |Mat_3 - G-transfer expression|    = 1.578e-15   (|Mat_3| = 0.89503)
+    3. min eig G (as 224 x 224 Gram)         = -8.852e-15
+    4. |sum_x G_xx - (N-k) I_r|           = 2.442e-15   (N-k = 2)
+    5. sizes: r = rank(Mat_2) = 28 of 28,  G is 224 x 224,  C(M,k) = 28
+
+=== H3 bent   k=1   M=6 N=3   (N-k)-sector dim 15, (N-k-1) dim 6 ===
+    1. |X - R_c^dag R_c|                  = 6.661e-16   (|X| = 0.66557)
+    2. |Mat_2 - G-transfer expression|    = 8.882e-16   (|Mat_2| = 0.85399)
+    3. min eig G (as 36 x 36 Gram)         = -1.424e-15
+    4. |sum_x G_xx - (N-k) I_r|           = 1.776e-15   (N-k = 2)
+    5. sizes: r = rank(Mat_1) = 6 of 6,  G is 36 x 36,  C(M,k) = 6
+
