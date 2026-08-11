@@ -1,0 +1,13 @@
+=== H3 bent  M=6 N=3   tower dims [1, 6, 6, 1] ===
+    level k        |RHS|   |residual|        ratio   verdict
+    0           0.75943      0.58039       0.7642   FAILS
+    1           2.96127      1.22290       0.4130   marginal
+    2           3.19226      0.00000       0.0000   usable
+
+=== H4 trapezoid  M=8 N=4   tower dims [1, 8, 28, 8, 1] ===
+    level k        |RHS|   |residual|        ratio   verdict
+    0           1.12355      0.92925       0.8271   FAILS
+    1           4.20522      3.78650       0.9004   FAILS
+    2           9.51375      0.00000       0.0000   usable
+    3           4.89382      0.00000       0.0000   usable
+
