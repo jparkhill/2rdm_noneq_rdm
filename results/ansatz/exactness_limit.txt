@@ -1,0 +1,35 @@
+=== exactness limit: H3 bent / sto-3g, M=6 N=3, rank k = 3 = N ===
+    E_FCI -1.421382951
+
+1. gamma_{N+1} must vanish identically
+   max |gamma_4| = 0.000e+00   (|gamma_3| = 0.18240 for scale)
+
+2. the rank-N equation of motion closes with gamma_{N+1} = 0
+   rank-3 wick term list uses tensors: D_1, G_3, G_4
+   |wick(gamma_4 = 0) - fullci d/dt gamma_3| = 2.247e-16   (|d/dt gamma_3| = 0.18809)
+   |wick(gamma_4 = exact) - fullci|          = 2.247e-16   (identical, since gamma_4 = 0)
+
+3. the exact lambda_3 satisfies the single-trace identity
+   |Tr_3 lambda_3 - anti(E, lambda_2)| = 2.637e-16   (|anti(E,lambda_2)| = 0.03299)
+
+4. the exact lambda_3 is extensive (checked in tools/ansatz_extensivity.py at 8.9e-16)
+
+5. POSITIVE GENERATOR of the exact rank-N flow, on Mat_3 (dimension 20)
+   dropped 12 of 24 two-body terms carrying gamma_4; cross-check against the full
+   assembler on the exact state: |flow3(gamma_3) - fullci| = 2.247e-16
+   Hermiticity preserving : |L[X] - L[X]^dag| = 1.565e-15
+   trace annihilating     : |tr L[X]|         = 6.280e-16
+   Kossakowski spectrum   : min -1.103e-15   max 1.103e-15   (|Choi|_max 1.347e+00)
+   -> the exact rank-N generator is the von Neumann commutator, so this must be zero;
+      any nonzero value here is a bug in the machinery, not physics.
+
+6. rank 2, where a closure is required. Kossakowski spectrum of the linearised flow.
+   generator              min eig       max eig    |Choi|_max
+   drift only          -1.494e-15     1.494e-15     1.386e+00
+   null                -7.698e-01     7.420e-01     1.354e+00
+   trace               -7.029e-01     7.016e-01     1.346e+00
+   scaled              -1.784e-01     1.742e-01     1.378e+00
+   scaled+trace        -5.857e-01     5.851e-01     1.346e+00
+
+   Read these against the drift row, not against zero: the exact CLOSED flow is tangent
+   at the PSD boundary, not inward, so it is not CP-divisible with a nonzero gain part.

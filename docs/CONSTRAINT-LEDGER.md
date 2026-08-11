@@ -19,10 +19,80 @@ over three upper and three lower indices.
 | polynomiality in `lambda_2` | modelling choice | permits order-by-order matching |
 | **trace identity** | physical | the dressing, forcing `a_r^{-1}` |
 | **Lipschitz** | physical | NOT violated; `D`/`Q` Cauchy-Schwarz cancels the pole to `O(1)`. Continuity open |
+| **exactness at k >= N** | physical | `gamma_{k+1} == 0` when `k >= N`, so `lambda_{k+1} = -separable`. `null` fails this maximally |
 | perturbative limit | **desideratum** | recovery of known limits. Perturbation theories are approximations, not physical conditions |
 | N-representability of the manifold | **global qualifier** | every screen is evaluated here, never on free tensors |
-| positive generator | physical | not yet analysed; its job is to fix the regularisation |
+| complete positivity (GKSL) | **rejected as a design condition** | sufficient for positivity but far too strong; see below |
+| Nagumo tangency | physical | exact, but only bites on the PSD boundary, which is measure zero for mixed states |
+| clearance erosion rate | physical | the operative stability condition for mixed states |
 | convergence `\|lam_{k+1}\|/\|lam_k\| -> 0` | physical | never measured; a bath is the only mechanism on the table |
+
+## Exactness at k >= N, and why it is not in tension with extensivity
+
+For an N-electron state `gamma_{N+1} == 0` identically, since `N+1` annihilation operators kill it.
+So at `k = N` the `4k` terms vanish, the rank-N equation of motion closes with no approximation,
+and it must reproduce the von Neumann equation. Verified in `tools/exactness_limit.py`: H3 bent,
+M = 6, N = 3, at a NON-STATIONARY state (the ground state gives `d/dt gamma_3 = 0` and the test
+would be vacuous), the rank-3 wick term list with `("G",4)` set to zero reproduces
+`fullci.rdm_dot` at 2.2e-16 against `|d/dt gamma_3| = 0.188`.
+
+In cumulant language the condition reads `lambda_{k+1} = -separable(gamma_1, ..., lambda_k)` for
+`k >= N`, which is NOT zero. So `null` violates it maximally, and Mueller's `(N-2)` prefactor
+exists precisely to satisfy it at rank 3, `N = 2`.
+
+There is no conflict with extensivity, though there appears to be one. A global `N`-dependent
+prefactor is non-extensive; but the condition itself is about each fragment's own `N_f`, and
+`lambda^{AB} = lambda^A (+) lambda^B` handles that automatically. Two 2-electron fragments have
+`gamma_3^f = 0` each, while the composite has `gamma_3^{AB} != 0` entirely through the separable
+part. So the condition is extensive; only its implementation as a global moment-level prefactor
+is not. That is exactly why Mueller fails screen 2 while the condition it encodes is sound.
+
+## Why complete positivity is the wrong design condition
+
+The positive-generator test used is conditional complete positivity: a generator `L` is GKSL iff
+it is Hermiticity-preserving, trace-annihilating, and `Q Choi(L) Q >= 0` with
+`Choi(L) = sum_ij |i><j| (x) L[|i><j|]` and `Q = 1 - |Omega><Omega|`,
+`|Omega> = n^{-1/2} sum_i |i>|i>`. The eigenvalues of `Q Choi(L) Q` are the Kossakowski spectrum.
+
+Machinery validation, H3 bent, `Mat_3` of dimension `C(6,3) = 20`: the exact rank-N generator is
+the von Neumann commutator, and its Kossakowski spectrum comes out `+-1.1e-15` against a Choi norm
+of 1.347. The rank-2 Lyapunov drift alone gives `+-1.5e-15`, confirming in CP language that all
+positivity risk is in the `4k` terms.
+
+Kossakowski spectra of the linearised rank-2 flow under each closure, same system and state:
+
+    generator          min eig      max eig    |Choi|_max
+    drift only      -1.494e-15    1.494e-15     1.386
+    null            -7.698e-01    7.420e-01     1.354
+    trace           -7.029e-01    7.016e-01     1.346
+    scaled          -1.784e-01    1.742e-01     1.378
+    scaled+trace    -5.857e-01    5.851e-01     1.346
+
+Every spectrum is essentially symmetric, `|min| ~ |max|`, so the Kossakowski matrix is nearly
+traceless: these generators are oscillatory non-Markovian corrections, not net-dissipative ones.
+That is what reversibility requires. No closure is remotely CP, and this is NOT a defect, because:
+
+1. At `k < N` the exact reduced flow is not autonomous -- `gamma_{k+1}` is independent data, not a
+   function of `gamma_k` -- so there is no exact generator, and asking whether it is CP-divisible
+   is a category error. CP cannot be validated against the exact answer at `k < N`.
+2. Closed-system reduced dynamics is tangent at the PSD boundary, never inward, so a nonzero CP
+   gain part is forbidden for a closed system. Imposing GKSL forces either a zero dissipator --
+   back to mean field -- or spurious damping.
+
+The quantitative consequence. Reading `gamma*` as the depolarising bath strength needed to make
+the Kossakowski matrix PSD gives `gamma*_CP = -lambda_min = 0.18 to 0.77 hartree`, which is 5 to
+20 eV as a relaxation rate: unphysical for a molecule. The rate-competition figure measured by
+propagation, clearance erosion against the exact clearance, gives `gamma*_rate ~ 1.6e-4 to 7.6e-4`
+hartree on a thermal state -- THREE ORDERS OF MAGNITUDE smaller, and the thermal propagation
+indeed stayed positive to `t = 1` with no bath at all.
+
+So CP overestimates the required dissipation by ~10^3 and must not be used as the design
+condition. The operative condition is the erosion rate against the exact clearance.
+
+One suggestive but uncontrolled observation: the CP-defect ordering (`scaled` 0.178 best, `null`
+0.770 worst) matches the mixed-state erosion ordering at both endpoints (`scaled` 1.6e-4 best,
+`null` 7.6e-4 worst) but swaps the middle two. The two measurements are on different systems and
+states, so this is not a controlled comparison and should not be relied on.
 
 ## Connectedness, derived rather than screened
 
