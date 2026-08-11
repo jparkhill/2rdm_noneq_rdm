@@ -1,0 +1,11 @@
+M=6 N=3 k=2   15 pairs, 20 triples, (N-k)-sector dim 6, (N-k-1)-sector dim 1
+1. |Mat_2 - 2 Gram(u)|            = 0.000e+00   (|Mat_2| = 0.85399)
+2. |Mat_3 - 6 Gram(w)|            = 0.000e+00   (|Mat_3| = 1.36168)
+3. |Mat_3 - 6 W^dag W| with W from R and the known a_x  = 8.327e-17
+4. |sum_x A_x^dag A_x - (N-k) I| = 0.000e+00   (N-k = 1, sector dim 6)
+
+5. GAUGE. X = R^dag R fixes R only up to R -> U R with U unitary on the (N-k)-sector.
+   |X - (U R)^dag (U R)|         = 4.441e-16   (X is unchanged, as it must be)
+   |Mat_3(gauged) - Mat_3|       = 1.444e+00   (|Mat_3| = 1.36168)
+   -> if this is NOT zero, Mat_{k+1} is not determined by X alone, and the missing
+      information is exactly the closure problem.
