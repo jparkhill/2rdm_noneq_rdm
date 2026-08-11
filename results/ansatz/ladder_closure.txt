@@ -1,0 +1,13 @@
+=== H4 trapezoid  M=8 N=4  r_1=8 | E_HF -1.889507  E_FCI -1.943433  E_corr -0.053926 ===
+     chi' |      oracle      rel |         var E     E-E_FCI |      |C1|      |C2|
+        2 |   6.941e+00   1.4601 |     -2.377820   -0.434387 |   9.1e-02   4.8e-02
+        4 |   3.884e+00   0.8169 |     -2.163217   -0.219784 |   1.3e-01   6.6e-02
+        6 |   2.127e+00   0.4473 |     -2.129212   -0.185780 |   9.4e-02   6.3e-02
+        8 |   2.188e+00   0.4603 |     -2.249608   -0.306175 |   9.9e-02   6.8e-02
+       12 |   3.179e+00   0.6687 |     -1.900717    0.042715 |   2.8e-01   1.5e-01
+
+RUN NOT TRUSTWORTHY -- see the commit message. The linear constraints did not converge: |C1| and
+|C2| sit at 1e-1 to 3e-1, the same order as the reported energy errors, so the variational column
+measures constraint violation rather than the family. And the oracle error INCREASED with chi'
+(0.447 at 6, 0.460 at 8, 0.669 at 12), which is impossible for a nested family -- more parameters
+cannot fit worse. The optimiser has failed, not the ansatz. Run stopped early; LiH not attempted.
