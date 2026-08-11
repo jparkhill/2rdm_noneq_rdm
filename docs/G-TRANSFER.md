@@ -77,3 +77,74 @@ Interpretation of `D`: taking `D_xy = Tr_r(G_xy)/r` makes `D` the one-particle d
 - `Q` and `G`-cone N-representability (the two-hole and particle-hole matrices) remain uncontrolled.
   Note the unfortunate name collision: the `G` of this file is the transfer block matrix, NOT the
   particle-hole N-representability matrix.
+
+## What extensivity demands of G: the ladders must be fragment-local
+
+DERIVATION. For two non-interacting fragments in a product state the k-annihilated states factorise.
+Splitting a k-tuple `I` into `I_A`, `I_B` with `j = |I_A|`,
+
+    u_I = +- (A_{I_A}|Psi_A>) (x) (A_{I_B}|Psi_B>)
+
+so `range(R) = (+)_j V_A^{(j)} (x) V_B^{(k-j)}` with `V_f^{(j)}` spanned by the j-fold annihilations
+of fragment f. Since annihilators map `V_f^{(j)}` INTO `V_f^{(j+1)}` exactly, the compressed ladders
+`frak_a_x = a_x` restricted to `range(R)` come out factorised:
+
+    x in A :  frak_a_x = alpha^A_x (x) I_B            raises j by 1
+    y in B :  frak_a_y = Pi_A (x) alpha^B_y           leaves j alone, Pi_A = (-1)^{N_A} the parity
+
+Same-fragment blocks of `G` are then (ladder^dag ladder on that fragment) tensor identity on the
+other; cross-fragment blocks are (ladder^dag on one) tensor (ladder on the other). Hence
+
+    EXTENSIVITY  <=>  G_xy = frak_a_x^dag frak_a_y with every frak_a_x FRAGMENT-LOCAL.
+
+This is the same statement as "connected contraction" for cumulants and "fragment-local jump
+operator" for a GKSL generator, in a third language. The ladder form also gives `G >= 0` for free,
+since `G` is then a Gram matrix of the `frak_a_x`, and `sum_x frak_a_x^dag frak_a_x` is the modelled
+number operator, so the contraction identity is one condition on the ladders.
+
+VERIFIED, tools/G_locality.py, H3 bent x H2 as an exact product state, M = 10, N = 5, k = 2.
+Every row satisfies `G >= 0` and `sum_x G_xx = (N-k) I_r` to 1e-14, so locality is the only
+difference:
+
+    G ansatz                                    |inside|        leak
+    exact G (local ladders)                    1.764e-02   1.826e-13
+    V^dag G V, V random on range(R)            4.497e-01   1.610e+00
+    V^dag G V, V random but j-block diagonal   7.594e-01   9.847e-01
+    G = D (x) I_r, D the hole 1-RDM            4.633e-01   1.278e+00
+
+Preserving the particle-number grading is NOT sufficient (leak 0.985); the tensor factorisation
+inside each graded block is what is required. The dimension count confirms the structure
+independently: `r = 31 = 6 + 24 + 1 = sum_j dim V_A^{(j)} dim V_B^{(k-j)}` for `j = 2,1,0`, with the
+A-particle numbers on `range(R)` measured as `[1 x6, 2 x24, 3 x1]`.
+
+## The construction, complete
+
+STATE: `R_c`, an `r x C(M,k)` matrix, with `X = Mat_k = R_c^dag R_c`.
+CLOSURE DATA: ladder operators `{frak_a_x}`, one per spin orbital, from the level-k compressed space
+to level `k+1`, subject to
+
+    sum_x frak_a_x^dag frak_a_x = (N-k) I_r        and        each frak_a_x fragment-local
+
+RECONSTRUCTION: `G_xy = frak_a_x^dag frak_a_y`, then
+`Mat_{k+1}[(I,x),(J,y)] = (k+1) R_c(:,I)^dag G_xy R_c(:,J)`.
+PROPAGATION: XR, `Rdot = -i K R - i R S`, with `K` the compressed Hamiltonian supplying the gauge.
+
+Every derived row of the ledger is then structural:
+
+| ledger row | how it is satisfied |
+|---|---|
+| antisymmetry, pair-hermiticity | the sorted-tuple representation |
+| connectedness (extensivity) | ladders fragment-local; leak 1.8e-13 against 0.98-1.61 otherwise |
+| dimensional analysis | ladders are dimensionless; no bare `V` |
+| trace identity | `sum_x frak_a_x^dag frak_a_x = (N-k) I_r` |
+| Lipschitz | polynomial in `R_c` and the ladders; no inverse of anything |
+| exactness at `k >= N` | at `N = k` the constraint forces every `frak_a_x = 0`, so `gamma_{k+1} = 0` |
+| positivity of `D` | `X = R_c^dag R_c` |
+| positivity of `gamma_{k+1}` | `G = frak_a^dag frak_a` |
+| Nagumo tangency | derived from `Xdot = i(S^dag X - X S)` |
+
+WHAT REMAINS is entirely quantitative, and it is one object: the ladders themselves. `r` is
+polynomial even in the exact case (`r = rank Mat_k <= min(C(M,k), C(M,N-k))`), so nothing exponential
+is required; the approximation is the choice of `{frak_a_x}`, whose defect is measurable as
+`||{frak_a_x, frak_a_y^dag} - delta_xy||`. Accuracy is untested, the ladder equation of motion is not
+derived, and `Q` and the particle-hole N-representability matrix remain uncontrolled.

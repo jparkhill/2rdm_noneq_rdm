@@ -1,0 +1,11 @@
+composite H3 bent (M=6,N=3) x H2 (M=4,N=2) -> M=10 N=5, k=2, norm 1.000000000000
+  (N-k)-sector dim 120, r = rank(Mat_2) = 31, G is 310 x 310
+  A-particle numbers on range(R): [1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3]
+
+  G ansatz                                    |inside|        leak |G_xx-(N-k)I|   min eig G
+  exact G (local ladders)                    1.764e-02   1.826e-13   5.329e-15  -6.964e-15
+  V^dag G V, V random on range(R)            4.497e-01   1.610e+00   2.665e-15  -5.190e-15
+  V^dag G V, V random but j-block diagonal   7.594e-01   9.847e-01   8.882e-15  -5.067e-15
+  G = D (x) I_r, D the hole 1-RDM            4.633e-01   1.278e+00   0.000e+00   7.436e-02
+
+  All four satisfy G >= 0 and sum_x G_xx = (N-k) I_r; only LOCALITY of the ladders differs.
