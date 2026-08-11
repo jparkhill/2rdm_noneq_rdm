@@ -1,0 +1,13 @@
+Singular spectrum of R^(j): how many directions carry the weight?
+chi(f) = smallest chi whose top-chi squared singular values reach fraction f of the total.
+
+system              M   N |  j   r_j  bound |  chi90  chi99  chi99.9 s_last/s_1
+H4 trap sto-3g      8   4 |  1     8      8 |      4      6        8   1.0e-01
+H4 trap sto-3g      8   4 |  2    28     28 |      6     10       14   4.6e-04
+H4 trap sto-3g      8   4 |  3     8      8 |      4      6        8   1.0e-01
+LiH sto-3g         12   4 |  1    12     12 |      4      5        6   5.5e-03
+LiH sto-3g         12   4 |  2    66     66 |      6      8       11   2.3e-05
+LiH sto-3g         12   4 |  3    12     12 |      4      5        6   5.5e-03
+H6 chain sto-3g    12   6 |  1    12     12 |      7     11       12   2.4e-01
+H6 chain sto-3g    12   6 |  2    66     66 |     21     40       57   3.6e-03
+H6 chain sto-3g    12   6 |  3   220    220 |     30     64      104   1.0e-05
