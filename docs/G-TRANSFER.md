@@ -148,3 +148,46 @@ polynomial even in the exact case (`r = rank Mat_k <= min(C(M,k), C(M,N-k))`), s
 is required; the approximation is the choice of `{frak_a_x}`, whose defect is measurable as
 `||{frak_a_x, frak_a_y^dag} - delta_xy||`. Accuracy is untested, the ladder equation of motion is not
 derived, and `Q` and the particle-hole N-representability matrix remain uncontrolled.
+
+## CORRECTION: the number condition does NOT give the contraction identity
+
+An earlier section of this file, and commits e256383 / 08462ee / f84d58f, claimed that
+`sum_x frak_a_x^dag frak_a_x = (N-k) I_r` delivers `Tr_{k+1} gamma_{k+1} = (N-k) gamma_k` exactly.
+THAT IS WRONG for a MODELLED ladder. It holds for the exact ladder only because the exact ladder
+also satisfies CAR anticommutation.
+
+Measured, H4 trapezoid M=8 N=4, level 1, ladders drawn at random from the Stiefel manifold so that
+`sum_x frak_a_x^dag frak_a_x = (N-1) I` holds by construction:
+
+    ladder                       tr Mat_2 |Tr2 g2-(N-1)g1|    min eig D     (N(N-1) = 12)
+    random chi'=4               15.787393      1.563e+00   -1.694e-15
+    random chi'=8               15.977133      1.684e+00   -6.826e-16
+    random chi'=28              16.148988      1.755e+00    1.605e-05
+    EXACT ladder                12.000000      4.441e-15    4.214e-07
+
+The cause is that the G-transfer formula peels the LARGEST index of the (k+1)-tuple. The contraction
+identity requires peeling arbitrary indices and getting the same answer, which is exactly
+`{frak_a_x, frak_a_y} = 0` across levels. Without it the construction is peel-order dependent and the
+trace comes out wrong.
+
+CORRECTED ACCOUNTING of what the ladder ansatz gives for free:
+
+| property | automatic? |
+|---|---|
+| `gamma_{k+1} >= 0` | YES. `G = frak_a^dag frak_a` is a Gram matrix; `min eig D >= 0` in every sample |
+| exactness at `k = N` | YES. `sum_x frak_a_x^dag frak_a_x = 0` with PSD terms forces every `frak_a_x = 0` |
+| contraction identity | NO. Must be imposed |
+| hole condition `Gtilde <= I` | NO. It followed from CAR, so it goes too |
+| extensivity | NO. Needs the locality condition |
+
+The contraction identity is however expressible AT A SINGLE LEVEL, so a one-rung closure can still
+impose it without touching level k+1. Writing `sum_x gamma_2[p,x,q,x]` in the antisymmetric extension
+gives `sum_{x > max(p,q)} Rc(:,p)^dag G_xx Rc(:,q)` plus `sum_{x < min(p,q)} Rc(:,x)^dag G_pq Rc(:,x)`
+plus mixed-sign terms -- a LINEAR condition on `G`. Likewise the hole condition. So the closure
+remains a well-posed problem: linear constraints plus the conic/rank structure `G = frak_a^dag frak_a`,
+i.e. a constrained Stiefel optimisation or a rank-constrained SDP.
+
+CONSEQUENCE for the level-1 experiment (tools/ladder_optimise.py): the ORACLE objective, fitting the
+exact Mat_2, remains valid. The VARIATIONAL objective without the contraction constraint is
+meaningless and was observed running away to E = -4.87 against E_FCI = -1.943, because the
+unconstrained family contains gamma_2 with tr gamma_2 ~ 16 instead of 12.

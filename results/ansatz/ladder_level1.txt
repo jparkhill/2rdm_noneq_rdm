@@ -1,0 +1,48 @@
+/home/john/qm/tools/ladder_level1.py:2: SyntaxWarning: invalid escape sequence '\I'
+  """Level-1 ladder closure: validate the construction, then bound what it can achieve vs chi'.
+=== H4 trapezoid / sto-3g   M=8 N=4 ===
+    E_HF -1.889506802   E_FCI(pyscf) -1.943432669   E_corr -0.053926
+    V1  E[gamma_1, gamma_2 exact]      = -1.943432669   dev from FCI 2.58e-14
+    r_1 = rank gamma_1 = 8 of 8,  chi'(exact) = rank Mat_2 = 28
+        |gamma_1 - Rc^dag Rc| = 5.55e-16   |sum_x a^dag a - (N-1)I| = 5.77e-15
+    V2  exact ladder: |gamma_2 - exact| = 1.44e-15   E = -1.943432669  dev 2.58e-14
+    V3  mean-field ladder: r_1 = 4 (= N), chi' = 6 (= C(N,2) = 6)
+        |gamma_2^MF - gamma_1 wedge gamma_1| = 0.00e+00   E = -1.889506802  dev from E_HF 8.88e-16
+
+    B1  LOWER BOUND on the energy error of any ladder at a given chi':
+        best rank-chi' approximation to the exact Mat_2, by SVD truncation
+          chi'       E(trunc)        E-E_FCI frac of Ecorr
+             1   -4.208899447      -2.265467    4301.1%
+             2   -3.568476424      -1.625044    3113.5%
+             3   -3.156415517      -1.212983    2349.4%
+             4   -2.777997724      -0.834565    1647.6%
+             6   -2.021162140      -0.077729     244.1%
+             8   -1.989851359      -0.046419     186.1%
+            10   -1.968068451      -0.024636     145.7%
+            14   -1.945681910      -0.002249     104.2%
+            20   -1.943867838      -0.000435     100.8%
+            28   -1.943432669      -0.000000     100.0%
+
+=== LiH / sto-3g   M=12 N=4 ===
+    E_HF -7.861864770   E_FCI(pyscf) -7.882324379   E_corr -0.020460
+    V1  E[gamma_1, gamma_2 exact]      = -7.882324379   dev from FCI 2.66e-14
+    r_1 = rank gamma_1 = 12 of 12,  chi'(exact) = rank Mat_2 = 66
+        |gamma_1 - Rc^dag Rc| = 6.66e-16   |sum_x a^dag a - (N-1)I| = 4.44e-15
+    V2  exact ladder: |gamma_2 - exact| = 1.33e-15   E = -7.882324379  dev 2.49e-14
+    V3  mean-field ladder: r_1 = 4 (= N), chi' = 6 (= C(N,2) = 6)
+        |gamma_2^MF - gamma_1 wedge gamma_1| = 0.00e+00   E = -7.861864770  dev from E_HF 0.00e+00
+
+    B1  LOWER BOUND on the energy error of any ladder at a given chi':
+        best rank-chi' approximation to the exact Mat_2, by SVD truncation
+          chi'       E(trunc)        E-E_FCI frac of Ecorr
+             1  -10.360056149      -2.477732   12210.4%
+             2   -9.319983566      -1.437659    7126.8%
+             3   -8.949770477      -1.067446    5317.3%
+             4   -8.604631622      -0.722307    3630.4%
+             6   -7.914353911      -0.032030     256.6%
+             8   -7.899268346      -0.016944     182.8%
+            10   -7.884741079      -0.002417     111.8%
+            14   -7.883557153      -0.001233     106.0%
+            20   -7.882357386      -0.000033     100.2%
+            66   -7.882324379       0.000000     100.0%
+

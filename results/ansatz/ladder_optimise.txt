@@ -1,0 +1,6 @@
+=== H4 trapezoid   M=8 N=4   r_1=8   E_HF -1.889507  E_FCI -1.943433  E_corr -0.053926 ===
+    convention check: |E(sorted-pair contraction) - E_FCI| = 2.22e-15
+      chi' |   oracle |dM|           rel |         var E       E-E_FCI    %Ecorr
+         2 |     3.833e+00        0.8064 |     -4.871937     -2.928504   5530.6%
+         3 |     3.314e+00        0.6971 |     -4.871937     -2.928504   5530.6%
+         4 |     2.707e+00        0.5694 |     -4.871937     -2.928504   5530.6%
