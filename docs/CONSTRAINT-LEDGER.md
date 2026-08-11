@@ -22,10 +22,11 @@ over three upper and three lower indices.
 | **exactness at k >= N** | physical | `gamma_{k+1} == 0` when `k >= N`, so `lambda_{k+1} = -separable`. `null` fails this maximally |
 | perturbative limit | **desideratum** | recovery of known limits. Perturbation theories are approximations, not physical conditions |
 | N-representability of the manifold | **global qualifier** | every screen is evaluated here, never on free tensors |
-| **complete positivity (GKSL)** | physical, REQUIRED | `Kossakowski >= 0`. The only structural guarantee of positivity for an autonomous generator |
-| size of the dissipator | the dial, not a constraint | 0 gives a Hamiltonian reduced flow, tangent and reversible; matched to a bath gives the open case |
-| Nagumo tangency | physical | implied by CP: `P_K L[X] P_K = sum_i (P_K L_i) X (P_K L_i)^dag >= 0` |
-| clearance erosion rate | diagnostic | the REALISED erosion on a given trajectory; bounded above by `-lambda_min(Kossakowski)` |
+| **positivity of `D`** | NOT a constraint on the closure | a property of the REPRESENTATION. Structural in the XR construction, `X = R^dag R` with `Rdot = -i R S`. See `XR-POSITIVITY.md` |
+| complete positivity (GKSL) | required for the BATH only | inwardness is physical for a bath and forbidden for closed dynamics. Costs `O(M^{6k})` to test, so it is imposed by form, not by solve |
+| Nagumo tangency | derived, not imposed | follows from `Xdot = i(S^dag X - X S)` for ANY `S` |
+| `Q` and `G` cones | physical, OPEN | different affine functions of `gamma_2`, `gamma_1`; NOT controlled by XR |
+| clearance erosion rate | diagnostic | the REALISED erosion on a trajectory; bounded above by `-lambda_min(Kossakowski)` |
 | convergence `\|lam_{k+1}\|/\|lam_k\| -> 0` | physical | never measured; a bath is the only mechanism on the table |
 
 ## Exactness at k >= N, and why it is not in tension with extensivity
