@@ -1,0 +1,10 @@
+MKNO expansion of gamma_4: 131 terms total, 130 with lambda_4 deleted
+
+system                 |   |d g3/dt|  |g4 exact| |  g4=0 resid lam4=0 resid   rel err
+H3 bent / sto-3g       |     0.18809   0.000e+00 |   2.247e-16   2.871e-02     15.3%
+                       | |separable_4| = 0.05610, which the truncation puts where the exact gamma_4 = 0
+H3 linear / sto-3g     |     0.26033   0.000e+00 |   3.185e-16   2.671e-02     10.3%
+                       | |separable_4| = 0.06622, which the truncation puts where the exact gamma_4 = 0
+
+random h,V  M=6 N=3    |     1.22203   0.000e+00 |   6.661e-16   2.365e-01     19.4%
+                       | |separable_4| = 0.05108
