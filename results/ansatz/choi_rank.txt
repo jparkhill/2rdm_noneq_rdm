@@ -1,0 +1,18 @@
+Choi rank of the rank-2 generator. If it is independent of M, the CP constraint reduces
+to a T x T Gram problem and the cost is O(M^4) rather than O(M^12).
+
+system           M   n_2     dim | generator      choiRank kossRank    min eig
+H3 bent          6    15     225 | drift only            2       28 -1.494e-15
+H3 bent          6    15     225 | null                225      224 -7.698e-01
+H3 bent          6    15     225 | trace               225      224 -7.029e-01
+H3 bent          6    15     225 | scaled+trace        225      224 -5.857e-01
+
+H4 trapezoid     8    28     784 | drift only            2       54 -6.006e-15
+H4 trapezoid     8    28     784 | null                784      783 -1.167e+00
+H4 trapezoid     8    28     784 | trace               784      783 -1.133e+00
+H4 trapezoid     8    28     784 | scaled+trace        784      783 -9.699e-01
+
+
+Note: the kossRank column is meaningless on the drift rows (28, 54). Its threshold is relative
+to the largest eigenvalue, which for the drift is ~1e-15, so it counts round-off. The drift
+Kossakowski matrix is zero; only choiRank and min eig are meaningful there.
