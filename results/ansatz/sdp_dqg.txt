@@ -2,3 +2,4 @@
     exact gamma_2 feasibility: |A x - b| 4.44e-16 | min eig D 4.21e-07  Q 6.18e-07  G -6.86e-17 | E dev 8.88e-16
     D only  E = -2.540306  E-E_FCI -0.596874  (1207% of E_corr) |  3561 its, rp 7.6e-10 rd 1.0e-08 | min eig D -2.4e-10 Q -1.9e+00 G -1.9e+00
     D+Q     E = -1.978493  E-E_FCI -0.035061  (165% of E_corr) | 14712 its, rp 1.0e-08 rd 1.3e-10 | min eig D -9.9e-11 Q -3.1e-09 G -6.8e-02
+    D+Q+G   E = -1.945497  E-E_FCI -0.002064  (104% of E_corr) | 13149 its, rp 1.0e-08 rd 4.4e-10 | min eig D -1.9e-09 Q -1.0e-09 G -3.0e-09
