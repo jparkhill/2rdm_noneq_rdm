@@ -308,3 +308,58 @@ def separable(k, tab):
 def cumulant(k, gk, tab):
     """lambda_k = gamma_k - separable(k, tab)."""
     return gk - separable(k, tab)
+
+
+def separable_dot(k, tab, dtab):
+    """d/dt of separable(k, tab) by the product rule over the MKNO term list.
+
+    Each term is a product of factors; its rate is the sum over which factor carries the rate.
+    `dtab` supplies the rate for each key of `tab`. Used to convert a moment rate into a cumulant
+    rate: lambda_k-dot = gamma_k-dot - separable_dot(k, ...).
+    """
+    sep = _SEP_CACHE.setdefault(k, _mkno_groups(k))
+    out = None
+    for s, sub, keys in sep:
+        for i in range(len(keys)):
+            args = [dtab[key] if j == i else tab[key] for j, key in enumerate(keys)]
+            piece = s * np.einsum(sub, *args, optimize=True)
+            out = piece if out is None else out + piece
+    return out
+
+
+def _pow_dot(g1, dg1, a):
+    """d/dt of gamma_1^a."""
+    if a == 0:
+        return np.zeros_like(g1)
+    out = np.zeros_like(g1)
+    for i in range(a):
+        left = np.linalg.matrix_power(g1, i)
+        right = np.linalg.matrix_power(g1, a - 1 - i)
+        out = out + left @ dg1 @ right
+    return out
+
+
+def connected_basis_dot(g1, l2, dg1, dl2, M):
+    """Rates of the connected_basis structures, by the product rule.
+
+    Every wrapper in connected_basis -- antisym3, the pair-Hermitisation, anti3 -- is LINEAR, so it
+    passes through the derivative unchanged; only the einsum factors and the gamma_1 powers need the
+    product rule. Returned in the same order as connected_basis, so the two zip.
+    """
+    I = np.eye(M, dtype=complex)
+    E = g1 - 0.5 * I
+    dE = dg1
+    out = []
+    for a, (D, dD) in enumerate(((I, np.zeros_like(g1)), (g1, dg1), (I - g1, -dg1))):
+        for tag, sub in (("chain", "pvqr,rs,sxwy->pvxqwy"), ("chainT", "prqw,rs,vxsy->pvxqwy")):
+            dX = (np.einsum(sub, dl2, D, l2, optimize=True)
+                  + np.einsum(sub, l2, dD, l2, optimize=True)
+                  + np.einsum(sub, l2, D, dl2, optimize=True))
+            dX = antisym3(dX)
+            dX = 0.5 * (dX + np.conj(dX.transpose(3, 4, 5, 0, 1, 2)))
+            X = antisym3(np.einsum(sub, l2, D, l2, optimize=True))
+            X = 0.5 * (X + np.conj(X.transpose(3, 4, 5, 0, 1, 2)))
+            out.append(dX)
+            dY = anti3(dE, X) + anti3(E, dX)
+            out.append(0.5 * (dY + np.conj(dY.transpose(3, 4, 5, 0, 1, 2))))
+    return out
