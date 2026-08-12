@@ -1,0 +1,13 @@
+Fixed vs moving auxiliary basis. H4 trapezoid M=8 N=4, dipole-kicked eps=0.05.
+MOVING: connected chains of lambda_2 (12 generators, span 4).  FIXED: 18 amplitude chains from 3 poles.
+
+     t |  mov span    motion   c drift |  fix span      fixA
+  0.00 |    0.0801    0.9901    0.0000 |    0.9786        18
+  0.10 |    0.0800    0.9897    0.0004 |    0.9786        18
+  0.25 |    0.0797    0.9877    0.0020 |    0.9785        18
+  0.50 |    0.0791    0.9824    0.0072 |    0.9785        18
+  0.75 |    0.0782    0.9770    0.0141 |    0.9785        18
+  1.00 |    0.0774    0.9731    0.0226 |    0.9784        18
+
+motion >~ 1 means the Galerkin projection is dominated by basis movement, and a FIXED basis
+is the sounder architecture despite needing a larger auxiliary count.
