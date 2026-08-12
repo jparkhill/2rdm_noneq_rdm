@@ -1,0 +1,37 @@
+Can Tr_3(connected span) = anti(E, lambda_2) with COMMON coefficients?
+basis: 2 topologies x gamma_1^a (a<4) x anti(gamma_1^b) (b<3) = 24 structures
+
+state                M |    |target| per-state res |         rel
+H3 pure              6 |  1.3418e-01  1.7238e-12 |  1.2847e-11
+H3 kT=0.5            6 |  1.4606e-01  5.3214e-03 |  3.6434e-02
+H4 pure              8 |  1.7456e-01  3.5094e-03 |  2.0104e-02
+H4 kT=0.5            8 |  1.5796e-01  9.6831e-03 |  6.1302e-02
+random h,V (6,3)     6 |  6.3982e-01  4.7517e-02 |  7.4266e-02
+
+COMMON fit over 5 states: residual 2.5779e-01 against target norm 7.1002e-01  (rel 3.6307e-01)
+  best possible if coefficients were allowed to vary per state: 4.8910e-02
+  design matrix: 12080 equations x 24 unknowns, singular values 3.71e+00 .. 1.04e-16, numerical rank 21
+
+  coefficients above 1e-3 of the largest:
+    chain_g0.anti0            +67.94615
+    chain_g0.anti1            -18.61912
+    chainT_g0.anti0           +67.94615
+    chainT_g0.anti1           -18.61912
+    chain_g1.anti0           -691.49689
+    chain_g1.anti1           +205.20574
+    chain_g1.anti2             -8.59731
+    chainT_g1.anti0          +423.32432
+    chainT_g1.anti1          -232.68257
+    chainT_g1.anti2           +39.65777
+    chain_g2.anti0           +615.62996
+    chain_g2.anti1            -94.30306
+    chain_g2.anti2            -10.52406
+    chainT_g2.anti0          -987.36334
+    chainT_g2.anti1          +536.61539
+    chainT_g2.anti2           -89.82743
+    chain_g3.anti0           -141.75910
+    chain_g3.anti1            -16.49752
+    chain_g3.anti2             +3.45891
+    chainT_g3.anti0          +725.91617
+    chainT_g3.anti1          -399.80808
+    chainT_g3.anti2           +66.08777
