@@ -1,0 +1,16 @@
+=== H3 bent   M=6 N=3 ===
+    |Delta| at t=0 (must be ~0)                    = 2.776e-16
+    |lambda_3-dot (fd) - consistency check| : |lambda_2-dot fd - analytic| = 1.441e-07
+    d/dt Delta with the EXACT rate                 = 1.550e-08
+    d/dt Delta with gamma_4 exact                = 1.550e-08   (|d3| = 0.2099)
+    d/dt Delta with gamma_4 = 0                  = 1.550e-08   (|d3| = 0.2099)
+    d/dt Delta with lambda_4 = 0                 = 2.662e-02   (|d3| = 0.2047)
+
+=== H4 trapezoid   M=8 N=4 ===
+    |Delta| at t=0 (must be ~0)                    = 7.017e-16
+    |lambda_3-dot (fd) - consistency check| : |lambda_2-dot fd - analytic| = 2.535e-07
+    d/dt Delta with the EXACT rate                 = 4.328e-08
+    d/dt Delta with gamma_4 exact                = 4.328e-08   (|d3| = 0.1804)
+    d/dt Delta with gamma_4 = 0                  = 3.830e-02   (|d3| = 0.1846)
+    d/dt Delta with lambda_4 = 0                 = 1.016e-02   (|d3| = 0.1833)
+
