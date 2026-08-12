@@ -106,7 +106,35 @@ print("  V3 worst relative error of the %d structure rates = %.3e" % (len(Sd), w
 print()
 
 # ---------------------------------------------------------------- E1 the leakage, three regimes
-REG = [("A adiabatic", dm0, esA, vecA),
+# Regime A must be KICKED: the unkicked ground state propagated under its own Hamiltonian is
+# stationary, every rate is zero, and the leakage ratio is 0/0. That vacuity is what the first run
+# reported as a 0.7-1.8 leakage.
+dxm = mfA.mo_coeff.T @ molA.intor("int1e_r")[0] @ mfA.mo_coeff
+assert np.abs(dxm).max() > 1e-8, "null dipole component"
+dop = np.zeros((M, M), dtype=complex)
+for p_ in range(dxm.shape[0]):
+    for q_ in range(dxm.shape[0]):
+        dop[2 * p_, 2 * q_] = dop[2 * p_ + 1, 2 * q_ + 1] = dxm[p_, q_]
+Mu = np.zeros((len(dets),) * 2, dtype=complex)
+_idx = {dd: i for i, dd in enumerate(dets)}
+for j, dd in enumerate(dets):
+    b = np.zeros(1 << M, dtype=complex)
+    b[dd] = 1.0
+    col = np.zeros(1 << M, dtype=complex)
+    for p_ in range(M):
+        for q_ in range(M):
+            if abs(dop[p_, q_]) > 1e-14:
+                col += dop[p_, q_] * fullci.ad(p_, fullci.aa(q_, b))
+    for d2, i in _idx.items():
+        if col[d2] != 0:
+            Mu[i, j] = col[d2]
+import scipy.linalg as _sla
+vk = _sla.expm(-1j * 0.05 * 0.5 * (Mu + Mu.conj().T)) @ vecA[:, 0]
+vk /= np.linalg.norm(vk)
+assert abs(abs(np.vdot(vecA[:, 0], vk)) - 1.0) > 1e-9, "kick did not move the state"
+dmA = np.outer(vk, vk.conj())
+# and the kicked state is complex, so its rates do NOT vanish at t = 0
+REG = [("A adiabatic kicked", dmA, esA, vecA),
        ("B quench", dm0, esB, vecB),
        ("C quench rank2",
         0.5 * (np.outer(vecA[:, 0], vecA[:, 0].conj()) + np.outer(vecA[:, 1], vecA[:, 1].conj())),
