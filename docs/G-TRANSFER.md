@@ -191,3 +191,49 @@ CONSEQUENCE for the level-1 experiment (tools/ladder_optimise.py): the ORACLE ob
 exact Mat_2, remains valid. The VARIATIONAL objective without the contraction constraint is
 meaningless and was observed running away to E = -4.87 against E_FCI = -1.943, because the
 unconstrained family contains gamma_2 with tr gamma_2 ~ 16 instead of 12.
+
+## Exact CAR forces an active space, so a CAR-exact ladder is not a closure
+
+Two results that together end the ladder route as a vehicle for the trace identity.
+
+FIRST, the peel convention is not the problem. The G-transfer formula peels the largest index, which
+is arbitrary; the peel-symmetric form is
+
+    Mat_{k+1}[L,L'] = c sum_{i,j} (-1)^{i+j} R_c(:,L\l_i)^dag G_{l_i l'_j} R_c(:,L'\l'_j)
+
+and at k = 1 with c = 1/2 it reproduces the exact Mat_2 to 3.8e-15, so the symmetrisation is
+consistent. But it does NOT rescue the contraction identity for a modelled ladder -- it makes it
+worse (H4, N(N-1) = 12):
+
+    ladder / formula                  tr Mat_2   |Tr2 g2-(N-1)g1|
+    random chi'=8   single-peel      16.586770         1.523e+00
+    random chi'=8   PEEL-SYMMETRIC    4.890902         2.179e+00
+    random chi'=28  single-peel      16.844916         1.558e+00
+    random chi'=28  PEEL-SYMMETRIC    5.217381         2.083e+00
+
+So the failure recorded above is a genuine defect, not a convention error.
+
+SECOND, and this is the reason. Collect the levels into W = (+)_k V^{(k)}. Then {frak_a_x, frak_a_y}
+= 0 says the ladders generate an EXTERIOR ALGEBRA action on W, whose general form is
+frak_a_x = sum_i C_xi b_i with b_i standard anticommuting generators. Imposing the number condition,
+
+    sum_x frak_a_x^dag frak_a_x = sum_ij (C^dag C)_ij b_i^dag b_j = (N-k) I   requires  C^dag C = I_m
+
+and C^dag C = I_m forces m <= M. So the ladder is an isometric embedding into an m-mode Fock space
+with m <= M: an ACTIVE SPACE.
+
+    Exact CAR plus the number condition makes the ladder a wavefunction truncation (CASCI),
+    not a BBGKY closure. Any genuine closure must break CAR, and once CAR is broken the trace
+    identity is no longer structural and must be imposed explicitly.
+
+That is the structural cause of the retreat into penalties and semidefinite programs recorded in
+ccc7791, 840606f and 90b66c8: the trace identity was never going to be free in this representation.
+Stated as an argument, not a theorem -- reducible and non-isometric representations have not been
+ruled out.
+
+CONSEQUENCE FOR THE PROGRAMME. The trace identity's natural home is the cumulant form
+Tr_k lambda_k = anti(E, lambda_{k-1}) + chains, where it is a LINEAR condition on the coefficients of
+connected structures rather than something to penalise. The connected-chain construction lives there:
+extensive by index structure, correct perturbative order, and a 4-dimensional span containing 99.4%
+of lambda_3. Its one unfinished piece is whether the bilinear residue of Tr_3(chain) can be absorbed,
+which is a finite MKNO calculation and was never done.
