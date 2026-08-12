@@ -52,111 +52,122 @@ flow satisfies `Xdot = i(S^dag X - X S)` at every rank (derived in `XR-POSITIVIT
 reproduced unchanged; where the eigenvalues vanish `Gamma` would diverge unless `Xdot_ij -> 0`, which
 IS the tangency condition, so precisely the non-tangent components are suppressed by `sigma`.
 
-## 4. The closure basis
+## 4. The closure, with the trace relation structural
 
-`lambda_3 = sum_a c_a S_a`, with `S_a` from `qdiss.ansatz.connected_basis`: 12 generators, each an
-antisymmetrised single contraction of two `lambda_2` factors joined through `I`, `gamma_1` or
-`eta_1`, optionally dressed on the free legs by `anti(E, .)`, each pair-Hermitised. Then
-orthonormalised by SVD to a frame `F` with orthonormal rows, and Procrustes-aligned to the previous
-step's frame. `c_a = <F_a, lambda_3>`, `lambda_3 = F^T c`.
+**REVISED.** The earlier version of this file put `lambda_3` in a fitted connected span and left the
+trace relation unenforced. That was wrong: fitting it left a 36% residual with common coefficients,
+and imposing it on `c-dot` is overdetermined (784 conditions on ~6 unknowns). The relation is now
+built in. Full derivation in `STRUCTURAL-TRACE.md`; the construction is
 
-**Why this basis and not another.** Every term is a CONNECTED contraction, which is necessary and
-sufficient for extensivity (`CONSTRAINT-LEDGER.md`); measured leak `1.8e-13` against `0.98-1.61` for
-wedge alternatives. Every term is dimensionless. Leg counting forces exactly two `(2,2)` vertices
-sharing one index, so no smaller connected structure exists.
+    T           =  anti(E, lambda_2)                                the trace target, 4 indices
+    K_sigma     =  - lambda_2  o  ( gamma_1 eta_1 + sigma I )^{-1}  the (2,2) vertex, Tr_2 K = I + O(sigma)
+    lambda_3    =  A_3[ T o K_sigma ]  +  sum_a c_a S_a^perp
 
-**Numerical rank.** 12 generators span 4 to 6 directions depending on threshold (4 at `3e-5` on
-singular values, 6 at `1e-9`). The frame rank must be FIXED across a step or the two frames have
-mismatched shapes.
+with `A_3` the antisymmetriser over three upper and three lower indices, `o` a single shared
+contraction, and `S_a^perp` connected structures satisfying `Tr_3 S_a^perp = 0`.
+
+Leg counting forces this shape: `T` has 4 free indices, `lambda_3` needs 6, `gamma_1` vertices cannot
+change the count, and a `(2,2)` vertex attached by one contraction gives exactly `+2`. So exactly one
+`(2,2)` vertex is required -- not a choice.
+
+**Consequences.**
+
+- `Tr_3 lambda_3 = T` holds by construction to `O(sigma)`, with `sigma = 0` exact **subject to the
+  VERIFY step of `STRUCTURAL-TRACE.md` section 5, which has NOT been run.**
+- The coefficients `c_a` cannot disturb the trace relation, whatever they do, because
+  `Tr_3 S_a^perp = 0`. The ancilla is confined to the traceless sector.
+- Every term is one connected component, so the construction is extensive.
+- The `a_r^{-1}` in `K` is bounded on the N-representable manifold by `D`/`Q` Cauchy-Schwarz
+  (`T` and `lambda_2` each contribute `O(sqrt(a_r))`), so it is `O(1)`, not divergent. Whether that
+  bound is UNIFORM is the open question -- not the pole itself.
+
+**The traceless connected basis `S_a^perp` does not exist yet.** It is the projection of
+`qdiss.ansatz.connected_basis` onto the null space of `Tr_3`, a linear operation, but it must be
+built and its dimension measured. Until then `A = 0` and the scheme is the structural trace channel
+alone.
 
 ## 5. The coefficient flow
 
-    c-dot  =  <F , lambda_3-dot>  -  <F , sum_b c_b S_b-dot>
+Unchanged in form from the earlier version, but now acting only on the traceless sector:
 
-with, at every stage:
+    c-dot  =  <F^perp , lambda_3-dot>  -  <F^perp , sum_b c_b S_b^perp-dot>
+
+with `F^perp` the orthonormalised, Procrustes-aligned frame of `S_a^perp`. At every stage:
 
     gamma_1     = Tr_2(gamma_2)/(N-1)
     lambda_2    = gamma_2 - gamma_1 wedge gamma_1
-    gamma_3     = separable_3(gamma_1, lambda_2) + F^T c
-    gamma_2-dot = rank-2 MKNO term list applied to (gamma_1, gamma_2, gamma_3)
+    T           = anti(E, lambda_2),   E = gamma_1 - I/2
+    lambda_3    = A_3[T o K_sigma] + F^perp^T c
+    gamma_3     = separable_3(gamma_1, lambda_2) + lambda_3
+    gamma_2-dot = rank-2 MKNO term list on (gamma_1, gamma_2, gamma_3)
     gamma_1-dot = Tr_2(gamma_2-dot)/(N-1)
     lambda_2-dot= gamma_2-dot - ( gamma_1-dot wedge gamma_1 + gamma_1 wedge gamma_1-dot )
-    gamma_3-dot = rank-3 MKNO term list applied to (gamma_1, gamma_2, gamma_3, gamma_4 = TERMINATION)
-    lambda_3-dot= gamma_3-dot - separable_dot(3, {gamma_1, lambda_2}, {gamma_1-dot, lambda_2-dot})
-    S_b-dot     = qdiss.ansatz.connected_basis_dot(gamma_1, lambda_2, gamma_1-dot, lambda_2-dot)
+    gamma_3-dot = rank-3 MKNO term list on (gamma_1, gamma_2, gamma_3, gamma_4 = 0)
+    lambda_3-dot= gamma_3-dot - separable_dot(3, {gamma_1,lambda_2}, {gamma_1-dot,lambda_2-dot})
 
-`separable_dot` and `connected_basis_dot` are the product rule over the MKNO term lists; both
-VALIDATED against finite differences at the truncation floor -- `9.1e-08` against `|dl3| = 0.0065`,
-and worst relative structure-rate error `1.4e-05` (`tools/galerkin.py`).
+`separable_dot` and `connected_basis_dot` are the product rule over the MKNO term lists, VALIDATED
+against finite differences at the truncation floor (`9.1e-08` against `|dl3| = 0.0065`; worst
+structure-rate error `1.4e-05`, `tools/galerkin.py`). The rate of the structural channel
+`d/dt A_3[T o K_sigma]` needs the same treatment and **is not written yet.**
 
-**Termination.** `gamma_4 = 0`, which is EXACT when `N <= 3` and an approximation otherwise. Measured:
-at `N = 3` it holds the trace identity at the noise floor; at `N = 4` it breaks it at `3.8e-2`. The
-alternative `lambda_4 = 0` is WRONG at `N = 3` (breaks the identity at `2.7e-2`) and must not be used.
+**Termination.** `gamma_4 = 0`: EXACT when `N <= 3`, an approximation otherwise. Measured -- at `N = 3`
+it holds the trace identity at the noise floor, at `N = 4` it breaks it at `3.8e-2`. The alternative
+`lambda_4 = 0` is WRONG at `N = 3` (breaks it at `2.7e-2`) and must not be used.
 
 ## 6. Every approximation, named
 
-1. **Span truncation.** `lambda_3` confined to the connected span. Measured span error: 0.8% (`N=2`),
-   2.9% (H3), 8.0% (H4) statically; 16% at `t=1` under a compressed->stretched quench; **83% from a
-   rank-2 mixture.**
-2. **Galerkin leakage.** The out-of-span residual rate is discarded. Measured 1-3% relative under
-   quench (absolute `1.9e-2` against `|c-dot| = 0.56`), `3e-4` absolute adiabatically, 28-35% at low
-   `rank(rho)`.
-3. **Tower termination** `gamma_4 = 0` as above.
-4. **`sigma` in the XR lift**, fixed; introduces an `O(sigma)` flow error concentrated in the
-   small-eigenvalue directions, and an `O(sigma)` extensivity error since the eigenbasis of `X` is a
-   global object.
-5. **Frame rank fixed** across a step; if the true numerical rank changes, one direction is carried
-   spuriously or dropped.
-6. **`Delta` is not enforced.** See section 8.
+1. **`sigma` in `K_sigma`.** Makes `Tr_2 K = I + O(sigma)`, so the trace relation holds to `O(sigma)`
+   rather than exactly. This is the ONLY place the trace relation is approximated, and the error is a
+   dial, not a residual.
+2. **Truncation of the traceless sector** to `A` structures. With `A = 0` the whole traceless content
+   of `lambda_3` is dropped; the memory measured at 60-96% of `|lambda_3-dot|` under quench lives
+   here, so `A = 0` should be expected to fail far from equilibrium.
+3. **Galerkin leakage** in the traceless sector. Measured on the full connected span: 1-3% relative
+   under quench, `3e-4` absolute adiabatically, 28-35% at low `rank(rho)`.
+4. **Tower termination** `gamma_4 = 0` as above.
+5. **`sigma` in the XR lift** (section 3), distinct from the `sigma` in `K`. Introduces `O(sigma)`
+   flow error in small-eigenvalue directions and `O(sigma)` extensivity error, since the eigenbasis of
+   `X` is a global object.
+6. **Retraction / integrator error**, unmeasured.
 
 ## 7. Ledger status
 
-| row | met? | evidence |
+| row | met? | how |
 |---|---|---|
-| `gamma_2 >= 0` (D) | YES, structural | XR construction |
-| extensivity | YES, structural | connected basis, leak `1.8e-13` |
-| dimensional analysis | YES | construction |
-| Lipschitz | YES, fixed `sigma` | `tools/level_shift.py` |
-| antisymmetry, hermiticity | YES | sorted-tuple representation |
+| `gamma_2 >= 0` (D condition) | YES, structural | `X = R^dag R`, XR construction |
+| antisymmetry, hermiticity | YES, structural | sorted-tuple representation |
+| extensivity | YES, structural | every term one connected component |
+| dimensional analysis | YES | `K` dimensionless; no bare `V`, no amplitude |
+| **trace relation** | **YES to `O(sigma)`, structural** -- pending VERIFY | `STRUCTURAL-TRACE.md` s.3-5 |
+| Lipschitz | bounded by `D`/`Q` Cauchy-Schwarz; uniformity OPEN | `STRUCTURAL-TRACE.md` s.4 |
 | exactness at `k >= N` | YES for `N <= 3` via `gamma_4 = 0` | `tools/top_of_hierarchy.py` |
-| trace identity | **NO** -- see section 8 | -- |
-| `Q` and `G` cones | **NO**, uncontrolled | D+Q+G bound measured at `-1.945` vs `E_FCI = -1.943` |
-| convergence | untested | -- |
+| `Q` and `G` cones | **NO**, uncontrolled | D+Q+G bound `-1.945` vs `E_FCI = -1.943` |
+| convergence | in `A` and tower depth; UNTESTED | -- |
 
-## 8. The trace identity is NOT enforceable, correcting an earlier claim
+Six of nine rows are now structural. The two that are not are `Q`/`G` and convergence.
 
-I claimed that because `Delta = 0` is an invariant of the exact flow, it becomes "one linear condition
-on `c-dot`, elementary to impose". **That is wrong.** With `D_a = Tr_3 S_a`,
+## 8. What is still owed, in order
 
-    Delta = sum_a c_a D_a - anti(E, lambda_2)
+1. **VERIFY** the combinatorics of `Tr_3 A_3[T o K]` (`STRUCTURAL-TRACE.md` s.5). Cheap, and nothing
+   downstream is meaningful without it.
+2. **Build `S_a^perp`**, the traceless connected basis, and measure its dimension and how much of
+   `lambda_3`'s traceless part it spans.
+3. **Write `d/dt A_3[T o K_sigma]`** by the product rule, and validate against finite differences the
+   way `separable_dot` was.
+4. Only then propagate, and only after reproducing two known limits: `c = 0` with `K` switched off
+   against the measured `null` trajectory, and exact `gamma_3` fed in at every stage against the exact
+   trajectory.
 
-is `C(M,2)^2` scalar conditions -- 784 at `M = 8` -- on `A ~ 6` unknowns. Differentiating gives the
-same count on `c-dot`. So `Delta = 0` cannot be imposed exactly on a small coefficient space. Options:
-least-squares imposition with a reported residual; enlarge `A` until `{D_a}` spans the needed
-subspace (cost not estimated); or leave it violated and MONITOR `|Delta|` along the trajectory.
+## 9. Code status
 
-Separately, and this is what makes it a real defect rather than a formality: `d/dt Delta` depends on
-`lambda_4`, so the `gamma_4 = 0` termination breaks the invariance at `3.8e-2` for `N = 4`. It will
-drift.
-
-## 9. What exists in code, and why it must not be run as is
-
-`tools/propagate_dynamical.py` is DEFECTIVE and produced no numbers:
-
-- it uses **Euler** for the coefficient leg while RK4 for the state;
-- it computes a quantity `Fd` and then **never uses it**, so the basis-motion term
-  `sum_b c_b S_b-dot` is **omitted entirely** -- and that term was measured at 60-96% of
-  `|lambda_3-dot|`, so the `memory` row would have been meaningless;
-- its docstring says `lambda_4 = 0` while the code uses `gamma_4 = 0`; the code is right and the
-  docstring is wrong.
-
-It should be rewritten against this specification, not patched.
+`tools/propagate_dynamical.py` is DEFECTIVE and produced no numbers: Euler on the coefficient leg
+against RK4 on the state; it computes `Fd` and never uses it, so the basis-motion term -- 60-96% of
+`|lambda_3-dot|` -- is omitted entirely; and its docstring contradicts its own code on the termination.
+It must be rewritten against this specification, not patched.
 
 ## 10. Honest expectation
 
-Given the measurements, the scheme should work in the near-adiabatic pure-state regime (span 3-8%,
-leakage `3e-4` absolute) and should fail from a low-`rank(rho)` start (span 83%, leakage 30%). The
-`Delta` drift is unbounded as specified. **The first run must reproduce a known limit** -- `c = 0`
-against the already-measured `null` trajectory, and exact `gamma_3` fed in at every stage against the
-exact trajectory -- before any new number is believed. This session produced four vacuous or
-mis-normalised tests; a propagation has more places for that to hide.
+With `A = 0` this is a one-shot closure with a structurally exact trace channel and nothing else. It
+should be better than every closure measured so far on the trace relation (which none satisfied) and
+no better than them on the traceless content (which it discards). Far from equilibrium it should fail,
+because that is where the traceless memory lives. **It is a first rung, not a finished method.**

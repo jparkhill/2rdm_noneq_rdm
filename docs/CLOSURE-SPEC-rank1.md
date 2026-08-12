@@ -52,91 +52,79 @@ The first term is TDHF and is exact given `gamma_1`; verified to give TDHF at 3.
 `lambda_2 = 0`. **`C` contains no explicit `gamma_1`**, so the entire closure content sits in
 `lambda_2`.
 
-## 4. The closure
+## 4. The closure -- and why rank 1 is the HARD case, not the easy one
 
-`lambda_2` is NOT a functional of `gamma_1`. Two facts force this:
+**REVISED.** The earlier version of this file used an MP2-type amplitude
+`T_sigma = V / (orbital energy denominator)`. **That is withdrawn.** Its order relation is anchored to
+an idempotent reference; away from one it carries no justification at all, and during a propagation
+far from the initial state there is no order relation to the equation of motion. It must not be used
+as a closure ingredient.
 
-- **No connected `gamma_1`-only structure with 4 free indices exists.** A connected diagram of
-  `gamma_1` vertices (each `(1,1)`) is a path or a cycle and always has `(1,1)` or `(0,0)` free
-  indices. Proof in `CONSTRAINT-LEDGER.md`. So any `lambda_2[gamma_1]` is a wedge and LEAKS
-  (measured: `muller_rdmft` leak 0.99).
-- **Dimensional analysis** then forces the `(2,2)` primitive to be `V` divided by an energy.
+What remains is a genuine obstruction, and it is worth stating plainly rather than papering over.
 
-So the basis is amplitudes. With `f = h + W` the generalised Fock matrix, `f = U e U^dag` its
-eigendecomposition, and a FIXED level shift `sigma > 0`:
+**Leg counting.** `Tr_2 lambda_2 = -gamma_1 eta_1` is the trace target: a `(1,1)` object. `lambda_2`
+needs `(2,2)`. `gamma_1` vertices cannot change the leg count (a connected graph of `(1,1)` vertices is
+a path or a cycle). So the structural-trace construction of `STRUCTURAL-TRACE.md` needs exactly one
+`(2,2)` vertex attached by one contraction:
 
-    T_sigma[p,v,q,w]  =  antisym[ V~[p,v,q,w] / ( e_q + e_w - e_p - e_v + sigma ) ]
+    lambda_2  =  A_2[ (-gamma_1 eta_1)  o  K ]  ,      Tr_2 K = I
 
-where `V~` is `V` in the `U` basis and `antisym` antisymmetrises in `(p,v)` and in `(q,w)`; the
-result is rotated back. Then
+**But the only `(2,2)` primitives are `lambda_2` and `V`.** Using `lambda_2` is circular -- it is the
+object being constructed. So `K` must be built from `V`, and since `lambda_2` is dimensionless while
+`V` is an energy, `K` requires an energy denominator.
 
-    lambda_2  =  sum_a c_a S_a ,     S_a in { T_sigma_a , dressings of T_sigma_a by powers of gamma_1 }
+**This is where MP2 came from, and the objection is to the JUSTIFICATION, not to the resolvent.** A
+denominator built from orbital energies of an idempotent reference is illegitimate. A denominator built
+from the INSTANTANEOUS one-body generator of the equation of motion is a different object: it is defined
+at any density, it is not a perturbative expansion, and it claims no order relation. Concretely, with
+`f = h + W[gamma_1]` the generalised Fock matrix at the current density and `L_0` the superoperator
+`L_0[X] = i(f-commutator on all four slots of X)`, a candidate is
 
-`S_a` is orthonormalised by SVD to a frame `F` (rows orthonormal), so `c` is unique; `c_a = <F_a, lambda_2>`
-and `lambda_2 = F^T c`. The frame is aligned to the previous step's by the orthogonal Procrustes
-solution, so `c` measures the state moving and not the frame being re-chosen.
+    K  =  ( L_0^dag L_0 + sigma^2 )^{-1} L_0^dag [ V ]        (Tikhonov-regularised resolvent)
 
-## 5. The coefficient flow
+normalised so that `Tr_2 K = I`. **This is a PROPOSAL and is not derived.** It is dimensionally sound
+and Lipschitz for fixed `sigma > 0` (`tools/level_shift.py`: the Lipschitz constant falls from `1.6e3`
+to `0.85` at `sigma = 1e-2` at no measurable cost in accuracy), but:
 
-Writing `lambda_2 = sum_a c_a S_a + rho` with `rho` orthogonal to the span, the exact rank-2
-equation of motion gives `lambda_2-dot`, and projecting onto the frame:
+- I have NOT shown that `Tr_2 K = I` is achievable for this `K` without reintroducing a global
+  normalisation, which would break extensivity;
+- I have NOT shown the construction is extensive; `L_0` is built from `f`, which is local, so it is
+  plausible, but plausible is not measured;
+- the `sigma -> 0` limit is where `L_0` is singular, which is exactly the rank-jumping pseudo-inverse
+  that disqualified the unregularised `pt` closure under screen 1.
 
-    c-dot  =  <F , lambda_2-dot>  -  <F , sum_b c_b S_b-dot>
+## 5. Honest assessment of the rank-1 scheme
 
-`S_b-dot` is computed by the product rule over the structure definition -- analytically, via
-`qdiss.ansatz.connected_basis_dot` for the chain family; the amplitude family needs the analogous
-routine, which **does not exist yet (UNVALIDATED, NOT WRITTEN)**.
+**The rank-1 closure is not ready and should not be implemented.** The rank-2 scheme is, because there
+`lambda_2` is a propagated state variable and can serve as the `(2,2)` vertex without circularity. At
+rank 1 there is no such vertex, and every route to one passes through `V` with a denominator, which is
+where the previous generation of closures (`pt`, `mp2`) failed.
 
-`lambda_2-dot` comes from the rank-2 MKNO equation of motion, which requires `gamma_3`. The tower is
-terminated by
+This is not a defect of the specification; it is the rank-2 no-go asserting itself. It says the cheapest
+rung of the hierarchy is the hardest to close honestly, and that the natural entry point is rank 2.
 
-    gamma_3 = 0      when N <= 2 (EXACT there, since gamma_3 == 0 identically)
-    gamma_3 = separable(gamma_1, lambda_2)  otherwise, i.e. lambda_3 = 0   (APPROXIMATION)
+## 6. Ledger status
 
-The second is the `null` closure at rank 3 and is measured to be wrong by 10-19% of the flow at
-`k = N` (`tools/top_of_hierarchy.py`). Note the termination is at the MOMENT level where it can be:
-`gamma_{k+2} = 0` is exact when `N <= k+1`, whereas `lambda_{k+2} = 0` is not.
-
-## 6. Every approximation, named
-
-1. `lambda_2` is restricted to the `A`-dimensional amplitude span. Unmeasured at rank 2. (At rank 3
-   the analogous connected span held `lambda_3` to 0.8-8% statically, 16% under quench, 83% from a
-   rank-2 mixture.)
-2. The coefficient flow is a Galerkin projection; the out-of-span residual `rho-dot` feeds back and
-   is discarded. At rank 3 this leakage measured 1-3% under quench, 28-35% at low `rank(rho)`.
-3. The tower is terminated at `gamma_3` as in section 5.
-4. The level shift `sigma` is fixed, not variational. Measured at rank 2 elsewhere to cost nothing in
-   accuracy while passing the Lipschitz screen (`tools/level_shift.py`, `sigma = 1e-2`).
-5. `Theta` is integrated with a retraction (QR or polar); the retraction error is `O(dt^2)` and
-   **unmeasured**.
-
-## 7. Ledger status
-
-| row | how it is met | evidence |
+| row | met? | how |
 |---|---|---|
-| `0 <= gamma_1 <= I` | structural, `Theta` isometry | construction |
-| extensivity | `T_sigma` is built from `V`, which vanishes between separated fragments | NOT YET MEASURED at rank 2 |
-| dimensional analysis | `V` over an energy | construction |
-| Lipschitz | fixed `sigma`, no state-dependent inverse | `tools/level_shift.py` |
-| trace identity `Tr_2 lambda_2 = -gamma_1 eta_1` | **NOT MET.** See section 8 | -- |
-| exactness at `k >= N` | `gamma_3 = 0` termination is exact for `N <= 2` | `tools/top_of_hierarchy.py` |
-| convergence | in `A` and in the tower depth | NOT MEASURED |
+| `0 <= gamma_1 <= I` | YES, structural | `Theta` isometry, section 2 |
+| antisymmetry, hermiticity | YES | representation |
+| dimensional analysis | YES for the resolvent form; NO for bare `V` | section 4 |
+| **trace relation** | **UNRESOLVED** -- needs a `(2,2)` vertex that is not `lambda_2` | section 4 |
+| **extensivity** | **UNRESOLVED** -- depends on the normalisation of `K` | section 4 |
+| Lipschitz | plausible for fixed `sigma`; `sigma -> 0` disqualified | `tools/level_shift.py` |
+| exactness at `k >= N` | YES for `N <= 2` via `gamma_3 = 0` | `tools/top_of_hierarchy.py` |
+| perturbative limit | DELIBERATELY NOT CLAIMED -- see section 4 | -- |
+| convergence | untested | -- |
 
-## 8. The trace identity is NOT enforceable here, and this corrects an earlier claim
+Three rows are structural, two are unresolved, and the unresolved ones are the ones that matter.
 
-I previously said the trace identity becomes "one linear condition on a handful of numbers, elementary
-to impose". **That is wrong.** With `lambda_2 = sum_a c_a S_a`, define `D_a = Tr_2 S_a` (an `M x M`
-object) and `Tgt = -gamma_1 eta_1`. The identity is
+## 7. What is owed before this rung is attempted
 
-    sum_a c_a D_a  =  Tgt
-
-which is `M^2` scalar conditions on `A` unknowns -- at `M = 8`, 64 conditions on `A ~ 6`. Massively
-overdetermined. Differentiating gives the same count on `c-dot`. So it can only be
-
-  (a) imposed in least squares, leaving a residual that must be reported; or
-  (b) satisfied exactly by enlarging `A` until `{D_a}` spans the required subspace, at a cost that
-      has not been estimated; or
-  (c) violated, with `|sum_a c_a D_a - Tgt|` monitored along the trajectory.
-
-Option (c) with monitoring is the only honest default until (b) is costed. **This is the largest
-single defect of the rank-1 scheme.**
+1. Decide whether a `(2,2)` vertex with `Tr_2 K = I` can be built from `V` and the instantaneous `f`
+   WITHOUT a global normalisation. This is the whole question; everything else follows.
+2. If yes, measure its extensivity on the H3 x H2 product-state harness
+   (`tools/ansatz_extensivity.py`) before any dynamics.
+3. Only then specify the coefficient flow. It is deliberately omitted here because specifying a flow
+   for a closure whose leading term is unresolved would be exactly the getting-ahead-of-the-algebra
+   that this revision is meant to stop.
