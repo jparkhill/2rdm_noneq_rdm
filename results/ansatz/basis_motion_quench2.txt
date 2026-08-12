@@ -1,0 +1,18 @@
+Does the auxiliary basis need memory? Regimes where one-shot closures fail.
+compressed -> stretched H4 quench; rank-2 mixture for regime C.
+
+=== A adiabatic ===
+       t | |dg2 from 0| |  span err    motion   c drift
+    0.00 |     0.00000 |    0.1694    0.9915    0.0000
+    0.25 |     0.00218 |    0.1581    0.9889    0.0005
+    0.50 |     0.00426 |    0.1286    0.9845    0.0013
+    1.00 |     0.00784 |    0.0838    0.9787    0.0032
+    2.00 |     0.01066 |    0.1251    0.9563    0.0061
+
+=== B quench ===
+       t | |dg2 from 0| |  span err    motion   c drift
+Traceback (most recent call last):
+  File "/home/john/qm/tools/basis_motion_quench.py", line 150, in <module>
+    motion = np.linalg.norm(c @ ((MOVb - MOV) / DT)) / max(np.linalg.norm(dl3.reshape(-1)), 1e-30)
+                                  ~~~~~^~~~~
+ValueError: operands could not be broadcast together with shapes (6,262144) (4,262144) 

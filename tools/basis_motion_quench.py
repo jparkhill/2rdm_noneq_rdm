@@ -113,23 +113,49 @@ print()
 for tag, es, vec in REGIMES:
     dm = dm_of(tag)
     print("=== %s ===" % tag)
-    print("  %6s | %11s | %9s %9s %9s"
-          % ("t", "|dg2 from 0|", "span err", "motion", "c drift"))
+    print("  %6s | %11s | %9s %9s %9s %5s"
+          % ("t", "|dg2 from 0|", "span err", "motion", "c drift", "rank"))
     c_ref, g2_0 = None, None
+    prev_frame = [None, None]
     for t in TIMES:
         g1, g2, l2, l3 = cums_of(dm, es, vec, t, M)
         g1b, g2b, l2b, l3b = cums_of(dm, es, vec, t + DT, M)
         if g2_0 is None:
             g2_0 = g2
-        MOV = np.array([X.reshape(-1) for _, X in az.connected_basis(g1, l2, M)])
-        MOVb = np.array([X.reshape(-1) for _, X in az.connected_basis(g1b, l2b, M)])
-        c, *_ = np.linalg.lstsq(MOV.T, l3.reshape(-1), rcond=None)
+        MOVr = np.array([X.reshape(-1) for _, X in az.connected_basis(g1, l2, M)])
+        MOVbr = np.array([X.reshape(-1) for _, X in az.connected_basis(g1b, l2b, M)])
+        # ORTHONORMALISE. The 12 generators span only 4 dimensions, so a raw lstsq coefficient
+        # vector is defined only up to an 8-dimensional null space and its minimum-norm
+        # representative jumps discontinuously; the c-drift column was meaningless without this.
+        # An SVD-based orthonormal basis makes c unique. The frame is fixed by aligning each
+        # right-singular direction to the previous step's, so the drift measures the STATE moving
+        # and not the frame being re-chosen.
+        def onb(Braw, ref=None, kfix=None):
+            Uu, Sv, Vt = np.linalg.svd(Braw, full_matrices=False)
+            # The numerical rank of the connected span is NOT constant: 4 directions at an
+            # adiabatic ground state, 6 under the quench. Both frames must therefore be taken at
+            # a COMMON rank or the shapes do not match; kfix carries it.
+            k = int((Sv > 1e-9 * Sv[0]).sum()) if kfix is None else kfix
+            B = Vt[:k]
+            if ref is not None and ref.shape[0] == k:
+                ov = B @ ref.conj().T
+                W, _, Zt = np.linalg.svd(ov)
+                B = (W @ Zt).conj().T @ B          # closest frame to ref
+            return B
+        MOV = onb(MOVr, prev_frame[0], prev_frame[1])
+        prev_frame[0], prev_frame[1] = MOV, MOV.shape[0]
+        MOVb = onb(MOVbr, MOV, MOV.shape[0])
+        c = MOV.conj() @ l3.reshape(-1)
+        # reconstruction is B^T c, NOT B^dag c: c_i = <b_i, v> already carries the conjugate,
+        # so conjugating the basis again is wrong and inflates the span error.
         se = np.linalg.norm(MOV.T @ c - l3.reshape(-1)) / np.linalg.norm(l3)
         if c_ref is None:
             c_ref = c
         dl3 = (l3b - l3) / DT
         motion = np.linalg.norm(c @ ((MOVb - MOV) / DT)) / max(np.linalg.norm(dl3.reshape(-1)), 1e-30)
-        print("  %6.2f | %11.5f | %9.4f %9.4f %9.4f"
+        Sv = np.linalg.svd(MOVr, compute_uv=False)
+        print("  %6.2f | %11.5f | %9.4f %9.4f %9.4f %5d"
               % (t, np.abs(g2 - g2_0).max(), se, motion,
-                 np.linalg.norm(c - c_ref) / max(np.linalg.norm(c_ref), 1e-30)))
+                 np.linalg.norm(c - c_ref) / max(np.linalg.norm(c_ref), 1e-30),
+                 int((Sv > 1e-9 * Sv[0]).sum())))
     print()
