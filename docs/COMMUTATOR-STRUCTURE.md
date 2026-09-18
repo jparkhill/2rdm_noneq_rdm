@@ -417,3 +417,14 @@ eigenvalues (2e-7) are where the `λ_3 = 0` flow will actually cross.
 - `λ_3` must be modelled on its own terms. The two live candidates remain: the connected-span ancilla with memory
   (`DYNAMICAL-CLOSURE.md`; 99.4% of `λ_3` in span near equilibrium), and a metriplectic dissipator for the
   spectral part; the channel decomposition now says exactly which pieces of the flow each must repair.
+
+**6c. Is `R3` inward-pointing?** (`tools/r3_inwardness.py`.) On near-boundary eigenvalues of D, Q, G the
+fraction of eigenvalues `R3` raises ranges 0–1 across states, and its spectral entropy production takes both
+signs, following the exact reversible flow (negative on kicked ground states). At H3 its dominant role is to
+cancel a large spurious spectral motion of `F0` (`dS/dt`: F0 +0.51 vs exact −0.03; F0 −1.9 vs exact +0.18).
+`R3` is corrective, not dissipative. An inward (GKSL) model of `λ_3` is therefore a Markovian coarse-graining
+— the rank-2 analogue of the Boltzmann step — right on average for a thermalising system and wrong for these
+recurrent benchmarks. Derivation path for episode 7: `λ_3^M = −i(L_0 − iη)^{-1} Source[γ_1, λ_2]`,
+`R3^M = Phi[λ_3^M]`, Kossakowski matrix on pair space (784² at M=8, cheap since the dissipator is linear),
+then Davies/ULE positivisation in the eigenbasis of the effective pair Hamiltonian; measure overlap with the
+true `R3` against the 0.4–0.7 of the tangency correction.
