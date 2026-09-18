@@ -174,3 +174,48 @@ not freeze `gamma_1`'s spectrum, it just moves it by the wrong amount.
   exactly what a metric bracket with an occupation entropy acts on.
 - Not yet done: the Jacobi question for a state-dependent `K_3`; and the actual construction of a
   metric bracket for the spectral part with the right fixed point. Both are now well-posed.
+
+---
+
+## Episode 3 (2026-08-12): energy, the Hamiltonian pair flow, and a contraction identity
+
+Tool `tools/hamiltonian_pair_flow.py`; output `results/hamiltonian_pair_flow.txt`.
+Symbols as above, plus: `K_h`, `K_V` the one- and two-body parts of `K_2` (`K_2 = K_h + K_V`);
+`E = tr(h gamma_1) + (1/4) V.gamma_2` the physical energy, linear in `X`; `grad E` its (constant)
+gradient on pair space; `c(T) = Tr_2 T / (N-1)`.
+
+**Energy.** `D = i[K_2, X]` does NOT conserve `E`: `dE/dt|_D = -4e-3 .. -7e-2`, cancelled exactly by
+`Phi`. So the drift conserves the spectrum of `Mat_2` and the quantity `tr(K_2 X)` (an energy-like
+invariant with one- and two-body parts weighted `2(N-1) : 2` instead of `1 : 1/4`), but not `E`.
+
+**`grad E` in closed form.** Measured: `grad E = K_h / (2(N-1)) + K_V / 2`, linearity check 1e-15.
+
+**Contraction identity (1e-16 on all rows).**
+
+    c( i[K_h, X] ) = i[h, gamma_1]
+    c( Phi )       = (N-2) . c( i[K_V, X] )
+    =>  gamma_1-dot = i[h, gamma_1] + (N-1) . c( i[K_V, X] )        exactly
+
+The entire two-body part of the 1-RDM flow is the contraction of a pair-space commutator, with weight
+`N-1` on `K_V` where the drift has weight 1. Consequences:
+
+- The `u(pairs)` Hamiltonian flow `i[grad E, X]` induces exactly `gamma_1-dot / (2(N-1))`: the exact
+  1-RDM flow uniformly slowed. (This is why its induced rank-1 error was exactly `1 - 1/(2(N-1))`.)
+- `K* = K_h + (N-1) K_V = 2(N-1) grad E` gives a commutator flow with EXACT induced rank-1 EOM,
+  exact energy conservation, and structural positivity, no parameters. The 22-38% 1-RDM loss of
+  episode 2 was the wrong weight on `K_V`, not a property of commutator closures.
+- The exact flow is `Xdot = i[K*, X] + R`, `R = Phi - i[(N-2) K_V, X]`, with `c(R) = 0` identically.
+  Any modelling of `R` leaves the rank-1 EOM exact.
+
+**But `K*` is a bad rank-2 flow.** Relative error of `i[K*, X]` against `Xdot_exact`: 1.2-4.3 (worse
+than `D` at 0.56-1.29, and than `lambda_3 = 0` at 0.06-0.19). The remainder `R` is 1.2-4.3 times the
+exact flow, nearly all of it non-spectral (spectral fraction of `R` 0.0004-0.14), so `R` is very
+nearly a commutator `i[K_3, X]` with a LARGE `K_3` that must cancel most of the `(N-2) K_V`
+overweight everywhere in pair space while contributing nothing to the contraction.
+
+**Reading.** Two exact linear constraints on a commutator closure `Xdot = i[K, X]` are now known:
+`c(i[K, X]) = gamma_1-dot` (contraction) and `tr(X [grad E, K]) = 0` (energy). `K*` satisfies both and
+is the worst flow measured; `D` satisfies neither and is better; the best commutator approximation to
+the exact flow (`D + Phi_off`) has error equal to the spectral fraction (0.1-35%). The closure content
+is a `K_3(gamma_1, gamma_2)` that interpolates: it must supply the pair-space structure of `Phi` (which
+`lambda_3 = 0` already approximates to 6-19%) while respecting the two constraints. That is episode 4.

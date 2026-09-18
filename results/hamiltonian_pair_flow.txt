@@ -1,0 +1,74 @@
+=== H3 bent: grad_X E = 0.250000 * K_2(h-part) + 0.500000 * K_2(V-part) ; linearity check 2.6e-15
+    expected 1/(2(N-1)) = 0.250000 for h, 1/2 for V
+--- H3 bent | kicked ground state  rank(rho)~1  |Xdot_exact|=0.8969  |gamma_1-dot|=0.2970
+    Hamiltonian pair flow i[grad E, X]     rel err rank-2 0.7975   rel err induced rank-1 0.7500   dE/dt -6.5e-18   spectral frac 0.0000
+    rescaled K* = K_h + (N-1) K_V          rel err rank-2 1.1595   rel err induced rank-1 0.0000   dE/dt -1.4e-17   spectral frac 0.0000
+    drift D = i[K_2, X] alone              rel err rank-2 0.5611   rel err induced rank-1 0.1906   dE/dt -4.1e-03   spectral frac 0.0000
+    D + Phi[lambda_3 = 0]                  rel err rank-2 0.0554   rel err induced rank-1 0.0065   dE/dt -6.5e-05   spectral frac 0.0157
+    D + Phi[muller2405 + Lackner]          rel err rank-2 0.0670   rel err induced rank-1 0.0000   dE/dt +4.5e-17   spectral frac 0.0111
+
+--- H3 bent | HF determinant, t=0  rank(rho)~1  |Xdot_exact|=0.5601  |gamma_1-dot|=0.0735
+    Hamiltonian pair flow i[grad E, X]     rel err rank-2 0.7370   rel err induced rank-1 0.7500   dE/dt +0.0e+00   spectral frac 0.0000
+    rescaled K* = K_h + (N-1) K_V          rel err rank-2 2.2052   rel err induced rank-1 0.0000   dE/dt +0.0e+00   spectral frac 0.0000
+    drift D = i[K_2, X] alone              rel err rank-2 1.0346   rel err induced rank-1 0.7128   dE/dt +0.0e+00   spectral frac 0.0000
+    D + Phi[lambda_3 = 0]                  rel err rank-2 0.0000   rel err induced rank-1 0.0000   dE/dt +0.0e+00   spectral frac 0.0000
+    D + Phi[muller2405 + Lackner]          rel err rank-2 0.0000   rel err induced rank-1 0.0000   dE/dt +0.0e+00   spectral frac 0.0000
+
+--- H3 bent | V-quench 0.3->1, pure, t=1  rank(rho)~1  |Xdot_exact|=0.4527  |gamma_1-dot|=0.1097
+    Hamiltonian pair flow i[grad E, X]     rel err rank-2 0.9335   rel err induced rank-1 0.7500   dE/dt -1.7e-18   spectral frac 0.0000
+    rescaled K* = K_h + (N-1) K_V          rel err rank-2 2.5957   rel err induced rank-1 0.0000   dE/dt +1.0e-16   spectral frac 0.0000
+    drift D = i[K_2, X] alone              rel err rank-2 1.2868   rel err induced rank-1 0.6082   dE/dt -2.3e-02   spectral frac 0.0000
+    D + Phi[lambda_3 = 0]                  rel err rank-2 0.0846   rel err induced rank-1 0.0174   dE/dt +3.4e-05   spectral frac 0.2666
+    D + Phi[muller2405 + Lackner]          rel err rank-2 0.1758   rel err induced rank-1 0.0000   dE/dt +3.5e-17   spectral frac 0.1932
+
+--- H3 bent | V-quench 0.3->1, pure, t=2  rank(rho)~1  |Xdot_exact|=0.4585  |gamma_1-dot|=0.1156
+    Hamiltonian pair flow i[grad E, X]     rel err rank-2 1.0163   rel err induced rank-1 0.7500   dE/dt -2.6e-17   spectral frac 0.0000
+    rescaled K* = K_h + (N-1) K_V          rel err rank-2 2.2576   rel err induced rank-1 0.0000   dE/dt +0.0e+00   spectral frac 0.0000
+    drift D = i[K_2, X] alone              rel err rank-2 1.1558   rel err induced rank-1 0.5745   dE/dt -1.8e-02   spectral frac 0.0000
+    D + Phi[lambda_3 = 0]                  rel err rank-2 0.1859   rel err induced rank-1 0.0264   dE/dt +6.0e-05   spectral frac 0.2277
+    D + Phi[muller2405 + Lackner]          rel err rank-2 0.2452   rel err induced rank-1 0.0000   dE/dt +0.0e+00   spectral frac 0.1503
+
+=== H4 trapezoid: grad_X E = 0.166667 * K_2(h-part) + 0.500000 * K_2(V-part) ; linearity check 1.8e-15
+    expected 1/(2(N-1)) = 0.166667 for h, 1/2 for V
+--- H4 trapezoid | kicked ground state  rank(rho)~1  |Xdot_exact|=0.5016  |gamma_1-dot|=0.1238
+    Hamiltonian pair flow i[grad E, X]     rel err rank-2 1.0627   rel err induced rank-1 0.8333   dE/dt -5.6e-18   spectral frac 0.0000
+    rescaled K* = K_h + (N-1) K_V          rel err rank-2 3.7908   rel err induced rank-1 0.0000   dE/dt -5.0e-17   spectral frac 0.0000
+    drift D = i[K_2, X] alone              rel err rank-2 0.9568   rel err induced rank-1 0.7833   dE/dt +2.7e-03   spectral frac 0.0000
+    D + Phi[lambda_3 = 0]                  rel err rank-2 0.1346   rel err induced rank-1 0.0048   dE/dt +6.6e-05   spectral frac 0.0039
+    D + Phi[muller2405 + Lackner]          rel err rank-2 0.1638   rel err induced rank-1 0.0000   dE/dt -3.5e-18   spectral frac 0.0028
+
+--- H4 trapezoid | kicked thermal kT=0.5  rank(rho)~55  |Xdot_exact|=0.4278  |gamma_1-dot|=0.1498
+    Hamiltonian pair flow i[grad E, X]     rel err rank-2 0.9173   rel err induced rank-1 0.8333   dE/dt -8.1e-18   spectral frac 0.0000
+    rescaled K* = K_h + (N-1) K_V          rel err rank-2 2.4535   rel err induced rank-1 0.0000   dE/dt -3.5e-17   spectral frac 0.0000
+    drift D = i[K_2, X] alone              rel err rank-2 0.5721   rel err induced rank-1 0.3197   dE/dt +1.9e-03   spectral frac 0.0000
+    D + Phi[lambda_3 = 0]                  rel err rank-2 0.0624   rel err induced rank-1 0.0064   dE/dt +7.0e-06   spectral frac 0.0011
+    D + Phi[muller2405 + Lackner]          rel err rank-2 0.0875   rel err induced rank-1 0.0000   dE/dt -1.3e-17   spectral frac 0.0009
+
+--- H4 trapezoid | HF determinant, t=0  rank(rho)~1  |Xdot_exact|=0.8202  |gamma_1-dot|=0.0000
+    Hamiltonian pair flow i[grad E, X]     rel err rank-2 0.5496   rel err induced rank-1 0.8333   dE/dt +0.0e+00   spectral frac 0.0000
+    rescaled K* = K_h + (N-1) K_V          rel err rank-2 2.4237   rel err induced rank-1 0.0000   dE/dt +0.0e+00   spectral frac 0.0000
+    drift D = i[K_2, X] alone              rel err rank-2 0.6299   rel err induced rank-1 2624853.6671   dE/dt +0.0e+00   spectral frac 0.0000
+    D + Phi[lambda_3 = 0]                  rel err rank-2 0.0000   rel err induced rank-1 0.0000   dE/dt +0.0e+00   spectral frac 0.0000
+    D + Phi[muller2405 + Lackner]          rel err rank-2 0.0000   rel err induced rank-1 0.0000   dE/dt +0.0e+00   spectral frac 0.0000
+
+--- H4 trapezoid | V-quench 0.3->1, pure, t=1  rank(rho)~1  |Xdot_exact|=0.7549  |gamma_1-dot|=0.1455
+    Hamiltonian pair flow i[grad E, X]     rel err rank-2 1.0182   rel err induced rank-1 0.8333   dE/dt +7.6e-17   spectral frac 0.0000
+    rescaled K* = K_h + (N-1) K_V          rel err rank-2 2.6123   rel err induced rank-1 0.0000   dE/dt -5.1e-16   spectral frac 0.0000
+    drift D = i[K_2, X] alone              rel err rank-2 0.7932   rel err induced rank-1 0.8755   dE/dt -6.9e-02   spectral frac 0.0000
+    D + Phi[lambda_3 = 0]                  rel err rank-2 0.0960   rel err induced rank-1 0.0160   dE/dt +4.9e-04   spectral frac 0.3588
+    D + Phi[muller2405 + Lackner]          rel err rank-2 0.1926   rel err induced rank-1 0.0000   dE/dt -1.7e-16   spectral frac 0.2561
+
+--- H4 trapezoid | V-quench 0.3->1, pure, t=2  rank(rho)~1  |Xdot_exact|=0.7139  |gamma_1-dot|=0.1308
+    Hamiltonian pair flow i[grad E, X]     rel err rank-2 1.0820   rel err induced rank-1 0.8333   dE/dt +5.1e-17   spectral frac 0.0000
+    rescaled K* = K_h + (N-1) K_V          rel err rank-2 2.6618   rel err induced rank-1 0.0000   dE/dt +5.6e-17   spectral frac 0.0000
+    drift D = i[K_2, X] alone              rel err rank-2 0.6937   rel err induced rank-1 0.6107   dE/dt +2.1e-02   spectral frac 0.0000
+    D + Phi[lambda_3 = 0]                  rel err rank-2 0.1515   rel err induced rank-1 0.0509   dE/dt +4.4e-04   spectral frac 0.1117
+    D + Phi[muller2405 + Lackner]          rel err rank-2 0.2161   rel err induced rank-1 0.0000   dE/dt -8.3e-17   spectral frac 0.0760
+
+--- H4 trapezoid | V-quench, thermal kT=0.5, t=1  rank(rho)~58  |Xdot_exact|=0.2507  |gamma_1-dot|=0.0627
+    Hamiltonian pair flow i[grad E, X]     rel err rank-2 1.1640   rel err induced rank-1 0.8333   dE/dt +7.8e-17   spectral frac 0.0000
+    rescaled K* = K_h + (N-1) K_V          rel err rank-2 4.2743   rel err induced rank-1 0.0000   dE/dt -1.8e-16   spectral frac 0.0000
+    drift D = i[K_2, X] alone              rel err rank-2 1.0527   rel err induced rank-1 0.8855   dE/dt -3.5e-02   spectral frac 0.0000
+    D + Phi[lambda_3 = 0]                  rel err rank-2 0.0791   rel err induced rank-1 0.0558   dE/dt +5.5e-04   spectral frac 0.2785
+    D + Phi[muller2405 + Lackner]          rel err rank-2 0.1771   rel err induced rank-1 0.0000   dE/dt -1.1e-16   spectral frac 0.2403
+
