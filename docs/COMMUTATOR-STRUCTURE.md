@@ -219,3 +219,81 @@ is the worst flow measured; `D` satisfies neither and is better; the best commut
 the exact flow (`D + Phi_off`) has error equal to the spectral fraction (0.1-35%). The closure content
 is a `K_3(gamma_1, gamma_2)` that interpolates: it must supply the pair-space structure of `Phi` (which
 `lambda_3 = 0` already approximates to 6-19%) while respecting the two constraints. That is episode 4.
+
+---
+
+## Episode 4 (2026-08-12): anatomy of `Phi`; the geminal mean-field flow in closed form; the ph channel
+
+Tools `tools/phi_anatomy.py`, `tools/phi_sandwich_fit.py`, `tools/phi_identify.py`,
+`tools/geminal_meanfield.py`; outputs in `results/` under the same names.
+
+Symbols as above, plus: `X_d = Mat(γ_1∧γ_1)`, `L = X − X_d = Mat(λ_2)`, `N = γ_1⊕γ_1` (pair-space
+occupation matrix, `N[(pv),(qw)] = γ_1[pq]δ_vw + γ_1[vw]δ_pq − γ_1[pw]δ_vq − γ_1[vq]δ_pw`),
+`K_{W^T} = W^T⊕W^T` with `W[p,q] = Σ_rs V[p,r,q,s] γ_1[r,s]`. By MKNO,
+`γ_3 = A_3(γ_1γ_1γ_1) + A_3(γ_1λ_2) + λ_3`, so `Phi = Phi_ggg + Phi_gl + Phi_l3` (`Phi` is linear in `γ_3`).
+
+**4a. Anatomy (8 states).** `Phi_ggg` is nearly spectral-free on H4 (0.0006–0.07; on H3 0.11–0.17
+because of its 9-dim exact kernel block). `Phi_gl` is heavily spectral (0.4–0.84) — **the
+geminal-occupation motion lives in the `γ_1λ_2` part of the separable 3-RDM.** `|Phi_gl| ≈ ⅓|Phi_ggg|`,
+`|Phi_l3| ≈ 0.07–0.2 |Phi|`. `Phi_sep` reproduces the exact contraction identity
+`c(Phi) = (N−2)c(i[K_V,X])` to 1e-3; its two halves do not individually.
+
+**4b. Hermitian polynomial `K` in pp pair space cannot carry `Phi`.** Common-coefficient fits of
+`Phi_piece ≈ Σ_a c_a i[K_a, X]` over ten Hermitian structures (`K_h, K_V, W⊕W, C_h⊕C_h, C_a⊕C_a`,
+one- and two-leg `γ_1`-dressed `V`, `λ_2`-dressed `V` in pp and ph form): residual 0.38 (`Phi_ggg`),
+0.85 (`Phi_gl`), 0.44 (`Phi`). Closures `i[K_2 + K_fit, X]` have rank-2 error 0.12–0.54 and
+contraction error 0.10–0.55 — worse than `λ_3 = 0` (0.06–0.19, 0.005–0.06) on every state.
+Fitting non-Hermitian `S` in `i(S†X − XS)` over 15 monomials did no better (0.31–0.70).
+
+**4c. Exact identification of `Phi_ggg` (residual 1e-14 on six states, verified directly at 1e-15 on
+eight).** The class of pair-space products `A·B·C`, `B ∈ {K_V, K_{W^T}}`, `A, C ∈ {I, N, X_d}` contains
+`Phi_ggg` exactly, and the identity is
+
+    Phi[A_3(γ_1γ_1γ_1)]  =  i( S† X_d − X_d S ),        S = K_{W^T} − K_V N
+
+(with `W`, not `W^T`, it fails at 61%: the repo's `γ_1[p,q] = <a+_p a_q>` convention makes the
+transpose essential for complex `γ_1`, as in the rank-1 EOM `i[(h+W)^T, γ_1]`). Together with the
+drift, the entire `λ_2 = λ_3 = 0` rank-2 flow is one XR sandwich on `X_d`:
+
+    D + Phi_ggg  =  i[K_h + K_V, X]  +  i(S† X_d − X_d S),     S_tot = K_h + K_{W^T} + K_V (I − N)
+
+`K_V(I − N)` is the Bethe–Goldstone / pp-ladder phase-space factor `(1 − n_p − n_v)V`, and the
+anti-Hermitian part `Γ = i(S − S†) = i[N, K_V]` — non-commutativity of occupation with interaction —
+is exactly the spectral (occupation-moving) part of the mean-field-level flow. At a determinant
+(`X = X_d`, `γ_1` real) this reduces to a rational identity with coefficients ±½, ±¼.
+
+**`Phi_gl` is NOT in the pp product class** (53% residual even with `L` as a side and `C, C^T` as
+cores). Its Wick patterns contract `V` with `λ_2` on one ket and one bra index — the
+**particle-hole channel** — which is a different index reordering (the G-matrix) and cannot be a
+product of pp pair-space matrices. This is structural: the pp Lie algebra `u(C(M,2))` sees the ladder
+channel and is blind to the ring/exchange channel.
+
+**4d. The geminal mean-field flow as a closure.** Two variants: GMF-d (as derived, sandwich on `X_d`
+plus drift on `X`) and GMF-x (sandwich `i(S_tot†X − XS_tot)` on `X` itself, XR-structural).
+
+| state | D | GMF-d | GMF-x | λ_3=0 | GMF-x `tr Xdot` |
+|---|---|---|---|---|---|
+| H3 kicked ground | 0.56 | 0.15 | 1.19 | 0.055 | −1.4e-2 |
+| H3 quench t=1 | 1.29 | 0.38 | 2.01 | 0.085 | +1.4e-1 |
+| H4 kicked ground | 0.96 | 0.35 | 2.52 | 0.135 | −1.2e-3 |
+| H4 kicked thermal | 0.57 | 0.21 | 0.54 | 0.062 | −1.7e-4 |
+| H4 quench t=1 | 0.79 | 0.41 | 1.76 | 0.096 | +2.2e-1 |
+| H4 quench thermal t=1 | 1.05 | 0.40 | 1.03 | 0.079 | +4.0e-2 |
+
+GMF-d halves the drift's error but is 2–3× worse than `λ_3 = 0`: the `γ_1λ_2` (ph-channel) part is
+essential, not a correction. GMF-x is wrong: moving the sandwich from `X_d` to `X` costs
+`−i(S†L − LS)`, which is large, and it breaks trace conservation (`tr Xdot = −tr(ΓX) ≠ 0`). The XR
+form with this `S_tot` is therefore not a closure.
+
+**Standing of route F after episode 4.**
+
+- What is now derived: the pp-channel content of the rank-2 flow through `γ_3 = A_3(γ_1γ_1γ_1)` is a
+  sandwich `i(S†X_d − X_dS)` with `S = K_{W^T} − K_V N`; its Hermitian part is the effective pair
+  Hamiltonian `K_h + K_{W^T} + K_V − ½(K_V N + N K_V)` and its dissipative part is `Γ = i[N, K_V]`.
+- What is now excluded: a Hermitian generator in pp pair space alone (any polynomial `K`) as an
+  accurate closure. Half of the `λ_3 = 0` flow is particle-hole and lies outside that algebra.
+- What follows: the ph channel has its own Gram matrix (`G`) and its own XR/commutator structure.
+  The exact flow is a sum of channel sandwiches; `Phi_gl` should be identified as a product class in
+  G-matrix space the same way `Phi_ggg` was in pair space. A two-channel effective generator is the
+  natural object, and the `Q`/`G` row of the ledger — never controlled before — is exactly where it
+  would act. That is episode 5.

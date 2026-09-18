@@ -1,0 +1,19 @@
+sandwich fits  Phi_piece ~ i(S^dag X - X S),  S = sum_a s_a S_a (complex s_a common over 8 states)
+basis: K_V, N K_V, K_V N, N K_V N, K_W, N K_W, K_W N, K_h, N K_h, K_h N, L K_V, K_V L, K_C, N K_C, K_C N
+  target Phi_ggg  common residual 3.09e-01  per-state: 2.1e-01 2.3e-01 2.2e-01 5.0e-01 4.5e-01 2.8e-01 3.1e-01 3.4e-01  cond 5.6e+03
+      S = -0.2975-0.0145i [K_V]  +0.1332+0.0128i [N K_V]  -0.5127-0.0210i [K_V N]  -0.2044+0.0095i [N K_V N]  +0.1237-0.0007i [K_W]  +0.3313-0.0013i [N K_W]  -0.3362+0.0013i [K_W N]  -0.0145-0.0066i [K_h]  -0.4026-0.0040i [N K_h]  +0.3449+0.0076i [K_h N]  +0.2259+0.1048i [L K_V]  -0.8218-0.0996i [K_V L]  -0.1936+0.0017i [K_C]  +0.1052-0.0442i [N K_C]  +0.0291+0.0443i [K_C N]
+      H3 | kicked ground state               |K|_2=0.467 |Gamma|_2=0.274   spectral frac: target 0.1141 fit 0.0184
+      H4 | V-quench, thermal kT=0.5, t=1     |K|_2=0.404 |Gamma|_2=0.179   spectral frac: target 0.0668 fit 0.0514
+  target Phi_gl   common residual 7.03e-01  per-state: 6.2e-01 7.2e-01 7.0e-01 7.9e-01 8.4e-01 6.2e-01 7.8e-01 6.9e-01  cond 5.6e+03
+      S = +0.1212-0.0747i [K_V]  -0.1352+0.0368i [N K_V]  +0.1089+0.0521i [K_V N]  +0.0027-0.0222i [N K_V N]  +0.1738+0.0237i [K_W]  -0.1011+0.0077i [N K_W]  +0.0055-0.0178i [K_W N]  +0.0359-0.0227i [K_h]  +0.0744+0.0176i [N K_h]  -0.1563-0.0046i [K_h N]  -0.7147-0.0267i [L K_V]  +0.1657+0.0048i [K_V L]  -1.8191+0.2470i [K_C]  +0.5545-0.1629i [N K_C]  +0.1431+0.0620i [K_C N]
+      H3 | kicked ground state               |K|_2=0.809 |Gamma|_2=0.200   spectral frac: target 0.4259 fit 0.1442
+      H4 | V-quench, thermal kT=0.5, t=1     |K|_2=1.234 |Gamma|_2=0.136   spectral frac: target 0.6950 fit 0.7529
+  target Phi_sep  common residual 3.98e-01  per-state: 2.3e-01 3.1e-01 3.4e-01 5.6e-01 4.1e-01 4.0e-01 5.5e-01 2.6e-01  cond 5.6e+03
+      S = -0.1763-0.0892i [K_V]  -0.0020+0.0496i [N K_V]  -0.4038+0.0312i [K_V N]  -0.2017-0.0128i [N K_V N]  +0.2975+0.0230i [K_W]  +0.2301+0.0064i [N K_W]  -0.3306-0.0165i [K_W N]  +0.0213-0.0292i [K_h]  -0.3282+0.0136i [N K_h]  +0.1886+0.0030i [K_h N]  -0.4888+0.0781i [L K_V]  -0.6561-0.0948i [K_V L]  -2.0128+0.2487i [K_C]  +0.6597-0.2071i [N K_C]  +0.1722+0.1063i [K_C N]
+      H3 | kicked ground state               |K|_2=1.044 |Gamma|_2=0.204   spectral frac: target 0.0370 fit 0.0503
+      H4 | V-quench, thermal kT=0.5, t=1     |K|_2=1.537 |Gamma|_2=0.173   spectral frac: target 0.2668 fit 0.2166
+  target Phi      common residual 3.96e-01  per-state: 2.2e-01 3.1e-01 3.3e-01 5.6e-01 4.5e-01 3.8e-01 5.4e-01 2.7e-01  cond 5.6e+03
+      S = -0.0550-0.0970i [K_V]  -0.0685+0.0551i [N K_V]  -0.3858+0.0429i [K_V N]  -0.2018-0.0196i [N K_V N]  +0.2897+0.0141i [K_W]  +0.2386+0.0063i [N K_W]  -0.3416-0.0099i [K_W N]  -0.0149-0.0320i [K_h]  -0.3171+0.0105i [N K_h]  +0.2031+0.0087i [K_h N]  -0.5770+0.0751i [L K_V]  -0.6340-0.0833i [K_V L]  -1.8225+0.2093i [K_C]  +0.4897-0.1786i [N K_C]  +0.2456+0.1033i [K_C N]
+      H3 | kicked ground state               |K|_2=1.132 |Gamma|_2=0.183   spectral frac: target 0.0277 fit 0.0435
+      H4 | V-quench, thermal kT=0.5, t=1     |K|_2=1.545 |Gamma|_2=0.134   spectral frac: target 0.2705 fit 0.2080
+

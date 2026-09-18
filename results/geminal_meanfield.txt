@@ -1,0 +1,56 @@
+=== H3 | kicked ground state  rank(rho)~1  |Xdot|=0.8969   identity |Phi_ggg - i(S^dag Xd - Xd S)| = 4.6e-16   |Gamma|_2=0.345  tr(Gamma X)=+1.4e-02
+    D alone                            rank-2 err 0.5611   contraction err 0.1906   dE/dt -4.1e-03   spectral 0.0000   tr Xdot +3.1e-17
+    GMF-d  D + i(S^dag Xd - Xd S)      rank-2 err 0.1511   contraction err 0.0624   dE/dt -1.1e-03   spectral 0.0685   tr Xdot +7.3e-16
+    GMF-x  i(Stot^dag X - X Stot)      rank-2 err 1.1921   contraction err 0.1260   dE/dt +1.0e-02   spectral 0.0088   tr Xdot -1.4e-02
+    lambda_3 = 0                       rank-2 err 0.0554   contraction err 0.0065   dE/dt -6.5e-05   spectral 0.0213   tr Xdot -2.8e-17
+    exact                              rank-2 err 0.0000   contraction err 0.0000   dE/dt +1.7e-16   spectral 0.0155   tr Xdot -3.4e-16
+
+=== H3 | V-quench 0.3->1, pure, t=1  rank(rho)~1  |Xdot|=0.4527   identity |Phi_ggg - i(S^dag Xd - Xd S)| = 3.9e-16   |Gamma|_2=0.351  tr(Gamma X)=-1.4e-01
+    D alone                            rank-2 err 1.2868   contraction err 0.6082   dE/dt -2.3e-02   spectral 0.0000   tr Xdot -1.4e-17
+    GMF-d  D + i(S^dag Xd - Xd S)      rank-2 err 0.3831   contraction err 0.3269   dE/dt -2.0e-02   spectral 0.1455   tr Xdot +2.8e-17
+    GMF-x  i(Stot^dag X - X Stot)      rank-2 err 2.0135   contraction err 0.7071   dE/dt -1.6e-01   spectral 0.0998   tr Xdot +1.4e-01
+    lambda_3 = 0                       rank-2 err 0.0846   contraction err 0.0174   dE/dt +3.4e-05   spectral 0.2672   tr Xdot +6.9e-18
+    exact                              rank-2 err 0.0000   contraction err 0.0000   dE/dt +6.9e-18   spectral 0.2809   tr Xdot -4.2e-17
+
+=== H3 | V-quench 0.3->1, pure, t=2  rank(rho)~1  |Xdot|=0.4585   identity |Phi_ggg - i(S^dag Xd - Xd S)| = 3.9e-16   |Gamma|_2=0.329  tr(Gamma X)=-1.1e-01
+    D alone                            rank-2 err 1.1558   contraction err 0.5745   dE/dt -1.8e-02   spectral 0.0000   tr Xdot -6.9e-18
+    GMF-d  D + i(S^dag Xd - Xd S)      rank-2 err 0.4760   contraction err 0.3335   dE/dt -1.4e-02   spectral 0.1800   tr Xdot +6.9e-17
+    GMF-x  i(Stot^dag X - X Stot)      rank-2 err 2.9066   contraction err 0.6895   dE/dt -1.2e-01   spectral 0.0490   tr Xdot +1.1e-01
+    lambda_3 = 0                       rank-2 err 0.1859   contraction err 0.0264   dE/dt +6.0e-05   spectral 0.2339   tr Xdot -5.9e-17
+    exact                              rank-2 err 0.0000   contraction err 0.0000   dE/dt +1.5e-16   spectral 0.2263   tr Xdot -2.4e-17
+
+=== H4 | kicked ground state  rank(rho)~1  |Xdot|=0.5016   identity |Phi_ggg - i(S^dag Xd - Xd S)| = 6.7e-16   |Gamma|_2=0.395  tr(Gamma X)=+1.2e-03
+    D alone                            rank-2 err 0.9568   contraction err 0.7833   dE/dt +2.7e-03   spectral 0.0000   tr Xdot -5.2e-18
+    GMF-d  D + i(S^dag Xd - Xd S)      rank-2 err 0.3462   contraction err 0.0878   dE/dt -2.1e-04   spectral 0.0005   tr Xdot -1.7e-16
+    GMF-x  i(Stot^dag X - X Stot)      rank-2 err 2.5192   contraction err 0.1175   dE/dt +7.1e-04   spectral 0.0006   tr Xdot -1.2e-03
+    lambda_3 = 0                       rank-2 err 0.1346   contraction err 0.0048   dE/dt +6.6e-05   spectral 0.0039   tr Xdot +2.2e-19
+    exact                              rank-2 err 0.0000   contraction err 0.0000   dE/dt -5.3e-16   spectral 0.0037   tr Xdot +1.2e-15
+
+=== H4 | kicked thermal kT=0.5  rank(rho)~55  |Xdot|=0.4278   identity |Phi_ggg - i(S^dag Xd - Xd S)| = 6.7e-16   |Gamma|_2=0.220  tr(Gamma X)=+1.7e-04
+    D alone                            rank-2 err 0.5721   contraction err 0.3197   dE/dt +1.9e-03   spectral 0.0000   tr Xdot +1.7e-18
+    GMF-d  D + i(S^dag Xd - Xd S)      rank-2 err 0.2123   contraction err 0.1038   dE/dt -5.4e-04   spectral 0.0008   tr Xdot +1.7e-16
+    GMF-x  i(Stot^dag X - X Stot)      rank-2 err 0.5437   contraction err 0.0808   dE/dt -1.4e-04   spectral 0.0003   tr Xdot -1.7e-04
+    lambda_3 = 0                       rank-2 err 0.0624   contraction err 0.0064   dE/dt +7.0e-06   spectral 0.0011   tr Xdot +8.7e-19
+    exact                              rank-2 err 0.0000   contraction err 0.0000   dE/dt -1.2e-15   spectral 0.0011   tr Xdot +2.9e-15
+
+=== H4 | V-quench 0.3->1, pure, t=1  rank(rho)~1  |Xdot|=0.7549   identity |Phi_ggg - i(S^dag Xd - Xd S)| = 2.7e-15   |Gamma|_2=0.398  tr(Gamma X)=-2.2e-01
+    D alone                            rank-2 err 0.7932   contraction err 0.8755   dE/dt -6.9e-02   spectral 0.0000   tr Xdot +2.1e-17
+    GMF-d  D + i(S^dag Xd - Xd S)      rank-2 err 0.4138   contraction err 0.3933   dE/dt -5.7e-02   spectral 0.0077   tr Xdot +8.0e-17
+    GMF-x  i(Stot^dag X - X Stot)      rank-2 err 1.7641   contraction err 0.6130   dE/dt -2.6e-01   spectral 0.0843   tr Xdot +2.2e-01
+    lambda_3 = 0                       rank-2 err 0.0960   contraction err 0.0160   dE/dt +4.9e-04   spectral 0.3588   tr Xdot -8.3e-17
+    exact                              rank-2 err 0.0000   contraction err 0.0000   dE/dt -1.4e-16   spectral 0.3542   tr Xdot -8.6e-16
+
+=== H4 | V-quench 0.3->1, pure, t=2  rank(rho)~1  |Xdot|=0.7139   identity |Phi_ggg - i(S^dag Xd - Xd S)| = 1.1e-15   |Gamma|_2=0.386  tr(Gamma X)=+3.6e-02
+    D alone                            rank-2 err 0.6937   contraction err 0.6107   dE/dt +2.1e-02   spectral 0.0000   tr Xdot +6.9e-18
+    GMF-d  D + i(S^dag Xd - Xd S)      rank-2 err 0.3941   contraction err 0.2696   dE/dt +2.8e-02   spectral 0.0233   tr Xdot +7.3e-17
+    GMF-x  i(Stot^dag X - X Stot)      rank-2 err 2.1115   contraction err 0.3727   dE/dt +7.0e-02   spectral 0.0223   tr Xdot -3.6e-02
+    lambda_3 = 0                       rank-2 err 0.1515   contraction err 0.0509   dE/dt +4.4e-04   spectral 0.1117   tr Xdot +1.0e-17
+    exact                              rank-2 err 0.0000   contraction err 0.0000   dE/dt -2.3e-16   spectral 0.1303   tr Xdot -3.7e-16
+
+=== H4 | V-quench, thermal kT=0.5, t=1  rank(rho)~58  |Xdot|=0.2507   identity |Phi_ggg - i(S^dag Xd - Xd S)| = 1.3e-15   |Gamma|_2=0.221  tr(Gamma X)=-4.0e-02
+    D alone                            rank-2 err 1.0527   contraction err 0.8855   dE/dt -3.5e-02   spectral 0.0000   tr Xdot -3.5e-18
+    GMF-d  D + i(S^dag Xd - Xd S)      rank-2 err 0.4033   contraction err 0.4092   dE/dt -2.8e-02   spectral 0.0744   tr Xdot -1.7e-17
+    GMF-x  i(Stot^dag X - X Stot)      rank-2 err 1.0336   contraction err 0.5184   dE/dt -7.5e-02   spectral 0.0491   tr Xdot +4.0e-02
+    lambda_3 = 0                       rank-2 err 0.0791   contraction err 0.0558   dE/dt +5.5e-04   spectral 0.2785   tr Xdot -1.9e-17
+    exact                              rank-2 err 0.0000   contraction err 0.0000   dE/dt +7.6e-16   spectral 0.2847   tr Xdot -2.3e-15
+
