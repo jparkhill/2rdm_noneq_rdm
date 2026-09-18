@@ -189,37 +189,66 @@ def propagate(dm, es, vec, t):
     return vec @ (ph[:, None] * (vec.conj().T @ dm @ vec) * ph.conj()[None, :]) @ vec.conj().T
 
 
-for atom, N, spin in (H3, H4):
+def states(atom, N, spin, tag, quench_times=(0.0, 1.0, 2.0)):
+    """Yield (label, dm_sector, dets, M, h, V) for the standard state set of this file."""
     mol, mf, M, h, V, enuc = molecule(atom, "sto-3g", 0, spin)
     dets = sector(M, N)
-    tag = "H3 bent" if N == 3 else "H4 trapezoid"
     es, vec = np.linalg.eigh(build_H_sector(h, V, M, dets))
     Uk = sla.expm(-1j * KICK * sector_operator(dipole(mol, mf, M), M, dets))
-
-    # near-equilibrium: kicked ground state (pure), kicked thermal state
     dm = np.outer(Uk @ vec[:, 0], (Uk @ vec[:, 0]).conj())
-    run(tag + " | kicked ground state", dm, dets, M, N, h, V)
+    yield tag + " | kicked ground state", dm, dets, M, h, V
     if N == 4:
         w = np.exp(-(es - es[0]) / 0.5)
         w /= w.sum()
-        dm = Uk @ (vec * w) @ vec.conj().T @ Uk.conj().T
-        run(tag + " | kicked thermal kT=0.5", dm, dets, M, N, h, V)
-
-    # far from equilibrium: HF determinant at t = 0 (all cumulants zero)
-    hf_det = sum(1 << p for p in range(N))     # MO basis: lowest N spin orbitals
-    i0 = dets.index(hf_det)
+        yield tag + " | kicked thermal kT=0.5", Uk @ (vec * w) @ vec.conj().T @ Uk.conj().T, dets, M, h, V
+    hf_det = sum(1 << p for p in range(N))
     dm = np.zeros((len(dets),) * 2, dtype=complex)
-    dm[i0, i0] = 1.0
-    run(tag + " | HF determinant, t=0", dm, dets, M, N, h, V)
-
-    # interaction quench: ground state of h + lam V, evolved under h + V
+    dm[dets.index(hf_det), dets.index(hf_det)] = 1.0
+    yield tag + " | HF determinant, t=0", dm, dets, M, h, V
     esA, vecA = np.linalg.eigh(build_H_sector(h, QUENCH_LAMBDA * V, M, dets))
     dm0 = np.outer(vecA[:, 0], vecA[:, 0].conj())
-    for t in (0.0, 1.0, 2.0):
-        run(tag + " | V-quench %.1f->1, pure, t=%.0f" % (QUENCH_LAMBDA, t),
-            propagate(dm0, es, vec, t), dets, M, N, h, V)
+    for t in quench_times:
+        yield (tag + " | V-quench %.1f->1, pure, t=%.0f" % (QUENCH_LAMBDA, t),
+               propagate(dm0, es, vec, t), dets, M, h, V)
     if N == 4:
         w = np.exp(-(esA - esA[0]) / 0.5)
         w /= w.sum()
-        dmT = (vecA * w) @ vecA.conj().T
-        run(tag + " | V-quench, thermal kT=0.5, t=1", propagate(dmT, es, vec, 1.0), dets, M, N, h, V)
+        yield (tag + " | V-quench, thermal kT=0.5, t=1",
+               propagate((vecA * w) @ vecA.conj().T, es, vec, 1.0), dets, M, h, V)
+
+
+if __name__ == "__main__":
+  for atom, N, spin in (H3, H4):
+      mol, mf, M, h, V, enuc = molecule(atom, "sto-3g", 0, spin)
+      dets = sector(M, N)
+      tag = "H3 bent" if N == 3 else "H4 trapezoid"
+      es, vec = np.linalg.eigh(build_H_sector(h, V, M, dets))
+      Uk = sla.expm(-1j * KICK * sector_operator(dipole(mol, mf, M), M, dets))
+
+      # near-equilibrium: kicked ground state (pure), kicked thermal state
+      dm = np.outer(Uk @ vec[:, 0], (Uk @ vec[:, 0]).conj())
+      run(tag + " | kicked ground state", dm, dets, M, N, h, V)
+      if N == 4:
+          w = np.exp(-(es - es[0]) / 0.5)
+          w /= w.sum()
+          dm = Uk @ (vec * w) @ vec.conj().T @ Uk.conj().T
+          run(tag + " | kicked thermal kT=0.5", dm, dets, M, N, h, V)
+
+      # far from equilibrium: HF determinant at t = 0 (all cumulants zero)
+      hf_det = sum(1 << p for p in range(N))     # MO basis: lowest N spin orbitals
+      i0 = dets.index(hf_det)
+      dm = np.zeros((len(dets),) * 2, dtype=complex)
+      dm[i0, i0] = 1.0
+      run(tag + " | HF determinant, t=0", dm, dets, M, N, h, V)
+
+      # interaction quench: ground state of h + lam V, evolved under h + V
+      esA, vecA = np.linalg.eigh(build_H_sector(h, QUENCH_LAMBDA * V, M, dets))
+      dm0 = np.outer(vecA[:, 0], vecA[:, 0].conj())
+      for t in (0.0, 1.0, 2.0):
+          run(tag + " | V-quench %.1f->1, pure, t=%.0f" % (QUENCH_LAMBDA, t),
+              propagate(dm0, es, vec, t), dets, M, N, h, V)
+      if N == 4:
+          w = np.exp(-(esA - esA[0]) / 0.5)
+          w /= w.sum()
+          dmT = (vecA * w) @ vecA.conj().T
+          run(tag + " | V-quench, thermal kT=0.5, t=1", propagate(dmT, es, vec, 1.0), dets, M, N, h, V)

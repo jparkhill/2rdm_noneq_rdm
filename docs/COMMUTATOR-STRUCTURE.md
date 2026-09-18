@@ -101,3 +101,76 @@ at recurrences -- exactly as at rank 1.
   `gamma_1` and the rank-2 trace identity are preserved by `i[K_2 + K_3, X]` (they are conserved by
   the exact flow; a commutator on pair space need not respect them), and whether a Jacobi-consistent
   `K_3(gamma_1, gamma_2)` exists at all. Those are the next three measurements, in that order.
+
+---
+
+## Episode 2 (2026-08-12): bounded `K_3`, and what the commutator closure costs the 1-RDM
+
+Tool `tools/commutator_k3.py`; output `results/commutator_k3.txt`. Eight states (episode-1 set minus
+the `t = 0` rows, which are uninformative by time reversal).
+
+**`K_2` in closed form.** `D = i[K_2, X]` with
+
+    K_2[(p,v),(q,w)] = h[p,q] d_vw + h[v,w] d_pq - h[p,w] d_vq - h[v,q] d_pw + V[p,v,q,w]
+
+verified at `1e-16` on all eight states (coefficient 1 on `V` in the `qdiss.eom.hamiltonian`
+convention). `|K_2|_2 = 2.8` (H3), `4.1` (H4).
+
+**(i) Boundedness of `K_3`.** Split `Phi = Phi_spec + Phi_off` (block-diagonal / off-block in the
+eigenbasis of `X`, tolerance `1e-6`). `Phi_off = i[K_3, X]` with the unique off-block Hermitian
+`K_3[ij] = Phi_off[ij] / (i(x_j - x_i))`, reproduced to `1e-16`.
+
+| state | `|K_3|_2` | `|K_3|_F` | min gap used | `sigma=1e-2`: `|K_3|_2`, frac of `Phi_off` kept |
+|---|---|---|---|---|
+| H3 kicked ground | 0.33 | 0.66 | 2.2e-2 | 0.32, 0.997 |
+| H3 quench t=1 | 0.19 | 0.34 | 1.5e-2 | 0.18, 0.999 |
+| H3 quench t=2 | 0.58 | 1.15 | 3.7e-2 | 0.55, 0.995 |
+| H4 kicked ground | 0.54 | 1.58 | 1.1e-5 | 0.53, 0.996 |
+| H4 kicked thermal | 0.25 | 0.49 | 2.6e-3 | 0.25, 0.999 |
+| H4 quench t=1 | 0.37 | 1.11 | 1.9e-6 | 0.29, 0.995 |
+| **H4 quench t=2** | **7.05** | **17.8** | 2.1e-5 | 1.46, **0.858** |
+| H4 quench thermal t=1 | 0.28 | 0.56 | 8.3e-4 | 0.28, 0.999 |
+
+In seven of eight states `K_3` is an order of magnitude smaller than `K_2`. In one (H4 quench `t=2`)
+a near-degenerate pair of geminal occupations with a non-vanishing `Phi_off` element makes
+`|K_3|_2 = 7`, and the Tikhonov regularisation that tames it to `1.5` discards 14% of `Phi_off`.
+**The bound is not uniform.** This is the Lipschitz screen reappearing in F: the exact non-spectral
+collision flow is representable by a Hermitian generator, but not by a bounded one near degeneracies
+of `Mat_2`. A closure that SPECIFIES `K_3(gamma_1, gamma_2)` is not subject to this (it is bounded by
+construction); the point is that reproducing the exact off-block flow is not always possible with a
+bounded one.
+
+**(ii) Contraction to the 1-RDM flow.** With `c(T)[p,q] = sum_v T[p,v,q,v] / (N-1)`, the induced
+`gamma_1-dot` of the exact flow is `c(D) + c(Phi)` and equals `fullci` at `1e-16` on every row. A
+commutator closure keeps `c(D) + c(Phi_off)` and loses `c(Phi_spec)`:
+
+| state | `|c(Phi_spec)| / |c(Phi)|` | `|c(Phi_spec)| / |gamma_1-dot|` |
+|---|---|---|
+| H3 kicked ground | 0.058 | 0.011 |
+| H4 kicked ground | 0.003 | 0.002 |
+| H4 kicked thermal | 0.003 | 0.001 |
+| H3 quench t=1 | 0.47 | 0.29 |
+| H3 quench t=2 | 0.38 | 0.22 |
+| H4 quench t=1 | 0.43 | 0.38 |
+| H4 quench t=2 | 0.14 | 0.08 |
+| H4 quench thermal t=1 | 0.42 | 0.38 |
+
+Near equilibrium the loss is 0.1-1% of the 1-RDM flow. Far from it, **22-38% of `gamma_1-dot` is
+lost**, and the lost part is essentially pure natural-occupation motion (spectral fraction of
+`c(Phi_spec)` w.r.t. `gamma_1` is 0.74-1.00 on every row). Since `gamma_1` is obtained by contraction,
+the rank-2 trace identity `Tr_2 lambda_2 = -gamma_1 eta_1` holds identically; the cost appears not as a
+broken identity but as a WRONG 1-RDM flow of the same relative size as the rank-2 error found in
+episode 1. Note also that the induced flow `c(D) + c(Phi_off)` still moves the natural occupations
+(spectral fraction 0.12-0.34 under the quench, against 0.45-0.58 exact): a pair-space commutator does
+not freeze `gamma_1`'s spectrum, it just moves it by the wrong amount.
+
+**Standing of route F after two episodes.**
+
+- Reversible half: structural and explicit (`K_2`), with a bounded Hermitian `K_3` recovering the
+  non-spectral collision flow at 7 of 8 states and requiring regularisation at the eighth.
+- Cost of a pure commutator closure: 13-35% of the rank-2 flow and 22-38% of the induced rank-1 flow
+  far from equilibrium; ~1% near it. Those two numbers are the size of the dissipator the metriplectic
+  half must supply, and they are dominated by occupation (spectral) motion at both ranks -- which is
+  exactly what a metric bracket with an occupation entropy acts on.
+- Not yet done: the Jacobi question for a state-dependent `K_3`; and the actual construction of a
+  metric bracket for the spectral part with the right fixed point. Both are now well-posed.
