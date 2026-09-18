@@ -1,0 +1,60 @@
+=== H3 | kicked ground state  rank(rho)~1   D,Q,G vs direct Gram: 6.9e-18 5.6e-16 1.5e-16   min eig: -7.9e-17 -5.2e-16 -5.9e-16
+    piece                           D: leak (n_ker) |Ddot|     Q: leak (n_ker) |Qdot|     G: leak (n_ker) |Gdot|    
+    drift i[K_2,X]                  8.7e-17 ( 9) 0.509         1.6e-01 ( 9) 0.509         4.8e-02 (17) 1.102        
+    pp sandwich i(S^dag X - X S)    5.2e-17 ( 9) 0.569         1.4e-01 ( 9) 0.569         4.5e-02 (17) 1.144        
+    i(Q_C - Q_C^dag)                5.4e-02 ( 9) 0.051         6.2e-02 ( 9) 0.052         3.1e-02 (17) 0.115        
+    Phi_ph (ring)                   5.6e-03 ( 9) 0.553         1.2e-02 ( 9) 0.553         3.7e-03 (17) 1.106        
+    lambda_3 remainder              6.6e-02 ( 9) 0.025         1.6e-01 ( 9) 0.025         3.7e-02 (17) 0.050        
+    lambda_3 = 0 total              3.6e-03 ( 9) 0.450         8.9e-03 ( 9) 0.450         1.9e-03 (17) 0.994        
+    exact total                     6.1e-17 ( 9) 0.448         5.0e-16 ( 9) 0.448         5.2e-17 (17) 0.990        
+
+=== H3 | V-quench 0.3->1, pure, t=1  rank(rho)~1   D,Q,G vs direct Gram: 3.5e-18 3.2e-15 2.2e-16   min eig: -3.7e-17 -3.4e-15 -2.9e-16
+    piece                           D: leak (n_ker) |Ddot|     Q: leak (n_ker) |Qdot|     G: leak (n_ker) |Gdot|    
+    drift i[K_2,X]                  6.1e-17 ( 9) 0.334         3.4e-01 ( 9) 0.334         8.6e-02 (17) 0.673        
+    pp sandwich i(S^dag X - X S)    3.2e-17 ( 9) 0.510         2.2e-01 ( 9) 0.514         5.5e-02 (17) 1.025        
+    i(Q_C - Q_C^dag)                1.9e-01 ( 9) 0.121         2.0e-01 ( 9) 0.139         1.4e-01 (17) 0.265        
+    Phi_ph (ring)                   5.1e-02 ( 9) 0.460         1.1e-01 ( 9) 0.480         4.2e-02 (17) 0.924        
+    lambda_3 remainder              7.3e-02 ( 9) 0.019         1.4e-01 ( 9) 0.019         4.2e-02 (17) 0.038        
+    lambda_3 = 0 total              6.0e-03 ( 9) 0.234         1.2e-02 ( 9) 0.234         3.3e-03 (17) 0.493        
+    exact total                     6.2e-17 ( 9) 0.226         5.0e-16 ( 9) 0.226         9.8e-17 (17) 0.478        
+
+=== H4 | kicked ground state  rank(rho)~1   D,Q,G vs direct Gram: 1.1e-16 1.6e-15 2.8e-16   min eig: 2.1e-07 3.1e-07 -5.8e-16
+    piece                           D: leak (n_ker) |Ddot|     Q: leak (n_ker) |Qdot|     G: leak (n_ker) |Gdot|    
+    drift i[K_2,X]                    ---  (0)  0.340            ---  (0)  0.340          7.8e-12 ( 3) 0.714        
+    pp sandwich i(S^dag X - X S)      ---  (0)  0.683            ---  (0)  0.683          6.0e-05 ( 3) 1.374        
+    i(Q_C - Q_C^dag)                  ---  (0)  0.023            ---  (0)  0.023          3.9e-03 ( 3) 0.049        
+    Phi_ph (ring)                     ---  (0)  0.663            ---  (0)  0.663          8.4e-05 ( 3) 1.327        
+    lambda_3 remainder                ---  (0)  0.034            ---  (0)  0.034          7.5e-13 ( 3) 0.068        
+    lambda_3 = 0 total                ---  (0)  0.249            ---  (0)  0.249          9.6e-14 ( 3) 0.528        
+    exact total                       ---  (0)  0.251            ---  (0)  0.251          3.0e-18 ( 3) 0.531        
+
+=== H4 | kicked thermal kT=0.5  rank(rho)~55   D,Q,G vs direct Gram: 5.6e-17 5.6e-16 2.2e-16   min eig: 1.0e-02 1.8e-02 3.5e-02
+    piece                           D: leak (n_ker) |Ddot|     Q: leak (n_ker) |Qdot|     G: leak (n_ker) |Gdot|    
+    drift i[K_2,X]                    ---  (0)  0.243            ---  (0)  0.243            ---  (0)  0.532         
+    pp sandwich i(S^dag X - X S)      ---  (0)  0.211            ---  (0)  0.211            ---  (0)  0.430         
+    i(Q_C - Q_C^dag)                  ---  (0)  0.007            ---  (0)  0.007            ---  (0)  0.016         
+    Phi_ph (ring)                     ---  (0)  0.103            ---  (0)  0.103            ---  (0)  0.207         
+    lambda_3 remainder                ---  (0)  0.013            ---  (0)  0.013            ---  (0)  0.027         
+    lambda_3 = 0 total                ---  (0)  0.214            ---  (0)  0.214            ---  (0)  0.478         
+    exact total                       ---  (0)  0.214            ---  (0)  0.214            ---  (0)  0.477         
+
+=== H4 | V-quench 0.3->1, pure, t=1  rank(rho)~1   D,Q,G vs direct Gram: 1.4e-17 2.0e-15 3.3e-16   min eig: 3.9e-06 3.9e-06 -8.5e-17
+    piece                           D: leak (n_ker) |Ddot|     Q: leak (n_ker) |Qdot|     G: leak (n_ker) |Gdot|    
+    drift i[K_2,X]                    ---  (0)  0.368            ---  (0)  0.368          3.3e-13 ( 3) 0.754        
+    pp sandwich i(S^dag X - X S)      ---  (0)  0.720            ---  (0)  0.724          1.1e-02 ( 3) 1.451        
+    i(Q_C - Q_C^dag)                  ---  (0)  0.182            ---  (0)  0.196          9.5e-02 ( 3) 0.385        
+    Phi_ph (ring)                     ---  (0)  0.680            ---  (0)  0.696          1.5e-02 ( 3) 1.363        
+    lambda_3 remainder                ---  (0)  0.036            ---  (0)  0.036          2.5e-13 ( 3) 0.073        
+    lambda_3 = 0 total                ---  (0)  0.376            ---  (0)  0.376          2.4e-14 ( 3) 0.779        
+    exact total                       ---  (0)  0.377            ---  (0)  0.377          1.1e-18 ( 3) 0.782        
+
+=== H4 | V-quench, thermal kT=0.5, t=1  rank(rho)~58   D,Q,G vs direct Gram: 1.1e-16 3.1e-16 3.3e-16   min eig: 1.4e-02 2.0e-02 4.2e-02
+    piece                           D: leak (n_ker) |Ddot|     Q: leak (n_ker) |Qdot|     G: leak (n_ker) |Gdot|    
+    drift i[K_2,X]                    ---  (0)  0.152            ---  (0)  0.152            ---  (0)  0.313         
+    pp sandwich i(S^dag X - X S)      ---  (0)  0.220            ---  (0)  0.220            ---  (0)  0.448         
+    i(Q_C - Q_C^dag)                  ---  (0)  0.046            ---  (0)  0.048            ---  (0)  0.103         
+    Phi_ph (ring)                     ---  (0)  0.118            ---  (0)  0.121            ---  (0)  0.237         
+    lambda_3 remainder                ---  (0)  0.010            ---  (0)  0.010            ---  (0)  0.020         
+    lambda_3 = 0 total                ---  (0)  0.128            ---  (0)  0.128            ---  (0)  0.271         
+    exact total                       ---  (0)  0.125            ---  (0)  0.125            ---  (0)  0.266         
+

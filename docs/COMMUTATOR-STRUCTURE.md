@@ -362,3 +362,58 @@ and hence on the G-matrix `G = (γ_1⊗I)Sw − ph(γ_2)`; the question is wheth
 written as a sandwich on ITS OWN Gram matrix (`X` for D, `G` for G, and the hole analogue for Q) with the
 three sandwiches consistent on the shared `γ_2`. If yes, D, Q and G positivity are all structural for the
 `λ_3 = 0` flow, and the `λ_3` remainder is the only thing left to model.
+
+---
+
+## Episode 6 (2026-08-12): which piece threatens which cone; is `λ_3` the tangency correction?
+
+Tools `tools/channel_cones.py`, `tools/tangency_correction.py`; outputs in `results/`.
+
+**Cones.** `D[(pv),(qw)] = γ_2[pvqw]` (pp); `Q[(pv),(qw)] = <a_p a_v a+_w a+_q>` (hh; affine in `γ_1`, plus
+`γ_2[w,q,v,p]`); `G[(pq),(rs)] = <a+_p a_q a+_s a_r> = δ_qs γ_1[p,r] − γ_2[p,s,r,q]` (ph, `M²×M²`). All three
+verified against Gram matrices built directly from the wavefunction ensemble at 1e-16, PSD to round-off.
+Since `Q`, `G` are affine in `(γ_1, γ_2)`, every piece of a rank-2 flow induces a `Qdot` and `Gdot`.
+**Leak** of a piece on a cone = `max_{v∈ker M} |v† Mdot v| / |Mdot|_F`; zero = tangent.
+
+**6a. Leaks of the closed-form pieces (H3 pure states: kernels D 9, Q 9, G 17).**
+
+| piece | D leak | Q leak | G leak |
+|---|---|---|---|
+| drift `i[K_2, X]` | 1e-17 | 0.16–0.34 | 0.05–0.09 |
+| pp sandwich `i(S†X − XS)` | 1e-17 | 0.14–0.22 | 0.05–0.06 |
+| `i(Q_C − Q_C†)` | 0.05–0.19 | 0.06–0.20 | 0.03–0.14 |
+| `Phi_ph` (ring) | 0.006–0.05 | 0.01–0.11 | 0.004–0.04 |
+| `λ_3` remainder `R3` | 0.07 | 0.14–0.16 | 0.04 |
+| `λ_3 = 0` total | 0.004–0.006 | 0.009–0.012 | 0.002–0.003 |
+| **exact total** | **1e-17** | **1e-16** | **1e-17** |
+
+The pp pieces are exactly tangent to D and to nothing else; `Phi_ph` is NOT a G-sandwich; `Q_C` leaks
+everywhere. **Tangency of the exact flow is a property of the sum, produced by cancellation across pieces.**
+"One channel, one cone" is not available. On H4 pure states D and Q have no exact kernel (min eig 2e-7…4e-6)
+and G's 3-dim kernel is the spin symmetry (`S_z, S_±|Ψ> = 0`), which the `λ_3 = 0` flow respects at 1e-14.
+
+**6b. Is `R3 = Phi[λ_3]` the minimal tangency correction?** Let `δ` be the minimum-norm Hermitian pair-space
+correction making `F0 + δ` (F0 = the `λ_3 = 0` closed form) tangent to D, Q and G simultaneously — a linear
+least-squares problem on the kernel blocks, optionally with `c(δ) = 0`.
+
+| H3 state | `|R3|/|Xdot|` | `|δ|/|R3|` | `|δ − R3|/|R3|` | overlap | rank-2 err F0 → F0+δ |
+|---|---|---|---|---|---|
+| kicked ground | 0.055 | 0.41–0.70 | 0.91–0.93 | 0.41–0.45 | 0.055 → 0.050 |
+| quench t=1 | 0.085 | 0.49–0.80 | 0.72–0.87 | 0.49–0.70 | 0.085 → 0.061 |
+| quench t=2 | 0.186 | 0.54–0.74 | 0.81–0.84 | 0.54–0.61 | 0.186 → 0.150 |
+
+**No.** N-representability tangency fixes 30–70% of `R3` in norm with 0.4–0.7 overlap; the rest of `λ_3`'s
+effect on the flow is not about positivity. Imposing all three cones (vs D alone, the XR prescription) roughly
+doubles the captured fraction and the accuracy gain, so Q and G carry real information — but `λ_3` carries more.
+On H4 (no D/Q kernel) `δ = 0`: at generic interior points tangency imposes nothing, and the near-kernel
+eigenvalues (2e-7) are where the `λ_3 = 0` flow will actually cross.
+
+**Standing after episode 6.**
+- The `λ_3 = 0` flow is fully derived in channel form (episode 5) and its cone leaks are 0.2–1% relative,
+  concentrated in the `Q_C` and `R3`-sized pieces.
+- A D+Q+G-tangent version `F0 + δ` exists, is better than `λ_3 = 0`, and is the natural generalisation of XR
+  to all three cones — but it acts only at exact kernels and needs a smooth (σ-regularised, eigenvalue-weighted)
+  form before it can be propagated; and it is not a model of `λ_3`.
+- `λ_3` must be modelled on its own terms. The two live candidates remain: the connected-span ancilla with memory
+  (`DYNAMICAL-CLOSURE.md`; 99.4% of `λ_3` in span near equilibrium), and a metriplectic dissipator for the
+  spectral part; the channel decomposition now says exactly which pieces of the flow each must repair.
