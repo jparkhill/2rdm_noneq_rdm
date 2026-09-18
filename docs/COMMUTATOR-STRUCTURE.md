@@ -17,9 +17,20 @@ a_q>`; `x_i` eigenvalues of `Mat_2`. In the eigenbasis of `X`, `Xdot_ij = i K_ij
     spectral fraction  =  |blockdiag_eig(Xdot)|_F / |Xdot|_F
 
 which is 0 iff a Hermitian-`K` representation exists, and measures the distance from all of them.
-The flow is split as `Xdot = drift + Phi[gamma_3]`, with `drift` the `gamma_2`-carrying terms of the
-rank-2 MKNO term list (`gamma_3 := 0` in the list; a term-list operation, not a moment negation) and
-`Phi` the collision part, linear in `gamma_3`. Ground truth `qdiss.eom.fullci`; the wick term list
+**The split `Xdot = D + Phi`.** The rank-2 EOM `d/dt gamma_2[pvqw] = i<[H, a+_p a+_v a_w a_q]>` has 4
+one-body and 12 two-body Wick terms, each containing EITHER `gamma_2` OR `gamma_3`. Hence exactly
+
+    d/dt gamma_2  =  D[gamma_1, gamma_2]  +  Phi[gamma_3]
+
+    D[pvqw]   =  i ( sum_r h[p,r] gamma_2[rvqw] + h[v,r] gamma_2[prqw] - h[r,q] gamma_2[pvrw] - h[r,w] gamma_2[pvqr] )
+               + (i/2) ( sum_rs V[p,v,r,s] gamma_2[rsqw] - V[r,s,q,w] gamma_2[pvrs] )
+    Phi[pvqw] =  the eight terms of the form (i/2) sum_rst V[r,s,q,t] gamma_3[p,v,t,r,s,w] and index partners
+
+`D` ("drift") is `h` acting on each index plus `V` acting on the ket pair and on the bra pair; in
+`Mat_2` language it is `i[K_2, Mat_2]` with `K_2` the Hermitian pair-space matrix `h (+) h + V`.
+`Phi` ("collision part") is LINEAR in `gamma_3`, so every closure differs from the exact flow by
+`Phi[gamma_3^recon - gamma_3^exact]` and nothing else. In code `D` is the term list evaluated with the
+`gamma_3` slot zeroed (a term-list operation, not a moment negation used as a closure). Ground truth `qdiss.eom.fullci`; the wick term list
 agrees with it at 1e-16 on every row.
 
 States: dipole-kicked ground state (pure; and thermal `kT = 0.5` for H4); the HF determinant at

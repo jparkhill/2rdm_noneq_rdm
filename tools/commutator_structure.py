@@ -26,8 +26,17 @@ also the thermal version of that quench). RDMs of a mixed state are ensemble ave
 FOR EACH STATE AND FLOW: spectral fraction (block-diagonal with degeneracy tolerance DEG_TOL),
 the eigenvalue-rate range, the rate at near-kernel eigenvalues (positivity-violation rate; exact must
 be ~0), and max |x_i-dot| / x_i over interior eigenvalues (the minimal diagonal dissipation).
-Flows: exact; the gamma_2-carrying DRIFT (gamma_3 := 0 in the term list); the collision part
-Phi[gamma_3] = total - drift with gamma_3 exact, separable (lambda_3 = 0), Mueller-2405 +/- Lackner.
+THE SPLIT. Every Wick term of d/dt gamma_2 = i<[H, a+_p a+_v a_w a_q]> contains EITHER gamma_2 OR
+gamma_3, so exactly  d/dt gamma_2 = D[gamma_1, gamma_2] + Phi[gamma_3]  with
+
+    D[pvqw]   = i ( sum_r h[p,r] g2[rvqw] + h[v,r] g2[prqw] - h[r,q] g2[pvrw] - h[r,w] g2[pvqr] )
+              + (i/2) ( sum_rs V[p,v,r,s] g2[rsqw] - V[r,s,q,w] g2[pvrs] )          ("drift")
+    Phi[pvqw] = the eight terms (i/2) sum_rst V[r,s,q,t] g3[p,v,t,r,s,w] + index partners ("collision")
+
+D is h on each index plus V on the ket pair and on the bra pair; Phi is LINEAR in gamma_3, so closures
+differ from the exact flow by Phi[gamma_3^recon - gamma_3^exact] only. In code D is the term list with
+the gamma_3 slot zeroed (a term-list operation, not a closure). Flows analysed: exact total; D; Phi with
+gamma_3 exact, separable (lambda_3 = 0), Mueller-2405 +/- Lackner.
 Rank 1 control: exact gamma_1-dot and TDHF (must be spectral-free).
 
 Symbols: Mat_2[(p,v),(q,w)] = 2 gamma_2[p,v,q,w] over sorted pairs p<v, q<w, gamma_2[pvqw] =
