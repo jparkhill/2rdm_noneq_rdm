@@ -428,3 +428,42 @@ recurrent benchmarks. Derivation path for episode 7: `λ_3^M = −i(L_0 − iη)
 `R3^M = Phi[λ_3^M]`, Kossakowski matrix on pair space (784² at M=8, cheap since the dissipator is linear),
 then Davies/ULE positivisation in the eigenbasis of the effective pair Hamiltonian; measure overlap with the
 true `R3` against the 0.4–0.7 of the tangency correction.
+
+---
+
+## Episode 7 (planned): the first propagation
+
+**Nothing from route F has been propagated.** Every number above is a rate at an exact state.
+
+**The closure.** Symbols as above; `F0(γ_1, γ_2)` the derived `λ_3 = 0` flow (episode 5c); `P ∈ {D, Q, G}` the
+three Gram matrices, affine in `(γ_1, γ_2)`, with eigenpairs `(x_i, u_i)`.
+
+    d/dt X  =  F0  +  δ,      δ = argmin ‖δ‖_F  subject to
+      (a)_σ  w_ij · u_i† dP/dt[F0 + δ] u_j = 0   for all i, j,  w_ij = 1/(x_i + x_j + σ), fixed σ > 0, P ∈ {D, Q, G}
+             (implemented as a weighted least-squares penalty so that exact null blocks are enforced and
+              low-eigenvalue blocks are suppressed smoothly; the exact flow satisfies it identically)
+      (b)    Tr_2 (F0 + δ) / (N−1)  =  exact rank-1 EOM evaluated at (γ_1, γ_2)      (M² equations)
+      (c)    tr(∇E · (F0 + δ)) = 0                                                   (1 equation)
+
+State variables: `X` (equivalently `γ_2`); `γ_1` by contraction. Unknowns per step: Hermitian `δ`, `C(M,2)²`
+real parameters. Cost per step `O(M⁶)` for the eigendecompositions plus one least-squares solve. Polynomial,
+Lipschitz for fixed σ, extensive if the cone eigenbases block for product states (to be checked, not assumed).
+NOT Hamiltonian: real poles are not structural and must be measured.
+
+**Validation before any trajectory.**
+1. Reproduce known limits at a single step: δ → 0 when `R3 = 0` (N ≤ 2 excluded by rule; use `V = 0`);
+   with exact `γ_3` substituted for `F0 + δ`, the step reproduces `fullci.rdm_dot` (1e-15).
+2. At the eight standard states: leaks of `F0 + δ` on D, Q, G at 1e-14; contraction error 1e-14; `dE/dt` 1e-14;
+   rank-2 error against exact reported alongside `λ_3 = 0` and `muller2405 + Lackner`.
+3. Extensivity: H3 × H2 product state, cross-fragment elements of δ.
+
+**Trajectories** (RK4, step-size convergence shown): H4 trapezoid, `M = 8, N = 4`.
+- Row 1: dipole-kicked ground state (pure).
+- Row 2: dipole-kicked thermal state, `kT = 0.5` (mixed; REQUIRED row).
+- Row 3: interaction quench `0.3V → V`, pure — the regime where one-shot closures failed.
+Metrics per trajectory: min eigenvalue of D, Q, G vs the exact clearance; `tr X`, energy drift; 1- and 2-RDM
+error vs exact FCI propagation; comparison rows `λ_3 = 0` (with and without XR on D) and `muller2405 + Lackner`.
+
+**Poles.** Linearise `F0 + δ` at the ground state and at the thermal state; biorthogonal matching to FCI
+singlet transition densities (`POLE-TABLE.md` machinery). Number to beat: `muller2405 + Lackner`, mean |err|
+0.0314 Ha; `λ_3 = 0`, 0.0592; TDHF, 0.168. Report also whether any pole is complex (non-Hamiltonian structure).

@@ -1,6 +1,6 @@
 # Standing requirements for the 2-RDM / cumulant-hierarchy work
 
-**Read `docs/STATE-<latest date>.md` first** -- currently `docs/STATE-2026-08-11.md`. It records
+**Read `docs/STATE-<latest date>.md` first** -- currently `docs/STATE-2026-08-12.md`. It records
 what is established, what has been superseded, and the next experiment with its known defects.
 Several committed results are special cases later shown to be non-general; the state document says
 which, and reading commit messages alone will mislead.
