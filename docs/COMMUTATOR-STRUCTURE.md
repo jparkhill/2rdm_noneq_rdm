@@ -297,3 +297,68 @@ form with this `S_tot` is therefore not a closure.
   G-matrix space the same way `Phi_ggg` was in pair space. A two-channel effective generator is the
   natural object, and the `Q`/`G` row of the ledger — never controlled before — is exactly where it
   would act. That is episode 5.
+
+---
+
+## Episode 5 (2026-08-12): the particle-hole channel, and the whole `λ_3 = 0` flow in closed algebraic form
+
+Tools `tools/phi_identify_ph.py`, `tools/phi_gl_sparse.py`, `tools/closed_form_sep.py`; outputs in `results/`.
+
+**Symbols.** Pair (pp) space as before: `X = Mat_2`, `N = γ_1⊕γ_1`, `K_h`, `K_V`, `K_{W^T}`, `L = Mat(λ_2)`,
+`X_d = X − L`. One-body `C[p,q] = Σ_rtu V[r,t,p,u] λ_2[r,t,q,u]` (the rank-1 collision matrix; a partial
+trace of `V·λ_2`, not a matrix product), `K_C = C⊕C`, `K_{γC}`, `K_{Cγ}`. **ph space** (`M²×M²`, pair indices
+ordered (ket, bra)): `ph(T)[(p,q),(v,w)] = T[p,v,q,w]`, `V_d = ph(V)`, `L_d = ph(λ_2)`; `Sw` swaps the two
+entries of a pair index; dressings `γ_1⊗I`, `γ_1^T⊗I`, `I⊗γ_1`, `I⊗γ_1^T`. `back(A)` maps an ph matrix to a
+4-index tensor, antisymmetrises over `(p,v)` and `(q,w)`, and returns `Mat_2/2`. The exchange pairing
+`ph_x(T)[(p,w),(v,q)]` equals `−ph(T)` exactly by antisymmetry, so one pairing suffices.
+
+**5a. Term-by-term classification of the 72 Wick patterns of `Phi[A_3(γ_1λ_2)]`** (coefficients common
+across six states; per-state tests are vacuous because the class is underdetermined per state):
+
+| pattern type (indices `V` shares with `λ_2`) | count | representation |
+|---|---|---|
+| one ket AND one bra | 32 | ph products `A·V_d·B·L_d·C†`, `A·L_d·B·V_d·C†` with dressings incl. `Sw` |
+| both ket, or both bra | 8 | pp products `N·K_V·L`, `L·K_V·N` |
+| one index; `V`'s other two closed on `γ_1` (W-type) | 16 | pp products `K_{W^T}·L`, `L·K_{W^T}` |
+| three indices (`C`-type), `γ_1` in the other slot | 16 | `C⊗γ_1 + γ_1⊗C = ½{N, K_C} − K_{γC} − K_{Cγ}` |
+
+With all four kinds the common residual for `Phi_gl` is **4e-14**; without the `C`-type cores 13%,
+without the `Sw` dressings 60%, pp-only 56%, ph-only 33%.
+
+**5b. Sparse identity** (IRLS/L1 selection on six states, re-fit, **verified on two held-out states at
+8e-15**), coefficients ±2 and ±½:
+
+    Phi[A_3(γ_1λ_2)] = i(S† L − L S) + i(Q − Q†) + Phi_ph
+        S      = K_{W^T} − K_V N                                    (same S as in Phi_ggg)
+        Q      = ½(N K_C − K_{γC}) + ½(K_C N − K_{Cγ})              (= C⊗γ_1 + γ_1⊗C, antisymmetrised)
+        Phi_ph = 2i[(P_1 + P_2 − P_3 − P_4) − h.c.]  (after back-mapping)
+        P_1 = Sw (γ_1^T⊗I) V_d L_d,   P_4 = Sw (I⊗γ_1) V_d L_d,
+        P_2 = L_d V_d (Sw (γ_1⊗I))†,  P_3 = L_d V_d (Sw (I⊗γ_1^T))†
+
+so the ph generator is `(γ_1^T⊗I − I⊗γ_1)·V_d`: the **occupation difference `(n_p − n_q)` times `V`**,
+the RPA/GW structure — as `K_V(I − N)`, i.e. `(1 − n_p − n_v)V`, was the ladder structure in pp.
+
+**5c. The whole `λ_3 = 0` rank-2 flow, closed form, verified directly at 1e-15 on eight states:**
+
+    D + Phi[separable_3]  =  i[K_h + K_V, X]  +  i(S† X − X S)  +  i(Q − Q†)  +  Phi_ph
+
+Note the pp sandwich now acts on the full `X` (Phi_ggg supplied the `X_d` part, Phi_gl the `L` part), which
+resolves episode 4d: GMF-x failed because it lacked `i(Q − Q†) + Phi_ph`, not because the sandwich was on
+the wrong object. The pieces are individually LARGER than the total and cancel strongly (H4 quench t=1:
+sandwich 1.44, ph 1.36, total 0.75): the ladder and ring channels oppose each other, so neither channel
+alone is a closure.
+
+**Reading for route F.** The `λ_3 = 0` flow is a sum of three Lie-algebraic pieces plus one non-product term:
+- pp channel: `i(S_pp† X − X S_pp)`, `S_pp = K_h + K_{W^T} + K_V(I − N)`, dissipative part `Γ_pp = i[N, K_V]`;
+- ph channel: a two-sided action on `L_d = ph(λ_2)` with generator `(n_p − n_q)V_d`;
+- `i(Q − Q†)`: the rank-1 collision matrix `C` tensored with `γ_1` — this is the term that makes the
+  contraction identity `c(Phi) = (N−2)c(i[K_V,X])` work, and it is neither channel's product.
+Every piece is polynomial in `(γ_1, γ_2, V)`, so every piece passes the Lipschitz and extensivity screens by
+construction. The `λ_3` remainder is 5–20% of `|Phi|` and is what no separable structure carries.
+
+**What follows (episode 6).** With the flow in channel form, "choose K for D, Q and G" becomes concrete:
+the pp sandwich has the XR form on `X` (D-positivity structural if used alone); the ph piece acts on `ph(λ_2)`
+and hence on the G-matrix `G = (γ_1⊗I)Sw − ph(γ_2)`; the question is whether each channel's action can be
+written as a sandwich on ITS OWN Gram matrix (`X` for D, `G` for G, and the hole analogue for Q) with the
+three sandwiches consistent on the shared `γ_2`. If yes, D, Q and G positivity are all structural for the
+`λ_3 = 0` flow, and the `λ_3` remainder is the only thing left to model.

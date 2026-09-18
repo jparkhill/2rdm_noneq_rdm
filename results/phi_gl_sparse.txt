@@ -1,0 +1,19 @@
+train states: ['H3 | kicked ground state', 'H3 | V-quench 0.3->1, pure, t=1', 'H4 | kicked ground state', 'H4 | kicked thermal kT=0.5', 'H4 | V-quench 0.3->1, pure, t=1', 'H4 | V-quench, thermal kT=0.5, t=1'] ; held out: ['H3 | V-quench 0.3->1, pure, t=2', 'H4 | V-quench 0.3->1, pure, t=2']
+  IRLS it 10: residual 5.0e-05, nnz(>1e-6 rel) 83
+  IRLS it 20: residual 4.5e-05, nnz(>1e-6 rel) 64
+  IRLS it 30: residual 4.5e-05, nnz(>1e-6 rel) 55
+  IRLS it 40: residual 4.5e-05, nnz(>1e-6 rel) 54
+  threshold 1e-03: 12 columns, train residual 1.4e-14, HELD-OUT residual 8.1e-15
+  identity (coefficients on column-normalised monomials; P+P^dag or i(P-P^dag) as marked):
+    +2.00000  i(P-P^dag)  P = ph:Sw.gTI.Vd.I.Ld.I^dag
+    +2.00000  i(P-P^dag)  P = ph:I.Ld.I.Vd.Sw.gI^dag
+    -2.00000  i(P-P^dag)  P = ph:I.Ld.I.Vd.Sw.IgT^dag
+    -2.00000  i(P-P^dag)  P = ph:Sw.Ig.Vd.I.Ld.I^dag
+    +0.50031  i(P-P^dag)  P = pp:N.K_C.I
+    -0.50031  i(P-P^dag)  P = pp:I.K_gC.I
+    -0.50000  i(P-P^dag)  P = pp:N.K_V.L
+    +0.50000  i(P-P^dag)  P = pp:L.K_V.N
+    +0.50000  i(P-P^dag)  P = pp:I.K_WT.L
+    -0.50000  i(P-P^dag)  P = pp:L.K_WT.I
+    -0.49969  i(P-P^dag)  P = pp:I.K_Cg.I
+    +0.49969  i(P-P^dag)  P = pp:I.K_C.N

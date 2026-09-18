@@ -1,0 +1,25 @@
+state: H3 | kicked ground state
+state: H3 | V-quench 0.3->1, pure, t=1
+state: H4 | kicked ground state
+state: H4 | kicked thermal kT=0.5
+state: H4 | V-quench 0.3->1, pure, t=1
+state: H4 | V-quench, thermal kT=0.5, t=1
+
+  Phi_gl   pp only     72 monomials, rank  116: common residual 5.56e-01 ; per-state 5.1e-01 3.8e-01 8.7e-01 7.4e-01 4.6e-01 5.1e-01
+  Phi_gl   ph only   1000 monomials, rank  508: common residual 3.34e-01 ; per-state 1.6e-01 4.8e-01 3.7e-01 7.8e-01 2.2e-01 4.8e-01
+  Phi_gl   pp + ph   1072 monomials, rank  624: common residual 3.89e-14 ; per-state 6.0e-14 2.7e-14 4.4e-14 1.1e-13 2.0e-14 4.9e-14
+      sparse representative with 11 columns, residual 4.7e-01:
+        +1.0150 i(P-P^dag) P = pp:L.K_V.I
+        +0.0862 (P+P^dag)  P = pp:L.K_V.L
+        +0.0000 i(P-P^dag) P = pp:L.K_V.L
+        +0.6611 i(P-P^dag) P = pp:I.K_C.N
+        +0.2784 i(P-P^dag) P = pp:I.K_CT.I
+        -0.7868 i(P-P^dag) P = pp:I.K_CTgT.I
+        +0.6104 i(P-P^dag) P = ph:I.Ld.I.Vd.Sw.gI^dag
+        -4.9909 i(P-P^dag) P = ph:gI.Vd.gTI.Ld.I^dag
+        -0.1436 (P+P^dag)  P = ph:gI.Ld.gI.Vd.Sw.IgT^dag
+        +1.2286 i(P-P^dag) P = ph:Sw.I.Vd.gTI.Ld.Sw.IgT^dag
+        -5.8744 i(P-P^dag) P = ph:Sw.Ig.Vd.I.Ld.Ig^dag
+
+  Phi_l3   pp + ph   1072 monomials, rank  624: common residual 1.19e-01 ; per-state 3.2e-02 1.6e-01 6.4e-02 2.3e-01 9.0e-02 4.4e-01
+  Phi      pp + ph   1072 monomials, rank  624: common residual 1.27e-02 ; per-state 3.2e-03 1.0e-02 9.0e-03 2.5e-02 1.1e-02 3.3e-02
