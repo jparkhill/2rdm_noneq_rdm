@@ -1,0 +1,204 @@
+=== H3 bent | kicked ground state   M=6 N=3  rank(rho)~1  occupations [0.0108, 0.9892]  |lambda_2|=0.5341 ===
+  RANK 1  (X = gamma_1, boundaries 0 and 1)
+    exact                                |Xd|=0.2970  spectral=0.0235  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.131  xdot in [-3.8e-03,+3.8e-03]  dS/dt=-5.42e-02
+    TDHF (lambda_2 = 0)                  |Xd|=0.2981  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [-4.7e-17,+3.3e-17]  dS/dt=+2.73e-16
+  RANK 2  (X = Mat_2, boundary 0)
+    Mat_2 dim 15, eigenvalues in [-1.6e-16, 1.9785]
+    [check] wick vs fullci: rank 1 3.4e-16, rank 2 4.0e-16
+    exact total                          |Xd|=0.8969  spectral=0.0155  n_ker= 9  |xdot|ker=4.9e-17  max|xdot/dist|=0.131  xdot in [-7.5e-03,+7.5e-03]  dS/dt=-5.42e-02
+    drift (gamma_3 := 0 in term list)    |Xd|=1.0177  spectral=0.0000  n_ker= 9  |xdot|ker=3.7e-17  max|xdot/dist|=0.000  xdot in [-3.7e-17,+5.3e-17]  dS/dt=+8.39e-15
+    Phi[gamma_3 exact]                   |Xd|=0.5033  spectral=0.0277  n_ker= 9  |xdot|ker=3.4e-17  max|xdot/dist|=0.131  xdot in [-7.5e-03,+7.5e-03]  dS/dt=-5.42e-02
+    Phi[lambda_3 = 0]                    |Xd|=0.5173  spectral=0.0370  n_ker= 9  |xdot|ker=2.3e-03  max|xdot/dist|=0.130  xdot in [-7.3e-03,+7.4e-03]  dS/dt=+1.01e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0554
+    Phi[muller2405 + Lackner]            |Xd|=0.4870  spectral=0.0390  n_ker= 9  |xdot|ker=3.5e-03  max|xdot/dist|=0.091  xdot in [-4.3e-03,+5.2e-03]  dS/dt=+7.12e-01
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0670
+    Phi[muller2405 raw]                  |Xd|=0.4871  spectral=0.0635  n_ker= 9  |xdot|ker=1.0e-02  max|xdot/dist|=0.052  xdot in [-7.3e-03,+1.0e-02]  dS/dt=+4.79e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0733
+
+=== H3 bent | HF determinant, t=0   M=6 N=3  rank(rho)~1  occupations [0.0000, 1.0000]  |lambda_2|=0.0000 ===
+  RANK 1  (X = gamma_1, boundaries 0 and 1)
+    exact                                |Xd|=0.0735  spectral=0.0000  n_ker= 6  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+    TDHF (lambda_2 = 0)                  |Xd|=0.0735  spectral=0.0000  n_ker= 6  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+  RANK 2  (X = Mat_2, boundary 0)
+    Mat_2 dim 15, eigenvalues in [0.0e+00, 2.0000]
+    [check] wick vs fullci: rank 1 2.4e-16, rank 2 2.4e-16
+    exact total                          |Xd|=0.5601  spectral=0.0000  n_ker=12  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+    drift (gamma_3 := 0 in term list)    |Xd|=0.7786  spectral=0.0000  n_ker=12  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+    Phi[gamma_3 exact]                   |Xd|=0.5794  spectral=0.0000  n_ker=12  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+    Phi[lambda_3 = 0]                    |Xd|=0.5794  spectral=0.0000  n_ker=12  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0000
+    Phi[muller2405 + Lackner]            |Xd|=0.5794  spectral=0.0000  n_ker=12  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0000
+    Phi[muller2405 raw]                  |Xd|=0.5794  spectral=0.0000  n_ker=12  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0000
+
+=== H3 bent | V-quench 0.3->1, pure, t=0   M=6 N=3  rank(rho)~1  occupations [0.0010, 0.9990]  |lambda_2|=0.1604 ===
+  RANK 1  (X = gamma_1, boundaries 0 and 1)
+    exact                                |Xd|=0.0775  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+    TDHF (lambda_2 = 0)                  |Xd|=0.0849  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+  RANK 2  (X = Mat_2, boundary 0)
+    Mat_2 dim 15, eigenvalues in [-1.4e-16, 1.9980]
+    [check] wick vs fullci: rank 1 5.2e-16, rank 2 4.6e-16
+    exact total                          |Xd|=0.4252  spectral=0.0000  n_ker= 9  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+    drift (gamma_3 := 0 in term list)    |Xd|=0.6680  spectral=0.0000  n_ker= 9  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+    Phi[gamma_3 exact]                   |Xd|=0.5882  spectral=0.0000  n_ker= 9  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+    Phi[lambda_3 = 0]                    |Xd|=0.5890  spectral=0.0023  n_ker= 9  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0121
+    Phi[muller2405 + Lackner]            |Xd|=0.5876  spectral=0.0063  n_ker= 9  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0433
+    Phi[muller2405 raw]                  |Xd|=0.5947  spectral=0.0192  n_ker= 9  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0554
+
+=== H3 bent | V-quench 0.3->1, pure, t=1   M=6 N=3  rank(rho)~1  occupations [0.0074, 0.9926]  |lambda_2|=0.4402 ===
+  RANK 1  (X = gamma_1, boundaries 0 and 1)
+    exact                                |Xd|=0.1097  spectral=0.5799  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=1.521  xdot in [-3.6e-02,+3.6e-02]  dS/dt=+5.79e-01
+    TDHF (lambda_2 = 0)                  |Xd|=0.0818  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [-3.2e-18,+2.0e-18]  dS/dt=-3.27e-17
+  RANK 2  (X = Mat_2, boundary 0)
+    Mat_2 dim 15, eigenvalues in [-7.5e-17, 1.9851]
+    [check] wick vs fullci: rank 1 4.8e-16, rank 2 4.5e-16
+    exact total                          |Xd|=0.4527  spectral=0.2809  n_ker= 9  |xdot|ker=1.2e-17  max|xdot/dist|=1.521  xdot in [-7.2e-02,+7.2e-02]  dS/dt=+5.79e-01
+    drift (gamma_3 := 0 in term list)    |Xd|=0.6672  spectral=0.0000  n_ker= 9  |xdot|ker=1.2e-17  max|xdot/dist|=0.000  xdot in [-1.2e-17,+1.2e-17]  dS/dt=-1.94e-16
+    Phi[gamma_3 exact]                   |Xd|=0.5825  spectral=0.2183  n_ker= 9  |xdot|ker=9.9e-18  max|xdot/dist|=1.521  xdot in [-7.2e-02,+7.2e-02]  dS/dt=+5.79e-01
+    Phi[lambda_3 = 0]                    |Xd|=0.5906  spectral=0.2115  n_ker= 9  |xdot|ker=2.8e-03  max|xdot/dist|=1.525  xdot in [-7.1e-02,+7.0e-02]  dS/dt=-3.27e-01
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0846
+    Phi[muller2405 + Lackner]            |Xd|=0.5583  spectral=0.1581  n_ker= 9  |xdot|ker=2.2e-02  max|xdot/dist|=1.071  xdot in [-5.0e-02,+3.5e-02]  dS/dt=+6.03e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.1758
+    Phi[muller2405 raw]                  |Xd|=0.5462  spectral=0.1113  n_ker= 9  |xdot|ker=7.3e-03  max|xdot/dist|=0.620  xdot in [-2.9e-02,+2.9e-02]  dS/dt=+1.32e-01
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.2218
+
+=== H3 bent | V-quench 0.3->1, pure, t=2   M=6 N=3  rank(rho)~1  occupations [0.0208, 0.9792]  |lambda_2|=0.7114 ===
+  RANK 1  (X = gamma_1, boundaries 0 and 1)
+    exact                                |Xd|=0.1156  spectral=0.4487  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.554  xdot in [-3.0e-02,+3.0e-02]  dS/dt=+3.68e-01
+    TDHF (lambda_2 = 0)                  |Xd|=0.0759  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [-1.1e-17,+8.0e-18]  dS/dt=-4.15e-17
+  RANK 2  (X = Mat_2, boundary 0)
+    Mat_2 dim 15, eigenvalues in [-1.1e-16, 1.9584]
+    [check] wick vs fullci: rank 1 3.4e-16, rank 2 3.9e-16
+    exact total                          |Xd|=0.4585  spectral=0.2263  n_ker= 9  |xdot|ker=2.7e-17  max|xdot/dist|=0.554  xdot in [-5.9e-02,+5.9e-02]  dS/dt=+3.68e-01
+    drift (gamma_3 := 0 in term list)    |Xd|=0.6638  spectral=0.0000  n_ker= 9  |xdot|ker=1.4e-17  max|xdot/dist|=0.000  xdot in [-1.4e-17,+8.3e-17]  dS/dt=-1.07e-14
+    Phi[gamma_3 exact]                   |Xd|=0.5300  spectral=0.1958  n_ker= 9  |xdot|ker=1.6e-17  max|xdot/dist|=0.554  xdot in [-5.9e-02,+5.9e-02]  dS/dt=+3.68e-01
+    Phi[lambda_3 = 0]                    |Xd|=0.5519  spectral=0.1838  n_ker= 9  |xdot|ker=8.2e-03  max|xdot/dist|=0.515  xdot in [-5.8e-02,+5.6e-02]  dS/dt=-3.73e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.1859
+    Phi[muller2405 + Lackner]            |Xd|=0.4828  spectral=0.1620  n_ker= 9  |xdot|ker=2.3e-02  max|xdot/dist|=0.367  xdot in [-4.0e-02,+2.5e-02]  dS/dt=+6.92e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.2452
+    Phi[muller2405 raw]                  |Xd|=0.4563  spectral=0.1228  n_ker= 9  |xdot|ker=7.9e-03  max|xdot/dist|=0.195  xdot in [-2.2e-02,+2.1e-02]  dS/dt=-6.92e-01
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.2899
+
+=== H4 trapezoid | kicked ground state   M=8 N=4  rank(rho)~1  occupations [0.0104, 0.9881]  |lambda_2|=0.6149 ===
+  RANK 1  (X = gamma_1, boundaries 0 and 1)
+    exact                                |Xd|=0.1238  spectral=0.0042  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.027  xdot in [-2.8e-04,+2.1e-04]  dS/dt=-5.13e-03
+    TDHF (lambda_2 = 0)                  |Xd|=0.1219  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [-7.6e-17,+8.9e-17]  dS/dt=-1.96e-16
+  RANK 2  (X = Mat_2, boundary 0)
+    Mat_2 dim 28, eigenvalues in [4.2e-07, 2.0168]
+    [check] wick vs fullci: rank 1 1.1e-15, rank 2 9.3e-16
+    exact total                          |Xd|=0.5016  spectral=0.0037  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.029  xdot in [-7.7e-04,+5.6e-04]  dS/dt=-1.09e-02
+    drift (gamma_3 := 0 in term list)    |Xd|=0.6804  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [-4.0e-17,+5.1e-17]  dS/dt=+6.43e-16
+    Phi[gamma_3 exact]                   |Xd|=0.4799  spectral=0.0039  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.029  xdot in [-7.7e-04,+5.6e-04]  dS/dt=-1.09e-02
+    Phi[lambda_3 = 0]                    |Xd|=0.4832  spectral=0.0040  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.033  xdot in [-8.1e-04,+5.5e-04]  dS/dt=-9.93e-03
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.1346
+    Phi[muller2405 + Lackner]            |Xd|=0.4595  spectral=0.0031  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.017  xdot in [-5.1e-04,+4.0e-04]  dS/dt=-1.06e-02
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.1638
+    Phi[muller2405 raw]                  |Xd|=0.4582  spectral=0.0017  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.037  xdot in [-3.2e-04,+2.4e-04]  dS/dt=-4.58e-03
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.1966
+
+=== H4 trapezoid | kicked thermal kT=0.5   M=8 N=4  rank(rho)~55  occupations [0.1491, 0.8086]  |lambda_2|=0.3846 ===
+  RANK 1  (X = gamma_1, boundaries 0 and 1)
+    exact                                |Xd|=0.1498  spectral=0.0012  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.001  xdot in [-1.0e-04,+5.3e-05]  dS/dt=-4.17e-04
+    TDHF (lambda_2 = 0)                  |Xd|=0.1510  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [-4.4e-17,+2.8e-17]  dS/dt=-5.92e-17
+  RANK 2  (X = Mat_2, boundary 0)
+    Mat_2 dim 28, eigenvalues in [2.1e-02, 1.2790]
+    [check] wick vs fullci: rank 1 6.1e-16, rank 2 4.0e-16
+    exact total                          |Xd|=0.4278  spectral=0.0011  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.001  xdot in [-1.3e-04,+2.3e-04]  dS/dt=-1.29e-03
+    drift (gamma_3 := 0 in term list)    |Xd|=0.4860  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [-5.4e-16,+4.4e-16]  dS/dt=+8.28e-16
+    Phi[gamma_3 exact]                   |Xd|=0.2447  spectral=0.0019  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.001  xdot in [-1.3e-04,+2.3e-04]  dS/dt=-1.29e-03
+    Phi[lambda_3 = 0]                    |Xd|=0.2579  spectral=0.0018  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.002  xdot in [-1.4e-04,+2.0e-04]  dS/dt=-1.48e-03
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0624
+    Phi[muller2405 + Lackner]            |Xd|=0.2421  spectral=0.0016  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.004  xdot in [-1.1e-04,+1.4e-04]  dS/dt=-1.34e-03
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0875
+    Phi[muller2405 raw]                  |Xd|=0.2047  spectral=0.0012  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.001  xdot in [-1.3e-04,+1.2e-04]  dS/dt=-6.21e-04
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.1439
+
+=== H4 trapezoid | HF determinant, t=0   M=8 N=4  rank(rho)~1  occupations [0.0000, 1.0000]  |lambda_2|=0.0000 ===
+  RANK 1  (X = gamma_1, boundaries 0 and 1)
+    exact                                |Xd|=0.0000  spectral=0.0000  n_ker= 8  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+    TDHF (lambda_2 = 0)                  |Xd|=0.0000  spectral=0.0000  n_ker= 8  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+  RANK 2  (X = Mat_2, boundary 0)
+    Mat_2 dim 28, eigenvalues in [0.0e+00, 2.0000]
+    [check] wick vs fullci: rank 1 2.9e-16, rank 2 4.4e-16
+    exact total                          |Xd|=0.8202  spectral=0.0000  n_ker=22  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+    drift (gamma_3 := 0 in term list)    |Xd|=0.9693  spectral=0.0000  n_ker=22  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+    Phi[gamma_3 exact]                   |Xd|=0.5166  spectral=0.0000  n_ker=22  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+    Phi[lambda_3 = 0]                    |Xd|=0.5166  spectral=0.0000  n_ker=22  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0000
+    Phi[muller2405 + Lackner]            |Xd|=0.5166  spectral=0.0000  n_ker=22  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0000
+    Phi[muller2405 raw]                  |Xd|=0.5166  spectral=0.0000  n_ker=22  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0000
+
+=== H4 trapezoid | V-quench 0.3->1, pure, t=0   M=8 N=4  rank(rho)~1  occupations [0.0011, 0.9988]  |lambda_2|=0.1908 ===
+  RANK 1  (X = gamma_1, boundaries 0 and 1)
+    exact                                |Xd|=0.1473  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+    TDHF (lambda_2 = 0)                  |Xd|=0.1462  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+  RANK 2  (X = Mat_2, boundary 0)
+    Mat_2 dim 28, eigenvalues in [2.1e-08, 2.0023]
+    [check] wick vs fullci: rank 1 1.1e-15, rank 2 8.9e-16
+    exact total                          |Xd|=0.7547  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+    drift (gamma_3 := 0 in term list)    |Xd|=0.6858  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+    Phi[gamma_3 exact]                   |Xd|=0.6048  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+    Phi[lambda_3 = 0]                    |Xd|=0.6051  spectral=0.0001  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0097
+    Phi[muller2405 + Lackner]            |Xd|=0.6018  spectral=0.0004  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0384
+    Phi[muller2405 raw]                  |Xd|=0.6067  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [+0.0e+00,+0.0e+00]  dS/dt=-0.00e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0462
+
+=== H4 trapezoid | V-quench 0.3->1, pure, t=1   M=8 N=4  rank(rho)~1  occupations [0.0204, 0.9792]  |lambda_2|=0.6216 ===
+  RANK 1  (X = gamma_1, boundaries 0 and 1)
+    exact                                |Xd|=0.1455  spectral=0.5694  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=1.349  xdot in [-3.2e-02,+3.5e-02]  dS/dt=+8.58e-01
+    TDHF (lambda_2 = 0)                  |Xd|=0.1168  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [-3.9e-18,+3.1e-18]  dS/dt=-6.13e-18
+  RANK 2  (X = Mat_2, boundary 0)
+    Mat_2 dim 28, eigenvalues in [7.7e-06, 2.0001]
+    [check] wick vs fullci: rank 1 1.3e-15, rank 2 6.7e-16
+    exact total                          |Xd|=0.7549  spectral=0.3542  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=2.684  xdot in [-1.1e-01,+7.5e-02]  dS/dt=+1.75e+00
+    drift (gamma_3 := 0 in term list)    |Xd|=0.7360  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [-1.3e-16,+6.1e-17]  dS/dt=-6.25e-16
+    Phi[gamma_3 exact]                   |Xd|=0.5988  spectral=0.4465  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=2.684  xdot in [-1.1e-01,+7.5e-02]  dS/dt=+1.75e+00
+    Phi[lambda_3 = 0]                    |Xd|=0.5999  spectral=0.4493  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=1.845  xdot in [-1.1e-01,+7.6e-02]  dS/dt=+1.63e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0960
+    Phi[muller2405 + Lackner]            |Xd|=0.5479  spectral=0.3355  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=29.475  xdot in [-7.8e-02,+3.3e-02]  dS/dt=+1.72e+00
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.1926
+    Phi[muller2405 raw]                  |Xd|=0.5219  spectral=0.2216  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.886  xdot in [-4.6e-02,+3.3e-02]  dS/dt=+7.24e-01
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.2400
+
+=== H4 trapezoid | V-quench 0.3->1, pure, t=2   M=8 N=4  rank(rho)~1  occupations [0.0208, 0.9720]  |lambda_2|=0.7736 ===
+  RANK 1  (X = gamma_1, boundaries 0 and 1)
+    exact                                |Xd|=0.1308  spectral=0.2677  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.930  xdot in [-1.9e-02,+1.1e-02]  dS/dt=-1.54e-01
+    TDHF (lambda_2 = 0)                  |Xd|=0.1069  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [-3.5e-18,+3.6e-18]  dS/dt=+3.27e-17
+  RANK 2  (X = Mat_2, boundary 0)
+    Mat_2 dim 28, eigenvalues in [5.3e-05, 2.0196]
+    [check] wick vs fullci: rank 1 3.4e-16, rank 2 8.9e-16
+    exact total                          |Xd|=0.7139  spectral=0.1303  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=1.752  xdot in [-5.3e-02,+5.5e-02]  dS/dt=-2.02e-01
+    drift (gamma_3 := 0 in term list)    |Xd|=0.8039  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [-9.4e-17,+1.3e-16]  dS/dt=+6.66e-16
+    Phi[gamma_3 exact]                   |Xd|=0.4952  spectral=0.1878  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=1.752  xdot in [-5.3e-02,+5.5e-02]  dS/dt=-2.02e-01
+    Phi[lambda_3 = 0]                    |Xd|=0.4730  spectral=0.1591  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=2.997  xdot in [-3.6e-02,+4.4e-02]  dS/dt=-1.85e-01
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.1515
+    Phi[muller2405 + Lackner]            |Xd|=0.4323  spectral=0.1178  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=3.432  xdot in [-2.0e-02,+2.7e-02]  dS/dt=-3.70e-01
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.2161
+    Phi[muller2405 raw]                  |Xd|=0.4073  spectral=0.0764  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=1.474  xdot in [-1.4e-02,+1.5e-02]  dS/dt=-9.51e-02
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.2540
+
+=== H4 trapezoid | V-quench, thermal kT=0.5, t=1   M=8 N=4  rank(rho)~58  occupations [0.1586, 0.8127]  |lambda_2|=0.3767 ===
+  RANK 1  (X = gamma_1, boundaries 0 and 1)
+    exact                                |Xd|=0.0627  spectral=0.4786  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.099  xdot in [-1.4e-02,+1.6e-02]  dS/dt=+9.58e-02
+    TDHF (lambda_2 = 0)                  |Xd|=0.0552  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [-5.7e-18,+1.6e-17]  dS/dt=-2.05e-17
+  RANK 2  (X = Mat_2, boundary 0)
+    Mat_2 dim 28, eigenvalues in [2.9e-02, 1.3031]
+    [check] wick vs fullci: rank 1 3.4e-16, rank 2 2.3e-16
+    exact total                          |Xd|=0.2507  spectral=0.2847  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.206  xdot in [-3.7e-02,+1.4e-02]  dS/dt=+2.71e-01
+    drift (gamma_3 := 0 in term list)    |Xd|=0.3047  spectral=0.0000  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.000  xdot in [-3.4e-16,+2.4e-16]  dS/dt=-4.75e-16
+    Phi[gamma_3 exact]                   |Xd|=0.2639  spectral=0.2705  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.206  xdot in [-3.7e-02,+1.4e-02]  dS/dt=+2.71e-01
+    Phi[lambda_3 = 0]                    |Xd|=0.2665  spectral=0.2668  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.273  xdot in [-3.4e-02,+1.6e-02]  dS/dt=+2.80e-01
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.0791
+    Phi[muller2405 + Lackner]            |Xd|=0.2519  spectral=0.2417  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.524  xdot in [-2.7e-02,+1.5e-02]  dS/dt=+2.70e-01
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.1771
+    Phi[muller2405 raw]                  |Xd|=0.2068  spectral=0.1356  n_ker= 0  |xdot|ker=0.0e+00  max|xdot/dist|=0.133  xdot in [-1.4e-02,+7.7e-03]  dS/dt=+1.18e-01
+                                         |Xd_closure - Xd_exact|/|Xd_exact| = 0.3071
+
