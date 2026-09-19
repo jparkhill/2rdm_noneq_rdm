@@ -198,3 +198,61 @@ class F0Delta:
 
     def g2dot(self, g2, mode="f0delta"):
         return from_mat2(self.flow(g2, mode), self.M)
+
+
+# ---------------------------------------------------------------------------------------------- episode 8
+class DynamicDelta:
+    r"""Dynamical (Car-Parrinello-like, overdamped) correction.  State (X, delta), delta Hermitian on pair space:
+
+        d/dt X     = F0(X) + delta
+        tau d/dt delta = -delta - kappa * grad_delta Phi(X, F0 + delta)
+
+    Phi is a SMOOTH tangency potential: for each cone P with rate Pdot (linear in the flow),
+        Phi = sum_P || f(P)^{1/2} Pdot f(P)^{1/2} ||_F^2 ,   f(x) = sigma^2 / (x^2 + sigma^2)
+    which is analytic in the state (a spectral function, no eigenvector selection) and reduces to the
+    near-null block norm as sigma -> 0. Contraction and energy are kept exact by projecting delta onto the
+    null space of the constant constraint matrix and adding the particular solution for F0 (both smooth).
+    As tau -> 0, delta -> the minimum-norm penalised correction (episode 7 soft variant with weights f).
+    """
+
+    def __init__(self, base: F0Delta, tau=0.05, kappa=1e2, sigma=1e-3):
+        self.b, self.tau, self.kappa, self.sigma = base, tau, kappa, sigma
+
+    def _spectral(self, Pm):
+        x, U = np.linalg.eigh(0.5 * (Pm + Pm.conj().T))
+        f = self.sigma ** 2 / (x ** 2 + self.sigma ** 2)
+        return U, np.sqrt(f)
+
+    def grad_phi(self, g1, g2, F):
+        """grad_delta Phi as a Hermitian pair matrix, and Phi. rate maps are linear: rate(B_k) precomputed."""
+        b, M, N = self.b, self.b.M, self.b.N
+        g2F = from_mat2(F, M); g1F = np.einsum("pvqv->pq", g2F) / (N - 1)
+        Q0 = q_matrix(0 * g1, 0 * g2, M)
+        rateF = {"D": F / 2, "Q": q_matrix(g1F, g2F, M) - Q0, "G": g_matrix(g1F, g2F, M)}
+        mats = {"D": cs.to_mat2(g2, M) / 2, "Q": q_matrix(g1, g2, M), "G": g_matrix(g1, g2, M)}
+        rateB = {"D": b.DB, "Q": b.QB, "G": b.GB}
+        grad = np.zeros(b.n2); phi = 0.0
+        for c in ("D", "Q", "G"):
+            U, sf = self._spectral(mats[c])
+            W = U * sf[None, :]                          # f^{1/2} in the eigenbasis: W W^dag = f(P)
+            RF = W.conj().T @ (0.5 * (rateF[c] + rateF[c].conj().T)) @ W
+            phi += np.linalg.norm(RF) ** 2
+            RB = np.matmul(np.matmul(W.conj().T[None], rateB[c]), W)      # (n2, n, n)
+            grad += 2 * np.real(np.einsum("kij,ij->k", RB, RF.conj()))
+        return grad, phi
+
+    def rhs(self, g2, delta_c):
+        """delta_c: real coefficients of delta in the basis B (length n2). Returns (g2dot, delta_c_dot)."""
+        b, M, N = self.b, self.b.M, self.b.N
+        g1, X = b.state(g2)
+        F0 = b.F0(g1, g2)
+        delta = np.einsum("k,kij->ij", delta_c, b.B)
+        F = F0 + delta
+        grad, phi = self.grad_phi(g1, g2, F)
+        # particular solution for the hard constraints of F0, and projection of the driving force onto their null space
+        g2F0 = from_mat2(F0, M); g1F0 = np.einsum("pvqv->pq", g2F0) / (N - 1)
+        r_hard = np.concatenate([b._hvec(b.exact_g1dot(g1, g2) - g1F0), [-np.real(np.trace(b.gradE.conj().T @ F0))]])
+        c_p = b.Cpinv @ r_hard
+        force = -(delta_c - c_p) - self.kappa * (b.Z @ (b.Z.T @ grad))
+        self.last_phi = phi
+        return from_mat2(F, M), force / self.tau

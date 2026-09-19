@@ -1,0 +1,8 @@
+delta fixed point (linear solve, 136s): |force| 2.7e-14, |delta| 0.0125, Phi 1.84e-06
+|F(y0)| = 4.43e-02 (X part 4.43e-02, delta part 2.74e-14)
+Jacobian 320s
+modes: 1568 ; with X-weight > 0.5: 784 ; Re w range of those [-1.96e-01, 1.57e-01] ; delta-sector Re w median -11.542 (expect ~ -1/tau = -2.000)
+FCI          |   0.3889    0.5630    0.9222    1.1525    1.1807    1.4686
+dyn-delta    |   0.3915    0.4714    0.9209    1.1630    1.0483    1.3791  mean|err| 0.0547
+             |    0.651     0.607     0.710     0.623     0.484     0.700  <- weight
+             | -1.0e-02  +1.2e-02  +3.2e-05  -3.9e-04  -2.8e-03  -1.6e-03  <- Re w

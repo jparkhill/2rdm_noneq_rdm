@@ -523,3 +523,43 @@ the quench 2-RDM error is halved. Energy drift of `F0` alone is 5e-4..1e-3.
 **Standing.** A projection closure can keep D, Q, G positive along real trajectories, mixed and quenched, at
 `λ_3 = 0` accuracy or better — but not smoothly, and a non-smooth closure has no spectrum. Smooth tangency that
 still pins eigenvalues at 1e-7 without a hard block is the open question; the soft penalty at σ = 1e-3 does not.
+
+---
+
+## Episode 8 (2026-08-13): the dynamical (Car–Parrinello-like) δ — the spectrum returns
+
+Tools: `DynamicDelta` in `tools/f0delta.py`, `tools/dyndelta_propagate.py`, `tools/dyndelta_poles.py`;
+outputs `results/dyndelta_*.txt`.
+
+**Construction.** δ becomes a state variable with an overdamped relaxation equation,
+`τ δ̇ = −(δ − δ_hard) − κ ∇_δ Φ`, where `δ_hard` is the (smooth, linear) particular solution enforcing the
+contraction and energy constraints of `F0`, and `Φ = Σ_P ‖f(P)^{1/2} Ṗ f(P)^{1/2}‖²`, `f(x) = σ²/(x²+σ²)`, a
+SPECTRAL-FUNCTION tangency potential — analytic in the state, no eigenvector selection. As τ → 0 it reduces to the
+soft projection of episode 7. Parameters used: τ = 0.5 a.u., κ = 10, σ = 1e-3 (τ = 0.05, κ = 100 was
+integrator-unstable at dt = 0.01 and overshot to |δ| = 1.2; the CP stiffness/dt constraint).
+
+**Poles, H4 jitter geometry, ground state** (extended Jacobian over `(X, δ)`, 1568 real variables, δ at its
+fixed point by a linear solve): **mean |err| 0.0547 Ha** (F0 0.0592, projected-hard 0.94, muller 0.0314). The
+784 δ-sector modes sit at Re ω ≈ −11.5, cleanly separated from the 784 X-dominated modes whose |Re ω| ≤ 0.2;
+assigned poles have |Re ω| ≤ 1e-2 and weights 0.48–0.71, comparable to the controls. **Smoothing δ restores the
+linear-response spectrum entirely, and slightly improves it.**
+
+**Trajectories** — H4 asymmetric trapezoid, sto-3g, M = 8, N = 4, RK4 dt = 0.01 a.u., **t_end = 2.0 a.u. =
+48 as = 0.048 fs**, δ(0) = 0:
+
+| | min eig D / G at t = 2 | e(γ₂) at t = 2 | dE |
+|---|---|---|---|
+| A kicked pure, dynamical δ | −4.1e-3 / −4.1e-3 | 0.0256 | 2.2e-4 |
+| A, `F0` | −7.8e-3 / −8.1e-3 | 0.026 | 5.6e-4 |
+| A, projected hard | +2.1e-7 / −4e-8 | 0.024 | 1e-14 |
+| C quench, dynamical δ | −3.7e-3 / −1.1e-2 | 0.0262 | 5.3e-4 |
+| C, `F0` | −7.7e-3 / −1.1e-2 | 0.024 | 1.1e-3 |
+
+Positivity is improved ~2× over `F0` but no longer pinned; energy is conserved only to the relaxation lag.
+The trade is now explicit and tunable: stiffness (κ/τ) buys positivity and costs integrator stability and
+separation of the fictitious modes from the physical window.
+
+**Open.** (i) Stiffness scan to find how far positivity can be tightened before the δ-sector Re ω ≈ −1/τ
+enters the pole window (~0.4 Ha); a symplectic/implicit integrator for the δ equation would relax the dt
+constraint. (ii) Thermal pole row for the dynamical variant. (iii) These are 0.05 fs propagations against an
+exact propagator; long-time stability (tens of fs) has not been tested for any closure in this programme.
