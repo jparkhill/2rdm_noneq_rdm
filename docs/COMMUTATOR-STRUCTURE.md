@@ -467,3 +467,59 @@ error vs exact FCI propagation; comparison rows `λ_3 = 0` (with and without XR 
 **Poles.** Linearise `F0 + δ` at the ground state and at the thermal state; biorthogonal matching to FCI
 singlet transition densities (`POLE-TABLE.md` machinery). Number to beat: `muller2405 + Lackner`, mean |err|
 0.0314 Ha; `λ_3 = 0`, 0.0592; TDHF, 0.168. Report also whether any pole is complex (non-Hamiltonian structure).
+
+---
+
+## Episode 7 (2026-08-12/13): the first propagation, and its pole spectrum
+
+Tools `tools/f0delta.py` (closure), `tools/f0delta_validate.py`, `tools/f0delta_propagate.py`, `tools/f0delta_poles.py`;
+outputs `results/f0delta_*.txt`, trajectories `results/traj_*.npy`.
+
+**Closure.** `d/dt X = F0 + δ`; `F0` the derived `λ_3 = 0` channel form; `δ` the minimum-norm Hermitian correction with
+hard constraints (b) exact contraction to the rank-1 EOM, (c) exact energy, and cone tangency (a) in two forms:
+soft penalty with weights `σ/(x_i + x_j + σ)`, `σ = 1e-3`, `μ = 1e2`; and a HARD block, exact tangency on eigenpairs with
+`|x| < τ = 1e-5`. Variants: `f0delta` (soft), `f0delta_hard` (soft + hard), `f0delta_hardonly` (hard, no penalty).
+
+**Validation.** Exact flow is a fixed point to `O(σ)` (1.6e-4 H3, 2.1e-3 H4); `V = 0` exact; contraction and
+energy at 1e-14 on all eight states; kernel leaks 1e-4..1e-3 (soft) vs 1e-3..3e-2 (`F0`). NOT exactly extensive:
+cross-fragment `dλ_2/dt` 1–2% for H3×H2 (min-norm projection mixes fragments). Cost `O(M¹²)` dense per evaluation,
+1.5 s at M = 8; N-independent; reducible to `O(k M⁸)`; `F0` alone `O(M⁶)`.
+
+**Trajectories** (H4, RK4 dt = 0.02, dt-halving 4% at t = 0.5, t to 2). Min eigenvalue of D / G at t ≈ 2 and e(γ_2):
+
+| | A kicked pure | B kicked thermal | C quench |
+|---|---|---|---|
+| `F0` | −7.8e-3 / −8.1e-3, 0.026 | inside, 0.013 | −7.7e-3 / −1.1e-2, 0.024 |
+| `muller2405` | −1.5e-2 / −9.2e-3, 0.027 | inside, 0.017 | −4.3e-3 / −1.4e-2, 0.039 |
+| `f0delta` soft | −8e-4 / −9e-4, 0.025 | inside, 0.013 | −1e-3 / −7.4e-3, 0.023 |
+| `f0delta_hard` | **+2.1e-7 / −4e-8, 0.024** | — | **−9e-9 / −3e-11, 0.013** |
+| `hardonly` | −6.6e-3 / −7.6e-3, 0.025 | — | −4e-7 / −4e-6, 0.012 |
+| exact | +8e-7 / 0 | inside | +3e-5 / 0 |
+
+With the hard block all three cones are held to ~1e-8 on every trajectory, energy and the 1-RDM EOM are exact, and
+the quench 2-RDM error is halved. Energy drift of `F0` alone is 5e-4..1e-3.
+
+**Poles** (POLE-TABLE geometry; controls reproduce 0.0592 and 0.0314 to four digits):
+
+| closure | ground state mean err | thermal kT = 0.5 | max Re ω (ground) |
+|---|---|---|---|
+| `F0` | 0.0592 | **0.0436** | 0.17 |
+| `muller2405` | **0.0314** | 0.0736 | 4e-3 |
+| `f0delta` soft | 0.132 (one pole → 0.03) | 0.0460 | 0.35 |
+| `f0delta_hard` | 0.94, five poles ≈ 0 | 0.0460 | 30 |
+| `hardonly` | 0.77 | 0.089 | 380 |
+
+**Readings.**
+1. The hard block that holds positivity along trajectories DESTROYS the linear-response spectrum at a pure state:
+   the near-null eigenvectors are re-selected under each perturbation, the map is non-smooth, and the Jacobian
+   acquires real parts of 30–380 with near-zero frequencies. Trajectories average over this; poles do not.
+   This is the non-Lipschitz-at-the-kernel risk realised, and it is why "trajectory looks fine" is not an
+   acceptance test in this programme.
+2. In the interior (thermal row) δ is inert and slightly harmful (0.046 vs 0.044).
+3. **First mixed-state pole row ever computed:** the derived `λ_3 = 0` channel form beats `muller2405` by 1.7× at
+   kT = 0.5, reversing the pure-state ranking. Mueller is tuned to pure states; `F0` is tuned to nothing.
+4. `hardonly` (the O(M⁶) shortcut) neither holds positivity on trajectory A nor has a spectrum.
+
+**Standing.** A projection closure can keep D, Q, G positive along real trajectories, mixed and quenched, at
+`λ_3 = 0` accuracy or better — but not smoothly, and a non-smooth closure has no spectrum. Smooth tangency that
+still pins eigenvalues at 1e-7 without a hard block is the open question; the soft penalty at σ = 1e-3 does not.

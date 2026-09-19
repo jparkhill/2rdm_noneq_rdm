@@ -1,0 +1,75 @@
+=== H3  M=6 N=3  n2=225  rank(C)=37  null dim=188
+  V1 |delta(exact)|/|Xdot| = 1.57e-04  (sigma=1e-03)
+  V2 V=0: |F0 - exact| = 7.1e-16   |delta| = 3.7e-04
+  V4 sigma=1e-02 mu=1e+02 : rank-2 err 0.0463  leaks D 2.4e-04 Q 3.6e-04 G 1.7e-04  |delta|=0.0254  |delta(exact)|/|Xdot|=7.5e-03
+  V4 sigma=1e-03 mu=1e+02 : rank-2 err 0.0471  leaks D 1.8e-04 Q 2.6e-04 G 1.1e-04  |delta|=0.0245  |delta(exact)|/|Xdot|=1.6e-04
+  V4 sigma=1e-02 mu=1e+04 : rank-2 err 0.0381  leaks D 4.2e-04 Q 5.5e-04 G 1.6e-04  |delta|=0.0676  |delta(exact)|/|Xdot|=4.5e-02
+  V4 sigma=1e-01 mu=1e+02 : rank-2 err 0.0452  leaks D 2.5e-03 Q 3.8e-03 G 1.1e-03  |delta|=0.0680  |delta(exact)|/|Xdot|=5.3e-02
+--- H3 | kicked ground state  rank(rho)~1  |Xdot|=0.8969
+    [check] exact rank-1 EOM from gamma_2 vs fullci: 3.4e-16
+    f0            rank-2 err 0.0554   contraction err 6.5e-03   dE/dt -6.5e-05   leaks D 3.6e-03 Q 8.9e-03 G 1.9e-03   herm 5e-16   0.00s
+    muller        rank-2 err 0.0670   contraction err 1.9e-15   dE/dt +3.6e-17   leaks D 4.7e-03 Q 1.3e-02 G 3.9e-03   herm 1e-15   0.02s
+    f0delta_D     rank-2 err 0.0513   contraction err 2.1e-15   dE/dt -2.3e-17   leaks D 2.7e-04 Q 5.4e-03 G 1.3e-03   herm 5e-16   0.03s
+    f0delta       rank-2 err 0.0471   contraction err 2.2e-15   dE/dt -2.6e-17   leaks D 1.8e-04 Q 2.6e-04 G 1.1e-04   herm 5e-16   0.11s
+    muller_delta  rank-2 err 0.0443   contraction err 1.9e-15   dE/dt -1.4e-17   leaks D 1.8e-04 Q 4.2e-04 G 1.4e-04   herm 1e-15   0.14s
+--- H3 | V-quench 0.3->1, pure, t=1  rank(rho)~1  |Xdot|=0.4527
+    [check] exact rank-1 EOM from gamma_2 vs fullci: 4.8e-16
+    f0            rank-2 err 0.0846   contraction err 1.7e-02   dE/dt +3.4e-05   leaks D 6.0e-03 Q 1.2e-02 G 3.3e-03   herm 5e-16   0.00s
+    muller        rank-2 err 0.1758   contraction err 4.6e-15   dE/dt -6.9e-18   leaks D 5.1e-02 Q 2.8e-02 G 1.4e-02   herm 2e-15   0.02s
+    f0delta_D     rank-2 err 0.0800   contraction err 6.0e-15   dE/dt +2.2e-16   leaks D 6.8e-04 Q 8.8e-03 G 3.0e-03   herm 5e-16   0.02s
+    f0delta       rank-2 err 0.0388   contraction err 6.0e-15   dE/dt +9.7e-17   leaks D 1.7e-03 Q 1.9e-03 G 8.4e-04   herm 5e-16   0.10s
+    muller_delta  rank-2 err 0.0353   contraction err 4.6e-15   dE/dt -9.7e-17   leaks D 1.8e-03 Q 1.4e-03 G 8.1e-04   herm 2e-15   0.11s
+--- H3 | V-quench 0.3->1, pure, t=2  rank(rho)~1  |Xdot|=0.4585
+    [check] exact rank-1 EOM from gamma_2 vs fullci: 3.4e-16
+    f0            rank-2 err 0.1859   contraction err 2.6e-02   dE/dt +6.0e-05   leaks D 1.9e-02 Q 2.9e-02 G 7.3e-03   herm 5e-16   0.00s
+    muller        rank-2 err 0.2452   contraction err 3.0e-15   dE/dt -6.9e-18   leaks D 4.9e-02 Q 3.4e-02 G 1.4e-02   herm 9e-16   0.02s
+    f0delta_D     rank-2 err 0.1701   contraction err 6.0e-15   dE/dt -2.8e-17   leaks D 1.4e-03 Q 2.3e-02 G 6.6e-03   herm 5e-16   0.02s
+    f0delta       rank-2 err 0.1125   contraction err 6.0e-15   dE/dt +2.1e-16   leaks D 3.2e-03 Q 3.0e-03 G 1.3e-03   herm 5e-16   0.10s
+    muller_delta  rank-2 err 0.0612   contraction err 3.0e-15   dE/dt +1.4e-16   leaks D 2.0e-03 Q 2.0e-03 G 9.0e-04   herm 9e-16   0.10s
+
+=== H4  M=8 N=4  n2=784  rank(C)=65  null dim=719
+  V1 |delta(exact)|/|Xdot| = 2.10e-03  (sigma=1e-03)
+  V2 V=0: |F0 - exact| = 9.1e-16   |delta| = 2.1e-03
+  V4 sigma=1e-02 mu=1e+02 : rank-2 err 0.1423  leaks D nan Q nan G 7.4e-06  |delta|=0.0330  |delta(exact)|/|Xdot|=5.6e-02
+  V4 sigma=1e-03 mu=1e+02 : rank-2 err 0.1302  leaks D nan Q nan G 1.0e-06  |delta|=0.0157  |delta(exact)|/|Xdot|=2.1e-03
+  V4 sigma=1e-02 mu=1e+04 : rank-2 err 0.3000  leaks D nan Q nan G 2.9e-05  |delta|=0.1365  |delta(exact)|/|Xdot|=2.8e-01
+  V4 sigma=1e-01 mu=1e+02 : rank-2 err 0.3198  leaks D nan Q nan G 7.3e-05  |delta|=0.1480  |delta(exact)|/|Xdot|=3.0e-01
+--- H4 | kicked ground state  rank(rho)~1  |Xdot|=0.5016
+    [check] exact rank-1 EOM from gamma_2 vs fullci: 1.3e-15
+    f0            rank-2 err 0.1346   contraction err 4.8e-03   dE/dt +6.6e-05   leaks D nan Q nan G 7.8e-14   herm 2e-15   0.01s
+    muller        rank-2 err 0.1638   contraction err 1.6e-14   dE/dt -1.7e-18   leaks D nan Q nan G 6.1e-14   herm 9e-16   0.11s
+    f0delta_D     rank-2 err 0.1335   contraction err 1.8e-14   dE/dt +3.5e-18   leaks D nan Q nan G 1.8e-06   herm 2e-15   0.35s
+    f0delta       rank-2 err 0.1302   contraction err 1.9e-14   dE/dt -1.1e-17   leaks D nan Q nan G 1.0e-06   herm 2e-15   1.21s
+    muller_delta  rank-2 err 0.1345   contraction err 1.6e-14   dE/dt +8.7e-18   leaks D nan Q nan G 7.8e-07   herm 9e-16   1.27s
+--- H4 | kicked thermal kT=0.5  rank(rho)~55  |Xdot|=0.4278
+    [check] exact rank-1 EOM from gamma_2 vs fullci: 8.9e-16
+    f0            rank-2 err 0.0624   contraction err 6.4e-03   dE/dt +7.0e-06   leaks D nan Q nan G nan   herm 3e-16   0.01s
+    muller        rank-2 err 0.0875   contraction err 6.2e-15   dE/dt +2.6e-18   leaks D nan Q nan G nan   herm 1e-15   0.11s
+    f0delta_D     rank-2 err 0.0621   contraction err 7.4e-15   dE/dt +6.2e-17   leaks D nan Q nan G nan   herm 3e-16   0.38s
+    f0delta       rank-2 err 0.0621   contraction err 7.4e-15   dE/dt +6.2e-17   leaks D nan Q nan G nan   herm 3e-16   1.50s
+    muller_delta  rank-2 err 0.0875   contraction err 6.2e-15   dE/dt +6.3e-17   leaks D nan Q nan G nan   herm 1e-15   1.38s
+--- H4 | V-quench 0.3->1, pure, t=1  rank(rho)~1  |Xdot|=0.7549
+    [check] exact rank-1 EOM from gamma_2 vs fullci: 1.1e-15
+    f0            rank-2 err 0.0960   contraction err 1.6e-02   dE/dt +4.9e-04   leaks D nan Q nan G 8.7e-15   herm 7e-16   0.02s
+    muller        rank-2 err 0.1926   contraction err 1.2e-14   dE/dt -6.9e-17   leaks D nan Q nan G 4.0e-15   herm 9e-16   0.14s
+    f0delta_D     rank-2 err 0.0954   contraction err 1.6e-14   dE/dt +3.2e-16   leaks D nan Q nan G 1.5e-04   herm 7e-16   0.51s
+    f0delta       rank-2 err 0.0798   contraction err 1.6e-14   dE/dt -1.2e-16   leaks D nan Q nan G 1.1e-04   herm 7e-16   2.25s
+    muller_delta  rank-2 err 0.0935   contraction err 1.2e-14   dE/dt +1.7e-16   leaks D nan Q nan G 5.1e-05   herm 9e-16   1.32s
+--- H4 | V-quench 0.3->1, pure, t=2  rank(rho)~1  |Xdot|=0.7139
+    [check] exact rank-1 EOM from gamma_2 vs fullci: 6.7e-16
+    f0            rank-2 err 0.1515   contraction err 5.1e-02   dE/dt +4.4e-04   leaks D nan Q nan G 2.8e-13   herm 7e-16   0.01s
+    muller        rank-2 err 0.2161   contraction err 4.6e-15   dE/dt -2.6e-16   leaks D nan Q nan G 3.0e-13   herm 2e-15   0.12s
+    f0delta_D     rank-2 err 0.1452   contraction err 1.2e-14   dE/dt -6.9e-18   leaks D nan Q nan G 8.9e-04   herm 7e-16   0.33s
+    f0delta       rank-2 err 0.1365   contraction err 1.2e-14   dE/dt +3.1e-16   leaks D nan Q nan G 1.2e-04   herm 7e-16   1.42s
+    muller_delta  rank-2 err 0.1802   contraction err 4.6e-15   dE/dt +1.8e-16   leaks D nan Q nan G 1.3e-04   herm 2e-15   1.30s
+--- H4 | V-quench, thermal kT=0.5, t=1  rank(rho)~58  |Xdot|=0.2507
+    [check] exact rank-1 EOM from gamma_2 vs fullci: 5.6e-16
+    f0            rank-2 err 0.0791   contraction err 5.6e-02   dE/dt +5.5e-04   leaks D nan Q nan G nan   herm 3e-16   0.01s
+    muller        rank-2 err 0.1771   contraction err 1.4e-14   dE/dt -2.8e-17   leaks D nan Q nan G nan   herm 1e-15   0.11s
+    f0delta_D     rank-2 err 0.0713   contraction err 1.6e-14   dE/dt +7.6e-17   leaks D nan Q nan G nan   herm 3e-16   0.32s
+    f0delta       rank-2 err 0.0712   contraction err 1.6e-14   dE/dt +9.0e-17   leaks D nan Q nan G nan   herm 3e-16   1.27s
+    muller_delta  rank-2 err 0.1763   contraction err 1.4e-14   dE/dt +1.0e-16   leaks D nan Q nan G nan   herm 1e-15   1.35s
+
+=== V5 extensivity H3 x H2, M=10 N=5   |Xdot_exact|=2.0382  exact cross-fragment norm of dlambda_2/dt 1.2e-15
+    f0        cross-fragment norm of dlambda_2/dt 2.70e-03   (|dlambda_2/dt| = 0.267)   rank-2 err 0.0272   0.0s
+    f0delta   cross-fragment norm of dlambda_2/dt 4.74e-03   (|dlambda_2/dt| = 0.267)   rank-2 err 0.0242   10.5s

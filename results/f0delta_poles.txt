@@ -1,0 +1,47 @@
+S_z=0 sector dim 36; singlets 20; E0 = -1.961395904
+FCI singlet excitations (Ha): [0.3889 0.563  0.9222 1.1525 1.1807 1.4686]
+
+### GROUND STATE   FCI target -> |   0.3889    0.5630    0.9222    1.1525    1.1807    1.4686
+f0           |   0.3771    0.4533    0.9080    1.1684    1.0599    1.3859  mean|err| 0.0592   (344 modes; max|Re w| over all modes 1.7e-01)
+             |    1.131     0.888     0.445     0.658     0.460     1.327  <- weight
+             | +6.0e-09  -3.5e-09  +1.5e-02  +5.0e-10  -4.1e-11  -3.9e-04  <- Re(w) of the assigned mode
+             | (Jacobian 27s)
+muller       |   0.3640    0.5547    0.8900    1.1477    1.0915    1.4981  mean|err| 0.0314   (360 modes; max|Re w| over all modes 3.8e-03)
+             |    0.649     0.506     0.696     0.566     0.462     0.553  <- weight
+             | +2.8e-09  +7.8e-10  -4.2e-10  +1.1e-09  -1.3e-10  +1.4e-09  <- Re(w) of the assigned mode
+             | (Jacobian 123s)
+f0delta      |   0.3854    0.0273    0.9212    1.1679    1.0437    1.3688  mean|err| 0.1321   (288 modes; max|Re w| over all modes 3.5e-01)
+             |    0.693     0.918     0.706     0.357     0.480     0.552  <- weight
+             | -6.2e-06  -1.1e-06  -5.3e-08  +3.3e-03  -2.5e-07  -2.8e-06  <- Re(w) of the assigned mode
+             | (Jacobian 887s)
+f0delta_hard |   0.0000    0.0002    0.0019    0.0000    0.0517    0.0000  mean|err| 0.9370   (337 modes; max|Re w| over all modes 3.0e+01)
+             |    1.766     5.225     1.377     5.277     0.597     0.997  <- weight
+             | -1.2e-03  -5.4e-04  -4.9e-04  +1.2e-04  +8.9e-03  -2.7e-06  <- Re(w) of the assigned mode
+             | (Jacobian 851s)
+f0delta_hardonly |   0.0004    0.0266    0.0162    0.0044    0.9870    0.0000  mean|err| 0.7736   (351 modes; max|Re w| over all modes 3.8e+02)
+             |    8.008     8.804    21.187     9.127     6.157     2.785  <- weight
+             | +3.8e-02  +2.3e-02  +2.0e-02  +9.7e-03  +8.5e-02  +1.3e-05  <- Re(w) of the assigned mode
+             | (Jacobian 275s)
+
+### THERMAL kT=0.5 (populated states 30)   targets E_k - E_j -> |   1.4173    1.5726    0.9944    0.9222    1.1525    0.6217
+             |    0.563     0.523     0.517     0.496     0.465     0.457  <- |w_j - w_k| |T|
+f0           |   1.3615    1.5307    0.9085    0.8674    1.1350    0.6159  mean|err| 0.0436   (360 modes; max|Re w| over all modes 1.2e-02)
+             |    0.443     0.435     0.276     0.550     0.487     0.549  <- weight
+             | +1.1e-10  -4.8e-10  -1.9e-10  +2.8e-09  -9.5e-10  +9.5e-10  <- Re(w) of the assigned mode
+             | (Jacobian 19s)
+muller       |   1.4149    1.4773    0.8804    0.8341    1.0588    0.6698  mean|err| 0.0736   (360 modes; max|Re w| over all modes 9.3e-05)
+             |    0.414     0.258     0.322     0.556     0.581     0.582  <- weight
+             | +5.0e-11  +1.8e-10  -6.9e-10  +3.8e-12  -1.7e-11  +3.9e-10  <- Re(w) of the assigned mode
+             | (Jacobian 82s)
+f0delta      |   1.3593    1.5367    0.8857    0.8680    1.1346    0.6228  mean|err| 0.0460   (366 modes; max|Re w| over all modes 4.0e-02)
+             |    0.433     0.407     0.258     0.502     0.485     0.387  <- weight
+             | +1.3e-10  -1.9e-09  -4.2e-09  +1.2e-09  -1.5e-09  -7.1e-10  <- Re(w) of the assigned mode
+             | (Jacobian 870s)
+f0delta_hard |   1.3593    1.5367    0.8857    0.8680    1.1346    0.6228  mean|err| 0.0460   (366 modes; max|Re w| over all modes 4.0e-02)
+             |    0.433     0.407     0.258     0.502     0.485     0.387  <- weight
+             | +1.3e-10  -1.9e-09  -4.2e-09  +1.2e-09  -1.5e-09  -7.2e-10  <- Re(w) of the assigned mode
+             | (Jacobian 878s)
+f0delta_hardonly |   1.3602    1.5384    0.7546    0.8685    1.1349    0.7544  mean|err| 0.0892   (360 modes; max|Re w| over all modes 4.2e-03)
+             |    0.433     0.406     0.923     0.501     0.481     1.575  <- weight
+             | +1.6e-10  -1.9e-09  -1.6e-08  +1.4e-09  -1.6e-09  +1.3e-08  <- Re(w) of the assigned mode
+             | (Jacobian 223s)
