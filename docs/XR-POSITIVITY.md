@@ -1,5 +1,9 @@
 # The XR positivity construction
 
+> **Attribution note (2026-08-13).** Internal name. Ingredients (RDMs as Gram matrices, GKSL-form tangency) are
+> standard; whether the rank-general refactoring below appears in Mazziotti (ACSE), Lackner et al. or Joost et al.
+> is UNCHECKED. See docs/PRIOR-ART-TODO.md item 2 before citing this as new.
+
 Named for future reference: **the XR construction**, `X = R^dag R` with `Rdot = -i R S`. It makes
 positivity of the rank-k reduced density matrix structural in the REPRESENTATION rather than a
 constraint on the closure.
