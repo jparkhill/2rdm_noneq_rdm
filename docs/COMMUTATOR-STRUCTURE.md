@@ -563,3 +563,65 @@ separation of the fictitious modes from the physical window.
 enters the pole window (~0.4 Ha); a symplectic/implicit integrator for the δ equation would relax the dt
 constraint. (ii) Thermal pole row for the dynamical variant. (iii) These are 0.05 fs propagations against an
 exact propagator; long-time stability (tens of fs) has not been tested for any closure in this programme.
+
+---
+
+## Episode 9 (2026-08-13): 4.8 fs propagations, the cone barrier, and the nonlinear dipole spectrum
+
+Tools: `tools/long_propagate.py` (CPU), `tools/dyndelta_gpu.py` (torch/CUDA port, validated against numpy at 1e-16
+on the flow and 1e-13 on the δ force; 14× faster on the RTX 3090), `tools/dipole_spectra.py`. Outputs
+`results/long_*.txt`, `results/long_gpu_dyndelta_*.txt`, figure `results/dipole_spectra.png`.
+
+**System and protocol (every run).** H4 asymmetric trapezoid, sto-3g, M = 8 spin-orbitals, N = 4; initial state
+`exp(−i 0.3 μ_x)|Ψ_0⟩` (dipole-kicked FCI ground state, kicked at the wavefunction level); RK4, dt = 0.02 a.u. (F0,
+Mueller) or 0.005 a.u. (dyn-δ); **t_end = 200 a.u. = 4.84 fs**; compared against exact FCI propagation at every
+0.5 a.u. Poles below 1.5 Ha are resolvable in this window (Hann FWHM ≈ 0.06 Ha).
+
+**The barrier.** The tangency potential of episode 8 sees only the band |x| ≲ σ = 1e-3 and is blind to eigenvalues
+that have already gone negative; with it alone the closure delayed but did not prevent divergence. Added:
+`Φ_neg = Σ_P Σ_i b(x_i)`, `b(x) = ε² softplus(−x/ε)²` (C^∞; → [x]_−² for x ≪ −ε, exponentially small inside the
+cone), whose force on δ is `−κ_neg Σ_i b'(x_i) u_i†Ṗ[δ]u_i`: a restoring force on every negative eigenvalue
+proportional to its depth. The C¹ version `[x]_−²` was also run. ε = 1e-3 (ε = 1e-1 fires inside the cone).
+
+**Survival and accuracy.**
+
+| closure | min eig D/Q/G over 4.8 fs | e(γ₂) 80 / 200 a.u. | dE | fate |
+|---|---|---|---|---|
+| `F0` (λ₃ = 0 channel form) | −0.5 at 100 a.u. | 0.24 / — | 5e-3 | **diverged at 110 a.u. = 2.7 fs** |
+| dyn-δ tangency only, κ = 10 | −0.5 at 140 | 0.13 / — | 1e-3 | diverged 3.4 fs |
+| dyn-δ tangency only, κ = 100 | −2 at 180 | 0.09 / — | 1e-3 | diverged 4.4 fs |
+| `muller2405` + Lackner | −0.04 … −0.05 | 0.27 / 0.17 | 1e-14 | stable, inaccurate |
+| **dyn-δ + [x]_−² barrier, κ_neg = 1e3** | **−1e-5 … −7e-5** | 0.078 / 0.105 | 3e-4 | stable |
+| **dyn-δ + [x]_−² barrier, κ_neg = 1e4** | **−1e-6 … −9e-6** | 0.078 / 0.116 | 2e-4 | stable |
+| **dyn-δ + softplus barrier, κ_neg = 1e4** | **+3e-4 … +1.9e-3 (inside)** | 0.088 / 0.160 | 5e-6 | stable |
+
+The EE2 failure is reproduced (`F0` leaves the cone monotonically and blows up in 3 fs). With the barrier the
+violation is bounded at a level set by κ_neg (10× stiffer → 10× smaller), the 2-RDM error oscillates at 8–12% for
+the full 4.8 fs instead of growing, and every variant is ~2× more accurate than Mueller at every time while 10³–10⁴×
+closer to the cone. Trace 1e-14 throughout. The softplus variant stays strictly inside but drifts to 16% by 4.8 fs
+(pushes slightly too early; ε between 1e-3 and 1e-4 is the compromise to scan).
+
+**Nonlinear dipole spectrum** (|FT| of ⟨μ_x⟩(t) − mean, Hann window, 200 a.u.; FCI x-allowed singlets at 0.381,
+0.537, 0.924, 1.164, 1.184, 1.491, 1.500 Ha):
+
+| | main peak | 0.54 | 1.16–1.18 | 1.49 |
+|---|---|---|---|---|
+| exact | 0.380 | 0.541 | 1.163 | 1.493 |
+| muller2405 | 0.355 (−0.025), broad | 0.566 | 1.165 | 1.346 (−0.15) + spurious 0.26, 0.72, 0.86, 1.08 |
+| `F0` (0–90 a.u.) | 0.382 but broadened, spurious 0.23, 0.87 | — | 1.21 | 1.41 |
+| dyn-δ barrier 1e3 | **0.378** | weak | 1.183 | 1.402 (−0.09) |
+| dyn-δ barrier 1e4 | **0.378** | weak | 1.185 | 1.404 |
+| dyn-δ softplus | 0.388 | — | 1.189 | absent |
+
+The barrier closures reproduce the dominant pole to 0.002 Ha with the correct width and no spurious structure below
+1.3 Ha; Mueller is 0.025 Ha low, broadened, and has four spurious peaks. All approximate closures place the 1.49 Ha
+pole ~0.1 Ha low and under-weight the 0.54 Ha satellite. This is the self-consistent test of the linear-response
+pole table, and the ranking agrees with it (dyn-δ ≥ F0 ≫ Mueller in stability; Mueller's better *linearised* poles
+at 0.05 fs do not survive propagation).
+
+**Standing.** For the first time a 2-RDM EOM built on the derived λ₃ = 0 flow (i) stays in the D, Q, G cones to
+1e-5–1e-6 for 4.8 fs, (ii) conserves trace exactly and energy to 1e-4, (iii) keeps 8–12% 2-RDM error without secular
+growth, and (iv) has a clean dipole spectrum with the main pole to 0.5%. It is smooth (softplus variant C^∞), so it has
+a linear-response spectrum; polynomial in the state; N-independent in cost (O(M¹²) dense as written, O(k M⁸)
+achievable). Not exactly extensive (1–2%, from the min-norm structure of δ); energy exact only in the relaxation limit.
+Open: ε/κ_neg/τ scan; a mixed-state (thermal) 4.8 fs row; a second system; the bath dissipator.
