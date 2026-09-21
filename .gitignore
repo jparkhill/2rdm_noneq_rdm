@@ -19,3 +19,4 @@ refs/*
 # large numeric outputs
 results/*.npz
 results/*.h5
+results/bath_contract_Cmap.npy
