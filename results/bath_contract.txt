@@ -1,0 +1,11 @@
+loaded cached contraction map (8321, 4900)
+rank of rho -> (tr, gamma_1, gamma_2): 784 ; null directions (change gamma_3+ only): 4116
+=== Redfield (exact A~) : |d/dt gamma_1|_D = 0.1174  |d/dt gamma_2|_D = 0.3247  tr D = 9.7e-17  herm 2.7e-17
+    response of d/dt gamma_1 | gamma_2 to gamma_3-only directions  : max 3.61e-02 | 3.93e-01   (rate norms 0.117 | 0.325)
+    (no gamma_4-only directions available at this M, N)
+=== Redfield A3 (A~ under f) : |d/dt gamma_1|_D = 0.1122  |d/dt gamma_2|_D = 0.3322  tr D = 1.2e-16  herm 2.2e-17
+    response of d/dt gamma_1 | gamma_2 to gamma_3-only directions  : max 3.92e-12 | 3.76e-01   (rate norms 0.112 | 0.332)
+    (no gamma_4-only directions available at this M, N)
+=== Davies (secular, CP) : |d/dt gamma_1|_D = 0.1412  |d/dt gamma_2|_D = 0.3736  tr D = 2.2e-16  herm 1.4e-17
+    response of d/dt gamma_1 | gamma_2 to gamma_3-only directions  : max 1.34e-01 | 6.25e-01   (rate norms 0.141 | 0.374)
+    (no gamma_4-only directions available at this M, N)

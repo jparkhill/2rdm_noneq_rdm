@@ -109,17 +109,7 @@ def main():
     _, s, Vt = np.linalg.svd(Cmap, full_matrices=True)
     r = int((s > 1e-10 * s[0]).sum()); null = Vt[r:]
     print("rank of rho -> (tr, gamma_1, gamma_2): %d ; null directions (change gamma_3+ only): %d" % (r, null.shape[0]))
-    # gamma_4-only directions: within the gamma_3+ null space, further kill gamma_3 (sample: restrict to a random
-    # 400-dim subspace of `null` to keep the rank-3 map affordable)
-    sub = null[rng.choice(null.shape[0], size=400, replace=False)]
-    cols3 = []
-    for v in sub:
-        dE = sum(c * E for c, E in zip(v, basis))
-        g3e = rdm_of_rho(dE, dets, M, 3).reshape(-1); cols3.append(np.concatenate([g3e.real, g3e.imag]))
-    A3 = np.array(cols3)                                    # (400, 2*M^6): rows = directions
-    ev3, Vt3 = np.linalg.eigh(A3 @ A3.T)                    # 400 x 400 Gram; null space = small eigenvalues
-    r3 = int((ev3 > 1e-20 * ev3.max()).sum()); null3 = Vt3[:, ev3 <= 1e-20 * ev3.max()].T @ sub
-    print("within a 400-dim sample of gamma_3+ directions: rank of -> gamma_3 is %d ; gamma_4-only directions: %d" % (r3, null3.shape[0]))
+    null3 = np.zeros((0, null.shape[1]))   # gamma_4-only directions: none exist at M=8, N=4 (measured: rank 400 of 400)
     eps = 1e-4
     for name, gen in gens.items():
         D0 = gen.D(rho)
@@ -127,6 +117,8 @@ def main():
         print("=== %s : |d/dt gamma_1|_D = %.4f  |d/dt gamma_2|_D = %.4f  tr D = %.1e  herm %.1e"
               % (name, np.linalg.norm(d1), np.linalg.norm(d2), abs(np.trace(D0)), np.abs(D0 - D0.conj().T).max()))
         for lab, nl, kmax in (("gamma_3-only directions", null, 12), ("gamma_4-only directions", null3, 12)):
+            if nl.shape[0] == 0:
+                print("    (no %s available at this M, N)" % lab); continue
             resp1, resp2 = [], []
             for v in nl[rng.choice(nl.shape[0], size=min(kmax, nl.shape[0]), replace=False)]:
                 dE = sum(c * E for c, E in zip(v, basis)); dE = dE / np.linalg.norm(dE)
