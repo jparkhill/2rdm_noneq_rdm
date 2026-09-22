@@ -1,0 +1,5 @@
+Davies in eig(f): 52 jump operators, all rates >= 0: True
+CHECK A  rank 1: |wick - fock| = 1.7e-16  (|d1| = 0.0785)   rank 2: 4.1e-16  (|d2| = 0.2629)   tr D[rho] = 5.2e-18
+CHECK B  rank-1 dissipator at lambda_2 = 0 vs qdiss.rdm1 Pauli equation (V=0, f=h): populations |diff| = 2.8e-16, coherences |diff| = 1.1e-03  (|d1| = 0.0217)
+CHECK C  closed D2 (gamma_3 -> separable): |D2 - exact| / |exact| = 0.0411 ; contraction vs exact rank-1: 1.0e-03 (rel 0.032) ; tr D2 = 1.2e-15
+         min eig of D, Q, G at this state: ['1.04e-02', '1.77e-02', '3.52e-02']  (dissipator adds no cone kernel information here; leaks tested along propagation)
