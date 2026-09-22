@@ -76,11 +76,12 @@ def main():
 
     # ---- phase 2: kick
     Uk = sla.expm(-1j * 0.3 * Mu_sec); u = sla.expm(-1j * 0.3 * mu1)
-    def kick_g2(g2):   # gamma_2[p,v,q,w] = <a+_p a+_v a_w a_q>; a+ -> sum u a+  => gamma_2 -> u u gamma_2 u* u*
-        return np.einsum("pa,vb,abcd,qc,wd->pvqw", u, u, g2, u.conj(), u.conj())
+    def kick_g2(g2):   # gamma_2[p,v,q,w] = <a+_p a+_v a_w a_q>, U a+_p U^dag = sum_a a+_a u[a,p]  => gamma_2 -> u* u* gamma_2 u u
+        return np.einsum("pa,vb,abcd,qc,wd->pvqw", u.conj(), u.conj(), g2, u, u)
     # sanity: kick_g2 on the Gibbs gamma_2 equals the RDM of the kicked Gibbs rho
     chk = np.abs(kick_g2(g2G) - rdm_of_rho(Uk @ rhoG @ Uk.conj().T, dets, M, 2)).max()
     print("kick consistency (RDM of kicked rho vs rotated RDM): %.1e" % chk, flush=True)
+    assert chk < 1e-10, "kick convention wrong"
     starts = {"ref: exact-within-A3 fixed point": ("rho", Uk @ rho_fp @ Uk.conj().T),
               "ref: FCI Gibbs": ("rho", Uk @ rhoG @ Uk.conj().T),
               "closure dyndelta+D2 from its fixed point": ("cl", kick_g2(g2_cl), True),
@@ -91,8 +92,11 @@ def main():
     nsteps, nout = int(round(T_END / DT)), int(round(0.5 / DT))
     print("=== kicked thermal dynamics, bath ON | H4 M=%d N=%d kT=%.2f | kick exp(-i 0.3 mu_x) | RK4 dt=%.3f, T=%.0f a.u. = %.1f fs | Hann resolution ~ %.3f Ha"
           % (M, N, kT, DT, T_END, T_END * 0.02419, 4 * np.pi / T_END), flush=True)
-    traces = {}
+    tr_path = "results/thermal_spectra_kT%.2f.npy" % kT
+    traces = np.load(tr_path, allow_pickle=True).item() if os.path.exists(tr_path) else {}
     for name, spec in starts.items():
+        if name in traces and len(traces[name]) == int(round(T_END / 0.5)) + 1 and spec[0] == "rho":
+            print("  %-45s loaded" % name, flush=True); continue
         t0 = time.time(); mu_t = []
         if spec[0] == "rho":
             r = spec[1]
