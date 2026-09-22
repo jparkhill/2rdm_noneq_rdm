@@ -43,15 +43,19 @@ def main():
     Epq = np.array([[sector_op_general(np.eye(M)[:, [p]] @ np.eye(M)[[q], :] + 0j, M, dets) for q in range(M)] for p in range(M)])
     Mu_sec = np.einsum("pq,pqij->ij", mu1, Epq)
 
+    # ---- exact rho-level generator on the GPU: L_w = sum_pq l_pq E_pq is a contraction of the fixed (M^2,n,n) tensor
+    Epq_t = up(Epq).reshape(M * M, len(dets), len(dets)); Hs_t = up(Hs); V_t = up(V); h_t = up(h)
     def ref_rhs(r):
-        g1r = np.einsum("pqij,ji->pq", Epq, r)
-        f = h + np.einsum("prqs,rs->pq", V, g1r)
+        g1r = torch.einsum("kij,ji->k", Epq_t, r).reshape(M, M)
+        f = (h_t + torch.einsum("prqs,rs->pq", V_t, g1r)).cpu().numpy()
         jumps, _ = davies_onebody(f, A1, kT, M)
-        out = -1j * (Hs @ r - r @ Hs)
-        for g, l, wv in jumps:
-            L = np.einsum("pq,pqij->ij", l, Epq); LdL = L.conj().T @ L
-            out += g * (L @ r @ L.conj().T - 0.5 * (LdL @ r + r @ LdL))
-        return out
+        ls = up(np.array([l for g, l, wv in jumps])).reshape(len(jumps), M * M)          # (nj, M^2)
+        gs = torch.as_tensor(np.array([g for g, l, wv in jumps]), device=dev)
+        L = torch.einsum("jk,kab->jab", ls, Epq_t)                                         # (nj, n, n)
+        Ld = L.conj().transpose(1, 2)
+        LdL = torch.einsum("j,jab,jbc->ac", gs.to(C), Ld, L)
+        jump = torch.einsum("j,jab,bc,jcd->ad", gs.to(C), L, r, Ld)
+        return -1j * (Hs_t @ r - r @ Hs_t) + jump - 0.5 * (LdL @ r + r @ LdL)
 
     def rk4(f, y, dt):
         k1 = f(y); k2 = f(y + .5 * dt * k1); k3 = f(y + .5 * dt * k2); k4 = f(y + dt * k3); return y + dt / 6 * (k1 + 2 * k2 + 2 * k3 + k4)
@@ -62,13 +66,13 @@ def main():
     if os.path.exists(fp_cache):
         rho_fp = np.load(fp_cache)
     else:
-        r = rhoG.copy(); t0 = time.time()
+        r = up(rhoG); t0 = time.time()
         for k in range(20000):
             r = rk4(ref_rhs, r, 0.05)
             if k % 400 == 0:
-                nr = np.linalg.norm(ref_rhs(r)); print("  ref fixed point: t=%.0f |rhs|=%.2e" % (k * 0.05, nr), flush=True)
+                nr = float(torch.linalg.norm(ref_rhs(r))); print("  ref fixed point: t=%.0f |rhs|=%.2e" % (k * 0.05, nr), flush=True)
                 if nr < 1e-9: break
-        rho_fp = r; np.save(fp_cache, rho_fp); print("  (%.0fs)" % (time.time() - t0), flush=True)
+        rho_fp = r.cpu().numpy(); np.save(fp_cache, rho_fp); print("  (%.0fs)" % (time.time() - t0), flush=True)
     fpz = np.load("results/thermal_fixedpoint_kT%.2f.npz" % kT)
     g2_cl, delta_cl = fpz["g2"], fpz["delta"]
     g2_fp = rdm_of_rho(rho_fp, dets, M, 2); g2G = rdm_of_rho(rhoG, dets, M, 2)
@@ -99,10 +103,10 @@ def main():
             print("  %-45s loaded" % name, flush=True); continue
         t0 = time.time(); mu_t = []
         if spec[0] == "rho":
-            r = spec[1]
+            r = up(spec[1]); Mu_t = up(Mu_sec)
             DTR = 0.05; nr = int(round(T_END / DTR)); nor = int(round(0.5 / DTR))
             for k in range(nr + 1):
-                if k % nor == 0: mu_t.append(np.real(np.trace(Mu_sec @ r)))
+                if k % nor == 0: mu_t.append(float(torch.real(torch.trace(Mu_t @ r))))
                 if k < nr: r = rk4(ref_rhs, r, DTR)
         else:
             th = Thermal(base, A1, kT, 0.5, 1e4 if spec[2] else 0.0, 1e-3)
