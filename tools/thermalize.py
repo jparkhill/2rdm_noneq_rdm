@@ -186,7 +186,7 @@ def main():
         for k in range(nr + 1):
             if k % nor == 0: ref_g2.append(rdm_of_rho(r, dets, M, 2))
             if k < nr: r = rk4r(r, DTR)
-        ref_g2 = np.array(ref_g2); np.savez(cache, ref_g2=ref_g2); print("reference computed in %.0fs (dt=%.2f)" % (time.time() - t0, DTR), flush=True)
+        ref_g2 = np.array(ref_g2); np.savez(cache, ref_g2=ref_g2, rho_end=r); print("reference computed in %.0fs (dt=%.2f)" % (time.time() - t0, DTR), flush=True)
     t0 = time.time(); rec = []
     for k in range(nsteps + 1):
         if k % nout == 0:
@@ -203,6 +203,9 @@ def main():
             g2 = g2 + DT / 6 * (k1[0] + 2 * k2[0] + 2 * k3[0] + k4[0]); delta = delta + DT / 6 * (k1[1] + 2 * k2[1] + 2 * k3[1] + k4[1])
             g2 = 0.5 * (g2 + g2.permute(2, 3, 0, 1).conj()); delta = 0.5 * (delta + delta.conj().T)
     print("    (%.0fs)" % (time.time() - t0), flush=True)
+    np.savez("results/thermal_fixedpoint_kT%.2f.npz" % kT, g2=g2.cpu().numpy(), delta=delta.cpu().numpy(),
+             g2_ref=ref_g2[-1], g2_gibbs=g2G)
+    # also save the reference rho fixed point (recompute cheaply from the last cached gamma_2? no: propagate rho once more and save)
 
 
 if __name__ == "__main__":
