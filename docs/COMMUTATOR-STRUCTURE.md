@@ -654,3 +654,33 @@ into the interior shrinks) at the cost of dt. Owed: ε scan; linear-response spe
 (γ₃-response 4e-12) and the rank-2 dissipator depends on γ₃ at O(1) (0.38 vs norm 0.33) — the EE2 inconsistency
 measured. Exact-A~ Redfield leaks γ₃ at rank 1 (30%); secular Davies on ρ leaks 95%: **CP by secularisation on ρ
 cannot be contracted to a closed rank-2 equation.** The CP form must be Davies in the one-body eigenbasis of f.
+
+---
+
+## Episode 10b–c (2026-08-14): the rank-2 dissipator, and thermalisation
+
+**Step 3** (`qdiss/eom/dissipator.py`, `tools/bath_rank2.py`): Wick contraction of the one-body Davies generator
+`D[ρ] = Σ_j (L_jρL_j† − ½{L_j†L_j, ρ})`, `L_j` one-body, to ranks 1 and 2. The rank-(k+2) bare moments cancel
+identically among the three words, so rank k is linear in γ_k, γ_{k+1} (rank 2: 12 γ₂-terms, 15 γ₃-terms).
+Validated against the Fock-space generator at 2e-16 (rank 1) and 4e-16 (rank 2). At V = 0, λ₂ = 0 the rank-1
+populations reproduce the 2015 Pauli master equation (`qdiss.rdm1`) at 3e-16; coherences differ by the paper's
+mean-rate secular simplification (1e-3). Closed rank-2 dissipator `D₂` (γ₃ → separable): 4.1% from exact at a
+correlated thermal state, `tr D₂ = 1e-15`, contraction-consistent with the exact rank-1 dissipator to 3%.
+
+**Thermalisation** (`tools/thermalize.py`). H4 M=8 N=4, HF determinant start, kT = 0.5, Ohmic η=0.05 ω_c=1,
+four one-body couplings, Davies-secular in the eigenbasis of the instantaneous f = h + W[γ₁]; closure
+`F0 + barrier-δ(κ_neg=1e4, ε=1e-3, τ=0.5) + D₂`, contraction constraint (no energy constraint); RK4 dt=0.01,
+300 a.u. = 7.3 fs. References: exact ρ-propagation with the same generator (exact-within-A3), and FCI Gibbs.
+
+| | E | S₂(pair) | min eig D/Q/G | ‖γ₂ − γ₂^Gibbs‖/‖γ₂^Gibbs‖ |
+|---|---|---|---|---|
+| closure fixed point (from 100 a.u.) | −4.5963 | 7.5166 | +1.8e-2/+2.8e-2/+4.5e-2 | 0.079 |
+| exact-within-A3 fixed point | −4.5917 | 7.5456 | inside | 0.082 |
+| FCI Gibbs | −4.6762 | 7.4050 | +1.0e-2/+1.8e-2/+3.5e-2 | 0 |
+
+The rank-2 EOM thermalises: monotone entropy, strict fixed point by 2.4 fs, held for 5 fs, all cones strictly
+inside (|δ| = 0.004 — the dissipator alone keeps the state representable). It reproduces the exact-within-A3
+dynamics to 2.4% in γ₂. The 8% gap to FCI Gibbs is the BATH MODEL (A3: coupling evolved under f), not the
+closure — the exact reference with the same bath lands at the same place (too hot by 85 mH). Next: coupling
+evolved under the effective pair Hamiltonian K (BATH-DERIVATION §6), which should pull the fixed point toward
+the correlated Gibbs state; then kick the thermal fixed point and compare dynamics.
