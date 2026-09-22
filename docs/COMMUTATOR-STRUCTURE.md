@@ -625,3 +625,32 @@ growth, and (iv) has a clean dipole spectrum with the main pole to 0.5%. It is s
 a linear-response spectrum; polynomial in the state; N-independent in cost (O(M¹²) dense as written, O(k M⁸)
 achievable). Not exactly extensive (1–2%, from the min-norm structure of δ); energy exact only in the relaxation limit.
 Open: ε/κ_neg/τ scan; a mixed-state (thermal) 4.8 fs row; a second system; the bath dissipator.
+
+---
+
+## Episode 10a (2026-08-13/14): O(M⁶) δ, and tangency vs barrier
+
+**O(M⁶) formulation** (`tools/dyndelta_fast.py`, spec in `docs/DYNDELTA-SPEC.md` §6): forces via adjoint
+cone-rate maps, no stored basis images, implicit constraint projector. Matches the stored-image code to 2e-14;
+18–35 ms per RHS flat from M = 8 to 14 on the RTX 3090 (80 MB at M = 14). `tools/fast_propagate.py` reproduces
+episode-9 trajectories bit-for-bit at 0.08 s/step (was 0.28).
+
+**Is the tangency term needed?** 2×2 scan, H4 M=8 N=4 x-kicked ground state, RK4, 200 a.u. = 4.84 fs:
+
+| tangency κ | barrier κ_neg (ε=1e-3) | min eig D at 4.8 fs | e(γ₂) 100/200 a.u. | fate |
+|---|---|---|---|---|
+| 100 | 1e4 | +1.70e-3 | 0.108 / 0.160 | stable |
+| 0 | 1e4 | +1.69e-3 | 0.107 / 0.159 | stable — identical to the row above |
+| 0 | 1e5 (dt 0.002) | +5.0e-4 | 0.123 / 0.132 | stable |
+| 100 | 0 | −0.13 | 0.10 / — | diverged 3.6 fs |
+| 0 | 0 | −0.13 | 0.26 / — | diverged 2.4 fs |
+
+**Verdict: the softplus barrier alone suffices; the spectral-function tangency potential Φ is redundant** (its
+exponentially small tail inside the cone at κ_neg = 1e4 already acts as a smooth boundary force). Φ is dropped
+from the closure. Remaining parameters: κ_neg, ε, τ. Stiffer κ_neg improves late-time accuracy (over-correction
+into the interior shrinks) at the cost of dt. Owed: ε scan; linear-response spectrum of the barrier-only closure.
+
+**Bath, CHECK 1–2** (`tools/bath_contract.py`): with A3 the rank-1 dissipator closes exactly on (γ₁, γ₂)
+(γ₃-response 4e-12) and the rank-2 dissipator depends on γ₃ at O(1) (0.38 vs norm 0.33) — the EE2 inconsistency
+measured. Exact-A~ Redfield leaks γ₃ at rank 1 (30%); secular Davies on ρ leaks 95%: **CP by secularisation on ρ
+cannot be contracted to a closed rank-2 equation.** The CP form must be Davies in the one-body eigenbasis of f.
