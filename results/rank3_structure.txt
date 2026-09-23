@@ -1,0 +1,14 @@
+=== H3 bent  M=6 N=3  Mat_3 dim 20
+  (b) rank-3 wick with exact gamma_4 vs fullci: 4.0e-16 ; with gamma_4 = 0: 4.0e-16 (exact at N=3)
+  (a) drift D_3: spectral fraction 1.0e-15 ; |D_3 - i[K3, X3]| = 2.4e-15  (|D_3| = 2.016)  K3 Hermitian 7e-16
+=== H4 trapezoid  M=8 N=4  Mat_3 dim 56
+  (b) rank-3 wick with exact gamma_4 vs fullci: 6.7e-16 ; with gamma_4 = 0: 3.5e-02 (Phi_3 = 1.206)
+  (a) drift D_3: spectral fraction 1.1e-15 ; |D_3 - i[K3, X3]| = 2.3e-15  (|D_3| = 2.052)  K3 Hermitian 3e-15
+  (c) rank-3 dissipator term list: {4: 12, 3: 27}
+      H3 bent: |wick rank-3 dissipator - fock| = 1.4e-16  (|d3| = 0.2570)
+      H4 trapezoid: |wick rank-3 dissipator - fock| = 3.9e-16  (|d3| = 0.4750)
+  (d) rank-3 Gram matrices (direct) at H3 | kicked ground state: dims and min eigenvalues; affine forms in gamma_1..3 to be derived from these
+      aaa  (D3)                        dim 216  min eig -2.3e-15  rank 1
+      a+a+a+ (Q3)                      dim 216  min eig -2.3e-15  rank 1
+      a+aa (T-type, one creator)       dim 216  min eig -2.9e-15  rank 15
+      a+a+a (T-type, two creators)     dim 216  min eig -1.4e-15  rank 15
