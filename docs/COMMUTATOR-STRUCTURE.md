@@ -684,3 +684,23 @@ dynamics to 2.4% in γ₂. The 8% gap to FCI Gibbs is the BATH MODEL (A3: coupli
 closure — the exact reference with the same bath lands at the same place (too hot by 85 mH). Next: coupling
 evolved under the effective pair Hamiltonian K (BATH-DERIVATION §6), which should pull the fixed point toward
 the correlated Gibbs state; then kick the thermal fixed point and compare dynamics.
+
+---
+
+## Rank 3: the two-adjacent-ranks checks (2026-08-15)
+
+`tools/rank3_structure.py`, `tools/rank3_cones.py`; outputs in `results/`.
+
+| statement | rank 2 (earlier) | rank 3 (now) |
+|---|---|---|
+| drift is a commutator with the k-particle cluster Hamiltonian | 1e-16 | **2e-15** (H3, H4), `K₃` explicit |
+| exactness at k = N | 2e-16 | **4e-16** (H3, γ₄ = 0) |
+| one-body Davies dissipator contracts to rank k with γ_k, γ_{k+1} only | 4e-16 (12+15 terms) | **1e-16** (27+12 terms; γ₅ moments cancel) |
+| Gram cones affine in γ₁..γ_k, verified vs direct Grams | D, Q, G at 1e-16 | **D3, Q3, T1, T2 at ≤6e-16** (1, 34, 10, 27 terms) |
+
+Every structural ingredient of the rank-2 closure is now verified at rank 3 with no new algebra beyond term-list
+generation. The collision part `Φ₃[γ₄]` is 1.2 against a drift of 2.05 on H4 (N = 4), so `λ₄ = 0` is the sole
+approximation of a rank-3 closure there. What remains to build a propagating rank-3 EOM: `F0^{(3)}` via the
+rank-3 Wick list with `γ₄ → separable₄` (direct evaluation is fine at M = 8; a channel form is an optimisation),
+cone-rate adjoints for the four new cones (mechanical from the term lists), and D₃ (done). Cost O(M⁹) time /
+O(M⁶) memory, N-independent.

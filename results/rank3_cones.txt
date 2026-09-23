@@ -1,0 +1,76 @@
+D3  <a+a+a+ aaa>           terms: {3: 1}   |affine form - direct Gram| = 0.0e+00   min eig -4.1e-15
+      +1    gamma_3[pvx;qwy]
+Q3  <aaa a+a+a+>           terms: {3: 1, 2: 9, 1: 18, 0: 6}   |affine form - direct Gram| = 5.6e-16   min eig -2.9e-15
+      -1    gamma_3[qwy;pvx]
+      -1  d(qv)  gamma_2[wy;px]
+      -1  d(wp)  gamma_2[qy;vx]
+      -1  d(wx)  gamma_2[qy;pv]
+      -1  d(yv)  gamma_2[qw;px]
+      +1  d(qp)  gamma_2[wy;vx]
+      +1  d(qx)  gamma_2[wy;pv]
+      +1  d(wv)  gamma_2[qy;px]
+      +1  d(yp)  gamma_2[qw;vx]
+      +1  d(yx)  gamma_2[qw;pv]
+      -1  d(qp) d(wv)  gamma_1[y;x]
+      -1  d(qp) d(yx)  gamma_1[w;v]
+      -1  d(qv) d(wx)  gamma_1[y;p]
+      -1  d(qv) d(yp)  gamma_1[w;x]
+      -1  d(qx) d(wp)  gamma_1[y;v]
+      -1  d(qx) d(yv)  gamma_1[w;p]
+      -1  d(wp) d(yv)  gamma_1[q;x]
+      -1  d(wv) d(yx)  gamma_1[q;p]
+      -1  d(wx) d(yp)  gamma_1[q;v]
+      +1  d(qp) d(wx)  gamma_1[y;v]
+      +1  d(qp) d(yv)  gamma_1[w;x]
+      +1  d(qv) d(wp)  gamma_1[y;x]
+      +1  d(qv) d(yx)  gamma_1[w;p]
+      +1  d(qx) d(wv)  gamma_1[y;p]
+      +1  d(qx) d(yp)  gamma_1[w;v]
+      +1  d(wp) d(yx)  gamma_1[q;v]
+      +1  d(wv) d(yp)  gamma_1[q;x]
+      +1  d(wx) d(yv)  gamma_1[q;p]
+      -1  d(qp) d(wx) d(yv)  1
+      -1  d(qv) d(wp) d(yx)  1
+      -1  d(qx) d(wv) d(yp)  1
+      +1  d(qp) d(wv) d(yx)  1
+      +1  d(qv) d(wx) d(yp)  1
+      +1  d(qx) d(wp) d(yv)  1
+T1  <(a+aa)^dag a+aa>      terms: {3: 1, 2: 5, 1: 4}   |affine form - direct Gram| = 2.2e-16   min eig -2.9e-15
+      -1    gamma_3[qvx;pwy]
+      -1  d(qw)  gamma_2[vx;py]
+      -1  d(vp)  gamma_2[qx;wy]
+      +1  d(qp)  gamma_2[vx;wy]
+      +1  d(qy)  gamma_2[vx;pw]
+      +1  d(xp)  gamma_2[qv;wy]
+      -1  d(qw) d(xp)  gamma_1[v;y]
+      -1  d(qy) d(vp)  gamma_1[x;w]
+      +1  d(qw) d(vp)  gamma_1[x;y]
+      +1  d(qy) d(xp)  gamma_1[v;w]
+T2  <(a+a+a)^dag a+a+a>    terms: {3: 1, 2: 8, 1: 14, 0: 4}   |affine form - direct Gram| = 5.6e-16   min eig -1.5e-15
+      +1    gamma_3[qwx;pvy]
+      -1  d(qp)  gamma_2[wx;vy]
+      -1  d(qy)  gamma_2[wx;pv]
+      -1  d(wv)  gamma_2[qx;py]
+      -1  d(xp)  gamma_2[qw;vy]
+      +1  d(qv)  gamma_2[wx;py]
+      +1  d(wp)  gamma_2[qx;vy]
+      +1  d(wy)  gamma_2[qx;pv]
+      +1  d(xv)  gamma_2[qw;py]
+      -1  d(qp) d(wy)  gamma_1[x;v]
+      -1  d(qp) d(xv)  gamma_1[w;y]
+      -1  d(qv) d(wp)  gamma_1[x;y]
+      -1  d(qy) d(wv)  gamma_1[x;p]
+      -1  d(qy) d(xp)  gamma_1[w;v]
+      -1  d(wv) d(xp)  gamma_1[q;y]
+      -1  d(wy) d(xv)  gamma_1[q;p]
+      +1  d(qp) d(wv)  gamma_1[x;y]
+      +1  d(qv) d(wy)  gamma_1[x;p]
+      +1  d(qv) d(xp)  gamma_1[w;y]
+      +1  d(qy) d(wp)  gamma_1[x;v]
+      +1  d(qy) d(xv)  gamma_1[w;p]
+      +1  d(wp) d(xv)  gamma_1[q;y]
+      +1  d(wy) d(xp)  gamma_1[q;v]
+      -1  d(qv) d(wy) d(xp)  1
+      -1  d(qy) d(wp) d(xv)  1
+      +1  d(qp) d(wy) d(xv)  1
+      +1  d(qy) d(wv) d(xp)  1
