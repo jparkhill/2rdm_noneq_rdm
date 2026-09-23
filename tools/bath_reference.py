@@ -25,7 +25,8 @@ import commutator_structure as cs
 from molecular_2rdm import build_H_sector, molecule, sector
 from qdiss.eom import fullci
 
-ETA, WC, TOL = 0.05, 1.0, 1e-8
+import os
+ETA, WC, TOL = float(os.environ.get("BATH_ETA", "0.05")), 1.0, 1e-8
 
 
 def J(w):

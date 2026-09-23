@@ -32,6 +32,9 @@ from molecular_2rdm import build_H_sector, molecule, sector
 
 def main():
     kT, T_END, DT = float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3])
+    import bath_reference as br
+    tag = os.environ.get("TAG", "")
+    print("bath: Ohmic eta=%.3g w_c=%.3g  (BATH_ETA env)" % (br.ETA, br.WC), flush=True)
     atom, N, spin = cs.H4
     mol, mf, M, h, V, enuc = molecule(atom, "sto-3g", 0, spin); dets = sector(M, N)
     Hs = build_H_sector(h, V, M, dets); es, Ue = np.linalg.eigh(Hs)
@@ -96,7 +99,7 @@ def main():
     nsteps, nout = int(round(T_END / DT)), int(round(0.5 / DT))
     print("=== kicked thermal dynamics, bath ON | H4 M=%d N=%d kT=%.2f | kick exp(-i 0.3 mu_x) | RK4 dt=%.3f, T=%.0f a.u. = %.1f fs | Hann resolution ~ %.3f Ha"
           % (M, N, kT, DT, T_END, T_END * 0.02419, 4 * np.pi / T_END), flush=True)
-    tr_path = "results/thermal_spectra_kT%.2f.npy" % kT
+    tr_path = "results/thermal_spectra_kT%.2f%s.npy" % (kT, tag)
     traces = np.load(tr_path, allow_pickle=True).item() if os.path.exists(tr_path) else {}
     for name, spec in starts.items():
         if name in traces and len(traces[name]) == int(round(T_END / 0.5)) + 1 and spec[0] == "rho":
@@ -104,7 +107,7 @@ def main():
         t0 = time.time(); mu_t = []
         if spec[0] == "rho":
             r = up(spec[1]); Mu_t = up(Mu_sec)
-            DTR = 0.05; nr = int(round(T_END / DTR)); nor = int(round(0.5 / DTR))
+            DTR = float(os.environ.get("DTR", "0.05")); nr = int(round(T_END / DTR)); nor = int(round(0.5 / DTR))
             for k in range(nr + 1):
                 if k % nor == 0: mu_t.append(float(torch.real(torch.trace(Mu_t @ r))))
                 if k < nr: r = rk4(ref_rhs, r, DTR)
@@ -126,7 +129,7 @@ def main():
             print("    %s: min eig D over run %.2e" % (name, min(mins)), flush=True)
         traces[name] = np.array(mu_t)
         print("  %-45s done in %.0fs, %d samples, <mu> range [%.4f, %.4f]" % (name, time.time() - t0, len(mu_t), min(mu_t), max(mu_t)), flush=True)
-        np.save("results/thermal_spectra_kT%.2f.npy" % kT, traces, allow_pickle=True)
+        np.save(tr_path, traces, allow_pickle=True)
     # ---- spectra
     t = np.arange(len(next(iter(traces.values())))) * 0.5
     fig, axes = plt.subplots(2, 1, figsize=(11, 9))
@@ -139,10 +142,10 @@ def main():
     for e, f_ in zip(exc, tdm):
         if f_ > 1e-3 and 0 < e < 1.8: axes[0].axvline(e, color="k", ls=":", lw=0.7, alpha=0.5)
     axes[0].set_xlim(0, 1.8); axes[0].set_xlabel("frequency (Ha)"); axes[0].set_ylabel("|FT <mu_x>| (a.u.)")
-    axes[0].set_title("Kicked THERMAL state, bath on, kT=%.2f, %.1f fs: closure vs exact-within-A3 (dotted: FCI x-allowed excitations from the ground state)" % (kT, T_END * 0.02419), fontsize=10)
+    axes[0].set_title("Kicked THERMAL state, bath on (eta=%.1e), kT=%.2f, %.1f fs: closure vs exact-within-A3 (dotted: FCI x-allowed excitations)" % (br.ETA, kT, T_END * 0.02419), fontsize=10)
     axes[0].legend(fontsize=8); axes[1].set_xlabel("t (fs)"); axes[1].set_ylabel("<mu_x>(t)"); axes[1].legend(fontsize=8)
-    plt.tight_layout(); plt.savefig("results/thermal_spectra_kT%.2f.png" % kT, dpi=130)
-    print("saved results/thermal_spectra_kT%.2f.png" % kT)
+    plt.tight_layout(); plt.savefig("results/thermal_spectra_kT%.2f%s.png" % (kT, tag), dpi=130)
+    print("saved results/thermal_spectra_kT%.2f%s.png" % (kT, tag))
 
 
 if __name__ == "__main__":
